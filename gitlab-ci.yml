@@ -1,0 +1,12 @@
+stages:
+- deploy
+
+production:
+  stage: deploy
+  script:
+  - echo "1"
+  when: manual
+  only:
+  - master
+  tags:
+  - main
