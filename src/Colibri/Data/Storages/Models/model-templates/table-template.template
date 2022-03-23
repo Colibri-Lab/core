@@ -1,0 +1,88 @@
+<?php
+
+namespace [[namespace-path]];
+
+use Colibri\Data\DataAccessPoint;
+use Colibri\Data\SqlClient\IDataReader;
+use Colibri\Data\Storages\Storages;
+use Colibri\Data\Storages\Storage;
+use [[parent-table-class-name]] as BaseModelDataTable;
+use [[namespace-path]]\[[row-class-name]];
+
+/**
+ * Таблица, представление данных в хранилище [[storage-desc]]
+ * @author <author name and email>
+ * @package [[namespace-path]]
+ * 
+ * @method [[row-class-name]][] getIterator()
+ * @method [[row-class-name]] _createDataRowObject()
+ * @method [[row-class-name]] _read()
+ * 
+ */
+class [[table-class-name]] extends BaseModelDataTable {
+
+    /**
+     * Конструктор
+     * @param DataAccessPoint $point точка доступа
+     * @param IDataReader|null $reader ридер
+     * @param string|\Closure $returnAs возвращать в виде класса
+     * @param Storage|null $storage хранилище
+     * @return void 
+     */
+    public function __construct(DataAccessPoint $point, IDataReader $reader = null, $returnAs = '[[row-class-name]]', $storage = null)
+    {
+        parent::__construct($point, $reader, $returnAs, $storage);
+    }
+
+    
+    /**
+     * Создание модели по названию хранилища
+     * @param int $page страница
+     * @param int $pagesize размер страницы
+     * @param string $filter строка фильтрации
+     * @param string $order сортировка
+     * @param array $params параметры к запросу
+     * @return [[table-class-name]]
+     */
+    static function LoadByFilter($page = -1, $pagesize = 20, $filter = null, $order = null, $params = []) {
+        $storage = Storages::Create()->Load('[[storage-name]]');
+        return self::LoadByQuery(
+            $storage,
+            'select * from ' . $storage->name . 
+                ($filter ? ' where ' . $filter : '') . 
+                ($order ? ' order by ' . $order : ''), 
+            ['page' => $page, 'pagesize' => $pagesize, 'params' => $params]
+        );
+    }
+
+    /**
+     * Загружает без фильтра
+     * @param int $page страница
+     * @param int $pagesize размер страницы
+     * @return [[table-class-name]] 
+     */
+    static function LoadAll($page = -1, $pagesize = 20)
+    {
+        return self::LoadByFilter($page, $pagesize, null, null);
+    }
+
+    /**
+     * Возвращает модель по ID
+     * @param int $id ID строки
+     * @return [[row-class-name]]|null
+     */
+    static function LoadById($id) {
+        $table = self::LoadByFilter(1, 1, '{id}=[[id:integer]]', null, ['id' => $id]);
+        return $table->Count() > 0 ? $table->First() : null;
+    }
+
+    /**
+     * Создание модели по названию хранилища
+     * @return [[row-class-name]]
+     */
+    static function LoadEmpty() {
+        $reports = self::LoadByFilter(-1, 20, 'false');
+        return $reports->CreateEmptyRow();
+    }
+
+}

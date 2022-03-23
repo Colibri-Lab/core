@@ -1,0 +1,353 @@
+<?php
+
+/**
+ * Коллекция
+ * 
+ * @author Ваган Григорян <vahan.grigoryan@gmail.com>
+ * @copyright 2019 Colibri
+ * @package Colibri\Collections
+ * @version 1.0.0
+ * 
+ */
+
+namespace Colibri\Collections;
+
+/**
+ * Базовый класс коллекций
+ * @testFunction testCollection
+ */
+class Collection implements ICollection, \IteratorAggregate
+{
+
+    /**
+     * Данные коллекции
+     *
+     * @var mixed
+     */
+    protected $data = null;
+
+    /**
+     * Конструктор, передается массив или обькет, или другая
+     * коллекция для инициализации
+     * Инициализация с помощью: array, stdClass, и любого другого ICollection
+     * 
+     * @param mixed $data
+     */
+    public function __construct($data = array())
+    {
+        if (is_array($data)) {
+            $this->data = $data;
+        } else if (is_object($data)) {
+            $this->data = $data instanceof ICollection ? $data->ToArray() : (array)$data;
+        }
+
+        if (is_null($this->data)) {
+            $this->data = array();
+        }
+
+        $this->data = array_change_key_case($this->data, CASE_LOWER);
+    }
+
+    /**
+     * Проверяет наличие ключа
+     *
+     * @param string $key - ключ для проверки
+     * @testFunction testCollectionExists
+     */
+    public function Exists($key)
+    {
+        return array_key_exists($key, $this->data);
+    }
+
+    /**
+     * Проверяет содержит ли коллекция значение
+     *
+     * @param mixed $item - значение для проверки
+     * @testFunction testCollectionContains
+     */
+    public function Contains($item)
+    {
+        return in_array($item, $this->data, true);
+    }
+
+    /**
+     * Находит значение и возвращает индекс
+     *
+     * @param mixed $item - значение для поиска
+     * @testFunction testCollectionIndexOf
+     */
+    public function IndexOf($item)
+    {
+        $return = array_search($item, array_values($this->data), true);
+        if ($return === false) {
+            return null;
+        }
+        return $return;
+    }
+
+    /**
+     * Возвращает ключ по индексу
+     *
+     * @param mixed $index
+     * @testFunction testCollectionKey
+     */
+    public function Key($index)
+    {
+        if ($index >= $this->Count() || $index < 0) {
+            return null;
+        }
+
+        $keys = array_keys($this->data);
+        if (!empty($keys)) {
+            return $keys[$index];
+        }
+
+        return null;
+    }
+
+    /**
+     * Возвращает значение по ключу
+     *
+     * @param mixed $key
+     * @testFunction testCollectionItem
+     */
+    public function Item($key)
+    {
+        if ($this->Exists($key)) {
+            return $this->data[$key];
+        }
+        return null;
+    }
+
+    /**
+     * Возвращает знаение по индексу
+     *
+     * @param mixed $index
+     * @testFunction testCollectionItemAt
+     */
+    public function ItemAt($index)
+    {
+        $key = $this->Key($index);
+        if (!$key) {
+            return null;
+        }
+        return $this->data[$key];
+    }
+
+    /**
+     * Возвращает итератор
+     *
+     * @testFunction testCollectionGetIterator
+     */
+    public function getIterator()
+    {
+        return new CollectionIterator($this);
+    }
+
+    /**
+     * Добавляет ключ значение в коллекцию, если ключ существует
+     * будет произведена замена
+     *
+     * @param string $key
+     * @param mixed $value
+     * @testFunction testCollectionAdd
+     */
+    public function Add($key, $value)
+    {
+        $this->data[strtolower($key)] = $value;
+        return $value;
+    }
+
+    /**
+     * Добавляет значения из другой коллекции, массива или обьекта
+     * Для удаления необходимо передать свойство со значением null
+     *
+     * @param mixed $from - коллекция | массив
+     * @testFunction testCollectionAppend
+     */
+    public function Append($from)
+    {
+        foreach ($from as $key => $value) {
+            if (is_null($value)) {
+                $this->Delete($key);
+            } else {
+                $this->Add($key, $value);
+            }
+        }
+    }
+
+    /**
+     * Добавляет значение в указанное место в коллекцию
+     *
+     * @param mixed $index
+     * @param mixed $key
+     * @param mixed $value
+     * @testFunction testCollectionInsert
+     */
+    public function Insert($index, $key, $value)
+    {
+        $before = array_splice($this->data, 0, $index);
+        $this->data = array_merge(
+            $before,
+            array($key => $value),
+            $this->data
+        );
+        return $value;
+    }
+
+    /**
+     * Удаляет значение по ключу
+     *
+     * @param string $key
+     * @return boolean
+     * @testFunction testCollectionDelete
+     */
+    public function Delete($key)
+    {
+        $key = strtolower($key);
+        if (array_key_exists($key, $this->data)) {
+            unset($this->data[$key]);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Удаляет значение по индексу
+     *
+     * @param int $index
+     * @return boolean
+     * @testFunction testCollectionDeleteAt
+     */
+    public function DeleteAt($index)
+    {
+        $key = $this->Key($index);
+        if ($key !== null) {
+            $this->Delete($key);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Очищает коллекцию
+     *
+     * @return void
+     * @testFunction testCollectionClear
+     */
+    public function Clear()
+    {
+        $this->data = array();
+    }
+
+    /**
+     * Превращает в строку
+     *
+     * @param string[] $splitters
+     * @param mixed $mapFunction
+     * @return string
+     * @testFunction testCollectionToString
+     */
+    public function ToString($splitters = null, $mapFunction = false)
+    {
+        $ret = [];
+        foreach ($this->data as $k => $v) {
+            $ret[] =
+                $k .
+                ($splitters && isset($splitters[0]) ? $splitters[0] : '') .
+                ($mapFunction && \is_callable($mapFunction) ? $mapFunction($k, $v) : $v);
+        }
+        return implode(isset($splitters[1]) ? $splitters[1] : '', $ret);
+    }
+
+    /**
+     * Парсит строку и сохраняет в коллекцию
+     *
+     * @param string $string
+     * @param string[] $splitters
+     * @return Collection
+     */
+    /**
+     * @testFunction testCollectionFromString
+     */
+    public static function FromString($string, $splitters = null)
+    {
+        if (!$splitters) {
+            return new Collection();
+        }
+        $ret = array();
+        $parts = explode(isset($splitters[1]) ? $splitters[1] : '&', $string);
+        foreach ($parts as $part) {
+            $part = explode(isset($splitters[0]) ? $splitters[0] : '=', $part);
+            $ret[$part[0]] = $part[1];
+        }
+        return new Collection($ret);
+    }
+
+    /**
+     * Возвращает данные в виде массива
+     *
+     * @return array
+     * @testFunction testCollectionToArray
+     */
+    public function ToArray()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Количество значений в коллекции
+     *
+     * @return int
+     * @testFunction testCollectionCount
+     */
+    public function Count()
+    {
+        return count($this->data);
+    }
+
+    /**
+     * Возвращает первое значение
+     *
+     * @return mixed
+     * @testFunction testCollectionFirst
+     */
+    public function First()
+    {
+        return $this->ItemAt(0);
+    }
+
+    /**
+     * Возвращает последнее значение
+     *
+     * @return mixed
+     * @testFunction testCollectionLast
+     */
+    public function Last()
+    {
+        return $this->ItemAt($this->Count() - 1);
+    }
+
+    /**
+     * Магическая функция
+     *
+     * @param string $property
+     * @return mixed
+     */
+    public function __get($property)
+    {
+        return $this->Item(strtolower($property));
+    }
+
+    /**
+     * Магическая функция
+     *
+     * @param string $property
+     * @param mixed $value
+     * @return void
+     */
+    public function __set($key, $value)
+    {
+        $this->Add($key, $value);
+    }
+}

@@ -1,0 +1,20 @@
+<?php
+
+namespace [[namespace-path]];
+
+use Colibri\Data\Storages\Fields\DateTimeField;
+use [[parent-row-class-name]] as BaseModelDataRow;
+[[uses]]
+
+/**
+ * Представление строки в таблице в хранилище [[storage-desc]]
+ * @author <author name and email>
+ * @package [[namespace-path]]
+ * 
+ * region Properties:
+[[properties-list]]
+ * endregion Properties;
+ */
+class [[row-class-name]] extends BaseModelDataRow {
+
+}

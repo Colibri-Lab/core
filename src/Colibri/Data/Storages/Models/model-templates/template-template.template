@@ -1,0 +1,27 @@
+<?php
+
+#region Properties
+
+use Colibri\Data\Storages\Models\DataRow;
+use Colibri\Utils\ExtendedObject;
+use Colibri\Web\View;
+use [[template-class]];
+
+/**
+ * Шаблон состояния [[template-key]] для харнаилища [[storage-name]]
+ * @var ExtendedObject $args аргументы шаблона
+ * @return string
+ * 
+*/
+
+/** @var [[template-class-name]] шаблон отображения */
+$template = $args->template;
+/** @var View обьект View */
+$view = $args->view;
+/** @var DataRow обьект строка данных */
+$model = $args->model;
+
+#endregion Properties
+
+?>
+<div>[[default-content]]</div>

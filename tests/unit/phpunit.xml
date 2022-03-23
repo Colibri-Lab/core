@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit bootstrap="./phptdd-bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="Unit Test Project">
+            <directory>.</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../</directory>
+            <exclude>
+                <directory>../../tests</directory>
+                <directory>../../vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
