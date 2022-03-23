@@ -9,7 +9,7 @@
             "email": "vahan.grigoryan@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "psr/log": "^1.1",
         "phpmailer/phpmailer": "^6.6",
