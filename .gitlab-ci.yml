@@ -2,8 +2,8 @@ stages:
   - deploy
 
 publish:
-  stage: deploy
   image: curlimages/curl:latest
+  stage: build
   variables:
     URL: "$CI_SERVER_PROTOCOL://$CI_SERVER_HOST:$CI_SERVER_PORT/api/v4/projects/$CI_PROJECT_ID/packages/composer?job_token=$CI_JOB_TOKEN"
   script:
@@ -19,8 +19,4 @@ publish:
         echo "Could not create package - Code $code - $body";
         exit 1;
       fi
-  only:
-    - tags
-    - master
-  tags:
-    - main
+
