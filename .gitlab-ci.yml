@@ -1,5 +1,5 @@
 stages:
-  - deploy
+  - build
 
 publish:
   image: curlimages/curl:latest
