@@ -117,7 +117,7 @@ class Generator {
             $args['row-class-name'] = $row;
             $args['parent-row-class-name'] = 'Colibri\\Data\\Storages\\Models\\DataRow';
             $args['properties-list'] = implode("\n", $properties);
-            $args['uses'] = implode("\n", $uses);
+            $args['uses'] = implode("\n", array_unique($uses));
 
             $templateContent = File::Read(__DIR__.'/model-templates/row-template.template');
             foreach($args as $key => $value) {

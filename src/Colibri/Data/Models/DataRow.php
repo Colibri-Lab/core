@@ -115,7 +115,7 @@ class DataRow extends ExtendedObject
     {
         if($this->Type($property) === 'JSON') {
             
-            $originalValue = $this->Original()->$property;
+            $originalValue = $this->Original()?->$property;
             $originalValue = !$convertData ? Encoding::Convert($originalValue, Encoding::UTF8) : $originalValue;
             $originalValue = json_decode($originalValue);
 

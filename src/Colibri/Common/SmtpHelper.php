@@ -9,18 +9,18 @@ class SmtpHelper
 {
     public static function Send($configArray, $address, $subject, $body) {
 
-        $smtpEnabled = $configArray['smtp']['enabled'];
+        $smtpEnabled = $configArray['enabled'];
         if(!$smtpEnabled) {
             return;
         }
 
-        $smtpHost = isset($configArray['smtp']['host']) ? $configArray['smtp']['host'] : '';
-        // $smtpPort = isset($configArray['smtp']['port']) ? $configArray['smtp']['port'] : ''
-        // $smtpSecure = isset($configArray['smtp']['secure']) ? $configArray['smtp']['secure'] : ''
-        $smtpUser = isset($configArray['smtp']['user']) ? $configArray['smtp']['user']: '';
-        $smtpPassword = isset($configArray['smtp']['password']) ? $configArray['smtp']['password'] : '';
-        $smtpFrom = isset($configArray['smtp']['from']) ? $configArray['smtp']['from'] : '';
-        $smtpFromName = isset($configArray['smtp']['fromname']) ? $configArray['smtp']['fromname'] : '';
+        $smtpHost = isset($configArray['host']) ? $configArray['host'] : '';
+        // $smtpPort = isset($configArray['port']) ? $configArray['port'] : ''
+        // $smtpSecure = isset($configArray['secure']) ? $configArray['secure'] : ''
+        $smtpUser = isset($configArray['user']) ? $configArray['user']: '';
+        $smtpPassword = isset($configArray['password']) ? $configArray['password'] : '';
+        $smtpFrom = isset($configArray['from']) ? $configArray['from'] : '';
+        $smtpFromName = isset($configArray['fromname']) ? $configArray['fromname'] : '';
 
         $mailer = new PHPMailer();
         $mailer->CharSet = 'utf-8';

@@ -48,7 +48,7 @@ class Field
 
     /**
      * Данные поля
-     * @var XmlNode
+     * @var array
      */
     private $_xfield;
     
@@ -109,7 +109,10 @@ class Field
         
         $values = $this->_xfield['values'];
         foreach ($values as $value) {
-            $this->_values[$value['value']] = $value['title'];
+            if(!is_array($value)) {
+                $value = ['value' => $value, 'title' => $value];
+            }
+            $this->_values[$value['value']] = isset($value['title']) ? $value['title'] : $value['value'];
         }
     }
     

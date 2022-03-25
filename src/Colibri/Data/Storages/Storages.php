@@ -107,7 +107,8 @@ class Storages
             if(isset($field['inherit']) && $this->_types[$field['inherit']]) {
                 $inherit = $field['inherit'];
                 unset($field['inherit']);
-                $fields[$name] = VariableHelper::Extend($field, $this->_types[$inherit]);
+                $fields[$name] = VariableHelper::Extend($this->_types[$inherit], $field);
+                $field = $fields[$name];
             }
 
             if(isset($field['fields'])) {
