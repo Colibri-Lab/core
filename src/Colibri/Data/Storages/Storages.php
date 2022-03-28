@@ -300,6 +300,11 @@ class Storages
             }
         }
 
+        App::$log->debug('
+            ALTER TABLE `' . $table . '` 
+            ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
+            ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? ' COMMENT \'' . $comment . '\'' : ''));
+
         $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
@@ -340,6 +345,10 @@ class Storages
             $required = false;
         }
         
+        App::$log->debug('
+            ALTER TABLE `' . $table . '` 
+            MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
+            ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? 'COMMENT \'' . $comment . '\'' : ''));
         $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
