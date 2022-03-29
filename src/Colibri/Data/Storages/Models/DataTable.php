@@ -41,9 +41,9 @@ class DataTable extends BaseDataTable
      * Хранилише
      * @var Storage
      */
-    protected $_storage;
+    protected ?Storage $_storage = null;
 
-    protected $_returnAsExtended;
+    protected string $_returnAsExtended;
 
     /**
      * Конструктор
@@ -123,7 +123,6 @@ class DataTable extends BaseDataTable
      */
     public function SaveRow(DataRow|BaseDataRow $row, ?string $idField = null, ?bool $convert = true): bool
     {
-
 
         $idf = $this->_storage->GetRealFieldName('id');
         $idc = $this->_storage->GetRealFieldName('datecreated');

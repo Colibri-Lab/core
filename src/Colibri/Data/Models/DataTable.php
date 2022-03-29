@@ -13,7 +13,6 @@ namespace Colibri\Data\Models;
 use ArrayAccess;
 use Colibri\App;
 use Colibri\Collections\ArrayList;
-use Colibri\Collections\IArrayList;
 use Colibri\Common\Encoding;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\SqlClient\IDataReader;
@@ -21,7 +20,6 @@ use Colibri\Common\VariableHelper;
 use Colibri\Data\SqlClient\NonQueryInfo;
 use Colibri\Utils\ExtendedObject;
 use Countable;
-use Colibri\Utils\Debug;
 
 /**
  * Представление таблицы данных

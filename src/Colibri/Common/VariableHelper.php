@@ -207,11 +207,11 @@ class VariableHelper
     /**
      * Превратить массив в обьект рекурсивно
      *
-     * @param array|object $array
-     * @return object
+     * @param array|object|string $array
+     * @return object|array|string
      * @testFunction testVariableHelperArrayToObject
      */
-    public static function ArrayToObject(array |object $array): object
+    public static function ArrayToObject(array|object|string $array): object|array|string
     {
         if (!self::IsObject($array) && !self::IsArray($array)) {
             return $array;
