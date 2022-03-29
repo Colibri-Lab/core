@@ -31,7 +31,7 @@ class Crypt
      * @return string
      * @testFunction testCryptEncrypt
      */
-    static function Encrypt($key, $data, $stringifyMethod = self::EncryptionAlgBase64)
+    static function Encrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): string
     {
         if (!is_string($data) || !is_string($key)) {
             return null;
@@ -51,7 +51,7 @@ class Crypt
      * @return string
      * @testFunction testCryptDecrypt
      */
-    static function Decrypt($key, $data, $stringifyMethod = self::EncryptionAlgBase64)
+    static function Decrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): string
     {
         if (!is_string($data) || !is_string($key)) {
             return null;

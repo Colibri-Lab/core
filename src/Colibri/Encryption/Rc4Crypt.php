@@ -26,7 +26,7 @@ class Rc4Crypt
      * @param string $data
      * @return string
      */
-    static function Encrypt($pwd, $data)
+    static function Encrypt(string $pwd, string $data): string
     {
         $key[] = '';
         $box[] = '';
@@ -68,7 +68,7 @@ class Rc4Crypt
      * @return string
      * @testFunction testRc4CryptDecrypt
      */
-    static function Decrypt($pwd, $data)
+    static function Decrypt(string $pwd, string $data): string
     {
         return rc4crypt::encrypt($pwd, $data);
     }
