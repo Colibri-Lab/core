@@ -164,13 +164,13 @@ class ModuleManager
      */
     public function GetPermissions()
     {
-
-        // $permissions = []
-        // $className = static::class
-        // $permissionsName = strtolower(str_replace('\\', '.', $className))
-        // $permissions[$permissionsName . '.load'] = 'Загрузка менеджера модулей'
-        // return $permissions
-        return [];
+        $permissions = [];
+        foreach($this->list as $module) {
+            if(is_object($module) && method_exists($module, 'GetPermissions')) {
+                $permissions = array_merge($permissions, $module->GetPermissions());
+            }
+        }
+        return $permissions;
     }
 
     /**

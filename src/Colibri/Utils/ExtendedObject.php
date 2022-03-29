@@ -125,7 +125,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @param boolean $noPrefix - удалить префиксы из свойств
      */
-    public function ToArray($noPrefix = false)
+    public function ToArray(bool $noPrefix = false) : array
     {
         $data = array();
         foreach ($this->_data as $key => $value) {
@@ -254,7 +254,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string $property название свойства
      * @return mixed
      */
-    public function __get($property)
+    public function __get(string $property) : mixed
     {
 
         if(method_exists($this, 'getProperty'.$property)) {
@@ -280,7 +280,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string $property название свойства
      * @param mixed $value значение свойства
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value) : void
     {
         if(method_exists($this, 'setProperty'.$property)) {
             $this->{'setProperty'.$property}($value);
@@ -302,12 +302,13 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string $property - название свойства
      * @param mixed $value значение свойства
      */
-    protected function _typeExchange($mode, $property, $value = null)
+    protected function _typeExchange(string $mode, string $property, mixed $value = null) : mixed
     {
         if ($mode == 'get') {
             return isset($this->_data[$property]) ? $this->_data[$property] : null;
         } else {
             $this->_data[$property] = $value;
+            return null;
         }
     }
 

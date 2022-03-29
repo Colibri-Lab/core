@@ -41,7 +41,7 @@ class ObjectField extends ExtendedObject
      * @param Field $field поле
      * @return void
      */
-    public function __construct($data, $storage, $field)
+    public function __construct(mixed $data, Storage $storage, Field $field)
     {
         parent::__construct(is_string($data) ? (array)json_decode($data) : (array)$data, '', false);
         $this->_storage = $storage;
@@ -55,7 +55,7 @@ class ObjectField extends ExtendedObject
      * @param mixed $value значение
      * @return mixed результат
      */
-    protected function _typeExchange($mode, $property, $value = false)
+    protected function _typeExchange(string $mode, string $property, mixed $value = false) : mixed
     {
         if ($this->_prefix && strstr($property, $this->_prefix) === false) {
             $property = $this->_prefix.$property;
@@ -166,7 +166,7 @@ class ObjectField extends ExtendedObject
      * @param string $prop свойство
      * @return mixed значение
      */
-    public function __get($prop)
+    public function __get(string $prop) : mixed
     {
         if(strtolower($prop) == 'field') {
             return $this->_field;
@@ -183,7 +183,7 @@ class ObjectField extends ExtendedObject
      * @param mixed $value значение
      * @return void 
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value) : void
     {
         $this->_typeExchange('set', $property, $value);
     }
@@ -192,7 +192,7 @@ class ObjectField extends ExtendedObject
      * Возвращает в виде строки
      * @return string результат JSON
      */
-    public function ToString()
+    public function ToString() : string
     {
         $obj = (object)array();
         foreach ($this->_data as $k => $v) {
@@ -210,7 +210,7 @@ class ObjectField extends ExtendedObject
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString() : string {
         return $this->ToString();
     }
 

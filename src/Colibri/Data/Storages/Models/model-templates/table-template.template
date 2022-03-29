@@ -29,7 +29,7 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param Storage|null $storage хранилище
      * @return void 
      */
-    public function __construct(DataAccessPoint $point, IDataReader $reader = null, $returnAs = '[[row-class-name]]', $storage = null)
+    public function __construct(DataAccessPoint $point, IDataReader $reader = null, string $returnAs = '[[row-class-name]]', Storage|null $storage = null)
     {
         parent::__construct($point, $reader, $returnAs, $storage);
     }
@@ -44,7 +44,8 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param array $params параметры к запросу
      * @return [[table-class-name]]
      */
-    static function LoadByFilter($page = -1, $pagesize = 20, $filter = null, $order = null, $params = []) {
+    static function LoadByFilter(int $page = -1, int $pagesize = 20, string $filter = null, string $order = null, array $params = []) : [[table-class-name]]
+    {
         $storage = Storages::Create()->Load('[[storage-name]]');
         return self::LoadByQuery(
             $storage,
@@ -61,7 +62,7 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param int $pagesize размер страницы
      * @return [[table-class-name]] 
      */
-    static function LoadAll($page = -1, $pagesize = 20)
+    static function LoadAll(int $page = -1, int $pagesize = 20) : [[table-class-name]]
     {
         return self::LoadByFilter($page, $pagesize, null, null);
     }
@@ -71,7 +72,8 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param int $id ID строки
      * @return [[row-class-name]]|null
      */
-    static function LoadById($id) {
+    static function LoadById(int $id) : [[row-class-name]]|null 
+    {
         $table = self::LoadByFilter(1, 1, '{id}=[[id:integer]]', null, ['id' => $id]);
         return $table->Count() > 0 ? $table->First() : null;
     }
@@ -80,7 +82,8 @@ class [[table-class-name]] extends BaseModelDataTable {
      * Создание модели по названию хранилища
      * @return [[row-class-name]]
      */
-    static function LoadEmpty() {
+    static function LoadEmpty() : [[row-class-name]]
+    {
         $reports = self::LoadByFilter(-1, 20, 'false');
         return $reports->CreateEmptyRow();
     }

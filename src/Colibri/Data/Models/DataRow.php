@@ -55,7 +55,7 @@ class DataRow extends ExtendedObject
      * @return mixed
      * @testFunction testDataRow__get
      */
-    public function __get($property)
+    public function __get(string $property) : mixed
     {
         $return = null;
         $property = strtolower($property);
@@ -78,7 +78,7 @@ class DataRow extends ExtendedObject
      * @param mixed $value
      * @testFunction testDataRow__set
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value) : void
     {
         $property = strtolower($property);
         if ($property == 'properties') {

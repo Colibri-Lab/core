@@ -44,7 +44,7 @@ class ArrayField extends ArrayList
      * @param int $index индекс
      * @return ObjectField обьект
      */
-    public function Item($index)
+    public function Item(int $index) : ObjectField
     {
         return $this->data[$index] instanceof ObjectField ? $this->data[$index] : new ObjectField($this->data[$index], $this->_storage, $this->_field);
     }
@@ -54,7 +54,7 @@ class ArrayField extends ArrayList
      * @param string $dummy не используется
      * @return string результат JSON
      */
-    public function ToString($dummy = '')
+    public function ToString(string $dummy = '') : string
     {
         $obj = array();
         if (VariableHelper::IsNull($this->data)) {
@@ -75,7 +75,7 @@ class ArrayField extends ArrayList
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString() : string {
         return $this->ToString();
     }
 

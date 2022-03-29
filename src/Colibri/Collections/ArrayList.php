@@ -33,7 +33,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @param mixed $data
      * @testFunction testArrayList
      */
-    public function __construct($data = array())
+    public function __construct(mixed $data = array())
     {
         if (is_array($data)) {
             $this->data = $data;
@@ -53,7 +53,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @testFunction testArrayListGetIterator
      * 
      */
-    public function getIterator()
+    public function getIterator() : ArrayListIterator
     {
         return new ArrayListIterator($this);
     }
@@ -65,7 +65,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return boolean
      * @testFunction testArrayListContains
      */
-    public function Contains($item)
+    public function Contains(mixed $item) : bool
     {
         return in_array($item, $this->data, true);
     }
@@ -74,10 +74,10 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * Возвращает индекс по значению
      *
      * @param mixed $item
-     * @return integer
+     * @return int
      * @testFunction testArrayListIndexOf
      */
-    public function IndexOf($item)
+    public function IndexOf(mixed $item) : int
     {
         return array_search($item, $this->data, true);
     }
@@ -89,7 +89,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return mixed
      * @testFunction testArrayListItem
      */
-    public function Item($index)
+    public function Item(int $index) : mixed
     {
         if (!isset($this->data[$index])) {
             return null;
@@ -104,7 +104,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return mixed
      * @testFunction testArrayListAdd
      */
-    public function Add($value)
+    public function Add(mixed $value) : mixed
     {
         $this->data[] = $value;
         return $value;
@@ -118,7 +118,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return mixed
      * @testFunction testArrayListSet
      */
-    public function Set($index, $value)
+    public function Set(int $index, mixed $value) : mixed
     {
         $this->data[$index] = $value;
         return $value;
@@ -131,7 +131,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return void
      * @testFunction testArrayListAppend
      */
-    public function Append($values)
+    public function Append(mixed $values) : void
     {
         if ($values instanceof IArrayList) {
             $values = $values->ToArray();
@@ -148,7 +148,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return void
      * @testFunction testArrayListInsertAt
      */
-    public function InsertAt($value, $toIndex)
+    public function InsertAt(mixed $value, int $toIndex) : void
     {
         array_splice($this->data, $toIndex, 0, array($value));
     }
@@ -157,10 +157,10 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * Удаляет значение
      *
      * @param mixed $value
-     * @return boolean|mixed
+     * @return boolean
      * @testFunction testArrayListDelete
      */
-    public function Delete($value)
+    public function Delete(mixed $value) : bool
     {
         $indices = array_search($value, $this->data, true);
         if ($indices > -1) {
@@ -177,7 +177,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return mixed
      * @testFunction testArrayListDeleteAt
      */
-    public function DeleteAt($index)
+    public function DeleteAt(int $index) : array
     {
         return array_splice($this->data, $index, 1);
     }
@@ -188,7 +188,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return void
      * @testFunction testArrayListClear
      */
-    public function Clear()
+    public function Clear() : void
     {
         $this->data = array();
     }
@@ -199,7 +199,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @param string $splitter
      * @testFunction testArrayListToString4
      */
-    public function ToString($splitter = ',')
+    public function ToString(string $splitter = ',') : string
     {
         return implode($splitter, $this->data);
     }
@@ -208,7 +208,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * Возвращает массив
      * @testFunction testArrayListToArray
      */
-    public function ToArray()
+    public function ToArray() : array
     {
         return $this->data;
     }
@@ -220,7 +220,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @param int $sorttype - порядок сортировки
      * @testFunction testArrayListSort
      */
-    public function Sort($k = null, $sorttype = SORT_ASC)
+    public function Sort(string $k = null, int $sorttype = SORT_ASC) : void
     {
         $rows = array();
         $i = 0;
@@ -256,7 +256,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return int
      * @testFunction testArrayListCount
      */
-    public function Count()
+    public function Count() : int
     {
         return count($this->data);
     }
@@ -266,7 +266,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return mixed
      * @testFunction testArrayListFirst
      */
-    public function First()
+    public function First() : mixed
     {
         return $this->Item(0);
     }
@@ -276,7 +276,7 @@ class ArrayList implements IArrayList, \IteratorAggregate
      * @return mixed
      * @testFunction testArrayListLast
      */
-    public function Last()
+    public function Last() : mixed
     {
         return $this->Item($this->Count() - 1);
     }

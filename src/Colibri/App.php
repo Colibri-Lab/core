@@ -267,13 +267,6 @@ final class App
         }
         self::$monitoring->EndTimer('threads');
 
-        self::$monitoring->StartTimer('security');
-        if (!self::$securityManager) {
-            self::$securityManager = SecurityManager::Create();
-            self::$securityManager->Initialize();
-        }
-        self::$monitoring->EndTimer('security');
-
         self::$monitoring->EndTimer('app');
 
         $this->DispatchEvent(EventsContainer::AppReady);

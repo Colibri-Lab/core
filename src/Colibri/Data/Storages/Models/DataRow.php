@@ -90,7 +90,7 @@ class DataRow extends BaseDataRow
      * @param mixed $value значение
      * @return mixed результат
      */
-    protected function _typeExchange($mode, $property, $value = false)
+    protected function _typeExchange(string $mode, string $property, mixed $value = false) : mixed
     {
 
         if ($this->_prefix && strstr($property, $this->_prefix) === false) {
@@ -297,7 +297,7 @@ class DataRow extends BaseDataRow
      * @param bool $noPrefix да - возвращать без префиксами
      * @return array 
      */
-    public function ToArray($noPrefix = false)
+    public function ToArray(bool $noPrefix = false) : array
     {
         $ar = parent::ToArray($noPrefix);
         foreach ($ar as $key => $value) {
