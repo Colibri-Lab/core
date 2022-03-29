@@ -19,13 +19,13 @@ class Point {
      *
      * @var int
      */
-    public $x;
+    public int $x;
     /**
      * Позиция Y
      *
      * @var int
      */
-    public $y;
+    public int $y;
     
     /**
      * Конструктор
@@ -33,7 +33,7 @@ class Point {
      * @param integer $x
      * @param integer $y
      */
-    public function __construct($x = 0, $y = 0) {
+    public function __construct(int $x = 0, int $y = 0) {
         $this->x = $x;
         $this->y = $y;
     }

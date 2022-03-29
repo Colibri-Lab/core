@@ -11,7 +11,7 @@ use Colibri\Utils\Debug;
 
 class Generator {
 
-    static function _convertNames($rootNamespace, $table, $row) {
+    static function _convertNames(string $rootNamespace, string $table, string $row): array {
         
         $parts = explode('\\', $table);
         
@@ -23,7 +23,7 @@ class Generator {
         return [$rootNamespace.$namespaceName, $tableClassName, $row];
     }
 
-    static function GenerateModelClasses(Storage $storage) {
+    static function GenerateModelClasses(Storage $storage): void {
 
         $types = [
             'bool',

@@ -26,12 +26,12 @@ class QueryBuilder implements IQueryBuilder
      * Создает запрос ввода данных
      *
      * @param string $table
-     * @param object $data
+     * @param array|object $data
      * @param string $returning
      * @return string
      * @testFunction testQueryBuilderCreateInsert
      */
-    public function CreateInsert($table, $data, $returning = '')
+    public function CreateInsert(string $table, array|object $data, string $returning = ''): string
     {
         $data = (array)$data;
         foreach ($data as $key => $value) {
@@ -56,13 +56,13 @@ class QueryBuilder implements IQueryBuilder
      * Создает запрос ввода данных или обновления в случае дублирования данных в индексных полях
      *
      * @param string $table
-     * @param object $data
+     * @param array|object $data
      * @param array $exceptFields
      * @param string $returning
      * @return string
      * @testFunction testQueryBuilderCreateInsertOrUpdate
      */
-    public function CreateInsertOrUpdate($table, $data, $exceptFields = array(), $returning = '')
+    public function CreateInsertOrUpdate(string $table, array|object $data, array $exceptFields = array(), string $returning = ''): string
     {
         $data = (array)$data;
         $keys = array_keys($data);
@@ -89,11 +89,11 @@ class QueryBuilder implements IQueryBuilder
      * Создает запрос ввода данных пачкой
      *
      * @param string $table
-     * @param array $data
+     * @param array|object $data
      * @return string
      * @testFunction testQueryBuilderCreateBatchInsert
      */
-    public function CreateBatchInsert($table, $data)
+    public function CreateBatchInsert(string $table, array|object $data)
     {
         $keys = array_keys((array)$data[0]);
         $fields = '(`' . implode("`, `", $keys) . '`)';
@@ -126,7 +126,7 @@ class QueryBuilder implements IQueryBuilder
      * @return string
      * @testFunction testQueryBuilderCreateUpdate
      */
-    public function CreateUpdate($table, $condition, $data)
+    public function CreateUpdate(string $table, string $condition, array|object $data): string
     {
         $data = (array)$data;
         $q = '';
@@ -144,7 +144,7 @@ class QueryBuilder implements IQueryBuilder
      * @return string
      * @testFunction testQueryBuilderCreateDelete
      */
-    public function CreateDelete($table, $condition)
+    public function CreateDelete(string $table, string $condition): string
     {
         if (!empty($condition)) {
             $condition = ' where ' . $condition;
@@ -158,7 +158,7 @@ class QueryBuilder implements IQueryBuilder
      * @return string
      * @testFunction testQueryBuilderCreateShowTables
      */
-    public function CreateShowTables()
+    public function CreateShowTables(): string
     {
         return "show tables";
     }
@@ -170,7 +170,7 @@ class QueryBuilder implements IQueryBuilder
      * @return string
      * @testFunction testQueryBuilderCreateShowField
      */
-    public function CreateShowField($table)
+    public function CreateShowField(string $table): string
     {
         return "show columns from " . $table;
     }

@@ -38,7 +38,7 @@ class Field
      * Хранилище
      * @var Storage
      */
-    private $_storage;
+    private ?Storage $_storage = null;
 
     /**
      * Список поле внутри текущего поля
@@ -51,7 +51,7 @@ class Field
      * @var array
      */
     private $_xfield;
-    
+
     /**
      * Данные связки
      * @var Lookup
@@ -69,18 +69,18 @@ class Field
      * @var string
      */
     private $_formula;
-    
+
     /**
      * Конструктор
      * @param array $xfield данные поле
      * @param Storage $storage хранилище
      * @return void
      */
-    public function __construct($xfield, $storage)
+    public function __construct(array $xfield, ?Storage $storage = null, ?Field $field = null)
     {
         $this->_storage = $storage;
         $this->_xfield = $xfield;
-        
+
         $this->_lookup = new Lookup($xfield, $storage);
         $this->_loadValues();
         $this->_loadFields();
@@ -91,71 +91,81 @@ class Field
      * Загружает формулу
      * @return void
      */
-    private function _loadFormula()
+    private function _loadFormula(): void
     {
         $this->_formula = isset($this->_xfield['formula']) ? $this->_xfield['formula'] : null;
     }
-    
+
     /**
      * Загружает значения
      * @return void
      */
-    private function _loadValues()
+    private function _loadValues(): void
     {
         $this->_values = array();
         if (!isset($this->_xfield['values'])) {
             return;
         }
-        
+
         $values = $this->_xfield['values'];
         foreach ($values as $value) {
-            if(!is_array($value)) {
+            if (!is_array($value)) {
                 $value = ['value' => $value, 'title' => $value];
             }
             $this->_values[$value['value']] = isset($value['title']) ? $value['title'] : $value['value'];
         }
     }
-    
+
     /**
      * Загружает поля
      * @return void
      */
-    private function _loadFields()
+    private function _loadFields(): void
     {
         $this->_fields = (object)array();
         if (!isset($this->_xfield['fields'])) {
             return;
         }
-        
+
         $fields = $this->_xfield['fields'];
         foreach ($fields as $name => $field) {
             $xfield['name'] = $name;
             $this->_fields->$name = new Field($field, $this->_storage);
         }
     }
-    
+
     /**
      * Геттер
      * @param string $prop свойство
      * @return mixed значение
      */
-    public function __get($prop)
+    public function __get(string $prop): mixed
     {
         $prop = strtolower($prop);
         switch ($prop) {
-            case 'raw': return $this->_xfield;
-            case 'fields': return $this->_fields;
-            case 'lookup': return $this->_lookup;
-            case 'values': return $this->_values;
-            case 'storage': return $this->_storage;
-            case 'formula': return $this->_formula;
-            case 'islookup': return $this->_lookup && ($this->_lookup->accessPoint !== null || $this->_lookup->storage !== null);
-            case 'isvalues': return count((array)$this->_values) > 0;
-            default: return isset($this->_xfield[$prop]) ? $this->_xfield[$prop] : null;
+            case 'raw':
+                return $this->_xfield;
+            case 'fields':
+                return $this->_fields;
+            case 'lookup':
+                return $this->_lookup;
+            case 'values':
+                return $this->_values;
+            case 'storage':
+                return $this->_storage;
+            case 'formula':
+                return $this->_formula;
+            case 'islookup':
+                return $this->_lookup && ($this->_lookup->accessPoint !== null || $this->_lookup->storage !== null);
+            case 'isvalues':
+                return count((array)$this->_values) > 0;
+            default:
+                return isset($this->_xfield[$prop]) ? $this->_xfield[$prop] : null;
         }
     }
 
-    public function ToArray() {
+    public function ToArray(): array
+    {
         return $this->_xfield;
     }
 

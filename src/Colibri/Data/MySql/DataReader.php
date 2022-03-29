@@ -15,6 +15,7 @@ namespace Colibri\Data\MySql;
 use Colibri\Data\SqlClient\DataField;
 use Colibri\Data\SqlClient\IDataReader;
 use Throwable;
+use resource;
 
 /**
  * Класс обеспечивающий работу с результатами запросов
@@ -30,16 +31,16 @@ final class DataReader implements IDataReader
     /**
      * Ресурс запроса
      *
-     * @var resource
+     * @var mixed
      */
-    private $_results;
+    private mixed $_results = null;
 
     /**
      * Количество результатов в текущей стрнице запроса
      *
      * @var int
      */
-    private $_count = null;
+    private ?int $_count = null;
 
     /**
      * Общее количество результатов
@@ -47,7 +48,7 @@ final class DataReader implements IDataReader
      *
      * @var int
      */
-    private $_affected = null;
+    private ?int $_affected = null;
 
     /**
      * Создание обьекта
@@ -55,7 +56,7 @@ final class DataReader implements IDataReader
      * @param mixed $results
      * @param int $affected
      */
-    public function __construct($results, $affected = null)
+    public function __construct(mixed $results, int $affected = null)
     {
         $this->_results = $results;
         $this->_affected = $affected;
@@ -75,7 +76,7 @@ final class DataReader implements IDataReader
      * @return void
      * @testFunction testDataReaderClose
      */
-    public function Close()
+    public function Close(): void
     {
         if ($this->_results && isset($this->_results->current_field)) {
             mysqli_free_result($this->_results);
@@ -89,7 +90,7 @@ final class DataReader implements IDataReader
      * @return object|null
      * @testFunction testDataReaderRead
      */
-    public function Read()
+    public function Read(): ?object
     {
         $result = mysqli_fetch_object($this->_results);
         if (!$result) {
@@ -105,7 +106,7 @@ final class DataReader implements IDataReader
      * @return array
      * @testFunction testDataReaderFields
      */
-    public function Fields()
+    public function Fields(): array
     {
         $fields = array();
         $num = mysqli_num_fields($this->_results);
@@ -136,7 +137,7 @@ final class DataReader implements IDataReader
      * @return mixed
      * @testFunction testDataReader__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         $return = null;
         $property = strtolower($property);
@@ -166,7 +167,7 @@ final class DataReader implements IDataReader
      * Возвращает количество
      * @return int 
      */
-    public function Count() 
+    public function Count(): int
     {
         return $this->count;
     }
@@ -178,7 +179,7 @@ final class DataReader implements IDataReader
      * @return string
      * @testFunction testDataReader_type2txt
      */
-    private function _type2txt($type_id)
+    private function _type2txt(string $type_id): string
     {
         static $types;
 
@@ -202,7 +203,7 @@ final class DataReader implements IDataReader
      * @return array
      * @testFunction testDataReader_flags2txt
      */
-    private function _flags2txt($flags_num)
+    private function _flags2txt(int $flags_num): array
     {
         static $flags;
 

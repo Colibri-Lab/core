@@ -18,20 +18,21 @@ namespace Colibri\Graphics;
  * @property-read bool $isNull пустой ли
  * 
  */
-class Size {
+class Size
+{
 
     /**
      * Ширина
      *
      * @var int
      */
-    public $width;
+    public int $width;
     /**
      * Высота
      *
      * @var int
      */
-    public $height;
+    public int $height;
 
     /**
      * Конструктор
@@ -39,116 +40,120 @@ class Size {
      * @param integer $width
      * @param integer $height
      */
-    public function __construct($width = 0, $height = 0) {
+    public function __construct(int $width = 0, int $height = 0)
+    {
         $this->width = $width;
         $this->height = $height;
     }
-    
+
     /**
      * Геттер
      *
      * @param string $nm
      * @return mixed
      */
-    public function __get($nm) {
+    public function __get(string $nm): mixed
+    {
         $return = null;
-        switch($nm) {
+        switch ($nm) {
             case "style": {
-                $return = ($this->width != 0 ? "width:".intval($this->width)."px;" : "").($this->height != 0 ? "height:".intval($this->height)."px;" : "");
-                break;
-            }
+                    $return = ($this->width != 0 ? "width:" . intval($this->width) . "px;" : "") . ($this->height != 0 ? "height:" . intval($this->height) . "px;" : "");
+                    break;
+                }
             case "attributes": {
-                $return = ($this->width != 0 ? " width=\"".intval($this->width)."\"" : "").($this->height != 0 ? " height=\"".intval($this->height)."\"" : "");
-                break;
-            }
-            case "params":{
-                $return = ($this->width != 0 ? "&w=".intval($this->width) : "").($this->height != 0 ? "&h=".intval($this->height) : "");
-                break;
-            }
+                    $return = ($this->width != 0 ? " width=\"" . intval($this->width) . "\"" : "") . ($this->height != 0 ? " height=\"" . intval($this->height) . "\"" : "");
+                    break;
+                }
+            case "params": {
+                    $return = ($this->width != 0 ? "&w=" . intval($this->width) : "") . ($this->height != 0 ? "&h=" . intval($this->height) : "");
+                    break;
+                }
             case "isNull": {
-                $return = ($this->width == 0 && $this->height == 0);
-                break;
-            }
+                    $return = ($this->width == 0 && $this->height == 0);
+                    break;
+                }
             default: {
-                break;
-            }
+                    break;
+                }
         }
         return $return;
     }
-    
+
     /**
      * Трансформировать размер
      *
      * @param Size $size
      * @return Size
      */
-    public function TransformTo($size) {
-        
+    public function TransformTo(Size $size): Size
+    {
+
         $_width = $size->width;
         $_height = $size->height;
 
-        if($_width == 0 && $_height == 0) {
+        if ($_width == 0 && $_height == 0) {
             return new Size(0, 0);
         }
-        else if($_width == 0) {
+        else if ($_width == 0) {
             $_height = $_height <= $this->height ? $_height : $this->height;
             $_width = $_height / ($this->height / $this->width);
         }
-        else if($_height == 0) {
+        else if ($_height == 0) {
             $_width = ($_width <= $this->width ? $_width : $this->width);
             $_height = $_width / ($this->width / $this->height);
         }
-        else if($this->width <= $_width && $this->height <= $_height) {
+        else if ($this->width <= $_width && $this->height <= $_height) {
             $_width = $this->width;
             $_height = $this->height;
         }
-        else if($this->width / $_width > $this->height / $_height) {
+        else if ($this->width / $_width > $this->height / $_height) {
             $_height = $this->height * ($_width / $this->width);
         }
         else {
             $_width = $this->width * ($_height / $this->height);
         }
-        
+
         return new Size($_width, $_height);
 
     }
-    
+
     /**
      * Трансформирует размер так, чтобы реальный размер покрывал область изменяемого
      *
      * @param Size $size
      * @return Size
      */
-    public function TransformToFill($size) {
+    public function TransformToFill(Size $size): Size
+    {
 
         $_width = $size->width;
         $_height = $size->height;
-        
-        if($_width == 0 && $_height == 0) { 
+
+        if ($_width == 0 && $_height == 0) {
             return new Size(0, 0);
         }
-        else if($_width == 0) {
+        else if ($_width == 0) {
             $_height = ($_height <= $this->height ? $_height : $this->height);
             $_width = $_height / ($this->height / $this->width);
         }
-        else if($_height == 0) {
+        else if ($_height == 0) {
             $_width = ($_width <= $this->width ? $_width : $this->width);
             $_height = $_width / ($this->width / $this->height);
         }
-        else if($this->width <= $_width && $this->height <= $_height) {
+        else if ($this->width <= $_width && $this->height <= $_height) {
             $_width = $this->width;
             $_height = $this->height;
         }
-        else if($this->width / $_width > $this->height / $_height) {
+        else if ($this->width / $_width > $this->height / $_height) {
             $_width = $this->width * ($_height / $this->height);
         }
         else {
             $_height = $this->height * ($_width / $this->width);
         }
-        
+
         return new Size($_width, $_height);
     }
-    
+
     /**
      * Раздвигает размер
      *
@@ -156,9 +161,10 @@ class Size {
      * @param int $h
      * @return void
      */
-    public function Expand($w, $h) {
+    public function Expand(int $w, int$h): void
+    {
         $this->width += $w;
         $this->height += $h;
-    }    
-}
+    }
 
+}

@@ -22,13 +22,6 @@ class Module
     use TEventDispatcher;
 
     /**
-     * Синглтон
-     *
-     * @var mixed
-     */
-    public static $instance;
-
-    /**
      * Обьект настроек
      *
      * @var Config
@@ -40,7 +33,7 @@ class Module
      *
      * @var string
      */
-    protected $_modulePath;
+    protected string $_modulePath;
 
     /**
      * Namespace модуля
@@ -49,7 +42,7 @@ class Module
      */
     protected $_moduleNamespace;
 
-    protected function __construct($config)
+    protected function __construct(mixed $config)
     {
 
         // загружаем настройки модуля
@@ -68,10 +61,10 @@ class Module
     /**
      * Статический конструктор
      *
-     * @param \stdClass $config
+     * @param mixed $config
      * @return mixed
      */
-    public static function Create($config)
+    public static function Create(mixed $config) : self
     {
         if (!static::$instance) {
             static::$instance = new static($config);
@@ -84,12 +77,12 @@ class Module
      *
      * @return Config
      */
-    public function Config()
+    public function Config() : Config
     {
         return $this->_config;
     }
 
-    public function __get($prop)
+    public function __get(string $prop) : mixed
     {
         $prop = strtolower($prop);
         if ($prop == 'modulepath') {
@@ -106,7 +99,7 @@ class Module
      *
      * @return void
      */
-    public function InitializeModule()
+    public function InitializeModule() : void
     {
     }
 
@@ -115,7 +108,7 @@ class Module
      *
      * @return void
      */
-    public function Install()
+    public function Install() : void
     {
     }
 
@@ -124,7 +117,7 @@ class Module
      *
      * @return void
      */
-    public function Uninstall()
+    public function Uninstall() : void
     {
     }
 
@@ -133,7 +126,7 @@ class Module
      *
      * @return void
      */
-    public function Dispose()
+    public function Dispose() : void
     {
     }
 
@@ -142,18 +135,8 @@ class Module
      *
      * @return array
      */
-    public function GetPermissions()
+    public function GetPermissions() : array
     {
-
-        $permissions = [];
-
-        // $className = static::class;
-        // $permissionsName = strtolower(str_replace('\\', '.', $className));
-
-        // $permissions[$permissionsName . '.load'] = 'Загрузка модуля';
-        // $permissions[$permissionsName . '.install'] = 'Установка модуля';
-        // $permissions[$permissionsName . '.uninstall'] = 'Деинсталляция модуля';
-
-        return $permissions;
+        return [];
     }
 }

@@ -28,7 +28,7 @@ use Colibri\Data\SqlClient\NonQueryInfo as SqlNonQueryInfo;
 final class NonQueryInfo extends SqlNonQueryInfo
 {
 
-    public function __construct($type, $insertid, $affected, $error, $query)
+    public function __construct(string $type, int $insertid, int $affected, string $error, string $query)
     {
         $this->type = $type;
         $this->insertid = $insertid;

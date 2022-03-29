@@ -26,7 +26,7 @@ class DataItem extends ExtendedObject
      * @param string $name название свойства
      * @param string $data данные
      */
-    public function __construct($name, $data)
+    public function __construct(string $name, string $data)
     {
         parent::__construct();
         $this->name = $name;

@@ -22,7 +22,7 @@ class FileStream extends Stream
      *
      * @var boolean
      */
-    protected $_virtual;
+    protected bool $_virtual;
 
     /**
      * Конструктор
@@ -30,7 +30,7 @@ class FileStream extends Stream
      * @param string $source
      * @param boolean $virtual
      */
-    public function __construct($source, $virtual = false)
+    public function __construct(string $source, bool $virtual = false)
     {
         $this->_virtual = $virtual;
         $this->_stream = fopen($source, "rw+");
@@ -48,7 +48,7 @@ class FileStream extends Stream
      * @return void
      * @testFunction testFileStreamSeek
      */
-    public function Seek($offset = 0)
+    public function Seek(int $offset = 0): void
     {
         if ($offset == 0) {
             return;
@@ -62,10 +62,10 @@ class FileStream extends Stream
      *
      * @param int $offset откуда начать считывание
      * @param int $count количество байл которые нужно считать
-     * @return string
+     * @return string|bool
      * @testFunction testFileStreamRead
      */
-    public function Read($offset = 0, $count = 0)
+    public function Read(int $offset = 0, int $count = 0): bool|string
     {
         $this->Seek($offset);
         return fread($this->_stream, $count);
@@ -76,10 +76,10 @@ class FileStream extends Stream
      *
      * @param string $buffer контент, которые нужно записать
      * @param int $offset место откуда записать
-     * @return int
+     * @return bool|int
      * @testFunction testFileStreamWrite
      */
-    public function Write($buffer, $offset = 0)
+    public function Write(string $buffer, int $offset = 0): bool|int
     {
         $this->seek($offset);
         return fwrite($this->_stream, $buffer);
@@ -91,7 +91,7 @@ class FileStream extends Stream
      * @return void
      * @testFunction testFileStreamFlush
      */
-    public function Flush()
+    public function Flush(): void
     {
         fflush($this->_stream);
     }
@@ -102,7 +102,7 @@ class FileStream extends Stream
      * @return void
      * @testFunction testFileStreamClose
      */
-    public function Close()
+    public function Close(): void
     {
         $this->flush();
         fclose($this->_stream);
@@ -116,7 +116,7 @@ class FileStream extends Stream
      * @return mixed
      * @testFunction testFileStream__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         if ($property == 'stream') {
             return $this->_stream;

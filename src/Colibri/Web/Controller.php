@@ -84,7 +84,7 @@ class Controller
      * @return \stdClass готовый результат
      * @testFunction testFinish
      */
-    public function Finish($code, $message, $result = null, $charset = 'utf-8', $headers = [])
+    public function Finish(int $code, string $message, mixed $result = null, string $charset = 'utf-8', array $headers = []): object
     {
         $res = (object)[];
         $res->code = $code;
@@ -104,14 +104,15 @@ class Controller
      * @return string
      * @testFunction testGetEntryPoint
      */
-    public static function GetEntryPoint($method = '', $type = '', $params = [])
+    public static function GetEntryPoint(string $method = '', string $type = '', array $params = []): string
     {
         $class = static::class;
         // если контроллер в модуле
         if (strpos($class, 'App\\Modules\\') === 0) {
             $class = str_replace('App\\', '', $class);
             $class = str_replace('Controllers\\', '', $class);
-        } else {
+        }
+        else {
             $class = str_replace('App\\Controllers\\', '', $class);
         }
         $class = str_replace('\\', '/', $class);
@@ -124,16 +125,16 @@ class Controller
 
         $path = implode('/', $newParts) . '/';
 
-        if(!$method && !$type) {
+        if (!$method && !$type) {
             $url = StringHelper::AddToQueryString($path, $params, true);
         }
-        else if(!$method && $type) {
-            $url = $path . 'index.' . $type; 
+        else if (!$method && $type) {
+            $url = $path . 'index.' . $type;
         }
         else {
             $url = $path . StringHelper::FromCamelCaseAttr($method) . '.' . $type;
         }
 
-        return '/'.StringHelper::AddToQueryString($url, $params, true);
+        return '/' . StringHelper::AddToQueryString($url, $params, true);
     }
 }

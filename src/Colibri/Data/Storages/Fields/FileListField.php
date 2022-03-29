@@ -18,7 +18,7 @@ use Colibri\Collections\ArrayList;
  */
 class FileListField extends ArrayList
 {
-    
+
     /**
      * Конструктор
      * @param string $data данные из поля
@@ -32,7 +32,7 @@ class FileListField extends ArrayList
             $this->Add(new FileField($file));
         }
     }
-    
+
     /**
      * Возвращает строку для записи в поле
      * @param string $splitter разделитель
@@ -52,11 +52,10 @@ class FileListField extends ArrayList
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->ToString();
     }
 
 
 }
-
-

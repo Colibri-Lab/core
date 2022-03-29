@@ -33,20 +33,7 @@ namespace Colibri\IO\FileSystem;
  */
 class File extends Node
 {
-    /**
-     * Данные о пути к файлу
-     *
-     * @var array
-     */
-    private $info;
-
-    /**
-     * Длина файла в байтах
-     *
-     * @var integer
-     */
-    private $_size = 0;
-
+    
     /** режим чтение */
     const MODE_READ = "rb9";
     /** режим запись */
@@ -57,11 +44,25 @@ class File extends Node
     const MODE_CREATEWRITE = "wb9";
 
     /**
+     * Данные о пути к файлу
+     *
+     * @var array
+     */
+    private array $info;
+
+    /**
+     * Длина файла в байтах
+     *
+     * @var integer
+     */
+    private int $_size = 0;
+
+    /**
      * Конструктор
      *
      * @param string $path Путь к файлу
      */
-    public function __construct($path)
+    public function __construct(string $path)
     {
         $this->info = Directory::PathInfo($path);
         if ($this->info['basename'] == '') {
@@ -80,7 +81,7 @@ class File extends Node
      * @return mixed
      * @testFunction testFile__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         $return = null;
         switch (strtolower($property)) {
@@ -162,7 +163,7 @@ class File extends Node
      * @return void
      * @testFunction testFileCopyTo
      */
-    public function CopyTo($path)
+    public function CopyTo(string $path): void
     {
         self::Copy($this->path, $path);
     }
@@ -174,7 +175,7 @@ class File extends Node
      * @return void
      * @testFunction testFileMoveTo
      */
-    public function MoveTo($path)
+    public function MoveTo(string $path): void
     {
         self::Move($this->path, $path);
     }
@@ -185,7 +186,7 @@ class File extends Node
      * @return string
      * @testFunction testFileToString
      */
-    public function ToString()
+    public function ToString(): string
     {
         return $this->name;
     }
@@ -194,15 +195,15 @@ class File extends Node
      * Считывает данные файл
      *
      * @param string $path путь к файлу
-     * @return string
+     * @return string|null
      * @testFunction testFileRead
      */
-    public static function Read($path)
+    public static function Read(string $path): ?string
     {
         if (self::Exists($path)) {
             return file_get_contents($path);
         }
-        return false;
+        return null;
     }
 
     /**
@@ -215,7 +216,7 @@ class File extends Node
      * @return void
      * @testFunction testFileWrite
      */
-    public static function Write($path, $content, $recursive = false, $mode = '777')
+    public static function Write(string $path, string $content, bool $recursive = false, string $mode = '777'): void
     {
         if (!self::Exists($path)) {
             self::Create($path, $recursive, $mode);
@@ -234,7 +235,7 @@ class File extends Node
      * @return void
      * @testFunction testFileAppend
      */
-    public static function Append($path, $content, $recursive = false, $mode = '777')
+    public static function Append(string $path, string $content, bool $recursive = false, string $mode = '777'): void
     {
         if (!self::Exists($path)) {
             self::Create($path, $recursive, $mode);
@@ -250,7 +251,7 @@ class File extends Node
      * @return FileStream|null
      * @testFunction testFileOpen
      */
-    public static function Open($path)
+    public static function Open(string $path): ?FileStream
     { //ireader
         if (self::Exists($path)) {
             return new FileStream($path);
@@ -265,7 +266,7 @@ class File extends Node
      * @return boolean
      * @testFunction testFileExists
      */
-    public static function Exists($path)
+    public static function Exists(string $path): bool
     {
         $path = strval(str_replace("\0", "", $path));
         return file_exists($path);
@@ -278,7 +279,7 @@ class File extends Node
      * @return boolean
      * @testFunction testFileIsEmpty
      */
-    public static function IsEmpty($path)
+    public static function IsEmpty(string $path): bool
     {
         try {
             $info = stat($path);
@@ -297,7 +298,7 @@ class File extends Node
      * @return FileStream
      * @testFunction testFileCreate
      */
-    public static function Create($path, $recursive = true, $mode = '777')
+    public static function Create(string $path, bool $recursive = true, string $mode = '777'): FileStream
     {
         if (!Directory::Exists($path) && $recursive) {
             Directory::Create($path, $recursive, $mode);
@@ -317,7 +318,7 @@ class File extends Node
      * @return boolean
      * @testFunction testFileDelete
      */
-    public static function Delete($path)
+    public static function Delete(string $path): bool
     {
         if (!self::Exists($path)) {
             throw new Exception('file not exists');
@@ -334,7 +335,7 @@ class File extends Node
      * @return void
      * @testFunction testFileCopy
      */
-    public static function Copy($from, $to)
+    public static function Copy(string $from, string $to): void
     {
         if (!self::Exists($from)) {
             throw new Exception('file not exists');
@@ -351,7 +352,7 @@ class File extends Node
      * @return void
      * @testFunction testFileMove
      */
-    public static function Move($from, $to)
+    public static function Move(string $from, string $to): void
     {
         if (!self::Exists($from)) {
             throw new Exception('source file not exists');
@@ -367,7 +368,7 @@ class File extends Node
      * @return boolean
      * @testFunction testFileIsDirectory
      */
-    public static function IsDirectory($path)
+    public static function IsDirectory(string $path): bool
     {
         return is_dir($path);
     }
@@ -378,7 +379,7 @@ class File extends Node
      * @return array
      * @testFunction testFileToArray
      */
-    public function ToArray()
+    public function ToArray(): array
     {
         return array(
             'name' => $this->name,

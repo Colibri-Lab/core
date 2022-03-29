@@ -25,7 +25,7 @@ class ReadonlyCollection extends Collection
      * @return void
      * @testFunction testReadonlyCollectionClean
      */
-    public function Clean()
+    public function Clean(): void
     {
         while (($index = $this->IndexOf('')) > -1) {
             array_splice($this->data, $index, 1);
@@ -41,7 +41,7 @@ class ReadonlyCollection extends Collection
      * @throws CollectionException
      * @testFunction testReadonlyCollectionAdd
      */
-    public function Add($key, $value)
+    public function Add(string $key, mixed $value): mixed 
     {
         throw new CollectionException('This is a readonly collection');
     }
@@ -53,7 +53,7 @@ class ReadonlyCollection extends Collection
      * @throws CollectionException
      * @testFunction testReadonlyCollectionDelete
      */
-    public function Delete($key)
+    public function Delete(string $key): bool 
     {
         throw new CollectionException('This is a readonly collection');
     }

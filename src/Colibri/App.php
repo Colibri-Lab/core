@@ -40,114 +40,114 @@ final class App
     use TEventDispatcher;
 
     /** Режим приложения на локальном компьютере */
-    const ModeLocal   = 'local';
+    const ModeLocal = 'local';
     /** Режим приложения в разработке */
-    const ModeDevelopment   = 'dev';
+    const ModeDevelopment = 'dev';
     /** Режим приложения в тестировании */
-    const ModeTest          = 'test';
+    const ModeTest = 'test';
     /** Режим приложения в релизе */
-    const ModeRelease       = 'prod';
+    const ModeRelease = 'prod';
 
     /**
      * Синглтон
      *
      * @var App
      */
-    public static $instance;
+    public static ?App $instance = null;
 
     /**
      * Обьект запроса
      *
      * @var Request
      */
-    public static $request;
+    public static ?Request $request = null;
 
     /**
      * Обьект ответа
      *
      * @var Response
      */
-    public static $response;
+    public static ?Response $response = null;
 
     /**
      * Корень приложения
      *
      * @var string
      */
-    public static $appRoot;
+    public static string $appRoot = '';
 
     /**
      * Корень Public части сайта
      *
      * @var string
      */
-    public static $webRoot;
+    public static string $webRoot = '';
 
     /**
      * Режим разработки
      * @var boolean
      */
-    public static $isDev;
+    public static bool $isDev = false;
 
     /**
      * Конфигурационный файл приложения
      *
      * @var Config
      */
-    public static $config;
+    public static ?Config $config = null;
 
     /**
      * Диспатчер событий
      *
      * @var EventDispatcher
      */
-    public static $eventDispatcher;
+    public static ?EventDispatcher $eventDispatcher = null;
 
     /**
      * Менеджер модулей
      *
      * @var ModuleManager
      */
-    public static $moduleManager;
+    public static ?ModuleManager $moduleManager = null;
 
     /**
      * Менеджер безопасности
      *
      * @var SecurityManager
      */
-    public static $securityManager;
+    public static ?SecurityManager $securityManager = null;
 
     /**
      * Доступ к данным DAL
      *
      * @var DataAccessPoints
      */
-    public static $dataAccessPoints;
+    public static ?DataAccessPoints $dataAccessPoints = null;
 
     /**
      * Лог девайс
      * @var Logger
      */
-    public static $log;
+    public static ?Logger $log = null;
 
     /**
      * Менеджер процессов
      * @var Manager
      */
-    public static $threadingManager;
+    public static ?Manager $threadingManager = null;
 
     /**
      * Мониторинг
      * @var Monitoring
      */
-    public static $monitoring;
+    public static ?Monitoring $monitoring = null;
 
     /**
      * Закрываем конструктор
      */
     private function __construct()
     {
-        // Do nothing
+    // Do nothing
     }
 
     /**
@@ -155,7 +155,7 @@ final class App
      *
      * @return self
      */
-    public static function Create()
+    public static function Create(): self
     {
 
         if (!self::$instance) {
@@ -171,16 +171,16 @@ final class App
      *
      * @return void
      */
-    public function Initialize()
+    public function Initialize(): void
     {
 
         // Блок для обеспечения работы с php-cli
         if (isset($_SERVER['argv']) && !isset($_SERVER['REQUEST_METHOD'])) {
 
-            if(File::Exists(realpath(getcwd() . '/../config/app.yaml'))) {
+            if (File::Exists(realpath(getcwd() . '/../config/app.yaml'))) {
                 $_SERVER['DOCUMENT_ROOT'] = realpath(getcwd() . '/');
             }
-            else if(File::Exists(realpath(getcwd() . '/../../config/app.yaml'))) {
+            else if (File::Exists(realpath(getcwd() . '/../../config/app.yaml'))) {
                 $_SERVER['DOCUMENT_ROOT'] = realpath(getcwd() . '/../');
             }
 
@@ -201,10 +201,10 @@ final class App
         if (!self::$appRoot) {
 
             // пробуем получить DOCUMENT_ROOT
-            self::$webRoot = $_SERVER['DOCUMENT_ROOT'].'/';
+            self::$webRoot = $_SERVER['DOCUMENT_ROOT'] . '/';
 
             // корень приложения должен находится на уровень выше
-            self::$appRoot = realpath(self::$webRoot . '/../').'/';
+            self::$appRoot = realpath(self::$webRoot . '/../') . '/';
         }
 
         // поднимаем конфиги
@@ -218,14 +218,14 @@ final class App
         }
 
         $mode = self::$config->Query('mode')->GetValue();
-        if($mode == App::ModeDevelopment || $mode == App::ModeLocal) {
+        if ($mode == App::ModeDevelopment || $mode == App::ModeLocal) {
             self::$isDev = true;
         }
 
         /**
          * Создаем обьект мониторинга
          */
-        self::$monitoring = new Monitoring(self::$log, self::$isDev ? Logger::Debug : Logger::Critical, self::$isDev ? Monitoring::EveryTimer : Monitoring::Never);
+        self::$monitoring = new Monitoring(self::$log, self::$isDev ?Logger::Debug : Logger::Critical, self::$isDev ?Monitoring::EveryTimer : Monitoring::Never);
         self::$monitoring->StartTimer('app');
 
         // создание всяких утилитных классов
@@ -237,7 +237,7 @@ final class App
             self::$dataAccessPoints = DataAccessPoints::Create();
         }
 
-        
+
         // в первую очеред запускаем события
         if (!self::$eventDispatcher) {
             self::$eventDispatcher = EventDispatcher::Create();
@@ -277,7 +277,7 @@ final class App
      *
      * @return array
      */
-    public function GetPermissions()
+    public function GetPermissions(): array
     {
 
         $permissions = [];

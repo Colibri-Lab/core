@@ -21,13 +21,13 @@ abstract class Stream
      *
      * @var integer
      */
-    protected $_length = 0;
+    protected int $_length = 0;
     /**
      * Декриптор
      *
      * @var mixed
      */
-    protected $_stream;
+    protected mixed $_stream;
 
     /**
      * Конструктор
@@ -52,7 +52,7 @@ abstract class Stream
      * @param string $property свойство 
      * @return mixed
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         if ($property == 'length') {
             return $this->_length;
@@ -67,7 +67,7 @@ abstract class Stream
      * @param integer $offset куда передвинуть позицию
      * @return void
      */
-    abstract public function seek($offset = 0);
+    abstract public function seek(int $offset = 0): void;
 
     /**
      * Считать из стрима
@@ -76,7 +76,7 @@ abstract class Stream
      * @param int $count количество байл которые нужно считать
      * @return string
      */
-    abstract public function read($offset = null, $count = null);
+    abstract public function read(?int $offset = null, ?int $count = null): string;
 
     /**
      * Записать в стрим
@@ -85,14 +85,14 @@ abstract class Stream
      * @param int $offset место откуда записать
      * @return void
      */
-    abstract public function write($content, $offset = null);
+    abstract public function write(int $content, ?int $offset = null): void;
 
     /**
      * Считать из стрима одну строку
      *
      * @return string
      */
-    abstract public function readLine();
+    abstract public function readLine(): string;
 
     /**
      * Записать в стрим одну строку
@@ -100,19 +100,19 @@ abstract class Stream
      * @param string $string контент, которые нужно записать
      * @return void
      */
-    abstract public function writeLine($string);
+    abstract public function writeLine(string $string): void;
 
     /**
      * Сохранить изменения
      *
      * @return void
      */
-    abstract public function flush();
+    abstract public function flush(): void;
 
     /**
      * Закрыть стрим
      *
      * @return void
      */
-    abstract public function close();
+    abstract public function close(): void;
 }

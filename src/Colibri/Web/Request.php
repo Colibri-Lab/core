@@ -47,7 +47,7 @@ class Request
      * @var Request
      *
      */
-    static $instance;
+    static ?Request $instance = null;
 
     /** Тип запроса JSON */
     const PAYLOAD_TYPE_JSON = 'json';
@@ -68,7 +68,7 @@ class Request
      * @return Request
      * @testFunction testRequestCreate
      */
-    public static function Create()
+    public static function Create(): Request
     {
         if (!Request::$instance) {
             Request::$instance = new Request();
@@ -84,7 +84,7 @@ class Request
      * @return string
      * @testFunction testRequestUri
      */
-    public function Uri($add = array(), $remove = array())
+    public function Uri(array $add = array(), array $remove = array()): string
     {
         $get = $this->get->ToArray();
         foreach ($remove as $v) {
@@ -107,7 +107,7 @@ class Request
      * @return mixed
      * @testFunction testRequest__get
      */
-    public function __get($prop)
+    public function __get(string $prop): mixed
     {
         $prop = strtolower($prop);
         $return = null;
@@ -125,7 +125,7 @@ class Request
                     break;
                 }
             case 'session': {
-                    if(isset($_SESSION)) {
+                    if (isset($_SESSION)) {
                         $return = new RequestCollection($_SESSION);
                     }
                     else {
@@ -143,19 +143,19 @@ class Request
                 }
             case 'utm': {
                     $utm = [];
-                    if($this->get->utm_medium ? $this->get->utm_medium : $this->cookie->utm_medium) {
+                    if ($this->get->utm_medium ? $this->get->utm_medium : $this->cookie->utm_medium) {
                         $utm['utm_medium'] = $this->get->utm_medium ? $this->get->utm_medium : $this->cookie->utm_medium;
                     }
-                    if($this->get->utm_source ? $this->get->utm_source : $this->cookie->utm_source) {
+                    if ($this->get->utm_source ? $this->get->utm_source : $this->cookie->utm_source) {
                         $utm['utm_source'] = $this->get->utm_source ? $this->get->utm_source : $this->cookie->utm_source;
                     }
-                    if($this->get->utm_term ? $this->get->utm_term : $this->cookie->utm_term) {
+                    if ($this->get->utm_term ? $this->get->utm_term : $this->cookie->utm_term) {
                         $utm['utm_term'] = $this->get->utm_term ? $this->get->utm_term : $this->cookie->utm_term;
                     }
-                    if($this->get->utm_content ? $this->get->utm_content : $this->cookie->utm_content) {
+                    if ($this->get->utm_content ? $this->get->utm_content : $this->cookie->utm_content) {
                         $utm['utm_content'] = $this->get->utm_content ? $this->get->utm_content : $this->cookie->utm_content;
                     }
-                    if($this->get->utm_campaign ? $this->get->utm_medium : $this->cookie->utm_campaign) {
+                    if ($this->get->utm_campaign ? $this->get->utm_medium : $this->cookie->utm_campaign) {
                         $utm['utm_campaign'] = $this->get->utm_campaign ? $this->get->utm_medium : $this->cookie->utm_campaign;
                     }
                     $return = new RequestCollection($utm);
@@ -164,13 +164,17 @@ class Request
             case 'remoteip': {
                     if ($this->server->HTTP_X_FORWARDED_FOR) {
                         $return = $this->server->HTTP_X_FORWARDED_FOR;
-                    } else if ($this->server->REMOTE_ADDR) {
+                    }
+                    else if ($this->server->REMOTE_ADDR) {
                         $return = $this->server->REMOTE_ADDR;
-                    } else if ($this->server->X_REAL_IP) {
+                    }
+                    else if ($this->server->X_REAL_IP) {
                         $return = $this->server->X_REAL_IP;
-                    } else if ($this->server->HTTP_FORWARDED) {
+                    }
+                    else if ($this->server->HTTP_FORWARDED) {
                         $return = $this->server->HTTP_FORWARDED;
-                    } else {
+                    }
+                    else {
                         $return = '';
                     }
                     break;
@@ -191,7 +195,8 @@ class Request
             case 'headers': {
                     if (function_exists('apache_request_headers')) {
                         $headers = apache_request_headers();
-                    } else {
+                    }
+                    else {
                         $headers = [];
                         foreach ($this->server as $key => $value) {
                             if (strpos($key, 'http_') === 0) {
@@ -221,7 +226,7 @@ class Request
      * 
      * @testFunction testRequestGetPayloadCopy
      */
-    public function GetPayloadCopy($type = Request::PAYLOAD_TYPE_JSON)
+    public function GetPayloadCopy(string $type = Request::PAYLOAD_TYPE_JSON): PayloadCopy
     {
         return new PayloadCopy($type);
     }

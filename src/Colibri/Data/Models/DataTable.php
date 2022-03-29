@@ -41,28 +41,28 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @var DataAccessPoint
      */
-    protected $_point;
+    protected ?DataAccessPoint $_point = null;
 
     /**
      * Ридер
      *
      * @var IDataReader
      */
-    protected $_reader;
+    protected ?IDataReader $_reader = null;
 
     /**
      * Кэш загруженных строк
      *
      * @var ArrayList
      */
-    protected $_cache;
+    protected ?ArrayList $_cache = null;
 
     /**
      * Название класса представления строк
      *
-     * @var ExtendedObject
+     * @var string
      */
-    protected $_returnAs;
+    protected ?string $_returnAs = null;
 
     /**
      * Конструктор
@@ -71,7 +71,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param IDataReader $reader
      * @param string $returnAs
      */
-    public function __construct(DataAccessPoint $point, IDataReader $reader = null, $returnAs = 'Colibri\\Data\\Models\\DataRow')
+    public function __construct(DataAccessPoint $point, IDataReader $reader = null, string $returnAs = 'Colibri\\Data\\Models\\DataRow')
     {
         $this->_point = $point;
         $this->_reader = $reader;
@@ -87,7 +87,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return DataTable
      * @testFunction testDataTableCreate
      */
-    public static function Create($point, $returnAs = 'Colibri\\Data\\Models\\DataRow')
+    public static function Create(DataAccessPoint|string $point, string $returnAs = 'Colibri\\Data\\Models\\DataRow'): DataTable
     {
         if (is_string($point)) {
             $point = App::$dataAccessPoints->Get($point);
@@ -101,20 +101,20 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return DataTableIterator
      * @testFunction testDataTableGetIterator
      */
-    public function getIterator()
+    public function getIterator(): DataTableIterator
     {
-        return new DataTableIterator($this); 
+        return new DataTableIterator($this);
     }
 
     /**
      * Загружает данные из запроса или таблицы
      *
      * @param string $query название таблицы или запрос
-     * @param string $params
+     * @param array $params
      * @return DataTable
      * @testFunction testDataTableLoad
      */
-    public function Load($query, $params = [])
+    public function Load(string $query, array $params = [])
     {
         $params = (object)$params;
 
@@ -131,7 +131,8 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
             if (strstr($query, ' ') !== false) {
                 // есть пробел, значит это не название таблицы нужно выдать ошибку
                 throw new DataModelException('Param query can be only the table name or select query');
-            } else {
+            }
+            else {
                 $query = 'select * from ' . $query;
                 $condition = [];
                 if (isset($params->params)) {
@@ -155,7 +156,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return int
      * @testFunction testDataTableCount
      */
-    public function Count()
+    public function Count(): int
     {
         return $this->_reader->Count();
     }
@@ -166,7 +167,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return int
      * @testFunction testDataTableAffected
      */
-    public function Affected()
+    public function Affected(): int
     {
         return $this->_reader->affected;
     }
@@ -177,7 +178,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return boolean
      * @testFunction testDataTableHasRows
      */
-    public function HasRows()
+    public function HasRows(): bool
     {
         return $this->_reader->hasrows;
     }
@@ -185,10 +186,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     /**
      * Список полей
      *
-     * @return mixed
+     * @return array
      * @testFunction testDataTableFields
      */
-    public function Fields()
+    public function Fields(): array
     {
         return VariableHelper::ChangeArrayKeyCase($this->_reader->Fields(), CASE_LOWER);
     }
@@ -196,10 +197,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     /**
      * Возвращает точку доступа
      *
-     * @return DataAccessPoint
+     * @return DataAccessPoint|null
      * @testFunction testDataTablePoint
      */
-    public function Point()
+    public function Point(): ?DataAccessPoint
     {
         return $this->_point;
     }
@@ -211,7 +212,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return mixed
      * @testFunction testDataTable_createDataRowObject
      */
-    protected function _createDataRowObject($result)
+    protected function _createDataRowObject(mixed $result): mixed
     {
         $className = $this->_returnAs;
 
@@ -233,7 +234,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return mixed
      * @testFunction testDataTable_read
      */
-    protected function _read()
+    protected function _read(): mixed
     {
         return $this->_createDataRowObject(
             $this->_reader->Read()
@@ -247,7 +248,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return mixed
      * @testFunction testDataTable_readTo
      */
-    protected function _readTo($index)
+    protected function _readTo(int $index): mixed
     {
         while ($this->_cache->Count() < $index) {
             $this->_cache->Add($this->_read());
@@ -262,11 +263,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return mixed
      * @testFunction testDataTableItem
      */
-    public function Item($index)
+    public function Item(int $index): mixed
     {
         if ($index >= $this->_cache->Count()) {
             return $this->_readTo($index);
-        } else {
+        }
+        else {
             return $this->_cache->Item($index);
         }
     }
@@ -277,7 +279,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return mixed
      * @testFunction testDataTableFirst
      */
-    public function First()
+    public function First(): mixed
     {
         return $this->Item(0);
     }
@@ -289,7 +291,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return mixed
      * @testFunction testDataTableCacheAll
      */
-    public function CacheAll($closeReader = true)
+    public function CacheAll(bool $closeReader = true): mixed
     {
         $this->_readTo($this->Count() - 1);
         if ($closeReader) {
@@ -306,7 +308,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return mixed
      * @testFunction testDataTableCreateEmptyRow
      */
-    public function CreateEmptyRow($data = [])
+    public function CreateEmptyRow(object|array $data = []): mixed
     {
         return $this->_createDataRowObject($data);
     }
@@ -317,11 +319,11 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return object encoding, collation - кодировка и коллейшен
      * @testFunction testDataTable_getTableEncoding
      */
-    private function _getTableEncoding($table)
+    private function _getTableEncoding(string $table): object
     {
         // получаем кодировку таблицы
         $table = explode('.', $table);
-        $reader = $this->_point->Query('show table status in '.$table[0].' like \'' . $table[1] . '\'');
+        $reader = $this->_point->Query('show table status in ' . $table[0] . ' like \'' . $table[1] . '\'');
         $status = $reader->Read();
         $collation = $status->Collation;
 
@@ -338,7 +340,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @throws DataModelException
      * @testFunction testDataTableSaveRow
      */
-    public function SaveRow($row, $idField = null, $convert = true)
+    public function SaveRow(DataRow $row, ?string $idField = null, ?bool $convert = true): bool
     {
         if (!$row->changed) {
             return false;
@@ -355,15 +357,15 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
             if (in_array('NOT_NULL', $field->flags)) {
                 $notNullFields[] = strtolower($field->name);
             }
-            $table = (isset($field->originalTable) ? $field->originalTable : $field->table); 
-            if($table) {
-                $tables[$field->db.'.'.$table] = $field->db.'.'.$table;
+            $table = (isset($field->originalTable) ? $field->originalTable : $field->table);
+            if ($table) {
+                $tables[$field->db . '.' . $table] = $field->db . '.' . $table;
             }
         }
 
         $table = reset($tables);
 
-        if($idField && empty($idFields)) {
+        if ($idField && empty($idFields)) {
             $idFields[] = $idField;
         }
 
@@ -379,13 +381,13 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
         $fieldValues = [];
         foreach ($row as $key => $value) {
             if ($row->IsPropertyChanged($key, $convert)) {
-                $fieldValues[$key] = $encoding->encoding != Encoding::UTF8 && $convert ? Encoding::Convert((string)$value, $encoding->encoding) : $value;
+                $fieldValues[$key] = $encoding->encoding != Encoding::UTF8 && $convert ?Encoding::Convert((string)$value, $encoding->encoding) : $value;
             }
         }
 
         $isFilled = false;
         foreach ($idFields as $field) {
-            if ($row->{$field}) {
+            if ($row->{ $field}) {
                 $isFilled = true;
             }
         }
@@ -395,7 +397,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
                 // есть обновляем
                 $flt = [];
                 foreach ($idFields as $field) {
-                    $flt[] = $field . '=\'' . $row->{$field} . '\'';
+                    $flt[] = $field . '=\'' . $row->{ $field} . '\'';
                 }
 
                 $res = $this->_point->Update($table, $fieldValues, implode(' and ', $flt));
@@ -403,19 +405,20 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
                     return false;
                 }
             }
-        } else {
+        }
+        else {
             $res = $this->_point->Insert($table, $fieldValues);
             if ($res->affected == 0) {
                 return false;
             }
-            
+
             // если это ID то сохраняем
             if (count($idFields) == 1) {
                 foreach ($idFields as $f) {
                     $row->$f = $res->insertid;
                 }
             }
-            
+
         }
 
 
@@ -430,7 +433,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return NonQueryInfo
      * @testFunction testDataTableDeleteRow
      */
-    public function DeleteRow($row)
+    public function DeleteRow(DataRow $row): NonQueryInfo
     {
         $tables = [];
         $idFields = [];
@@ -439,8 +442,8 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
             if (in_array('PRI_KEY', $field->flags)) {
                 $idFields[] = $field;
             }
-            $table = (isset($field->originalTable) ? $field->originalTable : $field->table); 
-            if($table) {
+            $table = (isset($field->originalTable) ? $field->originalTable : $field->table);
+            if ($table) {
                 $tables[$table] = $table;
             }
         }
@@ -456,9 +459,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 
         $condition = [];
         foreach ($idFields as $f) {
-            $condition[] = $f->escaped . '=\'' . $row->{$f->name} . '\'';
+            $condition[] = $f->escaped . '=\'' . $row->{ $f->name} . '\'';
         }
-        
+
         return $this->_point->Delete($table, implode(' and ', $condition));
     }
 
@@ -470,7 +473,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return void
      * @testFunction testDataTableSet
      */
-    public function Set($index, $data)
+    public function Set(int $index, ExtendedObject $data): void
     {
         $this->_cache->Set($index, $data);
     }
@@ -482,7 +485,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return array
      * @testFunction testDataTableToArray
      */
-    public function ToArray($noPrefix = false)
+    public function ToArray(bool $noPrefix = false): array
     {
         $ret = [];
         foreach ($this as $row) {
@@ -497,7 +500,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return void
      * @testFunction testDataTableSaveAllRows
      */
-    public function SaveAllRows()
+    public function SaveAllRows(): void
     {
         foreach ($this as $row) {
             $this->SaveRow($row);
@@ -510,7 +513,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return void
      * @testFunction testDataTableDeleteAllRows
      */
-    public function DeleteAllRows()
+    public function DeleteAllRows(): void
     {
         foreach ($this as $row) {
             $this->DeleteRow($row);
@@ -522,7 +525,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return void
      * @testFunction testDataTableClear
      */
-    public function Clear()
+    public function Clear(): void
     {
         $this->_point->Delete($this->_storage->name, ''); // используется truncate
     }
@@ -534,11 +537,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return void
      * @testFunction testDataTableOffsetSet
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->_cache->Add($value);
-        } else {
+        }
+        else {
             $this->_cache->Set($offset, $value);
         }
     }
@@ -548,7 +552,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return $offset < $this->_cache->Count();
     }
@@ -559,7 +563,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return void
      * @testFunction testDataTableOffsetUnset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         $this->_cache->DeleteAt($offset);
     }
@@ -571,7 +575,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return DataRow
      * @testFunction testDataTableOffsetGet
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->Item($offset);
     }

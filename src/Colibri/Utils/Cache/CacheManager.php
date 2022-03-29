@@ -77,7 +77,7 @@ class CacheManager
 
         $targetPath = self::_getPath($section, $fileName);
         $fileName = basename($fileName);
-        
+
         $targetFilePath = $targetPath . $fileName;
 
         $md5 = md5($data);

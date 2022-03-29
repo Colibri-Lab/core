@@ -61,14 +61,14 @@ abstract class Logger implements LoggerInterface
     /**
      * @testFunction testLoggerWriteLine
      */
-    abstract public function WriteLine($level, $data);
+    abstract public function WriteLine(int $level, mixed $data): void;
 
     /**
      * Возвращает контент лог файла
      *
      * @return mixed
      */
-    abstract public function Content();
+    abstract public function Content(): mixed;
 
     /**
      * Фабрика
@@ -76,23 +76,23 @@ abstract class Logger implements LoggerInterface
      * @param Config|array $loggerConfig
      * @return Logger
      */
-    public static function Create($loggerConfig)
+    public static function Create(Config|array $loggerConfig): Logger
     {
-        if($loggerConfig instanceof Config) {
+        if ($loggerConfig instanceof Config) {
             $loggerType = $loggerConfig->Query('type')->GetValue();
             $loggerLevel = $loggerConfig->Query('level')->GetValue();
             $loggerDevice = $loggerConfig->Query('device')->AsObject();
         }
-        else if(is_array($loggerConfig)) {
+        else if (is_array($loggerConfig)) {
             $loggerType = $loggerConfig['type'];
             $loggerLevel = $loggerConfig['level'];
             $loggerDevice = $loggerConfig['device'];
-            if(is_array($loggerDevice)) {
+            if (is_array($loggerDevice)) {
                 $loggerDevice = (object)$loggerDevice;
             }
         }
 
-        if(!$loggerType) {
+        if (!$loggerType) {
             throw new LoggerException('Invalid logger type');
         }
 
@@ -104,7 +104,7 @@ abstract class Logger implements LoggerInterface
         return new $className($loggerLevel, $loggerDevice);
 
     }
-    
+
 
     /**
      * System is unusable.
@@ -114,7 +114,7 @@ abstract class Logger implements LoggerInterface
      * @return void
      * @testFunction testLoggerEmergency
      */
-    public function emergency($message, array $context = array())
+    public function emergency($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Emergency, ['message' => $message, 'context' => $context]);
     }
@@ -130,7 +130,7 @@ abstract class Logger implements LoggerInterface
      * @return void
      * @testFunction testLoggerAlert
      */
-    public function alert($message, array $context = array())
+    public function alert($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Alert, ['message' => $message, 'context' => $context]);
     }
@@ -145,7 +145,7 @@ abstract class Logger implements LoggerInterface
      * @return void
      * @testFunction testLoggerCritical
      */
-    public function critical($message, array $context = array())
+    public function critical($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Critical, ['message' => $message, 'context' => $context]);
     }
@@ -159,7 +159,7 @@ abstract class Logger implements LoggerInterface
      * @return void
      * @testFunction testLoggerError
      */
-    public function error($message, array $context = array())
+    public function error($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Error, ['message' => $message, 'context' => $context]);
     }
@@ -175,7 +175,7 @@ abstract class Logger implements LoggerInterface
      * @return void
      * @testFunction testLoggerWarning
      */
-    public function warning($message, array $context = array())
+    public function warning($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Warning, ['message' => $message, 'context' => $context]);
     }
@@ -188,7 +188,7 @@ abstract class Logger implements LoggerInterface
      * @return void
      * @testFunction testLoggerNotice
      */
-    public function notice($message, array $context = array())
+    public function notice($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Notice, ['message' => $message, 'context' => $context]);
     }
@@ -203,7 +203,7 @@ abstract class Logger implements LoggerInterface
      * @return void
      * @testFunction testLoggerInfo
      */
-    public function info($message, array $context = array())
+    public function info($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Informational, ['message' => $message, 'context' => $context]);
     }
@@ -216,7 +216,7 @@ abstract class Logger implements LoggerInterface
      * @return void
      * @testFunction testLoggerDebug
      */
-    public function debug($message, array $context = array())
+    public function debug($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Debug, ['message' => $message, 'context' => $context]);
     }
@@ -230,7 +230,7 @@ abstract class Logger implements LoggerInterface
      * @return void
      * @testFunction testLoggerLog
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = array()): void
     {
         $this->WriteLine($level, ['message' => $message, 'context' => $context]);
     }

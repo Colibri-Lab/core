@@ -26,7 +26,7 @@ class MemoryLogger extends Logger
      * @param integer $maxLogLevel
      * @param array $dummy
      */
-    public function __construct($maxLogLevel = 7, $dummy = [])
+    public function __construct(int $maxLogLevel = 7, mixed $dummy = [])
     {
         $this->_maxLogLevel = $maxLogLevel;
         $this->_device = [];
@@ -40,14 +40,14 @@ class MemoryLogger extends Logger
      * @return void
      * @testFunction testMemoryLoggerWriteLine
      */
-    public function WriteLine($level, $data)
+    public function WriteLine(int $level, mixed $data): void
     {
         $args = !is_array($data) ? [$data] : $data;
-        if(isset($args['context'])) {
+        if (isset($args['context'])) {
             $args['context'] = implode("\t", $args['context']);
         }
         $args = implode("\t", $args);
-        $args = DateHelper::ToDbString(microtime(true), '%Y-%m-%d-%H-%M-%S-%f') . "\t" . $args; 
+        $args = DateHelper::ToDbString(microtime(true), '%Y-%m-%d-%H-%M-%S-%f') . "\t" . $args;
         $this->_device[] = $args;
     }
 
@@ -57,7 +57,7 @@ class MemoryLogger extends Logger
      * @return mixed
      * @testFunction testMemoryLoggerContent
      */
-    public function Content()
+    public function Content(): mixed
     {
         return $this->_device;
     }

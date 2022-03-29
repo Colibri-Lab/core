@@ -22,21 +22,21 @@ class Credentials
      *
      * @var string
      */
-    public $login = '';
+    public string $login = '';
 
     /**
      * Пароль
      *
      * @var string
      */
-    public $secret = '';
+    public string $secret = '';
 
     /**
      * Использовать SSL
      *
      * @var boolean
      */
-    public $ssl = false;
+    public bool $ssl = false;
 
     /**
      * Конструктор
@@ -45,7 +45,7 @@ class Credentials
      * @param string $password
      * @param boolean $ssl
      */
-    public function __construct($login = '', $password = '', $ssl = false)
+    public function __construct(string $login = '', string $password = '', bool $ssl = false)
     {
         $this->login = $login;
         $this->secret = $password;

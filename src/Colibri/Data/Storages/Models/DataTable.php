@@ -16,6 +16,7 @@ use Colibri\Data\Storages\Fields\FileListField;
 use Colibri\Data\Storages\Storage;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\Models\DataTable as BaseDataTable;
+use Colibri\Data\Models\DataRow as BaseDataRow;
 use Colibri\Data\Models\DataTableIterator;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Common\DateHelper;
@@ -52,7 +53,7 @@ class DataTable extends BaseDataTable
      * @param Storage|null $storage хранилище
      * @return void 
      */
-    public function __construct(DataAccessPoint $point, IDataReader $reader = null, $returnAs = 'Colibri\\Data\\Storages\\Models\\DataRow', $storage = null)
+    public function __construct(DataAccessPoint $point, IDataReader $reader = null, string $returnAs = 'Colibri\\Data\\Storages\\Models\\DataRow', ?Storage $storage = null)
     {
         $this->_returnAsExtended = $returnAs;
         parent::__construct($point, $reader);
@@ -63,7 +64,7 @@ class DataTable extends BaseDataTable
      * Возвращает итератор
      * @return DataTableIterator итератор
      */
-    public function getIterator()
+    public function getIterator(): DataTableIterator
     {
         return new DataTableIterator($this);
     }
@@ -72,7 +73,7 @@ class DataTable extends BaseDataTable
      * Возвращает обьект хранилище
      * @return Storage 
      */
-    public function Storage()
+    public function Storage(): Storage
     {
         return $this->_storage;
     }
@@ -83,7 +84,7 @@ class DataTable extends BaseDataTable
      * @param ExtendedObject $result
      * @return mixed
      */
-    protected function _createDataRowObject($result)
+    protected function _createDataRowObject(mixed $result): mixed
     {
         $className = $this->_returnAsExtended;
         if (is_callable($className)) {
@@ -93,7 +94,7 @@ class DataTable extends BaseDataTable
         return new $className($this, $result, $this->_storage);
     }
 
-    public static function LoadByQuery($storage, $query, $params) 
+    public static function LoadByQuery(Storage $storage, string $query, array $params): static 
     {
 
         // надо сделать автозамену названий полей
@@ -115,12 +116,12 @@ class DataTable extends BaseDataTable
 
     /**
      * Сохраняет переданную строку в базу данных
-     * @param DataRow $row строка для сохранения
+     * @param DataRow|BaseDataRow $row строка для сохранения
      * @param string|null $idField поле для автоинкремента, если не найдется в таблице
      * @return bool
      * @throws DataModelException
      */
-    public function SaveRow($row, $idField = null, $dummy = true)
+    public function SaveRow(DataRow|BaseDataRow $row, ?string $idField = null, ?bool $convert = true): bool
     {
 
 
@@ -161,7 +162,7 @@ class DataTable extends BaseDataTable
      * @param string $file файл, куда выгружать
      * @return void 
      */
-    public function ExportCSV($file)
+    public function ExportCSV(string $file): void
     {
         if (File::Exists($file)) {
             File::Delete($file);
@@ -197,7 +198,7 @@ class DataTable extends BaseDataTable
      * @param string $file файл, куда выгружать
      * @return void 
      */
-    public function ExportXML($file)
+    public function ExportXML(string $file): void
     {
         if (File::Exists($file)) {
             File::Delete($file);
@@ -227,7 +228,7 @@ class DataTable extends BaseDataTable
      * @param int $firstrow номер строки, с которой начинаются данные
      * @return void 
      */
-    public function ImportCSV($file, $firstrow = 1)
+    public function ImportCSV(string $file, int $firstrow = 1): void
     {
         $stream = File::Open($file);
 
@@ -253,7 +254,7 @@ class DataTable extends BaseDataTable
      * @param int $firstrow номер строки, с которой начинаются данные
      * @return void 
      */
-    public function ImportXML($file, $firstrow = 1)
+    public function ImportXML(string $file, int $firstrow = 1): void
     {
         $xml = XmlNode::Load($file, true);
         $rows = $xml->Query('//row');

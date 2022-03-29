@@ -21,15 +21,15 @@ namespace Colibri\Web;
 class RequestFileCollection extends RequestCollection
 {
 
-    public function __construct($data = array(), $mq = null)
+    public function __construct(mixed $data = array())
     {
         // $data [key => value]
         // value может быть массивом упакованным в поля
         $add = [];
-        foreach($data as $key => $value) {
-            if(is_array($value['name'])) {
+        foreach ($data as $key => $value) {
+            if (is_array($value['name'])) {
                 $add[$key] = [];
-                for($i=0; $i<count($value['name']); $i++) {
+                for ($i = 0; $i < count($value['name']); $i++) {
                     $add[$key][] = (object)[
                         'name' => $value['name'][$i],
                         'type' => $value['type'][$i],
@@ -43,7 +43,7 @@ class RequestFileCollection extends RequestCollection
                 $add[$key] = (object)$value;
             }
         }
-        parent::__construct($add, $mq);
+        parent::__construct($add);
     }
 
     /**
@@ -53,17 +53,17 @@ class RequestFileCollection extends RequestCollection
      * @return string|string[]
      * @testFunction testRequestCollection_stripSlashes
      */
-    protected function _stripSlashes($obj, $strip = false)
+    protected function _stripSlashes(string|array $obj, bool $strip = false): string|array
     {
         return $obj;
     }
 
-    public function Item($key)
+    public function Item(string $key): array |RequestedFile|null
     {
         if ($this->Exists($key)) {
-            if(is_array($this->data[$key])) {
+            if (is_array($this->data[$key])) {
                 $ret = [];
-                foreach($this->data[$key] as $file) {
+                foreach ($this->data[$key] as $file) {
                     $ret[] = new RequestedFile($file);
                 }
                 return $ret;
@@ -73,17 +73,17 @@ class RequestFileCollection extends RequestCollection
         }
         return null;
     }
-    
-    public function ItemAt($index)
+
+    public function ItemAt(int $index): null|RequestedFile|array
     {
         $key = $this->Key($index);
         if (!$key) {
             return null;
         }
 
-        if(is_array($this->data[$key])) {
+        if (is_array($this->data[$key])) {
             $ret = [];
-            foreach($this->data[$key] as $file) {
+            foreach ($this->data[$key] as $file) {
                 $ret[] = new RequestedFile($file);
             }
             return $ret;

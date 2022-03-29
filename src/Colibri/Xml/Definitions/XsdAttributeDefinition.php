@@ -35,14 +35,14 @@ class XsdAttributeDefinition implements \JsonSerializable
      *
      * @var XmlNode
      */
-    private $_node;
+    private ?XmlNode $_node;
 
     /**
      * Схема
      *
      * @var XsdSchemaDefinition
      */
-    private $_schema;
+    private ?XsdSchemaDefinition $_schema;
 
     /**
      * Конструктор
@@ -50,7 +50,7 @@ class XsdAttributeDefinition implements \JsonSerializable
      * @param XmlNode $attributeNode
      * @param XsdSchemaDefinition $schema
      */
-    public function __construct($attributeNode, $schema)
+    public function __construct(XmlNode $attributeNode, XsdSchemaDefinition $schema)
     {
         $this->_node = $attributeNode;
         $this->_schema = $schema;
@@ -63,28 +63,36 @@ class XsdAttributeDefinition implements \JsonSerializable
      * @return mixed
      * @testFunction testXsdAttributeDefinition__get
      */
-    public function __get($name)
+    public function __get(string $name): mixed
     {
         if (strtolower($name) == 'annotation') {
             return $this->_node->Item('xs:annotation') ? trim($this->_node->Item('xs:annotation')->value, "\r\t\n ") : '';
-        } else if (strtolower($name) == 'name') {
+        }
+        else if (strtolower($name) == 'name') {
             return $this->_node->attributes->name->value;
-        } else if (strtolower($name) == 'type') {
+        }
+        else if (strtolower($name) == 'type') {
             if ($this->_node->attributes->type) {
                 return isset($this->_schema->types[$this->_node->attributes->type->value]) ? $this->_schema->types[$this->_node->attributes->type->value] : new XsdBaseTypeDefinition($this->_node->attributes->type->value);
             }
-            return new XsdSimpleTypeDefinition($this->_node->Item('xs:simpleType')); 
-        } else if (strtolower($name) == 'use') {
+            return new XsdSimpleTypeDefinition($this->_node->Item('xs:simpleType'));
+        }
+        else if (strtolower($name) == 'use') {
             return $this->_node->attributes->use ? $this->_node->attributes->use->value : null;
-        } else if (strtolower($name) == 'default') {
+        }
+        else if (strtolower($name) == 'default') {
             return $this->_node->attributes->default ? $this->_node->attributes->default->value : null;
-        } else if (strtolower($name) == 'group') {
+        }
+        else if (strtolower($name) == 'group') {
             return $this->_node->attributes->group ? $this->_node->attributes->group->value : null;
-        } else if (strtolower($name) == 'autocomplete') {
+        }
+        else if (strtolower($name) == 'autocomplete') {
             return $this->_node->attributes->autocomplete && $this->_node->attributes->autocomplete->value ? explode(',', $this->_node->attributes->autocomplete->value) : null;
-        } else if (strtolower($name) == 'generate') {
+        }
+        else if (strtolower($name) == 'generate') {
             return $this->_node->attributes->generate && $this->_node->attributes->generate->value ? $this->_node->attributes->generate->value : null;
-        } else if (strtolower($name) == 'lookup') {
+        }
+        else if (strtolower($name) == 'lookup') {
             return $this->_node->attributes->lookup && $this->_node->attributes->lookup->value ? $this->_node->attributes->lookup->value : null;
         }
     }
@@ -95,7 +103,7 @@ class XsdAttributeDefinition implements \JsonSerializable
      * @return object
      * @testFunction testXsdAttributeDefinitionJsonSerialize
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): object
     {
         return (object)array('name' => $this->name, 'annotation' => $this->annotation, 'type' => $this->type, 'use' => $this->use, 'default' => $this->default, 'group' => $this->group, 'autocomplete' => $this->autocomplete, 'generate' => $this->generate, 'lookup' => $this->lookup);
     }
@@ -106,7 +114,7 @@ class XsdAttributeDefinition implements \JsonSerializable
      * @return object
      * @testFunction testXsdAttributeDefinitionToObject
      */
-    public function ToObject()
+    public function ToObject(): object
     {
         return (object)array('name' => $this->name, 'annotation' => $this->annotation, 'type' => $this->type->ToObject(), 'use' => $this->use, 'default' => $this->default, 'group' => $this->group, 'autocomplete' => $this->autocomplete, 'generate' => $this->generate, 'lookup' => $this->lookup);
     }

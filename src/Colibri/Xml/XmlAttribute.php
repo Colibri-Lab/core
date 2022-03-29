@@ -28,14 +28,14 @@ class XmlAttribute
      *
      * @var mixed
      */
-    private $_data;
+    private mixed $_data;
 
     /**
      * Конструктор
      *
      * @param \DOMNode $data raw узел для инициализации врапера
      */
-    public function __construct($data)
+    public function __construct(\DOMNode $data)
     {
         $this->_data = $data;
     }
@@ -47,7 +47,7 @@ class XmlAttribute
      * @return mixed
      * @testFunction testXmlAttribute__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         switch (strtolower($property)) {
             case 'value':
@@ -72,7 +72,7 @@ class XmlAttribute
      * @return void
      * @testFunction testXmlAttribute__set
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value): void
     {
         if (strtolower($property) == 'value') {
             $this->_data->nodeValue = $value;
@@ -85,7 +85,7 @@ class XmlAttribute
      * @return void
      * @testFunction testXmlAttributeRemove
      */
-    public function Remove()
+    public function Remove(): void
     {
         $this->_data->parentNode->removeAttributeNode($this->_data);
     }

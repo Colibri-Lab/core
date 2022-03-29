@@ -40,9 +40,9 @@ class Bundle
      * @return string
      * @testFunction testBundleCompile
      */
-    public static function Compile($name, $exts, $path, $exception = array(), $preg = false, $returnContent = false/*, &$returnFiles = []*/)
+    public static function Compile(string $name, array $exts, string $path, array $exception = array(), bool $preg = false, bool $returnContent = false /*, &$returnFiles = []*/): string
     {
-        $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
+        $mode = App::$config ?App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
         if (!$returnContent && !in_array($mode, [App::ModeDevelopment, App::ModeLocal]) && File::Exists($jpweb)) {
             return str_replace(App::$webRoot, '/', $jpweb);
@@ -61,7 +61,7 @@ class Bundle
 
             // $f = new File($file)
 
-            $c = File::Read($file)."\n";
+            $c = File::Read($file) . "\n";
             $args = (object)['content' => $c, 'file' => $file];
             $args = App::$instance->DispatchEvent(EventsContainer::BundleFile, $args);
             if (isset($args->content)) {
@@ -84,7 +84,7 @@ class Bundle
         return str_replace(App::$webRoot, '/', $jpweb);
     }
 
-    public static function LastModified($name, $exts, $path, $exception = array(), $preg = false)
+    public static function LastModified(string $name, array $exts, string $path, array $exception = array(), bool $preg = false): int
     {
         $lastModified = 0;
         $namespaces = self::GetNamespaceAssets($path, $exts, $exception, $preg);
@@ -111,9 +111,9 @@ class Bundle
      * @return string
      * @testFunction testBundleCompile
      */
-    public static function CompileFiles($name, $exts, $files, $returnContent = false)
+    public static function CompileFiles(string $name, array $exts, array $files, bool $returnContent = false): string
     {
-        $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
+        $mode = App::$config ?App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
         if (!$returnContent && !in_array($mode, [App::ModeDevelopment, App::ModeLocal]) && File::Exists($jpweb)) {
             return str_replace(App::$webRoot, '/', $jpweb);
@@ -150,7 +150,7 @@ class Bundle
     /**
      * @testFunction testBundleGetNamespaceAssets
      */
-    protected static function GetNamespaceAssets($path, $exts, $exception = [], $preg = false)
+    protected static function GetNamespaceAssets(string $path, array $exts, array $exception = [], bool $preg = false): array
     {
         $files = [];
 
@@ -164,7 +164,7 @@ class Bundle
             }
         }
 
-        $foundDirectories = $di->Directories($path, '', 'filename', SORT_ASC); 
+        $foundDirectories = $di->Directories($path, 'filename', SORT_ASC);
         foreach ($foundDirectories as $dir) {
             /** @var Directory $dir */
 
@@ -186,14 +186,14 @@ class Bundle
      * @return array
      * @testFunction testBundleGetChildAssets
      */
-    protected static function GetChildAssets($path, $exts, $exception = [], $preg = false)
+    protected static function GetChildAssets(string $path, array $exts, array $exception = [], bool $preg = false): array
     {
         $files = [];
 
         $di = new Finder();
         $foundFiles = $di->Files($path, '/^[^\.]/');
 
-        $foundDirectories = $di->Directories($path, '', 'filename', SORT_ASC);
+        $foundDirectories = $di->Directories($path, 'filename', SORT_ASC);
         foreach ($foundDirectories as $dir) {
             /** @var Directory $dir */
 
@@ -222,12 +222,12 @@ class Bundle
      * @return string
      * @testFunction testBundleAutomate
      */
-    public static function Automate($name, $ext, $ar)
+    public static function Automate(string $name, array |string $ext, array $ar): string
     {
-        $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
+        $mode = App::$config ?App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
 
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
-        if(File::Exists($jpweb)) {
+        if (File::Exists($jpweb)) {
             if (in_array($mode, [App::ModeDevelopment, App::ModeLocal])) {
                 $lastModified = 0;
                 foreach ($ar as $settings) {
@@ -237,10 +237,11 @@ class Bundle
                         isset($settings['exception']) ? $settings['exception'] : array(),
                         isset($settings['preg']) ? $settings['preg'] : false));
                 }
-                if(filemtime($jpweb) > $lastModified) {
+                if (filemtime($jpweb) > $lastModified) {
                     return str_replace(App::$webRoot, '/', $jpweb . '?' . md5_file($jpweb));
                 }
-            } else {
+            }
+            else {
                 return str_replace(App::$webRoot, '/', $jpweb . '?' . md5_file($jpweb));
             }
         }
@@ -308,5 +309,6 @@ class Bundle
         return str_replace(App::$webRoot, '/', $jpweb . '?' . $recacheKey);
     }
 
-    
+
+
 }

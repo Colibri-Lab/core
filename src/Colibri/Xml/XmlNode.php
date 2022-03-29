@@ -57,14 +57,14 @@ class XmlNode
      *
      * @var \DOMDocument
      */
-    private $_document;
+    private ?\DOMDocument $_document;
 
     /**
      * Raw обьект элемента
      *
      * @var \DOMNode
      */
-    private $_node;
+    private ?\DOMNode $_node;
 
     /**
      * Конструктор
@@ -72,7 +72,7 @@ class XmlNode
      * @param \DOMNode $node Узел
      * @param \DOMDocument $dom Документ
      */
-    public function __construct($node, $dom = null)
+    public function __construct(\DOMNode $node, ?\DOMDocument $dom = null)
     {
         $this->_node = $node;
         $this->_document = $dom;
@@ -86,7 +86,7 @@ class XmlNode
      * @return XmlNode
      * @testFunction testXmlNodeLoad
      */
-    public static function Load($xmlFile, $isFile = true)
+    public static function Load(string $xmlFile, bool $isFile = true): XmlNode
     {
         $dom = new \DOMDocument();
         $dom->preserveWhiteSpace = false;
@@ -98,17 +98,21 @@ class XmlNode
                     throw new AppException('Empty xml string');
                 }
                 $dom->loadXML($xmlFile);
-            } catch (\Throwable $e) {
+            }
+            catch (\Throwable $e) {
                 throw new AppException('Error in file ' . $xmlFile . ': ' . $e->getMessage());
             }
-        } else {
+        }
+        else {
             if (File::Exists($xmlFile)) {
                 try {
                     $dom->load($xmlFile);
-                } catch (\Throwable $e) {
+                }
+                catch (\Throwable $e) {
                     throw new AppException('Error in ' . $xmlFile . ': ' . $e->getMessage());
                 }
-            } else {
+            }
+            else {
                 throw new AppException('File ' . $xmlFile . ' does not exists');
             }
         }
@@ -124,15 +128,16 @@ class XmlNode
      * @return XmlNode
      * @testFunction testXmlNodeLoadNode
      */
-    public static function LoadNode($xmlString, $encoding = 'utf-8')
+    public static function LoadNode(string $xmlString, string $encoding = 'utf-8'): XmlNode
     {
         try {
             $dom = new \DOMDocument('1.0', $encoding);
             $dom->preserveWhiteSpace = false;
-            $dom->formatOutput = true;            
+            $dom->formatOutput = true;
             $dom->loadXML((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString);
             return new XmlNode($dom->documentElement, $dom);
-        } catch (\Throwable $e) {
+        }
+        catch (\Throwable $e) {
             throw new AppException('Error in xml data ' . ((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString) . ': ' . $e->getMessage());
         }
     }
@@ -145,15 +150,16 @@ class XmlNode
      * @return XmlNode
      * @testFunction testXmlNodeLoadHtmlNode
      */
-    public static function LoadHtmlNode($xmlString, $encoding = 'utf-8')
+    public static function LoadHtmlNode(string $xmlString, string $encoding = 'utf-8'): XmlNode
     {
         try {
             $dom = new \DOMDocument('1.0', $encoding);
             $dom->preserveWhiteSpace = false;
-            $dom->formatOutput = true;            
+            $dom->formatOutput = true;
             $dom->loadHTML((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString);
             return new XmlNode($dom->documentElement, $dom);
-        } catch (\Throwable $e) {
+        }
+        catch (\Throwable $e) {
             throw new AppException('Error in xml data ' . ((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString) . ': ' . $e->getMessage());
         }
     }
@@ -169,27 +175,31 @@ class XmlNode
     /**
      * @testFunction testXmlNodeLoadHTML
      */
-    public static function LoadHTML($htmlFile, $isFile = true, $encoding = 'utf-8')
+    public static function LoadHTML(string $htmlFile, bool $isFile = true, string $encoding = 'utf-8'): XmlNode
     {
         libxml_use_internal_errors(true);
 
         $dom = new \DOMDocument('1.0', $encoding);
         $dom->preserveWhiteSpace = false;
-        $dom->formatOutput = true;        
+        $dom->formatOutput = true;
         if (!$isFile) {
             try {
                 $dom->loadHTML($htmlFile);
-            } catch (\Throwable $e) {
+            }
+            catch (\Throwable $e) {
                 throw new AppException('Error in file ' . $htmlFile . ': ' . $e->getMessage());
             }
-        } else {
+        }
+        else {
             if (File::Exists($htmlFile)) {
                 try {
                     $dom->loadHTMLFile($htmlFile);
-                } catch (\Throwable $e) {
+                }
+                catch (\Throwable $e) {
                     throw new AppException('Error in ' . $htmlFile . ': ' . $e->getMessage());
                 }
-            } else {
+            }
+            else {
                 throw new AppException('File ' . $htmlFile . ' does not exists');
             }
         }
@@ -201,18 +211,20 @@ class XmlNode
      * Сохраняет в файл или возвращает строку XML хранящуюся в обьекте
      *
      * @param string $filename Путь к файлу для сохранения, если не указано то вернется строка xml
-     * @return mixed 
+     * @return string|null
      * @testFunction testXmlNodeSave
      */
-    public function Save($filename = "")
+    public function Save(string $filename = ""): ?string
     {
         if (!empty($filename)) {
-            if(!File::Exists($filename)) {
+            if (!File::Exists($filename)) {
                 File::Create($filename);
             }
             $this->_document->formatOutput = true;
             $this->_document->save($filename, LIBXML_NOEMPTYTAG);
-        } else {
+            return null;
+        }
+        else {
             return $this->_document->saveXML(null, LIBXML_NOEMPTYTAG);
         }
     }
@@ -221,14 +233,16 @@ class XmlNode
      * Сохраняет в файл или возвращает строку HTML хранящуюся в обьекте
      *
      * @param string $filename Путь к файлу для сохранения, если не указано то вернется строка html
-     * @return mixed
+     * @return string|null
      * @testFunction testXmlNodeSaveHTML
      */
-    public function SaveHTML($filename = "")
+    public function SaveHTML(string $filename = ""): ?string
     {
         if (!empty($filename)) {
             $this->_document->saveHTMLFile($filename);
-        } else {
+            return null;
+        }
+        else {
             return $this->_document->saveHTML();
         }
     }
@@ -240,7 +254,7 @@ class XmlNode
      * @return mixed
      * @testFunction testXmlNode__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         switch (strtolower($property)) {
             case 'type': {
@@ -264,7 +278,8 @@ class XmlNode
             case 'attributes': {
                     if (!is_null($this->_node->attributes)) {
                         return new XmlNodeAttributeList($this->_document, $this->_node, $this->_node->attributes);
-                    } else {
+                    }
+                    else {
                         return null;
                     }
                 }
@@ -277,7 +292,8 @@ class XmlNode
             case 'nodes': {
                     if ($this->_node->childNodes) {
                         return new XmlNodeList($this->_node->childNodes, $this->_document);
-                    } else {
+                    }
+                    else {
                         return null;
                     }
                 }
@@ -335,7 +351,8 @@ class XmlNode
                         $items = $this->getElementsByName($property);
                         if ($items->Count() > 0) {
                             $item = $items->First();
-                        } else {
+                        }
+                        else {
                             if ($this->type == 1) {
                                 $item = $this->attributes->$property;
                             }
@@ -351,13 +368,14 @@ class XmlNode
      * @param string $query - запрос к каждому паренту для возвращения данных 
      * @return string
      */
-    public function Path($query) {
+    public function Path(string $query): string
+    {
 
         $ret = [];
         $parents = $this->Query('./ancestor-or-self::*');
-        foreach($parents as $parent) {
+        foreach ($parents as $parent) {
             $queryNode = $parent->Query($query);
-            if($queryNode->Count() > 0) {
+            if ($queryNode->Count() > 0) {
                 $ret[] = $queryNode->First()->value;
             }
         }
@@ -373,7 +391,7 @@ class XmlNode
      * @return void
      * @testFunction testXmlNode__set
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value): void
     {
         switch (strtolower($property)) {
             case 'value': {
@@ -405,12 +423,13 @@ class XmlNode
      * @return XmlNode|null
      * @testFunction testXmlNodeItem
      */
-    public function Item($name)
+    public function Item(string $name): ?XmlNode
     {
         $list = $this->Items($name);
         if ($list->Count() > 0) {
             return $list->First();
-        } else {
+        }
+        else {
             return null;
         }
     }
@@ -422,7 +441,7 @@ class XmlNode
      * @return XmlNodeList
      * @testFunction testXmlNodeItems
      */
-    public function Items($name)
+    public function Items(string $name): XmlNodeList
     {
         return $this->Query('./child::' . $name);
     }
@@ -434,7 +453,7 @@ class XmlNode
      * @return boolean
      * @testFunction testXmlNodeIsChildOf
      */
-    public function IsChildOf($node)
+    public function IsChildOf(XmlNode $node): bool
     {
         $p = $this;
         while ($p->parent) {
@@ -453,7 +472,7 @@ class XmlNode
      * @return void
      * @testFunction testXmlNodeAppend
      */
-    public function Append($nodes)
+    public function Append(mixed $nodes): void
     {
         if (VariableHelper::IsNull($nodes)) {
             return;
@@ -469,23 +488,27 @@ class XmlNode
                             $node->document = $this->_document;
                             $this->_node->appendChild($node->raw);
                         }
-                    } else {
+                    }
+                    else {
                         $nodes->raw = $this->_document->importNode($nodes->raw, true);
                         $nodes->document = $this->_document;
                         $this->_node->appendChild($nodes->raw);
                     }
-                } else if ($nodes->head) {
+                }
+                else if ($nodes->head) {
                     $nodes = $nodes->head;
                     $nodes->raw = $this->_document->importNode($nodes->raw, true);
                     $nodes->document = $this->_document;
                     $this->_node->appendChild($nodes->raw);
                 }
-            } else {
+            }
+            else {
                 $nodes->raw = $this->_document->importNode($nodes->raw, true);
                 $nodes->document = $this->_document;
                 $this->_node->appendChild($nodes->raw);
             }
-        } else if ($nodes instanceof XmlNodeList || is_array($nodes)) {
+        }
+        else if ($nodes instanceof XmlNodeList || is_array($nodes)) {
             foreach ($nodes as $node) {
 
                 if ($node->name == 'html') {
@@ -497,18 +520,21 @@ class XmlNode
                                 $n->document = $this->_document;
                                 $this->_node->appendChild($n->raw);
                             }
-                        } else {
+                        }
+                        else {
                             $node->raw = $this->_document->importNode($node->raw, true);
                             $node->document = $this->_document;
                             $this->_node->appendChild($node->raw);
                         }
-                    } else if ($node->head) {
+                    }
+                    else if ($node->head) {
                         $node = $node->head;
                         $node->raw = $this->_document->importNode($node->raw, true);
                         $node->document = $this->_document;
                         $this->_node->appendChild($node->raw);
                     }
-                } else {
+                }
+                else {
                     $node->raw = $this->_document->importNode($node->raw, true);
                     $node->document = $this->_document;
                     $this->_node->appendChild($node->raw);
@@ -525,13 +551,14 @@ class XmlNode
      * @return void
      * @testFunction testXmlNodeInsert
      */
-    public function Insert($nodes, $relation)
+    public function Insert(mixed $nodes, XmlNode $relation): void
     {
         if ($nodes instanceof XmlNode) {
             $nodes->raw = $this->_document->importNode($nodes->raw, true);
             $nodes->document = $this->_document;
             $this->_node->insertBefore($nodes->raw, $relation->raw);
-        } else if ($nodes instanceof XmlNodeList) {
+        }
+        else if ($nodes instanceof XmlNodeList) {
             foreach ($nodes as $node) {
                 $node->raw = $this->_document->importNode($node->raw, true);
                 $node->document = $this->_document;
@@ -546,7 +573,7 @@ class XmlNode
      * @return void
      * @testFunction testXmlNodeRemove
      */
-    public function Remove()
+    public function Remove(): void
     {
         $this->_node->parentNode->removeChild($this->_node);
     }
@@ -558,7 +585,7 @@ class XmlNode
      * @return void 
      * @testFunction testXmlNodeReplaceTo
      */
-    public function ReplaceTo($node)
+    public function ReplaceTo(XmlNode $node): void
     {
         $__node = $node->raw;
         $__node = $this->_document->importNode($__node, true);
@@ -573,7 +600,7 @@ class XmlNode
      * @return XmlNamedNodeList список узлов
      * @testFunction testXmlNodeGetElementsByName
      */
-    public function getElementsByName($name)
+    public function getElementsByName(string $name): XmlNamedNodeList
     {
         return $this->Query('./child::*[@name="' . $name . '"]', true);
     }
@@ -586,7 +613,7 @@ class XmlNode
      * @return XmlNodeList|XmlNamedNodeList
      * @testFunction testXmlNodeQuery
      */
-    public function Query($query, $returnAsNamedMap = false)
+    public function Query(string $query, bool $returnAsNamedMap = false): XmlNodeList|XmlNamedNodeList
     {
         $xq = new XmlQuery($this, $returnAsNamedMap);
         return $xq->Query($query);
@@ -600,7 +627,7 @@ class XmlNode
      * @return XmlSerialized|XmlCData|string|null
      * @testFunction testXmlNodeToObject
      */
-    public function ToObject($exclude = array(), $levels = null)
+    public function ToObject(array $exclude = array(), ?int $levels = null): XmlSerialized|XmlCData|string|null
     {
 
         if ($exclude == null) {
@@ -610,8 +637,9 @@ class XmlNode
         if ($this->attributes->Count() == 0 && $this->children->Count() == 0) {
             if ($this->isCData) {
                 return new XmlCData($this->value);
-            } else {
-                return $this->value; 
+            }
+            else {
+                return $this->value;
             }
         }
 
@@ -622,7 +650,8 @@ class XmlNode
             $excluded = false;
             if (is_array($exclude)) {
                 $excluded = in_array($attr->name, $exclude);
-            } else if (is_callable($exclude)) {
+            }
+            else if (is_callable($exclude)) {
                 $excluded = $exclude($this, $attr);
             }
             if (!$excluded) {
@@ -633,19 +662,22 @@ class XmlNode
         if ($this->children->Count() == 0) {
             if ($this->isCData) {
                 $content = new XmlCData($this->value);
-            } else {
+            }
+            else {
                 $content = $this->value;
             }
-        } else {
+        }
+        else {
             $content = [];
-            if(is_null($levels) || $levels > 0) {
+            if (is_null($levels) || $levels > 0) {
                 $children = $this->children;
                 foreach ($children as $child) {
 
                     $excluded = false;
                     if (is_array($exclude)) {
                         $excluded = in_array($child->name, $exclude);
-                    } else if (is_callable($exclude)) {
+                    }
+                    else if (is_callable($exclude)) {
                         $excluded = $exclude($this, $child);
                     }
 
@@ -693,7 +725,7 @@ class XmlNode
      * @return XmlNode
      * @testFunction testXmlNodeFromObject
      */
-    public static function FromObject($xmlSerializedObject, $elementDefinition = null)
+    public static function FromObject(XmlSerialized $xmlSerializedObject, mixed $elementDefinition = null): XmlNode
     {
 
         $xml = XmlNode::LoadNode('<' . $xmlSerializedObject->name . ' />', 'utf-8');
@@ -715,7 +747,8 @@ class XmlNode
         if ($xmlSerializedObject->content) {
             if ($xmlSerializedObject->content instanceof XmlCData) {
                 $xml->cdata = $xmlSerializedObject->content->value;
-            } else {
+            }
+            else {
                 foreach ($xmlSerializedObject->content as $name => $element) {
                     if (!is_array($element)) {
                         $element = [$element];
@@ -723,9 +756,11 @@ class XmlNode
                     foreach ($element as $el) {
                         if (is_string($el)) {
                             $xml->Append(XmlNode::LoadNode('<' . $name . '>' . $el . '</' . $name . '>'));
-                        } elseif ($el instanceof XmlCData) {
+                        }
+                        elseif ($el instanceof XmlCData) {
                             $xml->Append(XmlNode::LoadNode('<' . $name . '><![CDATA[' . $el->value . ']]></' . $name . '>'));
-                        } elseif ($el instanceof XmlSerialized && isset($elementDefinition->elements[$name])) {
+                        }
+                        elseif ($el instanceof XmlSerialized && isset($elementDefinition->elements[$name])) {
                             $xml->Append(XmlNode::FromObject($el, $elementDefinition->elements[$name]));
                         }
                     }

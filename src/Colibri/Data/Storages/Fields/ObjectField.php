@@ -26,13 +26,13 @@ class ObjectField extends ExtendedObject
      * Поле
      * @var Field
      */
-    private $_field;
+    private ?Field $_field = null;
 
     /**
      * Хранилище
      * @var Storage
      */
-    private $_storage;
+    private ?Storage $_storage = null;
     
     /**
      * Конструктор
@@ -41,7 +41,7 @@ class ObjectField extends ExtendedObject
      * @param Field $field поле
      * @return void
      */
-    public function __construct(mixed $data, Storage $storage, Field $field)
+    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
     {
         parent::__construct(is_string($data) ? (array)json_decode($data) : (array)$data, '', false);
         $this->_storage = $storage;

@@ -29,7 +29,7 @@ class Finder
      */
     public function __construct()
     {
-        // Do nothing
+    // Do nothing
     }
 
     /**
@@ -42,7 +42,7 @@ class Finder
      * @return ArrayList
      * @testFunction testFinderFiles
      */
-    public function Files($path, $match = '', $sortField = false, $sortType = false)
+    public function Files(string $path, string $match = '', bool $sortField = false, bool $sortType = false)
     {
 
         $ret = new ArrayList();
@@ -71,12 +71,12 @@ class Finder
      *
      * @param string $path путь к папке
      * @param string $match регулярное выражение
-     * @param boolean $sortField поле для сориторовки
-     * @param boolean $sortType тип сортировки
+     * @param string $sortField поле для сориторовки
+     * @param int $sortType тип сортировки
      * @return ArrayList
      * @testFunction testFinderFiles
      */
-    public function FilesRecursive($path, $match = '/.*/', $sortField = false, $sortType = false)
+    public function FilesRecursive(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC): ArrayList
     {
 
         $directoryIterator = new RecursiveDirectoryIterator($path);
@@ -100,11 +100,11 @@ class Finder
      * q 
      * @param string $path путь к папке
      * @param string $sortField поле для сортировки
-     * @param string $sortType типа сортировки
+     * @param int $sortType типа сортировки
      * @return ArrayList
      * @testFunction testFinderDirectories
      */
-    public function Directories($path, $sortField = false, $sortType = false)
+    public function Directories(string $path, string $sortField = '', int $sortType = SORT_ASC): ArrayList
     {
 
         $ret = new ArrayList();
@@ -127,7 +127,7 @@ class Finder
      * @return ArrayList
      * @testFunction testFinderChildren
      */
-    public function Children($path)
+    public function Children(string $path): ArrayList
     {
 
         $ret = new ArrayList();
@@ -136,10 +136,13 @@ class Finder
         foreach ($files as $file) {
             if (filetype($file) == "dir") {
                 $ret->Add(new Directory($file . '/'));
-            } else {
+            }
+            else {
                 $ret->Add(new File($file));
             }
         }
         return $ret;
     }
+
+
 }

@@ -23,25 +23,25 @@ interface ICollection
      * @param string $key
      * @return boolean
      */
-    public function Exists($key);
+    public function Exists(string $key): bool;
     /**
      * Вернуть ключ по индексу
      * @param int $index
      * @return string
      */
-    public function Key($index);
+    public function Key(int $index): ?string;
     /**
      * Вернуть значение по ключу
      * @param string $key
      * @return mixed
      */
-    public function Item($key);
+    public function Item(string $key): mixed;
     /**
      * Вернуть значение по индексу
      * @param int $index
      * @return mixed
      */
-    public function ItemAt($index);
+    public function ItemAt(int $index): mixed;
 
     /**
      * Добавить ключ значение, если ключ есть, то будет произведена замена
@@ -49,23 +49,23 @@ interface ICollection
      * @param mixed $value
      * @return mixed
      */
-    public function Add($key, $value);
+    public function Add(string $key, mixed $value): mixed;
     /**
      * Удалить ключ и значение из массива
      * @param string $key
      * @return boolean
      */
-    public function Delete($key);
+    public function Delete(string $key): bool;
 
     /**
      * В строку, с соединителями
      * @param string[] $splitters
      * @return string
      */
-    public function ToString($splitters = null);
+    public function ToString(array $splitters = null): string;
     /**
      * вернуть данные в виде обычного массива
      * @return array
      */
-    public function ToArray();
+    public function ToArray(): array;
 }

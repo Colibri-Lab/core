@@ -5,11 +5,11 @@ namespace Colibri\Utils\Menu;
 class Item implements \JsonSerializable
 {
 
-    private $_data;
+    private ?object $_data = null;
 
-    public $parent;
+    public ?Item $parent = null;
 
-    public function __construct($name, $description, $className = '', $isImportant = false, $execute = '')
+    public function __construct(string $name, string $description, string $className = '', bool $isImportant = false, string $execute = '')
     {
         $this->parent = null;
         $this->_data = (object)[
@@ -25,7 +25,7 @@ class Item implements \JsonSerializable
 
     }
 
-    public function __get($name)
+    public function __get(string $name): mixed
     {
         if (isset($this->_data->$name)) {
             return $this->_data->$name;
@@ -33,12 +33,12 @@ class Item implements \JsonSerializable
         return null;
     }
 
-    static function Create($name, $description, $className = '', $isImportant = false, $execute = '')
+    static function Create(string $name, string $description, string $className = '', bool $isImportant = false, string $execute = ''): self
     {
         return new self($name, $description, $className, $isImportant, $execute);
     }
 
-    public function Route()
+    public function Route(): string
     {
         $route = '/';
         if ($this->parent) {
@@ -47,9 +47,9 @@ class Item implements \JsonSerializable
         return $route . $this->name . '/';
     }
 
-    public function Merge(array $items)
+    public function Merge(array $items): void
     {
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $this->Add($item);
         }
     }
@@ -64,7 +64,7 @@ class Item implements \JsonSerializable
         return null;
     }
 
-    public function Add(Item $item)
+    public function Add(Item $item): Item
     {
         $item->parent = $this;
         if (!($found = $this->_find($item->name))) {
@@ -77,7 +77,7 @@ class Item implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): object|array
     {
         $this->_data->index = $this->Route();
         return $this->_data;

@@ -27,7 +27,7 @@ class FileLogger extends Logger
      * Текущая позиция
      * @var int
      */
-    private $_currentPos;
+    private int $_currentPos;
 
     /**
      * Конструктор
@@ -35,9 +35,9 @@ class FileLogger extends Logger
      * @param int $maxLogLevel Уровень логирования
      * @param mixed $device название файла
      */
-    public function __construct($maxLogLevel = 7, $device = '')
+    public function __construct(int $maxLogLevel = 7, mixed $device = '')
     {
-        $this->_device = !$device ? App::$webRoot . '_cache/unnamed.log' : App::$webRoot . $device;
+        $this->_device = !$device ?App::$webRoot . '_cache/unnamed.log' : App::$webRoot . $device;
         $this->_maxLogLevel = $maxLogLevel;
     }
 
@@ -48,10 +48,10 @@ class FileLogger extends Logger
      * @return mixed
      * @testFunction testFileLogger__get
      */
-    public function __get(string $prop)
+    public function __get(string $prop): mixed
     {
         $prop = strtolower($prop);
-        switch ($prop) { 
+        switch ($prop) {
             case 'device':
                 return $this->_device;
             case 'position':
@@ -71,7 +71,7 @@ class FileLogger extends Logger
      * @return void
      * @testFunction testFileLoggerWriteLine
      */
-    public function WriteLine($level, $data)
+    public function WriteLine(int $level, mixed $data): void
     {
 
         if ($level > $this->_maxLogLevel) {
@@ -104,7 +104,7 @@ class FileLogger extends Logger
      * @return mixed
      * @testFunction testFileLoggerContent
      */
-    public function Content()
+    public function Content(): mixed
     {
         return File::Read($this->_device);
     }
@@ -116,7 +116,7 @@ class FileLogger extends Logger
      * @return void
      * @testFunction testFileLoggerOpen
      */
-    public function Open($position = 0)
+    public function Open(int $position = 0): void
     {
         if (!file_exists($this->_device)) {
             touch($this->_device);
@@ -131,7 +131,7 @@ class FileLogger extends Logger
      * @return void
      * @testFunction testFileLoggerClose
      */
-    public function Close()
+    public function Close(): void
     {
         fclose($this->_handler);
         $this->_handler = false;
@@ -144,7 +144,7 @@ class FileLogger extends Logger
      * @return array массив строк лога
      * @testFunction testFileLoggerRead
      */
-    public function Read()
+    public function Read(): array
     {
         $results = array();
         fseek($this->_handler, $this->_currentPos);

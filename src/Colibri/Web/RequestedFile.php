@@ -29,44 +29,44 @@ class RequestedFile
      *
      * @var string
      */
-    public $name;
+    public string $name;
     /**
      * Расширение файла
      *
      * @var string
      */
-    public $ext;
+    public string $ext;
     /**
      * Тип файла
      *
      * @var string
      */
-    public $mimetype;
+    public string $mimetype;
     /**
      * Ошибка
      *
      * @var string
      */
-    public $error;
+    public string $error;
     /**
      * Размер файла в байтах
      *
      * @var int
      */
-    public $size;
+    public int $size;
     /**
      * Пусть к временному файлу
      *
      * @var string
      */
-    public $temporary;
+    public string $temporary;
 
     /**
      * Конструктор
      *
      * @param array $arrFILE
      */
-    function __construct($arrFILE)
+    function __construct(array $arrFILE)
     {
 
         if (!$arrFILE) {
@@ -92,12 +92,13 @@ class RequestedFile
      * @param string $prop
      * @return mixed
      */
-    public function __get($prop)
+    public function __get(string $prop): mixed
     {
         $prop = strtolower($prop);
         if ($prop == 'isvalid') {
             return !empty($this->name);
-        } else if ($prop == 'binary') {
+        }
+        else if ($prop == 'binary') {
             return file_get_contents($this->temporary);
         }
         return null;
@@ -108,9 +109,9 @@ class RequestedFile
      */
     function __destruct()
     {
-        // if (file_exists($this->temporary)) {
-        //     unlink($this->temporary);
-        // }
+    // if (file_exists($this->temporary)) {
+    //     unlink($this->temporary);
+    // }
     }
 
     /**
@@ -120,7 +121,7 @@ class RequestedFile
      * @return void
      * @testFunction testRequestedFileMoveTo
      */
-    function MoveTo($path)
+    function MoveTo(string $path): void
     {
         rename($this->temporary, $path);
     }

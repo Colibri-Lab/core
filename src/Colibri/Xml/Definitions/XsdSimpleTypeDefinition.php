@@ -29,14 +29,14 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
      *
      * @var XmlNode
      */
-    private $_node;
+    private ?XmlNode $_node;
 
     /**
      * Конструктор
      *
      * @param XmlNode|null $typeNode
      */
-    public function __construct($typeNode)
+    public function __construct(?XmlNode $typeNode)
     {
         $this->_node = $typeNode;
     }
@@ -48,18 +48,20 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
      * @return mixed
      * @testFunction testXsdSimpleTypeDefinition__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         if (strtolower($property) == 'name') {
             return $this->_node->attributes->name ? $this->_node->attributes->name->value : 'simpleType';
-        } else if (strtolower($property) == 'annotation') {
+        }
+        else if (strtolower($property) == 'annotation') {
             $annotation = [];
             $anno = $this->_node->Query('./xs:annotation');
             foreach ($anno as $a) {
                 $annotation[] = $a->value;
             }
             return trim(implode('', $annotation), "\n\r\t ");
-        } else if (strtolower($property) == 'restrictions') {
+        }
+        else if (strtolower($property) == 'restrictions') {
             $rest = $this->_node->Item('xs:restriction');
             if (!$rest) {
                 return null;
@@ -97,7 +99,8 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
                 }
             }
             return $returnRestrictions;
-        } else if (strtolower($property) == 'attributes') {
+        }
+        else if (strtolower($property) == 'attributes') {
             $attributes = [];
             $attrs = $this->_node->Query('./xs:attribute');
             if ($attrs->Count() > 0) {
@@ -116,7 +119,7 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
      * @return object
      * @testFunction testXsdSimpleTypeDefinitionJsonSerialize
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): object|array
     {
         return (object)array('name' => $this->name, 'annotation' => $this->annotation, 'restrictions' => $this->restrictions, 'attributes' => $this->attributes);
     }
@@ -127,7 +130,7 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
      * @return object
      * @testFunction testXsdSimpleTypeDefinitionToObject
      */
-    public function ToObject()
+    public function ToObject(): object
     {
         return (object)array('name' => $this->name, 'annotation' => $this->annotation, 'restrictions' => $this->restrictions, 'attributes' => $this->attributes);
     }

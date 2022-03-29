@@ -11,12 +11,13 @@
  */
 
 namespace Colibri\Collections;
+use IteratorAggregate;
 
 /**
  * Базовый класс коллекций
  * @testFunction testCollection
  */
-class Collection implements ICollection, \IteratorAggregate
+class Collection implements ICollection, IteratorAggregate
 {
 
     /**
@@ -33,7 +34,7 @@ class Collection implements ICollection, \IteratorAggregate
      * 
      * @param mixed $data
      */
-    public function __construct($data = array())
+    public function __construct(mixed $data = array())
     {
         if (is_array($data)) {
             $this->data = $data;
@@ -54,7 +55,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param string $key - ключ для проверки
      * @testFunction testCollectionExists
      */
-    public function Exists($key)
+    public function Exists(string $key): bool
     {
         return array_key_exists($key, $this->data);
     }
@@ -65,7 +66,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param mixed $item - значение для проверки
      * @testFunction testCollectionContains
      */
-    public function Contains($item)
+    public function Contains(mixed $item): bool 
     {
         return in_array($item, $this->data, true);
     }
@@ -76,7 +77,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param mixed $item - значение для поиска
      * @testFunction testCollectionIndexOf
      */
-    public function IndexOf($item)
+    public function IndexOf(mixed $item): mixed
     {
         $return = array_search($item, array_values($this->data), true);
         if ($return === false) {
@@ -91,7 +92,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param mixed $index
      * @testFunction testCollectionKey
      */
-    public function Key($index)
+    public function Key(int $index): ?string
     {
         if ($index >= $this->Count() || $index < 0) {
             return null;
@@ -111,7 +112,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param mixed $key
      * @testFunction testCollectionItem
      */
-    public function Item($key)
+    public function Item(mixed $key): mixed
     {
         if ($this->Exists($key)) {
             return $this->data[$key];
@@ -125,7 +126,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param mixed $index
      * @testFunction testCollectionItemAt
      */
-    public function ItemAt($index)
+    public function ItemAt(mixed $index): mixed
     {
         $key = $this->Key($index);
         if (!$key) {
@@ -139,7 +140,7 @@ class Collection implements ICollection, \IteratorAggregate
      *
      * @testFunction testCollectionGetIterator
      */
-    public function getIterator()
+    public function getIterator(): CollectionIterator
     {
         return new CollectionIterator($this);
     }
@@ -152,7 +153,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param mixed $value
      * @testFunction testCollectionAdd
      */
-    public function Add($key, $value)
+    public function Add(string $key, mixed $value): mixed
     {
         $this->data[strtolower($key)] = $value;
         return $value;
@@ -165,7 +166,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param mixed $from - коллекция | массив
      * @testFunction testCollectionAppend
      */
-    public function Append($from)
+    public function Append(mixed $from): void
     {
         foreach ($from as $key => $value) {
             if (is_null($value)) {
@@ -184,7 +185,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param mixed $value
      * @testFunction testCollectionInsert
      */
-    public function Insert($index, $key, $value)
+    public function Insert(mixed $index, mixed $key, mixed $value): mixed
     {
         $before = array_splice($this->data, 0, $index);
         $this->data = array_merge(
@@ -202,7 +203,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @return boolean
      * @testFunction testCollectionDelete
      */
-    public function Delete($key)
+    public function Delete(string $key): bool
     {
         $key = strtolower($key);
         if (array_key_exists($key, $this->data)) {
@@ -219,7 +220,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @return boolean
      * @testFunction testCollectionDeleteAt
      */
-    public function DeleteAt($index)
+    public function DeleteAt(int $index): bool
     {
         $key = $this->Key($index);
         if ($key !== null) {
@@ -235,7 +236,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @return void
      * @testFunction testCollectionClear
      */
-    public function Clear()
+    public function Clear(): void
     {
         $this->data = array();
     }
@@ -248,7 +249,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @return string
      * @testFunction testCollectionToString
      */
-    public function ToString($splitters = null, $mapFunction = false)
+    public function ToString(array $splitters = null, mixed $mapFunction = false): string
     {
         $ret = [];
         foreach ($this->data as $k => $v) {
@@ -270,7 +271,7 @@ class Collection implements ICollection, \IteratorAggregate
     /**
      * @testFunction testCollectionFromString
      */
-    public static function FromString($string, $splitters = null)
+    public static function FromString(string $string, array $splitters = null): Collection
     {
         if (!$splitters) {
             return new Collection();
@@ -290,7 +291,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @return array
      * @testFunction testCollectionToArray
      */
-    public function ToArray()
+    public function ToArray(): array
     {
         return $this->data;
     }
@@ -301,7 +302,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @return int
      * @testFunction testCollectionCount
      */
-    public function Count()
+    public function Count(): int
     {
         return count($this->data);
     }
@@ -312,7 +313,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @return mixed
      * @testFunction testCollectionFirst
      */
-    public function First()
+    public function First(): mixed
     {
         return $this->ItemAt(0);
     }
@@ -323,7 +324,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @return mixed
      * @testFunction testCollectionLast
      */
-    public function Last()
+    public function Last(): mixed
     {
         return $this->ItemAt($this->Count() - 1);
     }
@@ -334,7 +335,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param string $property
      * @return mixed
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         return $this->Item(strtolower($property));
     }
@@ -346,7 +347,7 @@ class Collection implements ICollection, \IteratorAggregate
      * @param mixed $value
      * @return void
      */
-    public function __set($key, $value)
+    public function __set(string $key, mixed $value): void
     {
         $this->Add($key, $value);
     }

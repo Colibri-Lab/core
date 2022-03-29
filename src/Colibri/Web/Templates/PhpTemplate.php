@@ -20,15 +20,17 @@ use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 use Colibri\Utils\ExtendedObject;
 
-class PhpTemplate extends Template {
+class PhpTemplate extends Template
+{
 
     /**
      * Конструктор
      *
      * @param string $file файл шаблона
      */
-    public function __construct($file) {
-        parent::__construct($file.'.php');
+    public function __construct($file)
+    {
+        parent::__construct($file . '.php');
     }
 
 
@@ -38,10 +40,11 @@ class PhpTemplate extends Template {
      * @param mixed $args
      * @return string
      */
-    public function Render($args = null) {
+    public function Render($args = null)
+    {
 
-        if(!File::Exists($this->_file)) {
-            throw new AppException('Unknown template, realpath: '.$this->_file);
+        if (!File::Exists($this->_file)) {
+            throw new AppException('Unknown template, realpath: ' . $this->_file);
         }
 
         $args = new ExtendedObject($args);
@@ -51,7 +54,7 @@ class PhpTemplate extends Template {
 
         ob_start();
 
-        require($this->_file); 
+        require($this->_file);
 
         $ret = ob_get_contents();
         ob_end_clean();
@@ -69,9 +72,10 @@ class PhpTemplate extends Template {
      * @param ExtendedObject $args аргументы для передачи в код
      * @return string
      */
-    public function RenderCode($code, $args) {
-        return preg_replace_callback('/\{\?\=(.*?)\?\}/', function($match) use ($args) {
-            return eval('return '.html_entity_decode($match[1]).';');
+    public function RenderCode($code, $args)
+    {
+        return preg_replace_callback('/\{\?\=(.*?)\?\}/', function ($match) use ($args) {
+            return eval('return ' . html_entity_decode($match[1]) . ';');
         }, $code);
     }
 

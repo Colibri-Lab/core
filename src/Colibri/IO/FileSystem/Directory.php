@@ -34,28 +34,28 @@ class Directory extends Node
      *
      * @var string
      */
-    private $path;
+    private string $path;
 
     /**
      * Родительская директория
      *
      * @var Directory
      */
-    private $parent;
+    private ?Directory $parent = null;
 
     /**
      * Путь в виде массива  
      *
      * @var array
      */
-    private $pathArray;
+    private array $pathArray = [];
 
     /**
      * Конструктор
      *
      * @param string $path
      */
-    public function __construct($path)
+    public function __construct(string $path)
     {
         $this->path = dirname($path[strlen($path) - 1] == '/' ? $path . '#' : $path);
     }
@@ -67,7 +67,7 @@ class Directory extends Node
      * @return mixed
      * @testFunction testDirectory__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         $return = null;
         switch (strtolower($property)) {
@@ -118,7 +118,7 @@ class Directory extends Node
      * @return void
      * @testFunction testDirectoryCopyTo
      */
-    public function CopyTo($path)
+    public function CopyTo(string $path): void
     {
         self::Copy($this->path, $path);
     }
@@ -130,7 +130,7 @@ class Directory extends Node
      * @return void
      * @testFunction testDirectoryMoveTo
      */
-    public function MoveTo($path)
+    public function MoveTo(string $path): void
     {
         self::Move($this->path, $path);
     }
@@ -141,7 +141,7 @@ class Directory extends Node
      * @return string
      * @testFunction testDirectoryToString
      */
-    public function ToString()
+    public function ToString(): string
     {
         return $this->path;
     }
@@ -153,11 +153,12 @@ class Directory extends Node
      * @return boolean
      * @testFunction testDirectoryIsDir
      */
-    public static function IsDir($path)
+    public static function IsDir(string $path): bool
     {
         try {
             return substr($path, strlen($path) - 1, 1) == '/';
-        } catch (Exception $e) {
+        }
+        catch (Exception $e) {
             return false;
         }
     }
@@ -165,10 +166,10 @@ class Directory extends Node
     /**
      * Возвращает реальный путь
      * @param mixed $path относительный путь
-     * @return string|false 
+     * @return string|string 
      * @testFunction testDirectoryRealPath
      */
-    public static function RealPath($path)
+    public static function RealPath(mixed $path): bool|string
     {
         return \realpath($path);
     }
@@ -180,7 +181,7 @@ class Directory extends Node
      * @return boolean
      * @testFunction testDirectoryExists
      */
-    public static function Exists($path)
+    public static function Exists(string $path): bool
     {
         return File::Exists(dirname($path[strlen($path) - 1] == '/' ? $path . '#' : $path));
     }
@@ -194,7 +195,7 @@ class Directory extends Node
      * @return Directory
      * @testFunction testDirectoryCreate
      */
-    public static function Create($path, $recursive = true, $mode = '777')
+    public static function Create(string $path, bool $recursive = true, string $mode = '777'): Directory
     {
         if (!self::Exists($path)) {
             $path2 = dirname($path[strlen($path) - 1] == '/' ? $path . '#' : $path);
@@ -211,7 +212,7 @@ class Directory extends Node
      * @return void
      * @testFunction testDirectoryDelete
      */
-    public static function Delete($path)
+    public static function Delete(string $path): void
     {
         if (!self::Exists($path)) {
             throw new Exception('directory not exists');
@@ -223,7 +224,8 @@ class Directory extends Node
                 if ($object != '.' && $object != '..') {
                     if (is_dir($path . "/" . $object)) {
                         self::Delete($path . '/' . $object);
-                    } else {
+                    }
+                    else {
                         unlink($path . '/' . $object);
                     }
                 }
@@ -240,7 +242,7 @@ class Directory extends Node
      * @return void
      * @testFunction testDirectoryCopy
      */
-    public static function Copy($from, $to)
+    public static function Copy(string $from, string $to): void
     {
         if (!self::Exists($from)) {
             throw new Exception('source directory not exists');
@@ -255,7 +257,8 @@ class Directory extends Node
             if (($file != '.') && ($file != '..')) {
                 if (is_dir($from . '/' . $file)) {
                     self::Copy($from . '/' . $file . '/', $to . '/' . $file . '/');
-                } else {
+                }
+                else {
                     File::Copy($from . '/' . $file, $to . '/' . $file);
                 }
             }
@@ -271,7 +274,7 @@ class Directory extends Node
      * @return void
      * @testFunction testDirectoryMove
      */
-    public static function Move($from, $to)
+    public static function Move(string $from, string $to): void
     {
         if (!self::exists($from)) {
             throw new Exception('source directory not exists');
@@ -290,7 +293,7 @@ class Directory extends Node
      * @return array
      * @testFunction testDirectoryPathInfo
      */
-    public static function PathInfo($filename)
+    public static function PathInfo(string $filename): array
     {
         $pathInfo = [];
         $pathInfo['dirname'] = dirname($filename);
@@ -307,7 +310,7 @@ class Directory extends Node
      * @return array
      * @testFunction testDirectoryToArray
      */
-    public function ToArray()
+    public function ToArray(): array
     {
         return array(
             'name' => $this->name,

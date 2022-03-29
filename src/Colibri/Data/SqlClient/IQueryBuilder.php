@@ -21,41 +21,41 @@ interface IQueryBuilder
      * Создать запрос ввода данных
      *
      * @param string $table
-     * @param object $data
+     * @param array|object $data
      * @param string $returning
      * @return string
      */
-    public function CreateInsert($table, $data, $returning = '');
+    public function CreateInsert(string $table, array|object $data, string $returning = ''): string;
 
     /**
      * Создать запрос ввода данных или обновления в случае дублирования данных в индексных полях
      *
      * @param string $table
-     * @param object $data
+     * @param array|object $data
      * @param array $exceptFields
      * @param string $returning
      * @return string
      */
-    public function CreateInsertOrUpdate($table, $data, $exceptFields = array(), $returning = '');
+    public function CreateInsertOrUpdate(string $table, array|object $data, array $exceptFields = array(), string $returning = '');
 
     /**
      * Создать запрос ввода данных пачкой
      *
      * @param string $table
-     * @param array $data
+     * @param array|object $data
      * @return string
      */
-    public function CreateBatchInsert($table, $data);
+    public function CreateBatchInsert(string $table, array|object $data);
 
     /**
      * Создать запрос на обновление данных
      *
      * @param string $table
      * @param string $condition
-     * @param object $data
+     * @param array|object $data
      * @return string
      */
-    public function CreateUpdate($table, $condition, $data);
+    public function CreateUpdate(string $table, string $condition, array|object $data): string;
 
     /**
      * Создать запрос на удаление данных
@@ -64,14 +64,14 @@ interface IQueryBuilder
      * @param string $condition
      * @return string
      */
-    public function CreateDelete($table, $condition);
+    public function CreateDelete(string $table, string $condition): string;
 
     /**
      * Создать запрос на получение списка таблиц
      *
      * @return string
      */
-    public function CreateShowTables();
+    public function CreateShowTables(): string;
 
     /**
      * Создать запрос на получение списка полей в таблице
@@ -79,5 +79,5 @@ interface IQueryBuilder
      * @param string $table
      * @return string
      */
-    public function CreateShowField($table);
+    public function CreateShowField(string $table): string;
 }

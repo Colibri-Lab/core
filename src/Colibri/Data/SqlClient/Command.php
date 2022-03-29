@@ -33,35 +33,35 @@ abstract class Command
      *
      * @var IConnection
      */
-    protected $_connection = null;
+    protected ?IConnection $_connection = null;
 
     /**
      * Командная строка
      *
      * @var string
      */
-    protected $_commandtext = '';
+    protected string $_commandtext = '';
 
     /**
      * Размер страницы
      *
      * @var integer
      */
-    protected $_pagesize =  10;
+    protected int $_pagesize = 10;
 
     /**
      * Текущая строка
      *
      * @var integer
      */
-    protected $_page =  -1;
+    protected int $_page = -1;
 
     /**
      * Параметры запроса
      *
      * @var array
      */
-    protected $_params = null;
+    protected ?array $_params = null;
 
     /**
      * Конструктор
@@ -69,7 +69,7 @@ abstract class Command
      * @param string $commandtext
      * @param IConnection $connection
      */
-    public function __construct($commandtext = '', IConnection $connection = null)
+    public function __construct(string $commandtext = '', ?IConnection $connection = null)
     {
         $this->_commandtext = $commandtext;
         $this->_connection = $connection;
@@ -82,7 +82,7 @@ abstract class Command
      * @return mixed
      * @testFunction testCommand__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         $return = null;
         switch (strtolower($property)) {
@@ -126,7 +126,7 @@ abstract class Command
      * @param mixed $value
      * @testFunction testCommand__set
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value): void
     {
         switch (strtolower($property)) {
             case 'query':
@@ -160,19 +160,19 @@ abstract class Command
      *
      * @return IDataReader
      */
-    abstract public function ExecuteReader($info = true);
+    abstract public function ExecuteReader(bool $info = true): IDataReader;
 
     /**
      * Выполняет запрос и возвращает NonQueryInfo
      *
      * @return NonQueryInfo
      */
-    abstract public function ExecuteNonQuery();
+    abstract public function ExecuteNonQuery(): NonQueryInfo;
 
     /**
      * Подготавливает строку, добавляет постраничку и все, что необходимо для конкретного драйвера
      *
      * @return string
      */
-    abstract public function PrepareQueryString();
+    abstract public function PrepareQueryString(): string;
 }

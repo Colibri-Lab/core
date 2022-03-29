@@ -88,7 +88,7 @@ class Process
      * @param Worker $worker
      * @param bool $debug отобразить команду запуска воркера
      */
-    public function __construct(Worker $worker, $debug = false, $entry = '/.rpc')
+    public function __construct(Worker $worker, bool $debug = false, string $entry = '/.rpc')
     {
         $this->_worker = $worker;
         $this->_debug = $debug;
@@ -103,7 +103,7 @@ class Process
      * @return Process
      * @testFunction testProcessCreate
      */
-    public static function Create(Worker $worker, $debug = false)
+    public static function Create(Worker $worker, bool $debug = false) : Process
     {
         return new Process($worker, $debug);
     }
@@ -114,7 +114,7 @@ class Process
      * @param string $prop свойство
      * @return mixed
      */
-    public function __get($prop)
+    public function __get(string $prop) : mixed
     {
         $prop = strtolower($prop);
         if ($prop == 'pid') {
@@ -130,7 +130,7 @@ class Process
      * @return void
      * @testFunction testProcessRun
      */
-    public function Run($params)
+    public function Run(object $params) : void
     {
         if($this->_debug) {
             Debug::Out('cd ' . App::$request->server->document_root . $this->_entry . '/ && ' . Process::Handler . ' index.php ' . App::$request->host . ' / key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($params) . '"');
@@ -146,7 +146,7 @@ class Process
      * @return boolean true если запущен, false если нет
      * @testFunction testProcessIsRunning
      */
-    public function IsRunning()
+    public function IsRunning() : bool
     {
         if ($this->_pid) {
             exec('ps ' . $this->_pid, $state);
@@ -161,7 +161,7 @@ class Process
      * @return bool true если удалось остановить, false если нет
      * @testFunction testProcessStop
      */
-    public function Stop()
+    public function Stop() : bool
     {
         if ($this->IsRunning()) {
             exec('kill -KILL ' . $this->_pid);
@@ -178,7 +178,7 @@ class Process
      * @return boolean
      * @testFunction testProcessIsProcessRunning
      */
-    public static function IsProcessRunning($pid)
+    public static function IsProcessRunning(int $pid) : bool
     {
         exec('ps ' . $pid, $state);
         return (count($state) >= 2);
@@ -191,7 +191,7 @@ class Process
      * @return boolean
      * @testFunction testProcessStopProcess
      */
-    public static function StopProcess($pid)
+    public static function StopProcess(int $pid) : bool
     {
         if (Process::IsProcessRunning($pid)) {
             exec('kill -KILL ' . $pid);

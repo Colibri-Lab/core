@@ -38,7 +38,7 @@ class ArrayListIterator implements \Iterator
      *
      * @param IteratorAggregate $class
      */
-    public function __construct($class = null)
+    public function __construct(IteratorAggregate $class = null)
     {
         $this->_class = $class;
     }
@@ -49,7 +49,7 @@ class ArrayListIterator implements \Iterator
      * @return mixed
      * @testFunction testArrayListIteratorRewind
      */
-    public function rewind()
+    public function rewind(): mixed
     {
         $this->_current = 0;
         return $this->_current;
@@ -61,11 +61,12 @@ class ArrayListIterator implements \Iterator
      * @return mixed
      * @testFunction testArrayListIteratorCurrent
      */
-    public function current()
+    public function current(): mixed
     {
         if ($this->valid()) {
             return $this->_class->Item($this->_current);
-        } else {
+        }
+        else {
             return false;
         }
     }
@@ -76,7 +77,7 @@ class ArrayListIterator implements \Iterator
      * @return int
      * @testFunction testArrayListIteratorKey
      */
-    public function key()
+    public function key(): int
     {
         return $this->_current;
     }
@@ -87,12 +88,13 @@ class ArrayListIterator implements \Iterator
      * @return mixed
      * @testFunction testArrayListIteratorNext
      */
-    public function next()
+    public function next(): mixed
     {
         $this->_current++;
         if ($this->valid()) {
             return $this->_class->Item($this->_current);
-        } else {
+        }
+        else {
             return null;
         }
     }
@@ -103,7 +105,7 @@ class ArrayListIterator implements \Iterator
      * @return bool
      * @testFunction testArrayListIteratorValid
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->_current >= 0 && $this->_current < $this->_class->Count();
     }

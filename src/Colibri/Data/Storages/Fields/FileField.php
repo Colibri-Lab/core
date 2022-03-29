@@ -59,7 +59,7 @@ class FileField
      * @var string
      */
     private $_content;
-    
+
     /**
      * Конструктор
      * @param string $data путь к файлу
@@ -81,62 +81,64 @@ class FileField
     {
         switch ($nm) {
             case "isOnline": {
-                return strstr($this->_path, strlen('://')) !== false;
-            }
+                    return strstr($this->_path, strlen('://')) !== false;
+                }
             case "isValid": {
-                if (strstr($this->_path, strlen('://')) !== false) {
-                    return true;
-                }
-                if ($this->_path) {
-                    return File::Exists(App::$webRoot.$this->_path);
-                }
-                return false;
-            }
-            case 'path': {
-                return $this->_path;
-            }
-            case "mimetype": {
-                return new MimeType($this->_ext);
-            }
-            case "type": {
-                return $this->_ext;
-            }
-            case "data": {
-                if (is_null($this->_content)) {
-                    $this->_content = File::Read(App::$webRoot.$this->_path);
-                }
-                return $this->_content;
-            }
-            case "size": {
-                if ($this->mimetype->isImage && !$this->isOnline) {
-                    if ($this->isValid) {
-                        $info = Graphics::Info(App::$webRoot.$this->_path);
-                    } else {
-                        return new Size();
+                    if (strstr($this->_path, strlen('://')) !== false) {
+                        return true;
                     }
-                    return $info->size;
-                } else {
-                    return null;
+                    if ($this->_path) {
+                        return File::Exists(App::$webRoot . $this->_path);
+                    }
+                    return false;
                 }
-            }
+            case 'path': {
+                    return $this->_path;
+                }
+            case "mimetype": {
+                    return new MimeType($this->_ext);
+                }
+            case "type": {
+                    return $this->_ext;
+                }
+            case "data": {
+                    if (is_null($this->_content)) {
+                        $this->_content = File::Read(App::$webRoot . $this->_path);
+                    }
+                    return $this->_content;
+                }
+            case "size": {
+                    if ($this->mimetype->isImage && !$this->isOnline) {
+                        if ($this->isValid) {
+                            $info = Graphics::Info(App::$webRoot . $this->_path);
+                        }
+                        else {
+                            return new Size();
+                        }
+                        return $info->size;
+                    }
+                    else {
+                        return null;
+                    }
+                }
             case "id":
             case "name":
             case "filename": {
-                return $this->_name;
-            }
-            case "filesize": {
-                if ($this->isOnline) {
-                    return 0;
+                    return $this->_name;
                 }
-                $f = new File(App::$webRoot.$this->_path);
-                return $f->size;
-            }
+            case "filesize": {
+                    if ($this->isOnline) {
+                        return 0;
+                    }
+                    $f = new File(App::$webRoot . $this->_path);
+                    return $f->size;
+                }
             default: {
-                return null;
-            }
+                    return null;
+                }
         }
     }
-    
+
     /**
      * Возвращает строку (путь)
      * @return string путь
@@ -145,7 +147,7 @@ class FileField
     {
         return $this->_path;
     }
-    
+
     /**
      * Возвращает наименование для кэширования
      * @param Size $size размер
@@ -157,11 +159,11 @@ class FileField
             $size = new Size(0, 0);
         }
         $md5 = md5($this->_path);
-        $subpath = substr($md5, 0, 2).'/'.substr($md5, 2, 2).'/';
-        $name = md5($this->_path).".".$size->width."x".$size->height.".".$this->_ext;
-        return App::$config->Query('cache')->GetValue().'img/'.$subpath.$name;
+        $subpath = substr($md5, 0, 2) . '/' . substr($md5, 2, 2) . '/';
+        $name = md5($this->_path) . "." . $size->width . "x" . $size->height . "." . $this->_ext;
+        return App::$config->Query('cache')->GetValue() . 'img/' . $subpath . $name;
     }
-    
+
     /**
      * Проверяет есть ли уже сохраненных кэш для выбранного размера
      * @param Size $size размер
@@ -180,19 +182,19 @@ class FileField
     public function Cache($size = null)
     {
         $cachePath = $this->CacheName($size);
-        
+
         $data = $this->data;
         if ($this->isValid && $this->mimetype->isImage) {
             if ($size && $size instanceof Size && ($size->width != 0 || $size->height != 0)) {
                 $s = $this->size->TransformTo($size);
-                $img = Graphics::Create(App::$webRoot.$this->_path);
+                $img = Graphics::Create(App::$webRoot . $this->_path);
                 $img->Resize($s);
                 $data = $img->data;
             }
             File::Write($cachePath, $data, true, 0777);
         }
     }
-    
+
     /**
      * Возвращает путь к файлу с кэшом нужно размера и с нужными свойствами
      * @param Size|null $size размер
@@ -202,17 +204,19 @@ class FileField
     public function Source($size = null, $options = null)
     {
         $options = $options ? new ExtendedObject($options) : new ExtendedObject();
-        
+
         if (!$options->nocache) {
             if ($this->mimetype->isImage && $size) {
                 if (!$this->CacheExists($size)) {
                     $this->Cache($size);
                 }
                 return str_replace(App::$webRoot, '/', $this->CacheName($size));
-            } else {
+            }
+            else {
                 return str_replace(App::$webRoot, '/', $this->_path);
             }
-        } else {
+        }
+        else {
             return str_replace(App::$webRoot, '/', $this->_path);
         }
     }
@@ -222,11 +226,10 @@ class FileField
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->_path;
     }
 
 
 }
-
-

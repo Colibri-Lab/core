@@ -34,92 +34,92 @@ class Request
      *
      * @var Credentials
      */
-    public $credentials;
+    public ?Credentials $credentials;
 
     /**
      * Адрес
      *
      * @var string
      */
-    public $target;
+    public string $target;
     /**
      * Метод
      *
      * @var string
      */
-    public $method = Type::Get;
+    public string $method = Type::Get;
     /**
      * Данные
      *
      * @var Data | string | null
      */
-    public $postData = null;
+    public Data|string|null $postData = null;
     /**
      * Шифрование
      *
      * @var string
      */
-    public $encryption = Encryption::UrlEncoded;
+    public string $encryption = Encryption::UrlEncoded;
     /**
      * Разделитель
      *
      * @var string
      */
-    public $boundary = null;
+    public ?string $boundary = null;
     /**
      * Таймаут запроса
      *
      * @var integer
      */
-    public $timeout = 60;
+    public int $timeout = 60;
     /**
      * Таймаут в миллисекундах
      *
-     * @var int | false
+     * @var int|null
      */
-    public $timeout_ms = false;
+    public ?int $timeout_ms = null;
     /**
      * Индикатор ассинхронности
      *
      * @var boolean
      */
-    public $async = false;
+    public bool $async = false;
     /**
      * Куки
      *
      * @var array
      */
-    public $cookies = array();
+    public array $cookies = [];
     /**
      * Файл куки
      *
      * @var string
      */
-    public $cookieFile = '';
+    public string $cookieFile = '';
     /**
      * Реферер
      *
      * @var string
      */
-    public $referer = '';
+    public string $referer = '';
     /**
      * Заголовки
      *
-     * @var array | false
+     * @var array|null
      */
-    public $headers = false;
+    public ?array $headers = null;
     /**
      * UserAgent
      *
      * @var string
      */
-    public $useragent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30';
+    public string $useragent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30';
     /**
      * Проверять сертификат
      *
      * @var boolean
      */
-    public $sslVerify = true;
+    public bool $sslVerify = true;
 
     /**
      * Checks if the curl module loaded
@@ -128,7 +128,7 @@ class Request
     /**
      * @testFunction testRequest__checkWebRequest
      */
-    private static function __checkWebRequest()
+    private static function __checkWebRequest(): bool
     {
         return function_exists('curl_init');
     }
@@ -143,12 +143,13 @@ class Request
      * @param string $boundary
      */
     public function __construct(
-        $target,
-        $method = Type::Get,
-        $encryption = Encryption::UrlEncoded,
-        $postData = null,
-        $boundary = ''
-    ) {
+        string $target,
+        string $method = Type::Get,
+        string $encryption = Encryption::UrlEncoded,
+        mixed $postData = null,
+        string $boundary = ''
+        )
+    {
 
         if (!self::__checkWebRequest()) {
             throw new Exception('Can not load module curl.', 500);
@@ -174,7 +175,7 @@ class Request
      * @return string
      * @testFunction testRequest_createMultipartRequestBody
      */
-    private function _createMultipartRequestBody($boundary, $files)
+    private function _createMultipartRequestBody(string $boundary, mixed $files): string
     {
         $data = '';
         $eol = "\r\n";
@@ -189,7 +190,8 @@ class Request
 
                 $data .= $eol;
                 $data .= $content->value . $eol;
-            } else if ($content instanceof DataItem) {
+            }
+            else if ($content instanceof DataItem) {
                 $data .= "--" . $delimiter . $eol
                     . 'Content-Disposition: form-data; name="' . $content->name . "\"" . $eol . $eol
                     . $content->value . $eol;
@@ -205,18 +207,21 @@ class Request
      * @return string
      * @testFunction testRequest_joinPostData
      */
-    private function _joinPostData()
+    private function _joinPostData(): string
     {
         $return = null;
         $data = array();
 
         if ($this->encryption == Encryption::Multipart) {
             return $this->_createMultipartRequestBody($this->boundary, $this->postData);
-        } else if ($this->encryption == Encryption::XmlEncoded) {
+        }
+        else if ($this->encryption == Encryption::XmlEncoded) {
             $return = VariableHelper::IsString($this->postData) ? $this->postData : XmlHelper::Encode($this->postData, null, false);
-        } else if ($this->encryption == Encryption::JsonEncoded) {
+        }
+        else if ($this->encryption == Encryption::JsonEncoded) {
             $return = VariableHelper::IsString($this->postData) ? $this->postData : json_encode($this->postData);
-        } else {
+        }
+        else {
 
             foreach ($this->postData as $value) {
                 $data[] = $value->name . '=' . rawurlencode($value->value);
@@ -233,7 +238,8 @@ class Request
      * @param int $header_size размер заголовков
      * @return (string|array)[] 
      */
-    private function _parseBody($body, $header_size = 0) {
+    private function _parseBody(string $body, int $header_size = 0): array
+    {
         $httpheaders = substr($body, 0, $header_size);
         $body = substr($body, $header_size);
 
@@ -246,7 +252,7 @@ class Request
         array_shift($httpheaders);
 
         foreach ($httpheaders as $value) {
-            if($value && ( ($matches = explode(':', $value, 2)) !== false ) ) {
+            if ($value && (($matches = explode(':', $value, 2)) !== false)) {
                 $headers_arr[$matches[0]] = trim($matches[1]);
             }
         }
@@ -262,7 +268,7 @@ class Request
      * @return Result
      * @testFunction testRequestExecute
      */
-    public function Execute($postData = null)
+    public function Execute(mixed $postData = null) : Result
     {
 
         if (!VariableHelper::IsNull($postData)) {
@@ -274,10 +280,12 @@ class Request
         curl_setopt($handle, CURLOPT_URL, $this->target);
         if (!$this->async) {
             curl_setopt($handle, CURLOPT_TIMEOUT, $this->timeout);
-        } else {
+        }
+        else {
             if ($this->timeout_ms) {
                 curl_setopt($handle, CURLOPT_TIMEOUT_MS, $this->timeout_ms ? $this->timeout_ms : 100);
-            } else {
+            }
+            else {
                 curl_setopt($handle, CURLOPT_TIMEOUT_MS, $this->timeout ? $this->timeout * 1000 : 100);
             }
             curl_setopt($handle, CURLOPT_NOSIGNAL, 1);
@@ -288,7 +296,8 @@ class Request
 
         if (!empty($this->referer)) {
             curl_setopt($handle, CURLOPT_REFERER, $this->referer);
-        } else {
+        }
+        else {
             curl_setopt($handle, CURLOPT_REFERER, $_SERVER['SERVER_NAME']);
         }
         if (!empty($this->cookieFile)) {
@@ -319,9 +328,11 @@ class Request
         if ($this->encryption == Encryption::Multipart) {
             curl_setopt($handle, CURLOPT_CUSTOMREQUEST, 'POST');
             $_headers[] = "Content-Type: multipart/form-data; boundary=" . Request::Boundary . $this->boundary;
-        } else if ($this->encryption == Encryption::JsonEncoded) {
+        }
+        else if ($this->encryption == Encryption::JsonEncoded) {
             $_headers[] = "Content-Type: application/json";
-        } else if ($this->encryption == Encryption::XmlEncoded) {
+        }
+        else if ($this->encryption == Encryption::XmlEncoded) {
             $_headers[] = "Content-Type: application/xml";
         }
 
@@ -331,9 +342,11 @@ class Request
                 $data = $this->_joinPostData($this->postData);
                 curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
             }
-        } else if ($this->method == Type::Get) {
+        }
+        else if ($this->method == Type::Get) {
             curl_setopt($handle, CURLOPT_HTTPGET, true);
-        } else {
+        }
+        else {
             curl_setopt($handle, CURLOPT_CUSTOMREQUEST, StringHelper::ToUpper($this->method));
             if (!VariableHelper::IsNull($this->postData)) {
                 $data = $this->_joinPostData($this->postData);
@@ -363,17 +376,17 @@ class Request
 
         $body = curl_exec($handle);
         $header_size = curl_getinfo($handle, CURLINFO_HEADER_SIZE);
-        
+
         list($body, $httpheaders) = $this->_parseBody($body, $header_size);
 
         $result->data = $body;
         $result->status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-        $result->error  = curl_error($handle);
+        $result->error = curl_error($handle);
         $result->headers = curl_getinfo($handle);
         $result->httpheaders = $httpheaders;
 
         curl_close($handle);
-        
+
         return $result;
 
     }

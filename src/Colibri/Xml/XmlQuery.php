@@ -25,19 +25,19 @@ class XmlQuery
      *
      * @var XmlNode
      */
-    private $_contextNode;
+    private ?XmlNode $_contextNode;
     /**
      * Элемент управления запросами
      *
      * @var DOMXPath
      */
-    private $_operator;
+    private ?DOMXPath $_operator;
     /**
      * Вернуть в виде именованной коллекции, или в виде простого списка
      *
      * @var bool
      */
-    private $_returnAsNamedMap;
+    private bool $_returnAsNamedMap;
 
     /**
      * Конструктор
@@ -45,7 +45,7 @@ class XmlQuery
      * @param XmlNode $node контекстный узел
      * @param boolean $returnAsNamedMap вернуть в виде именованной коллекции
      */
-    public function __construct($node, $returnAsNamedMap = false)
+    public function __construct(XmlNode $node, bool $returnAsNamedMap = false)
     {
         $this->_returnAsNamedMap = $returnAsNamedMap;
         $this->_contextNode = $node;
@@ -59,7 +59,7 @@ class XmlQuery
      * @return XmlNodeList|XmlNamedNodeList список узлов
      * @testFunction testXmlQueryQuery
      */
-    public function Query($xpathQuery)
+    public function Query(string $xpathQuery): XmlNodeList|XmlNamedNodeList
     {
         $res = $this->_operator->query($xpathQuery, $this->_contextNode->raw);
         if (!$res) {

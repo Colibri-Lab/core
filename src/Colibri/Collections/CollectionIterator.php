@@ -37,7 +37,7 @@ class CollectionIterator implements \Iterator
      *
      * @param mixed $class - коллекция
      */
-    public function __construct($class = null)
+    public function __construct(mixed $class = null)
     {
         $this->_class = $class;
     }
@@ -47,7 +47,7 @@ class CollectionIterator implements \Iterator
      *
      * @testFunction testCollectionIteratorRewind
      */
-    public function rewind()
+    public function rewind(): mixed
     {
         $this->_current = 0;
         return $this->_class->Key($this->_current);
@@ -58,12 +58,12 @@ class CollectionIterator implements \Iterator
      *
      * @testFunction testCollectionIteratorCurrent
      */
-    public function current()
+    public function current(): mixed
     {
         if ($this->valid()) {
             return $this->_class->ItemAt($this->_current);
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -72,7 +72,7 @@ class CollectionIterator implements \Iterator
      *
      * @testFunction testCollectionIteratorKey
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->_class->Key($this->_current);
     }
@@ -82,13 +82,13 @@ class CollectionIterator implements \Iterator
      *
      * @testFunction testCollectionIteratorNext
      */
-    public function next()
+    public function next(): mixed
     {
         $this->_current++;
         if ($this->valid()) {
             return $this->_class->ItemAt($this->_current);
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -97,7 +97,7 @@ class CollectionIterator implements \Iterator
      *
      * @testFunction testCollectionIteratorValid
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->_current >= 0 && $this->_current < $this->_class->Count();
     }

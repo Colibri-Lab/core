@@ -42,20 +42,25 @@ class Config
     {
         if (is_array($fileName) || is_object($fileName)) {
             $this->_configData = $fileName;
-        } else if ($fileName) {
+        }
+        else if ($fileName) {
             $path = App::$appRoot . '/config/' . $fileName;
             try {
                 if ($isFile && file_exists($path)) {
                     $this->_configData = \yaml_parse_file($path);
-                } else if (!VariableHelper::IsEmpty(trim($fileName))) {
+                }
+                else if (!VariableHelper::IsEmpty(trim($fileName))) {
                     $this->_configData = \yaml_parse($fileName);
-                } else {
+                }
+                else {
                     $this->_configData = [];
                 }
-            } catch (\Throwable $e) {
+            }
+            catch (\Throwable $e) {
                 if ($isFile) {
                     $message = 'Error reading config file: ' . $path . '. Error message: ' . $e->getMessage();
-                } else {
+                }
+                else {
                     $message = 'Error reading config: ' . $fileName . '. Error message: ' . $e->getMessage();
                 }
                 throw new ConfigException($message);
@@ -69,7 +74,7 @@ class Config
      * @return Config
      * @testFunction testConfigLoadFile
      */
-    public static function LoadFile(string $fileName) : Config
+    public static function LoadFile(string $fileName): Config
     {
         return new Config($fileName);
     }
@@ -81,7 +86,7 @@ class Config
      * @return Config
      * @testFunction testConfigLoad
      */
-    public static function Load(string $yamlData) : Config
+    public static function Load(string $yamlData): Config
     {
         return new Config($yamlData, false);
     }
@@ -93,7 +98,7 @@ class Config
      * @return mixed
      * @testFunction testConfig_prepareValue
      */
-    private function _prepareValue(mixed $value) : mixed
+    private function _prepareValue(mixed $value): mixed
     {
         if (is_object($value) || is_array($value)) {
             return $value;
@@ -105,14 +110,18 @@ class Config
             if ($res > 0) {
                 if (File::Exists(App::$appRoot . '/config/' . $matches[1])) {
                     $return = \yaml_parse_file(App::$appRoot . '/config/' . $matches[1]);
-                } else if (File::Exists(App::$appRoot . $matches[1])) {
+                }
+                else if (File::Exists(App::$appRoot . $matches[1])) {
                     $return = \yaml_parse_file(App::$appRoot . $matches[1]);
-                } else if (File::Exists($matches[1])) {
+                }
+                else if (File::Exists($matches[1])) {
                     $return = \yaml_parse_file($matches[1]);
-                } else {
+                }
+                else {
                     $return = null;
                 }
-            } else {
+            }
+            else {
                 $return = null;
             }
         }
@@ -130,7 +139,7 @@ class Config
      * @return ConfigItemsList|Config
      * @testFunction testConfigQuery
      */
-    public function Query(string $item, mixed $default = null) : ConfigItemsList|Config
+    public function Query(string $item, mixed $default = null): ConfigItemsList|Config
     {
         $command = explode('.', $item);
 
@@ -144,10 +153,12 @@ class Config
                         $cmdItem = $matches[1];
                         $cmdIndex = $matches[2];
                         $data = $this->_prepareValue($data[$cmdItem][$cmdIndex]);
-                    } else {
+                    }
+                    else {
                         throw new ConfigException('Illeval query: ' . $item);
                     }
-                } else {
+                }
+                else {
                     if (!isset($data[$commandItem])) {
                         throw new ConfigException('Illeval query: ' . $item);
                     }
@@ -155,17 +166,20 @@ class Config
                     $data = $this->_prepareValue($data[$commandItem]);
                 }
             }
-        } catch (ConfigException $e) {
+        }
+        catch (ConfigException $e) {
             if ($default) {
                 $data = $default;
-            } else {
+            }
+            else {
                 throw $e;
             }
         }
 
         if (is_array($data) && !$this->isKindOfObject($data)) {
             return new ConfigItemsList($data);
-        } else {
+        }
+        else {
             return new Config($data);
         }
     }
@@ -176,9 +190,9 @@ class Config
      * @return object
      * @testFunction testConfigAsObject
      */
-    public function AsObject() : object|string
+    public function AsObject(): object|string
     {
-        if(is_array($this->_configData)) {
+        if (is_array($this->_configData)) {
             return (object)VariableHelper::ArrayToObject($this->_configData);
         }
         return $this->_configData;
@@ -190,7 +204,7 @@ class Config
      * @return array
      * @testFunction testConfigAsArray
      */
-    public function AsArray() : array
+    public function AsArray(): array
     {
         return (array)$this->_configData;
     }
@@ -202,7 +216,7 @@ class Config
      * @return mixed
      * @testFunction testConfigGetValue
      */
-    public function GetValue() : mixed
+    public function GetValue(): mixed
     {
         if ($this->isKindOfObject($this->_configData) || is_array($this->_configData)) {
             return null;
@@ -217,7 +231,7 @@ class Config
      * @return boolean
      * @testFunction testConfigIsKindOfObject
      */
-    public function isKindOfObject(string|array $param) : bool
+    public function isKindOfObject(string|array $param): bool
     {
         $param = (array)$param;
         foreach ($param as $key => $value) {

@@ -21,7 +21,7 @@ class Mem
      *
      * @testFunction testMemCreate
      */
-    public static function Create($host, $port)
+    public static function Create(string $host, int $port): ?\Memcache
     {
 
         if (!\class_exists('Memcache')) {
@@ -40,10 +40,10 @@ class Mem
      *
      * @testFunction testMemDispose
      */
-    public static function Dispose()
+    public static function Dispose(): void
     {
         if (!Mem::$instance) {
-            return false;
+            return;
         }
         if (Mem::$instance) {
             Mem::$instance->close();
@@ -58,7 +58,7 @@ class Mem
      * @return boolean
      * @testFunction testMemExists
      */
-    public static function Exists($name)
+    public static function Exists(string $name): bool
     {
         if (!Mem::$instance) {
             return false;
@@ -79,19 +79,19 @@ class Mem
      * @return boolean
      * @testFunction testMemWrite
      */
-    static function Write($name, $value, $livetime = 600)
+    static function Write(string $name, mixed $value, int $livetime = 600): bool
     {
         if (!Mem::$instance) {
             return false;
         }
-        
-        if(!Mem::Exists($name)) {
+
+        if (!Mem::Exists($name)) {
             return Mem::$instance->add($name, $value, false, $livetime);
         }
         else {
             return Mem::$instance->set($name, $value, false, $livetime);
         }
-        
+
     }
 
     /**
@@ -103,12 +103,12 @@ class Mem
      * @return boolean
      * @testFunction testMemZWrite
      */
-    static function ZWrite($name, $value, $livetime = 600)
+    static function ZWrite(string $name, mixed $value, int $livetime = 600): bool
     {
         if (!Mem::$instance) {
             return false;
         }
-        return Mem::$instance->add($name, $value, \MEMCACHE_COMPRESSED, $livetime); 
+        return Mem::$instance->add($name, $value, \MEMCACHE_COMPRESSED, $livetime);
     }
 
     /**
@@ -118,7 +118,7 @@ class Mem
      * @return mixed | boolean
      * @testFunction testMemDelete
      */
-    static function Delete($name)
+    static function Delete(string $name): bool
     {
         if (!Mem::$instance) {
             return false;
@@ -130,10 +130,10 @@ class Mem
      * Считывает переменную из кэша, если перенной нет, возвращает false
      *
      * @param string $name
-     * @return mixed | boolean
+     * @return mixed
      * @testFunction testMemRead
      */
-    static function Read($name)
+    static function Read(string $name): mixed
     {
         if (!Mem::$instance) {
             return false;

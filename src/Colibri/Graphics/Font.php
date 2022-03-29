@@ -27,25 +27,25 @@ class Font
      *
      * @var string
      */
-    private $_file;
+    private string $_file;
     /**
      * Путь к файлу
      *
      * @var string
      */
-    private $_path;
+    private string $_path;
     /**
      * Угол наклона
      *
      * @var int
      */
-    private $_angle;
+    private int $_angle;
     /**
      * Размер
      *
      * @var int
      */
-    private $_fontSize;
+    private int $_fontSize;
     
     /**
      * Конструктор
@@ -55,7 +55,7 @@ class Font
      * @param integer $fontSize
      * @param integer $angle
      */
-    public function __construct($fontFile, $path = '', $fontSize = 0, $angle = 0)
+    public function __construct(string $fontFile, string $path = '', int $fontSize = 0, int $angle = 0)
     {
         global $core;
         $this->_file = $fontFile;
@@ -80,7 +80,7 @@ class Font
      * @param string $prop
      * @return mixed
      */
-    public function __get($prop)
+    public function __get(string $prop): mixed
     {
         $return = null;
         switch ($prop) {
@@ -115,7 +115,7 @@ class Font
      * Возвращает размер области вывода текста
      * @param string $text
      */
-    public function MeasureText($text)
+    public function MeasureText(string $text): Quadro
     {
         $ar = imagettfbbox($this->_fontSize, $this->_angle, $this->_path."/".$this->_file, $text);
 
@@ -141,7 +141,7 @@ class Font
      * @param Point $startAt
      * @param Size $size
      */
-    public function InscribeText($text, &$startAt, &$size)
+    public function InscribeText(string $text, Point &$startAt, Size &$size)
     {
         $rect = imagettfbbox($this->_fontSize, 0, $this->_path."/".$this->_file, $text.'|');
         if (0 == $this->_angle) {

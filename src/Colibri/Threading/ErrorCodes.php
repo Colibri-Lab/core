@@ -25,7 +25,7 @@ class ErrorCodes
      * @param int $code
      * @return string
      */
-    public static function ToString($code)
+    public static function ToString(int $code) : string
     {
         if ($code == ErrorCodes::UnknownProperty) {
             return 'Unknown property';

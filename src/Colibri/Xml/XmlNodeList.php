@@ -25,14 +25,14 @@ class XmlNodeList implements \IteratorAggregate
      *
      * @var \DOMNodeList
      */
-    private $_data;
+    private ?\DOMNodeList $_data;
 
     /**
      * Документ
      *
      * @var \DOMDocument
      */
-    private $_document;
+    private ?\DOMDocument $_document;
 
     /**
      * Конструктор
@@ -40,7 +40,7 @@ class XmlNodeList implements \IteratorAggregate
      * @param \DOMNodeList $nodelist список узлов
      * @param \DOMDocument $dom документ
      */
-    public function __construct($nodelist, $dom)
+    public function __construct(\DOMNodeList $nodelist, \DOMDocument $dom)
     {
         $this->_data = $nodelist;
         $this->_document = $dom;
@@ -52,7 +52,7 @@ class XmlNodeList implements \IteratorAggregate
      * @return XmlNodeListIterator
      * @testFunction testXmlNodeListGetIterator
      */
-    public function getIterator()
+    public function getIterator(): XmlNodeListIterator
     {
         return new XmlNodeListIterator($this);
     }
@@ -64,7 +64,7 @@ class XmlNodeList implements \IteratorAggregate
      * @return XmlNode|null
      * @testFunction testXmlNodeListItem
      */
-    public function Item($index)
+    public function Item(int $index): ?XmlNode
     {
         if ($this->_data->item($index)) {
             return new XmlNode($this->_data->item($index), $this->_document);
@@ -78,7 +78,7 @@ class XmlNodeList implements \IteratorAggregate
      * @param string $property
      * @return mixed
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         if (strtolower($property) == 'document') {
             return $this->_document;
@@ -92,7 +92,7 @@ class XmlNodeList implements \IteratorAggregate
      * @return int
      * @testFunction testXmlNodeListCount
      */
-    public function Count()
+    public function Count(): int
     {
         return $this->_data->length;
     }
@@ -103,7 +103,7 @@ class XmlNodeList implements \IteratorAggregate
      * @return XmlNode
      * @testFunction testXmlNodeListFirst
      */
-    public function First()
+    public function First(): XmlNode
     {
         return $this->Item(0);
     }
@@ -114,7 +114,7 @@ class XmlNodeList implements \IteratorAggregate
      * @return XmlNode
      * @testFunction testXmlNodeListLast
      */
-    public function Last()
+    public function Last(): XmlNode
     {
         return $this->Item($this->Count() - 1);
     }
@@ -125,7 +125,7 @@ class XmlNodeList implements \IteratorAggregate
      * @return void
      * @testFunction testXmlNodeListRemove
      */
-    public function Remove()
+    public function Remove(): void
     {
         foreach ($this as $d) {
             $d->Remove();
@@ -140,7 +140,7 @@ class XmlNodeList implements \IteratorAggregate
      * @return array|null
      * @testFunction testXmlNodeListToObject
      */
-    public function ToObject($exclude = array(), $levels = null)
+    public function ToObject(array $exclude = array(), ?int $levels = null)
     {
         $ret = array();
 

@@ -11,10 +11,7 @@
 namespace Colibri\Data\Models;
 
 use Colibri\Utils\ExtendedObject;
-use Colibri\Utils\Debug;
 use Colibri\Common\Encoding;
-use Colibri\Common\VariableHelper;
-use Colibri\App;
 
 /**
  * Представление строки данных
@@ -33,7 +30,7 @@ class DataRow extends ExtendedObject
      *
      * @var DataTable
      */
-    protected $_table;
+    protected ?DataTable $_table = null;
 
     /**
      * Конструктор
@@ -42,7 +39,7 @@ class DataRow extends ExtendedObject
      * @param mixed $data
      * @param string $tablePrefix
      */
-    public function __construct(DataTable $table, $data, $tablePrefix = '')
+    public function __construct(DataTable $table,  mixed $data, string $tablePrefix = '')
     {
         parent::__construct($data, $tablePrefix);
         $this->_table = $table;
@@ -55,7 +52,7 @@ class DataRow extends ExtendedObject
      * @return mixed
      * @testFunction testDataRow__get
      */
-    public function __get(string $property) : mixed
+    public function __get(string $property): mixed
     {
         $return = null;
         $property = strtolower($property);
@@ -78,7 +75,7 @@ class DataRow extends ExtendedObject
      * @param mixed $value
      * @testFunction testDataRow__set
      */
-    public function __set(string $property, mixed $value) : void
+    public function __set(string $property, mixed $value): void
     {
         $property = strtolower($property);
         if ($property == 'properties') {
@@ -96,12 +93,13 @@ class DataRow extends ExtendedObject
      * @return ExtendedObject
      * @testFunction testDataRowCopyToObject
      */
-    public function CopyToObject() : ExtendedObject
+    public function CopyToObject(): ExtendedObject
     {
         return new ExtendedObject($this->_data, $this->_prefix);
     }
 
-    public function Type(string $property) : string {
+    public function Type(string $property): string 
+    {
         $fields = $this->properties;
         foreach ($fields as $prop => $field) {
             if($prop == $property) {
@@ -111,7 +109,7 @@ class DataRow extends ExtendedObject
         return 'varchar';
     }
 
-    public function IsPropertyChanged(string $property, bool $convertData = false) : bool
+    public function IsPropertyChanged(string $property, bool $convertData = false): bool
     {
         if($this->Type($property) === 'JSON') {
             

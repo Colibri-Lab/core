@@ -39,9 +39,10 @@ final class Connection implements IConnection
      * @param string $port
      * @param string $user
      * @param string $password
+     * @param bool $persistent
      * @param string $database
      */
-    public function __construct($host, $port, $user, $password, $persistent = false, $database = null)
+    public function __construct(string $host, string $port, string $user, string $password, bool $persistent = false, string  $database = null)
     {
         $this->_connectioninfo = (object)[
             'host' => $host,
@@ -59,7 +60,7 @@ final class Connection implements IConnection
      * @return bool
      * @testFunction testConnectionOpen
      */
-    public function Open()
+    public function Open(): bool
     {
 
         if (is_null($this->_connectioninfo)) {
@@ -91,7 +92,7 @@ final class Connection implements IConnection
      * @return bool
      * @testFunction testConnectionReopen
      */
-    public function Reopen()
+    public function Reopen(): bool
     {
         return $this->Open();
     }
@@ -102,7 +103,7 @@ final class Connection implements IConnection
      * @return void
      * @testFunction testConnectionClose
      */
-    public function Close()
+    public function Close(): void
     {
         if (is_resource($this->_resource)) {
             mysqli_close($this->_resource);
@@ -116,7 +117,7 @@ final class Connection implements IConnection
      * @return mixed
      * @testFunction testConnection__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         switch (strtolower($property)) {
             case "resource":

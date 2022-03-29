@@ -32,7 +32,7 @@ class DataFile extends DataItem
      * @param string $filename название файла
      * @param string|null $mime тип MIME
      */
-    public function __construct($name, $filePathOrFileData, $filename = '', $mime = null)
+    public function __construct(string $name, string $filePathOrFileData, string $filename = '', string $mime = null)
     {
 
         // $data is file path

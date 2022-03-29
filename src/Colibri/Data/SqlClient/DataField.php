@@ -23,80 +23,81 @@ class DataField
      *
      * @var string
      */
-    public $db;
+    public string $db;
 
     /**
      * Имя столбца
      *
      * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Исходное имя столбца, если у него есть псевдоним
      * 
      * @var string
      */
-    public $originalName;
+    public string $originalName;
 
     /**
      * Имя таблицы, которой принадлежит столбец (если не вычислено)
      */
-    public $table;
+    public string $table;
 
     /**
      * Исходное имя таблицы, если есть псевдоним
      *
      * @var string
      */
-    public $originalTable;
+    public string$originalTable;
 
     /**
      * Имя таблицы, имя поля в формате необходимом для работы с базой данных
      * 
      * @var string
      */
-    public $escaped;
+    public string $escaped;
 
     /**
      * Зарезервировано для значения по умолчанию, на данный момент всегда ""
      *
      * @var string
      */
-    public $def;
+    public string $def;
 
     /**
      * Максимальная ширина поля результирующего набора.
      *
      * @var int
      */
-    public $maxLength;
+    public int $maxLength;
 
     /**
      * Ширина поля, как она задана при определении таблицы.
      *
      * @var int
      */
-    public $length;
+    public int $length;
 
     /**
      * Целое число, представляющее битовые флаги для поля.
      *
      * @var int
      */
-    public $flags;
+    public int $flags;
 
     /**
      * Тип данных поля
      *
      * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Число знаков после запятой (для числовых полей)
      *
      * @var int
      */
-    public $decimals;
+    public int $decimals;
+    
 }

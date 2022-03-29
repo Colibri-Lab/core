@@ -16,14 +16,14 @@ class View
      */
     public function __construct()
     {
-        // Do nothing
+    // Do nothing
     }
 
     /**
      * Статический конструктор
      * @var View
      */
-    public static function Create()
+    public static function Create(): View
     {
         return new View();
     }
@@ -34,7 +34,7 @@ class View
      * @param ExtendedObject|null $args 
      * @return string 
      */
-    public function Render(Template $template, $args = null)
+    public function Render(Template $template, ?ExtendedObject $args = null)
     {
 
         if (VariableHelper::IsNull($args)) {
@@ -53,11 +53,11 @@ class View
      * @param mixed $args аргументы
      * @return string 
      */
-    public function RenderModel($model, $template = 'default', $args = [])
+    public function RenderModel(DataRow $model, string $template = 'default', mixed $args = []): string
     {
         $templates = $model->Storage()->GetTemplates();
-        
-        if(!isset($templates->class) || !class_exists($templates->class)) {
+
+        if (!isset($templates->class) || !class_exists($templates->class)) {
             return '';
         }
 
@@ -68,7 +68,7 @@ class View
         $args = new ExtendedObject($args);
         $args->model = $model;
 
-        if($template == 'default' || !isset($templateFiles->$template)) {
+        if ($template == 'default' || !isset($templateFiles->$template)) {
             return $this->Render(new $templateClass($defaultTemplate), $args);
         }
 

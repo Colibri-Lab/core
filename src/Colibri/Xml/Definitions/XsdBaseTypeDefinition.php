@@ -26,14 +26,14 @@ class XsdBaseTypeDefinition implements \JsonSerializable
      *
      * @var string
      */
-    private $_base;
+    private string $_base;
 
     /**
      * Конструктор
      *
      * @param mixed $base базовый тип
      */
-    public function __construct($base)
+    public function __construct(mixed $base)
     {
         $this->_base = $base;
     }
@@ -45,11 +45,12 @@ class XsdBaseTypeDefinition implements \JsonSerializable
      * @return mixed
      * @testFunction testXsdBaseTypeDefinition__get
      */
-    public function __get($name)
+    public function __get(string $name): mixed
     {
         if (strtolower($name) == 'name') {
             return str_replace('xs:', '', $this->_base);
-        } else if (strtolower($name) == 'restrictions') {
+        }
+        else if (strtolower($name) == 'restrictions') {
             return (object)['base' => $this->name];
         }
     }
@@ -60,7 +61,7 @@ class XsdBaseTypeDefinition implements \JsonSerializable
      * @return object
      * @testFunction testXsdBaseTypeDefinitionJsonSerialize
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): object|array
     {
         return (object)array('name' => $this->name, 'restrictions' => $this->restrictions);
     }
@@ -71,7 +72,7 @@ class XsdBaseTypeDefinition implements \JsonSerializable
      * @return object
      * @testFunction testXsdBaseTypeDefinitionToObject
      */
-    public function ToObject()
+    public function ToObject(): object
     {
         return (object)array('name' => $this->name, 'restrictions' => $this->restrictions);
     }

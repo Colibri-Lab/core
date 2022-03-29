@@ -28,14 +28,14 @@ class XsdSchemaDefinition implements \JsonSerializable
      *
      * @var XmlNode
      */
-    private $_schema;
+    private ?XmlNode $_schema;
 
     /**
      * Массив типов
      *
      * @var array
      */
-    private $_types;
+    private array $_types;
 
     /**
      * Конструктор
@@ -43,7 +43,7 @@ class XsdSchemaDefinition implements \JsonSerializable
      * @param string $fileName название файла
      * @param boolean $isFile файл или не файл
      */
-    public function __construct($fileName, $isFile = true)
+    public function __construct(string $fileName, bool $isFile = true)
     {
         $this->_schema = XmlNode::Load($fileName, $isFile);
         $this->_loadComplexTypes();
@@ -59,7 +59,7 @@ class XsdSchemaDefinition implements \JsonSerializable
     /**
      * @testFunction testXsdSchemaDefinitionLoad
      */
-    public static function Load($fileName, $isFile = true)
+    public static function Load(string $fileName, bool $isFile = true): XsdSchemaDefinition
     {
         return new XsdSchemaDefinition($fileName, $isFile);
     }
@@ -70,7 +70,7 @@ class XsdSchemaDefinition implements \JsonSerializable
      * @return void
      * @testFunction testXsdSchemaDefinition_loadComplexTypes
      */
-    private function _loadComplexTypes()
+    private function _loadComplexTypes(): void
     {
         $this->_types = [];
         $types = $this->_schema->Query('//xs:simpleType[@name]');
@@ -93,11 +93,12 @@ class XsdSchemaDefinition implements \JsonSerializable
      * @return mixed
      * @testFunction testXsdSchemaDefinition__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         if (strtolower($property) == 'types') {
             return $this->_types;
-        } else if (strtolower($property) == 'elements') {
+        }
+        else if (strtolower($property) == 'elements') {
             $elements = [];
             foreach ($this->_schema->Query('./xs:element') as $element) {
                 $el = new XsdElementDefinition($element, $this);
@@ -111,10 +112,10 @@ class XsdSchemaDefinition implements \JsonSerializable
     /**
      * Возвращает данные в виде простого обьекта для упаковки в json
      *
-     * @return \stdClass
+     * @return object
      * @testFunction testXsdSchemaDefinitionJsonSerialize
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): object|array
     {
         return (object)array('types' => $this->types, 'elements' => $this->elements);
     }
@@ -122,10 +123,10 @@ class XsdSchemaDefinition implements \JsonSerializable
     /**
      * Возвращает данные в виде простого обьекта
      *
-     * @return \stdClass
+     * @return object
      * @testFunction testXsdSchemaDefinitionToObject
      */
-    public function ToObject()
+    public function ToObject(): object
     {
 
         $types = [];

@@ -29,7 +29,7 @@ class ConsoleLogger extends Logger
      * @param int $maxLogLevel Уровень логирования
      * @param mixed $device название файла
      */
-    public function __construct($maxLogLevel = 7, $dummy = '')
+    public function __construct(int $maxLogLevel = 7, mixed $dummy = '')
     {
         $this->_device = '';
         $this->_maxLogLevel = $maxLogLevel;
@@ -42,7 +42,7 @@ class ConsoleLogger extends Logger
      * @return mixed
      * @testFunction testFileLogger__get
      */
-    public function __get(string $prop)
+    public function __get(string $prop): mixed
     {
         $prop = strtolower($prop);
         switch ($prop) {
@@ -65,7 +65,7 @@ class ConsoleLogger extends Logger
      * @return void
      * @testFunction testFileLoggerWriteLine
      */
-    public function WriteLine($level, $data)
+    public function WriteLine(int $level, mixed $data): void
     {
 
         if ($level > $this->_maxLogLevel) {
@@ -88,7 +88,7 @@ class ConsoleLogger extends Logger
      * @return mixed
      * @testFunction testFileLoggerContent
      */
-    public function Content()
+    public function Content(): mixed
     {
         return '';
     }
@@ -101,7 +101,7 @@ class ConsoleLogger extends Logger
      * @throws LoggerException
      * @testFunction testFileLoggerOpen
      */
-    public function Open($position = 0)
+    public function Open(int $position = 0): void
     {
         throw new LoggerException('ConsoleLogger does not support this action');
     }
@@ -112,7 +112,7 @@ class ConsoleLogger extends Logger
      * @return void
      * @testFunction testFileLoggerClose
      */
-    public function Close()
+    public function Close(): void
     {
         throw new LoggerException('ConsoleLogger does not support this action');
     }
@@ -123,7 +123,7 @@ class ConsoleLogger extends Logger
      * @return array массив строк лога
      * @testFunction testFileLoggerRead
      */
-    public function Read()
+    public function Read(): array
     {
         throw new LoggerException('ConsoleLogger does not support this action');
     }

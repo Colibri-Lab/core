@@ -25,21 +25,21 @@ class Attributes
      *
      * @var File
      */
-    protected $source;
+    protected ?File $source = null;
 
     /**
      * Список атрибутов
      *
      * @var array
      */
-    protected $attributes = array();
+    protected array $attributes = array();
 
     /**
      * Конструктор
      *
      * @param File $source
      */
-    public function __construct($source)
+    public function __construct(File $source)
     {
         $this->source = $source;
     }
@@ -50,7 +50,7 @@ class Attributes
      * @param string $property свойство
      * @return mixed
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         $return = null;
         switch ($property) {
@@ -67,7 +67,7 @@ class Attributes
                         $this->attributes['created'] = filemtime($this->source->path);
                     }
 
-                    $return =  $this->attributes['created'];
+                    $return = $this->attributes['created'];
                     break;
                 }
             case 'lastaccess': {
@@ -75,7 +75,7 @@ class Attributes
                         $this->attributes['created'] = fileatime($this->source->path);
                     }
 
-                    $return =  $this->attributes['created'];
+                    $return = $this->attributes['created'];
                     break;
                 }
             default:
@@ -92,7 +92,7 @@ class Attributes
      * @param string $property свойство
      * @param mixed $value значение
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value): void
     {
         if (array_key_exists($property, $this->attributes)) {
             $this->update($property, $value);
@@ -105,8 +105,8 @@ class Attributes
      * @param string $property свойство
      * @param mixed $value значение
      */
-    private function update($property, $value)
+    private function update(string $property, mixed $value): void
     {
-        //update every time on set new value -> С‚.Рє.
+        // Do nothing
     }
 }

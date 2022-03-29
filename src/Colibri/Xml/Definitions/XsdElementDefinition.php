@@ -36,14 +36,14 @@ class XsdElementDefinition implements \JsonSerializable
      *
      * @var XmlNode
      */
-    private $_node;
+    private ?XmlNode $_node;
 
     /**
      * Схема
      *
      * @var XsdSchemaDefinition
      */
-    private $_schema;
+    private ?XsdSchemaDefinition $_schema;
 
     /**
      * Конструктор
@@ -51,7 +51,7 @@ class XsdElementDefinition implements \JsonSerializable
      * @param XmlNode $elementNode описываемый элемент
      * @param mixed $schema схема
      */
-    public function __construct($elementNode, $schema)
+    public function __construct(XmlNode $elementNode, mixed $schema)
     {
         $this->_node = $elementNode;
         $this->_schema = $schema;
@@ -64,15 +64,18 @@ class XsdElementDefinition implements \JsonSerializable
      * @return mixed
      * @testFunction testXsdElementDefinition__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         if (strtolower($property) == 'annotation') {
             return $this->_node->Item('xs:annotation') ? trim($this->_node->Item('xs:annotation')->value, "\r\t\n ") : '';
-        } else if (strtolower($property) == 'name') {
+        }
+        else if (strtolower($property) == 'name') {
             return $this->_node->attributes->name->value;
-        } else if (strtolower($property) == 'occurs') {
+        }
+        else if (strtolower($property) == 'occurs') {
             return (object)['min' => ($this->_node->attributes->minOccurs ? $this->_node->attributes->minOccurs->value : 'unbounded'), 'max' => ($this->_node->attributes->maxOccurs ? $this->_node->attributes->maxOccurs->value : 'unbounded')];
-        } else if (strtolower($property) == 'attributes') {
+        }
+        else if (strtolower($property) == 'attributes') {
             $attributes = [];
             $type = $this->_node->Item('xs:complexType');
             if ($type) {
@@ -82,7 +85,8 @@ class XsdElementDefinition implements \JsonSerializable
                 }
             }
             return $attributes;
-        } else if (strtolower($property) == 'elements') {
+        }
+        else if (strtolower($property) == 'elements') {
             $type = $this->_node->Item('xs:complexType');
             if (!$type) {
                 return [];
@@ -95,10 +99,12 @@ class XsdElementDefinition implements \JsonSerializable
                     $elements[$el->name] = $el;
                 }
                 return $elements;
-            } else {
+            }
+            else {
                 return [];
             }
-        } else if (strtolower($property) == 'type') {
+        }
+        else if (strtolower($property) == 'type') {
             if ($this->_node->attributes->type) {
                 return isset($this->_schema->types[$this->_node->attributes->type->value]) ? $this->_schema->types[$this->_node->attributes->type->value] : new XsdBaseTypeDefinition($this->_node->attributes->type->value);
             }
@@ -106,12 +112,15 @@ class XsdElementDefinition implements \JsonSerializable
             if (!$type) {
                 return null;
             }
-            return new XsdBaseTypeDefinition($type); 
-        } else if (strtolower($property) == 'autocomplete') {
+            return new XsdBaseTypeDefinition($type);
+        }
+        else if (strtolower($property) == 'autocomplete') {
             return $this->_node->attributes->autocomplete && $this->_node->attributes->autocomplete->value ? explode(',', $this->_node->attributes->autocomplete->value) : null;
-        } else if (strtolower($property) == 'generate') {
+        }
+        else if (strtolower($property) == 'generate') {
             return $this->_node->attributes->generate && $this->_node->attributes->generate->value ? $this->_node->attributes->generate->value : null;
-        } else if (strtolower($property) == 'lookup') {
+        }
+        else if (strtolower($property) == 'lookup') {
             return $this->_node->attributes->lookup && $this->_node->attributes->lookup->value ? $this->_node->attributes->lookup->value : null;
         }
     }
@@ -122,7 +131,7 @@ class XsdElementDefinition implements \JsonSerializable
      * @return XmlSerialized
      * @testFunction testXsdElementDefinitionCreateObject
      */
-    public function CreateObject()
+    public function CreateObject(): XmlSerialized
     {
 
         $attributes = [];
@@ -147,10 +156,10 @@ class XsdElementDefinition implements \JsonSerializable
     /**
      * Возвращает данные в виде простого обьекта для упаковки в json
      *
-     * @return \stdClass
+     * @return object
      * @testFunction testXsdElementDefinitionJsonSerialize
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): object|array
     {
         return (object)array('name' => $this->name, 'type' => $this->type, 'annotation' => $this->annotation, 'occurs' => $this->occurs, 'attributes' => $this->attributes, 'elements' => $this->elements, 'autocomplete' => $this->autocomplete, 'generate' => $this->generate, 'lookup' => $this->lookup);
     }
@@ -158,10 +167,10 @@ class XsdElementDefinition implements \JsonSerializable
     /**
      * Возвращает данные в виде простого обьекта
      *
-     * @return \stdClass
+     * @return object
      * @testFunction testXsdElementDefinitionToObject
      */
-    public function ToObject()
+    public function ToObject(): object
     {
 
         $attributes = [];

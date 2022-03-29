@@ -27,7 +27,7 @@ class XmlNamedNodeList extends ReadonlyCollection
      *
      * @var \DOMDocument
      */
-    private $_document;
+    private ?DOMDocument $_document;
 
     /**
      * Конструктор
@@ -35,7 +35,7 @@ class XmlNamedNodeList extends ReadonlyCollection
      * @param \DOMNodeList $nodelist Список узлов
      * @param \DOMDocument $dom Документ
      */
-    public function __construct($nodelist, $dom)
+    public function __construct(\DOMNodeList $nodelist, DOMDocument $dom)
     {
         $this->_document = $dom;
 
@@ -53,7 +53,7 @@ class XmlNamedNodeList extends ReadonlyCollection
      * @return XmlNamedNodeListIterator
      * @testFunction testXmlNamedNodeListGetIterator
      */
-    public function getIterator()
+    public function getIterator(): XmlNamedNodeListIterator
     {
         return new XmlNamedNodeListIterator($this);
     }
@@ -65,7 +65,7 @@ class XmlNamedNodeList extends ReadonlyCollection
      * @return XmlNode|null
      * @testFunction testXmlNamedNodeListItem
      */
-    public function Item($key)
+    public function Item(string $key): ?XmlNode
     {
         $v = parent::Item($key);
         if (is_null($v)) {
@@ -81,7 +81,7 @@ class XmlNamedNodeList extends ReadonlyCollection
      * @return XmlNode
      * @testFunction testXmlNamedNodeListItemAt
      */
-    public function ItemAt($index)
+    public function ItemAt(int $index): XmlNode
     {
         return new XmlNode(parent::ItemAt($index), $this->_document);
     }
@@ -93,11 +93,12 @@ class XmlNamedNodeList extends ReadonlyCollection
      * @return mixed
      * @testFunction testXmlNamedNodeList__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         if (strtolower($property) == 'document') {
             return $this->_document;
-        } else {
+        }
+        else {
             return parent::__get($property);
         }
     }

@@ -31,35 +31,35 @@ class Graphics
      *
      * @var mixed
      */
-    private $_img;
+    private mixed $_img;
 
     /**
      * Размеры
      *
      * @var Size
      */
-    private $_size;
+    private ?Size $_size = null;
 
     /**
      * Тип изображения
      *
      * @var string
      */
-    private $_type;
+    private string $_type;
 
     /**
      * Файл, где хранится изображение
      *
      * @var string
      */
-    private $_file;
+    private string $_file;
     
     /**
      * История
      *
      * @var array
      */
-    private $_history = array();
+    private array $_history = array();
     
     /**
      * Конструктор
@@ -87,7 +87,7 @@ class Graphics
      * @param string $property
      * @return mixed
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         $return = null;
         switch (strtolower($property)) {
@@ -130,7 +130,7 @@ class Graphics
      * @param string $property
      * @param mixed $value
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value): void
     {
         if (strtolower($property) == 'type') {
             $this->_type = $value;
@@ -143,7 +143,7 @@ class Graphics
      * @param string $data
      * @return void
      */
-    public function LoadFromData($data)
+    public function LoadFromData(string $data): void
     {
         $this->_file = basename(RandomizationHelper::Mixed(20));
         $this->_img = @\imagecreatefromstring($data);
@@ -158,7 +158,7 @@ class Graphics
      * @param string $file
      * @return void
      */
-    public function LoadFromFile($file)
+    public function LoadFromFile(string $file): void
     {
         $this->_file = basename($file);
         $pp = explode('.', $file);
@@ -191,7 +191,7 @@ class Graphics
      * @param Size $size
      * @return void
      */
-    public function LoadEmptyImage($size)
+    public function LoadEmptyImage(Size $size): void
     {
         $this->_type = "unknown";
         $this->_img = \imagecreatetruecolor($size->width, $size->height);
@@ -206,7 +206,7 @@ class Graphics
      * @param Size $size
      * @return void
      */
-    public function Resize($size)
+    public function Resize(Size $size): void
     {
         if ($this->isValid) {
             $newImage = \imagecreatetruecolor($size->width, $size->height);
@@ -226,7 +226,7 @@ class Graphics
      * @param integer $degree
      * @return void
      */
-    public function Rotate($degree = 90)
+    public function Rotate(int $degree = 90): void
     {
         $this->_img = \imagerotate($this->_img, $degree, -1);
         \imagealphablending($this->_img, true);
@@ -240,7 +240,7 @@ class Graphics
      * @param Point $start
      * @return void
      */
-    public function Crop($size, $start = null)
+    public function Crop(Size $size, ?Point $start = null): void
     {
         if ($this->isValid) {
             if (is_null($start)) {
@@ -276,7 +276,7 @@ class Graphics
      * @param integer $arg3
      * @return void
      */
-    public function ApplyFilter($filter, $arg1 = 0, $arg2 = 0, $arg3 = 0)
+    public function ApplyFilter(int $filter, int $arg1 = 0, int $arg2 = 0, int $arg3 = 0): void
     {
         $return = null;
         switch ($filter) {
@@ -348,7 +348,7 @@ class Graphics
      * @param string $file
      * @return void
      */
-    public function Save($file)
+    public function Save(string $file): void
     {
         $fi = new File($file);
         switch ($fi->extension) {
@@ -373,7 +373,7 @@ class Graphics
      *
      * @return void
      */
-    private function _safeAlpha()
+    private function _safeAlpha(): void
     {
         // save alpha
         \imagealphablending($this->_img, 1);
@@ -385,7 +385,7 @@ class Graphics
      *
      * @return string
      */
-    private function _getImageData()
+    private function _getImageData(): string
     {
         $tempFile = tempnam(null, null);
         switch ($this->_type) {
@@ -415,7 +415,7 @@ class Graphics
      * @param string $path
      * @return ExtendedObject
      */
-    public static function Info($path)
+    public static function Info(string $path): ExtendedObject
     {
         list($width, $height, $type, $attr) = \getimagesize($path);
         $o = new ExtendedObject();
@@ -431,7 +431,7 @@ class Graphics
      * @param string $data
      * @return Graphics
      */
-    public static function Create($data)
+    public static function Create(string $data): Graphics
     {
         $g = new Graphics();
         

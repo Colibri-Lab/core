@@ -27,21 +27,21 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable
      *
      * @var \DOMDocument
      */
-    private $_document;
+    private ?\DOMDocument $_document;
 
     /**
      * Нода
      *
      * @var mixed
      */
-    private $_node;
+    private mixed $_node;
 
     /**
      * Список атрибутов
      *
      * @var \DOMNamedNodeMap
      */
-    private $_data;
+    private ?\DOMNamedNodeMap $_data;
 
     /**
      * Конструктор
@@ -50,7 +50,7 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable
      * @param \DOMNode $node узел
      * @param \DOMNamedNodeMap $xmlattributes список атрибутов
      */
-    public function __construct($document, $node, $xmlattributes)
+    public function __construct(\DOMDocument $document, \DOMNode $node, \DOMNamedNodeMap $xmlattributes)
     {
         $this->_document = $document;
         $this->_node = $node;
@@ -63,7 +63,7 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable
      * @return XmlNodeListIterator
      * @testFunction testXmlNodeAttributeListGetIterator
      */
-    public function getIterator()
+    public function getIterator(): XmlNodeListIterator
     {
         return new XmlNodeListIterator($this);
     }
@@ -75,7 +75,7 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable
      * @return XmlAttribute
      * @testFunction testXmlNodeAttributeListItem
      */
-    public function Item($index)
+    public function Item(int $index): XmlAttribute
     {
         return new XmlAttribute($this->_data->item($index));
     }
@@ -86,7 +86,7 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable
      * @return int
      * @testFunction testXmlNodeAttributeListCount
      */
-    public function Count()
+    public function Count(): int
     {
         return $this->_data->length;
     }
@@ -98,7 +98,7 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable
      * @return XmlAttribute|null
      * @testFunction testXmlNodeAttributeList__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         $attr = $this->_data->getNamedItem($property);
         if (!is_null($attr)) {
@@ -121,7 +121,7 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable
      * @return void
      * @testFunction testXmlNodeAttributeListAppend
      */
-    public function Append($name, $value)
+    public function Append(string $name, string $value): void
     {
         $attr = $this->_document->createAttribute($name);
         $attr->value = $value;
@@ -135,13 +135,14 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable
      * @return void
      * @testFunction testXmlNodeAttributeListRemove
      */
-    public function Remove($name)
+    public function Remove(string $name): void
     {
         if ($this->$name && $this->$name->raw) {
             $this->_node->removeAttributeNode($this->$name->raw);
         }
     }
 
-    
+
+
 
 }

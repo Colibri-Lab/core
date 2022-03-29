@@ -26,7 +26,7 @@ class MetaTemplate extends Template
      *
      * @param string $file файл шаблона
      */
-    public function __construct($file)
+    public function __construct(string $file)
     {
         parent::__construct($file . '.meta');
     }
@@ -38,12 +38,12 @@ class MetaTemplate extends Template
      * @param mixed $args
      * @return string
      */
-    public function Render($args = null)
+    public function Render(mixed $args = null): string
     {
 
-        $args = (object) $args;
+        $args = (object)$args;
 
-        $this->DispatchEvent(EventsContainer::TemplateRendering, (object) ['template' => $this, 'args' => $args]);
+        $this->DispatchEvent(EventsContainer::TemplateRendering, (object)['template' => $this, 'args' => $args]);
 
         $content = File::Read($this->_file);
         if ($args->mode === 'js') {
@@ -56,18 +56,20 @@ class MetaTemplate extends Template
                     return args;
                 })(container);
             ';
-        } else if ($args->mode === 'php') {
+        }
+        else if ($args->mode === 'php') {
             $f = eval('return function($mode, $args) {
                 ' . $this->_convertToPhp($content) . '
                 return $args;
             };');
             // возварщает обьект
             $content = $f($args->mode, $args);
-        } else {
+        }
+        else {
             $content = '';
         }
 
-        $this->DispatchEvent(EventsContainer::TemplateRendered, (object) ['template' => $this, 'content' => $content]);
+        $this->DispatchEvent(EventsContainer::TemplateRendered, (object)['template' => $this, 'content' => $content]);
 
         return $content;
 
@@ -78,7 +80,7 @@ class MetaTemplate extends Template
      * @param string $code
      * @return string
      */
-    private function _convertToJS($code)
+    private function _convertToJS(string $code): string
     {
         $code = \preg_replace_callback('/\{\{([^\}\}]+)\}\}/s', function ($match) {
             return 'args.' . $match[1];
@@ -91,7 +93,7 @@ class MetaTemplate extends Template
      * @param string $code
      * @return string
      */
-    private function _convertToPhp($code)
+    private function _convertToPhp(string $code): string
     {
         $code = \preg_replace_callback('/\{\{([^\}\}]+)\}\}/s', function ($match) {
             return '$args->' . $match[1];
@@ -106,7 +108,8 @@ class MetaTemplate extends Template
      * @param ExtendedObject $args аргументы для передачи в код
      * @return string
      */
-    public function RenderCode($code, $args) {
+    public function RenderCode(string $code, mixed $args): string
+    {
         return $code;
     }
 

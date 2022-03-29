@@ -26,7 +26,7 @@ class Server extends WebServer
     /**
      * @testFunction testServerRun
      */
-    public function Run($cmd, $default = '')
+    public function Run(string $cmd, string $default = ''): void
     {
         if (strstr($cmd, '.rpc') === false) {
             $this->_responseWithError(Server::NotRpcQuery, 404, $cmd);

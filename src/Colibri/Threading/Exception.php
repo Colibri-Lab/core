@@ -24,8 +24,8 @@ class Exception extends AppException
      * @param int $code код ошибки ErrorCodes
      * @param string $message дополнительный текст ошибки
      */
-    public function __construct($code, $message)
+    public function __construct(int $code, string $message)
     {
-        return parent::__construct(ErrorCodes::ToString($code) . ' ' . $message, $code);
+        parent::__construct(ErrorCodes::ToString($code) . ' ' . $message, $code);
     }
 }

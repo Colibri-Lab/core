@@ -57,7 +57,7 @@ class ModuleManager
      * @return ModuleManager
      * @testFunction testModuleManagerCreate
      */
-    public static function Create()
+    public static function Create(): self
     {
         if (!self::$instance) {
             self::$instance = new self();
@@ -71,7 +71,7 @@ class ModuleManager
      * @return void
      * @testFunction testModuleManagerInitialize
      */
-    public function Initialize()
+    public function Initialize(): void
     {
 
         try {
@@ -81,23 +81,23 @@ class ModuleManager
                 if (!$moduleConfig->Query('enabled', true)->GetValue()) {
                     continue;
                 }
-                
+
                 $module = $this->InitModule($moduleConfig);
                 if ($module) {
                     $moduleName = $moduleConfig->Query('name')->GetValue();
                     $this->_list->Add($moduleName, $module);
                 }
             }
-    
-            foreach($this->_list as $moduleName => $module) {
+
+            foreach ($this->_list as $moduleName => $module) {
                 App::$monitoring->StartTimer($moduleName);
-                
+
                 $module->InitializeModule();
 
                 App::$monitoring->EndTimer($moduleName);
             }
         }
-        catch(ConfigException $e) {
+        catch (ConfigException $e) {
             App::$log->debug('Modules not found');
         }
 
@@ -111,7 +111,7 @@ class ModuleManager
      * @return Module|null
      * @testFunction testModuleManagerInitModule
      */
-    public function InitModule($configNode)
+    public function InitModule(Config $configNode): ?Module
     {
         $moduleEntry = $configNode->Query('entry')->GetValue();
 
@@ -132,7 +132,7 @@ class ModuleManager
     /**
      * @testFunction testModuleManager__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         $property = strtolower($property);
         switch ($property) {
@@ -149,10 +149,10 @@ class ModuleManager
      * Получает конфигурацию модуля
      *
      * @param string $name
-     * @return void
+     * @return Config
      * @testFunction testModuleManagerConfig
      */
-    public function Config($name)
+    public function Config(string $name): Config
     {
         return $this->_settings->$name->config;
     }
@@ -162,11 +162,11 @@ class ModuleManager
      *
      * @return array
      */
-    public function GetPermissions()
+    public function GetPermissions(): array
     {
         $permissions = [];
-        foreach($this->list as $module) {
-            if(is_object($module) && method_exists($module, 'GetPermissions')) {
+        foreach ($this->list as $module) {
+            if (is_object($module) && method_exists($module, 'GetPermissions')) {
                 $permissions = array_merge($permissions, $module->GetPermissions());
             }
         }
@@ -179,11 +179,12 @@ class ModuleManager
      * @param array|null $extendArray дополнить массив нужными элементами
      * @return string[]
      */
-    public function GetPaths($extend = '/', $extendArray = null) {
+    public function GetPaths(string $extend = '/', ?array $extendArray = null): array
+    {
         $paths = [];
-        foreach($this->list as $module) {
-            $p = ['path' => $module->modulePath.$extend];
-            if($extendArray) {
+        foreach ($this->list as $module) {
+            $p = ['path' => $module->modulePath . $extend];
+            if ($extendArray) {
                 $p = array_merge($p, $extendArray);
             }
             $paths[] = $p;
@@ -197,16 +198,17 @@ class ModuleManager
      * @param array|null $extendArray дополнить массив нужными элементами
      * @return string[]
      */
-    public function GetTemplates($templateName = 'index') {
+    public function GetTemplates(string $templateName = 'index'): array
+    {
         $templates = [];
-        foreach($this->list as $module) {
-            $tname = $module->modulePath.'templates/'.$templateName;
+        foreach ($this->list as $module) {
+            $tname = $module->modulePath . 'templates/' . $templateName;
             try {
                 $templates[] = PhpTemplate::Create($tname);
 
             }
-            catch(\Throwable $e) {
-                App::$log->debug('Запрошен шаблон модуля, который не существует: '.$tname);
+            catch (\Throwable $e) {
+                App::$log->debug('Запрошен шаблон модуля, который не существует: ' . $tname);
             }
         }
         return $templates;

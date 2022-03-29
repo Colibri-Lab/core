@@ -26,7 +26,7 @@ class GraylogLogger extends Logger
      * @param integer $maxLogLevel
      * @param string $device
      */
-    public function __construct($maxLogLevel = 7, $device = '')
+    public function __construct(int $maxLogLevel = 7, mixed $device = '')
     {
         $this->_maxLogLevel = $maxLogLevel;
         if (!is_object($device) && !is_array($device)) {
@@ -48,7 +48,7 @@ class GraylogLogger extends Logger
      * @return void
      * @testFunction testGraylogLoggerWriteLine
      */
-    public function WriteLine($level, $data)
+    public function WriteLine(int $level, mixed $data): void
     {
 
 
@@ -60,7 +60,8 @@ class GraylogLogger extends Logger
         $host = '';
         if (isset($this->_device->host)) {
             $host = $this->_device->host;
-        } else if (isset($_SERVER['HTTP_HOST'])) {
+        }
+        else if (isset($_SERVER['HTTP_HOST'])) {
             $host = $_SERVER['HTTP_HOST'];
         }
 
@@ -78,7 +79,8 @@ class GraylogLogger extends Logger
         $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         if ($socket) {
             socket_sendto($socket, $data, strlen($data), 0, $this->_device->server, $this->_device->port);
-        } else {
+        }
+        else {
             throw new LoggerException('Не смогли создать сокен в GrayLog', 500);
         }
     }
@@ -89,7 +91,7 @@ class GraylogLogger extends Logger
      * @return mixed
      * @testFunction testGraylogLoggerContent
      */
-    public function Content()
+    public function Content(): mixed
     {
         return null;
     }

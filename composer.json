@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "psr/log": "^1.1",
+        "php": ">=8.0.0",
+        "psr/log": "3.0.0",
         "phpmailer/phpmailer": "^6.6",
         "matthiasmullie/minify": "^1.3"
     },

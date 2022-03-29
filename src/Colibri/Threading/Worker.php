@@ -31,28 +31,28 @@ abstract class Worker
      *
      * @var integer
      */
-    protected $_timeLimit = 0;
+    protected int $_timeLimit = 0;
 
     /**
      * Приоритет процесса, требуется наличие nohup
      *
      * @var integer
      */
-    protected $_prio = 0;
+    protected int $_prio = 0;
 
     /**
      * Ключ необходим для идентификации процесса в списке процессов в ps
      *
      * @var string
      */
-    protected $_key = '';
+    protected string $_key = '';
 
     /**
      * ID потока
      *
      * @var string
      */
-    protected $_id = '';
+    protected string $_id = '';
 
     /**
      * Лог воркера
@@ -75,7 +75,7 @@ abstract class Worker
      * @param integer $prio приоритет, требуется наличие nohup
      * @param string $key ключ процесса (уникальный ключ для того, чтобы в дальнейшем можно было идентифицировать процесс)
      */
-    public function __construct($timeLimit = 0, $prio = 0, $key = '')
+    public function __construct(int $timeLimit = 0, int $prio = 0, string $key = '')
     {
         $this->_timeLimit = $timeLimit;
         $this->_prio = $prio;
@@ -95,16 +95,17 @@ abstract class Worker
     /**
      * @testFunction testWorkerRun
      */
-    abstract public function Run();
+    abstract public function Run() : void;
 
     /**
      * функция Getter для получения данных по потоку
      *
      * @param string $prop
-     * @return void
+     * @return mixed
      */
-    public function __get($prop)
+    public function __get(string $prop) : mixed
     {
+
         $return = null;
         $prop = strtolower($prop);
         switch ($prop) {

@@ -20,28 +20,28 @@ interface IDataReader
     /**
      * Возвращает список полей в запросе
      *
-     * @return array(string)
+     * @return string[]
      */
-    public function Fields();
+    public function Fields(): array;
 
     /**
      * Считывает следующую строку и возвращет в виде обьекта
      *
-     * @return \stdClass
+     * @return object
      */
-    public function Read();
+    public function Read(): ?object;
 
     /**
      * Закрывает ресурс запроса
      *
      * @return void
      */
-    public function Close();
+    public function Close(): void;
 
     /**
      * Возвращает количество строк
      *
      * @return int
      */
-    public function Count();
+    public function Count(): int;
 }

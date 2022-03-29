@@ -34,7 +34,7 @@ final class Command extends SqlCommand
      * @return mysqli_stmt
      * @testFunction testCommand_prepareStatement
      */
-    private function _prepareStatement($query)
+    private function _prepareStatement(string $query): mysqli_stmt
     {
 
         if (!$this->_params) {
@@ -93,7 +93,7 @@ final class Command extends SqlCommand
      * @return IDataReader
      * @testFunction testCommandExecuteReader
      */
-    public function ExecuteReader($info = true)
+    public function ExecuteReader(bool $info = true): IDataReader
     {
 
         // выбираем базу данныx, с которой работает данный линк
@@ -142,7 +142,7 @@ final class Command extends SqlCommand
      * @return NonQueryInfo
      * @testFunction testCommandExecuteNonQuery
      */
-    public function ExecuteNonQuery()
+    public function ExecuteNonQuery(): NonQueryInfo
     {
         mysqli_select_db($this->_connection->resource, $this->_connection->database);
 
@@ -162,7 +162,7 @@ final class Command extends SqlCommand
      * @return string
      * @testFunction testCommandPrepareQueryString
      */
-    public function PrepareQueryString()
+    public function PrepareQueryString(): string
     {
         $query = $this->query;
         if ($this->_page > 0) { //  && strstr($query, "limit") === false

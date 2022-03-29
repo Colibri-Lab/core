@@ -30,12 +30,12 @@ class DateHelper
     /** Количество секунд в минуту */
     const MINUTE = 60;
 
-    public static function Create($year, $month, $day) 
+    public static function Create(int $year, int $month, int $day) 
     {
         return mktime(0, 0, 0, $month, $day, $year);
     }
 
-    public static function LastDayOfMonth($date) 
+    public static function LastDayOfMonth(int|null $date): bool|int
     {
         return strtotime('last day of this month', $date);
     }
@@ -47,7 +47,7 @@ class DateHelper
      * @return string
      * @testFunction testDateHelperRFC
      */
-    public static function RFC($time = null)
+    public static function RFC(int $time = null): string
     {
         $tz = date('Z');
         $tzs = ($tz < 0) ? '-' : '+';
@@ -64,7 +64,7 @@ class DateHelper
      * @return string
      * @testFunction testDateHelperToDbString
      */
-    public static function ToDbString($time = null, $format = '%Y-%m-%d %H:%M:%S')
+    public static function ToDbString(?int $time = null, ?string $format = '%Y-%m-%d %H:%M:%S'): string
     {
         if (VariableHelper::IsNull($time)) {
             $time = time();
@@ -82,7 +82,7 @@ class DateHelper
      * @return string
      * @testFunction testDateHelperToHumanDate
      */
-    public static function ToHumanDate($time = null, $showTime = false)
+    public static function ToHumanDate(?int $time = null, ?bool $showTime = false): string
     {
         if (is_null($time)) {
             $time = time();
@@ -97,11 +97,8 @@ class DateHelper
      * @return integer|null
      * @testFunction testDateHelperToUnixTime
      */
-    public static function ToUnixTime($datestring)
+    public static function ToUnixTime(string $datestring): int|null
     {
-        if (!is_string($datestring)) {
-            return null;
-        }
         return strtotime($datestring);
     }
 
@@ -112,7 +109,7 @@ class DateHelper
      * @return string
      * @testFunction testDateHelperAge
      */
-    public static function Age($time)
+    public static function Age(int $time): string
     {
         $time = time() - $time; // to get the time since that moment
 
@@ -148,7 +145,7 @@ class DateHelper
      * @return integer|false
      * @testFunction testDateHelperAgeYears
      */
-    public static function AgeYears($time)
+    public static function AgeYears(int|string $time): string
     {
 
         if (VariableHelper::IsString($time)) {
@@ -178,11 +175,11 @@ class DateHelper
      * @param integer $number
      * @testFunction testDateHelperTimeToString
      */
-    public static function TimeToString($number)
+    public static function TimeToString(int $number): ?string
     {
 
         if (!VariableHelper::IsNumeric($number) || $number < 0) {
-            return false;
+            return null;
         }
 
         $hours = 0;
@@ -227,7 +224,7 @@ class DateHelper
      * @return object
      * @testFunction testDateHelperDiff
      */
-    static function Diff($time1, $time2)
+    static function Diff(int $time1, int $time2): string
     {
 
         try {

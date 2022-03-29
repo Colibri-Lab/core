@@ -21,19 +21,19 @@ class Result
      *
      * @var int
      */
-    public $status;
+    public int $status;
 
     /**
      * Данные
      *
      * @var string
      */
-    public $data;
+    public string $data;
 
     /**
      * Массив заголовков
      *
      * @var object
      */
-    public $headers;
+    public object $headers;
 }

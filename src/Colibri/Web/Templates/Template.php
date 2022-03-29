@@ -27,7 +27,8 @@ use Colibri\Utils\ExtendedObject;
  * @property-read string $path
  * 
  */
-abstract class Template {
+abstract class Template
+{
 
     use TEventDispatcher;
 
@@ -45,16 +46,17 @@ abstract class Template {
      *
      * @param string $file файл шаблона
      */
-    public function __construct($file) {
+    public function __construct($file)
+    {
 
         // если обьект нужен без указания файла
-        if(strstr($file, Template::Dummy) === 0) {
+        if (strstr($file, Template::Dummy) === 0) {
             return;
         }
 
         $this->_file = Directory::RealPath($file);
-        if(!File::Exists($this->_file)) {
-            throw new AppException('Unknown template, file: '.$file.' realpath: '.$this->_file);
+        if (!File::Exists($this->_file)) {
+            throw new AppException('Unknown template, file: ' . $file . ' realpath: ' . $this->_file);
         }
 
     }
@@ -64,8 +66,9 @@ abstract class Template {
      * @param mixed $file файл шаблона
      * @return Template созданный шаблон
      */
-    public static function Create($file) {
-        return new static($file);
+    public static function Create($file)
+    {
+        return new static ($file);
     }
 
     /**
@@ -74,11 +77,12 @@ abstract class Template {
      * @param string $prop
      * @return mixed
      */
-    public function __get($prop) {
-        if(strtolower($prop) == 'file') {
+    public function __get($prop)
+    {
+        if (strtolower($prop) == 'file') {
             return $this->_file;
         }
-        else if(strtolower($prop) == 'path') {
+        else if (strtolower($prop) == 'path') {
             $f = new File($this->_file);
             return $f->directory->path;
         }
@@ -108,8 +112,9 @@ abstract class Template {
      * @param mixed $args аргументы для передачи в код
      * @return string
      */
-    static function Run($code, $args) {
-        $dummy = new static(Template::Dummy);
+    static function Run($code, $args)
+    {
+        $dummy = new static (Template::Dummy);
         return $dummy->RenderCode($code, $args);
     }
 
@@ -118,12 +123,11 @@ abstract class Template {
      * @param string $file Файл подшаблона
      * @return string 
      */
-    public function Insert($file, $args = []) {
+    public function Insert($file, $args = [])
+    {
         $currentPathInfo = Directory::PathInfo($this->_file);
         $currentPath = $currentPathInfo['dirname'];
-        return static::Create($currentPath.'/'.$file)->Render($args);
+        return static::Create($currentPath . '/' . $file)->Render($args);
     }
 
 }
-
-

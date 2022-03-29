@@ -30,7 +30,7 @@ class Data extends ArrayList
      * @return Data
      * @testFunction testDataFromArray
      */
-    public static function FromArray($array, $keyBefore = null, &$d = null)
+    public static function FromArray(array $array, ?string $keyBefore = null, ?Data &$d = null)
     {
         if(!$d) {
             $d = new Data();

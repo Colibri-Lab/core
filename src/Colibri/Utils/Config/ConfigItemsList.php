@@ -28,7 +28,7 @@ class ConfigItemsList extends ArrayList
      * @return Config
      * @testFunction testConfigItemsListItem
      */
-    public function Item(int $index) : Config
+    public function Item(int $index): Config
     {
         return new Config($this->data[$index]);
     }

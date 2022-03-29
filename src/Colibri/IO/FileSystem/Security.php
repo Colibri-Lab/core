@@ -34,13 +34,13 @@ class Security
      *
      * @var File|Directory
      */
-    protected $source;
+    protected File|Directory|null $source = null;
     /**
      * Права доступа
      *
      * @var array
      */
-    protected $flags;
+    protected array $flags;
 
     /**
      * Конструктор
@@ -48,7 +48,7 @@ class Security
      * @param File|Directory $source источник
      * @param mixed $flags флаги
      */
-    function __construct($source, $flags = null)
+    function __construct(File|Directory|null $source, mixed $flags = null)
     {
         $this->source = $source;
         if ($flags === null) {
@@ -71,7 +71,7 @@ class Security
      * @return mixed
      * @testFunction testSecurity__get
      */
-    function __get($property)
+    function __get(string $property): mixed
     {
         return $this->flags[$property];
     }
@@ -82,7 +82,7 @@ class Security
      * @param string $property свойство
      * @param mixed $value значение
      */
-    function __set($property, $value)
+    function __set(string $property, mixed $value): void
     {
         $this->flags[$property] = $value;
     }

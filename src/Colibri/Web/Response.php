@@ -17,6 +17,7 @@ use Colibri\Events\TEventDispatcher;
 use Colibri\Events\EventsContainer;
 use Colibri\Common\MimeType;
 use Colibri\Common\StringHelper;
+use IteratorAggregate;
 
 /**
  * Респонс 
@@ -33,7 +34,7 @@ class Response
      *
      * @var Response
      */
-    static $instance;
+    static ?Response $instance = null;
 
     /**
      * Коды ответов
@@ -129,7 +130,7 @@ class Response
      * @return Response
      * @testFunction testResponseCreate
      */
-    public static function Create()
+    public static function Create(): Response
     {
         if (!Response::$instance) {
             Response::$instance = new Response();
@@ -145,7 +146,7 @@ class Response
      * @return void
      * @testFunction testResponse_addHeader
      */
-    private function _addHeader($name, $value)
+    private function _addHeader(string $name, string $value): void
     {
         header($name . ': ' . $value);
     }
@@ -156,7 +157,7 @@ class Response
      * @return Response
      * @testFunction testResponseNoCache
      */
-    public function NoCache()
+    public function NoCache(): Response
     {
         $this->_addHeader('Pragma', 'no-cache');
         $this->_addHeader('X-Accel-Expires', '0');
@@ -171,7 +172,7 @@ class Response
      * @return Response
      * @testFunction testResponseContentType
      */
-    public function ContentType($type, $encoding = false)
+    public function ContentType(string $type, ?string $encoding = null): Response
     {
         $this->_addHeader('Content-type', $type . ($encoding ? "; charset=" . $encoding : ""));
         return $this;
@@ -184,7 +185,7 @@ class Response
      * @return Response
      * @testFunction testResponseExpiresAfter
      */
-    public function ExpiresAfter($seconds)
+    public function ExpiresAfter(int $seconds): Response
     {
         $this->_addHeader('Expires', gmstrftime("%a, %d %b %Y %H:%M:%S GMT", time() - $seconds));
         return $this;
@@ -197,7 +198,7 @@ class Response
      * @return Response
      * @testFunction testResponseExpiresAt
      */
-    public function ExpiresAt($date)
+    public function ExpiresAt(int $date): Response
     {
         $this->_addHeader('Expires', gmstrftime("%a, %d %b %Y %H:%M:%S GMT", $date));
         return $this;
@@ -210,7 +211,7 @@ class Response
      * @return Response
      * @testFunction testResponseCache
      */
-    public function Cache($seconds)
+    public function Cache(int $seconds): Response
     {
         $this->_addHeader('Pragma', 'no-cache');
         $this->_addHeader('X-Accel-Expires', $seconds);
@@ -223,7 +224,7 @@ class Response
      * @return Response
      * @testFunction testResponseP3P
      */
-    public function P3P()
+    public function P3P(): Response
     {
         $this->_addHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
         return $this;
@@ -236,7 +237,7 @@ class Response
      * @return Response
      * @testFunction testResponseRedirect
      */
-    public function Redirect($url)
+    public function Redirect(string $url): Response
     {
         header('Location: ' . $url);
         return $this;
@@ -245,7 +246,7 @@ class Response
     /**
      * Перезагрузить страницу
      */
-    public function Refresh()
+    public function Refresh(): Response
     {
         header("Refresh:0");
         return $this;
@@ -257,7 +258,7 @@ class Response
      * @return Response
      * @testFunction testResponseFileTransfer
      */
-    public function FileTransfer()
+    public function FileTransfer(): Response
     {
         $this->_addHeader('Content-Description', 'File Transfer');
         return $this;
@@ -271,7 +272,7 @@ class Response
      * @return Response
      * @testFunction testResponseContentDisposition
      */
-    public function ContentDisposition($type, $name)
+    public function ContentDisposition(string $type, string $name): Response
     {
         $this->_addHeader('Content-Disposition', $type . '; filename="' . StringHelper::Replace($name, '"', '') . '"');
         return $this;
@@ -284,7 +285,7 @@ class Response
      * @return Response
      * @testFunction testResponseContentTransferEncoding
      */
-    public function ContentTransferEncoding($type = 'binary')
+    public function ContentTransferEncoding(string $type = 'binary'): Response
     {
         $this->_addHeader('Content-Transfer-Encoding', $type);
         return $this;
@@ -297,7 +298,7 @@ class Response
      * @return Response
      * @testFunction testResponsePragma
      */
-    public function Pragma($type = 'binary')
+    public function Pragma(string $type = 'binary'): Response
     {
         $this->_addHeader('Pragma', $type);
         return $this;
@@ -310,7 +311,7 @@ class Response
      * @return Response
      * @testFunction testResponseContentLength
      */
-    public function ContentLength($length)
+    public function ContentLength(int $length): Response
     {
         $this->_addHeader('Content-Length', $length);
         return $this;
@@ -323,7 +324,7 @@ class Response
      * @return Response
      * @testFunction testResponseCacheControl
      */
-    public function CacheControl($type)
+    public function CacheControl(string $type): Response
     {
         $this->_addHeader('Cache-Control', $type);
         return $this;
@@ -340,7 +341,7 @@ class Response
      * @param bool $httponly Если задано true, cookie будут доступны только через HTTP-протокол
      * @return Response 
      */
-    public function Cookie($name, $value, $expires = 0, $path = '', $domain = '', $secure = false, $httponly = false)
+    public function Cookie(string $name, string $value, ?int $expires = 0, ?string $path = '', ?string $domain = '', ?bool $secure = false, ?bool $httponly = false): Response
     {
         setcookie($name, $value, time() + $expires * 86400, $path, $domain, $secure, $httponly);
         return $this;
@@ -351,12 +352,13 @@ class Response
      * @param RequestCollection|array|object $utm 
      * @return void 
      */
-    public function SaveUTMCookies($utm)
+    public function SaveUTMCookies(IteratorAggregate $utm): Response
     {
 
         foreach ($utm as $key => $value) {
             $this->Cookie($key, $value, 7);
         }
+        return $this;
 
     }
 
@@ -367,7 +369,7 @@ class Response
      * @return void
      * @testFunction testResponseError404
      */
-    public function Error404($content = '')
+    public function Error404(string $content = ''): void
     {
         $this->Close(404, $content);
     }
@@ -380,7 +382,7 @@ class Response
      * @return void
      * @testFunction testResponseClose
      */
-    public function Close($status, $content = '', $type = 'text/html', $encoding = 'utf-8', $headers = [])
+    public function Close(int $status, string $content = '', string $type = 'text/html', string $encoding = 'utf-8', ?array $headers = []): void
     {
         try {
             header('HTTP/1.1 ' . $status . ' ' . Response::$codes[$status]);
@@ -419,7 +421,7 @@ class Response
      * @return void
      * @testFunction testResponseDownloadFile
      */
-    public function DownloadFile($filename, $filecontent)
+    public function DownloadFile(string $filename, string $filecontent): void
     {
         $mime = MimeType::Create($filename);
         $this->FileTransfer();
@@ -438,7 +440,7 @@ class Response
      * @return void
      * @testFunction testResponseWrite
      */
-    public function Write()
+    public function Write(): void
     {
         $args = func_get_args();
         foreach ($args as $arg) {

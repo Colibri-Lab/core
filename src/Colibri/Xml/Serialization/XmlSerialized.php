@@ -27,21 +27,21 @@ class XmlSerialized implements \JsonSerializable
      *
      * @var string
      */
-    private $_name;
+    private string $_name;
 
     /**
      * Список атрибутов
      *
      * @var object
      */
-    private $_attributes;
+    private ?object $_attributes;
 
     /**
      * Список элементов
      *
      * @var object|array
      */
-    private $_content;
+    private object|array |null $_content;
 
     /**
      * Конструктор
@@ -51,7 +51,7 @@ class XmlSerialized implements \JsonSerializable
      * @param array $content контент
      * @testFunction testXmlSerialized
      */
-    public function __construct($name = null, $attributes = null, $content = null)
+    public function __construct(string $name = null, ?array $attributes = null, ?array $content = null)
     {
         $this->_name = $name;
         $this->_attributes = (object)$attributes;
@@ -65,13 +65,15 @@ class XmlSerialized implements \JsonSerializable
      * @return mixed
      * @testFunction testXmlSerialized__get
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         if (strtolower($property) == 'attributes') {
             return $this->_attributes;
-        } else if (strtolower($property) == 'content') {
+        }
+        else if (strtolower($property) == 'content') {
             return $this->_content;
-        } else if (strtolower($property) == 'name') {
+        }
+        else if (strtolower($property) == 'name') {
             return $this->_name;
         }
     }
@@ -83,15 +85,18 @@ class XmlSerialized implements \JsonSerializable
      * @param mixed $value
      * @testFunction testXmlSerialized__set
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value): void
     {
         if (strtolower($property) == 'attributes') {
             $this->_attributes = (object)$value;
-        } else if (strtolower($property) == 'content') {
+        }
+        else if (strtolower($property) == 'content') {
             $this->_content = $value;
-        } else if (strtolower($property) == 'name') {
+        }
+        else if (strtolower($property) == 'name') {
             $this->_name = $value;
-        } else {
+        }
+        else {
             if (!is_array($this->_content)) {
                 $this->_content = array();
             }
@@ -105,21 +110,21 @@ class XmlSerialized implements \JsonSerializable
      * @return object
      * @testFunction testJsonSerialize
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): object|array
     {
-        return (object)array('class' => self::class, 'name' => $this->_name, 'content' => $this->_content, 'attributes' => $this->_attributes);
+        return (object)array('class' => self::class , 'name' => $this->_name, 'content' => $this->_content, 'attributes' => $this->_attributes);
     }
 
     /**
      * Поднимает обьект из json
      *
      * @param string $jsonString строка в которую запакован обьект XmlSeralized
-     * @return XmlSerialized
+     * @return XmlSerialized|XmlCData|array|null
      */
     /**
      * @testFunction testJsonUnserialize
      */
-    public static function jsonUnserialize($jsonString)
+    public static function jsonUnserialize(string $jsonString): XmlSerialized|XmlCData|array |null
     {
         $object = is_string($jsonString) ? json_decode($jsonString, true) : $jsonString;
         if (is_null($object)) {
@@ -131,7 +136,8 @@ class XmlSerialized implements \JsonSerializable
             $className = $object['class'];
             if ($className == 'XmlCData') {
                 return new XmlCData($object['value']);
-            } else {
+            }
+            else {
                 $class = new $className;
                 foreach ($object as $key => $value) {
                     if ($key !== 'class') {
@@ -140,15 +146,18 @@ class XmlSerialized implements \JsonSerializable
                 }
                 return $class;
             }
-        } else if (!is_array($object)) {
+        }
+        else if (!is_array($object)) {
             return $object;
-        } else if (VariableHelper::IsAssociativeArray($object)) {
+        }
+        else if (VariableHelper::IsAssociativeArray($object)) {
             $ret = [];
             foreach ($object as $key => $value) {
                 $ret[$key] = XmlSerialized::jsonUnserialize(json_encode($value));
             }
             return $ret;
-        } else if (is_array($object)) {
+        }
+        else if (is_array($object)) {
             $ret = [];
             foreach ($object as $value) {
                 $ret[] = XmlSerialized::jsonUnserialize(json_encode($value));

@@ -11,16 +11,18 @@ use JsonSerializable;
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Fields
  */
-class DateField extends DateTimeField {
+class DateField extends DateTimeField
+{
 
     /**
      * Return Date in ISO8601 format
      *
-     * @return String
+     * @return string
      */
-    public function __toString() {
+    public function __toString(): string
+    {
         return $this->format('yyyy-MM-dd');
     }
-    
-}
 
+
+}

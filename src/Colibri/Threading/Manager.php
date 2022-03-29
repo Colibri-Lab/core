@@ -40,7 +40,7 @@ class Manager
      * @return self
      * @testFunction testManagerCreate
      */
-    public static function Create()
+    public static function Create() : self
     {
         if (!self::$instance) {
             self::$instance = new self();
@@ -54,7 +54,7 @@ class Manager
      * @return void
      * @testFunction testManager_processWorkers
      */
-    private function _processWorkers()
+    private function _processWorkers() : void
     {
         if (App::$request->get->worker) {
             $worker = Worker::Unserialize(App::$request->get->worker);
@@ -72,7 +72,7 @@ class Manager
      * @return Process созданный процесс
      * @testFunction testManagerCreateProcess
      */
-    public function CreateProcess(Worker $worker, $debug = false)
+    public function CreateProcess(Worker $worker, bool $debug = false) : Process
     {
         return new Process($worker, $debug);
     }

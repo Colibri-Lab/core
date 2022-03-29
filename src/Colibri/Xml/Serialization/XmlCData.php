@@ -22,14 +22,14 @@ class XmlCData implements \JsonSerializable
      *
      * @var string
      */
-    public $value;
+    public string $value;
 
     /**
      * Конструктор
      *
      * @param string $value
      */
-    public function __construct($value = null)
+    public function __construct(?string $value = null)
     {
         $this->value = $value;
     }
@@ -40,8 +40,8 @@ class XmlCData implements \JsonSerializable
      * @return object
      * @testFunction testJsonSerialize
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): object|array
     {
-        return (object)array('class' => self::class, 'value' => $this->value);
+        return (object)array('class' => self::class , 'value' => $this->value);
     }
 }

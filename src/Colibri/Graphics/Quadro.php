@@ -19,28 +19,28 @@ class Quadro {
      *
      * @var Point
      */
-    public $lowerleft;
+    public ?Point $lowerleft = null;
 
     /**
      * Нижний правый угол
      *
      * @var Point
      */
-    public $lowerright;
+    public ?Point $lowerright = null;
 
     /**
      * Верхний левый угол
      *
      * @var Point
      */
-    public $upperleft;
+    public ?Point $upperleft = null;
 
     /**
      * Верхний правый угол
      *
      * @var Point
      */
-    public $upperright;
+    public ?Point $upperright = null;
 
 }
 

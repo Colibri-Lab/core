@@ -22,19 +22,20 @@ interface IConnection
      *
      * @return bool
      */
-    public function Open();
+    public function Open(): bool;
 
     /**
      * Переоткрывает закрытое соеднинение
      *
      * @return bool
      */
-    public function Reopen();
+    public function Reopen(): bool;
 
     /**
      * Закрывает соединение
      *
-     * @return bool
+     * @return void
      */
-    public function Close();
+    public function Close(): void;
+
 }

@@ -52,19 +52,17 @@ class Server
 
     /**
      * Конструктор
-     *
-     * @param integer $type
      */
     public function __construct()
     {
-        // Do nothing
+    // Do nothing
     }
 
-    private function _convertDataToCharset($data, $charset) 
+    private function _convertDataToCharset(mixed $data, string $charset): mixed
     {
         $data = (array)$data;
-        foreach($data as $key => $value) {
-            if(is_object($value) || is_array($value)) {
+        foreach ($data as $key => $value) {
+            if (is_object($value) || is_array($value)) {
                 $data[$key] = $this->_convertDataToCharset($value, $charset);
             }
             else {
@@ -78,35 +76,35 @@ class Server
 
     /**
      * Завершает процесс
-     *
-     * @param mixed $result
-     * @return void
-     * @testFunction testServerFinish
      */
-    protected function Finish($type, $result)
+    protected function Finish(string $type, mixed $result)
     {
-        if(!isset($result->headers)) {
+        if (!isset($result->headers)) {
             $result->headers = [];
         }
-        
+
         if ($result->result) {
             if ($type == Server::JSON) {
                 App::$response->Close($result->code, json_encode($result->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), 'application/json', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers);
-            } elseif ($type == Server::XML) {
+            }
+            elseif ($type == Server::XML) {
                 App::$response->Close($result->code, XmlHelper::Encode($result->result), 'application/xml', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers);
-            } elseif ($type == Server::HTML) {
+            }
+            elseif ($type == Server::HTML) {
                 App::$response->Close($result->code, $result->message ? $result->message : HtmlHelper::Encode($result->result), 'text/html', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers);
-            } elseif ($type == Server::Stream) {
+            }
+            elseif ($type == Server::Stream) {
                 // если запросили например PDF или еще что то 
-                if(is_string($result->result) && is_string($result->message)) {
+                if (is_string($result->result) && is_string($result->message)) {
                     App::$response->DownloadFile($result->message, $result->result);
                 }
                 else {
                     App::$response->Close(500, 'Ошибка формирования ответа');
                 }
             }
-        } else {
-            if($type == Server::CSS) {
+        }
+        else {
+            if ($type == Server::CSS) {
                 App::$response->Close($result->code, $result->message, 'text/css', 'utf-8', $result->headers);
             }
             else {
@@ -117,13 +115,8 @@ class Server
 
     /**
      * Отправляет ответ об ошибке в виде XML
-     *
-     * @param string $message
-     * @param integer $code
-     * @return void
-     * @testFunction testServer_responseWithError
      */
-    protected function _responseWithError($type, $message, $code = -1, $cmd = '', $data = null)
+    protected function _responseWithError(string $type, string $message, int $code = -1, string $cmd = '', mixed $data = null)
     {
 
         $this->Finish($type, (object)[
@@ -138,16 +131,16 @@ class Server
     }
 
     /**
-     * @testFunction testServer_getControllerFullName
+     * Возвращает название класса с окружением
      */
-    protected function _getControllerFullName($class)
+    protected function _getControllerFullName(string $class): string
     {
         $class = StringHelper::UrlToNamespace($class);
         if (strpos($class, 'Modules') === 0) {
 
             // это модуль, значит должно быть modules/«название модуля»[/«название контроллера»]
             $parts = explode('\\', $class);
-            if(count($parts) >= 3) {
+            if (count($parts) >= 3) {
                 $parts[count($parts) - 1] = 'Controllers\\' . $parts[count($parts) - 1];
             }
             else {
@@ -162,10 +155,9 @@ class Server
 
     /**
      * Определяет тип, класс и метод по url
-     * @param string $cmd команда (url)
-     * @return string[] 
      */
-    private function __parseCommand($cmd) {
+    private function __parseCommand(string $cmd): array
+    {
         $cmd = explode('?', $cmd);
         $cmd = reset($cmd);
         $res = preg_match('/\/([^\/]+)\.([^\?]+)/', $cmd, $matches);
@@ -199,13 +191,13 @@ class Server
      * @return void
      * @testFunction testServerRun
      */
-    public function Run($cmd, $default = '')
+    public function Run(string $cmd, string $default = ''): void
     {
 
         // /namespace[/namespace]/command[.type]
         list($type, $class, $method) = $this->__parseCommand($cmd);
 
-        if(!VariableHelper::IsNull($default) && (!class_exists($class) || !method_exists($class, $method))) {
+        if (!VariableHelper::IsNull($default) && (!class_exists($class) || !method_exists($class, $method))) {
             // если не нашли чего делать то пробуем по умолчанию
             list($type, $class, $method) = $this->__parseCommand($default);
         }
@@ -261,13 +253,13 @@ class Server
                 $message,
                 Server::UnknownMethodInObject,
                 $cmd,
-                [
-                    'message' => $message,
-                    'code' => Server::UnknownMethodInObject,
-                    'get' => $get,
-                    'post' => $post,
-                    'payload' => $payload
-                ]
+            [
+                'message' => $message,
+                'code' => Server::UnknownMethodInObject,
+                'get' => $get,
+                'post' => $post,
+                'payload' => $payload
+            ]
             );
             return;
         }

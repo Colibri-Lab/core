@@ -22,14 +22,14 @@ class Node
      *
      * @var Attributes
      */
-    protected $attributes;
+    protected ?Attributes $attributes = null;
 
     /**
      * Права доступа
      *
      * @var Security
      */
-    protected $access;
+    protected ?Security $access = null;
 
     /**
      * Сеттер
@@ -38,7 +38,7 @@ class Node
      * @param mixed $value значение
      * @testFunction testNode__set
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value): void
     {
         switch (strtolower($property)) {
             case 'created':
@@ -65,7 +65,7 @@ class Node
      * @return Attributes
      * @testFunction testNodeGetAttributesObject
      */
-    protected function getAttributesObject()
+    protected function getAttributesObject(): Attributes
     {
         if ($this->attributes === null) {
             $this->attributes = new Attributes($this);
@@ -79,7 +79,7 @@ class Node
      * @return Security
      * @testFunction testNodeGetSecurityObject
      */
-    protected function getSecurityObject()
+    protected function getSecurityObject(): Security
     {
         if ($this->access === null) {
             $this->access = new Security($this);

@@ -27,7 +27,7 @@ class ArrayField extends ArrayList
      * @param Field $field поле
      * @return void
      */
-    public function __construct($data, $storage, $field)
+    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
     {
         if (VariableHelper::IsNull($data) || VariableHelper::IsEmpty($data)) {
             $data = '[]';
@@ -44,17 +44,17 @@ class ArrayField extends ArrayList
      * @param int $index индекс
      * @return ObjectField обьект
      */
-    public function Item(int $index) : ObjectField
+    public function Item(int $index): ObjectField
     {
         return $this->data[$index] instanceof ObjectField ? $this->data[$index] : new ObjectField($this->data[$index], $this->_storage, $this->_field);
     }
-    
+
     /**
      * Возвращает значение в виде строки
      * @param string $dummy не используется
      * @return string результат JSON
      */
-    public function ToString(string $dummy = '') : string
+    public function ToString(string $dummy = ''): string
     {
         $obj = array();
         if (VariableHelper::IsNull($this->data)) {
@@ -62,8 +62,9 @@ class ArrayField extends ArrayList
         }
         foreach ($this->data as $v) {
             if (is_object($v) && method_exists($v, 'ToString')) {
-                $obj[] = $v->ToString(); 
-            } else {
+                $obj[] = $v->ToString();
+            }
+            else {
                 $obj[] = $v;
             }
         }
@@ -75,10 +76,9 @@ class ArrayField extends ArrayList
      *
      * @return string
      */
-    public function __toString() : string {
+    public function __toString(): string
+    {
         return $this->ToString();
     }
 
 }
-
-
