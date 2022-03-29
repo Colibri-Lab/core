@@ -124,7 +124,7 @@ class XmlSerialized implements \JsonSerializable
     /**
      * @testFunction testJsonUnserialize
      */
-    public static function jsonUnserialize(string $jsonString): XmlSerialized|XmlCData|array |null
+    public static function jsonUnserialize(string $jsonString): XmlSerialized|XmlCData|array|null
     {
         $object = is_string($jsonString) ? json_decode($jsonString, true) : $jsonString;
         if (is_null($object)) {
