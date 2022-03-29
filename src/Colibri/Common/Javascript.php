@@ -22,7 +22,7 @@ class Javascript
      * @return string
      * @testFunction testJavascriptShrink
      */
-    public static function Shrink($input)
+    public static function Shrink(string $input): string
     {
 
         return preg_replace_callback('(

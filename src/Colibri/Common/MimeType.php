@@ -31,7 +31,7 @@ class MimeType
      *
      * @var array
      */
-    protected static $mime_types = array(
+    protected static array $mime_types = array(
         "acx" =>  "application/internet-property-stream",
         "ai" =>  "application/postscript",
         "aif" =>  "audio/x-aiff",
@@ -229,7 +229,7 @@ class MimeType
      *
      * @var array
      */
-    protected static $browserCapableTypes = array(
+    protected static array $browserCapableTypes = array(
         "jpg", "png", "gif",
         "swf",
         "html", "htm",
@@ -242,14 +242,14 @@ class MimeType
      *
      * @var string
      */
-    private $_type;
+    private string $_type;
 
     /**
      * Конструктор
      *
      * @param string $type тип файла
      */
-    public function __construct($type)
+    public function __construct(string $type)
     {
         $this->_type = $type;
     }
@@ -257,7 +257,7 @@ class MimeType
     /**
      * @testFunction testMimeTypeGetPropertyData
      */
-    protected function getPropertyData()
+    protected function getPropertyData(): ?string
     {
         return isset(MimeType::$mime_types[$this->_type]) ? MimeType::$mime_types[$this->_type] : null;
     }
@@ -265,7 +265,7 @@ class MimeType
     /**
      * @testFunction testMimeTypeGetPropertyIsCapable
      */
-    protected function getPropertyIsCapable()
+    protected function getPropertyIsCapable(): bool
     {
         return array_search($this->_type, MimeType::$browserCapableTypes) !== false;
     }
@@ -273,7 +273,7 @@ class MimeType
     /**
      * @testFunction testMimeTypeGetPropertyIsValid
      */
-    protected function getPropertyIsValid()
+    protected function getPropertyIsValid(): bool
     {
         return array_key_exists($this->_type, MimeType::$mime_types);
     }
@@ -281,7 +281,7 @@ class MimeType
     /**
      * @testFunction testMimeTypeGetPropertyIsImage
      */
-    protected function getPropertyIsImage()
+    protected function getPropertyIsImage(): bool
     {
         return in_array(strtolower($this->_type), array("gif", "jpeg", "jpg", "png", "bmp", "dib"));
     }
@@ -289,7 +289,7 @@ class MimeType
     /**
      * @testFunction testMimeTypeGetPropertyIsAudio
      */
-    protected function getPropertyIsAudio()
+    protected function getPropertyIsAudio(): bool
     {
         return in_array(strtolower($this->_type), array("mid", "mp3", "au"));
     }
@@ -297,7 +297,7 @@ class MimeType
     /**
      * @testFunction testMimeTypeGetPropertyIsVideo
      */
-    protected function getPropertyIsVideo()
+    protected function getPropertyIsVideo(): bool
     {
         return in_array(strtolower($this->_type), array("wmv", "mpg", "mp4", "m4v", "avi"));
     }
@@ -305,7 +305,7 @@ class MimeType
     /**
      * @testFunction testMimeTypeGetPropertyIsViewable
      */
-    protected function getPropertyIsViewable()
+    protected function getPropertyIsViewable(): bool
     {
         return in_array(strtolower($this->_type), array("gif", "jpg", "jpeg", "png", "swf"));
     }
@@ -313,7 +313,7 @@ class MimeType
     /**
      * @testFunction testMimeTypeGetPropertyIsFlashVideo
      */
-    protected function getPropertyIsFlashVideo()
+    protected function getPropertyIsFlashVideo(): bool
     {
         return in_array(strtolower($this->_type), array("flv"));
     }
@@ -321,7 +321,7 @@ class MimeType
     /**
      * @testFunction testMimeTypeGetPropertyIsFlash
      */
-    protected function getPropertyIsFlash()
+    protected function getPropertyIsFlash(): bool
     {
         return in_array(strtolower($this->_type), array("swf"));
     }
@@ -329,7 +329,7 @@ class MimeType
     /**
      * @testFunction testMimeTypeGetPropertyType
      */
-    protected function getPropertyType()
+    protected function getPropertyType(): string
     {
         return $this->_type;
     }
@@ -340,7 +340,7 @@ class MimeType
      * @param string $field
      * @return mixed
      */
-    public function __get($field)
+    public function __get(string $field): mixed
     {
         $return = null;
         switch ($field) {
@@ -396,7 +396,7 @@ class MimeType
      * @return MimeType
      * @testFunction testMimeTypeCreate
      */
-    public static function Create($filename)
+    public static function Create(string $filename): MimeType
     {
         $parts = explode(".", basename($filename));
         return new MimeType(end($parts));
@@ -409,13 +409,13 @@ class MimeType
      * @return string
      * @testFunction testMimeTypeGetType
      */
-    public static function GetType($mimetype)
+    public static function GetType(string $mimetype): ?string
     {
         foreach (MimeType::$mime_types as $key => $type) {
             if ($type == $mimetype) {
                 return $key;
             }
         }
-        return false;
+        return null;
     }
 }

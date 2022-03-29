@@ -7,7 +7,7 @@ use Colibri\AppException;
 
 class SmtpHelper
 {
-    public static function Send($configArray, $address, $subject, $body) {
+    public static function Send(array $configArray, string $address, string $subject, string $body): void {
 
         $smtpEnabled = $configArray['enabled'];
         if(!$smtpEnabled) {

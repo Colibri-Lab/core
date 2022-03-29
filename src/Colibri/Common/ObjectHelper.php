@@ -22,11 +22,11 @@ class ObjectHelper
     /**
      * Превращает все ассоциативные массивы в обьекты
      * @param array $array массив данных
-     * @return \stdClass|null
+     * @return object|null
      * @testFunction testObjectHelperArrayToObject
      * @deprecated
      */
-    public static function ArrayToObject($array)
+    public static function ArrayToObject(array $array): ?object
     {
         return VariableHelper::ArrayToObject($array);
     }

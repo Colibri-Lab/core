@@ -28,7 +28,7 @@ class HtmlHelper
      * @return string
      * @testFunction testHtmlHelperEncode
      */
-    public static function Encode($object, $tag = 'object')
+    public static function Encode(array|object $object, string $tag = 'object'): string
     {
         if (is_string($object)) {
             return $object;
@@ -53,7 +53,7 @@ class HtmlHelper
      * @return XmlNode
      * @testFunction testHtmlHelperDecode
      */
-    public function Decode($xmlString)
+    public function Decode(string $xmlString): XmlNode
     {
         return XmlNode::LoadHtmlNode($xmlString, 'utf-8');
     }

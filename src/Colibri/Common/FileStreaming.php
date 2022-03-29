@@ -24,7 +24,7 @@ class FileStreaming
      * @param string $file
      * @return string
      */
-    public static function ToBase64($file)
+    public static function ToBase64(string $file): string
     {
         $fileData = File::Read($file);
         $fi = new File($file);
@@ -39,7 +39,7 @@ class FileStreaming
      * @param string $file
      * @return string
      */
-    public static function AsText($file)
+    public static function AsText(string $file): string
     {
         return File::Read($file);
     }
@@ -51,7 +51,7 @@ class FileStreaming
      * @param boolean $background
      * @return string
      */
-    public static function AsTag($file, $background = false)
+    public static function AsTag(string $file, bool $background = false): string
     {
         $fi = new File($file);
         if ($fi->extension == 'svg') {

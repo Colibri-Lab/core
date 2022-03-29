@@ -23,7 +23,7 @@ class NumericHelper
      * @return string
      * @testFunction testNumericHelperToMoney
      */
-    public static function ToMoney($number)
+    public static function ToMoney(float $number): string
     {
         return NumericHelper::Format($number, '.', 2, true, '&nbsp;');
     }
@@ -36,7 +36,7 @@ class NumericHelper
      * @return string
      * @testFunction testNumericHelperFormat
      */
-    public static function Format($number, $decPoint = '.', $deccount = 2, $removeLeadingZeroes = false, $thousandsSep = '')
+    public static function Format(float $number, string $decPoint = '.', int $deccount = 2, bool $removeLeadingZeroes = false, string $thousandsSep = ''): string
     {
 
         $zeroLeading = StringHelper::Expand('0', $deccount, '0');
@@ -61,7 +61,7 @@ class NumericHelper
      * @testFunction testNumericHelperHumanize
      * @deprecated
      */
-    public static function Humanize($price)
+    public static function Humanize(float $price): string
     {
         return $price;
     }

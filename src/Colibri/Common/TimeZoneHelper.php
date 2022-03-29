@@ -19,12 +19,12 @@ class TimeZoneHelper
     /**
      * Зона по умолчанию
      */
-    public static $zone = 'ru';
+    public static string $zone = 'ru';
 
     /**
      * Строки
      */
-    public static $texts = array(
+    public static array $texts = array(
         'ru' => array(
             'months' => array('январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'),
             'months2' => array('января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'),
@@ -44,7 +44,7 @@ class TimeZoneHelper
      * @return bool
      * @testFunction testTimeZoneHelperSet
      */
-    public static function Set($zone)
+    public static function Set(string $zone): bool
     {
         if (!isset(self::$texts[$zone])) {
             return false;
@@ -60,7 +60,7 @@ class TimeZoneHelper
      * @return string
      * @testFunction testTimeZoneHelperMonth
      */
-    public static function Month($month)
+    public static function Month(int $month): ?string
     {
         return isset(self::$texts[self::$zone]['months'][$month]) ? self::$texts[self::$zone]['months'][$month] : null;
     }
@@ -72,7 +72,7 @@ class TimeZoneHelper
      * @return string
      * @testFunction testTimeZoneHelperMonth2
      */
-    public static function Month2($month)
+    public static function Month2(int $month): ?string
     {
         return isset(self::$texts[self::$zone]['months2'][$month]) ? self::$texts[self::$zone]['months2'][$month] : null;
     }
@@ -84,7 +84,7 @@ class TimeZoneHelper
      * @return string
      * @testFunction testTimeZoneHelperWeekday
      */
-    public static function Weekday($weekday)
+    public static function Weekday(int $weekday):? string
     {
         return isset(self::$texts[self::$zone]['weekdays'][$weekday]) ? self::$texts[self::$zone]['weekdays'][$weekday] : null;
     }
@@ -97,7 +97,7 @@ class TimeZoneHelper
      * @return string
      * @testFunction testTimeZoneHelperFTimeU
      */
-    public static function FTimeU($format, $microtime)
+    public static function FTimeU(string $format, float $microtime): string
     {
         if (!is_numeric($microtime)) {
             return null;

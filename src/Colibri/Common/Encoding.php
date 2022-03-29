@@ -20,7 +20,7 @@ class Encoding
      * @return mixed
      * @testFunction testEncodingConvert
      */
-    public static function Convert($string, $to, $from = false)
+    public static function Convert(string|array|object $string, string $to, ?string $from = null): string|array|object
     {
         if (is_array($string) || is_object($string)) {
 
@@ -64,7 +64,7 @@ class Encoding
      * @return bool
      * @testFunction testEncodingCheck
      */
-    public static function Check($string, $encoding)
+    public static function Check(string $string, string $encoding): bool
     {
         return mb_check_encoding($string, strtolower($encoding));
     }
@@ -75,7 +75,7 @@ class Encoding
      * @return string
      * @testFunction testEncodingDetect
      */
-    public static function Detect($string)
+    public static function Detect(string $string): string
     {
         return strtolower(mb_detect_encoding($string, \mb_list_encodings(), false));
     }

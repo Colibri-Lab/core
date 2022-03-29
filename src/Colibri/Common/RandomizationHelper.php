@@ -22,7 +22,7 @@ class RandomizationHelper
      * @return integer
      * @testFunction testRandomizationHelperSeed
      */
-    public static function Seed()
+    public static function Seed(): int
     {
         list($usec, $sec) = explode(' ', microtime());
         return (float) $sec + ((float) $usec * 100000);
@@ -36,7 +36,7 @@ class RandomizationHelper
      * @return integer
      * @testFunction testRandomizationHelperInteger
      */
-    public static function Integer($min, $max)
+    public static function Integer(int $min, int $max): int
     {
         return rand($min, $max);
     }
@@ -48,7 +48,7 @@ class RandomizationHelper
      * @return string
      * @testFunction testRandomizationHelperMixed
      */
-    public static function Mixed($l)
+    public static function Mixed(int $l): string
     {
         $j = 0;
         $tmp = "";
@@ -73,7 +73,7 @@ class RandomizationHelper
      * @return string
      * @testFunction testRandomizationHelperNumeric
      */
-    public static function Numeric($l)
+    public static function Numeric(int $l): string
     {
         $j = 0;
         $tmp = "";
@@ -98,7 +98,7 @@ class RandomizationHelper
      * @return string
      * @testFunction testRandomizationHelperCharacter
      */
-    public static function Character($l)
+    public static function Character(int $l): string
     {
         $tmp = "";
         $c = array();

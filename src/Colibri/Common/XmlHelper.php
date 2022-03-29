@@ -1,4 +1,5 @@
-<?php    
+<?php
+
 /**
  * Обьект в xml и обратно
  * 
@@ -16,7 +17,8 @@ use Colibri\Xml\XmlNode;
 /**
  * Обьект в xml и обратно
  */
-class XmlHelper {
+class XmlHelper
+{
 
     /**
      * Обькет в xml
@@ -26,24 +28,25 @@ class XmlHelper {
      * @return string
      * @testFunction testXmlHelperEncode
      */
-    public static function Encode($object, $tag = 'object') {
-        if(is_string($object)) {
+    public static function Encode(XmlSerialized|string $object, string $tag = 'object'): string
+    {
+        if (is_string($object)) {
             return $object;
         }
-        
-        $ret = ['<'.$tag.'>'];
-        foreach($object as $key => $value) {
+
+        $ret = ['<' . $tag . '>'];
+        foreach ($object as $key => $value) {
             $key = StringHelper::ToCamelCaseAttr($key);
-            if(is_object($value) || is_array($value)) {
+            if (is_object($value) || is_array($value)) {
                 $ret[] = XmlHelper::Encode($value, $key);
             }
             else {
-                $ret[] = '<'.$key.'>'.$value.'</'.$key.'>';
+                $ret[] = '<' . $key . '>' . $value . '</' . $key . '>';
             }
         }
-        $ret[] = '</'.$tag.'>';
-        
-        
+        $ret[] = '</' . $tag . '>';
+
+
         return implode('', $ret);
     }
 
@@ -54,8 +57,9 @@ class XmlHelper {
      * @return XmlNode
      * @testFunction testXmlHelperDecode
      */
-    public static function Decode($xmlString) {
-        return XmlNode::LoadNode($xmlString, 'utf-8'); 
+    public static function Decode(string $xmlString): XmlNode
+    {
+        return XmlNode::LoadNode($xmlString, 'utf-8');
     }
 
 }

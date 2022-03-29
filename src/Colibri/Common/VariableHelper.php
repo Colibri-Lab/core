@@ -24,11 +24,12 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsEmpty
      */
-    public static function IsEmpty($var)
+    public static function IsEmpty(mixed $var): bool
     {
         if (is_object($var)) {
             return is_null($var);
-        } else if (is_array($var)) {
+        }
+        else if (is_array($var)) {
             return empty($var);
         }
         return ($var === null || $var === "");
@@ -41,7 +42,7 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsNull
      */
-    public static function IsNull($var)
+    public static function IsNull(mixed $var): bool
     {
         return is_null($var);
     }
@@ -53,7 +54,7 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsObject
      */
-    public static function IsObject($var)
+    public static function IsObject(mixed $var): bool
     {
         return is_object($var);
     }
@@ -65,7 +66,7 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsArray
      */
-    public static function IsArray($var)
+    public static function IsArray(mixed $var): bool
     {
         return is_array($var);
     }
@@ -77,7 +78,7 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsBool
      */
-    public static function IsBool($var)
+    public static function IsBool(mixed $var): bool
     {
         return is_bool($var);
     }
@@ -89,7 +90,7 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsString
      */
-    public static function IsString($var)
+    public static function IsString(mixed $var): bool
     {
         return is_string($var);
     }
@@ -101,7 +102,7 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsNumeric
      */
-    public static function IsNumeric($var)
+    public static function IsNumeric(mixed $var): bool
     {
         return is_numeric($var);
     }
@@ -113,7 +114,7 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsDate
      */
-    public static function IsDate($var)
+    public static function IsDate(mixed $var): bool
     {
         if (!$var || is_null($var)) {
             return false;
@@ -133,7 +134,7 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsTime
      */
-    public static function IsTime($value)
+    public static function IsTime(mixed $value): bool
     {
         if (preg_match('/(\d{2}):(\d{2})/', $value, $matches) > 0) {
             if (is_numeric($matches[1]) && is_numeric($matches[2])) {
@@ -153,13 +154,13 @@ class VariableHelper
      * @return array|null
      * @testFunction testVariableHelperChangeArrayValueCase
      */
-    public static function ChangeArrayValueCase($array, $case = CASE_LOWER)
+    public static function ChangeArrayValueCase(array $array, int $case = CASE_LOWER): ?array
     {
         if (!is_array($array)) {
             return null;
         }
         foreach ($array as $i => $value) {
-            $array[$i] = $case == CASE_LOWER ? StringHelper::ToLower($value) : StringHelper::ToUpper($value);
+            $array[$i] = $case == CASE_LOWER ?StringHelper::ToLower($value) : StringHelper::ToUpper($value);
         }
         return $array;
     }
@@ -172,7 +173,7 @@ class VariableHelper
      * @return array|null
      * @testFunction testVariableHelperChangeArrayKeyCase
      */
-    public static function ChangeArrayKeyCase($array, $case = CASE_LOWER)
+    public static function ChangeArrayKeyCase(array $array, int $case = CASE_LOWER): ?array
     {
         if (!is_array($array)) {
             return null;
@@ -187,10 +188,10 @@ class VariableHelper
      * @return array
      * @testFunction testVariableHelperObjectToArray
      */
-    public static function ObjectToArray($object)
+    public static function ObjectToArray(object|array $object): array
     {
-        if(!self::IsObject($object) && !self::IsArray($object)) {
-            return (array) $object;
+        if (!self::IsObject($object) && !self::IsArray($object)) {
+            return (array)$object;
         }
 
         $object = (array)$object;
@@ -198,7 +199,7 @@ class VariableHelper
             $object[$k] = self::ObjectToArray($v);
         }
 
-        return (array) $object;
+        return (array)$object;
 
 
     }
@@ -207,12 +208,12 @@ class VariableHelper
      * Превратить массив в обьект рекурсивно
      *
      * @param array|object $array
-     * @return object|null
+     * @return object
      * @testFunction testVariableHelperArrayToObject
      */
-    public static function ArrayToObject($array)
+    public static function ArrayToObject(array |object $array): object
     {
-        if(!self::IsObject($array) && !self::IsArray($array)) {
+        if (!self::IsObject($array) && !self::IsArray($array)) {
             return $array;
         }
 
@@ -220,7 +221,7 @@ class VariableHelper
         foreach ($array as $k => $v) {
             $array[$k] = self::ArrayToObject($v);
         }
-        return (object) $array;
+        return (object)$array;
 
     }
 
@@ -231,7 +232,7 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsAssociativeArray
      */
-    public static function IsAssociativeArray($array)
+    public static function IsAssociativeArray(array $array): bool
     {
         if (!is_array($array)) {
             return false;
@@ -254,18 +255,18 @@ class VariableHelper
      * @param string $childrenName 
      * @return array 
      */
-    public static function ArrayToTree($array, $parent = 0, $parentName = 'parent', $childrenName = 'children', $keyName = 'id')
+    public static function ArrayToTree(array $array, int $parent = 0, string $parentName = 'parent', string $childrenName = 'children', string $keyName = 'id'): array
     {
         $array = array_combine(array_column($array, $keyName), array_values($array));
-    
+
         foreach ($array as $k => &$v) {
             if (isset($array[(int)$v[$parentName]])) {
-                $array[(int)$v[$parentName]][$childrenName][(int)$k] = &$v;
+                $array[(int)$v[$parentName]][$childrenName][(int)$k] = & $v;
             }
             unset($v);
         }
-    
-        return array_filter($array, function($v) use ($parent, $parentName) {
+
+        return array_filter($array, function ($v) use ($parent, $parentName) {
             return $v[$parentName] == $parent;
         });
     }
@@ -277,7 +278,7 @@ class VariableHelper
      * @return string
      * @testFunction testVariableHelperBin2Hex
      */
-    public static function Bin2Hex($data)
+    public static function Bin2Hex(string $data): string
     {
         if (!is_string($data)) {
             return '';
@@ -292,7 +293,7 @@ class VariableHelper
      * @return string
      * @testFunction testVariableHelperHex2Bin
      */
-    public static function Hex2Bin($data)
+    public static function Hex2Bin(string $data): string
     {
         if (!is_string($data)) {
             return '';
@@ -301,7 +302,8 @@ class VariableHelper
         $len = strlen($data);
         try {
             return pack("H" . $len, $data);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             return '';
         }
     }
@@ -313,7 +315,7 @@ class VariableHelper
      * @return boolean
      * @testFunction testVariableHelperIsSerialized
      */
-    public static function isSerialized($v)
+    public static function isSerialized(string $v): bool
     {
         if (!is_string($v)) {
             return false;
@@ -341,7 +343,7 @@ class VariableHelper
      * @return string
      * @testFunction testVariableHelperSerialize
      */
-    public static function Serialize($obj)
+    public static function Serialize(mixed $obj): string
     {
         return '0x' . VariableHelper::Bin2Hex(serialize($obj));
     }
@@ -353,7 +355,7 @@ class VariableHelper
      * @return mixed
      * @testFunction testVariableHelperUnserialize
      */
-    public static function Unserialize($string)
+    public static function Unserialize(string $string): mixed
     {
         if (substr($string, 0, 2) == '0x') {
             $string = VariableHelper::Hex2Bin(substr($string, 2));
@@ -370,10 +372,10 @@ class VariableHelper
      * @return mixed
      * @testFunction testVariableHelperExtend
      */
-    public static function Extend($o1, $o2, $recursive = false)
+    public static function Extend(mixed $o1, mixed $o2, bool $recursive = false): mixed
     {
 
-        if($recursive && !is_array($o2) && !is_object($o2)) {
+        if ($recursive && !is_array($o2) && !is_object($o2)) {
             return $o2;
         }
 
@@ -382,7 +384,7 @@ class VariableHelper
 
         foreach ($o1 as $k => $v) {
             if (isset($o2[$k])) {
-                $o1[$k] = $recursive ? VariableHelper::Extend($o1[$k], $o2[$k], $recursive) : $o2[$k];
+                $o1[$k] = $recursive ?VariableHelper::Extend($o1[$k], $o2[$k], $recursive) : $o2[$k];
             }
         }
 
@@ -403,7 +405,7 @@ class VariableHelper
      * @return mixed
      * @testFunction testVariableHelperCoalesce
      */
-    public static function Coalesce($d, $def)
+    public static function Coalesce(mixed $d, mixed $def): mixed
     {
         if (is_null($d)) {
             return $def;
@@ -422,7 +424,7 @@ class VariableHelper
      * @return string
      * @testFunction testVariableHelperToString
      */
-    public static function ToString($object, $spl1 = ' ', $spl2 = '=', $quote = true, $keyPrefix = '')
+    public static function ToString(mixed $object, string $spl1 = ' ', string $spl2 = '=', bool $quote = true, string $keyPrefix = ''): string
     {
 
         if (!is_object($object) && !is_array($object) || !is_string($spl1) || !is_string($spl2) || !\is_bool(true) || !is_string($keyPrefix)) {
@@ -442,7 +444,7 @@ class VariableHelper
      * @param string $string
      * @testFunction testVariableHelperFromPhpArrayOutput
      */
-    public static function FromPhpArrayOutput($string)
+    public static function FromPhpArrayOutput(string $string): array
     {
         $ret = array();
         $lines = explode("\n", $string);
@@ -468,7 +470,7 @@ class VariableHelper
      * @return float результат
      * @testFunction testVariableHelperSum
      */
-    public static function Sum($array)
+    public static function Sum(array $array): float
     {
         if (!is_array($array) || count($array) == 0) {
             return 0;
@@ -476,12 +478,13 @@ class VariableHelper
         return \array_sum($array);
     }
 
-    public static function IsSimilar($actual, $expected) {
+    public static function IsSimilar(array |object $actual, array |object $expected): bool
+    {
         try {
-            if((!is_array($actual) && !is_object($actual)) || (!is_array($expected) && !is_object($expected))) {
+            if ((!is_array($actual) && !is_object($actual)) || (!is_array($expected) && !is_object($expected))) {
                 return $actual == $expected;
             }
-            
+
             $actual = (array)$actual;
             $expected = (array)$expected;
             foreach ($expected as $key => $value) {
@@ -496,10 +499,11 @@ class VariableHelper
             }
             return true;
         }
-        catch(\Throwable $e) {
+        catch (\Throwable $e) {
             App::$log->debug($e->getMessage());
             return false;
         }
     }
-    
+
+
 }

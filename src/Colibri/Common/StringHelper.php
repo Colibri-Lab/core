@@ -27,7 +27,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperToLower
      */
-    public static function ToLower($s)
+    public static function ToLower(string $s): string
     {
         return mb_strtolower($s, "UTF-8");
     }
@@ -39,7 +39,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperToUpper
      */
-    public static function ToUpper($s)
+    public static function ToUpper(string $s): string
     {
         return mb_strtoupper($s, "UTF-8");
     }
@@ -50,7 +50,7 @@ class StringHelper
      * @return bool 
      * @testFunction testStringHelperIsUpper
      */
-    public static function IsUpper($s)
+    public static function IsUpper(string $s): bool
     {
         if (!is_string($s)) {
             return false;
@@ -64,7 +64,7 @@ class StringHelper
      * @return bool 
      * @testFunction testStringHelperIsLower
      */
-    public static function IsLower($s)
+    public static function IsLower(string $s): bool
     {
         if (!is_string($s)) {
             return false;
@@ -79,7 +79,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperToUpperFirst
      */
-    public static function ToUpperFirst($str)
+    public static function ToUpperFirst(string $str): string
     {
         if (!is_string($str)) {
             return false;
@@ -87,7 +87,7 @@ class StringHelper
         return mb_convert_case($str, MB_CASE_TITLE, "UTF-8");
     }
 
-    public static function Replace($subject, $search, $replace, &$count=0) 
+    public static function Replace(string|array $subject, string|array $search, string|array $replace, int&$count = 0): string|array |bool
     {
         if (!is_array($search) && is_array($replace)) {
             return false;
@@ -95,17 +95,19 @@ class StringHelper
         if (is_array($subject)) {
             // call mb_replace for each single string in $subject
             foreach ($subject as &$string) {
-                $string = &self::Replace($search, $replace, $string, $c);
+                $string = & self::Replace($search, $replace, $string, $c);
                 $count += $c;
             }
             unset($string);
-        } elseif (is_array($search)) {
+        }
+        elseif (is_array($search)) {
             if (!is_array($replace)) {
                 foreach ($search as &$string) {
                     $subject = self::Replace($string, $replace, $subject, $c);
                     $count += $c;
                 }
-            } else {
+            }
+            else {
                 $n = max(count($search), count($replace));
                 while ($n--) {
                     $subject = self::Replace(current($search), current($replace), $subject, $c);
@@ -114,9 +116,10 @@ class StringHelper
                     next($replace);
                 }
             }
-        } else {
+        }
+        else {
             $parts = mb_split(preg_quote($search), $subject);
-            $count = count($parts)-1;
+            $count = count($parts) - 1;
             $subject = implode($replace, $parts);
         }
         return $subject;
@@ -130,7 +133,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperToCamelCaseAttr
      */
-    public static function ToCamelCaseAttr($str, $firstCapital = false, $splitter = '\-')
+    public static function ToCamelCaseAttr(string $str, bool $firstCapital = false, string $splitter = '\-'): string
     {
         if (!is_string($str)) {
             return false;
@@ -140,7 +143,7 @@ class StringHelper
             $str = StringHelper::ToUpperFirst($str);
         }
 
-        return preg_replace_callback('/'.$splitter.'([A-Za-z1-9])/', function ($c) {
+        return preg_replace_callback('/' . $splitter . '([A-Za-z1-9])/', function ($c) {
             return StringHelper::ToUpper(substr($c[1], 0, 1)) . StringHelper::ToLower(substr($c[1], 1));
         }, $str);
     }
@@ -152,7 +155,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperFromCamelCaseAttr
      */
-    public static function FromCamelCaseAttr($str, $splitter = '-')
+    public static function FromCamelCaseAttr(string $str, string $splitter = '-'): string
     {
         if (!is_string($str)) {
             return false;
@@ -170,7 +173,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperToCamelCaseVar
      */
-    public static function ToCamelCaseVar($str, $firstCapital = false)
+    public static function ToCamelCaseVar(string $str, bool $firstCapital = false): string
     {
         if (!is_string($str)) {
             return false;
@@ -191,7 +194,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperFromCamelCaseVar
      */
-    public static function FromCamelCaseVar($str)
+    public static function FromCamelCaseVar(string $str): string
     {
         if (!is_string($str)) {
             return false;
@@ -208,7 +211,7 @@ class StringHelper
      * @return boolean
      * @testFunction testStringHelperIsEmail
      */
-    public static function IsEmail($address)
+    public static function IsEmail(string $address): bool
     {
         if (!is_string($address)) {
             return false;
@@ -216,7 +219,8 @@ class StringHelper
 
         if (function_exists('filter_var')) {
             return filter_var($address, FILTER_VALIDATE_EMAIL) !== false;
-        } else {
+        }
+        else {
             return preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address);
         }
     }
@@ -228,11 +232,12 @@ class StringHelper
      * @return boolean
      * @testFunction testStringHelperIsUrl
      */
-    public static function IsUrl($address)
+    public static function IsUrl(string $address): bool
     {
         if (function_exists('filter_var')) {
             return filter_var($address, FILTER_VALIDATE_URL) !== false;
-        } else {
+        }
+        else {
             return strstr($address, 'http://') !== false || strstr($address, 'https://') !== false || substr($address, 'ftp://') !== false || substr($address, '//') === 0;
         }
     }
@@ -245,7 +250,7 @@ class StringHelper
      * @return boolean
      * @testFunction testStringHelperEndsWith
      */
-    public static function EndsWith($string, $end)
+    public static function EndsWith(string $string, string $end): bool
     {
         return substr($string, strlen($string) - strlen($end)) == $end;
     }
@@ -258,7 +263,7 @@ class StringHelper
      * @return boolean
      * @testFunction testStringHelperStartsWith
      */
-    public static function StartsWith($string, $start)
+    public static function StartsWith(string $string, string $start): bool
     {
         return substr($string, 0, strlen($start)) == $start;
     }
@@ -270,7 +275,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperUrlToNamespace
      */
-    public static function UrlToNamespace($url)
+    public static function UrlToNamespace(string $url): string
     {
         if (!is_string($url)) {
             return false;
@@ -292,7 +297,7 @@ class StringHelper
      * @return string 
      * @testFunction testStringHelperAddToQueryString
      */
-    public static function AddToQueryString($url, $params, $encode = true)
+    public static function AddToQueryString(string $url, string|array |object $params, bool $encode = true): string
     {
         if (!is_string($url) || !(is_object($params) || is_array($params))) {
             return false;
@@ -302,7 +307,8 @@ class StringHelper
             $qs = explode('?', $url);
             $hashTable = Collection::FromString($qs[1], ['=', '&']);
             $url = $qs[0];
-        } else {
+        }
+        else {
             $hashTable = new Collection();
         }
 
@@ -320,7 +326,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperRandomize
      */
-    public static function Randomize($length)
+    public static function Randomize(int $length): string
     {
         return RandomizationHelper::Mixed($length);
     }
@@ -333,7 +339,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperPrepareAttribute
      */
-    public static function PrepareAttribute($string, $quoters = false)
+    public static function PrepareAttribute(string $string, bool $quoters = false): string
     {
         if ($quoters) {
             $string = preg_replace("/\'/", "&rsquo;", $string);
@@ -352,18 +358,18 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperUnescape
      */
-    public static function Unescape($s)
+    public static function Unescape(string $s): string
     {
         return preg_replace_callback(
             '/% (?: u([A-F0-9]{1,4}) | ([A-F0-9]{1,2})) /sxi',
             function ($p) {
-                $c = '';
-                if ($p[1]) {
-                    $u = pack('n', hexdec($p[1]));
-                    $c = @iconv('UCS-2BE', 'windows-1251', $u);
-                }
-                return $c;
-            },
+            $c = '';
+            if ($p[1]) {
+                $u = pack('n', hexdec($p[1]));
+                $c = @iconv('UCS-2BE', 'windows-1251', $u);
+            }
+            return $c;
+        },
             $s
         );
     }
@@ -375,7 +381,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperStripHTML
      */
-    public static function StripHTML($html, $allowedTags = null)
+    public static function StripHTML(string $html, ?string $allowedTags = null): string
     {
         return strip_tags($html, $allowedTags);
     }
@@ -389,7 +395,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperSubstring
      */
-    public static function Substring($string, $start, $length = null)
+    public static function Substring(string $string, int $start, ?int $length = null): string
     {
         if (!is_string($string) || !is_numeric($start)) {
             return false;
@@ -409,7 +415,7 @@ class StringHelper
      * @return int
      * @testFunction testStringHelperLength
      */
-    public static function Length($string)
+    public static function Length(string $string): int
     {
         $encoding = mb_detect_encoding($string);
         if (!$encoding) {
@@ -426,7 +432,7 @@ class StringHelper
      * @return string 
      * @testFunction testStringHelperFormatSequence
      */
-    public static function FormatSequence($secuence, $labels = array("год", "года", "лет"), $viewnumber = false)
+    public static function FormatSequence(float $secuence, array $labels = array("год", "года", "лет"), bool $viewnumber = false): string
     {
         $isfloat = intval($secuence) != floatval($secuence);
         $floatPoint = floatval($secuence) - intval($secuence);
@@ -442,7 +448,8 @@ class StringHelper
         $sIntervalLastChar = substr($ssecuence, strlen($ssecuence) - 1, 1);
         if ((int)$secuence > 10 && (int)$secuence < 20) {
             return $s . $labels[2]; //"лет"
-        } else {
+        }
+        else {
             if (!$isfloat || $floatLength > 1) {
                 switch (intval($sIntervalLastChar)) {
                     case 1:
@@ -462,7 +469,8 @@ class StringHelper
                             break;
                         }
                 }
-            } else {
+            }
+            else {
                 switch (intval($sIntervalLastChar)) {
                     case 1:
                         return $s . $labels[0];
@@ -494,12 +502,13 @@ class StringHelper
      * @return string результат
      * @testFunction testStringHelperFormatFileSize
      */
-    public static function FormatFileSize($number, $range = 1024, $postfixes = array("bytes", "Kb", "Mb", "Gb", "Tb"))
+    public static function FormatFileSize(int $number, int $range = 1024, array $postfixes = array("bytes", "Kb", "Mb", "Gb", "Tb")): string
     {
         for ($j = 0; $j < count($postfixes); $j++) {
             if ($number <= $range) {
                 break;
-            } else {
+            }
+            else {
                 $number = $number / $range;
             }
         }
@@ -516,7 +525,7 @@ class StringHelper
      * @return string|null
      * @testFunction testStringHelperTrimLength
      */
-    public static function TrimLength($str, $length, $ellipsis = "...")
+    public static function TrimLength(string $str, int $length, string $ellipsis = "..."): ?string
     {
         if (!is_numeric($length)) {
             return null;
@@ -533,7 +542,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperWords
      */
-    public static function Words($text, $n, $ellipsis = "...")
+    public static function Words(string $text, int $n, string $ellipsis = "..."): string
     {
         $text = StringHelper::StripHTML(trim($text));
         $a = preg_split("/ |,|\.|-|;|:|\(|\)|\{|\}|\[|\]/", $text);
@@ -549,7 +558,8 @@ class StringHelper
             }
 
             return StringHelper::Substring(trim($text), 0, $l) . $ellipsis;
-        } else {
+        }
+        else {
             return StringHelper::Substring(trim($text), 0, $n);
         }
     }
@@ -564,11 +574,12 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperExpand
      */
-    public static function Expand($s, $l, $c)
+    public static function Expand(string $s, int $l, string $c): string
     {
         if (strlen($s) >= $l) {
             return $s;
-        } else {
+        }
+        else {
             return str_repeat($c, $l - strlen($s)) . $s;
         }
     }
@@ -578,7 +589,7 @@ class StringHelper
      * @return string 
      * @testFunction testStringHelperGUID
      */
-    public static function GUID()
+    public static function GUID(): string
     {
         if (function_exists('com_create_guid') === true) {
             return trim(com_create_guid(), '{}');
@@ -595,7 +606,7 @@ class StringHelper
      * @return string[]|null
      * @testFunction testStringHelperExplode
      */
-    public static function Explode($string, $delimiters, $addDelimiters = false)
+    public static function Explode(string $string, string|array $delimiters, bool $addDelimiters = false): ?array
     {
         if (!is_array(($delimiters)) && !is_array($string)) {
             $return = preg_split('/' . preg_quote($delimiters) . '/u', $string);
@@ -609,7 +620,8 @@ class StringHelper
                 $return = $ret;
             }
             return $return;
-        } else if (!is_array($delimiters) && is_array($string)) {
+        }
+        else if (!is_array($delimiters) && is_array($string)) {
             $items = [];
             foreach ($string as $item) {
                 $r = self::Explode($item, $delimiters, $addDelimiters);
@@ -618,7 +630,8 @@ class StringHelper
                 }
             }
             return $items;
-        } else if (is_array($delimiters) && !is_array($string)) {
+        }
+        else if (is_array($delimiters) && !is_array($string)) {
             $string_array = [$string];
             foreach ($delimiters as $delimiter) {
                 $string_array = self::Explode($string_array, $delimiter, $addDelimiters);
@@ -635,7 +648,7 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperImplode
      */
-    public static function Implode($array, $splitter)
+    public static function Implode(array $array, string $splitter): string 
     {
         if (!is_array($array) || !is_string($splitter)) {
             return false;
@@ -648,7 +661,7 @@ class StringHelper
      * @param string $url 
      * @return ExtendedObject
      */
-    public static function ParseAsUrl($url)
+    public static function ParseAsUrl(string $url): ExtendedObject
     {
         $res = (object)parse_url($url);
         if (isset($res->query)) {
@@ -671,7 +684,7 @@ class StringHelper
         return new ExtendedObject($res);
     }
 
-    public static function Transliterate($string)
+    public static function Transliterate(string $string): string
     {
         $string = mb_ereg_replace("ый", "yj", $string);
         $string = mb_ereg_replace("а", "a", $string);
@@ -746,7 +759,7 @@ class StringHelper
         return mb_ereg_replace("Я", "Ya", $string);
     }
 
-    public static function TransliterateBack($string)
+    public static function TransliterateBack(string $string): string
     {
         $string = mb_ereg_replace("yj", "ый", $string);
         $string = mb_ereg_replace("a", "а", $string);
@@ -818,7 +831,7 @@ class StringHelper
         return mb_ereg_replace("Ya", "Я", $string);
     }
 
-    public static function CreateHID($text, $trans = true)
+    public static function CreateHID(string $text, bool $trans = true): string
     {
 
         if ($trans) {
@@ -826,28 +839,29 @@ class StringHelper
                 '/[^\w]/i',
                 '-',
                 str_replace(
-                    '«',
-                    '',
-                    str_replace(
-                        '»',
-                        '',
-                        strtolower(StringHelper::Transliterate(trim($text, "\n\r ")))
-                    )
-                )
+                '«',
+                '',
+                str_replace(
+                '»',
+                '',
+                strtolower(StringHelper::Transliterate(trim($text, "\n\r ")))
+            )
+            )
             ), 0, 200));
-        } else {
+        }
+        else {
             $hid = iconv('cp1251', 'UTF-8', preg_replace('/\-+/', '-', substr(preg_replace(
                 '/[^\w\x7F-\xFF]/i',
                 '-',
                 str_replace(
-                    '«',
-                    '',
-                    str_replace(
-                        '»',
-                        '',
-                        strtolower(trim(iconv('UTF-8', 'cp1251', $text), "\n\r "))
-                    )
-                )
+                '«',
+                '',
+                str_replace(
+                '»',
+                '',
+                strtolower(trim(iconv('UTF-8', 'cp1251', $text), "\n\r "))
+            )
+            )
             ), 0, 200)));
         }
 
