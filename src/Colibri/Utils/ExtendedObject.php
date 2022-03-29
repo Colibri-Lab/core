@@ -177,7 +177,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * Поле изменено
      * @return bool 
      */
-    public function IsPropertyChanged($property, $dummy = false)
+    public function IsPropertyChanged(string $property, bool $dummy = false) : bool
     {
 
         if (!empty($this->_prefix) && strpos($property, $this->_prefix) === false) {

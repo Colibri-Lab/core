@@ -96,12 +96,12 @@ class DataRow extends ExtendedObject
      * @return ExtendedObject
      * @testFunction testDataRowCopyToObject
      */
-    public function CopyToObject()
+    public function CopyToObject() : ExtendedObject
     {
         return new ExtendedObject($this->_data, $this->_prefix);
     }
 
-    public function Type($property) {
+    public function Type(string $property) : string {
         $fields = $this->properties;
         foreach ($fields as $prop => $field) {
             if($prop == $property) {
@@ -111,7 +111,7 @@ class DataRow extends ExtendedObject
         return 'varchar';
     }
 
-    public function IsPropertyChanged($property, $convertData = false)
+    public function IsPropertyChanged(string $property, bool $convertData = false) : bool
     {
         if($this->Type($property) === 'JSON') {
             

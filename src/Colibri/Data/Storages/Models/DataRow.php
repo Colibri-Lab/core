@@ -45,10 +45,10 @@ class DataRow extends BaseDataRow
      *
      * @param DataTable $table
      * @param mixed $data
-     * @param Storage $storage
+     * @param Storage|null $storage
      * @throws DataModelException
      */
-    public function __construct(DataTable $table, $data = null, $storage = null)
+    public function __construct(DataTable $table, mixed $data = null, ?Storage $storage = null)
     {
         if(!$storage) {
             throw new DataModelException('Unknown storage');
@@ -62,7 +62,7 @@ class DataRow extends BaseDataRow
      * @param mixed $obj обьект или массив
      * @return void 
      */
-    public function Fill($obj)
+    public function Fill(mixed $obj) : void
     {
         $obj = (object)$obj;
         if (!is_null($obj)) {
@@ -212,7 +212,7 @@ class DataRow extends BaseDataRow
      * @param mixed $data данные для конвертации
      * @return mixed сконвертированные данные
      */
-    protected function _typeToData($data) {
+    protected function _typeToData(mixed $data) : mixed {
 
         foreach ($data as $k => $v) {
             $storage = $this->Storage();
@@ -287,7 +287,7 @@ class DataRow extends BaseDataRow
      * Возвращает хранилище
      * @return Storage 
      */
-    public function Storage()
+    public function Storage() : Storage
     {
         return $this->_storage;
     }
@@ -312,7 +312,7 @@ class DataRow extends BaseDataRow
      * Конвертирует в строку
      * @return string
      */
-    public function ToString() {
+    public function ToString() : string {
         $string = array();
         foreach ($this->Storage()->fields as $field) {
             $value = $this->{$field->name};
@@ -339,7 +339,7 @@ class DataRow extends BaseDataRow
     }
 
 
-    public function __toString() {
+    public function __toString() : string {
         return $this->id;
     }
 
@@ -347,7 +347,7 @@ class DataRow extends BaseDataRow
      * Поле изменено
      * @return bool 
      */
-    public function IsPropertyChanged($property, $convertData = false)
+    public function IsPropertyChanged(string $property, bool $convertData = false) : bool
     {
 
         if (!empty($this->_prefix) && strpos($property, $this->_prefix) === false) {
@@ -363,7 +363,7 @@ class DataRow extends BaseDataRow
      * Вызывает SaveRow у таблицы
      * @return bool 
      */
-    public function Save() 
+    public function Save() : bool
     {
         return $this->table->SaveRow($this);
     }

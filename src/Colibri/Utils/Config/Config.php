@@ -35,10 +35,10 @@ class Config
     /**
      * Конструктор
      *
-     * @param string $fileName файл или данные
+     * @param mixed $fileName файл или данные
      * @param boolean $isFile указываем файл передали или строку
      */
-    public function __construct($fileName, $isFile = true)
+    public function __construct(mixed $fileName, bool $isFile = true)
     {
         if (is_array($fileName) || is_object($fileName)) {
             $this->_configData = $fileName;
@@ -69,7 +69,7 @@ class Config
      * @return Config
      * @testFunction testConfigLoadFile
      */
-    public static function LoadFile($fileName)
+    public static function LoadFile(string $fileName) : Config
     {
         return new Config($fileName);
     }
@@ -81,7 +81,7 @@ class Config
      * @return Config
      * @testFunction testConfigLoad
      */
-    public static function Load($yamlData)
+    public static function Load(string $yamlData) : Config
     {
         return new Config($yamlData, false);
     }
@@ -89,11 +89,11 @@ class Config
     /**
      * Функция обработки команд в yaml
      *
-     * @param string $value значение
+     * @param mixed $value значение
      * @return mixed
      * @testFunction testConfig_prepareValue
      */
-    private function _prepareValue($value)
+    private function _prepareValue(mixed $value) : mixed
     {
         if (is_object($value) || is_array($value)) {
             return $value;
@@ -130,7 +130,7 @@ class Config
      * @return ConfigItemsList|Config
      * @testFunction testConfigQuery
      */
-    public function Query($item, $default = null)
+    public function Query(string $item, mixed $default = null) : ConfigItemsList|Config
     {
         $command = explode('.', $item);
 
@@ -176,7 +176,7 @@ class Config
      * @return object
      * @testFunction testConfigAsObject
      */
-    public function AsObject()
+    public function AsObject() : object|string
     {
         if(is_array($this->_configData)) {
             return (object)VariableHelper::ArrayToObject($this->_configData);
@@ -190,7 +190,7 @@ class Config
      * @return array
      * @testFunction testConfigAsArray
      */
-    public function AsArray()
+    public function AsArray() : array
     {
         return (array)$this->_configData;
     }
@@ -202,7 +202,7 @@ class Config
      * @return mixed
      * @testFunction testConfigGetValue
      */
-    public function GetValue()
+    public function GetValue() : mixed
     {
         if ($this->isKindOfObject($this->_configData) || is_array($this->_configData)) {
             return null;
@@ -217,7 +217,7 @@ class Config
      * @return boolean
      * @testFunction testConfigIsKindOfObject
      */
-    public function isKindOfObject($param)
+    public function isKindOfObject(string|array $param) : bool
     {
         $param = (array)$param;
         foreach ($param as $key => $value) {
