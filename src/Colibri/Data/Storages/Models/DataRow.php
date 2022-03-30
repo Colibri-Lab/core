@@ -26,6 +26,7 @@ use Colibri\Data\Storages\Fields\ValueField;
 use ReflectionClass;
 use Colibri\Data\Storages\Fields\UUIDField;
 use Colibri\Data\DataAccessPoint;
+use Colibri\Data\Storages\Fields\RemoteFileField;
 
 /**
  * Представление строки в таблице в хранилище
@@ -299,11 +300,22 @@ class DataRow extends BaseDataRow
      */
     public function ToArray(bool $noPrefix = false) : array
     {
+        $fields = $this->_storage->fields;
         $ar = parent::ToArray($noPrefix);
         foreach ($ar as $key => $value) {
+            $field = $fields->{$noPrefix ? $key : $this->_storage->GetFieldName($key)}  ?? null;
             if ($value instanceof FileField) {
                 $ar[$key] = $value->Source();
             }   
+            else if ($value instanceof RemoteFileField) {
+                $ar[$key] = $value->ToArray();
+                $ar[$key]['storage'] = $this->_storage->name;
+                $ar[$key]['field'] = $key;
+            }   
+            else if(strstr($field->class ?? '', 'RemoteFileField') !== false) {
+                $ar[$key]['storage'] = $this->_storage->name;
+                $ar[$key]['field'] = $key;
+            }          
         }
         return $ar;
     }

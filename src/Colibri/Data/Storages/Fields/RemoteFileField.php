@@ -16,6 +16,7 @@ use Colibri\Graphics\Size;
 use Colibri\Common\MimeType;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Storages\Storage;
+use ReflectionClass;
 
 /**
  * Представление файла в хранилище
@@ -35,13 +36,13 @@ use Colibri\Data\Storages\Storage;
  * @property-read int $filesize размер файла в байтах
  *
  */
-class FileField
+class RemoteFileField
 {
     /**
-     * Путь к файлу
+     * Данные файла
      * @var string
      */
-    private $_path;
+    private $_data;
 
     /**
      * Название файла
@@ -56,21 +57,39 @@ class FileField
     private $_ext;
 
     /**
-     * Конрент файла
-     * @var string
+     * Поле
+     * @var Field
      */
-    private $_content;
+    private ?Field $_field = null;
+
+    /**
+     * Хранилище
+     * @var Storage
+     */
+    private ?Storage $_storage = null;
 
     /**
      * Конструктор
-     * @param string $data путь к файлу
-     * @return void
      */
-    public function __construct($data, ?Storage $storage = null, ?Field $field = null)
+    public function __construct(object|string|null $data, ?Storage $storage = null, ?Field $field = null)
     {
-        $this->_path = $data;
-        $this->_name = basename($this->_path);
-        $this->_ext = pathinfo($this->_path, PATHINFO_EXTENSION);
+        $this->_storage = $storage;
+        $this->_field = $field;
+        
+        if(is_null($data)) {
+            $this->_data = [];
+            $this->_name = '';
+            $this->_ext = '';
+        }
+        else {
+            if(is_string($data)) {
+                $data = json_decode($data);
+            }
+            $this->_data = $data;
+            $this->_name = basename($this->_data->name ?? 'untitled.txt');
+            $this->_ext = pathinfo($this->_name, PATHINFO_EXTENSION);
+        }
+
     }
 
     /**
@@ -78,23 +97,14 @@ class FileField
      * @param string $nm свойство
      * @return mixed значение
      */
-    public function __get($nm)
+    public function __get(string $nm): mixed
     {
         switch ($nm) {
-            case "isOnline": {
-                    return strstr($this->_path, strlen('://')) !== false;
-                }
             case "isValid": {
-                    if (strstr($this->_path, strlen('://')) !== false) {
-                        return true;
-                    }
-                    if ($this->_path) {
-                        return File::Exists(App::$webRoot . $this->_path);
-                    }
-                    return false;
+                    return true;
                 }
             case 'path': {
-                    return $this->_path;
+                    return $this->_data->name;
                 }
             case "mimetype": {
                     return new MimeType($this->_ext);
@@ -103,36 +113,16 @@ class FileField
                     return $this->_ext;
                 }
             case "data": {
-                    if (is_null($this->_content)) {
-                        $this->_content = File::Read(App::$webRoot . $this->_path);
-                    }
-                    return $this->_content;
+                    return $this->_getContent();
                 }
+            case "filesize":
             case "size": {
-                    if ($this->mimetype->isImage && !$this->isOnline) {
-                        if ($this->isValid) {
-                            $info = Graphics::Info(App::$webRoot . $this->_path);
-                        }
-                        else {
-                            return new Size();
-                        }
-                        return $info->size;
-                    }
-                    else {
-                        return null;
-                    }
+                    $this->_data->size;
                 }
             case "id":
             case "name":
             case "filename": {
                     return $this->_name;
-                }
-            case "filesize": {
-                    if ($this->isOnline) {
-                        return 0;
-                    }
-                    $f = new File(App::$webRoot . $this->_path);
-                    return $f->size;
                 }
             default: {
                     return null;
@@ -140,13 +130,88 @@ class FileField
         }
     }
 
+    public function __set(string $nm, mixed $data): void
+    {
+        if($nm == 'name') {
+            $this->_name = $data;
+        }
+        else if($nm == 'data') {
+            $this->_setContent($data);
+        }
+    }
+
+    private function _getContent(): ?string
+    {
+        try {
+
+            $params = $this->_field->params;
+            $className = $params['class'] ?? null;
+            if(!$className) {
+                return null;
+            }
+
+            $args = $params['args'];
+            $method = $params['method'][0];
+            $key = $params['key'];
+
+            $reflectionClass = new ReflectionClass($className);
+            if(!$reflectionClass->hasMethod($method)) {
+                return null;
+            }
+
+            $classInstance = $reflectionClass->newInstanceArgs($args);
+            return $classInstance->$method($this->_data->$key);
+        }
+        catch(\Throwable $e) {
+            return null;            
+        }
+
+    }
+
+    private function _setContent($data): void 
+    {
+        try {
+
+            $params = $this->_field->params;
+            $remote = $params['remote'];
+            $className = $remote['class'] ?? null;
+            if(!$className) {
+                return;
+            }
+
+            $args = $remote['args'];
+            $method = $remote['method'][1];
+
+            $reflectionClass = new ReflectionClass($className);
+            if(!$reflectionClass->hasMethod($method)) {
+                return;
+            }
+
+            $classInstance = $reflectionClass->newInstanceArgs($args);
+            $this->_data = $classInstance->$method($data, $this->_name);
+            
+        }
+        catch(\Throwable $e) {
+            return;            
+        }
+    }
+
     /**
      * Возвращает строку (путь)
      * @return string путь
      */
-    public function ToString()
+    public function ToString(): string
     {
-        return $this->_path;
+        return json_encode($this->_data);
+    }
+
+    public function ConvertFromFile(mixed $file)
+    {
+        if(!$file) {
+            return;
+        }
+        $this->name = $file->name;
+        $this->data = $file->binary;
     }
 
     /**
@@ -154,7 +219,7 @@ class FileField
      * @param Size $size размер
      * @return string наименование и путь файла кэша
      */
-    public function CacheName($size = null)
+    public function CacheName(Size $size = null): string
     {
         if (!$size) {
             $size = new Size(0, 0);
@@ -170,7 +235,7 @@ class FileField
      * @param Size $size размер
      * @return bool да, если файл существует
      */
-    public function CacheExists($size)
+    public function CacheExists(Size $size): bool
     {
         return File::Exists($this->CacheName($size));
     }
@@ -180,7 +245,7 @@ class FileField
      * @param Size|null $size размер
      * @return void
      */
-    public function Cache($size = null)
+    public function Cache(?Size $size = null)
     {
         $cachePath = $this->CacheName($size);
 
@@ -202,7 +267,7 @@ class FileField
      * @param mixed $options Свойства
      * @return string путь к кэшу или к файлу
      */
-    public function Source($size = null, $options = null)
+    public function Source(?Size $size = null, mixed $options = null): string
     {
         $options = $options ? new ExtendedObject($options) : new ExtendedObject();
 
@@ -227,9 +292,14 @@ class FileField
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->_path;
+        return $this->ToString();
+    }
+
+    public function ToArray(): array
+    {
+        return (array)$this->_data;
     }
 
 

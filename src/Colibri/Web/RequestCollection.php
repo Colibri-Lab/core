@@ -39,7 +39,7 @@ class RequestCollection extends ReadonlyCollection
      * @return string|string[]
      * @testFunction testRequestCollection_stripSlashes
      */
-    protected function _stripSlashes(string|array |object|null $obj, bool $strip = false): string|array |object
+    protected function _stripSlashes(string|array |object|null $obj, bool $strip = false): string|array|object|null
     {
         if (is_array($obj)) {
             foreach ($obj as $k => $v) {

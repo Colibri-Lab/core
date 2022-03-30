@@ -18,11 +18,12 @@ use InvalidArgumentException;
 use IteratorAggregate;
 use Traversable;
 use JsonSerializable;
+use Countable;
 
 /**
  * Класс обьект, все обьектноподобные классы и обьекты будут наследоваться от него
  */
-class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
+class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable, Countable
 {
     use TEventDispatcher;
 
@@ -388,6 +389,11 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
     public function jsonSerialize()
     {
         return $this->ToArray(true);
+    }
+
+    public function Count(): int 
+    {
+        return count($this->_data);
     }
 
 }

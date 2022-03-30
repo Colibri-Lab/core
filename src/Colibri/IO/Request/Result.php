@@ -33,7 +33,7 @@ class Result
     /**
      * Массив заголовков
      *
-     * @var object
+     * @var object|array
      */
-    public object $headers;
+    public object|array $headers;
 }

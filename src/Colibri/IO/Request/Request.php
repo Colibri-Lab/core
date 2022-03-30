@@ -172,10 +172,10 @@ class Request
      *
      * @param string $boundary разделитель
      * @param mixed $files данные
-     * @return string
+     * @return string|array
      * @testFunction testRequest_createMultipartRequestBody
      */
-    private function _createMultipartRequestBody(string $boundary, mixed $files): string
+    private function _createMultipartRequestBody(string $boundary, mixed $files): string|array
     {
         $data = '';
         $eol = "\r\n";
@@ -204,10 +204,10 @@ class Request
     /**
      * Собирает пост
      *
-     * @return string
+     * @return string|array
      * @testFunction testRequest_joinPostData
      */
-    private function _joinPostData(): string
+    private function _joinPostData(): string|array
     {
         $return = null;
         $data = array();

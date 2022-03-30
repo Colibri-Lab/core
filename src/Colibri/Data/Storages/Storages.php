@@ -35,14 +35,14 @@ class Storages
 
     /**
      * Данные о хранилищах
-     * @var XmlNode
+     * @var array
      */
-    private $_storages;
+    private ?array $_storages = null;
 
     /**
      * Набор типов данных
      */
-    private $_types;
+    private ?array $_types = null;
 
     /**
      * Конструктор
@@ -98,16 +98,50 @@ class Storages
 
         $this->_storages = $this->_replaceTypes($this->_storages);
 
+
     }
 
-    private function _replaceTypes($fields) {
+    private function _fromShortString(string $field): array {
+        $parts = explode(',', $field);
+        $type = trim($parts[0] ?? 'varchar');
+        $class = trim($parts[1] ?? 'string');
+        $component = trim($parts[2] ?? 'Text');
+        $length = null;
+
+        if(strstr($type, '(') !== false) {
+            $type = trim($type, ')');
+            $type = explode('(', $type);
+            $length = (int)$type[1];
+            $type = $type[0];
+        }
+
+        $return = [
+            'type' => $type,
+            'class' => $class,
+            'component' => $component,
+        ];
+        if($length) {
+            $return['length'] = $length;
+        }
+
+        return $return;
+    }
+
+    private function _replaceTypes($fields): array {
 
         foreach($fields as $name => $field) {
+
+            if(is_string($field)) {
+                // короткая запись
+                // type(length?), class, component
+                $field = $this->_fromShortString($field);
+                $fields[$name] = $field;
+            }
             
             if(isset($field['inherit']) && $this->_types[$field['inherit']]) {
                 $inherit = $field['inherit'];
                 unset($field['inherit']);
-                $fields[$name] = VariableHelper::Extend($this->_types[$inherit], $field);
+                $fields[$name] = VariableHelper::Extend($this->_types[$inherit], $field, true);
                 $field = $fields[$name];
             }
 
@@ -426,7 +460,7 @@ class Storages
      */
     public function Load($name)
     {
-        return new Storage($this->_storages[$name]);
+        return new Storage($this->_storages[$name], $name);
     }
 
 

@@ -27,6 +27,7 @@ use Colibri\Xml\XmlNode;
  * @property-read array $settings
  * @property-read object $fields
  * @property-read DataAccessPoint $accessPoint
+ * @property-read string $name
  */
 class Storage
 {
@@ -48,13 +49,16 @@ class Storage
      */
     private $_fields;
 
+    private $_name;
+
     /**
      * Конструктор
      * @param array $xstorage данные из настроек хранилища
      * @return void
      */
-    public function __construct($xstorage)
+    public function __construct(array $xstorage, string $name = '')
     {
+        $this->_name = $name;
         $this->_xstorage = $xstorage;
         $this->_dataPoint = isset($xstorage['access-point']) ? App::$dataAccessPoints->Get($xstorage['access-point']) : null;
         $this->_loadFields();
@@ -84,6 +88,10 @@ class Storage
                 }
             case 'accesspoint': {
                     $return = $this->_dataPoint;
+                    break;
+                }
+            case 'name': {
+                    $return = $this->_name;
                     break;
                 }
         }
@@ -152,33 +160,20 @@ class Storage
     }
 
     /**
-     * Возвращает поле по пути типа /fieldname/fieldname
+     * Возвращает поле по пути типа fieldname/fieldname
      * @param string $path путь
      * @return Field|null
      */
     public function GetField($path)
     {
-        $npath = array();
-
-        if ($path) {
-            $path = explode('/', $path);
-            $path = array_splice($path, 1);
-            foreach ($path as $item) {
-                if (strstr($item, 'group-') === false) {
-                    $npath[] = $item;
-                }
-            }
+        $found = null;
+        $fields = $this->fields;
+        $path = explode('/', $path);
+        foreach($path as $field) {
+            $found = $fields->$field;
+            $fields = $found->fields->$field ?? null;
         }
-
-        $obj = $this;
-        foreach ($npath as $item) {
-            $obj = $obj->$item;
-        }
-        if ($obj) {
-            return $obj;
-        }
-
-        return null;
+        return $found;
     }
 
     /**

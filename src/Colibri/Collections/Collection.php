@@ -123,10 +123,10 @@ class Collection implements ICollection, IteratorAggregate
     /**
      * Возвращает знаение по индексу
      *
-     * @param mixed $index
+     * @param int $index
      * @testFunction testCollectionItemAt
      */
-    public function ItemAt(mixed $index): mixed
+    public function ItemAt(int $index): mixed
     {
         $key = $this->Key($index);
         if (!$key) {

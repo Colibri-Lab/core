@@ -53,12 +53,12 @@ class RequestFileCollection extends RequestCollection
      * @return string|string[]
      * @testFunction testRequestCollection_stripSlashes
      */
-    protected function _stripSlashes(string|array $obj, bool $strip = false): string|array
+    protected function _stripSlashes(string|array |object|null $obj, bool $strip = false): string|array|object|null
     {
         return $obj;
     }
 
-    public function Item(string $key): array |RequestedFile|null
+    public function Item(mixed $key): mixed
     {
         if ($this->Exists($key)) {
             if (is_array($this->data[$key])) {
@@ -74,7 +74,7 @@ class RequestFileCollection extends RequestCollection
         return null;
     }
 
-    public function ItemAt(int $index): null|RequestedFile|array
+    public function ItemAt(int $index): mixed
     {
         $key = $this->Key($index);
         if (!$key) {

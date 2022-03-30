@@ -64,9 +64,9 @@ class RequestedFile
     /**
      * Конструктор
      *
-     * @param array $arrFILE
+     * @param array|object $arrFILE
      */
-    function __construct(array $arrFILE)
+    function __construct(array|object $arrFILE)
     {
 
         if (!$arrFILE) {

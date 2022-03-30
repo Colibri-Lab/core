@@ -222,6 +222,7 @@ class MimeType
         "zip" =>  "application/zip",
         "swf" => "application/x-shockwave-flash",
         "svg" => "image/svg+xml",
+        "stream" => "application/stream"
     );
 
     /**

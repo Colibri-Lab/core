@@ -76,7 +76,7 @@ abstract class Stream
      * @param int $count количество байл которые нужно считать
      * @return string
      */
-    abstract public function read(?int $offset = null, ?int $count = null): string;
+    abstract public function Read(?int $offset = null, ?int $count = null): bool|string;
 
     /**
      * Записать в стрим
