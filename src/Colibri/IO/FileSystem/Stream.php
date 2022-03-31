@@ -85,7 +85,7 @@ abstract class Stream
      * @param int $offset место откуда записать
      * @return void
      */
-    abstract public function write(int $content, ?int $offset = null): void;
+    abstract public function write(string $content, ?int $offset = null): void;
 
     /**
      * Считать из стрима одну строку

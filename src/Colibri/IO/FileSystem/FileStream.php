@@ -79,7 +79,7 @@ class FileStream extends Stream
      * @return bool|int
      * @testFunction testFileStreamWrite
      */
-    public function Write(string $buffer, int $offset = 0): bool|int
+    public function Write(string $buffer, ?int $offset = 0): bool|int
     {
         $this->seek($offset);
         return fwrite($this->_stream, $buffer);
