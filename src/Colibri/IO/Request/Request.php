@@ -177,6 +177,7 @@ class Request
      */
     private function _createMultipartRequestBody(string $boundary, mixed $files): string|array
     {
+
         $data = '';
         $eol = "\r\n";
 
@@ -186,6 +187,7 @@ class Request
             if ($content instanceof DataFile) {
                 $data .= "--" . $delimiter . $eol
                     . 'Content-Disposition: form-data; name="' . $content->name . '"; filename="' . $content->file . '"' . $eol
+                    . 'Content-Type: ' . $content->mime . $eol
                     . 'Content-Transfer-Encoding: binary' . $eol;
 
                 $data .= $eol;
@@ -327,7 +329,8 @@ class Request
 
         if ($this->encryption == Encryption::Multipart) {
             curl_setopt($handle, CURLOPT_CUSTOMREQUEST, 'POST');
-            $_headers[] = "Content-Type: multipart/form-data; boundary=" . Request::Boundary . $this->boundary;
+            curl_setopt($handle, CURLOPT_SAFE_UPLOAD, true);
+            $_headers[] = "Content-Type: multipart/form-data";
         }
         else if ($this->encryption == Encryption::JsonEncoded) {
             $_headers[] = "Content-Type: application/json";
@@ -365,7 +368,7 @@ class Request
         }
 
         curl_setopt($handle, CURLOPT_HEADER, true);
-
+        
         if (!$this->sslVerify) {
             curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, $this->sslVerify);
             curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, $this->sslVerify);

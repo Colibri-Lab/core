@@ -65,7 +65,7 @@ class FileStream extends Stream
      * @return string|bool
      * @testFunction testFileStreamRead
      */
-    public function Read(int $offset = 0, int $count = 0): bool|string
+    public function Read(?int $offset = 0, ?int $count = 0): bool|string
     {
         $this->Seek($offset);
         return fread($this->_stream, $count);
