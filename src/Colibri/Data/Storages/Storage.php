@@ -56,9 +56,9 @@ class Storage
      * @param array $xstorage данные из настроек хранилища
      * @return void
      */
-    public function __construct(array $xstorage, string $name = '')
+    public function __construct(array $xstorage, ?string $name = null)
     {
-        $this->_name = $name;
+        $this->_name = $name ?: $xstorage['name'];
         $this->_xstorage = $xstorage;
         $this->_dataPoint = isset($xstorage['access-point']) ? App::$dataAccessPoints->Get($xstorage['access-point']) : null;
         $this->_loadFields();

@@ -9,11 +9,12 @@ class Item implements \JsonSerializable
 
     public ?Item $parent = null;
 
-    public function __construct(string $name, string $description, string $className = '', bool $isImportant = false, string $execute = '')
+    public function __construct(string $name, string $title, string $description, string $className = '', bool $isImportant = false, string $execute = '')
     {
         $this->parent = null;
         $this->_data = (object)[
             'name' => $name,
+            'title' => $title,
             'description' => $description,
             'class' => $className,
             'important' => $isImportant,
@@ -25,17 +26,17 @@ class Item implements \JsonSerializable
 
     }
 
+    static function Create(string $name, string $title, string $description, string $className = '', bool $isImportant = false, string $execute = ''): self
+    {
+        return new self($name, $title, $description, $className, $isImportant, $execute);
+    }
+
     public function __get(string $name): mixed
     {
         if (isset($this->_data->$name)) {
             return $this->_data->$name;
         }
         return null;
-    }
-
-    static function Create(string $name, string $description, string $className = '', bool $isImportant = false, string $execute = ''): self
-    {
-        return new self($name, $description, $className, $isImportant, $execute);
     }
 
     public function Route(): string
@@ -64,16 +65,23 @@ class Item implements \JsonSerializable
         return null;
     }
 
-    public function Add(Item $item): Item
+    public function Add(Item|array $item): Item
     {
-        $item->parent = $this;
-        if (!($found = $this->_find($item->name))) {
-            $this->_data->children[] = $item;
+
+        if(is_array($item)) {
+            foreach($item as $i) {
+                $this->Add($i);
+            }
         }
         else {
-            $found->Merge($item->children);
+            $item->parent = $this;
+            if (!($found = $this->_find($item->name))) {
+                $this->_data->children[] = $item;
+            }
+            else {
+                $found->Merge($item->children);
+            }
         }
-
         return $this;
     }
 
