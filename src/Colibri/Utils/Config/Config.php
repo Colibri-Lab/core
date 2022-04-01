@@ -242,4 +242,11 @@ class Config
 
         return false;
     }
+
+    public function Save(string $fileName): bool 
+    {
+        $path = App::$appRoot . '/config/' . $fileName;
+        return \yaml_emit_file($path, $this->_configData, \YAML_UTF8_ENCODING, \YAML_ANY_BREAK);
+    }
+
 }

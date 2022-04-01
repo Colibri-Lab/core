@@ -1,6 +1,8 @@
 <?php
 
 namespace Colibri\Utils\Menu;
+use ScssPhp\ScssPhp\Ast\Sass\Expression\VariableExpression;
+use Colibri\Common\VariableHelper;
 
 class Item implements \JsonSerializable
 {
@@ -29,6 +31,17 @@ class Item implements \JsonSerializable
     static function Create(string $name, string $title, string $description, string $className = '', bool $isImportant = false, string $execute = ''): self
     {
         return new self($name, $title, $description, $className, $isImportant, $execute);
+    }
+
+    static function FromArray(array $array): self 
+    {
+        $item = new self($array['name'] ?? '', $array['title'] ?? '', $array['description'] ?? '', $array['className'] ?? '', $array['isImportant'] ?? false, $array['execute'] ?? '');
+        if(!empty($array['children'] ?? []) && is_array($array['children'])) {
+            foreach($array['children'] as $itemArray) {
+                $item->Add(Item::FromArray($itemArray));
+            }
+        }
+        return $item;
     }
 
     public function __get(string $name): mixed
@@ -90,5 +103,11 @@ class Item implements \JsonSerializable
         $this->_data->index = $this->Route();
         return $this->_data;
     }
+
+    public function ToArray(): array|object
+    {
+        return json_decode(json_encode($this), true);
+    }
+
 
 }
