@@ -124,12 +124,12 @@ class FileStream extends Stream
         return null;
     }
 
-    public function readLine(): bool|string
+    public function ReadLine(): bool|string
     {
         return \fgets($this->_stream);
     }
 
-    public function writeLine($string): bool|int
+    public function WriteLine($string): bool|int
     {
         return \fputs($this->_stream, $string);
     }

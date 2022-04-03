@@ -85,14 +85,14 @@ abstract class Stream
      * @param int $offset место откуда записать
      * @return void
      */
-    abstract public function write(string $content, ?int $offset = null): void;
+    abstract public function Write(string $content, ?int $offset = null): int|bool;
 
     /**
      * Считать из стрима одну строку
      *
      * @return string
      */
-    abstract public function readLine(): string;
+    abstract public function ReadLine(): bool|string;
 
     /**
      * Записать в стрим одну строку
@@ -100,7 +100,7 @@ abstract class Stream
      * @param string $string контент, которые нужно записать
      * @return void
      */
-    abstract public function writeLine(string $string): void;
+    abstract public function WriteLine(string $string): bool|int;
 
     /**
      * Сохранить изменения

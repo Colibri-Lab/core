@@ -106,6 +106,9 @@ class Storages
         $type = trim($parts[0] ?? 'varchar');
         $class = trim($parts[1] ?? 'string');
         $component = trim($parts[2] ?? 'Text');
+        $desc = trim($parts[3] ?? '');
+        $note = trim($parts[4] ?? '');
+        $default = trim($parts[5] ?? '');
         $length = null;
 
         if(strstr($type, '(') !== false) {
@@ -119,6 +122,9 @@ class Storages
             'type' => $type,
             'class' => $class,
             'component' => $component,
+            'desc' => $desc,
+            'note' => $note,
+            'default' => $default
         ];
         if($length) {
             $return['length'] = $length;

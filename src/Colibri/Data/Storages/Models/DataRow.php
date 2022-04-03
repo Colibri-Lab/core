@@ -27,6 +27,7 @@ use ReflectionClass;
 use Colibri\Data\Storages\Fields\UUIDField;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\Storages\Fields\RemoteFileField;
+use Colibri\Data\SqlClient\NonQueryInfo;
 
 /**
  * Представление строки в таблице в хранилище
@@ -313,7 +314,8 @@ class DataRow extends BaseDataRow
      * Конвертирует в строку
      * @return string
      */
-    public function ToString() : string {
+    public function ToString() : string 
+    {
         $string = array();
         foreach ($this->Storage()->fields as $field) {
             $value = $this->{$field->name};
@@ -327,7 +329,7 @@ class DataRow extends BaseDataRow
                 }
             }
             else {
-                $strings[] = (string)$value;
+                $string[] = (string)$value;
             }
             $string[] = StringHelper::StripHTML($value);
         }
@@ -340,7 +342,8 @@ class DataRow extends BaseDataRow
     }
 
 
-    public function __toString() : string {
+    public function __toString() : string 
+    {
         return $this->id;
     }
 
@@ -369,7 +372,11 @@ class DataRow extends BaseDataRow
         return $this->table->SaveRow($this);
     }
 
-
+    public function Delete(): NonQueryInfo
+    {
+        return $this->table->DeleteRow($this);
+    }
+    
 }
 
 
