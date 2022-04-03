@@ -18,6 +18,7 @@ use Colibri\Data\Storages\Storages;
 use Colibri\Utils\Debug;
 use Colibri\Xml\XmlNode;
 use Colibri\Common\VariableHelper;
+use Colibri\Data\SqlClient\IDataReader;
 
 /**
  * Класс представление связи поля и таблицы
@@ -110,7 +111,11 @@ class Lookup
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
             $filter = $storage->GetRealFieldName($this->value ?: 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
+            /** @var IDataReader */
             $reader = $accessPoint->Query('select * from ' . $storage->name . ($filter && $filter != '' ? ' where ' . $filter : ''), ['page' => 1, 'pagesize' => 1]);
+            if($reader->Count() == 0) {
+                return null;
+            }
             $table = new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
             $v = $table->First();
             $v->value = $v->{ $this->value};
@@ -120,7 +125,11 @@ class Lookup
         else if ($this->accessPoint) {
             $accessPoint = App::$dataAccessPoints->Get($this->accessPoint);
             $filter = $this->value . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
+            /** @var IDataReader */
             $reader = $accessPoint->Query('select * from (select ' . $this->fields . ' from ' . $this->table . ') t where ' . $filter . ($this->order ? ' order by ' . $this->order : ''));
+            if($reader->Count() == 0) {
+                return null;
+            }
             $table = new DataTable($accessPoint, $reader);
             $v = $table->First();
             $v->value = $v->{ $this->value};

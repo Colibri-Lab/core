@@ -49,7 +49,7 @@ class DataField
      *
      * @var string
      */
-    public string$originalTable;
+    public string $originalTable;
 
     /**
      * Имя таблицы, имя поля в формате необходимом для работы с базой данных
@@ -82,9 +82,9 @@ class DataField
     /**
      * Целое число, представляющее битовые флаги для поля.
      *
-     * @var int
+     * @var array
      */
-    public int $flags;
+    public array $flags;
 
     /**
      * Тип данных поля
