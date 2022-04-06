@@ -191,7 +191,12 @@ class DataRow extends BaseDataRow
             }
 
             if ($mode == 'get') {
-                $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field);
+                try {
+                    $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field);
+                }
+                catch(\Throwable $e) {
+                    $this->_data[$property] = $rowValue;
+                }
                 $value = $this->_data[$property];
             } else {
 
@@ -199,8 +204,15 @@ class DataRow extends BaseDataRow
                     $this->_data[$property] = (string)$rowValue;
                 }
                 else {
-                    $c = new $class($rowValue, $this->_storage, $field);
-                    $this->_data[$property] = (string)$c;
+
+                    try {
+                        $c = new $class($rowValue, $this->_storage, $field);
+                        $this->_data[$property] = (string)$c;  
+                    }
+                    catch(\Throwable $e) {
+                        $this->_data[$property] = $rowValue;
+                    }
+
                 }
 
             }
@@ -331,7 +343,7 @@ class DataRow extends BaseDataRow
             else {
                 $string[] = (string)$value;
             }
-            $string[] = StringHelper::StripHTML($value);
+            $string[] = StringHelper::StripHTML($value ?: '');
         }
         
         $string = implode(' ', $string);

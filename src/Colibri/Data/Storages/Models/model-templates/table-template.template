@@ -88,4 +88,15 @@ class [[table-class-name]] extends BaseModelDataTable {
         return $reports->CreateEmptyRow();
     }
 
+    /**
+     * Удаляет все по списку ID
+     * @param int[] $ids ID строки
+     * @return void
+     */
+    static function DeleteAllByIds(array $ids): void
+    {
+        $storage = Storages::Create()->Load('[[storage-name]]');
+        $storage->accessPoint->Delete($storage->name, $storage.'_id in ('.implode(',', $ids).')');
+    }
+
 }
