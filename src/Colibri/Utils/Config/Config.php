@@ -17,6 +17,7 @@ use Colibri\Common\ObjectHelper;
 use Colibri\Common\StringHelper;
 use Colibri\Common\VariableHelper;
 use Colibri\IO\FileSystem\File;
+use Colibri\IO\FileSystem\Finder;
 
 /**
  * Класс для работы с конфиг файлами в yaml
@@ -247,6 +248,22 @@ class Config
     {
         $path = App::$appRoot . '/config/' . $fileName;
         return \yaml_emit_file($path, $this->_configData, \YAML_UTF8_ENCODING, \YAML_ANY_BREAK);
+    }
+
+    /**
+     * Собирает все файлы конфигураций в папке /config
+     */
+    static function Enumerate(): array 
+    {
+        
+        $ret = [];
+        $finder = new Finder();
+        $files = $finder->Files(App::$appRoot.'/config/', '/.yaml/');
+        foreach($files as $file) {
+            $ret[] = str_replace(App::$appRoot.'/config/', '', $file->path);
+        }
+        return $ret;
+
     }
 
 }

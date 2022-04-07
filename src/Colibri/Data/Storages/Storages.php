@@ -477,11 +477,51 @@ class Storages
     public function GetStorages()
     {
         $storages = [];
+        $map = $this->_loadStoragesNamePathMap();
         foreach ($this->_storages as $xstorage) {
+            $xstorage['path'] = $map[$xstorage['name']];
             $storage = new Storage($xstorage);
             $storages[$storage->name] = $storage;
         }
         return $storages;
+    }
+
+    private function _loadStoragesNamePathMap(): array
+    {
+        $storagesConfigs = [];
+        $configs = Config::Enumerate();
+        foreach($configs as $config) {
+
+            $config = Config::LoadFile($config);
+            // ищем файлы в которых настроены хранилища
+            try {
+                $databasesConfig = $config->Query('databases');
+            }
+            catch(ConfigException $e) {
+                continue;
+            }
+
+            $databasesArray = $databasesConfig->AsArray();
+            if(!isset($databasesArray['storages'])) {
+                continue;
+            }
+
+            if(strstr($databasesArray['storages'], 'include(') !== false) {
+                // нашли
+                $storagesConfigs[] = str_replace(')', '', str_replace('include(', '', $databasesArray['storages']));
+            }
+
+        }
+
+        $storagesNamePathMap = [];
+        foreach($storagesConfigs as $storagesConfig) {
+            $sc = Config::LoadFile($storagesConfig)->AsArray();
+            foreach($sc as $name => $config) {
+                $storagesNamePathMap[$name] = $storagesConfig;
+            }
+        }
+
+        return $storagesNamePathMap;
     }
 
     public function __get($prop)
@@ -506,4 +546,6 @@ class Storages
         }
         return $return;
     }
+
+    
 }

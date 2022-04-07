@@ -40,7 +40,7 @@ class Module
      *
      * @var string
      */
-    protected $_moduleNamespace;
+    protected string $_moduleNamespace;
 
     protected function __construct(mixed $config)
     {
