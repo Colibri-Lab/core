@@ -14,6 +14,8 @@ use Colibri\Utils\Debug;
  *
  * @property-read string $modulePath
  * @property-read string $moduleNamepsace
+ * @property-read string $moduleConfigPath
+ * @property-read string $moduleStoragesPath
  */
 class Module
 {
@@ -42,6 +44,17 @@ class Module
      */
     protected string $_moduleNamespace;
 
+
+    /**
+     * Файл конфигурации модуля
+     */
+    protected string $_moduleConfigFile = '';
+
+    /**
+     * Файл конфигурации хранилищь в модуле
+     */
+    protected string $_moduleStoragesConfigPath = '';
+
     protected function __construct(mixed $config)
     {
 
@@ -55,6 +68,18 @@ class Module
         $filename = $reflection->getFileName();
         $this->_modulePath = str_replace('Module.php', '', $filename);
         $this->_moduleNamespace = $reflection->getNamespaceName().'\\';
+        
+        $configArray = $this->_config->AsArray();
+        $this->_moduleConfigFile = str_replace(')', '' , str_replace('include(', '', $configArray['config']));
+
+        try {
+            $databasesConfigArray = $this->Config()->Query('config.databases')->AsArray();
+            $this->_moduleStoragesConfigPath = str_replace(')', '' , str_replace('include(', '', $databasesConfigArray['storages']));
+
+        }
+        catch(\Throwable $e) {
+
+        }
 
     }
 
@@ -90,6 +115,12 @@ class Module
         }
         else if ($prop == 'modulenamespace') {
             return $this->_moduleNamespace;
+        }
+        else if($prop == 'moduleconfigpath') {
+            return $this->_moduleConfigFile;
+        }
+        else if($prop == 'modulestoragespath') {
+            return $this->_moduleStoragesConfigPath;
         }
         return false;
     }

@@ -135,6 +135,8 @@ class DataAccessPoint
     {
         if ($property == 'connection') {
             return $this->_connection;
+        } else if($property == 'point') {
+            return $this->_accessPointData;
         } else {
             return $this->Query('select * from ' . $property);
         }

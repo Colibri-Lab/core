@@ -21,7 +21,7 @@ namespace Colibri\Web;
 class RequestFileCollection extends RequestCollection
 {
 
-    public function __construct(mixed $data = array())
+    public function __construct(mixed $data = array(), bool $stripSlashes = true)
     {
         // $data [key => value]
         // value может быть массивом упакованным в поля
@@ -43,7 +43,7 @@ class RequestFileCollection extends RequestCollection
                 $add[$key] = (object)$value;
             }
         }
-        parent::__construct($add);
+        parent::__construct($add, $stripSlashes);
     }
 
     /**
@@ -53,7 +53,7 @@ class RequestFileCollection extends RequestCollection
      * @return string|string[]
      * @testFunction testRequestCollection_stripSlashes
      */
-    protected function _stripSlashes(string|array |object|null $obj, bool $strip = false): string|array|object|null
+    protected function _stripSlashes(mixed $obj, bool $strip = false): mixed
     {
         return $obj;
     }

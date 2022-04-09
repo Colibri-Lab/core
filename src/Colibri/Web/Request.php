@@ -15,6 +15,7 @@ namespace Colibri\Web;
 use Colibri\Common\XmlHelper;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Events\EventsContainer;
+use Colibri\Common\VariableHelper;
 
 /**
  * Класс запроса
@@ -54,12 +55,26 @@ class Request
     /** Тип запроса XML */
     const PAYLOAD_TYPE_XML = 'xml';
 
+    private bool $_encodedAsJson = false;
+
     /**
      * Конструктор
      */
     private function __construct()
     {
         $this->DispatchEvent(EventsContainer::RequestReady);
+        $this->_detectJsonEncodedData();
+    }
+
+    private function _detectJsonEncodedData(): void
+    {
+        if(isset($_POST['json_encoded_data'])) {
+            $json = $_POST['json_encoded_data'];
+            $data = json_decode(base64_decode($json), true);
+            $_POST = VariableHelper::Extend($_POST, $data);
+            unset($_POST['json_encoded_data']);
+            $this->_encodedAsJson = true;
+        }
     }
 
     /**
@@ -117,7 +132,7 @@ class Request
                     break;
                 }
             case 'post': {
-                    $return = new RequestCollection($_POST);
+                    $return = new RequestCollection($_POST, !$this->_encodedAsJson);
                     break;
                 }
             case 'files': {

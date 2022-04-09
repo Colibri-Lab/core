@@ -266,4 +266,16 @@ class Config
 
     }
 
+    public function Set(string $item, mixed $value): void
+    {
+        try {
+            $command = explode('.', $item);
+            $command = '$this->_configData[\''.implode('\'][\'', $command).'\']=$value;';
+            eval($command);
+        }
+        catch(\Throwable $e) {
+            throw new ConfigException('Illeval query: ' . $item);
+        }
+    }
+
 }

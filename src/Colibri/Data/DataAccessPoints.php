@@ -24,7 +24,7 @@ use Colibri\Utils\Debug;
 /**
  * Класс фабрика для создания точек доступа
  * 
- * @property-read array $accessPoints
+ * @property-read object $accessPoints
  * @property-read array $pool
  * 
  * @testFunction testDataAccessPoints
@@ -62,6 +62,11 @@ class DataAccessPoints
         $this->_accessPointsPool = [];
         try {
             $this->_accessPoints = App::$config->Query('databases.access-points', (object)[])->AsObject();
+            $points = $this->_accessPoints->points ?? [];
+            foreach($points as $name => $point) {
+                $point->name = $name;
+                $point->module = 'application';
+            }
         }
         catch(ConfigException $e) {
             $this->_accessPoints = []; 
@@ -78,6 +83,11 @@ class DataAccessPoints
             /** @var Config $moduleConfig */
             try {
                 $databasesConfig = $moduleConfig->Query('config.databases.access-points')->AsObject();
+                $points = $databasesConfig->points ?? [];
+                foreach($points as $name => $point) {
+                    $point->name = $name;
+                    $point->module = $moduleConfig->Query('name')->GetValue();
+                }
                 $this->_accessPoints = VariableHelper::Extend($this->_accessPoints, $databasesConfig, true);
             }
             catch(ConfigException $e) {

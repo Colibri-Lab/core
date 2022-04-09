@@ -54,11 +54,12 @@ class Storage
 
     /**
      * Конструктор
-     * @param array $xstorage данные из настроек хранилища
+     * @param array|object $xstorage данные из настроек хранилища
      * @return void
      */
-    public function __construct(array $xstorage, ?string $name = null)
+    public function __construct(array|object $xstorage, ?string $name = null)
     {
+        $xstorage = (array)$xstorage;
         $this->_name = $name ?: $xstorage['name'];
         $this->_xstorage = $xstorage;
         $this->_dataPoint = isset($xstorage['access-point']) ?App::$dataAccessPoints->Get($xstorage['access-point']) : null;

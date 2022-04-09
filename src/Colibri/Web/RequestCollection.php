@@ -26,9 +26,12 @@ use Colibri\Collections\ReadonlyCollection;
 class RequestCollection extends ReadonlyCollection
 {
 
-    public function __construct(mixed $data = array())
+    private bool $_stripSlashes = true;
+
+    public function __construct(mixed $data = array(), bool $stripSlashes = true)
     {
         parent::__construct($data);
+        $this->_stripSlashes = $stripSlashes;
         $this->_stripSlashes($data);
     }
 
@@ -39,8 +42,12 @@ class RequestCollection extends ReadonlyCollection
      * @return string|string[]
      * @testFunction testRequestCollection_stripSlashes
      */
-    protected function _stripSlashes(string|array |object|null $obj, bool $strip = false): string|array|object|null
+    protected function _stripSlashes(mixed $obj, bool $strip = false): mixed
     {
+        if(!$this->_stripSlashes) {
+            return $obj;
+        }
+        
         if (is_array($obj)) {
             foreach ($obj as $k => $v) {
                 $obj[$k] = $this->_stripSlashes($v, $strip);
@@ -50,8 +57,11 @@ class RequestCollection extends ReadonlyCollection
         else if (is_object($obj)) {
             return $obj;
         }
-        else {
+        else if(is_string($obj)) {
             return $strip ? stripslashes($obj) : addslashes($obj);
+        }
+        else {
+            return $obj;
         }
     }
 
