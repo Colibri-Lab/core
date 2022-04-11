@@ -75,22 +75,23 @@ class Lookup
      */
     public function Load(int $page = -1, int $pagesize = 50): ?DataTable
     {
-
         if ($this->storage) {
-            $storage = Storages::Create()->Load($this->storage);
+            $data = (object)$this->storage;
+            $storage = Storages::Create()->Load($data->name);
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
-            $reader = $accessPoint->Query('select * from ' . $storage->name . ($this->filter && $this->filter != '' ? ' where ' . $this->filter : '') . ($this->order && $this->order != '' ? ' order by ' . $this->order : ''), ['page' => $page, 'pagesize' => $pagesize]);
+            $reader = $accessPoint->Query('select * from ' . $storage->name . ($data->filter && $this->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['page' => $page, 'pagesize' => $pagesize]);
             return new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
         }
         else if ($this->accessPoint) {
 
-            $accessPoint = App::$dataAccessPoints->Get($this->accessPoint);
+            $data = (object)$this->accessPoint;
+            $accessPoint = App::$dataAccessPoints->Get($data->name);
             if ($page > 0) {
-                $reader = $accessPoint->Query('select ' . $this->fields . ' from ' . $this->table . ($this->filter && $this->filter != '' ? ' where ' . $this->filter : '') . ($this->order && $this->order != '' ? ' order by ' . $this->order : ''), ['page' => $page, 'pagesize' => $pagesize]);
+                $reader = $accessPoint->Query('select ' . $data->fields . ' from ' . $data->table . ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['page' => $page, 'pagesize' => $pagesize]);
             }
             else {
-                $reader = $accessPoint->Query('select ' . $this->fields . ' from ' . $this->table . ($this->filter && $this->filter != '' ? ' where ' . $this->filter : '') . ($this->order && $this->order != '' ? ' order by ' . $this->order : ''));
+                $reader = $accessPoint->Query('select ' . $data->fields . ' from ' . $data->table . ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''));
             }
 
             return new DataTable($accessPoint, $reader);
@@ -107,33 +108,39 @@ class Lookup
     public function Selected(mixed $value): mixed
     {
         if ($this->storage) {
-            $storage = Storages::Create()->Load($this->storage);
+            $data = (object)$this->storage;
+            $storage = Storages::Create()->Load($data->name);
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
-            $filter = $storage->GetRealFieldName($this->value ?: 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
+            $filter = $storage->GetRealFieldName($data->value ?? 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
             /** @var IDataReader */
-            $reader = $accessPoint->Query('select * from ' . $storage->name . ($filter && $filter != '' ? ' where ' . $filter : ''), ['page' => 1, 'pagesize' => 1]);
+            $reader = $accessPoint->Query('select * from ' . $data->name . ($filter && $filter != '' ? ' where ' . $filter : ''), ['page' => 1, 'pagesize' => 1]);
             if($reader->Count() == 0) {
                 return null;
             }
             $table = new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
             $v = $table->First();
-            $v->value = $v->{ $this->value};
-            $v->title = $v->{ $this->title};
+            if(isset($data->value)) {
+                $v->value = $v->{ $data->value };
+            }
+            if(isset($v->title)) {
+                $v->title = $v->{ $data->title };
+            }
             return $v;
         }
         else if ($this->accessPoint) {
-            $accessPoint = App::$dataAccessPoints->Get($this->accessPoint);
-            $filter = $this->value . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
+            $data = (object)$this->accessPoint;
+            $accessPoint = App::$dataAccessPoints->Get($data->name);
+            $filter = $data->value . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
             /** @var IDataReader */
-            $reader = $accessPoint->Query('select * from (select ' . $this->fields . ' from ' . $this->table . ') t where ' . $filter . ($this->order ? ' order by ' . $this->order : ''));
+            $reader = $accessPoint->Query('select * from (select ' . $data->fields . ' from ' . $data->table . ') t where ' . $filter . ($data->order ? ' order by ' . $data->order : ''));
             if($reader->Count() == 0) {
                 return null;
             }
             $table = new DataTable($accessPoint, $reader);
             $v = $table->First();
-            $v->value = $v->{ $this->value};
-            $v->title = $v->{ $this->title};
+            $v->value = $v->{ $data->value};
+            $v->title = $v->{ $data->title};
             return $v;
         }
     }

@@ -21,6 +21,13 @@ use Colibri\Collections\ArrayList;
 class ConfigItemsList extends ArrayList
 {
 
+    private string $_file = '';
+
+    public function __construct($data = array(), string $file = '') {
+        parent::__construct($data);
+        $this->_file = $file;
+    }
+
     /**
      * Возвращает значение по идексу
      *
@@ -30,6 +37,6 @@ class ConfigItemsList extends ArrayList
      */
     public function Item(int $index): Config
     {
-        return new Config($this->data[$index]);
+        return new Config($this->data[$index], false, $this->_file);
     }
 }

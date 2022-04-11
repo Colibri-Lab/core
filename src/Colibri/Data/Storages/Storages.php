@@ -53,7 +53,8 @@ class Storages
 
         $this->_types = [];
         try {
-            $this->_storages = App::$config->Query('databases.storages')->AsArray();
+            $storagesConfig = App::$config->Query('databases.storages');
+            $this->_storages = $storagesConfig->AsArray();
             foreach($this->_storages as $name => $storage) {
                 if($name === '__global_types') {
                     $this->_types = VariableHelper::Extend($this->_types, $this->_storages[$name]);
@@ -61,6 +62,7 @@ class Storages
                 }
                 else {
                     $this->_storages[$name]['name'] = $name;
+                    $this->_storages[$name]['path'] = $storagesConfig->GetFile();
                 }
             }    
         }
@@ -79,7 +81,8 @@ class Storages
         foreach($modules as $moduleConfig) {
             /** @var Config $moduleConfig */
             try {
-                $storagesConfig = $moduleConfig->Query('config.databases.storages')->AsArray();
+                $config = $moduleConfig->Query('config.databases.storages');
+                $storagesConfig = $config->AsArray();
                 foreach($storagesConfig as $name => $storage) {
                     if($name === '__global_types') {
                         $this->_types = VariableHelper::Extend($this->_types, $storagesConfig[$name]);
@@ -87,6 +90,7 @@ class Storages
                     }
                     else {
                         $storagesConfig[$name]['name'] = $name;
+                        $storagesConfig[$name]['file'] = $config->GetFile();
                     }
                 }
                 $this->_storages = array_merge($this->_storages, $storagesConfig);
@@ -219,18 +223,19 @@ class Storages
             $xfields = $xstorage['fields'];
             foreach ($xfields as $fieldName => $xfield) {
                 $fname = $name . '_' . $fieldName;
+                $fparams = $xfield['params'] ?? [];
 
                 if($xfield['type'] == 'enum') {
                     $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '('.implode(',', array_map(function($v) { return '\''.$v['value'].'\''; }, $xfield['values'])).')' : '';
                 }
 
                 if (!isset($ofields[$fname])) {
-                    $this->_createStorageField($dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($xfield['required']) ? $xfield['required'] : false, isset($xfield['desc']) ? $xfield['desc'] : '');
+                    $this->_createStorageField($dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($fparams['required']) ? $fparams['required'] : false, isset($xfield['desc']) ? $xfield['desc'] : '');
                 } else {
                     // проверить на соответствие
                     $ofield = $ofields[$fname];
 
-                    $required = isset($xfield['required']) ? $xfield['required'] : false;
+                    $required = isset($fparams['required']) ? $fparams['required'] : false;
                     $default = isset($xfield['default']) ? $xfield['default'] : null;
 
                     $orType = $ofield->Type != $xfield['type'] . (isset($xfield['length']) ? '(' . $xfield['length'] . ')' : ''); // тут нужно посмотреть как возвращаются данные
@@ -328,6 +333,9 @@ class Storages
         else if($type == 'json') {
             $default = null;
             $required = false;
+        }
+        else if(strstr($type, 'enum') !== false && $default) {
+            $default = "'".$default."'";
         }
 
         // ! специфика UUID нужно выключить параметр sql_log_bin
@@ -477,9 +485,7 @@ class Storages
     public function GetStorages()
     {
         $storages = [];
-        $map = $this->_loadStoragesNamePathMap();
         foreach ($this->_storages as $xstorage) {
-            $xstorage['path'] = $map[$xstorage['name']];
             $storage = new Storage($xstorage);
             $storages[$storage->name] = $storage;
         }

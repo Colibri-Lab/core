@@ -129,7 +129,7 @@ final class Command extends SqlCommand
         } else {
             $res = mysqli_query($this->connection->resource, $preparedQuery);
             if (!($res instanceof \mysqli_result)) {
-                throw new MySqlException(mysqli_error($this->_connection->resource), mysqli_errno($this->_connection->resource));
+                throw new MySqlException(mysqli_error($this->_connection->resource) . ' query: ' . $preparedQuery, mysqli_errno($this->_connection->resource));
             }
         }
         return new DataReader($res, $affected, $preparedQuery);

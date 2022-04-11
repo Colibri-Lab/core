@@ -70,18 +70,25 @@ class Field
      */
     private $_formula;
 
+    private ?Field $_parent = null;
+
     /**
      * Конструктор
      * @param array $xfield данные поле
      * @param Storage $storage хранилище
      * @return void
      */
-    public function __construct(array $xfield, ?Storage $storage = null, ?Field $field = null)
+    public function __construct(array $xfield, ?Storage $storage = null, ?Field $parent = null)
     {
         $this->_storage = $storage;
         $this->_xfield = $xfield;
+        $this->_parent = $parent;
 
         $this->_lookup = new Lookup($xfield, $storage);
+        $this->_init();
+    }
+
+    private function _init() {
         $this->_loadValues();
         $this->_loadFields();
         $this->_loadFormula();
@@ -127,10 +134,10 @@ class Field
             return;
         }
 
-        $fields = $this->_xfield['fields'];
-        foreach ($fields as $name => $field) {
+        $xfields = $this->_xfield['fields'];
+        foreach ($xfields as $name => $xfield) {
             $xfield['name'] = $name;
-            $this->_fields->$name = new Field($field, $this->_storage);
+            $this->_fields->$name = new Field($xfield, $this->_storage, $this);
         }
     }
 
@@ -164,9 +171,91 @@ class Field
         }
     }
 
+    public function __set(string $prop, mixed $value): void
+    {
+        if(isset($this->_xfield[$prop])) {
+            $this->_xfield[$prop] = $value;
+            $this->_init();
+        }
+    }
+
     public function ToArray(): array
     {
         return $this->_xfield;
+    }
+
+    public function UpdateField(Field $field)
+    {
+        $this->_xfield['fields'][$field->name] = $field->ToArray();
+        if($this->_parent) {
+            $this->_parent->UpdateField($this);
+        }
+        else {
+            $this->_storage->UpdateField($this);
+        }
+    }
+
+    public function Save()
+    {
+        $xfield = $this->ToArray();
+        unset($xfield['name']);
+        foreach($this->_fields as $fname => $field) {
+            $xfield['fields'][$fname] = $field->Save();
+        }
+        return $xfield;
+    }
+
+    public function AddField($name, $data): Field
+    {
+        if(!isset($this->_xfield['fields'])) {
+            $this->_xfield['fields'] = [];
+        }
+
+        $this->_xfield['fields'][$name] = $data;
+        $this->_fields->$name = new Field($this->_xfield['fields'][$name], $this->_storage, $this);
+        $this->UpdateField($this->_fields->$name);
+        return $this->_fields->$name;
+
+    }
+
+    public function UpdateData($data): void
+    {
+        foreach($data as $key => $value) {
+            if( 
+                ( $key == 'lookup' && array_key_exists('none', $value) ) || 
+                ( $key == 'values' && empty($value) ) || 
+                ( $key == 'selector' && (!isset($value['value']) || $value['value'] === '') && (!isset($value['title']) || $value['title'] === '') && (!isset($value['__render']) || $value['__render'] === '') ) ||
+                ( $key == 'note' && empty($value) ) || 
+                ( $key == 'desc' && empty($value) ) 
+            ) {
+                if(isset($this->_xfield[$key])) {
+                    unset($this->_xfield[$key]);
+                }
+            }  
+            else if( $key !== 'fields')            {
+                $this->_xfield[$key] = $value;
+            }
+        }
+
+        $this->_loadFields();
+        if($this->_parent) {
+            $this->_parent->UpdateField($this);
+        }
+        else {
+            $this->_storage->UpdateField($this);
+        }
+    }
+
+    public function DeleteField($name): void
+    {
+        unset($this->_xfield['fields'][$name]);
+        unset($this->_fields->$name);
+        if($this->_parent) {
+            $this->_parent->UpdateField($this);
+        }
+        else {
+            $this->_storage->UpdateField($this);
+        }
     }
 
 }

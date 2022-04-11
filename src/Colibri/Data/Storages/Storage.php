@@ -20,6 +20,7 @@ use Colibri\Data\Storages\Models\DataRow;
 use Colibri\Utils\Debug;
 use Colibri\Xml\XmlNode;
 use Colibri\Modules\Module;
+use Colibri\Utils\Config\Config;
 
 /**
  * Класс Хранилище
@@ -60,11 +61,23 @@ class Storage
     public function __construct(array|object $xstorage, ?string $name = null)
     {
         $xstorage = (array)$xstorage;
-        $this->_name = $name ?: $xstorage['name'];
         $this->_xstorage = $xstorage;
-        $this->_dataPoint = isset($xstorage['access-point']) ?App::$dataAccessPoints->Get($xstorage['access-point']) : null;
+        $this->_init();
+    }
+
+    private function _init() {
+        if(isset($this->_xstorage['name'])) {
+            $this->_name = $this->_xstorage['name'];
+        }
+        $this->_dataPoint = isset($this->_xstorage['access-point']) ?App::$dataAccessPoints->Get($this->_xstorage['access-point']) : null;
         $this->_loadFields();
     }
+
+    public static function Create(Module $module, string $name = '', array $data = []): self
+    {
+        $data['file'] = $module->moduleStoragesPath;
+        return new Storage($data, $name);
+    } 
 
     /**
      * Геттер
@@ -95,6 +108,14 @@ class Storage
         return $return;
     }
 
+    public function __set(string $prop, mixed $value): void
+    {
+        if(isset($this->_xstorage[$prop])) {
+            $this->_xstorage[$prop] = $value;
+            $this->_init();
+        }
+    }
+
 
     /**
      * Загружает поля в массив
@@ -108,6 +129,11 @@ class Storage
             $xfield['name'] = $name;
             $this->_fields->$name = new Field($xfield, $this);
         }
+    }
+
+    public function UpdateField(Field $field)
+    {
+        $this->_xstorage['fields'][$field->name] = $field->ToArray();
     }
 
     /**
@@ -167,8 +193,11 @@ class Storage
         $fields = $this->fields;
         $path = explode('/', $path);
         foreach ($path as $field) {
-            $found = $fields->$field;
-            $fields = $found->fields->$field ?? null;
+            $found = $fields->$field ?? null;
+            if(!$found) {
+                return null;
+            }
+            $fields = $found->fields ?? [];
         }
         return $found;
     }
@@ -210,15 +239,81 @@ class Storage
      */
     public function ToArray()
     {
-        $return = $this->_xstorage;
-        $module = $this->GetModule();
-        if($module) {
-            $config = $module->Config();
-            $moduleDesc = $config->Query('desc')->GetValue();
-            $moduleName = $config->Query('name')->GetValue();
-            $return['module'] = ['desc' => $moduleDesc, 'name' => $moduleName];
-        }
-        return $return;
+        return $this->_xstorage;
     }
+
+    public function Save() 
+    {
+        $file = $this->file;
+        $storageData = $this->ToArray();
+        unset($storageData['name']);
+        unset($storageData['file']);
+
+        foreach($this->_fields as $fname => $field) {
+            $storageData['fields'][$fname] = $field->Save();
+        }
+
+        $config = Config::LoadFile($file);
+        $config->Set($this->name, $storageData);
+        $config->Save();
+        
+    }
+
+    public function Delete(): void 
+    {
+        $file = $this->file;
+        $config = Config::LoadFile($file);
+        $config->Set($this->name, null);
+        $config->Save();
+    }
+
+    public function AddField($path, $data) {
+        $path = explode('/', $path);
+        unset($path[count($path) - 1]);
+        $path = implode('/', $path);
+        if(!$path) {
+            $name = $data['name'];
+            $this->_xstorage['fields'][$name] = ['name' => $name];
+            $this->_fields->$name = new Field($this->_xstorage['fields'][$name], $this);
+            $this->_fields->$name->UpdateData($data);
+            return $this->_fields->$name;
+        }
+        else {
+            $parentField = $this->GetField($path);
+            $field = $parentField->AddField($data['name'], ['name' => $data['name']]);
+            $field->UpdateData($data);
+        }
+        return $field;
+    }
+
+    public function DeleteField($path) 
+    {
+        $field = $this->GetField($path);
+        $path = explode('/', $path);
+        unset($path[count($path) - 1]);
+        $parentPath = implode('/', $path);
+        if(!$parentPath) {
+            unset($this->_xstorage['fields'][$field->name]);
+            unset($this->_fields->{$field->name});
+        }
+        else {
+            $parentField = $this->GetField($parentPath);
+            $parentField->DeleteField($field->name);
+        }
+    }
+
+    public function AddIndex($name, $data) {
+        if(!isset($this->_xstorage['indices'])) {
+            $this->_xstorage['indices'] = [];
+        }
+        $this->_xstorage['indices'][$name] = $data;
+    }
+
+    public function DeleteIndex($name) {
+        if(isset($this->_xstorage['indices'][$name])) {
+            unset($this->_xstorage['indices'][$name]);
+        }
+    }
+    
 
 }
