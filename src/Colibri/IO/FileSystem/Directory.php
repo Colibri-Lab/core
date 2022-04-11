@@ -41,14 +41,14 @@ class Directory extends Node
      *
      * @var Directory
      */
-    private ?Directory $parent = null;
+    private ?Directory $_parent = null;
 
     /**
      * Путь в виде массива  
      *
      * @var array
      */
-    private array $pathArray = [];
+    private ?array $_pathArray = null;
 
     /**
      * Конструктор
@@ -80,11 +80,24 @@ class Directory extends Node
                     $return = $this->getAttributesObject();
                     break;
                 }
-            case 'name': {
-                    if (!$this->pathArray) {
-                        $this->pathArray = explode('/', $this->path);
+            case 'patharray': {
+                    if(!$this->_pathArray) {
+                        $this->_pathArray = explode('/', $this->path);
                     }
+                    $return = $this->_pathArray; 
+                    break;
+                }
+            case 'name': {
                     $return = $this->pathArray[count($this->pathArray) - 1];
+                    break;
+                }
+            case 'parent': {
+                    if(!$this->_parent) {                        
+                        $pathParts = $this->pathArray;
+                        unset($pathParts[count($pathParts) - 1]);
+                        $this->_parent = new Directory(implode('/', $pathParts).'/');
+                    }
+                    $return = $this->_parent;
                     break;
                 }
             case 'path': {
@@ -93,13 +106,6 @@ class Directory extends Node
                 }
             case 'dotfile': {
                     $return = substr($this->name, 0, 1) == '.';
-                    break;
-                }
-            case 'parent': {
-                    if ($this->parent == null) {
-                        $this->parent = new Directory('');
-                    }
-                    $return = $this->parent;
                     break;
                 }
             case 'access':
@@ -312,13 +318,14 @@ class Directory extends Node
      */
     public function ToArray(): array
     {
-        return array(
+        return [
             'name' => $this->name,
             'path' => $this->path . '/',
             'created' => $this->getAttributesObject()->created,
             'modified' => $this->getAttributesObject()->modified,
             'lastaccess' => $this->getAttributesObject()->lastaccess,
+            'parent' => ($this->parent->path.'/') ?? null
             /* get directory security */
-        );
+        ];
     }
 }

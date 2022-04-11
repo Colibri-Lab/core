@@ -25,7 +25,7 @@ class Attributes
      *
      * @var File
      */
-    protected ?File $source = null;
+    protected File|Directory|null $source = null;
 
     /**
      * Список атрибутов
@@ -39,7 +39,7 @@ class Attributes
      *
      * @param File $source
      */
-    public function __construct(File $source)
+    public function __construct(File|Directory $source)
     {
         $this->source = $source;
     }

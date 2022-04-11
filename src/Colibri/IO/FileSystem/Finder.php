@@ -78,7 +78,6 @@ class Finder
      */
     public function FilesRecursive(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC): ArrayList
     {
-
         $directoryIterator = new RecursiveDirectoryIterator($path);
         $iteratorIterator = new RecursiveIteratorIterator($directoryIterator);
         $regexIterator = new RegexIterator($iteratorIterator, $match);
@@ -118,6 +117,49 @@ class Finder
             $ret->Sort($sortField, $sortType);
         }
         return $ret;
+    }
+
+    /**
+     * Найти файлы рекурсивно
+     *
+     * @param string $path путь к папке
+     * @param string $match регулярное выражение
+     * @param string $sortField поле для сориторовки
+     * @param int $sortType тип сортировки
+     * @return ArrayList
+     * @testFunction testFinderFiles
+     */
+    public function DirectoriesRecursive(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC): ArrayList
+    {
+        $directoryIterator = new RecursiveDirectoryIterator($path);
+        $iteratorIterator = new RecursiveIteratorIterator($directoryIterator);
+        $regexIterator = new RegexIterator($iteratorIterator, $match);
+        $ret = new ArrayList();
+
+        $keys = [];
+        foreach ($regexIterator as $file) {
+            
+            if (is_file($file)) {
+                continue;
+            }
+
+            $lpath = $file->getPathname();
+            $lpath = preg_replace('/\/\.$/', '/', $lpath);
+            $lpath = preg_replace('/\/\.\.$/', '/', $lpath);
+            if(isset($keys[$lpath]) || $path == $lpath) {
+                continue;
+            }
+
+            $keys[$lpath] = $lpath;
+            $ret->Add(new Directory($lpath));
+
+        }
+
+        if ($sortField) {
+            $ret->Sort($sortField, $sortType);
+        }
+        return $ret;
+
     }
 
     /**
