@@ -11,16 +11,15 @@ class Item implements \JsonSerializable
 
     public ?Item $parent = null;
 
-    public function __construct(string $name, string $title, string $description, string $className = '', bool $isImportant = false, string $execute = '')
+    public function __construct(string $name, string $title, string $description, string $icon = '', string $execute = '')
     {
         $this->parent = null;
         $this->_data = (object)[
             'name' => $name,
             'title' => $title,
             'description' => $description,
-            'class' => $className,
-            'important' => $isImportant,
             'execute' => $execute,
+            'icon' => $icon,
             'index' => '/' . $name . '/',
             'enabled' => true,
             'children' => []
@@ -28,14 +27,14 @@ class Item implements \JsonSerializable
 
     }
 
-    static function Create(string $name, string $title, string $description, string $className = '', bool $isImportant = false, string $execute = ''): self
+    static function Create(string $name, string $title, string $description, string $icon = '', string $execute = ''): self
     {
-        return new self($name, $title, $description, $className, $isImportant, $execute);
+        return new self($name, $title, $description, $icon, $execute);
     }
 
     static function FromArray(array $array): self 
     {
-        $item = new self($array['name'] ?? '', $array['title'] ?? '', $array['description'] ?? '', $array['className'] ?? '', $array['isImportant'] ?? false, $array['execute'] ?? '');
+        $item = new self($array['name'] ?? '', $array['title'] ?? '', $array['description'] ?? '', $array['icon'] ?? '', $array['execute'] ?? '');
         if(!empty($array['children'] ?? []) && is_array($array['children'])) {
             foreach($array['children'] as $itemArray) {
                 $item->Add(Item::FromArray($itemArray));
