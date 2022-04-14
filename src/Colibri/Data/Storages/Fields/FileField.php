@@ -192,7 +192,7 @@ class FileField
                 $img->Resize($s);
                 $data = $img->data;
             }
-            File::Write($cachePath, $data, true, 0777);
+            File::Write($cachePath, $data, true, '777');
         }
     }
 

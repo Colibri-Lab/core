@@ -103,7 +103,7 @@ class Generator {
                 $templateContent = str_replace('[['.$key.']]', $value, $templateContent);
             }
 
-            File::Create($rootPath.$fileName.'.php', true, 0777);
+            File::Create($rootPath.$fileName.'.php', true, '777');
             File::Write($rootPath.$fileName.'.php', $templateContent);
 
         }
