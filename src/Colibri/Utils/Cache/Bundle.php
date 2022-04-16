@@ -59,15 +59,13 @@ class Bundle
                 throw new FileSystemException('file not exists ' . $file);
             }
 
-            // $f = new File($file)
-
             $c = File::Read($file) . "\n";
             $args = (object)['content' => $c, 'file' => $file];
             $args = App::$instance->DispatchEvent(EventsContainer::BundleFile, $args);
             if (isset($args->content)) {
                 $c = $args->content;
             }
-            // $returnFiles[$f->name] = [$c, count(explode("\n", $c))]
+            
             $content .= $c;
         }
 

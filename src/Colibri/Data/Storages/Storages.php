@@ -81,6 +81,12 @@ class Storages
         foreach($modules as $moduleConfig) {
             /** @var Config $moduleConfig */
             try {
+                
+                $keysArray = $moduleConfig->Query('for', [])->ToArray();
+                if(!in_array(App::$domainKey, $keysArray)) {
+                    continue;
+                }
+                
                 $config = $moduleConfig->Query('config.databases.storages');
                 $storagesConfig = $config->AsArray();
                 foreach($storagesConfig as $name => $storage) {
@@ -336,6 +342,10 @@ class Storages
         }
         else if(strstr($type, 'enum') !== false && $default) {
             $default = "'".$default."'";
+        }
+
+        if($type == 'varchar' && !$length) {
+            $length = 255;
         }
 
         // ! специфика UUID нужно выключить параметр sql_log_bin

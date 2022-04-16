@@ -82,6 +82,11 @@ class ModuleManager
                     continue;
                 }
 
+                $keysArray = $moduleConfig->Query('for', [])->ToArray(); 
+                if(!in_array(App::$domainKey, $keysArray)) {
+                    continue;
+                }
+
                 $module = $this->InitModule($moduleConfig);
                 if ($module) {
                     $moduleName = $moduleConfig->Query('name')->GetValue();

@@ -29,6 +29,7 @@ use Colibri\Threading\Manager;
 use Colibri\Utils\Logs\Logger;
 use Colibri\Utils\Performance\Monitoring;
 use Colibri\Xml\XmlNode;
+use Colibri\Utils\Config\ConfigException;
 
 
 /**
@@ -143,6 +144,11 @@ final class App
     public static ?Monitoring $monitoring = null;
 
     /**
+     * Ключ домена
+     */
+    public static ?string $domainKey = null;
+
+    /**
      * Закрываем конструктор
      */
     private function __construct()
@@ -196,7 +202,6 @@ final class App
             }
         }
 
-
         // получаем местоположение приложения
         if (!self::$appRoot) {
 
@@ -216,10 +221,34 @@ final class App
         if (!self::$log) {
             self::$log = Logger::Create(self::$config->Query('logger'));
         }
+        
 
         $mode = self::$config->Query('mode')->GetValue();
         if ($mode == App::ModeDevelopment || $mode == App::ModeLocal) {
             self::$isDev = true;
+        }
+
+        // определяем домен, и ключ домена по хосту
+        try {
+            $host = $_SERVER['HTTP_HOST'];
+            $domains = self::$config->Query('hosts.domains')->AsObject();
+
+            foreach($domains as $key => $patterns) {
+                foreach($patterns as $pattern) {
+
+                    $pattern = preg_quote($pattern);
+                    $pattern = str_replace('\\*', '.*', $pattern);
+                    $res = preg_match('/'.$pattern.'/', $host, $matches);
+                    if($res > 0) {
+                        // нашли
+                        self::$domainKey = $key;
+                        break 2;
+                    }
+                }
+            }
+
+        }
+        catch(ConfigException $e) {
         }
 
         /**

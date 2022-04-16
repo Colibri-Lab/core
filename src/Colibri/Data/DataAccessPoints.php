@@ -82,6 +82,12 @@ class DataAccessPoints
         foreach($modules as $moduleConfig) {
             /** @var Config $moduleConfig */
             try {
+
+                $keysArray = $moduleConfig->Query('for', [])->ToArray(); 
+                if(!in_array(App::$domainKey, $keysArray)) {
+                    continue;
+                }
+
                 $databasesConfig = $moduleConfig->Query('config.databases.access-points')->AsObject();
                 $points = $databasesConfig->points ?? [];
                 foreach($points as $name => $point) {
