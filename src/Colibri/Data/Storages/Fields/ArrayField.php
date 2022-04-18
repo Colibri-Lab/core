@@ -12,6 +12,7 @@ namespace Colibri\Data\Storages\Fields;
 use Colibri\Collections\ArrayList;
 use Colibri\Common\VariableHelper;
 use Colibri\Data\Storages\Storage;
+use Colibri\Data\Storages\Models\DataRow;
 
 /**
  * Класс представление поля типа массив обьектов
@@ -20,6 +21,21 @@ use Colibri\Data\Storages\Storage;
  */
 class ArrayField extends ArrayList
 {
+    
+    protected ?DataRow $_datarow = null;
+
+    /**
+     * Поле
+     * @var Field
+     */
+    protected ?Field $_field = null;
+
+    /**
+     * Хранилище
+     * @var Storage
+     */
+    protected ?Storage $_storage = null;
+
     /**
      * Конструктор
      * @param string|mixed[string] $data данные
@@ -27,7 +43,7 @@ class ArrayField extends ArrayList
      * @param Field $field поле
      * @return void
      */
-    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
+    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null, ?DataRow $datarow = null)
     {
         if (VariableHelper::IsNull($data) || VariableHelper::IsEmpty($data)) {
             $data = '[]';
@@ -36,6 +52,7 @@ class ArrayField extends ArrayList
         parent::__construct($data);
         $this->_storage = $storage;
         $this->_field = $field;
+        $this->_datarow = $datarow;
         $this->_prefix = '';
     }
 

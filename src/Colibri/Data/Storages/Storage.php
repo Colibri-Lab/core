@@ -110,10 +110,8 @@ class Storage
 
     public function __set(string $prop, mixed $value): void
     {
-        if(isset($this->_xstorage[$prop])) {
-            $this->_xstorage[$prop] = $value;
-            $this->_init();
-        }
+        $this->_xstorage[$prop] = $value;
+        $this->_init();
     }
 
 
@@ -160,6 +158,33 @@ class Storage
             $rowClass = $rootNamespace . $this->_xstorage['models']['row'];
         }
         return [$tableClass, $rowClass];
+    }
+
+    public function GetFieldClass(Field $field)
+    {
+        $rootNamespace = '';
+        $module = isset($this->settings['module']) ? $this->settings['module'] : null;
+        if($module) {
+            $module = StringHelper::ToLower($module);
+            if(!App::$moduleManager->$module) {
+                throw new AppException('Unknown module in storage configuration '.$module);
+            }
+            $rootNamespace = App::$moduleManager->$module->moduleNamespace;
+        }
+
+        if(class_exists($field->class)) {
+            return $field->class;
+        }
+        else if(class_exists('Colibri\\Data\\Storages\\Fields\\' . $field->class)) {
+            return 'Colibri\\Data\\Storages\\Fields\\'.$field->class;
+        }
+        else if(class_exists($rootNamespace.'Models\\Fields\\' . $field->class)) {
+            return $rootNamespace.'Models\\Fields\\' . $field->class;
+        }
+        else {
+            throw new AppException('Unknown class: ' . $field->class);
+        }
+        
     }
 
     /**

@@ -81,6 +81,9 @@ class Generator {
                 if(class_exists($field->class)) {
                     $uses[] = 'use '.$field->class.';';
                 }
+                else if(class_exists($rootNamespace . '\\Fields\\' . $field->class)) {
+                    $uses[] = 'use '.$rootNamespace . '\\Fields\\' .$field->class.';';
+                }
                 else {
                     $uses[] = 'use Colibri\\Data\\Storages\\Fields\\'.$field->class.';';
                 }
@@ -133,6 +136,9 @@ class Generator {
             $rowModelContent = File::Read($rootPath.$fileName.'.php');
             $rowModelContent = \preg_replace_callback('/\s\* region Properties\:(.*)\s\* endregion Properties;/s', function($match) use ($properties) {
                 return ' * region Properties:'."\n".implode("\n", $properties)."\n".' * endregion Properties;';
+            }, $rowModelContent);
+            $rowModelContent = \preg_replace_callback('/\s# region Uses\:(.*)\s# endregion Uses;/s', function($match) use ($uses) {
+                return '# region Uses:'."\n".implode("\n", $uses)."\n".'# endregion Uses;';
             }, $rowModelContent);
             File::Write($rootPath.$fileName.'.php', $rowModelContent);
         }

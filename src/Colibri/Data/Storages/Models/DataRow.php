@@ -28,6 +28,8 @@ use Colibri\Data\Storages\Fields\UUIDField;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\Storages\Fields\RemoteFileField;
 use Colibri\Data\SqlClient\NonQueryInfo;
+use Colibri\App;
+use Colibri\AppException;
 
 /**
  * Представление строки в таблице в хранилище
@@ -105,7 +107,7 @@ class DataRow extends BaseDataRow
         $storage = $this->Storage();
         /** @var Field */
         $field = isset($storage->fields->$fieldName) ? $storage->fields->$fieldName : false;
-        
+
         if (!$field) {
             if ($mode == 'get') {
                 if($fieldName == 'id') {
@@ -185,14 +187,11 @@ class DataRow extends BaseDataRow
         }
         else {
 
-            $class = $field->class;
-            if(!class_exists($class)) {
-                $class = 'Colibri\\Data\\Storages\\Fields\\'.$class;
-            }
-
+            $class = $storage->GetFieldClass($field);
+            
             if ($mode == 'get') {
                 try {
-                    $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field);
+                    $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
                 }
                 catch(\Throwable $e) {
                     $this->_data[$property] = $rowValue;
@@ -206,7 +205,7 @@ class DataRow extends BaseDataRow
                 else {
 
                     try {
-                        $c = new $class($rowValue, $this->_storage, $field);
+                        $c = new $class($rowValue, $this->_storage, $field, $this);
                         $this->_data[$property] = (string)$c;  
                     }
                     catch(\Throwable $e) {

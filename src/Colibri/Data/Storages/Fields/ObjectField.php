@@ -14,6 +14,7 @@ use Colibri\Common\VariableHelper;
 use Colibri\Utils\Debug;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Storages\Storage;
+use Colibri\Data\Storages\Models\DataRow;
 
 /**
  * Класс представление поля типа обьект
@@ -22,17 +23,20 @@ use Colibri\Data\Storages\Storage;
  */
 class ObjectField extends ExtendedObject
 {
+
+    protected ?DataRow $_datarow = null;
+
     /**
      * Поле
      * @var Field
      */
-    private ?Field $_field = null;
+    protected ?Field $_field = null;
 
     /**
      * Хранилище
      * @var Storage
      */
-    private ?Storage $_storage = null;
+    protected ?Storage $_storage = null;
     
     /**
      * Конструктор
@@ -41,11 +45,12 @@ class ObjectField extends ExtendedObject
      * @param Field $field поле
      * @return void
      */
-    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
+    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null, ?DataRow $datarow = null)
     {
         parent::__construct(is_string($data) ? (array)json_decode($data) : (array)$data, '', false);
         $this->_storage = $storage;
         $this->_field = $field;
+        $this->_datarow = $datarow;
     }
     
     /**
@@ -136,10 +141,7 @@ class ObjectField extends ExtendedObject
         else {
 
             
-            $class = $field->class;
-            if(!class_exists($class)) {
-                $class = 'Colibri\\Data\\Storages\\Fields\\'.$class;
-            }
+            $class = $this->_storage->GetFieldClass($field);
 
             if ($mode == 'get') {
                 $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->_storage, $field);

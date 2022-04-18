@@ -211,6 +211,7 @@ class Field
             $this->_xfield['fields'] = [];
         }
 
+        $data['name'] = $name;
         $this->_xfield['fields'][$name] = $data;
         $this->_fields->$name = new Field($this->_xfield['fields'][$name], $this->_storage, $this);
         $this->UpdateField($this->_fields->$name);
