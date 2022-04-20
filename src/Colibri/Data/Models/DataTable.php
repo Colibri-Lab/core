@@ -17,7 +17,7 @@ use Colibri\Common\Encoding;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Common\VariableHelper;
-use Colibri\Data\SqlClient\NonQueryInfo;
+use Colibri\Data\SqlClient\QueryInfo;
 use Colibri\Utils\ExtendedObject;
 use Countable;
 
@@ -428,10 +428,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     /**
      * Удаляет строку
      * @param DataRow $row строка
-     * @return NonQueryInfo
+     * @return QueryInfo
      * @testFunction testDataTableDeleteRow
      */
-    public function DeleteRow(DataRow $row): NonQueryInfo
+    public function DeleteRow(DataRow $row): QueryInfo
     {
         $tables = [];
         $idFields = [];

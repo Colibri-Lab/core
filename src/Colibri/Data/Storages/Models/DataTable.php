@@ -94,12 +94,11 @@ class DataTable extends BaseDataTable
         return new $className($this, $result, $this->_storage);
     }
 
-    public static function LoadByQuery(Storage $storage, string $query, array $params): static 
+    protected static function LoadByQuery(Storage|string $storage, string $query, array $params): static 
     {
-
-        // надо сделать автозамену названий полей
-        // [field] на storagename_field
-        // [list]=[[param:type]]
+        if(is_string($storage)) {
+            $storage = Storages::Create()->Load($storage);
+        }
         
         $res = preg_match_all('/\{([^\}]+)\}/', $query, $matches, \PREG_SET_ORDER);
         if($res > 0) {
@@ -112,6 +111,28 @@ class DataTable extends BaseDataTable
         
         $reader = $storage->accessPoint->Query($query, $params);
         return new static($storage->accessPoint, $reader, $rowClass, $storage);
+    }
+
+    protected static function DeleteByFilter(Storage|string $storage, string $filter): bool 
+    {
+        if(is_string($storage)) {
+            $storage = Storages::Create()->Load($storage);
+        }
+        
+        $res = preg_match_all('/\{([^\}]+)\}/', $filter, $matches, \PREG_SET_ORDER);
+        if($res > 0) {
+            foreach($matches as $match) {
+                $filter = str_replace($match[0], $storage->name.'_'.$match[1], $filter);
+            }
+        }
+    
+        $res = $storage->accessPoint->Delete($storage->name, $filter);
+        if(!$res->error) {
+            return true;
+        }
+
+        App::$log->debug('Error: '.$res->error.', query: '.$res->query);
+        return false;
     }
 
     /**

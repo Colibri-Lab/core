@@ -16,7 +16,7 @@ use Colibri\Data\SqlClient\IConnection;
 use Colibri\Data\SqlClient\Command;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\SqlClient\IQueryBuilder;
-use Colibri\Data\SqlClient\NonQueryInfo;
+use Colibri\Data\SqlClient\QueryInfo;
 use stdClass;
 
 /**
@@ -53,7 +53,7 @@ use stdClass;
  *      
  *      # ввод данных
  *      $nonQueryInfo = $accessPoint->Insert('test', ['text' => 'адфасдфасдфасдф', 'dbl' => 1.1], 'id'); # только для postgresql
- *      # возвращается класс NonQueryInfo, для postgres необходимо передать дополнительный параметр returning - название поля, которое нужно вернуть
+ *      # возвращается класс QueryInfo, для postgres необходимо передать дополнительный параметр returning - название поля, которое нужно вернуть
  * 
  *      # обновление данных     
  *      $returnsBool = $accessPoint->Update('test', ['text' => 'adfasdfasdf', 'dbl' => 1.2], 'id=1');
@@ -62,7 +62,7 @@ use stdClass;
  *      # ввод с обновлением данных, если есть дубликат по identity полю или sequence для postgresql
  *      $nonQueryInfo = $accessPoint->InsertOrUpdate('test', ['id' => 1, 'text' => 'adfadsfads', 'dbl' => 1.1], ['id', 'text'], 'id'); 
  *      # поле returning нужно только для postgresql
- *      # возвращается класс NonQueryInfo, для postgres необходимо передать дополнительный параметр returning - название поля, которое нужно вернуть
+ *      # возвращается класс QueryInfo, для postgres необходимо передать дополнительный параметр returning - название поля, которое нужно вернуть
  * 
  *      # ввод данны пачкой
  *      $nonQueryInfo = $accessPoint->InsertBatch('test', [ ['text' => 'adsfasdf', 'dbl' => 1.0], ['text' => 'adsfasdf', 'dbl' => 1.1] ]);
@@ -155,10 +155,10 @@ class DataAccessPoint
      * 
      * @param string $query 
      * @param stdClass|array $commandParams [page, pagesize, params, type = bigdata|noninfo|reader (default reader), returning = '']
-     * @return IDataReader|NonQueryInfo|null
+     * @return IDataReader|QueryInfo|null
      * @testFunction testDataAccessPointQuery
      */
-    public function Query($query, $commandParams = [])
+    public function Query($query, $commandParams = []): IDataReader|QueryInfo
     {
         // Превращаем параметры в обьект
         $commandParams = (object)$commandParams;
@@ -180,14 +180,22 @@ class DataAccessPoint
             $commandParams->type = self::QueryTypeReader;
         }
 
-        if ($commandParams->type == self::QueryTypeReader) {
-            return $cmd->ExecuteReader();
-        } else if ($commandParams->type == self::QueryTypeBigData) {
-            return $cmd->ExecuteReader(false);
-        } else if ($commandParams->type == self::QueryTypeNonInfo) {
-            return $cmd->ExecuteNonQuery(isset($commandParams->returning) ? $commandParams->returning : '');
+        try {
+            if ($commandParams->type == self::QueryTypeReader) {
+                return $cmd->ExecuteReader();
+            } else if ($commandParams->type == self::QueryTypeBigData) {
+                return $cmd->ExecuteReader(false);
+            } else if ($commandParams->type == self::QueryTypeNonInfo) {
+                return $cmd->ExecuteNonQuery(isset($commandParams->returning) ? $commandParams->returning : '');
+            }    
+            else {
+                return new QueryInfo($cmd->type, 0, 0, 'Unknown command type: '.$commandParams->type, $cmd->query);
+            }
         }
-        return null;
+        catch(DataAccessPointsException $e) {
+            return new QueryInfo($cmd->type, 0, 0, $e->getMessage(), $cmd->query);
+        }
+
     }
 
     /**
@@ -196,10 +204,10 @@ class DataAccessPoint
      * @param string $table название таблицы
      * @param array $row вводимая строка
      * @param string $returning название поля, значение которого необходимо вернуть (в случае с MySql можно опустить, будет возвращено значения поля identity)
-     * @return NonQueryInfo
+     * @return QueryInfo
      * @testFunction testDataAccessPointInsert
      */
-    public function Insert($table, $row = array(), $returning = '')
+    public function Insert($table, $row = array(), $returning = ''): QueryInfo
     {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
@@ -215,14 +223,13 @@ class DataAccessPoint
      * @param array $row вводимая строка
      * @param array $exceptFields какие поля исключить из обновления в случае, если строка по идексным полям существует
      * @param string $returning название название поля, значение которого необходимо вернуть (в случае с MySql можно опустить, будет возвращено значения поля identity)
-     * @return NonQueryInfo
+     * @return QueryInfo
      * @testFunction testDataAccessPointInsertOrUpdate
      */
-    public function InsertOrUpdate($table, $row = array(), $exceptFields = array(), $returning = '' /* used only in postgres*/)
+    public function InsertOrUpdate($table, $row = array(), $exceptFields = array(), $returning = '' /* used only in postgres*/): QueryInfo
     {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
-
         return $this->Query($queryBuilder->CreateInsertOrUpdate($table, $row, $exceptFields), ['type' => self::QueryTypeNonInfo, 'returning' => $returning]);
     }
 
@@ -231,15 +238,13 @@ class DataAccessPoint
      *
      * @param string $table таблица 
      * @param array $rows вводимые строки
-     * @return NonQueryInfo
+     * @return QueryInfo
      * @testFunction testDataAccessPointInsertBatch
      */
-    public function InsertBatch($table, $rows = array())
+    public function InsertBatch($table, $rows = array()): QueryInfo
     {
-
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
-
         return $this->Query($queryBuilder->CreateBatchInsert($table, $rows), ['type' => self::QueryTypeNonInfo]);
     }
 
@@ -249,15 +254,13 @@ class DataAccessPoint
      * @param string $table таблица
      * @param array $row обновляемая строка
      * @param string $condition условие обновления
-     * @return NonQueryInfo
+     * @return QueryInfo|null
      * @testFunction testDataAccessPointUpdate
      */
-    public function Update($table, $row, $condition)
+    public function Update($table, $row, $condition): QueryInfo
     {
-
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
-
         return $this->Query($queryBuilder->CreateUpdate($table, $condition, $row), ['type' => self::QueryTypeNonInfo]);
     }
 
@@ -266,15 +269,13 @@ class DataAccessPoint
      *
      * @param string $table таблица
      * @param string $condition условие
-     * @return NonQueryInfo
+     * @return QueryInfo
      * @testFunction testDataAccessPointDelete
      */
-    public function Delete($table, $condition = '')
+    public function Delete($table, $condition = ''): QueryInfo
     {
-
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
-
         return $this->Query($queryBuilder->CreateDelete($table, $condition), ['type' => self::QueryTypeNonInfo]);
     }
 
@@ -284,18 +285,11 @@ class DataAccessPoint
      * @return IDataReader|null
      * @testFunction testDataAccessPointTables
      */
-    public function Tables()
+    public function Tables(): IDataReader|QueryInfo
     {
-
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
-
-        $reader = $this->Query($queryBuilder->CreateShowTables(), ['type' => self::QueryTypeReader]);
-        if ($reader->count == 0) {
-            return null;
-        }
-
-        return $reader;
+        return $this->Query($queryBuilder->CreateShowTables(), ['type' => self::QueryTypeReader]);
     }
 
     /**
@@ -303,9 +297,9 @@ class DataAccessPoint
      * @return void 
      * @testFunction testDataAccessPointBegin
      */
-    public function Begin()
+    public function Begin(): QueryInfo
     {
-        $this->Query('start transaction', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        return $this->Query('start transaction', ['type' => DataAccessPoint::QueryTypeNonInfo]);
     }
 
     /**
@@ -313,9 +307,9 @@ class DataAccessPoint
      * @return void 
      * @testFunction testDataAccessPointCommit
      */
-    public function Commit()
+    public function Commit(): QueryInfo
     {
-        $this->Query('commit', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        return $this->Query('commit', ['type' => DataAccessPoint::QueryTypeNonInfo]);
     }
 
     /**
@@ -323,8 +317,8 @@ class DataAccessPoint
      * @return void 
      * @testFunction testDataAccessPointRollback
      */
-    public function Rollback()
+    public function Rollback(): QueryInfo
     {
-        $this->Query('rollback', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        return $this->Query('rollback', ['type' => DataAccessPoint::QueryTypeNonInfo]);
     }
 }

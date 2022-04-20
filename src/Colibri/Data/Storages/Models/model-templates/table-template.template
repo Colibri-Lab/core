@@ -91,12 +91,21 @@ class [[table-class-name]] extends BaseModelDataTable {
     /**
      * Удаляет все по списку ID
      * @param int[] $ids ID строки
-     * @return void
+     * @return bool
      */
-    static function DeleteAllByIds(array $ids): void
+    static function DeleteAllByIds(array $ids): bool
     {
-        $storage = Storages::Create()->Load('[[storage-name]]');
-        $storage->accessPoint->Delete($storage->name, $storage.'_id in ('.implode(',', $ids).')');
+        return self::DeleteAllByFilter('{id} in ('.implode(',', $ids).')');
+    }
+
+    /**
+     * Удаляет все по фильтру
+     * @param string $filter фильтр, допускается использование элементов вида {field}
+     * @return bool
+     */
+    static function DeleteAllByFilter(string $filter): bool
+    {
+        return self::DeleteByFilter('[[storage-name]]', $filter);
     }
 
 }

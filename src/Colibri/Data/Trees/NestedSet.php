@@ -8,7 +8,7 @@ use Colibri\Data\DataAccessPoint;
 use Colibri\Data\DataAccessPointsException;
 use Colibri\Data\Models\DataRow;
 use Colibri\Data\SqlClient\IDataReader;
-use Colibri\Data\SqlClient\NonQueryInfo;
+use Colibri\Data\SqlClient\QueryInfo;
 
 class NestedSet
 {
@@ -164,7 +164,7 @@ class NestedSet
      *
      * @param int $id
      * @param array $data
-     * @return NonQueryInfo|null
+     * @return QueryInfo|null
      */
     public function Update($id, $data)
     {

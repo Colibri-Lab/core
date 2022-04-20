@@ -163,11 +163,11 @@ abstract class Command
     abstract public function ExecuteReader(bool $info = true): IDataReader;
 
     /**
-     * Выполняет запрос и возвращает NonQueryInfo
+     * Выполняет запрос и возвращает QueryInfo
      *
-     * @return NonQueryInfo
+     * @return QueryInfo
      */
-    abstract public function ExecuteNonQuery(): NonQueryInfo;
+    abstract public function ExecuteNonQuery(): QueryInfo;
 
     /**
      * Подготавливает строку, добавляет постраничку и все, что необходимо для конкретного драйвера

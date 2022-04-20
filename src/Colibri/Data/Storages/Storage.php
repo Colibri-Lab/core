@@ -62,6 +62,7 @@ class Storage
     {
         $xstorage = (array)$xstorage;
         $this->_xstorage = $xstorage;
+        $this->_name = $name;
         $this->_init();
     }
 
@@ -121,7 +122,7 @@ class Storage
      */
     private function _loadFields()
     {
-        $xfields = $this->_xstorage['fields'];
+        $xfields = $this->_xstorage['fields'] ?? [];
         $this->_fields = (object)array();
         foreach ($xfields as $name => $xfield) {
             $xfield['name'] = $name;
@@ -274,6 +275,7 @@ class Storage
         unset($storageData['name']);
         unset($storageData['file']);
 
+        $storageData['fields'] = !isset($storageData['fields']) ? [] : $storageData['fields'];
         foreach($this->_fields as $fname => $field) {
             $storageData['fields'][$fname] = $field->Save();
         }

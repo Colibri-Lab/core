@@ -226,7 +226,7 @@ class Storages
                 }
             }
 
-            $xfields = $xstorage['fields'];
+            $xfields = $xstorage['fields'] ?? [];
             foreach ($xfields as $fieldName => $xfield) {
                 $fname = $name . '_' . $fieldName;
                 $fparams = $xfield['params'] ?? [];
@@ -480,10 +480,13 @@ class Storages
      * Загружает хранилище
      *
      * @param string $name
-     * @return Storage
+     * @return Storage|null
      */
-    public function Load($name)
+    public function Load($name): ?Storage
     {
+        if(!isset($this->_storages[$name])) {
+            return null;
+        }
         return new Storage($this->_storages[$name], $name);
     }
 
