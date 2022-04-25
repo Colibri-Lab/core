@@ -166,6 +166,8 @@ class Field
                 return $this->_lookup && ($this->_lookup->accessPoint !== null || $this->_lookup->storage !== null);
             case 'isvalues':
                 return count((array)$this->_values) > 0;
+            case 'parent':
+                return $this->_parent;
             default:
                 return isset($this->_xfield[$prop]) ? $this->_xfield[$prop] : null;
         }
@@ -257,6 +259,35 @@ class Field
         else {
             $this->_storage->UpdateField($this);
         }
+    }
+
+    public function MoveField($field, $relative, $sibling) {
+        
+        // перемещает во внутреннем массиве
+        $xfields = $this->_xfield['fields'];
+        if(!isset($xfields[$field->name])) {
+            return false;
+        }
+
+        $newxFields = [];
+        $xfieldMove = $xfields[$field->name];
+        foreach($xfields as $name => $xfield) {
+            if($name != $field->name) {
+
+                if($name == $relative->name && $sibling === 'before') {
+                    $newxFields[$field->name] = $xfieldMove;                        
+                }
+                $newxFields[$name] = $xfield;
+                if($name == $relative->name && $sibling === 'after') {
+                    $newxFields[$field->name] = $xfieldMove;                        
+                }
+
+            }
+        }
+
+        $this->_xfield['fields'] = $newxFields;
+        $this->_init();
+
     }
 
 }

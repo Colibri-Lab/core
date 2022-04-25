@@ -341,6 +341,34 @@ class Storage
             unset($this->_xstorage['indices'][$name]);
         }
     }
-    
+    public function MoveField($field, $relative, $sibling) {
+        
+        // перемещает во внутреннем массиве
+        $xfields = $this->_xstorage['fields'];
+        if(!isset($xfields[$field->name])) {
+            return false;
+        }
+
+        $newxFields = [];
+        $xfieldMove = $xfields[$field->name];
+        foreach($xfields as $name => $xfield) {
+            if($name != $field->name) {
+
+                if($name == $relative->name && $sibling === 'before') {
+                    $newxFields[$field->name] = $xfieldMove;                        
+                }
+                $newxFields[$name] = $xfield;
+                if($name == $relative->name && $sibling === 'after') {
+                    $newxFields[$field->name] = $xfieldMove;                        
+                }
+
+            }
+        }
+
+        $this->_xstorage['fields'] = $newxFields;
+        $this->_init();
+
+    }
+
 
 }

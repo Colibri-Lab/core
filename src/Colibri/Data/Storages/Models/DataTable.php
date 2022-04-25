@@ -94,7 +94,7 @@ class DataTable extends BaseDataTable
         return new $className($this, $result, $this->_storage);
     }
 
-    protected static function LoadByQuery(Storage|string $storage, string $query, array $params): static 
+    protected static function LoadByQuery(Storage|string $storage, string $query, array $params): ?static 
     {
         if(is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
@@ -110,7 +110,13 @@ class DataTable extends BaseDataTable
         list(, $rowClass) = $storage->GetModelClasses();
         
         $reader = $storage->accessPoint->Query($query, $params);
-        return new static($storage->accessPoint, $reader, $rowClass, $storage);
+        if($reader instanceof IDataReader) {
+            return new static($storage->accessPoint, $reader, $rowClass, $storage);
+        }
+        else {
+            App::$log->debug($reader->error.' '.$reader->query);
+            return null;
+        }
     }
 
     protected static function DeleteByFilter(Storage|string $storage, string $filter): bool 
