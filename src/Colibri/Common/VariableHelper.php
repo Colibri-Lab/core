@@ -211,8 +211,12 @@ class VariableHelper
      * @return object|array|string
      * @testFunction testVariableHelperArrayToObject
      */
-    public static function ArrayToObject(array|object|string $array): object|array|string
+    public static function ArrayToObject(array|object|string|null $array): object|array|string|null
     {
+        if(is_null($array)) {
+            return null;
+        }
+        
         if (!self::IsObject($array) && !self::IsArray($array)) {
             return $array;
         }

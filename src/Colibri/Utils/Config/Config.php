@@ -243,8 +243,12 @@ class Config implements IteratorAggregate
      * @return boolean
      * @testFunction testConfigIsKindOfObject
      */
-    public function isKindOfObject(string|array $param): bool
+    public function isKindOfObject(string|array|null $param): bool
     {
+        if(is_null($param)) {
+            return false;
+        }
+
         $param = (array)$param;
         foreach ($param as $key => $value) {
             if (is_string($key)) {

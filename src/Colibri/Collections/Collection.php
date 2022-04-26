@@ -351,4 +351,28 @@ class Collection implements ICollection, IteratorAggregate
     {
         $this->Add($key, $value);
     }
+
+    public function Filter(\Closure $closure): Collection
+    {
+        $newColection = new Collection();
+        foreach($this as $key => $value) {
+            if($closure($key, $value) === true) {
+                $newColection->Add($key, $value);
+            }
+        }
+        return $newColection;
+    }
+
+    public function Extract($page, $pagesize): Collection
+    {
+        $start = ($page - 1) * $pagesize;
+        $end = min($start + $pagesize, $this->Count());
+        
+        $newCollection = new Collection();
+        for($i = $start; $i < $end; $i++) {
+            $newCollection->Add($this->Key($i), $this->ItemAt($i));
+        }
+        return $newCollection;
+    }
+
 }
