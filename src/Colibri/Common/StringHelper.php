@@ -84,7 +84,7 @@ class StringHelper
         if (!is_string($str)) {
             return false;
         }
-        return mb_convert_case($str, MB_CASE_TITLE, "UTF-8");
+        return mb_strtoupper(mb_substr($str, 0, 1, 'UTF-8')).mb_substr($str, 1);
     }
 
     public static function Replace(string|array $subject, string|array $search, string|array $replace, int&$count = 0): string|array |bool

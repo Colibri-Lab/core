@@ -137,7 +137,7 @@ class Generator {
             $rowModelContent = \preg_replace_callback('/\s\* region Properties\:(.*)\s\* endregion Properties;/s', function($match) use ($properties) {
                 return ' * region Properties:'."\n".implode("\n", $properties)."\n".' * endregion Properties;';
             }, $rowModelContent);
-            $rowModelContent = \preg_replace_callback('/\s# region Uses\:(.*)\s# endregion Uses;/s', function($match) use ($uses) {
+            $rowModelContent = \preg_replace_callback('/# region Uses\:(.*)# endregion Uses;/s', function($match) use ($uses) {
                 return '# region Uses:'."\n".implode("\n", $uses)."\n".'# endregion Uses;';
             }, $rowModelContent);
             File::Write($rootPath.$fileName.'.php', $rowModelContent);

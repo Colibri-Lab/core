@@ -18,7 +18,6 @@ use Colibri\Web\Response;
 use Colibri\Utils\Config\Config;
 use Colibri\Events\EventDispatcher;
 use Colibri\Modules\ModuleManager;
-use Colibri\Security\SecurityManager;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Events\EventsContainer;
 use Colibri\Utils\Cache\Mem;
@@ -30,6 +29,7 @@ use Colibri\Utils\Logs\Logger;
 use Colibri\Utils\Performance\Monitoring;
 use Colibri\Xml\XmlNode;
 use Colibri\Utils\Config\ConfigException;
+use Colibri\Web\Router;
 
 
 /**
@@ -112,13 +112,6 @@ final class App
     public static ?ModuleManager $moduleManager = null;
 
     /**
-     * Менеджер безопасности
-     *
-     * @var SecurityManager
-     */
-    public static ?SecurityManager $securityManager = null;
-
-    /**
      * Доступ к данным DAL
      *
      * @var DataAccessPoints
@@ -147,6 +140,11 @@ final class App
      * Ключ домена
      */
     public static ?string $domainKey = null;
+
+    /**
+     * Раутер
+     */
+    public static ?Router $router = null;
 
     /**
      * Закрываем конструктор
@@ -274,6 +272,11 @@ final class App
 
         $this->DispatchEvent(EventsContainer::AppInitializing);
 
+        if(!self::$router) {
+            self::$router = new Router();
+            self::$router->UpdateRequest();
+        }
+
         // запускаем запрос
         if (!self::$request) {
             self::$request = Request::Create();
@@ -282,6 +285,7 @@ final class App
         if (!self::$response) {
             self::$response = Response::Create();
         }
+
 
         self::$monitoring->StartTimer('modules');
         if (!self::$moduleManager) {

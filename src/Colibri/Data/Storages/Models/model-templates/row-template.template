@@ -2,9 +2,9 @@
 
 namespace [[namespace-path]];
 
-# region Uses
+# region Uses:
 [[uses]]
-# endregion Uses
+# endregion Uses;
 use Colibri\Data\Storages\Fields\DateTimeField;
 use [[parent-row-class-name]] as BaseModelDataRow;
 

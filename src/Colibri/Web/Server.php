@@ -160,16 +160,21 @@ class Server
     {
         $cmd = explode('?', $cmd);
         $cmd = reset($cmd);
-        $res = preg_match('/\/([^\/]+)\.([^\?]+)/', $cmd, $matches);
 
         $method = 'index';
         $type = Server::HTML;
-        if ($res > 0) {
+        $class = $cmd;
+        if (preg_match('/\/([^\/]+)\.([^\?]+)/', $cmd, $matches) > 0) {
             $method = $matches[1];
             $type = $matches[2];
+            $class = str_replace($method . '.' . $type, '', $cmd);
+        }
+        else if(preg_match('/\/([^\/]+)$/', $cmd, $matches) > 0) {
+            $method = $matches[1];
+            $type = Server::JSON;
+            $class = preg_replace('/'.$method.'$/', '', $cmd);
         }
 
-        $class = str_replace($method . '.' . $type, '', $cmd);
         $class = $this->_getControllerFullName($class);
         $method = StringHelper::ToCamelCaseAttr($method, true);
 
