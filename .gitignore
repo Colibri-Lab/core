@@ -1,3 +1,4 @@
 /vendor/
 /.phpdoc/
 /.idea
+composer.lock
