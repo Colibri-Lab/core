@@ -94,7 +94,7 @@ class DataTable extends BaseDataTable
         return new $className($this, $result, $this->_storage);
     }
 
-    protected static function LoadByQuery(Storage|string $storage, string $query, array $params): ?static 
+    public static function LoadByQuery(Storage|string $storage, string $query, array $params): ?static 
     {
         if(is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
