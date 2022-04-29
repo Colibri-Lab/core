@@ -227,7 +227,7 @@ class Field
             if( 
                 ( $key == 'lookup' && array_key_exists('none', $value) ) || 
                 ( $key == 'values' && empty($value) ) || 
-                ( $key == 'selector' && (!isset($value['value']) || $value['value'] === '') && (!isset($value['title']) || $value['title'] === '') && (!isset($value['__render']) || $value['__render'] === '') ) ||
+                ( $key == 'selector' && (!isset($value['ondemand']) || $value['ondemand'] === false) && (!isset($value['value']) || $value['value'] === '') && (!isset($value['title']) || $value['title'] === '') && (!isset($value['__render']) || $value['__render'] === '') ) ||
                 ( $key == 'note' && empty($value) ) || 
                 ( $key == 'desc' && empty($value) ) 
             ) {
@@ -235,7 +235,7 @@ class Field
                     unset($this->_xfield[$key]);
                 }
             }  
-            else if( $key !== 'fields')            {
+            else if( $key !== 'fields') {
                 $this->_xfield[$key] = $value;
             }
         }
