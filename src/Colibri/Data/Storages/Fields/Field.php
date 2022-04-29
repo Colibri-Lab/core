@@ -236,8 +236,26 @@ class Field
                 }
             }  
             else if( $key !== 'fields') {
+                if($key === 'selector') {
+                    if(!$value['title']) {
+                        unset($value['title']);
+                    }
+                    if(!$value['value']) {
+                        unset($value['value']);
+                    }
+                    if(!$value['__render']) {
+                        unset($value['__render']);
+                    }
+                    if(!$value['ondemand']) {
+                        unset($value['ondemand']);
+                    }
+                }
                 $this->_xfield[$key] = $value;
             }
+        }
+
+        if(isset($this->_xfield['storage'])) {
+            unset($this->_xfield['storage']);
         }
 
         $this->_loadFields();
