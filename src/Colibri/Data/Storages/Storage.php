@@ -182,6 +182,9 @@ class Storage
         else if(class_exists($rootNamespace.'Models\\Fields\\' . $field->class)) {
             return $rootNamespace.'Models\\Fields\\' . $field->class;
         }
+        else if(class_exists($rootNamespace.'Models\\' . $field->class)) {
+            return $rootNamespace.'Models\\' . $field->class;
+        }
         else {
             throw new AppException('Unknown class: ' . $field->class);
         }

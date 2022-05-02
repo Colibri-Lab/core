@@ -60,14 +60,24 @@ class EventDispatcher
     /**
      * Добавляет обработчик события
      *
-     * @param string $ename
+     * @param array|string $ename
      * @param mixed $listener
      * @param mixed $object
      * @return boolean
      * @testFunction testEventDispatcherAddEventListener
      */
-    public function AddEventListener($ename, $listener, $object = null)
+    public function AddEventListener(array|string $ename, mixed $listener, ?object $object = null): bool
     {
+        if(is_array($ename)) {
+            
+            $ret = [];
+            foreach($ename as $e) {
+                $ret[] = $this->AddEventListener($e, $listener, $object);
+            }
+            return !in_array(false, $ret);
+
+        }
+
         // если не передали listener
         // или если передали обьект и listener не строка
         // то выходим
@@ -104,7 +114,7 @@ class EventDispatcher
      * @return bool
      * @testFunction testEventDispatcherRemoveEventListener
      */
-    public function RemoveEventListener($ename, $listener, $object = null)
+    public function RemoveEventListener(string $ename, mixed $listener, ?object $object = null): bool
     {
         if (!is_string($ename) || empty($ename) || empty($listener) || (!is_object($object) && !is_string($listener) && !is_callable($listener))) {
             return false;
@@ -138,7 +148,7 @@ class EventDispatcher
      * @return object|null
      * @testFunction testEventDispatcherDispatch
      */
-    public function Dispatch($event, $args = null)
+    public function Dispatch(string|Event $event, mixed $args = null): ?object
     {
         if (!($event instanceof Event) || !$this->_events->Exists($event->name)) {
             return null;
@@ -181,7 +191,7 @@ class EventDispatcher
      * @return bool
      * @testFunction testEventDispatcherHasEventListener
      */
-    public function HasEventListener($ename, $listener, $object = null)
+    public function HasEventListener(string $ename, mixed $listener, ?object $object = null): bool
     {
         if (!is_string($ename) || empty($ename) || empty($listener) || (!is_object($object) && !is_string($listener) && !is_callable($listener))) {
             return false;
@@ -214,7 +224,7 @@ class EventDispatcher
      * @return ArrayList|null
      * @testFunction testEventDispatcherRegisteredListeners
      */
-    public function RegisteredListeners($ename = "")
+    public function RegisteredListeners(string $ename = ""): ?ArrayList
     {
         if ($this->_events->Count() == 0) {
             return null;

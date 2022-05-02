@@ -274,6 +274,7 @@ class Server
 
         $this->DispatchEvent(EventsContainer::RpcRequestProcessed, (object)[
             'object' => $obj,
+            'class' => $class,
             'method' => $method,
             'get' => $get,
             'post' => $post,

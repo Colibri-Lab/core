@@ -8,6 +8,7 @@ use Colibri\Common\StringHelper;
 use Colibri\Data\Storages\Storage;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
+use Colibri\Data\Storages\Fields\Field;
 
 class Generator {
 
@@ -22,6 +23,7 @@ class Generator {
 
         return [$rootNamespace.$namespaceName, $tableClassName, $row];
     }
+
 
     static function GenerateModelClasses(Storage $storage): void {
 
@@ -78,20 +80,13 @@ class Generator {
         foreach($storage->fields as $field) {
             $class = $field->class;
             if(!in_array($field->class, $types)) {
-                if(class_exists($field->class)) {
-                    $uses[] = 'use '.$field->class.';';
-                }
-                else if(class_exists($rootNamespace . '\\Fields\\' . $field->class)) {
-                    $uses[] = 'use '.$rootNamespace . '\\Fields\\' .$field->class.';';
-                }
-                else {
-                    $uses[] = 'use Colibri\\Data\\Storages\\Fields\\'.$field->class.';';
-                }
+                $uses[] = 'use '.$storage->GetFieldClass($field).';';
                 $class = explode('\\', $class);
                 $class = end($class);
             }
             $properties[] = ' * @property'.($field->readonly ? '-read' : '').' '.$class.(!$field->required ? '|null' : '').' $'.$field->name.' '.$field->desc;
         }
+        $uses = array_unique($uses);
 
         $fileName = str_replace('\\', '/', $models['table']);
         if(!File::Exists($rootPath.$fileName.'.php')) {
@@ -120,7 +115,7 @@ class Generator {
             $args['row-class-name'] = $row;
             $args['parent-row-class-name'] = 'Colibri\\Data\\Storages\\Models\\DataRow';
             $args['properties-list'] = implode("\n", $properties);
-            $args['uses'] = implode("\n", array_unique($uses));
+            $args['uses'] = implode("\n", $uses);
 
             $templateContent = File::Read(__DIR__.'/model-templates/row-template.template');
             foreach($args as $key => $value) {
