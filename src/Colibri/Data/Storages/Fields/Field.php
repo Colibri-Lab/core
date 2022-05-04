@@ -229,7 +229,7 @@ class Field
                 ( $key == 'values' && empty($value) ) || 
                 ( $key == 'selector' && (!isset($value['ondemand']) || $value['ondemand'] === false) && (!isset($value['value']) || $value['value'] === '') && (!isset($value['title']) || $value['title'] === '') && (!isset($value['__render']) || $value['__render'] === '') ) ||
                 ( $key == 'note' && empty($value) ) || 
-                ( $key == 'desc' && empty($value) ) 
+                ( $key == 'desc' && empty($value) )
             ) {
                 if(isset($this->_xfield[$key])) {
                     unset($this->_xfield[$key]);
@@ -250,13 +250,38 @@ class Field
                         unset($value['ondemand']);
                     }
                 }
+                else if( $key === 'attrs' ) {
+                    if(!isset($value['width']) || !$value['width']) {
+                        unset($value['width']);
+                    }
+                    if(!isset($value['height']) || !$value['height']) {
+                        unset($value['height']);
+                    }
+                    if(!isset($value['class']) || !$value['class']) {
+                        unset($value['class']);
+                    }
+                }
                 $this->_xfield[$key] = $value;
             }
+            
+        }
+
+        if(!isset($this->_xfield['hasdefault']) || $this->_xfield['hasdefault'] !== true) {
+            unset($this->_xfield['default']);
+        }
+        unset($this->_xfield['hasdefault']);
+
+        if(isset($this->_xfield['length']) && $this->_xfield['length'] === '') {
+            unset($this->_xfield['length']);
         }
 
         if(isset($this->_xfield['storage'])) {
             unset($this->_xfield['storage']);
         }
+        if(isset($this->_xfield['field'])) {
+            unset($this->_xfield['field']);
+        }
+
 
         $this->_loadFields();
         if($this->_parent) {

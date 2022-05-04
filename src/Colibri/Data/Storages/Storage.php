@@ -278,6 +278,21 @@ class Storage
         unset($storageData['name']);
         unset($storageData['file']);
 
+        if(isset($storageData['components'])) {
+            if(!$storageData['components']['default']) {
+                unset($storageData['components']['default']);
+            }
+            if(!$storageData['components']['list']) {
+                unset($storageData['components']['list']);
+            }
+            if(!$storageData['components']['item']) {
+                unset($storageData['components']['item']);
+            }
+            if(empty($storageData['components'])) {
+                unset($storageData['components']);
+            }
+        }
+
         $storageData['fields'] = !isset($storageData['fields']) ? [] : $storageData['fields'];
         foreach($this->_fields as $fname => $field) {
             $storageData['fields'][$fname] = $field->Save();

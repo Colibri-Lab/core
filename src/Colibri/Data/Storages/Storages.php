@@ -22,6 +22,7 @@ use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
 use Colibri\Utils\Debug;
 use Colibri\Xml\XmlNode;
+use Colibri\Data\DataAccessPointsException;
 
 /**
  * Класс список хранилищ
@@ -243,8 +244,9 @@ class Storages
 
                     $required = isset($fparams['required']) ? $fparams['required'] : false;
                     $default = isset($xfield['default']) ? $xfield['default'] : null;
+                    [,$length,] = $this->_updateDefaultAndLength($fieldName,  $xfield['type'], $required, $xfield['length'] ?? null, $default);
 
-                    $orType = $ofield->Type != $xfield['type'] . (isset($xfield['length']) ? '(' . $xfield['length'] . ')' : ''); // тут нужно посмотреть как возвращаются данные
+                    $orType = $ofield->Type != $xfield['type'] . ($length ? '(' . $length . ')' : '');
                     $orDefault = $ofield->Default != $default;
                     $orRequired = $required != ($ofield->Null == 'NO');
 
@@ -308,6 +310,28 @@ class Storages
             ) DEFAULT CHARSET=utf8', ['type' => DataAccessPoint::QueryTypeNonInfo]);
     }
 
+    private function _updateDefaultAndLength($field, $type, $required, $length, $default): array
+    {
+
+        if (\is_bool($default)) {
+            $default = $default ? 'TRUE' : 'FALSE';
+        }
+
+        if($type == 'json') {
+            $default = $default ? '('.$default.')' : null;
+            $required = false;
+        }
+        else if(strstr($type, 'enum') !== false) {
+            $default = $default ? "'".$default."'" : null;
+        }
+
+        if($type == 'varchar' && !$length) {
+            $length = 255;
+        }
+
+        return [$required, $length, $default];
+
+    }
     /**
      * Создает поле в таблице
      * @param DataAccessPoint $accessPoint точка доступа
@@ -321,32 +345,7 @@ class Storages
      */
     private function _createStorageField($accessPoint, $table, $field, $type, $length, $default, $required, $comment)
     {
-
-        if ($default === null) {
-            $default = 'NULL';
-        } else if (\is_bool($default)) {
-            $default = $default ? 'TRUE' : 'FALSE';
-        }
-
-        if ($required && $default == 'NULL') {
-            $default = null;
-        }
-
-        if($type == 'json' && $default) {
-            // превращаем в выражение
-            $default = '('.$default.')';
-        }
-        else if($type == 'json') {
-            $default = null;
-            $required = false;
-        }
-        else if(strstr($type, 'enum') !== false && $default) {
-            $default = "'".$default."'";
-        }
-
-        if($type == 'varchar' && !$length) {
-            $length = 255;
-        }
+        [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
 
         // ! специфика UUID нужно выключить параметр sql_log_bin
         $sqlLogBinVal = 0;
@@ -358,20 +357,21 @@ class Storages
             }
         }
 
-        App::$log->debug('
-            ALTER TABLE `' . $table . '` 
-            ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
-            ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? ' COMMENT \'' . $comment . '\'' : ''));
-
-        $accessPoint->Query('
+        $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
             ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? ' COMMENT \'' . $comment . '\'' : ''), ['type' => DataAccessPoint::QueryTypeNonInfo]);
-
+            
         if($sqlLogBinVal == 1) {
             $accessPoint->Query('set sql_log_bin=1', ['type' => DataAccessPoint::QueryTypeNonInfo]);
         }
+        
+        if($res->error) {
+            App::$log->debug('Can not save field: ' . $res->query);
+            throw new DataAccessPointsException('Can not save field: ' . $res->query);
+        }
     }
+
 
     /**
      * Обновляет поле
@@ -386,33 +386,21 @@ class Storages
      */
     private function _alterStorageField($accessPoint, $table, $field, $type, $length, $default, $required, $comment)
     {
-        if ($default === null) {
-            $default = 'NULL';
-        } else if (\is_bool($default)) {
-            $default = $default ? 'TRUE' : 'FALSE';
-        }
-        if ($required && $default === 'NULL') {
-            $default = null;
-        }
-        if($type == 'json' && $default) {
-            // превращаем в выражение
-            $default = '('.$default.')';
-        }
-        else if($type == 'json') {
-            $default = null;
-            $required = false;
-        }
+
+        [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
         
-        App::$log->debug('
-            ALTER TABLE `' . $table . '` 
-            MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
-            ' . (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? 'COMMENT \'' . $comment . '\'' : ''));
-        $accessPoint->Query('
+        
+        $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
             ' . (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? 'COMMENT \'' . $comment . '\'' : ''),
             ['type' => DataAccessPoint::QueryTypeNonInfo]
         );
+        if($res->error) {
+            App::$log->debug('Can not save field: ' . $res->query);
+            throw new DataAccessPointsException('Can not save field: ' . $res->query);
+        }
+
     }
 
     /**
