@@ -139,8 +139,8 @@ class DataRow extends BaseDataRow
             } elseif ($field->isValues) {
                 if (!$field->multiple) {
                     $v = $field->type == 'numeric' ? (float)$rowValue : $rowValue;
-                    $t = $field->values[$v];
-                    return new ValueField($v, $t);
+                    $t = $field->values[$v] ?? '';
+                    return $rowValue ? new ValueField($v, $t) : null;
                 } else {
                     $vv = is_array($rowValue) ? $rowValue : explode(',', $rowValue);
                     $r = array();

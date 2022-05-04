@@ -89,7 +89,7 @@ class ObjectField extends ExtendedObject
                     if(isset($this->_data[$property])) {
                         $v = $field->type == 'numeric' ? (float)$this->_data[$property] : $this->_data[$property];
                         $v = is_array($v) || is_object($v) ? ((array)$v)['value'] : $v;
-                        $t = isset($field->values[$v]) ? $field->values[$v] : null;
+                        $t = isset($field->values[$v]) ? $field->values[$v] : '';
                         return new ValueField($v, $t);
                     }
                     else {
@@ -215,8 +215,6 @@ class ObjectField extends ExtendedObject
     public function __toString() : string {
         return $this->ToString();
     }
-
-
     
 }
 
