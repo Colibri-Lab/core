@@ -19,6 +19,7 @@ use IteratorAggregate;
 use Traversable;
 use JsonSerializable;
 use Countable;
+use Colibri\Common\StringHelper;
 
 /**
  * Класс обьект, все обьектноподобные классы и обьекты будут наследоваться от него
@@ -258,8 +259,9 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
     public function __get(string $property) : mixed
     {
 
-        if(method_exists($this, 'getProperty'.$property)) {
-            $value = $this->{'getProperty'.$property}();
+        $propertyCamelCased = StringHelper::ToCamelCaseVar($property, true, false);
+        if(method_exists($this, 'getProperty'.$propertyCamelCased)) {
+            $value = $this->{'getProperty'.$propertyCamelCased}();
         }
         else {
 
@@ -283,8 +285,9 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      */
     public function __set(string $property, mixed $value) : void
     {
-        if(method_exists($this, 'setProperty'.$property)) {
-            $this->{'setProperty'.$property}($value);
+        $propertyCamelCased = StringHelper::ToCamelCaseVar($property, true, false);
+        if(method_exists($this, 'setProperty'.$propertyCamelCased)) {
+            $this->{'setProperty'.$propertyCamelCased}($value);
         }
         else {
             $property = strtolower($property);
