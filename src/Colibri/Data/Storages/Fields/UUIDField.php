@@ -41,7 +41,7 @@ class UUIDField
 
     private function _pack($string): void
     {
-        $this->_value = pack("h*", str_replace('-', '', $string));
+        $this->_value = pack("H*", str_replace('-', '', $string));
     }
 
     public function __toString(): string
