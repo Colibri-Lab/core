@@ -15,6 +15,7 @@ use Colibri\App;
 use Colibri\Common\DateHelper;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
+use Colibri\Common\StringHelper;
 
 /**
  * Лог файл
@@ -40,7 +41,7 @@ class FileLogger extends Logger
         if(!$device) {
             $device = '_cache/log/unnamed.log';
         }
-        $this->_device = File::Exists(App::$webRoot . $device) ? App::$webRoot . $device : $device;
+        $this->_device = StringHelper::StartsWith($device, '/') ? $device : App::$webRoot . $device;
         $this->_maxLogLevel = $maxLogLevel;
     }
 
