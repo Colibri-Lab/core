@@ -37,7 +37,10 @@ class FileLogger extends Logger
      */
     public function __construct(int $maxLogLevel = 7, mixed $device = '')
     {
-        $this->_device = !$device ?App::$webRoot . '_cache/unnamed.log' : App::$webRoot . $device;
+        if(!$device) {
+            $device = '_cache/unnamed.log';
+        }
+        $this->_device = File::Exists($device) ? $device : App::$webRoot . $device;
         $this->_maxLogLevel = $maxLogLevel;
     }
 
