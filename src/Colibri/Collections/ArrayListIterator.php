@@ -23,20 +23,16 @@ class ArrayListIterator implements \Iterator
 
     /**
      * Данные итератора
-     * @var IArrayList
      */
-    private $_class;
+    private ?IArrayList $_class = null;
 
     /**
      * Текущая позиция
-     * @var int
      */
-    private $_current = 0;
+    private int $_current = 0;
 
     /**
      * Создает итератор для ArrayList-а
-     *
-     * @param IteratorAggregate $class
      */
     public function __construct(IteratorAggregate $class = null)
     {
@@ -45,8 +41,6 @@ class ArrayListIterator implements \Iterator
 
     /**
      * Перескакивает на первое значение и возвращает позицию
-     *
-     * @return mixed
      * @testFunction testArrayListIteratorRewind
      */
     public function rewind(): mixed
@@ -57,8 +51,6 @@ class ArrayListIterator implements \Iterator
 
     /**
      * Возвращает текущую позицию
-     *
-     * @return mixed
      * @testFunction testArrayListIteratorCurrent
      */
     public function current(): mixed
@@ -73,8 +65,6 @@ class ArrayListIterator implements \Iterator
 
     /**
      * Возвращает ключ текущей позиции
-     *
-     * @return int
      * @testFunction testArrayListIteratorKey
      */
     public function key(): int
@@ -84,8 +74,6 @@ class ArrayListIterator implements \Iterator
 
     /**
      * Переходит дальше и возвращает значение
-     *
-     * @return mixed
      * @testFunction testArrayListIteratorNext
      */
     public function next(): mixed
@@ -101,8 +89,6 @@ class ArrayListIterator implements \Iterator
 
     /**
      * Проверяет валидна ли текущая позиция
-     *
-     * @return bool
      * @testFunction testArrayListIteratorValid
      */
     public function valid(): bool

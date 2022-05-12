@@ -22,17 +22,13 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Данные коллекции
-     *
-     * @var mixed
      */
-    protected $data = null;
+    protected mixed $data = null;
 
     /**
      * Конструктор, передается массив или обькет, или другая
      * коллекция для инициализации
      * Инициализация с помощью: array, stdClass, и любого другого ICollection
-     * 
-     * @param mixed $data
      */
     public function __construct(mixed $data = array())
     {
@@ -51,8 +47,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Проверяет наличие ключа
-     *
-     * @param string $key - ключ для проверки
      * @testFunction testCollectionExists
      */
     public function Exists(string $key): bool
@@ -62,8 +56,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Проверяет содержит ли коллекция значение
-     *
-     * @param mixed $item - значение для проверки
      * @testFunction testCollectionContains
      */
     public function Contains(mixed $item): bool 
@@ -73,8 +65,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Находит значение и возвращает индекс
-     *
-     * @param mixed $item - значение для поиска
      * @testFunction testCollectionIndexOf
      */
     public function IndexOf(mixed $item): mixed
@@ -88,8 +78,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Возвращает ключ по индексу
-     *
-     * @param mixed $index
      * @testFunction testCollectionKey
      */
     public function Key(int $index): ?string
@@ -108,8 +96,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Возвращает значение по ключу
-     *
-     * @param mixed $key
      * @testFunction testCollectionItem
      */
     public function Item(mixed $key): mixed
@@ -122,8 +108,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Возвращает знаение по индексу
-     *
-     * @param int $index
      * @testFunction testCollectionItemAt
      */
     public function ItemAt(int $index): mixed
@@ -137,7 +121,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Возвращает итератор
-     *
      * @testFunction testCollectionGetIterator
      */
     public function getIterator(): CollectionIterator
@@ -148,9 +131,6 @@ class Collection implements ICollection, IteratorAggregate
     /**
      * Добавляет ключ значение в коллекцию, если ключ существует
      * будет произведена замена
-     *
-     * @param string $key
-     * @param mixed $value
      * @testFunction testCollectionAdd
      */
     public function Add(string $key, mixed $value): mixed
@@ -162,8 +142,6 @@ class Collection implements ICollection, IteratorAggregate
     /**
      * Добавляет значения из другой коллекции, массива или обьекта
      * Для удаления необходимо передать свойство со значением null
-     *
-     * @param mixed $from - коллекция | массив
      * @testFunction testCollectionAppend
      */
     public function Append(mixed $from): void
@@ -179,10 +157,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Добавляет значение в указанное место в коллекцию
-     *
-     * @param mixed $index
-     * @param mixed $key
-     * @param mixed $value
      * @testFunction testCollectionInsert
      */
     public function Insert(mixed $index, mixed $key, mixed $value): mixed
@@ -198,9 +172,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Удаляет значение по ключу
-     *
-     * @param string $key
-     * @return boolean
      * @testFunction testCollectionDelete
      */
     public function Delete(string $key): bool
@@ -215,9 +186,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Удаляет значение по индексу
-     *
-     * @param int $index
-     * @return boolean
      * @testFunction testCollectionDeleteAt
      */
     public function DeleteAt(int $index): bool
@@ -232,8 +200,6 @@ class Collection implements ICollection, IteratorAggregate
 
     /**
      * Очищает коллекцию
-     *
-     * @return void
      * @testFunction testCollectionClear
      */
     public function Clear(): void
@@ -245,11 +211,9 @@ class Collection implements ICollection, IteratorAggregate
      * Превращает в строку
      *
      * @param string[] $splitters
-     * @param mixed $mapFunction
-     * @return string
      * @testFunction testCollectionToString
      */
-    public function ToString(array $splitters = null, mixed $mapFunction = false): string
+    public function ToString(array $splitters = null, mixed $mapFunction = null): string
     {
         $ret = [];
         foreach ($this->data as $k => $v) {
