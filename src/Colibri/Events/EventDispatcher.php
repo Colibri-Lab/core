@@ -35,10 +35,8 @@ class EventDispatcher
 
     /**
      * Статический конструктор
-     *
-     * @return EventDispatcher
      */
-    public static function Create()
+    public static function Create(): self
     {
         if (!self::$instance) {
             self::$instance = new self();
@@ -48,22 +46,15 @@ class EventDispatcher
 
     /**
      * Удаляет обьект
-     *
-     * @return void
      * @testFunction testEventDispatcherDispose
      */
-    public function Dispose()
+    public function Dispose(): void
     {
         $this->_events->Clear();
     }
 
     /**
      * Добавляет обработчик события
-     *
-     * @param array|string $ename
-     * @param mixed $listener
-     * @param mixed $object
-     * @return boolean
      * @testFunction testEventDispatcherAddEventListener
      */
     public function AddEventListener(array|string $ename, mixed $listener, ?object $object = null): bool
@@ -108,10 +99,6 @@ class EventDispatcher
 
     /**
      * Удаляет обработчик события
-     *
-     * @param string $ename
-     * @param mixed $listener
-     * @return bool
      * @testFunction testEventDispatcherRemoveEventListener
      */
     public function RemoveEventListener(string $ename, mixed $listener, ?object $object = null): bool
@@ -142,10 +129,6 @@ class EventDispatcher
 
     /**
      * Поднять событие
-     *
-     * @param string|Event $event
-     * @param mixed $args
-     * @return object|null
      * @testFunction testEventDispatcherDispatch
      */
     public function Dispatch(string|Event $event, mixed $args = null): ?object
@@ -185,10 +168,6 @@ class EventDispatcher
 
     /**
      * Проверяет наличие обработчика на событие
-     *
-     * @param string $ename
-     * @param mixed $listener
-     * @return bool
      * @testFunction testEventDispatcherHasEventListener
      */
     public function HasEventListener(string $ename, mixed $listener, ?object $object = null): bool
@@ -219,9 +198,6 @@ class EventDispatcher
 
     /**
      * Возвращает список обработчиков события
-     *
-     * @param string $ename
-     * @return ArrayList|null
      * @testFunction testEventDispatcherRegisteredListeners
      */
     public function RegisteredListeners(string $ename = ""): ?ArrayList
