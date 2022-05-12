@@ -21,10 +21,6 @@ trait TEventDispatcher
 
     /**
      * Поднять событие
-     *
-     * @param string $event
-     * @param mixed $args
-     * @return mixed
      * @testFunction testDispatchEvent
      */
     public function DispatchEvent(string|Event $event, mixed $args = null): ?object
@@ -34,10 +30,6 @@ trait TEventDispatcher
 
     /**
      * Добавить обработчик события
-     *
-     * @param string $ename
-     * @param mixed $listener
-     * @return mixed
      * @testFunction testHandleEvent
      */
     public function HandleEvent(array|string $ename, mixed $listener): self
@@ -48,10 +40,6 @@ trait TEventDispatcher
 
     /**
      * Удалить обработчик события
-     *
-     * @param string $ename
-     * @param mixed $listener
-     * @return mixed
      * @testFunction testRemoveHandler
      */
     public function RemoveHandler(string $ename, mixed $listener): self
