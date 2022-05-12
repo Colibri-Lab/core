@@ -29,8 +29,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
     /**
      * Конструктор
      * Создаем ArrayList из массива или объекта или из другого ArrayList-а
-     *
-     * @param mixed $data
      * @testFunction testArrayList
      */
     public function __construct(mixed $data = array())
@@ -48,8 +46,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Получить иттератор
-     *
-     * @return ArrayListIterator
      * @testFunction testArrayListGetIterator
      * 
      */
@@ -60,9 +56,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Проверка наличия значения в списке
-     *
-     * @param mixed $item
-     * @return boolean
      * @testFunction testArrayListContains
      */
     public function Contains(mixed $item) : bool
@@ -72,9 +65,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Возвращает индекс по значению
-     *
-     * @param mixed $item
-     * @return int
      * @testFunction testArrayListIndexOf
      */
     public function IndexOf(mixed $item) : int
@@ -84,9 +74,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Возвращает значение по идексу
-     *
-     * @param integer $index
-     * @return mixed
      * @testFunction testArrayListItem
      */
     public function Item(int $index) : mixed
@@ -99,9 +86,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Добавляет значение с список
-     *
-     * @param mixed $value
-     * @return mixed
      * @testFunction testArrayListAdd
      */
     public function Add(mixed $value) : mixed
@@ -112,10 +96,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Устанавливает значение по указанному индексу
-     *
-     * @param integer $index
-     * @param mixed $value
-     * @return mixed
      * @testFunction testArrayListSet
      */
     public function Set(int $index, mixed $value) : mixed
@@ -126,9 +106,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Добавляет значения
-     *
-     * @param mixed $values
-     * @return void
      * @testFunction testArrayListAppend
      */
     public function Append(mixed $values) : void
@@ -142,10 +119,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Внедряет значение в список после индекса
-     *
-     * @param mixed $value
-     * @param integer $toIndex
-     * @return void
      * @testFunction testArrayListInsertAt
      */
     public function InsertAt(mixed $value, int $toIndex) : void
@@ -155,9 +128,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Удаляет значение
-     *
-     * @param mixed $value
-     * @return boolean
      * @testFunction testArrayListDelete
      */
     public function Delete(mixed $value) : bool
@@ -172,9 +142,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Удаляет значение по индексу
-     *
-     * @param integer $index
-     * @return mixed
      * @testFunction testArrayListDeleteAt
      */
     public function DeleteAt(int $index) : array
@@ -184,8 +151,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Очищает список
-     *
-     * @return void
      * @testFunction testArrayListClear
      */
     public function Clear() : void
@@ -195,8 +160,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * В строку
-     *
-     * @param string $splitter
      * @testFunction testArrayListToString4
      */
     public function ToString(string $splitter = ',') : string
@@ -215,9 +178,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Сортирует данные в массиве
-     *
-     * @param string|null $k - ключ сортировки
-     * @param int $sorttype - порядок сортировки
      * @testFunction testArrayListSort
      */
     public function Sort(string $k = null, int $sorttype = SORT_ASC) : void
@@ -252,8 +212,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Возвращает количество записей в массиве
-     *
-     * @return int
      * @testFunction testArrayListCount
      */
     public function Count() : int
@@ -263,7 +221,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Возвращает первый пункт в списке
-     * @return mixed
      * @testFunction testArrayListFirst
      */
     public function First() : mixed
@@ -273,7 +230,6 @@ class ArrayList implements IArrayList, \IteratorAggregate
 
     /**
      * Возвращает последний пункт в списке
-     * @return mixed
      * @testFunction testArrayListLast
      */
     public function Last() : mixed
