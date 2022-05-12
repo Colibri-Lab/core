@@ -20,6 +20,7 @@ use Colibri\Common\VariableHelper;
 use Colibri\Data\SqlClient\QueryInfo;
 use Colibri\Utils\ExtendedObject;
 use Countable;
+use Colibri\Collections\IArrayList;
 
 /**
  * Представление таблицы данных

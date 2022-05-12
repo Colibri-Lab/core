@@ -24,7 +24,7 @@ class ArrayListIterator implements \Iterator
     /**
      * Данные итератора
      */
-    private ?IArrayList $_class = null;
+    private mixed $_class = null;
 
     /**
      * Текущая позиция
