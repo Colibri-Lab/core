@@ -18,5 +18,10 @@ use [[parent-row-class-name]] as BaseModelDataRow;
  * endregion Properties;
  */
 class [[row-class-name]] extends BaseModelDataRow {
+    
+    # region Consts:
+    [[consts]]
+    # endregion Consts;
+
 
 }

@@ -77,6 +77,7 @@ class Generator {
         ];
         
         $uses = [];
+        $consts = [];
         foreach($storage->fields as $field) {
             $class = $field->class;
             if(!in_array($field->class, $types)) {
@@ -85,6 +86,11 @@ class Generator {
                 $class = end($class);
             }
             $properties[] = ' * @property'.($field->readonly ? '-read' : '').' '.$class.(!$field->required ? '|null' : '').' $'.$field->name.' '.$field->desc;
+            if($field->values) {
+                foreach($field->values as $value => $title) {
+                    $consts[] = "\t".'/** '.$title.' */'."\n\t".'public const '.StringHelper::ToCamelCaseVar($field->name.'_'.$value, true).' = \''.$value.'\';';
+                }
+            }
         }
         $uses = array_unique($uses);
 
@@ -116,6 +122,7 @@ class Generator {
             $args['parent-row-class-name'] = 'Colibri\\Data\\Storages\\Models\\DataRow';
             $args['properties-list'] = implode("\n", $properties);
             $args['uses'] = implode("\n", $uses);
+            $args['consts'] = implode("\n", $consts);
 
             $templateContent = File::Read(__DIR__.'/model-templates/row-template.template');
             foreach($args as $key => $value) {
@@ -134,6 +141,9 @@ class Generator {
             }, $rowModelContent);
             $rowModelContent = \preg_replace_callback('/# region Uses\:(.*)# endregion Uses;/s', function($match) use ($uses) {
                 return '# region Uses:'."\n".implode("\n", $uses)."\n".'# endregion Uses;';
+            }, $rowModelContent);
+            $rowModelContent = \preg_replace_callback('/\s+# region Consts\:(.*)\s+# endregion Consts;/s', function($match) use ($consts) {
+                return "\n\t".'# region Consts:'."\n".implode("\n", $consts)."\n\t".'# endregion Consts;';
             }, $rowModelContent);
             File::Write($rootPath.$fileName.'.php', $rowModelContent);
         }
