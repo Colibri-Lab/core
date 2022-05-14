@@ -30,19 +30,22 @@ class FileLogger extends Logger
      */
     private int $_currentPos;
 
+    private bool $_console;
+
     /**
      * Конструктор
      *
      * @param int $maxLogLevel Уровень логирования
      * @param mixed $device название файла
      */
-    public function __construct(int $maxLogLevel = 7, mixed $device = '')
+    public function __construct(int $maxLogLevel = 7, mixed $device = '', $console = false)
     {
         if(!$device) {
             $device = '_cache/log/unnamed.log';
         }
         $this->_device = StringHelper::StartsWith($device, '/') ? $device : App::$webRoot . $device;
         $this->_maxLogLevel = $maxLogLevel;
+        $this->_console = $console;
     }
 
     /**
@@ -92,6 +95,10 @@ class FileLogger extends Logger
             $args['context'] = implode("\t", $args['context']);
         }
         $args = DateHelper::ToDbString(microtime(true), '%Y-%m-%d-%H-%M-%S-%f') . "\t" . implode("\t", $args);
+
+        if($this->_console) {
+            Debug::Out($args);
+        }
 
         $fi = new File($this->_device);
         if ($fi->size > 1048576) {
