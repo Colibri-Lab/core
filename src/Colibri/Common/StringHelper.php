@@ -87,7 +87,7 @@ class StringHelper
         return mb_strtoupper(mb_substr($str, 0, 1, 'UTF-8')).mb_substr($str, 1);
     }
 
-    public static function Replace(string|array $subject, string|array $search, string|array $replace, int&$count = 0): string|array |bool
+    public static function Replace(string|array $subject, string|array $search, string|array $replace, int &$count = 0): string|array |bool
     {
         if (!is_array($search) && is_array($replace)) {
             return false;

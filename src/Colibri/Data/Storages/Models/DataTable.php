@@ -162,8 +162,19 @@ class DataTable extends BaseDataTable
         unset($data[$idf]); 
         $data[$idm] = DateHelper::ToDBString(time());
 
+        $fieldValues = [];
+        foreach ($data as $key => $value) {
+            if ($row->IsPropertyChanged($key)) {
+                $fieldValues[$key] = $value;
+            }
+        }
+
+        if(empty($fieldValues)) {
+            return true;
+        }
+
         if (!$id) {
-            $res = $this->_storage->accessPoint->Insert($this->_storage->name, $data);
+            $res = $this->_storage->accessPoint->Insert($this->_storage->name, $fieldValues);
             if ($res->insertid == 0) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
                 return false;
@@ -172,7 +183,7 @@ class DataTable extends BaseDataTable
             $row->$idc = DateHelper::ToDBString(time());
             $row->$idm = DateHelper::ToDBString(time());
         } else {
-            $res = $this->_storage->accessPoint->Update($this->_storage->name, $data, $idf . '=' . $id);
+            $res = $this->_storage->accessPoint->Update($this->_storage->name, $fieldValues, $idf . '=' . $id);
             if ($res->error) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
                 return false;

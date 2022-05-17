@@ -76,7 +76,7 @@ class Generator {
             ' * @property-read DateTimeField $datemodified Дата последнего обновления строки',
         ];
         
-        $uses = [];
+        $uses = ['use Colibri\Data\Storages\Fields\DateTimeField;'];
         $consts = [];
         foreach($storage->fields as $field) {
             $class = $field->class;
@@ -88,7 +88,7 @@ class Generator {
             $properties[] = ' * @property'.($field->readonly ? '-read' : '').' '.$class.(!$field->required ? '|null' : '').' $'.$field->name.' '.$field->desc;
             if($field->values) {
                 foreach($field->values as $value => $title) {
-                    $consts[] = "\t".'/** '.$title.' */'."\n\t".'public const '.StringHelper::ToCamelCaseVar($field->name.'_'.$value, true).' = \''.$value.'\';';
+                    $consts[] = "\t".'/** '.$title.' */'."\n\t".'public const '.StringHelper::ToCamelCaseAttr($field->name.'-'.str_replace('_', '-', $value), true).' = \''.$value.'\';';
                 }
             }
         }

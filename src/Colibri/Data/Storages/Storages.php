@@ -23,6 +23,10 @@ use Colibri\Utils\Config\ConfigException;
 use Colibri\Utils\Debug;
 use Colibri\Xml\XmlNode;
 use Colibri\Data\DataAccessPointsException;
+use Colibri\Data\Models\DataRow;
+use Colibri\Data\Models\DataTable;
+use Colibri\Data\Storages\Models\DataTable as StorageDataTable;
+use Colibri\Utils\Logs\Logger;
 
 /**
  * Класс список хранилищ
@@ -189,18 +193,25 @@ class Storages
      * проверяет все ли правильно в базе данных
      * @return void
      */
-    public function Migrate()
+    public function Migrate(Logger $logger)
     {
+        
+        $logger->info('Starting migration process');
+
         foreach ($this->_storages as $name => $xstorage) {
 
+            $logger->info($name.': Migrating storage');
+
             if (!$xstorage['access-point']) {
+                $logger->error($name.': No access point found');
                 continue;
             }
 
             $dtp = App::$dataAccessPoints->Get($xstorage['access-point']);
             $reader = $dtp->Query('SHOW TABLES LIKE \'' . $name . '\'');
             if ($reader->count == 0) {
-                $this->_createStorageTable($dtp, $name);
+                $logger->error($name.': Storage destination not found: creating');
+                $this->_createStorageTable($logger, $dtp, $name);
             }
 
             // проверяем наличие и типы полей, и если отличаются пересоздаем
@@ -228,6 +239,7 @@ class Storages
             }
 
             $xfields = $xstorage['fields'] ?? [];
+            $logger->error($name.': Checking fields');
             foreach ($xfields as $fieldName => $xfield) {
                 $fname = $name . '_' . $fieldName;
                 $fparams = $xfield['params'] ?? [];
@@ -237,7 +249,8 @@ class Storages
                 }
 
                 if (!isset($ofields[$fname])) {
-                    $this->_createStorageField($dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($fparams['required']) ? $fparams['required'] : false, isset($xfield['desc']) ? $xfield['desc'] : '');
+                    $logger->error($name.': '.$fieldName.': Field destination not found: creating');
+                    $this->_createStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($fparams['required']) ? $fparams['required'] : false, isset($xfield['desc']) ? $xfield['desc'] : '');
                 } else {
                     // проверить на соответствие
                     $ofield = $ofields[$fname];
@@ -251,15 +264,18 @@ class Storages
                     $orRequired = $required != ($ofield->Null == 'NO');
 
                     if ($orType || $orDefault || $orRequired) {
-                        $this->_alterStorageField($dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $default, $required, isset($xfield['desc']) ? $xfield['desc'] : '');
+                        $logger->error($name.': '.$fieldName.': Field destination changed: updating');
+                        $this->_alterStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $default, $required, isset($xfield['desc']) ? $xfield['desc'] : '');
                     }
                 }
             }
 
             $xindexes = isset($xstorage['indices']) ? $xstorage['indices'] : [];
+            $logger->error($name.': Checking indices');
             foreach ($xindexes as $indexName => $xindex) {
                 if (!isset($indices[$indexName])) {
-                    $this->_createStorageIndex($dtp, $name, $indexName, $xindex['fields'], $xindex['type'], $xindex['method']);
+                    $logger->error($name.': '.$indexName.': Index not found: creating');
+                    $this->_createStorageIndex($logger, $dtp, $name, $indexName, $xindex['fields'], $xindex['type'], $xindex['method']);
                 } else {
                     $oindex = $indices[$indexName];
                     $fields1 = $name . '_' . implode(',' . $name . '_', $xindex['fields']);
@@ -283,8 +299,21 @@ class Storages
                     }
 
                     if ($fields1 != $fields2 || $xtype != $otype || $xmethod != $omethod) {
-                        $this->_alterStorageIndex($dtp, $name, $indexName, $xindex['fields'], $xtype, $xmethod);
+                        $logger->error($name.': '.$indexName.': Index changed: updating');
+                        $this->_alterStorageIndex($logger, $dtp, $name, $indexName, $xindex['fields'], $xtype, $xmethod);
                     }
+                }
+            }
+
+            $xobjects = isset($xstorage['objects']) ? $xstorage['objects'] : [];
+            foreach($xobjects as $xobject) {
+                if(isset($xobject['json'])) {
+                    // обьект в json
+                    $object = json_decode($xobject['json']);
+                    $datatable = new StorageDataTable(App::$dataAccessPoints->Get($name));
+                    if(!$datatable->SaveRow($datatable->CreateEmptyRow($object))) {
+
+                    } 
                 }
             }
         }
@@ -297,9 +326,9 @@ class Storages
      * @param bool $levels да, если это дерево
      * @return void
      */
-    private function _createStorageTable($accessPoint, $table, $levels = false)
+    private function _createStorageTable(Logger $logger, $accessPoint, $table, $levels = false)
     {
-        $accessPoint->Query('
+        $res = $accessPoint->Query('
             create table `' . $table . '`(
                 `' . $table . '_id` bigint unsigned auto_increment, 
                 `' . $table . '_datecreated` timestamp not null default CURRENT_TIMESTAMP, 
@@ -308,6 +337,10 @@ class Storages
                 key `' . $table . '_datecreated_idx` (`' . $table . '_datecreated`),
                 key `' . $table . '_datemodified_idx` (`' . $table . '_datemodified`)
             ) DEFAULT CHARSET=utf8', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        if($res->error) {
+            $logger->error($table.': Can not create destination: '.$res->query);
+            throw new DataAccessPointsException('Can not create destination: ' . $res->query);
+        }
     }
 
     private function _updateDefaultAndLength($field, $type, $required, $length, $default): array
@@ -332,6 +365,7 @@ class Storages
         return [$required, $length, $default];
 
     }
+
     /**
      * Создает поле в таблице
      * @param DataAccessPoint $accessPoint точка доступа
@@ -343,7 +377,7 @@ class Storages
      * @param bool $required обязательное
      * @return void
      */
-    private function _createStorageField($accessPoint, $table, $field, $type, $length, $default, $required, $comment)
+    private function _createStorageField(Logger $logger, $accessPoint, $table, $field, $type, $length, $default, $required, $comment)
     {
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
 
@@ -367,7 +401,7 @@ class Storages
         }
         
         if($res->error) {
-            App::$log->debug('Can not save field: ' . $res->query);
+            $logger->error($table.': Can not save field: ' . $res->query);
             throw new DataAccessPointsException('Can not save field: ' . $res->query);
         }
     }
@@ -384,7 +418,7 @@ class Storages
      * @param bool $required обязательное
      * @return void
      */
-    private function _alterStorageField($accessPoint, $table, $field, $type, $length, $default, $required, $comment)
+    private function _alterStorageField(Logger $logger, $accessPoint, $table, $field, $type, $length, $default, $required, $comment)
     {
 
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
@@ -397,7 +431,7 @@ class Storages
             ['type' => DataAccessPoint::QueryTypeNonInfo]
         );
         if($res->error) {
-            App::$log->debug('Can not save field: ' . $res->query);
+            $logger->error($table.': Can not save field: ' . $res->query);
             throw new DataAccessPointsException('Can not save field: ' . $res->query);
         }
 
@@ -413,12 +447,16 @@ class Storages
      * @param string $method метод (BTREE, HASH)
      * @return void 
      */
-    private function _createStorageIndex($accessPoint, $table, $indexName, $fields, $type, $method)
+    private function _createStorageIndex(Logger $logger, $accessPoint, $table, $indexName, $fields, $type, $method)
     {
-        $accessPoint->Query('
+        $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             ADD' . ($type !== 'NORMAL' ? ' ' . $type : '') . ' INDEX `' . $indexName . '` (`' . $table . '_' . implode('`,`' . $table . '_', $fields) . '`) ' . ($method ? ' USING ' . $method : '') . '
         ', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        if($res->error) {
+            $logger->error($table.': Can not create index: ' . $res->query);
+            throw new DataAccessPointsException('Can not create index: ' . $res->query);
+        }
     }
 
     /**
@@ -431,18 +469,26 @@ class Storages
      * @param string $method метод (BTREE, HASH)
      * @return void 
      */
-    private function _alterStorageIndex($accessPoint, $table, $indexName, $fields, $type, $method)
+    private function _alterStorageIndex(Logger $logger, $accessPoint, $table, $indexName, $fields, $type, $method)
     {
 
-        $accessPoint->Query('
+        $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             DROP INDEX `' . $indexName . '`
         ', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        if($res->error) {
+            $logger->error($table.': Can not delete index: ' . $res->query);
+            throw new DataAccessPointsException('Can not delete index: ' . $res->query);
+        }
 
-        $accessPoint->Query('
+        $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             ADD' . ($type !== 'NORMAL' ? ' ' . $type : '') . ' INDEX `' . $indexName . '` (`' . $table . '_' . implode('`,`' . $table . '_', $fields) . '`) ' . ($method ? ' USING ' . $method : '') . '
         ', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        if($res->error) {
+            $logger->error($table.': Can not create index: ' . $res->query);
+            throw new DataAccessPointsException('Can not create index: ' . $res->query);
+        }
     }
 
     /**
@@ -451,10 +497,13 @@ class Storages
      * @param string $table таблица
      * @return void
      */
-    private function _dropStorageTable($accessPoint, $table)
+    private function _dropStorageTable(Logger $logger, $accessPoint, $table)
     {
-        // $accessPoint->Query('drop table `'.$table.'`', ['type' => DataAccessPoint::QueryTypeNonInfo])
-        $accessPoint->Query('rename table `' . $table . '` to `_' . $table . '_backup_' . strftime('%Y%m%d%H%M%S', time()) . '`', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        $res = $accessPoint->Query('rename table `' . $table . '` to `_' . $table . '_backup_' . strftime('%Y%m%d%H%M%S', time()) . '`', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        if($res->error) {
+            $logger->error($table.': Can not delete destination: ' . $res->query);
+            throw new DataAccessPointsException('Can not delete destination: ' . $res->query);
+        }
     }
 
     #endregion

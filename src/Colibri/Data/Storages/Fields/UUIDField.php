@@ -1,8 +1,9 @@
 <?php
 
 namespace Colibri\Data\Storages\Fields;
+use JsonSerializable;
 
-class UUIDField
+class UUIDField implements JsonSerializable
 {
 
     private string $_value;
@@ -63,4 +64,9 @@ class UUIDField
         return $uuid->string;
     }
 
+    public function jsonSerialize(): mixed
+    {
+        return (string)$this;
+    }
+    
 }

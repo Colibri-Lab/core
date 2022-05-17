@@ -98,7 +98,7 @@ class Collection implements ICollection, IteratorAggregate
      * Возвращает значение по ключу
      * @testFunction testCollectionItem
      */
-    public function Item(mixed $key): mixed
+    public function Item(string $key): mixed
     {
         if ($this->Exists($key)) {
             return $this->data[$key];

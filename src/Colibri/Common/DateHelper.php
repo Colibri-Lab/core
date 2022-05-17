@@ -9,6 +9,7 @@
  */
 
 namespace Colibri\Common;
+use Colibri\Utils\Debug;
 
 /**
  * Класс обертка над датой
@@ -275,5 +276,12 @@ class DateHelper
         }
 
         return (object)['years' => $y, 'months' => $m, 'days' => $d];
+    }
+
+    static function FromDDMMYYYY(string $dateString, string $delimiter = '.', $format = '%Y-%m-%d %H:%M:%S'): string
+    {
+        $parts = explode($delimiter, $dateString);
+        $time = self::Create($parts[2], $parts[1], $parts[0]);
+        return self::ToDbString($time, $format);
     }
 }

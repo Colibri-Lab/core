@@ -370,8 +370,9 @@ class DataRow extends BaseDataRow
         }
 
         $data = $this->GetData();
+        $original = $this->Original();
 
-        return $this->Original()->$property != $data[$property];
+        return ($original->$property ?? null) != ($data[$property] ?? null);
     }
 
     /**
