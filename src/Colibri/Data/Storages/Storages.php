@@ -193,130 +193,143 @@ class Storages
      * проверяет все ли правильно в базе данных
      * @return void
      */
-    public function Migrate(Logger $logger)
+    public function Migrate(Logger $logger, bool $isDev = false)
     {
         
         $logger->info('Starting migration process');
 
-        foreach ($this->_storages as $name => $xstorage) {
+        try {
 
-            $logger->info($name.': Migrating storage');
+            foreach ($this->_storages as $name => $xstorage) {
 
-            if (!$xstorage['access-point']) {
-                $logger->error($name.': No access point found');
-                continue;
-            }
+                $logger->info($name.': Migrating storage');
 
-            $dtp = App::$dataAccessPoints->Get($xstorage['access-point']);
-            $reader = $dtp->Query('SHOW TABLES LIKE \'' . $name . '\'');
-            if ($reader->count == 0) {
-                $logger->error($name.': Storage destination not found: creating');
-                $this->_createStorageTable($logger, $dtp, $name);
-            }
+                if (!$xstorage['access-point']) {
+                    $logger->error($name.': No access point found');
+                    continue;
+                }
 
-            // проверяем наличие и типы полей, и если отличаются пересоздаем
-            $ofields = array();
-            $reader = $dtp->Query('SHOW COLUMNS FROM `' . $name . '`');
-            while ($ofield = $reader->Read()) {
-                $ofields[$ofield->Field] = $ofield;
-            }
+                $dtp = App::$dataAccessPoints->Get($xstorage['access-point']);
+                $reader = $dtp->Query('SHOW TABLES LIKE \'' . $name . '\'');
+                if ($reader->count == 0) {
+                    $logger->error($name.': Storage destination not found: creating');
+                    $this->_createStorageTable($logger, $dtp, $name);
+                }
 
-            $indexesReader = $dtp->Query('SHOW INDEX FROM ' . $name);
-            $indices = array();
-            while ($index = $indexesReader->Read()) {
-                if ($index->Key_name && $index->Key_name != 'PRIMARY') {
-                    // индексы возвращаются отдельно для каждого поля
-                    // Sec_in_index указывает на какой позиции стоит поле
-                    if (!isset($indices[$index->Key_name])) {
-                        if (isset($index->Seq_in_index)) {
-                            $index->Column_name = [($index->Seq_in_index - 1) => $index->Column_name];
+                // проверяем наличие и типы полей, и если отличаются пересоздаем
+                $ofields = array();
+                $reader = $dtp->Query('SHOW COLUMNS FROM `' . $name . '`');
+                while ($ofield = $reader->Read()) {
+                    $ofields[$ofield->Field] = $ofield;
+                }
+
+                $indexesReader = $dtp->Query('SHOW INDEX FROM ' . $name);
+                $indices = array();
+                while ($index = $indexesReader->Read()) {
+                    if ($index->Key_name && $index->Key_name != 'PRIMARY') {
+                        // индексы возвращаются отдельно для каждого поля
+                        // Sec_in_index указывает на какой позиции стоит поле
+                        if (!isset($indices[$index->Key_name])) {
+                            if (isset($index->Seq_in_index)) {
+                                $index->Column_name = [($index->Seq_in_index - 1) => $index->Column_name];
+                            }
+                            $indices[$index->Key_name] = $index;
+                        } else {
+                            $indices[$index->Key_name]->Column_name[$index->Seq_in_index - 1] = $index->Column_name;
                         }
-                        $indices[$index->Key_name] = $index;
+                    }
+                }
+
+                $xfields = $xstorage['fields'] ?? [];
+                $logger->error($name.': Checking fields');
+                foreach ($xfields as $fieldName => $xfield) {
+                    $fname = $name . '_' . $fieldName;
+                    $fparams = $xfield['params'] ?? [];
+
+                    if($xfield['type'] == 'enum') {
+                        $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '('.implode(',', array_map(function($v) { return '\''.$v['value'].'\''; }, $xfield['values'])).')' : '';
+                    }
+
+                    if (!isset($ofields[$fname])) {
+                        $logger->error($name.': '.$fieldName.': Field destination not found: creating');
+                        $this->_createStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($fparams['required']) ? $fparams['required'] : false, isset($xfield['desc']) ? $xfield['desc'] : '');
                     } else {
-                        $indices[$index->Key_name]->Column_name[$index->Seq_in_index - 1] = $index->Column_name;
+                        // проверить на соответствие
+                        $ofield = $ofields[$fname];
+
+                        $required = isset($fparams['required']) ? $fparams['required'] : false;
+                        $default = isset($xfield['default']) ? $xfield['default'] : null;
+                        [,$length,] = $this->_updateDefaultAndLength($fieldName,  $xfield['type'], $required, $xfield['length'] ?? null, $default);
+
+                        $orType = $ofield->Type != $xfield['type'] . ($length ? '(' . $length . ')' : '');
+                        $orDefault = $ofield->Default != $default;
+                        $orRequired = $required != ($ofield->Null == 'NO');
+
+                        if ($orType || $orDefault || $orRequired) {
+                            $logger->error($name.': '.$fieldName.': Field destination changed: updating');
+                            $this->_alterStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $default, $required, isset($xfield['desc']) ? $xfield['desc'] : '');
+                        }
+                    }
+                }
+
+                $xindexes = isset($xstorage['indices']) ? $xstorage['indices'] : [];
+                $logger->error($name.': Checking indices');
+                foreach ($xindexes as $indexName => $xindex) {
+                    if (!isset($indices[$indexName])) {
+                        $logger->error($name.': '.$indexName.': Index not found: creating');
+                        $this->_createStorageIndex($logger, $dtp, $name, $indexName, $xindex['fields'], $xindex['type'], $xindex['method']);
+                    } else {
+                        $oindex = $indices[$indexName];
+                        $fields1 = $name . '_' . implode(',' . $name . '_', $xindex['fields']);
+                        $fields2 = implode(',', $oindex->Column_name);
+
+                        $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
+                        $xmethod = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
+                        if ($xtype === 'FULLTEXT') {
+                            $xmethod = '';
+                        }
+
+                        $otype = 'NORMAL';
+                        $omethod = 'BTREE';
+                        if ($oindex->Index_type == 'FULLTEXT') {
+                            $otype = 'FULLTEXT';
+                            $omethod = '';
+                        }
+                        if ($oindex->Non_unique == 0) {
+                            $otype = 'UNIQUE';
+                            $omethod = $oindex->Index_type;
+                        }
+
+                        if ($fields1 != $fields2 || $xtype != $otype || $xmethod != $omethod) {
+                            $logger->error($name.': '.$indexName.': Index changed: updating');
+                            $this->_alterStorageIndex($logger, $dtp, $name, $indexName, $xindex['fields'], $xtype, $xmethod);
+                        }
+                    }
+                }
+
+                $xobjects = isset($xstorage['objects']) ? $xstorage['objects'] : [];
+                foreach($xobjects as $xobject) {
+                    if(isset($xobject['json'])) {
+                        // обьект в json
+                        $object = json_decode($xobject['json']);
+                        $datatable = new StorageDataTable(App::$dataAccessPoints->Get($name));
+                        if(!$datatable->SaveRow($datatable->CreateEmptyRow($object))) {
+
+                        } 
                     }
                 }
             }
 
-            $xfields = $xstorage['fields'] ?? [];
-            $logger->error($name.': Checking fields');
-            foreach ($xfields as $fieldName => $xfield) {
-                $fname = $name . '_' . $fieldName;
-                $fparams = $xfield['params'] ?? [];
-
-                if($xfield['type'] == 'enum') {
-                    $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '('.implode(',', array_map(function($v) { return '\''.$v['value'].'\''; }, $xfield['values'])).')' : '';
-                }
-
-                if (!isset($ofields[$fname])) {
-                    $logger->error($name.': '.$fieldName.': Field destination not found: creating');
-                    $this->_createStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($fparams['required']) ? $fparams['required'] : false, isset($xfield['desc']) ? $xfield['desc'] : '');
-                } else {
-                    // проверить на соответствие
-                    $ofield = $ofields[$fname];
-
-                    $required = isset($fparams['required']) ? $fparams['required'] : false;
-                    $default = isset($xfield['default']) ? $xfield['default'] : null;
-                    [,$length,] = $this->_updateDefaultAndLength($fieldName,  $xfield['type'], $required, $xfield['length'] ?? null, $default);
-
-                    $orType = $ofield->Type != $xfield['type'] . ($length ? '(' . $length . ')' : '');
-                    $orDefault = $ofield->Default != $default;
-                    $orRequired = $required != ($ofield->Null == 'NO');
-
-                    if ($orType || $orDefault || $orRequired) {
-                        $logger->error($name.': '.$fieldName.': Field destination changed: updating');
-                        $this->_alterStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $default, $required, isset($xfield['desc']) ? $xfield['desc'] : '');
-                    }
-                }
+        }
+        catch(DataAccessPointsException $e) {
+            if($isDev) {
+                $logger->emergency('Returned with exception: ' . $e->getMessage());
             }
-
-            $xindexes = isset($xstorage['indices']) ? $xstorage['indices'] : [];
-            $logger->error($name.': Checking indices');
-            foreach ($xindexes as $indexName => $xindex) {
-                if (!isset($indices[$indexName])) {
-                    $logger->error($name.': '.$indexName.': Index not found: creating');
-                    $this->_createStorageIndex($logger, $dtp, $name, $indexName, $xindex['fields'], $xindex['type'], $xindex['method']);
-                } else {
-                    $oindex = $indices[$indexName];
-                    $fields1 = $name . '_' . implode(',' . $name . '_', $xindex['fields']);
-                    $fields2 = implode(',', $oindex->Column_name);
-
-                    $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
-                    $xmethod = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
-                    if ($xtype === 'FULLTEXT') {
-                        $xmethod = '';
-                    }
-
-                    $otype = 'NORMAL';
-                    $omethod = 'BTREE';
-                    if ($oindex->Index_type == 'FULLTEXT') {
-                        $otype = 'FULLTEXT';
-                        $omethod = '';
-                    }
-                    if ($oindex->Non_unique == 0) {
-                        $otype = 'UNIQUE';
-                        $omethod = $oindex->Index_type;
-                    }
-
-                    if ($fields1 != $fields2 || $xtype != $otype || $xmethod != $omethod) {
-                        $logger->error($name.': '.$indexName.': Index changed: updating');
-                        $this->_alterStorageIndex($logger, $dtp, $name, $indexName, $xindex['fields'], $xtype, $xmethod);
-                    }
-                }
-            }
-
-            $xobjects = isset($xstorage['objects']) ? $xstorage['objects'] : [];
-            foreach($xobjects as $xobject) {
-                if(isset($xobject['json'])) {
-                    // обьект в json
-                    $object = json_decode($xobject['json']);
-                    $datatable = new StorageDataTable(App::$dataAccessPoints->Get($name));
-                    if(!$datatable->SaveRow($datatable->CreateEmptyRow($object))) {
-
-                    } 
-                }
+            else {
+                throw $e;
             }
         }
+
     }
 
     /**
