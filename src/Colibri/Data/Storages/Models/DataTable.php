@@ -170,7 +170,7 @@ class DataTable extends BaseDataTable
         }
 
         if(empty($fieldValues)) {
-            return true;
+            return $id !=-0;
         }
 
         if (!$id) {

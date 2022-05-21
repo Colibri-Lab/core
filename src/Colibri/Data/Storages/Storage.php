@@ -58,7 +58,7 @@ class Storage
      * @param array|object $xstorage данные из настроек хранилища
      * @return void
      */
-    public function __construct(array|object $xstorage, ?string $name = null)
+    public function __construct(array |object $xstorage, ?string $name = null)
     {
         $xstorage = (array)$xstorage;
         $this->_xstorage = $xstorage;
@@ -66,8 +66,9 @@ class Storage
         $this->_init();
     }
 
-    private function _init() {
-        if(isset($this->_xstorage['name'])) {
+    private function _init()
+    {
+        if (isset($this->_xstorage['name'])) {
             $this->_name = $this->_xstorage['name'];
         }
         $this->_dataPoint = isset($this->_xstorage['access-point']) ?App::$dataAccessPoints->Get($this->_xstorage['access-point']) : null;
@@ -78,7 +79,7 @@ class Storage
     {
         $data['file'] = $module->moduleStoragesPath;
         return new Storage($data, $name);
-    } 
+    }
 
     /**
      * Геттер
@@ -165,30 +166,30 @@ class Storage
     {
         $rootNamespace = '';
         $module = isset($this->settings['module']) ? $this->settings['module'] : null;
-        if($module) {
+        if ($module) {
             $module = StringHelper::ToLower($module);
-            if(!App::$moduleManager->$module) {
-                throw new AppException('Unknown module in storage configuration '.$module);
+            if (!App::$moduleManager->$module) {
+                throw new AppException('Unknown module in storage configuration ' . $module);
             }
             $rootNamespace = App::$moduleManager->$module->moduleNamespace;
         }
 
-        if(class_exists($field->class)) {
+        if (class_exists($field->class)) {
             return $field->class;
         }
-        else if(class_exists('Colibri\\Data\\Storages\\Fields\\' . $field->class)) {
-            return 'Colibri\\Data\\Storages\\Fields\\'.$field->class;
+        else if (class_exists('Colibri\\Data\\Storages\\Fields\\' . $field->class)) {
+            return 'Colibri\\Data\\Storages\\Fields\\' . $field->class;
         }
-        else if(class_exists($rootNamespace.'Models\\Fields\\' . $field->class)) {
-            return $rootNamespace.'Models\\Fields\\' . $field->class;
+        else if (class_exists($rootNamespace . 'Models\\Fields\\' . $field->class)) {
+            return $rootNamespace . 'Models\\Fields\\' . $field->class;
         }
-        else if(class_exists($rootNamespace.'Models\\' . $field->class)) {
-            return $rootNamespace.'Models\\' . $field->class;
+        else if (class_exists($rootNamespace . 'Models\\' . $field->class)) {
+            return $rootNamespace . 'Models\\' . $field->class;
         }
         else {
             throw new AppException('Unknown class: ' . $field->class);
         }
-        
+
     }
 
     /**
@@ -223,7 +224,7 @@ class Storage
         $path = explode('/', $path);
         foreach ($path as $field) {
             $found = $fields->$field ?? null;
-            if(!$found) {
+            if (!$found) {
                 return null;
             }
             $fields = $found->fields ?? [];
@@ -271,40 +272,55 @@ class Storage
         return $this->_xstorage;
     }
 
-    public function Save() 
+    public function Save()
     {
         $file = $this->file;
         $storageData = $this->ToArray();
         unset($storageData['name']);
         unset($storageData['file']);
 
-        if(isset($storageData['components'])) {
-            if(!$storageData['components']['default']) {
+        if (isset($storageData['components'])) {
+            if (!$storageData['components']['default']) {
                 unset($storageData['components']['default']);
             }
-            if(!$storageData['components']['list']) {
+            if (!$storageData['components']['list']) {
                 unset($storageData['components']['list']);
             }
-            if(!$storageData['components']['item']) {
+            if (!$storageData['components']['item']) {
                 unset($storageData['components']['item']);
             }
-            if(empty($storageData['components'])) {
+            if (empty($storageData['components'])) {
                 unset($storageData['components']);
             }
         }
 
+        if (isset($storageData['templates'])) {
+            if (!$storageData['templates']['default']) {
+                unset($storageData['templates']['default']);
+            }
+            if (!$storageData['templates']['list']) {
+                unset($storageData['templates']['list']);
+            }
+            if (!$storageData['templates']['item']) {
+                unset($storageData['templates']['item']);
+            }
+            if (empty($storageData['templates'])) {
+                unset($storageData['templates']);
+            }
+        }
+
         $storageData['fields'] = !isset($storageData['fields']) ? [] : $storageData['fields'];
-        foreach($this->_fields as $fname => $field) {
+        foreach ($this->_fields as $fname => $field) {
             $storageData['fields'][$fname] = $field->Save();
         }
 
         $config = Config::LoadFile($file);
         $config->Set($this->name, $storageData);
         $config->Save();
-        
+
     }
 
-    public function Delete(): void 
+    public function Delete(): void
     {
         $file = $this->file;
         $config = Config::LoadFile($file);
@@ -312,11 +328,12 @@ class Storage
         $config->Save();
     }
 
-    public function AddField($path, $data) {
+    public function AddField($path, $data)
+    {
         $path = explode('/', $path);
         unset($path[count($path) - 1]);
         $path = implode('/', $path);
-        if(!$path) {
+        if (!$path) {
             $name = $data['name'];
             $this->_xstorage['fields'][$name] = ['name' => $name];
             $this->_fields->$name = new Field($this->_xstorage['fields'][$name], $this);
@@ -331,15 +348,15 @@ class Storage
         return $field;
     }
 
-    public function DeleteField($path) 
+    public function DeleteField($path)
     {
         $field = $this->GetField($path);
         $path = explode('/', $path);
         unset($path[count($path) - 1]);
         $parentPath = implode('/', $path);
-        if(!$parentPath) {
+        if (!$parentPath) {
             unset($this->_xstorage['fields'][$field->name]);
-            unset($this->_fields->{$field->name});
+            unset($this->_fields->{ $field->name});
         }
         else {
             $parentField = $this->GetField($parentPath);
@@ -347,37 +364,40 @@ class Storage
         }
     }
 
-    public function AddIndex($name, $data) {
-        if(!isset($this->_xstorage['indices'])) {
+    public function AddIndex($name, $data)
+    {
+        if (!isset($this->_xstorage['indices'])) {
             $this->_xstorage['indices'] = [];
         }
         $this->_xstorage['indices'][$name] = $data;
     }
 
-    public function DeleteIndex($name) {
-        if(isset($this->_xstorage['indices'][$name])) {
+    public function DeleteIndex($name)
+    {
+        if (isset($this->_xstorage['indices'][$name])) {
             unset($this->_xstorage['indices'][$name]);
         }
     }
-    public function MoveField($field, $relative, $sibling) {
-        
+    public function MoveField($field, $relative, $sibling)
+    {
+
         // перемещает во внутреннем массиве
         $xfields = $this->_xstorage['fields'];
-        if(!isset($xfields[$field->name])) {
+        if (!isset($xfields[$field->name])) {
             return false;
         }
 
         $newxFields = [];
         $xfieldMove = $xfields[$field->name];
-        foreach($xfields as $name => $xfield) {
-            if($name != $field->name) {
+        foreach ($xfields as $name => $xfield) {
+            if ($name != $field->name) {
 
-                if($name == $relative->name && $sibling === 'before') {
-                    $newxFields[$field->name] = $xfieldMove;                        
+                if ($name == $relative->name && $sibling === 'before') {
+                    $newxFields[$field->name] = $xfieldMove;
                 }
                 $newxFields[$name] = $xfield;
-                if($name == $relative->name && $sibling === 'after') {
-                    $newxFields[$field->name] = $xfieldMove;                        
+                if ($name == $relative->name && $sibling === 'after') {
+                    $newxFields[$field->name] = $xfieldMove;
                 }
 
             }

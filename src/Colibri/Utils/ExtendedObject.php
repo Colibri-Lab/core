@@ -234,10 +234,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      */
     public function __isset($name)
     {
-        if (!$this->$name) {
-            return false;
-        }
-        return true;
+        return isset($this->_data[$name]);;
     }
 
     /**

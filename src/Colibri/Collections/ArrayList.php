@@ -11,12 +11,13 @@
  */
 
 namespace Colibri\Collections;
+use JsonSerializable;
 
 /**
  * Базовый класс списка, реализует стандартный функционал
  * @testFunction testArrayList
  */
-class ArrayList implements IArrayList, \IteratorAggregate
+class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable
 {
 
     /**
@@ -235,5 +236,10 @@ class ArrayList implements IArrayList, \IteratorAggregate
     public function Last() : mixed
     {
         return $this->Item($this->Count() - 1);
+    }
+
+    public function jsonSerialize(): array
+    {
+        return $this->ToArray();
     }
 }

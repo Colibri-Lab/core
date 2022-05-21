@@ -12,12 +12,13 @@
 
 namespace Colibri\Collections;
 use IteratorAggregate;
+use JsonSerializable;
 
 /**
  * Базовый класс коллекций
  * @testFunction testCollection
  */
-class Collection implements ICollection, IteratorAggregate
+class Collection implements ICollection, IteratorAggregate, JsonSerializable
 {
 
     /**
@@ -337,6 +338,11 @@ class Collection implements ICollection, IteratorAggregate
             $newCollection->Add($this->Key($i), $this->ItemAt($i));
         }
         return $newCollection;
+    }
+    
+    public function jsonSerialize(): array
+    {
+        return $this->ToArray();
     }
 
 }

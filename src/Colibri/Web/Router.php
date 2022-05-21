@@ -94,4 +94,6 @@ class Router
 
         $_SERVER['REQUEST_URI'] = $command;
     }
+
+    
 }

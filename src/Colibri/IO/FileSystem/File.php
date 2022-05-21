@@ -9,6 +9,7 @@
  */
 
 namespace Colibri\IO\FileSystem;
+use JsonSerializable;
 
 /**
  * Класс для работы с файлами
@@ -31,7 +32,7 @@ namespace Colibri\IO\FileSystem;
  *
  * @testFunction testFile
  */
-class File extends Node
+class File extends Node implements JsonSerializable
 {
     
     /** режим чтение */
@@ -393,4 +394,10 @@ class File extends Node
             'lastaccess' => $this->attr_lastaccess,
         );
     }
+
+    public function jsonSerialize(): array
+    {
+        return $this->ToArray();
+    }
+
 }
