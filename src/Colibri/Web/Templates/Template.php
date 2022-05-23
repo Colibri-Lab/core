@@ -50,7 +50,7 @@ abstract class Template
     {
 
         // если обьект нужен без указания файла
-        if (strstr($file, Template::Dummy) === 0) {
+        if (strpos($file, Template::Dummy) === 0) {
             return;
         }
 
