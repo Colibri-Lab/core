@@ -92,7 +92,51 @@ class Router
             }
         }
 
+        $command = str_contains($command, '?') ? substr($command, 0, strpos($command, '?')) : $command;
         $_SERVER['REQUEST_URI'] = $command;
+    }
+
+    public function Uri(string $command): string
+    {
+
+        foreach ($this->_configArray as $route => $rule) {
+            $variables = [];
+            $regexp = preg_quote($rule, '/');
+            if (preg_match_all("/\\\{(.+?)(?:\\\:(.+?))?\\\}/", $regexp, $matchesAll)) {
+                [$all, $variables, $values] =  $matchesAll;
+
+                foreach ($values as $i => $_var) {
+                    $regexp = str_replace($all[$i], "(". ($_var ? stripslashes($_var) : '.+?') .")", $regexp);
+                    $variables[$i] =  '{'. $variables[$i]. '}';
+                }
+            }
+
+
+            if (preg_match("/^$regexp$/", $command, $matches)) {
+                //shift full match
+                array_shift($matches); 
+                //replace from rule, array of tpl variables => matches
+                $command = str_replace($variables, $matches, $route); 
+
+                //get query params string
+                if ($query = parse_url($command, PHP_URL_QUERY)) { 
+                    //query string to array
+                    parse_str($query, $params); 
+                    array_walk($params, function($param, $key) {
+                        //put params to $_GET and $_REQUEST
+                        $_GET[$key] = $_REQUEST[$key] = $param; 
+                    });
+                }
+                
+                foreach($_SERVER as $key => $value) {
+                    $command = str_replace('{'.strtolower($key).'}', $value, $command);
+                }
+                
+                break;
+            }
+        }
+
+        return $command;
     }
 
     

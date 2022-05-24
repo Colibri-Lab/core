@@ -561,6 +561,23 @@ class StringHelper
         }
     }
 
+    public static function UniqueWords(string $string, int $minlen = 3): array 
+    {
+        $string = StringHelper::StripHTML(trim($string));
+        $a = preg_split("/ |,|\.|-|;|:|\(|\)|\{|\}|\[|\]/", $string);
+        $a = array_unique($a);
+
+        $b = array();
+        foreach($a as $w) {
+            if(StringHelper::Length($w) < $minlen){
+                continue;
+            }
+            $b[] = StringHelper::ToLower($w);
+        }
+
+        return $b;
+    }
+
     /**
      * Добавляет перед текстом нужное количество указанных букв
      * например если вызврать StringHelper::Expand('1', 4, '0') - получим 0001

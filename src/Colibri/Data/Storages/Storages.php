@@ -218,9 +218,22 @@ class Storages
 
                 // проверяем наличие и типы полей, и если отличаются пересоздаем
                 $ofields = array();
-                $reader = $dtp->Query('SHOW COLUMNS FROM `' . $name . '`');
+                $reader = $dtp->Query('SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=\'' . $dtp->point->database . '\' and TABLE_NAME=\'' . $name . '\'');
                 while ($ofield = $reader->Read()) {
-                    $ofields[$ofield->Field] = $ofield;
+
+                    $ofield->GENERATION_EXPRESSION = preg_replace_callback("/_utf8mb\d\\\'(.*?)\\\'/", function($match) {
+                        return '\''.$match[1].'\'';
+                    }, $ofield->GENERATION_EXPRESSION);
+
+                    $ofields[$ofield->COLUMN_NAME] = (object)[
+                        'Field' => $ofield->COLUMN_NAME,
+                        'Type' => $ofield->COLUMN_TYPE,
+                        'Null' => $ofield->IS_NULLABLE,
+                        'Key' => $ofield->COLUMN_KEY,
+                        'Default' => $ofield->COLUMN_DEFAULT,
+                        'Extra' => $ofield->EXTRA ?? '',
+                        'Expression' => $ofield->GENERATION_EXPRESSION ?? ''
+                    ];
                 }
 
                 $indexesReader = $dtp->Query('SHOW INDEX FROM ' . $name);
@@ -240,11 +253,17 @@ class Storages
                     }
                 }
 
+                $virutalFields = [];
+
                 $xfields = $xstorage['fields'] ?? [];
                 $logger->error($name.': Checking fields');
                 foreach ($xfields as $fieldName => $xfield) {
                     $fname = $name . '_' . $fieldName;
                     $fparams = $xfield['params'] ?? [];
+
+                    if(($xfield['virtual'] ?? false) === true) {
+                        $virutalFields[$fieldName] = $xfield;
+                    }
 
                     if($xfield['type'] == 'enum') {
                         $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '('.implode(',', array_map(function($v) { return '\''.$v['value'].'\''; }, $xfield['values'])).')' : '';
@@ -269,6 +288,29 @@ class Storages
                             $logger->error($name.': '.$fieldName.': Field destination changed: updating');
                             $this->_alterStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $default, $required, isset($xfield['desc']) ? $xfield['desc'] : '');
                         }
+                    }
+                }
+
+                foreach($virutalFields as $fieldName => $xVirtualField) {
+                    $fname = $name . '_' . $fieldName;
+                    if (!isset($ofields[$fname])) {
+                        $this->_createStorageVirtualField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $xfield['expression'], isset($xfield['desc']) ? $xfield['desc'] : '');
+                    }
+                    else {
+                        $ofield = $ofields[$fname];
+
+                        $required = isset($fparams['required']) ? $fparams['required'] : false;
+                        $expression = isset($xfield['expression']) ? $xfield['expression'] : null;
+
+                        $orType = $ofield->Type != $xfield['type'] . ($length ? '(' . $length . ')' : '');
+                        $orExpression = $ofield->Expression != $expression;
+                        $orRequired = $required != ($ofield->Null == 'NO');
+
+                        if ($orType || $orExpression || $orRequired) {
+                            $logger->error($name.': '.$fieldName.': Field destination changed: updating');
+                            $this->_alterStorageVirtualField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $expression, isset($xfield['desc']) ? $xfield['desc'] : '');
+                        }
+
                     }
                 }
 
@@ -419,6 +461,21 @@ class Storages
         }
     }
 
+    private function _createStorageVirtualField(Logger $logger, $accessPoint, $table, $field, $type, $length, $expression, $comment)
+    {
+
+        $res = $accessPoint->Query('
+            ALTER TABLE `' . $table . '` 
+            ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ' 
+            GENERATED ALWAYS AS (' . $expression . ') STORED ' . 
+            ($comment ? ' COMMENT \'' . $comment . '\'' : ''), ['type' => DataAccessPoint::QueryTypeNonInfo]);
+            
+        if($res->error) {
+            $logger->error($table.': Can not save field: ' . $res->query);
+            throw new DataAccessPointsException('Can not save field: ' . $res->query);
+        }
+    }
+
 
     /**
      * Обновляет поле
@@ -450,6 +507,25 @@ class Storages
 
     }
 
+    private function _alterStorageVirtualField(Logger $logger, $accessPoint, $table, $field, $type, $length, $expression, $comment)
+    {
+
+        
+        
+        $res = $accessPoint->Query('
+            ALTER TABLE `' . $table . '` 
+            MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . 
+            ' GENERATED ALWAYS AS (' . $expression . ') STORED ' . 
+            ($comment ? ' COMMENT \'' . $comment . '\'' : ''),
+            ['type' => DataAccessPoint::QueryTypeNonInfo]
+        );
+        if($res->error) {
+            $logger->error($table.': Can not save field: ' . $res->query);
+            throw new DataAccessPointsException('Can not save field: ' . $res->query);
+        }
+
+    }
+
     /**
      * Создает индекс
      * @param DataAccessPoint $accessPoint точка доступа
@@ -462,6 +538,10 @@ class Storages
      */
     private function _createStorageIndex(Logger $logger, $accessPoint, $table, $indexName, $fields, $type, $method)
     {
+        if($type === 'FULLTEXT') {
+            $method = '';
+        }
+
         $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             ADD' . ($type !== 'NORMAL' ? ' ' . $type : '') . ' INDEX `' . $indexName . '` (`' . $table . '_' . implode('`,`' . $table . '_', $fields) . '`) ' . ($method ? ' USING ' . $method : '') . '
