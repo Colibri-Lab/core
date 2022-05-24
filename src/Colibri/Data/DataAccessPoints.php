@@ -84,7 +84,7 @@ class DataAccessPoints
             try {
 
                 $keysArray = $moduleConfig->Query('for', [])->ToArray(); 
-                if(!in_array(App::$domainKey, $keysArray)) {
+                if(!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
                     continue;
                 }
 
