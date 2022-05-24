@@ -922,10 +922,11 @@ class StringHelper
 
     public static function StripHtmlAndBody(string $html): string 
     {
-        $html = str_replace('<'.'html'.'>', '', $html);
-        $html = str_replace('</html>', '', $html);
-        $html = str_replace('<body>', '', $html);
-        return str_replace('</body>', '', $html);
+        $res = preg_match('/<body.*?>(.*)<\/body>/', $html, $matches);
+        if($res > 0) {
+            return $matches[1];
+        }
+        return $html;
     }
 
     public static function RemoveEmoji(string $text): string 
