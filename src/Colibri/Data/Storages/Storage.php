@@ -234,24 +234,11 @@ class Storage
 
     /**
      * Возвращает обьект содержащий данные для отображения записей хранилища по шаблонам
-     * @return object данные: 
-     *      содержит 
-     *      class - класс шаблона, 
-     *      templates - опсания шаблонов, 
-     *      templates.default - шаблон по умолчанию, 
-     *      templates.files - обьект ключ значение, ключ - название шаблона, значение файл шаблона
+     * @return object|array
      */
     public function GetTemplates()
     {
-        $view = $this->_xstorage['view'];
-        $templateClass = $view['class'];
-        $templates = $view['templates'];
-        $default = $templates['default'];
-        unset($templates['default']);
-        foreach ($templates as $name => $template) {
-            $templates[$name] = App::$appRoot . $template;
-        }
-        return (object)['class' => $templateClass, 'templates' => (object)['default' => App::$appRoot . $default, 'files' => (object)$templates]];
+        return $this->_xstorage['templates'] ?? [];
     }
 
     public function GetModule(): ?Module
