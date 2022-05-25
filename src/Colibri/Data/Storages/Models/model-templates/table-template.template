@@ -6,6 +6,7 @@ use Colibri\Data\DataAccessPoint;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\Storages\Storages;
 use Colibri\Data\Storages\Storage;
+use Colibri\Utils\Logs\Logger;
 use [[parent-table-class-name]] as BaseModelDataTable;
 use [[namespace-path]]\[[row-class-name]];
 
@@ -106,6 +107,12 @@ class [[table-class-name]] extends BaseModelDataTable {
     static function DeleteAllByFilter(string $filter): bool
     {
         return self::DeleteByFilter('[[storage-name]]', $filter);
+    }
+
+    static function DataMigrate(?Logger $logger = null): bool
+    {
+        // миграция данных
+        return true;
     }
 
 }

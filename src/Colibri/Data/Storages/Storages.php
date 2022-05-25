@@ -360,6 +360,15 @@ class Storages
                         } 
                     }
                 }
+
+                $module = $xstorage['module'];
+                $tableModel = 'App\\Modules\\'.$module.'\\'.$xstorage['models']['table'];
+                $module = App::$moduleManager->$module;
+                
+                if(method_exists($tableModel, 'DataMigrate')) {
+                    $tableModel::DataMigrate($logger);
+                }
+            
             }
 
         }
