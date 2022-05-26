@@ -922,7 +922,7 @@ class StringHelper
 
     public static function StripHtmlAndBody(string $html): string 
     {
-        $res = preg_match('/<body.*?>(.*)<\/body>/', $html, $matches);
+        $res = preg_match('/<body.*?>(.*)<\/body>/us', $html, $matches);
         if($res > 0) {
             return $matches[1];
         }
@@ -943,7 +943,7 @@ class StringHelper
             if(!$part[0]) {
                 continue;
             }
-            $return->{$part[0]} = $part[1];
+            $return->{trim($part[0])} = trim($part[1]);
         }
         return $return;
     }
