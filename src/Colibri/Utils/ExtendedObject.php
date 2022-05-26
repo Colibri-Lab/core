@@ -56,6 +56,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      */
     protected $_changed = false;
 
+    protected $_changeKeyCase = true;
+
     /**
      * Конструктор
      *
@@ -85,7 +87,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
             $prefix = $prefix . "_";
         }
 
-        if($changeKeyCase) {
+        $this->_changeKeyCase = $changeKeyCase;
+        if($this->_changeKeyCase) {
             $this->_data = array_change_key_case($this->_data, CASE_LOWER);
         }
 
@@ -262,7 +265,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         }
         else {
 
-            $property = strtolower($property);
+            $property = $this->_changeKeyCase ? strtolower($property) : $property;
             if (!empty($this->_prefix) && strpos($property, $this->_prefix) === false) {
                 $property = $this->_prefix . $property;
             }
@@ -287,7 +290,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
             $this->{'setProperty'.$propertyCamelCased}($value);
         }
         else {
-            $property = strtolower($property);
+            $property = $this->_changeKeyCase ? strtolower($property) : $property;
             if (!empty($this->_prefix) && strpos($property, $this->_prefix) === false) {
                 $property = $this->_prefix . $property;
             }
