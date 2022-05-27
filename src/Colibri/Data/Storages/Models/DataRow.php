@@ -202,7 +202,7 @@ class DataRow extends BaseDataRow
                 if($rowValue instanceof $class) {
                     $this->_data[$property] = (string)$rowValue;
                 }
-                else {
+                else if(!is_null($rowValue)) {
 
                     try {
                         $c = new $class($rowValue, $this->_storage, $field, $this);
@@ -212,6 +212,9 @@ class DataRow extends BaseDataRow
                         $this->_data[$property] = $rowValue;
                     }
 
+                }
+                else {
+                    $this->_data[$property] = null;
                 }
 
             }

@@ -280,8 +280,13 @@ class DateHelper
 
     static function FromDDMMYYYY(string $dateString, string $delimiter = '.', $format = '%Y-%m-%d %H:%M:%S'): string
     {
+        if(strstr($dateString, ' ') !== false) {
+            $dateString = explode(' ', $dateString);
+            $dateString = $dateString[0];
+        }
+
         $parts = explode($delimiter, $dateString);
-        $time = self::Create($parts[2], $parts[1], $parts[0]);
+        $time = self::Create($parts[2] ?? 0, $parts[1] ?? 0, $parts[0] ?? 0);
         return self::ToDbString($time, $format);
     }
 }
