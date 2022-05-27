@@ -129,6 +129,9 @@ class Router
                 }
                 
                 foreach($_SERVER as $key => $value) {
+                    if(!is_string($value)) {
+                        continue;
+                    }
                     $command = str_replace('{'.strtolower($key).'}', $value, $command);
                 }
                 
