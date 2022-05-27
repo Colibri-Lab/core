@@ -79,7 +79,27 @@ class ConsoleLogger extends Logger
         }
         $args = DateHelper::ToDbString(microtime(true), '%Y-%m-%d-%H-%M-%S-%f') . "\t" . implode("\t", $args);
 
-        echo Debug::ROut($args);
+        $str = Debug::ROut($args);
+        switch ($level) {
+            case Logger::Alert:
+            case Logger::Emergency:
+            case Logger::Critical:
+            case Logger::Error:
+                echo "\033[31m$str \033[0m\n";
+                break;
+            case Logger::Notice:
+                echo "\033[32m$str \033[0m\n";
+                break;
+            case Logger::Warning:
+                echo "\033[33m$str \033[0m\n";
+                break;  
+            case Logger::Informational:
+                echo "\033[36m$str \033[0m\n";
+                break;      
+            default:
+                echo $str;
+                break;
+        }
     }
 
     /**
