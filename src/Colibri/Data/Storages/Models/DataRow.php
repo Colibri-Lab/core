@@ -291,7 +291,7 @@ class DataRow extends BaseDataRow
                     $data[$k] = $v instanceof UUIDField ? $v->binary : $v;
                 }
                 else {
-                    $data[$k] = (string)$v;
+                    $data[$k] = is_null($v) ? null : (string)$v;
                 }
 
             }
