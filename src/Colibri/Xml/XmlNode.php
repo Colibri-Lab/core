@@ -156,7 +156,7 @@ class XmlNode
             $dom = new \DOMDocument('1.0', $encoding);
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
-            $dom->loadHTML((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString);
+            @$dom->loadHTML((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString);
             return new XmlNode($dom->documentElement, $dom);
         }
         catch (\Throwable $e) {
