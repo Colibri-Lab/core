@@ -20,6 +20,7 @@ use Colibri\IO\FileSystem\Exception as FileSystemException;
 use Colibri\IO\FileSystem\Finder;
 use Colibri\Utils\Debug;
 use axy\sourcemap\SourceMap;
+use Colibri\Utils\Config\ConfigException;
 
 /**
  * Создание кэшей стилей и скриптов
@@ -280,21 +281,28 @@ class Bundle
     }
 
     static function Export(string $domain, string $ext, string $content) {
+        try {
 
-        $generateForMobile = App::$config->Query('mobile.bundler.for')->ToArray();
-        if(in_array($domain, $generateForMobile)) {
-            // надо залить в мобильный проект
-            $exportPath = App::$config->Query('mobile.bundler.export')->GetValue();
-            
-            $paths = App::$config->Query('mobile.bundler.paths')->AsObject();
-            foreach($paths as $settings) {
-                if(in_array($ext, (array)$settings->types)) {
-                    File::Write($exportPath . $settings->path, $content, true, '777');
-                    break;
+            $generateForMobile = App::$config->Query('mobile.bundler.for')->ToArray();
+            if(in_array($domain, $generateForMobile)) {
+                // надо залить в мобильный проект
+                $exportPath = App::$config->Query('mobile.bundler.export')->GetValue();
+                
+                $paths = App::$config->Query('mobile.bundler.paths')->AsObject();
+                foreach($paths as $settings) {
+                    if(in_array($ext, (array)$settings->types)) {
+                        File::Write($exportPath . $settings->path, $content, true, '777');
+                        break;
+                    }
                 }
+                
             }
             
         }
+        catch(ConfigException $e) {
+            
+        }
+
     }
 
 
