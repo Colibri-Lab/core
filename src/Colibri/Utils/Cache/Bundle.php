@@ -220,8 +220,10 @@ class Bundle
      * @return string
      * @testFunction testBundleAutomate
      */
-    public static function Automate(string $name, array |string $ext, array $ar): string
+    public static function Automate(string $domain, string $name, string $ext, array $ar): string
     {
+        
+        $name = $domain . '.' . $name;
         $mode = App::$config ?App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
 
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
@@ -230,7 +232,7 @@ class Bundle
                 $lastModified = 0;
                 foreach ($ar as $settings) {
                     $lastModified = max($lastModified, self::LastModified(isset($settings['name']) ? $settings['name'] : '',
-                        isset($settings['exts']) ? $settings['exts'] : array($ext),
+                        isset($settings['exts']) ? $settings['exts'] : [$ext],
                         $settings['path'],
                         isset($settings['exception']) ? $settings['exception'] : array(),
                         isset($settings['preg']) ? $settings['preg'] : false));
@@ -251,13 +253,10 @@ class Bundle
             $content[] = $args['content'];
         }
 
-        // $returnFiles = [];
-        // ,
-        //         $returnFiles
         foreach ($ar as $settings) {
             $content[] = Bundle::Compile(
                 isset($settings['name']) ? $settings['name'] : '',
-                isset($settings['exts']) ? $settings['exts'] : array($ext),
+                isset($settings['exts']) ? $settings['exts'] : [$ext],
                 $settings['path'],
                 isset($settings['exception']) ? $settings['exception'] : array(),
                 isset($settings['preg']) ? $settings['preg'] : false,
@@ -265,35 +264,6 @@ class Bundle
             );
         }
 
-        // if(!empty($returnFiles)) {
-        //     $map = new SourceMap();
-        //     $map->file = basename($jpweb);
-        //     $offset = 0;
-        //     $index = 0;
-        //     foreach ($returnFiles as $script => $scdata) {
-        //         $c = $scdata[0];
-        //         $lines = $scdata[1];
-        //         for ($i=0; $i<$lines; ++$i) {
-        //             $map->addPosition([
-        //                 'generated' => [
-        //                     'line' => $offset+$i,
-        //                     'column' => 0,
-        //                 ],
-        //                 'source' => [
-        //                     'fileName' => $script,
-        //                     'line' => 1,
-        //                     'column' => 0
-        //                 ],
-        //             ]);
-        //             $map->sources->setContent($script, $c);
-        //         }
-        //         $offset += $lines-1;
-        //         $index++;
-        //     }
-
-        //     $map->save($jpweb.'.map', JSON_PRETTY_PRINT);
-        // }
-        // '//# sourceMappingURL='.str_replace(App::$webRoot, '/', $jpweb).'.map'."\n".
         $content = implode('', $content);
 
         $args = App::$instance->DispatchEvent(EventsContainer::BundleComplete, (object)['content' => $content, 'exts' => [$ext]]);
@@ -303,8 +273,28 @@ class Bundle
         $recacheKey = md5($content);
 
         File::Write($jpweb, $content, true, '777');
+        
+        self::Export($domain, $ext, $content);
 
         return str_replace(App::$webRoot, '/', $jpweb . '?' . $recacheKey);
+    }
+
+    static function Export(string $domain, string $ext, string $content) {
+
+        $generateForMobile = App::$config->Query('mobile.bundler.for')->ToArray();
+        if(in_array($domain, $generateForMobile)) {
+            // надо залить в мобильный проект
+            $exportPath = App::$config->Query('mobile.bundler.export')->GetValue();
+            
+            $paths = App::$config->Query('mobile.bundler.paths')->AsObject();
+            foreach($paths as $settings) {
+                if(in_array($ext, (array)$settings->types)) {
+                    File::Write($exportPath . $settings->path, $content, true, '777');
+                    break;
+                }
+            }
+            
+        }
     }
 
 
