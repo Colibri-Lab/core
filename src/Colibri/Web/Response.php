@@ -450,7 +450,7 @@ class Response
         flush();
     }
 
-    public function Origin(): void
+    public function Origin(): array
     {
         return [
             'Access-Control-Allow-Origin' => (object)['value' => App::$request->server->http_origin, 'encode' => false],
