@@ -209,7 +209,7 @@ class Server
             list($type, $class, $method) = $this->__parseCommand($default);
         }
 
-
+        $requestMethod = App::$request->server->request_method;
         $get = App::$request->get;
         $post = App::$request->post;
         $payload = App::$request->GetPayloadCopy();
@@ -271,19 +271,27 @@ class Server
             return;
         }
 
-        $obj = new $class();
-        $result = (object)$obj->$method($get, $post, $payload);
+        if($requestMethod === 'OPTIONS') {
+            // если это запрос на опции то вернуть
+            $result = [];
+            $this->Finish($type, ['options' => true]);
+        }
+        else {
+            $obj = new $class();
+            $result = (object)$obj->$method($get, $post, $payload);    
+            
+            $this->DispatchEvent(EventsContainer::RpcRequestProcessed, (object)[
+                'object' => $obj,
+                'class' => $class,
+                'method' => $method,
+                'get' => $get,
+                'post' => $post,
+                'payload' => $payload,
+                'result' => $result
+            ]);
 
-        $this->DispatchEvent(EventsContainer::RpcRequestProcessed, (object)[
-            'object' => $obj,
-            'class' => $class,
-            'method' => $method,
-            'get' => $get,
-            'post' => $post,
-            'payload' => $payload,
-            'result' => $result
-        ]);
+            $this->Finish($type, $result);
+        }
 
-        $this->Finish($type, $result);
     }
 }
