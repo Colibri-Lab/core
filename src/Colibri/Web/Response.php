@@ -152,6 +152,13 @@ class Response
         header($name . ': ' . $value);
     }
 
+    private function _addHeaders(array $headers): void
+    {
+        foreach($headers as $name => $value) {
+            $this->_addHeader($name, $value);
+        }
+    }
+
     /**
      * Добавить NoCache
      *
@@ -450,14 +457,14 @@ class Response
         flush();
     }
 
-    public function Origin(): array
+    public function Origin(): void
     {
-        return [
-            'Access-Control-Allow-Origin' => (object)['value' => App::$request->server->http_origin, 'encode' => false],
+        $this->_addHeaders([
+            'Access-Control-Allow-Origin' => App::$request->server->http_origin,
             'Access-Control-Allow-Credentials' => 'true',
             'Access-Control-Allow-Headers' => App::$request->headers->{'access-control-request-headers'},
             'Access-Control-Allow-Method' => App::$request->headers->{'access-control-request-method'},
-        ];
+        ]);
         
     }
 
