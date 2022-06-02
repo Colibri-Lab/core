@@ -155,7 +155,9 @@ class Response
     private function _addHeaders(array $headers): void
     {
         foreach($headers as $name => $value) {
-            $this->_addHeader($name, $value);
+            if($value) {
+                $this->_addHeader($name, $value);
+            }
         }
     }
 
