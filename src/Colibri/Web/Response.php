@@ -18,6 +18,7 @@ use Colibri\Events\EventsContainer;
 use Colibri\Common\MimeType;
 use Colibri\Common\StringHelper;
 use IteratorAggregate;
+use Colibri\App;
 
 /**
  * Респонс 
@@ -448,4 +449,16 @@ class Response
         }
         flush();
     }
+
+    public function Origin(): void
+    {
+        return [
+            'Access-Control-Allow-Origin' => (object)['value' => App::$request->server->http_origin, 'encode' => false],
+            'Access-Control-Allow-Credentials' => 'true',
+            'Access-Control-Allow-Headers' => App::$request->headers->{'access-control-request-headers'},
+            'Access-Control-Allow-Method' => App::$request->headers->{'access-control-request-method'},
+        ];
+        
+    }
+
 }
