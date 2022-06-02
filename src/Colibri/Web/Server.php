@@ -85,7 +85,7 @@ class Server
 
         App::$response->Origin();
 
-        if ($result->result) {
+        if ($result?->result ?? null) {
             if ($type == Server::JSON) {
                 App::$response->Close($result->code, json_encode($result->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), 'application/json', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers);
             }
@@ -273,8 +273,7 @@ class Server
 
         if($requestMethod === 'OPTIONS') {
             // если это запрос на опции то вернуть
-            $result = [];
-            $this->Finish($type, ['options' => true]);
+            $this->Finish($type, (object)['code' => 200, 'message' => 'ok', 'options' => true]);
         }
         else {
             $obj = new $class();
