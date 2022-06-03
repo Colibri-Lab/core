@@ -287,7 +287,10 @@ class Bundle
             if(in_array($domain, $generateForMobile)) {
                 // надо залить в мобильный проект
                 $exportPath = App::$config->Query('mobile.bundler.export')->GetValue();
-                
+                $base = App::$config->Query('mobile.bundler.base')->GetValue();
+                $content = str_replace('url("/', 'url("' . $base . '/', $content);
+
+
                 $paths = App::$config->Query('mobile.bundler.paths')->AsObject();
                 foreach($paths as $settings) {
                     if(in_array($ext, (array)$settings->types)) {
