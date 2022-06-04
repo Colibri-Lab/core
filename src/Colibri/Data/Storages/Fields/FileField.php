@@ -16,6 +16,7 @@ use Colibri\Graphics\Size;
 use Colibri\Common\MimeType;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Storages\Storage;
+use JsonSerializable;
 
 /**
  * Представление файла в хранилище
@@ -35,7 +36,7 @@ use Colibri\Data\Storages\Storage;
  * @property-read int $filesize размер файла в байтах
  *
  */
-class FileField
+class FileField implements JsonSerializable
 {
     /**
      * Путь к файлу
@@ -232,5 +233,9 @@ class FileField
         return $this->_path;
     }
 
+    public function jsonSerialize(): mixed
+    {
+        return (string)$this;
+    }
 
 }

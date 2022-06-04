@@ -26,10 +26,13 @@ class FileListField extends ArrayList
      */
     public function __construct($data)
     {
+        parent::__construct([]);
         $data = str_replace("\n", "", str_replace("\r", "", $data));
-        $sources = explode(';', $data);
-        foreach ($sources as $file) {
-            $this->Add(new FileField($file));
+        if(!empty($data)) {
+            $sources = explode(';', $data);
+            foreach ($sources as $file) {
+                $this->Add(new FileField($file));
+            }
         }
     }
 
@@ -38,7 +41,7 @@ class FileListField extends ArrayList
      * @param string $splitter разделитель
      * @return string собранная строка из путей файлов
      */
-    public function ToString($splitter = ';')
+    public function ToString(string $splitter = ';'): string
     {
         $sources = [];
         foreach ($this as $file) {
