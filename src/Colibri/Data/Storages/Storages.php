@@ -293,22 +293,23 @@ class Storages
 
                 foreach($virutalFields as $fieldName => $xVirtualField) {
                     $fname = $name . '_' . $fieldName;
+                    $fparams = $xVirtualField['params'] ?? [];
                     if (!isset($ofields[$fname])) {
-                        $this->_createStorageVirtualField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $xfield['expression'], isset($xfield['desc']) ? $xfield['desc'] : '');
+                        $this->_createStorageVirtualField($logger, $dtp, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $xVirtualField['expression'], isset($xVirtualField['desc']) ? $xVirtualField['desc'] : '');
                     }
                     else {
                         $ofield = $ofields[$fname];
 
                         $required = isset($fparams['required']) ? $fparams['required'] : false;
-                        $expression = isset($xfield['expression']) ? $xfield['expression'] : null;
+                        $expression = isset($xVirtualField['expression']) ? $xVirtualField['expression'] : null;
 
-                        $orType = $ofield->Type != $xfield['type'] . ($length ? '(' . $length . ')' : '');
+                        $orType = $ofield->Type != $xVirtualField['type'] . ($length ? '(' . $length . ')' : '');
                         $orExpression = $ofield->Expression != $expression;
                         $orRequired = $required != ($ofield->Null == 'NO');
 
                         if ($orType || $orExpression || $orRequired) {
                             $logger->error($name.': '.$fieldName.': Field destination changed: updating');
-                            $this->_alterStorageVirtualField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $expression, isset($xfield['desc']) ? $xfield['desc'] : '');
+                            $this->_alterStorageVirtualField($logger, $dtp, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $expression, isset($xVirtualField['desc']) ? $xVirtualField['desc'] : '');
                         }
 
                     }
