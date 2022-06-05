@@ -328,16 +328,16 @@ class XmlNode
                 }
             case 'innerxml': {
                     $data = $this->_document->saveXML($this->_node, LIBXML_NOEMPTYTAG);
-                    $data = preg_replace('/<' . $this->name . '.*>/im', '', $data);
-                    return preg_replace('/<\/' . $this->name . '.*>/im', '', $data);
+                    $data = preg_replace('/<' . $this->name . '[^>]*>/im', '', $data);
+                    return preg_replace('/<\/' . $this->name . '[^>]*>/im', '', $data);
                 }
             case 'html': {
                     return $this->_document->saveHTML($this->_node);
                 }
             case 'innerhtml': {
                     $data = $this->_document->saveHTML($this->_node);
-                    $data = preg_replace('/<' . $this->name . '.*>/im', '', $data);
-                    return preg_replace('/<\/' . $this->name . '.*>/im', '', $data);
+                    $data = preg_replace('/<' . $this->name . '[^>]*>/im', '', $data);
+                    return preg_replace('/<\/' . $this->name . '[^>]*>/im', '', $data);
                 }
             case 'next': {
                     return $this->_node->nextSibling ? new XmlNode($this->_node->nextSibling, $this->_document) : null;
