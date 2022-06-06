@@ -55,7 +55,7 @@ class Server
      */
     public function __construct()
     {
-    // Do nothing
+        // Do nothing
     }
 
     private function _convertDataToCharset(mixed $data, string $charset): mixed
@@ -293,4 +293,5 @@ class Server
         }
 
     }
+
 }
