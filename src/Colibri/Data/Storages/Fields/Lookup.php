@@ -19,6 +19,7 @@ use Colibri\Utils\Debug;
 use Colibri\Xml\XmlNode;
 use Colibri\Common\VariableHelper;
 use Colibri\Data\SqlClient\IDataReader;
+use Colibri\Data\DataAccessPoint;
 
 /**
  * Класс представление связи поля и таблицы
@@ -80,7 +81,7 @@ class Lookup
             $storage = Storages::Create()->Load($data->name);
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
-            $reader = $accessPoint->Query('select * from ' . $storage->name . ($data->filter && $this->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['page' => $page, 'pagesize' => $pagesize]);
+            $reader = $accessPoint->Query('select * from ' . $storage->name . ($data->filter && $this->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]);
             return new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
         }
         else if ($this->accessPoint) {
@@ -88,10 +89,10 @@ class Lookup
             $data = (object)$this->accessPoint;
             $accessPoint = App::$dataAccessPoints->Get($data->name);
             if ($page > 0) {
-                $reader = $accessPoint->Query('select ' . $data->fields . ' from ' . $data->table . ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['page' => $page, 'pagesize' => $pagesize]);
+                $reader = $accessPoint->Query('select ' . $data->fields . ' from ' . $data->table . ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]);
             }
             else {
-                $reader = $accessPoint->Query('select ' . $data->fields . ' from ' . $data->table . ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''));
+                $reader = $accessPoint->Query('select ' . $data->fields . ' from ' . $data->table . ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData]);
             }
 
             return new DataTable($accessPoint, $reader);
@@ -114,7 +115,7 @@ class Lookup
             $accessPoint = $storage->accessPoint;
             $filter = $storage->GetRealFieldName($data->value ?? 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
             /** @var IDataReader */
-            $reader = $accessPoint->Query('select * from ' . $data->name . ($filter && $filter != '' ? ' where ' . $filter : ''), ['page' => 1, 'pagesize' => 1]);
+            $reader = $accessPoint->Query('select * from ' . $data->name . ($filter && $filter != '' ? ' where ' . $filter : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => 1]);
             if($reader->Count() == 0) {
                 return null;
             }
@@ -133,7 +134,7 @@ class Lookup
             $accessPoint = App::$dataAccessPoints->Get($data->name);
             $filter = $data->value . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
             /** @var IDataReader */
-            $reader = $accessPoint->Query('select * from (select ' . $data->fields . ' from ' . $data->table . ') t where ' . $filter . ($data->order ? ' order by ' . $data->order : ''));
+            $reader = $accessPoint->Query('select * from (select ' . $data->fields . ' from ' . $data->table . ') t where ' . $filter . ($data->order ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData]);
             if($reader->Count() == 0) {
                 return null;
             }

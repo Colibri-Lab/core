@@ -125,7 +125,7 @@ class DataRow extends BaseDataRow
 
         if($mode == 'get' && !isset($this->_data[$property])) {
             if($field->default !== null) {
-                $reader = $this->_storage->accessPoint->Query('select '.(empty($field->default) ? '\'\'' : $field->default).' as default_value', ['type' => DataAccessPoint::QueryTypeReader]);
+                $reader = $this->_storage->accessPoint->Query('select '.(empty($field->default) ? '\'\'' : $field->default).' as default_value', ['type' => DataAccessPoint::QueryTypeBigData]);
                 $rowValue = $reader->Read()->default_value;    
             }
             else {
