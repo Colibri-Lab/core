@@ -175,9 +175,9 @@ class DataAccessPoint
             $cmd->params = (array)$commandParams->params;
         }
 
-        // если не передали type то выставляем в reader
+        // если не передали type то выставляем в bigquery чтобы лишнего не запрашивать
         if (!isset($commandParams->type)) {
-            $commandParams->type = self::QueryTypeReader;
+            $commandParams->type = self::QueryTypeBigData;
         }
 
         try {
