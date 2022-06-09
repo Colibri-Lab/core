@@ -56,7 +56,7 @@ final class DataReader implements IDataReader
      * @param mixed $results
      * @param int $affected
      */
-    public function __construct(mixed $results, int $affected = null)
+    public function __construct(mixed $results, ?int $affected = null)
     {
         $this->_results = $results;
         $this->_affected = $affected;

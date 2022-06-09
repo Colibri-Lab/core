@@ -166,7 +166,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return int
      * @testFunction testDataTableAffected
      */
-    public function Affected(): int
+    public function Affected(): ?int
     {
         return $this->_reader->affected;
     }
