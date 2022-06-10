@@ -53,6 +53,36 @@ class QueryBuilder implements IQueryBuilder
     }
 
     /**
+     * Создает запрос ввода данных
+     *
+     * @param string $table
+     * @param array|object $data
+     * @param string $returning
+     * @return string
+     * @testFunction testQueryBuilderCreateInsert
+     */
+    public function CreateReplace(string $table, array|object $data, string $returning = ''): string
+    {
+        $data = (array)$data;
+        foreach ($data as $key => $value) {
+            if (is_null($value)) {
+                $value = 'null';
+            } else {
+                $value = '\'' . addslashes($value) . '\'';
+            }
+            $data[$key] = $value;
+        }
+
+        $keys = array_keys($data);
+        $fields = '(`' . join("`, `", $keys) . '`)';
+
+        $vals = array_values($data);
+        $values = "(" . join(", ", $vals) . ")";
+
+        return "replace into " . $table . $fields . ' values' . $values;
+    }
+
+    /**
      * Создает запрос ввода данных или обновления в случае дублирования данных в индексных полях
      *
      * @param string $table

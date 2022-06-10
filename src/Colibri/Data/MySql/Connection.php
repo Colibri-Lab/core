@@ -68,13 +68,13 @@ final class Connection implements IConnection
         }
 
         try {
-            $this->_resource = mysqli_connect(($this->_connectioninfo->persistent ? 'p:' : '').$this->_connectioninfo->host, $this->_connectioninfo->user, $this->_connectioninfo->password);
+            $this->_resource = mysqli_connect(($this->_connectioninfo->persistent ? 'p:' : '').$this->_connectioninfo->host.($this->_connectioninfo->port ? ':'.$this->_connectioninfo->port : ''), $this->_connectioninfo->user, $this->_connectioninfo->password);
             if (!$this->_resource) {
-                throw new MySqlException('Connection: '.$this->_connectioninfo->host.' '.$this->_connectioninfo->user.': '.mysqli_connect_error());
+                throw new MySqlException('Connection: '.$this->_connectioninfo->host.' '.$this->_connectioninfo->port.' '.$this->_connectioninfo->user.': '.mysqli_connect_error());
             }    
         }
         catch(\Throwable $e) {
-            throw new MySqlException('Connection: '.$this->_connectioninfo->host.' '.$this->_connectioninfo->user.': '.$e->getMessage(), $e->getCode(), $e);
+            throw new MySqlException('Connection: '.$this->_connectioninfo->host.' '.$this->_connectioninfo->port.' '.$this->_connectioninfo->user.': '.$e->getMessage(), $e->getCode(), $e);
         }
 
         if (!empty($this->_connectioninfo->database) && !mysqli_select_db($this->_resource, $this->_connectioninfo->database)) {
