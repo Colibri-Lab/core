@@ -163,6 +163,12 @@ final class DataReader implements IDataReader
         return $return;
     }
 
+    public function __set(string $property, mixed $value): void
+    {
+        if(strtolower($property) == 'affected') {
+            $this->_affected = $value;
+        }
+    }
     /**
      * Возвращает количество
      * @return int 
