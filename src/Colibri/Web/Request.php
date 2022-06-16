@@ -33,7 +33,8 @@ use Colibri\Common\VariableHelper;
  * @property-read string $host
  * @property-read string $address
  * @property-read string $type
- * 
+ * @property-read bool $insecure
+ *  
  * @testFunction testRequest
  */
 class Request
@@ -205,6 +206,10 @@ class Request
             case 'address': {
                     $proto = $this->server->https ? 'https://' : 'http://';
                     $return = $this->server->http_host ? $proto . $this->server->http_host : '';
+                    break;
+                }
+            case 'insecure': {
+                    $return = !$this->server->https;
                     break;
                 }
             case 'headers': {
