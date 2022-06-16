@@ -362,14 +362,20 @@ class Storages
                     }
                 }
 
+            }
+
+            $logger->error('Migrating data ...');
+            foreach ($this->_storages as $name => $xstorage) {
+
                 $module = $xstorage['module'];
                 $tableModel = 'App\\Modules\\'.$module.'\\'.$xstorage['models']['table'];
                 $module = App::$moduleManager->$module;
                 
                 if(method_exists($tableModel, 'DataMigrate')) {
+                    $logger->error($name.': Migrating data ...');
                     $tableModel::DataMigrate($logger);
                 }
-            
+
             }
 
         }
