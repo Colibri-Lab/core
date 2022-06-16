@@ -289,4 +289,13 @@ class DateHelper
         $time = self::Create($parts[2] ?? 0, $parts[1] ?? 0, $parts[0] ?? 0);
         return self::ToDbString($time, $format);
     }
+
+    static function FromJSDate(string $date): string
+    {
+        $date = explode('-', $date);
+        $zone = $date[1];
+        $date = (int)($date[0] / 1000);
+        $date = DateHelper::ToDbString($date) . '-'.substr($zone, 0, 2) . ':' . substr($zone, 2, 2);
+        return $date;
+    }
 }
