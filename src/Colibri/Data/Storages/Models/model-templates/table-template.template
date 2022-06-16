@@ -45,7 +45,7 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param array $params параметры к запросу
      * @return [[table-class-name]]
      */
-    static function LoadByFilter(int $page = -1, int $pagesize = 20, string $filter = null, string $order = null, array $params = [], bool $calculateAffected = true) : [[table-class-name]]
+    static function LoadByFilter(int $page = -1, int $pagesize = 20, string $filter = null, string $order = null, array $params = [], bool $calculateAffected = true) : ?[[table-class-name]]
     {
         $storage = Storages::Create()->Load('[[storage-name]]');
         $additionalParams = ['page' => $page, 'pagesize' => $pagesize, 'params' => $params];
@@ -65,7 +65,7 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param int $pagesize размер страницы
      * @return [[table-class-name]] 
      */
-    static function LoadAll(int $page = -1, int $pagesize = 20, bool $calculateAffected = false) : [[table-class-name]]
+    static function LoadAll(int $page = -1, int $pagesize = 20, bool $calculateAffected = false) : ?[[table-class-name]]
     {
         return self::LoadByFilter($page, $pagesize, null, null, [], $calculateAffected);
     }
