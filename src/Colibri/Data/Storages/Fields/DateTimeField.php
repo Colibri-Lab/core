@@ -8,6 +8,7 @@ use JsonSerializable;
 use Colibri\Data\Storages\Storage;
 use DateTimeInterface;
 use DateInterval;
+use DateTimeZone;
 
 /**
  * Класс для работы с полями типа datatime
@@ -67,6 +68,7 @@ class DateTimeField extends DateTime implements JsonSerializable
         if (class_exists('\IntlDateFormatter') && $loc) {
             $intlFormatter = new \IntlDateFormatter($loc, \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT);
             $intlFormatter->setPattern($format);
+            $intlFormatter->setTimeZone($this->getTimezone());
             $result = $intlFormatter->format($this);
         }
         else {

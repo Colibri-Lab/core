@@ -10,6 +10,9 @@
 
 namespace Colibri\Common;
 use Colibri\Utils\Debug;
+use DateTime;
+use DateTimeZone;
+use Colibri\Data\Storages\Fields\DateTimeField;
 
 /**
  * Класс обертка над датой
@@ -290,12 +293,14 @@ class DateHelper
         return self::ToDbString($time, $format);
     }
 
-    static function FromJSDate(string $date): string
+    static function FromJSDate(string $date): DateTimeField
     {
         $date = explode('-', $date);
         $zone = $date[1];
         $date = (int)($date[0] / 1000);
-        $date = DateHelper::ToDbString($date) . '-'.substr($zone, 0, 2) . ':' . substr($zone, 2, 2);
-        return $date;
+        $dt = new DateTimeField('now');
+        $dt->setTimestamp($date);
+        $dt->setTimezone(new DateTimeZone('-'.$zone));
+        return $dt;
     }
 }
