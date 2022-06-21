@@ -156,14 +156,15 @@ class StringHelper
      * @return string
      * @testFunction testStringHelperFromCamelCaseAttr
      */
-    public static function FromCamelCaseAttr(string $str, string $splitter = '-'): string
+    public static function FromCamelCaseAttr(string $str, string $splitter = '-', bool $forceLowerCase = true): string
     {
         if (!is_string($str)) {
             return false;
         }
-        return trim(preg_replace_callback('/([A-Z])/', function ($c) use ($splitter) {
-            return $splitter . StringHelper::ToLower($c[1]);
+        return trim(preg_replace_callback('/([A-Z])/', function ($c) use ($splitter, $forceLowerCase) {
+            return $splitter . ($forceLowerCase ? StringHelper::ToLower($c[1]) : $c[1]);
         }, $str), $splitter);
+
     }
 
     /**
