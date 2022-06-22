@@ -202,7 +202,7 @@ class Config implements IteratorAggregate
      * @return object
      * @testFunction testConfigAsObject
      */
-    public function AsObject(): object|string
+    public function AsObject(): object|string|null
     {
         if (is_array($this->_configData)) {
             return (object)VariableHelper::ArrayToObject($this->_configData);
@@ -216,7 +216,7 @@ class Config implements IteratorAggregate
      * @return array
      * @testFunction testConfigAsArray
      */
-    public function AsArray(): array
+    public function AsArray(): ?array
     {
         return (array)$this->_configData;
     }
