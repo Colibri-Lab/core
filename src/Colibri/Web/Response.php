@@ -247,8 +247,11 @@ class Response
      * @return Response
      * @testFunction testResponseRedirect
      */
-    public function Redirect(string $url): Response
+    public function Redirect(string $url, int $status = 301): Response
     {
+        if($status) {
+            header('HTTP/1.1 ' . $status . ' ' . Response::$codes[$status]);
+        }
         header('Location: ' . $url);
         return $this;
     }
