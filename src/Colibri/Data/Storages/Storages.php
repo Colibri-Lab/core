@@ -428,6 +428,9 @@ class Storages
         else if(strstr($type, 'enum') !== false) {
             $default = $default ? "'".$default."'" : null;
         }
+        else if(strstr($type, 'char') !== false) {
+            $default = $default ? "'".$default."'" : null;
+        }
 
         if($type == 'varchar' && !$length) {
             $length = 255;
@@ -465,7 +468,7 @@ class Storages
         $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
-            ' . ($default ? 'DEFAULT \'' . $default . '\' ' : '') . ($comment ? ' COMMENT \'' . $comment . '\'' : ''), ['type' => DataAccessPoint::QueryTypeNonInfo]);
+            ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? ' COMMENT \'' . $comment . '\'' : ''), ['type' => DataAccessPoint::QueryTypeNonInfo]);
             
         if($sqlLogBinVal == 1) {
             $accessPoint->Query('set sql_log_bin=1', ['type' => DataAccessPoint::QueryTypeNonInfo]);
@@ -509,11 +512,10 @@ class Storages
 
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
         
-        
         $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
-            ' . (!is_null($default) ? 'DEFAULT \'' . $default . '\' ' : '') . ($comment ? 'COMMENT \'' . $comment . '\'' : ''),
+            ' . (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? 'COMMENT \'' . $comment . '\'' : ''),
             ['type' => DataAccessPoint::QueryTypeNonInfo]
         );
         if($res->error) {

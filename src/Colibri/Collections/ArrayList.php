@@ -242,4 +242,16 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable
     {
         return $this->ToArray();
     }
+
+    public function Filter(\Closure $closure): ArrayList
+    {
+        $newList = new ArrayList();
+        foreach($this as $value) {
+            if($closure($value) === true) {
+                $newList->Add($value);
+            }
+        }
+        return $newList;
+    }
+
 }

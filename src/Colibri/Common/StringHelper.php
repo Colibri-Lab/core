@@ -880,7 +880,7 @@ class StringHelper
             ), 0, 200)));
         }
 
-        return $hid;
+        return trim($hid, '-');
     }
 
     
