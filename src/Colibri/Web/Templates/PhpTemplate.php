@@ -59,7 +59,11 @@ class PhpTemplate extends Template
         $ret = ob_get_contents();
         ob_end_clean();
 
-        $this->DispatchEvent(EventsContainer::TemplateRendered, (object)['template' => $this, 'content' => $ret]);
+        $args = (object)['template' => $this, 'content' => $ret];
+        $this->DispatchEvent(EventsContainer::TemplateRendered, $args);
+        if(isset($args->content)) {
+            $ret = $args->content;
+        }
 
         return $ret;
 
