@@ -88,7 +88,7 @@ class Process
      * @param Worker $worker
      * @param bool $debug отобразить команду запуска воркера
      */
-    public function __construct(Worker $worker, bool $debug = false, string $entry = '/.rpc')
+    public function __construct(Worker $worker, bool $debug = false, string $entry = '')
     {
         $this->_worker = $worker;
         $this->_debug = $debug;

@@ -168,4 +168,15 @@ class EventsContainer
 
     #endregion
 
+    #region Logger
+
+    /**
+     * Когда что то записано в логгер
+     * параметры: int $type = Logger::*, string $message, mixed $context
+     * результат не используется
+     */
+    const LogWriten = 'logger.writen';
+
+    #endregion
+
 }
