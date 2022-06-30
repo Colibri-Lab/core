@@ -46,6 +46,12 @@ use Colibri\Utils\Debug;
  *
  *
  * @testFunction testProcess
+ * 
+ * @property-read int $pid
+ * @property-read string $command
+ * @property-read string $request
+ * @property array|object $params
+ * 
  */
 class Process
 {
@@ -77,6 +83,11 @@ class Process
     private $_entry;
 
     /**
+     * Параметры
+     */
+    private object $_params;
+
+    /**
      * Обработчик запросов, в большинстве случаев php_cli
      * Если у вас на сервере php_cli лежит в другом месте, необходимо изменить эту переменную
      */
@@ -93,6 +104,7 @@ class Process
         $this->_worker = $worker;
         $this->_debug = $debug;
         $this->_entry = $entry;
+        $this->_params = (object)[];
     }
 
     /**
@@ -120,7 +132,23 @@ class Process
         if ($prop == 'pid') {
             return $this->_pid;
         }
+        else if($prop == 'command') {
+            return 'cd ' . App::$request->server->document_root . $this->_entry . '/ && ' . Process::Handler . ' index.php ' . App::$request->host . ' / key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($this->_params) . '"';
+        }
+        else if($prop == 'request') {
+            return $this->_entry . '/?key=' . $this->_worker->key . '&worker=' . $this->_worker->Serialize() . '&params=' . $this->_worker->PrepareParams($this->_params);
+        }
+        else if($prop == 'params') {
+            return $this->_params;
+        }
         return null;
+    }
+
+    public function __set(string $property, mixed $value): void
+    {
+        if($property === 'params') {
+            $this->_params = (object)$value;
+        }
     }
 
     /**
@@ -130,13 +158,21 @@ class Process
      * @return void
      * @testFunction testProcessRun
      */
-    public function Run(object $params) : void
+    public function Run(?object $params = null) : void
     {
-        if($this->_debug) {
-            Debug::Out('cd ' . App::$request->server->document_root . $this->_entry . '/ && ' . Process::Handler . ' index.php ' . App::$request->host . ' / key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($params) . '"');
-            Debug::Out($this->_entry . '/?key=' . $this->_worker->key . '&worker=' . $this->_worker->Serialize() . '&params=' . $this->_worker->PrepareParams($params));
+        if($params) {
+            $this->_params = $params;
         }
-        $pid = shell_exec('cd ' . App::$request->server->document_root . $this->_entry . '/ && ' . Process::Handler . ' index.php ' . App::$request->host . ' / key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($params) . '" > '.App::$webRoot.'/_cache/process.log & echo $!');
+
+        $command = $this->command;
+        $request = $this->request;
+
+        if($this->_debug) {
+            App::$log->debug('Executing command');
+            App::$log->debug($command);
+            App::$log->debug($request);
+        }
+        $pid = shell_exec($command . ' > '.App::$webRoot.'/_cache/process.log & echo $!');
         $this->_pid = trim($pid, "\n\r\t ");
     }
 

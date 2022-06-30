@@ -260,6 +260,29 @@ class DataTable extends BaseDataTable
     }
 
     /**
+     * Выгрузить в XML
+     * @param string $file файл, куда выгружать
+     * @return void 
+     */
+    public function ExportJson(string $file): void
+    {
+        
+        if (File::Exists($file)) {
+            File::Delete($file);
+        }
+
+        File::Create($file, true);
+        File::Append($file, '['."\n");
+
+        foreach ($this as $row) {
+            File::Append($file, $row->ToJSON().", \n");
+        }
+        
+        File::Append($file, ']');
+
+    }
+
+    /**
      * Импортировать из CSV
      * @param string $file файл источник
      * @param int $firstrow номер строки, с которой начинаются данные

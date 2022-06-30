@@ -30,6 +30,7 @@ use Colibri\Utils\Performance\Monitoring;
 use Colibri\Xml\XmlNode;
 use Colibri\Utils\Config\ConfigException;
 use Colibri\Web\Router;
+use Colibri\IO\FileSystem\Directory;
 
 
 /**
@@ -320,6 +321,28 @@ final class App
 
         return $permissions;
     }
+
+    public function Backup(Logger $logger, string $path): void
+    {
+
+        $logger->debug('Copying configuration, including all module configs');
+        // копируем конфиг
+        $configPath = App::$appRoot . 'config/';
+        Directory::Copy($configPath, $path . 'config/');
+
+        $logger->debug('Copying resources');
+        $configPath = App::$webRoot . 'res/';
+        Directory::Copy($configPath, $path . 'web/res/');
+
+        $logger->debug('Copying composer.json');
+        File::Copy(App::$appRoot . 'composer.json', $path . 'composer.json');
+
+        $logger->debug('Copying composer.lock');
+        File::Copy(App::$appRoot . 'composer.lock', $path . 'composer.lock');
+
+
+    }
+
 }
 
 App::Create();
