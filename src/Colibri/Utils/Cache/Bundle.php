@@ -49,10 +49,17 @@ class Bundle
             return str_replace(App::$webRoot, '/', $jpweb);
         }
 
-        $namespaces = self::GetNamespaceAssets($path, $exts, $exception, $preg);
-        $files = self::GetChildAssets($path, $exts, $exception, $preg);
+        if(!File::IsDirectory($path)) {
+            $files = [$path];
+        }
+        else {
 
-        $files = array_merge($namespaces, $files);
+            $namespaces = self::GetNamespaceAssets($path, $exts, $exception, $preg);
+            $files = self::GetChildAssets($path, $exts, $exception, $preg);
+    
+            $files = array_merge($namespaces, $files); 
+
+        }
 
         $content = '';
         foreach ($files as $file) {
@@ -232,6 +239,9 @@ class Bundle
             if (in_array($mode, [App::ModeDevelopment, App::ModeLocal])) {
                 $lastModified = 0;
                 foreach ($ar as $settings) {
+                    if(!isset($settings['path']) || !$settings['path']) {
+                        continue;
+                    }
                     $lastModified = max($lastModified, self::LastModified(isset($settings['name']) ? $settings['name'] : '',
                         isset($settings['exts']) ? $settings['exts'] : [$ext],
                         $settings['path'],
@@ -255,6 +265,9 @@ class Bundle
         }
 
         foreach ($ar as $settings) {
+            if(!isset($settings['path']) || !$settings['path']) {
+                continue;
+            }
             $content[] = Bundle::Compile(
                 isset($settings['name']) ? $settings['name'] : '',
                 isset($settings['exts']) ? $settings['exts'] : [$ext],
