@@ -49,7 +49,7 @@ class Bundle
             return str_replace(App::$webRoot, '/', $jpweb);
         }
 
-        if(!File::IsDirectory($path)) {
+        if(File::Exists($path) && !File::IsDirectory($path)) {
             $files = [$path];
         }
         else {
