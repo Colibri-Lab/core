@@ -93,10 +93,16 @@ class Bundle
     public static function LastModified(string $name, array $exts, string $path, array $exception = array(), bool $preg = false): int
     {
         $lastModified = 0;
-        $namespaces = self::GetNamespaceAssets($path, $exts, $exception, $preg);
-        $files = self::GetChildAssets($path, $exts, $exception, $preg);
 
-        $files = array_merge($namespaces, $files);
+        if(File::Exists($path) && !File::IsDirectory($path)) {
+            $files = [$path];
+        }
+        else {
+            $namespaces = self::GetNamespaceAssets($path, $exts, $exception, $preg);
+            $files = self::GetChildAssets($path, $exts, $exception, $preg);
+            $files = array_merge($namespaces, $files);
+        }
+
 
         foreach ($files as $file) {
             if (!File::Exists($file)) {
