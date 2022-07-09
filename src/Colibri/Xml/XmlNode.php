@@ -575,7 +575,9 @@ class XmlNode
      */
     public function Remove(): void
     {
-        $this->_node->parentNode->removeChild($this->_node);
+        if($this->_node->parentNode) {
+            $this->_node->parentNode->removeChild($this->_node);
+        }
     }
 
     /**

@@ -90,6 +90,7 @@ class StringHelper
 
     public static function Replace(string|array $subject, string|array $search, string|array $replace, int &$count = 0): string|array |bool
     {
+        $c = 0;
         if (!is_array($search) && is_array($replace)) {
             return false;
         }
