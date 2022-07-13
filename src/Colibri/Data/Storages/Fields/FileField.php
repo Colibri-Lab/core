@@ -230,7 +230,7 @@ class FileField implements JsonSerializable
      */
     public function __toString()
     {
-        return $this->_path;
+        return $this->_path ?: '';
     }
 
     public function jsonSerialize(): mixed
