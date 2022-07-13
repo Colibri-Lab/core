@@ -67,6 +67,11 @@ class XmlNode
     private ?\DOMNode $_node;
 
     /**
+     * Дополнительные данные
+     */
+    private ?object $_tag;
+
+    /**
      * Конструктор
      *
      * @param \DOMNode $node Узел
@@ -76,6 +81,7 @@ class XmlNode
     {
         $this->_node = $node;
         $this->_document = $dom;
+        $this->_tag = (object)[];
     }
 
     /**
@@ -345,6 +351,9 @@ class XmlNode
             case 'prev': {
                     return $this->_node->previousSibling ? new XmlNode($this->_node->previousSibling, $this->_document) : null;
                 }
+            case 'tag': {
+                return $this->_tag;
+            }
             default: {
                     $item = $this->Item($property);
                     if (is_null($item)) {
@@ -408,6 +417,10 @@ class XmlNode
                 }
             case 'document': {
                     $this->_document = $value;
+                    break;
+                }
+            case 'tag': {
+                    $this->_tag = $value;
                     break;
                 }
             default: {
