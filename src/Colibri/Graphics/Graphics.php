@@ -247,6 +247,8 @@ class Graphics
                 $start = new Point(0, 0);
             }
             $newImage = ImageCreateTrueColor($size->width, $size->height);
+            \imagealphablending($newImage, 0);
+            \imagesavealpha($newImage, 1);
             ImageCopyResampled(
                 $newImage,
                 $this->_img,
@@ -262,6 +264,7 @@ class Graphics
             ImageDestroy($this->_img);
             $this->_img = $newImage;
             $this->size = $size;
+            $this->_safeAlpha();
             
             $this->_history[] = array('operation' => 'crop', 'postfix' => 'croped-'.$start->x.'x'.$start->y.'.'.$size->width.'x'.$size->height);
         }
@@ -276,7 +279,7 @@ class Graphics
      * @param integer $arg3
      * @return void
      */
-    public function ApplyFilter(int $filter, int $arg1 = 0, int $arg2 = 0, int $arg3 = 0): void
+    public function ApplyFilter(int $filter, int $arg1 = 0, int $arg2 = 0, int $arg3 = 0): ?bool
     {
         $return = null;
         switch ($filter) {
