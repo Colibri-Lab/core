@@ -162,10 +162,10 @@ class XmlNode
             $dom = new \DOMDocument('1.0', $encoding);
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
-            @$dom->loadHTML((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString);
-            return new XmlNode($dom->documentElement, $dom);
+            @$dom->loadHTML((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . '<div>'.$xmlString.'</div>');
+            return new XmlNode($dom->documentElement->firstChild->firstChild, $dom);
         }
-        catch (\Throwable $e) {
+        catch (\Throwable $e) { 
             throw new AppException('Error in xml data ' . ((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString) . ': ' . $e->getMessage());
         }
     }
