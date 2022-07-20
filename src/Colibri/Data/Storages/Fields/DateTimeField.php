@@ -22,6 +22,9 @@ class DateTimeField extends DateTime implements JsonSerializable
 
     public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
     {
+        if(is_null($data)) {
+            throw new \InvalidArgumentException('Parameter $data must not be a null');
+        }
         parent::__construct($data);
     }
 
