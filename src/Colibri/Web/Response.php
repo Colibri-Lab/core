@@ -395,7 +395,7 @@ class Response
      * @return void
      * @testFunction testResponseClose
      */
-    public function Close(int $status, string $content = '', string $type = 'text/html', string $encoding = 'utf-8', ?array $headers = []): void
+    public function Close(int $status, string $content = '', string $type = 'text/html', string $encoding = 'utf-8', ?array $headers = [], ?array $cookies = []): void
     {
         try {
             header('HTTP/1.1 ' . $status . ' ' . Response::$codes[$status]);
@@ -417,6 +417,18 @@ class Response
                     $this->_addHeader($header, urlencode($value));
                 }
             }
+
+            foreach($cookies as $cookie) {
+                // (object)['name' => 'ss-jwt', 'value' => $session->jwt, 'expire' => time() + 365 * 86400, 'domain' => Request::$i->server->host, 'path' => '/', 'secure' => true]
+                setcookie($cookie->name, $cookie->value, [
+                    'expires' => $cookie->expire ?? 0, 
+                    'path' => $cookie->path ?? '', 
+                    'domain' => $cookie->domain ?? '', 
+                    'secure' => $cookie->secure ?? false, 
+                    'samesite' => $cookie->samesite ?? 'None'
+                ]);
+            }
+
             $this->ContentType($type, $encoding);
             echo Encoding::Convert($content, $encoding, Encoding::UTF8);
             exit;

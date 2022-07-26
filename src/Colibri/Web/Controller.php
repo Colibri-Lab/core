@@ -84,7 +84,7 @@ class Controller
      * @return \stdClass готовый результат
      * @testFunction testFinish
      */
-    public function Finish(int $code, string $message, mixed $result = null, string $charset = 'utf-8', array $headers = []): object
+    public function Finish(int $code, string $message, mixed $result = null, string $charset = 'utf-8', array $headers = [], array $cookies = []): object
     {
         $res = (object)[];
         $res->code = $code;
@@ -92,6 +92,7 @@ class Controller
         $res->result = $result;
         $res->charset = $charset;
         $res->headers = $headers;
+        $res->cookies = $cookies;
         return $res;
     }
 

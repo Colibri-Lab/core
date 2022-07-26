@@ -82,18 +82,21 @@ class Server
         if (!isset($result->headers)) {
             $result->headers = [];
         }
+        if (!isset($result->cookies)) {
+            $result->cookies = [];
+        }
 
         App::$response->Origin();
 
         if ($result?->result ?? null) {
             if ($type == Server::JSON) {
-                App::$response->Close($result->code, json_encode($result->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), 'application/json', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers);
+                App::$response->Close($result->code, json_encode($result->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), 'application/json', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers, $result->cookies);
             }
             elseif ($type == Server::XML) {
-                App::$response->Close($result->code, XmlHelper::Encode($result->result), 'application/xml', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers);
+                App::$response->Close($result->code, XmlHelper::Encode($result->result), 'application/xml', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers, $result->cookies);
             }
             elseif ($type == Server::HTML) {
-                App::$response->Close($result->code, $result->message ? $result->message : HtmlHelper::Encode($result->result), 'text/html', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers);
+                App::$response->Close($result->code, $result->message ? $result->message : HtmlHelper::Encode($result->result), 'text/html', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers, $result->cookies);
             }
             elseif ($type == Server::Stream) {
                 // если запросили например PDF или еще что то 
@@ -107,10 +110,10 @@ class Server
         }
         else {
             if ($type == Server::CSS) {
-                App::$response->Close($result->code, $result->message, 'text/css', 'utf-8', $result->headers);
+                App::$response->Close($result->code, $result->message, 'text/css', 'utf-8', $result->headers, $result->cookies);
             }
             else {
-                App::$response->Close($result->code, $result->message, 'text/html', 'utf-8', $result->headers);
+                App::$response->Close($result->code, $result->message, 'text/html', 'utf-8', $result->headers, $result->cookies);
             }
         }
     }
@@ -143,7 +146,7 @@ class Server
             // это модуль, значит должно быть modules/«название модуля»[/«название контроллера»]
             $parts = explode('\\', $class);
             if (count($parts) >= 3) {
-                $parts[count($parts) - 1] = 'Controllers\\' . $parts[count($parts) - 1];
+                array_splice($parts, 2, 0, 'Controllers');
             }
             else {
                 $parts[] = 'Controllers\\';

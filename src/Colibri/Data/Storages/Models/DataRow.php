@@ -319,7 +319,7 @@ class DataRow extends BaseDataRow
         foreach ($ar as $key => $value) {
             if ($value instanceof FileField) {
                 $ar[$key] = $value->Source();
-            }   
+            }  
         }
         return $ar;
     }

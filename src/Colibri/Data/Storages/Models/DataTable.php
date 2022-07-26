@@ -164,7 +164,7 @@ class DataTable extends BaseDataTable
 
         $fieldValues = [];
         foreach ($data as $key => $value) {
-            if ($row->IsPropertyChanged($key)) {
+            if (!$id || $row->IsPropertyChanged($key)) {
                 $fieldValues[$key] = $value;
             }
         }
