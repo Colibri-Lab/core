@@ -85,6 +85,7 @@ class Bundle
             File::Delete($jpweb);
         }
 
+        exit;
         File::Write($jpweb, $content, true, '777');
 
         return str_replace(App::$webRoot, '/', $jpweb);
@@ -176,7 +177,7 @@ class Bundle
             }
         }
 
-        $foundDirectories = $di->Directories($path, 'filename', SORT_ASC);
+        $foundDirectories = $di->Directories($path, 'name', SORT_ASC);
         foreach ($foundDirectories as $dir) {
             /** @var Directory $dir */
 
@@ -203,9 +204,9 @@ class Bundle
         $files = [];
 
         $di = new Finder();
-        $foundFiles = $di->Files($path, '/^[^\.]/');
+        $foundFiles = $di->Files($path, '/^[^\.]/', 'name', SORT_ASC);
+        $foundDirectories = $di->Directories($path, 'name', SORT_ASC);
 
-        $foundDirectories = $di->Directories($path, 'filename', SORT_ASC);
         foreach ($foundDirectories as $dir) {
             /** @var Directory $dir */
 
@@ -238,7 +239,7 @@ class Bundle
     {
         
         $name = $domain . '.' . $name;
-        $mode = App::$config ?App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
+        $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
 
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
         if (File::Exists($jpweb)) {

@@ -12,6 +12,7 @@
 
 namespace Colibri\Collections;
 use JsonSerializable;
+use Colibri\Utils\Debug;
 
 /**
  * Базовый класс списка, реализует стандартный функционал
