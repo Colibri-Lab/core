@@ -124,5 +124,6 @@ class RequestedFile
     function MoveTo(string $path): void
     {
         rename($this->temporary, $path);
+        chmod($path, 0777);
     }
 }
