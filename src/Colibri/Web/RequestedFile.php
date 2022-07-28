@@ -121,9 +121,9 @@ class RequestedFile
      * @return void
      * @testFunction testRequestedFileMoveTo
      */
-    function MoveTo(string $path): void
+    function MoveTo(string $path, int $mode = 0777): void
     {
         rename($this->temporary, $path);
-        chmod($path, 0777);
+        chmod($path, $mode);
     }
 }
