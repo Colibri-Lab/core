@@ -235,7 +235,7 @@ class Bundle
      * @return string
      * @testFunction testBundleAutomate
      */
-    public static function Automate(string $domain, string $name, string $ext, array $ar): string
+    public static function Automate(string $domain, string $name, string $ext, array $ar, ?string $useDomainsInUrls = null): string
     {
         
         $name = $domain . '.' . $name;
@@ -292,6 +292,10 @@ class Bundle
             $content = $args->content;
         }
         $recacheKey = md5($content);
+
+        if($useDomainsInUrls) {
+            $content = str_replace('url(', 'url(' . $useDomainsInUrls, $content);
+        }
 
         File::Write($jpweb, $content, true, '777');
         
