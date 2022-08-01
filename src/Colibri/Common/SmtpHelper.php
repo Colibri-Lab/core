@@ -15,8 +15,8 @@ class SmtpHelper
         }
 
         $smtpHost = isset($configArray['host']) ? $configArray['host'] : '';
-        // $smtpPort = isset($configArray['port']) ? $configArray['port'] : ''
-        // $smtpSecure = isset($configArray['secure']) ? $configArray['secure'] : ''
+        $smtpPort = isset($configArray['port']) ? $configArray['port'] : '';
+        $smtpSecure = isset($configArray['secure']) ? $configArray['secure'] : '';
         $smtpUser = isset($configArray['user']) ? $configArray['user']: '';
         $smtpPassword = isset($configArray['password']) ? $configArray['password'] : '';
         $smtpFrom = isset($configArray['from']) ? $configArray['from'] : '';
@@ -26,6 +26,8 @@ class SmtpHelper
         $mailer->CharSet = 'utf-8';
         $mailer->isSMTP();
         $mailer->Host = $smtpHost;
+        $mailer->Port = $smtpPort;
+        $mailer->SMTPSecure = $smtpSecure;
         $mailer->SMTPAuth = true;
         $mailer->Username = $smtpUser;
         $mailer->Password = $smtpPassword;
