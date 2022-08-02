@@ -168,7 +168,7 @@ class Bundle
         $files = [];
 
         $di = new Finder();
-        $foundFiles = $di->Files($path, '/^\..*/');
+        $foundFiles = $di->Files($path, '/^\..*/', 'name', SORT_ASC);
 
         foreach ($foundFiles as $file) {
             /** @var File $file */
