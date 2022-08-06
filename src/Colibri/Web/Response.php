@@ -420,6 +420,9 @@ class Response
 
             foreach($cookies as $cookie) {
                 // (object)['name' => 'ss-jwt', 'value' => $session->jwt, 'expire' => time() + 365 * 86400, 'domain' => Request::$i->server->host, 'path' => '/', 'secure' => true]
+                if(!isset($cookie->name)) {
+                    continue;
+                }
                 setcookie($cookie->name, $cookie->value, [
                     'expires' => $cookie->expire ?? 0, 
                     'path' => $cookie->path ?? '', 
