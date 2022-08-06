@@ -79,6 +79,7 @@ class Server
      */
     protected function Finish(string $type, mixed $result)
     {
+        $result = (object)$result;
         if (!isset($result->headers)) {
             $result->headers = [];
         }
@@ -282,7 +283,7 @@ class Server
             $obj = new $class();
             $result = (object)$obj->$method($get, $post, $payload);    
             
-            $this->DispatchEvent(EventsContainer::RpcRequestProcessed, (object)[
+            $args = (object)[
                 'object' => $obj,
                 'class' => $class,
                 'method' => $method,
@@ -290,9 +291,10 @@ class Server
                 'post' => $post,
                 'payload' => $payload,
                 'result' => $result
-            ]);
+            ];
+            $this->DispatchEvent(EventsContainer::RpcRequestProcessed, $args);
 
-            $this->Finish($type, $result);
+            $this->Finish($type, $args->result);
         }
 
     }
