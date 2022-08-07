@@ -9,6 +9,7 @@
  */
 
 namespace Colibri\Common;
+use Colibri\Utils\Debug;
 
 class NoLangHelper
 {
@@ -32,6 +33,10 @@ class NoLangHelper
     {
         $ret = [];
         foreach($array as $key => $value) {
+            if($value instanceof \DateTime) {
+                $ret[$key] = $value;
+                continue;
+            }
             if(is_array($value)) {
                 $ret[$key] = self::ParseArray($value);
             }

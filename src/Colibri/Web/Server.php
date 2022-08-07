@@ -16,13 +16,12 @@ use Colibri\App;
 use Colibri\Common\Encoding;
 use Colibri\Common\XmlHelper;
 use Colibri\Common\HtmlHelper;
-use Colibri\Common\MimeType;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Events\EventsContainer;
 use Colibri\Common\StringHelper;
 use Colibri\Common\VariableHelper;
+use Colibri\Common\NoLangHelper;
 use Colibri\Utils\Debug;
-use PHPUnit\TextUI\XmlConfiguration\Variable;
 
 /**
  * Веб сервер
@@ -293,6 +292,9 @@ class Server
                 'result' => $result
             ];
             $this->DispatchEvent(EventsContainer::RpcRequestProcessed, $args);
+
+            // на случай, если не включен модуль языков
+            $args->result = NoLangHelper::ParseArray($args->result);
 
             $this->Finish($type, $args->result);
         }
