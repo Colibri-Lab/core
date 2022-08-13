@@ -80,7 +80,7 @@ final class Command extends SqlCommand
         for ($i = 0; $i < count($values); $i++) {
             $params[] = &$values[$i];
         }
-
+       
         call_user_func_array('mysqli_stmt_bind_param', $params);
 
         return $stmt;
@@ -125,12 +125,19 @@ final class Command extends SqlCommand
         $preparedQuery = $this->PrepareQueryString();
 
         // выполняем запрос
-        if ($this->_params) {
+        try {
             $stmt = $this->_prepareStatement($preparedQuery);
             mysqli_stmt_execute($stmt);
             $res = mysqli_stmt_get_result($stmt);
-        } else {
-            $res = mysqli_query($this->connection->resource, $preparedQuery);
+        }
+        catch(MySqlException $e) {
+            if($e->getCode() == 0) {
+                // нет параметров
+                $res = mysqli_query($this->connection->resource, $preparedQuery);
+            }
+            else {
+                throw $e;
+            }
         }
         
         if (!($res instanceof \mysqli_result)) {
