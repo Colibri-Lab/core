@@ -36,6 +36,9 @@ class Router
         }
         
         foreach($modules as $moduleConfig) {
+            if(!$moduleConfig->Query('enabled')->GetValue()) {
+                continue;
+            }
             /** @var Config $moduleConfig */
             try {
 

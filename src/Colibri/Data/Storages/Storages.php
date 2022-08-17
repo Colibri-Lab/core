@@ -84,6 +84,9 @@ class Storages
         }
         
         foreach($modules as $moduleConfig) {
+            if(!$moduleConfig->Query('enabled')->GetValue()) {
+                continue;
+            }
             /** @var Config $moduleConfig */
             try {
                 
