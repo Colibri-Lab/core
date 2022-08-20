@@ -380,9 +380,9 @@ class DataRow extends BaseDataRow
 
     /**
      * Вызывает SaveRow у таблицы
-     * @return bool 
+     * @return QueryInfo|bool 
      */
-    public function Save() : bool
+    public function Save() : QueryInfo|bool
     {
         return $this->table->SaveRow($this);
     }

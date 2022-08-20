@@ -335,11 +335,11 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Сохраняет переданную строку в базу данных
      * @param DataRow $row строка для сохранения
      * @param string|null $idField поле для автоинкремента, если сложный запрос
-     * @return bool
+     * @return QueryInfo|bool
      * @throws DataModelException
      * @testFunction testDataTableSaveRow
      */
-    public function SaveRow(DataRow $row, ?string $idField = null, ?bool $convert = true): bool
+    public function SaveRow(DataRow $row, ?string $idField = null, ?bool $convert = true): QueryInfo|bool
     {
         if (!$row->changed) {
             return false;
@@ -401,14 +401,14 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 
                 $res = $this->_point->Update($table, $fieldValues, implode(' and ', $flt));
                 if ($res->affected == 0 && $res->error) {
-                    return false;
+                    return $res;
                 }
             }
         }
         else {
             $res = $this->_point->Insert($table, $fieldValues);
             if ($res->affected == 0) {
-                return false;
+                return $res;
             }
 
             // если это ID то сохраняем
@@ -419,8 +419,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
             }
 
         }
-
-
+        
         $row->UpdateOriginal();
 
         return true;

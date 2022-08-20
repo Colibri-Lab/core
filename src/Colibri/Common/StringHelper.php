@@ -145,7 +145,7 @@ class StringHelper
             $str = StringHelper::ToUpperFirst($str);
         }
 
-        return preg_replace_callback('/' . $splitter . '([A-Za-z1-9])/', function ($c) {
+        return preg_replace_callback('/' . $splitter . '([A-Za-z0-9])/', function ($c) {
             return StringHelper::ToUpper(substr($c[1], 0, 1)) . StringHelper::ToLower(substr($c[1], 1));
         }, $str);
     }

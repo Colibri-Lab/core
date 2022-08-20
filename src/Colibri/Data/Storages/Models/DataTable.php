@@ -28,6 +28,7 @@ use Colibri\Utils\Debug;
 use Colibri\Xml\XmlNode;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Models\DataModelException;
+use Colibri\Data\SqlClient\QueryInfo;
 
 /**
  * Таблица, представление данных в хранилище
@@ -145,10 +146,10 @@ class DataTable extends BaseDataTable
      * Сохраняет переданную строку в базу данных
      * @param DataRow|BaseDataRow $row строка для сохранения
      * @param string|null $idField поле для автоинкремента, если не найдется в таблице
-     * @return bool
+     * @return QueryInfo|bool
      * @throws DataModelException
      */
-    public function SaveRow(DataRow|BaseDataRow $row, ?string $idField = null, ?bool $convert = true): bool
+    public function SaveRow(DataRow|BaseDataRow $row, ?string $idField = null, ?bool $convert = true): QueryInfo|bool
     {
 
         $idf = $this->_storage->GetRealFieldName('id');
@@ -170,14 +171,14 @@ class DataTable extends BaseDataTable
         }
 
         if(empty($fieldValues)) {
-            return $id !=-0;
+            return $id != 0;
         }
 
         if (!$id) {
             $res = $this->_storage->accessPoint->Insert($this->_storage->name, $fieldValues);
             if ($res->insertid == 0) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
-                return false;
+                return $res;
             }
             $row->$idf = $res->insertid;
             $row->$idc = DateHelper::ToDBString(time());
@@ -186,7 +187,7 @@ class DataTable extends BaseDataTable
             $res = $this->_storage->accessPoint->Update($this->_storage->name, $fieldValues, $idf . '=' . $id);
             if ($res->error) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
-                return false;
+                return $res;
             }
         }
 
