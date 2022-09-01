@@ -41,7 +41,7 @@ class NoLangHelper
                 $ret[$key] = self::ParseArray($value);
             }
             else if(is_object($value)) {
-                if(method_exists($value, 'ToArray')) {
+                if(is_object($value) && method_exists($value, 'ToArray')) {
                     $value = $value->ToArray();
                 }
                 $ret[$key] = self::ParseArray($value);

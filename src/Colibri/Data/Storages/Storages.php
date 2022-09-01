@@ -374,7 +374,7 @@ class Storages
                 $tableModel = 'App\\Modules\\'.$module.'\\'.$xstorage['models']['table'];
                 $module = App::$moduleManager->$module;
                 
-                if(method_exists($tableModel, 'DataMigrate')) {
+                if(is_object($tableModel) && method_exists($tableModel, 'DataMigrate')) {
                     $logger->error($name.': Migrating data ...');
                     $tableModel::DataMigrate($logger);
                 }
