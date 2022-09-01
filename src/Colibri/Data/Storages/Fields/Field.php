@@ -271,10 +271,6 @@ class Field
         }
         unset($this->_xfield['hasdefault']);
 
-        // if(isset($this->_xfield['component']) && strstr($this->_xfield['component'], 'Colibri.UI.Forms.') !== false) {
-        //     $this->_xfield['component'] = str_replace('Colibri.UI.Forms.', '', $this->_xfield['component']);
-        // }
-
         if(isset($this->_xfield['length']) && $this->_xfield['length'] === '') {
             unset($this->_xfield['length']);
         }
