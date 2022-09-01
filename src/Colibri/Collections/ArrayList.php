@@ -255,4 +255,13 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable
         return $newList;
     }
 
+    public function Map(\Closure $closure): ArrayList
+    {
+        $newList = new ArrayList();
+        foreach($this as $value) {
+            $newList->Add($closure($value));
+        }
+        return $newList;
+    }
+
 }
