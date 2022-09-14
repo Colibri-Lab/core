@@ -139,13 +139,13 @@ class DataRow extends BaseDataRow
             } elseif ($field->isValues) {
                 if (!$field->multiple) {
                     $v = $field->type == 'numeric' ? (float)$rowValue : $rowValue;
-                    $t = $field->values[$v] ?? '';
+                    $t = $v && isset($field->values[$v]) ? $field->values[$v] : '';
                     return $rowValue ? new ValueField($v, $t) : null;
                 } else {
                     $vv = is_array($rowValue) ? $rowValue : explode(',', $rowValue);
                     $r = array();
                     foreach ($vv as $v) {
-                        $r[$v] = new ValueField($v, $this->_values[$v]);
+                        $r[$v] = new ValueField($v, $v && isset($this->_values[$v]) ? $this->_values[$v] : '');
                     }
                     return $r;
                 }
