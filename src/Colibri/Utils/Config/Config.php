@@ -50,7 +50,7 @@ class Config implements IteratorAggregate
         if (is_array($fileName) || is_object($fileName)) {
             $this->_configData = $fileName;
         }
-        else if ($fileName) {
+        else if (is_numeric($fileName) || $fileName) {
             $path = App::$appRoot . '/config/' . $fileName;
             try {
                 if ($isFile && file_exists($path)) {

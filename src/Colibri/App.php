@@ -262,7 +262,7 @@ final class App
             $logging = self::$isDev ? Logger::Debug : Logger::Critical;
             $level = self::$isDev ? Monitoring::EveryTimer : Monitoring::Never;
         }
-        self::$monitoring = new Monitoring(self::$log, $logging, $level);
+        self::$monitoring = new Monitoring(self::$log, $level, $logging);
         self::$monitoring->StartTimer('app');
 
         // создание всяких утилитных классов
