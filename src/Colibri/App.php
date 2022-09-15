@@ -253,7 +253,16 @@ final class App
         /**
          * Создаем обьект мониторинга
          */
-        self::$monitoring = new Monitoring(self::$log, self::$isDev ?Logger::Debug : Logger::Critical, self::$isDev ?Monitoring::EveryTimer : Monitoring::Never);
+        $monitoringConfig = self::$config->Query('monitoring');
+        if($monitoringConfig) {
+            $level = $monitoringConfig->Query('level')->GetValue();
+            $logging = $monitoringConfig->Query('logging')->GetValue();    
+        }
+        else {
+            $logging = self::$isDev ? Logger::Debug : Logger::Critical;
+            $level = self::$isDev ? Monitoring::EveryTimer : Monitoring::Never;
+        }
+        self::$monitoring = new Monitoring(self::$log, $logging, $level);
         self::$monitoring->StartTimer('app');
 
         // создание всяких утилитных классов
