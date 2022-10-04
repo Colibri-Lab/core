@@ -30,7 +30,12 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param Storage|null $storage хранилище
      * @return void 
      */
-    public function __construct(DataAccessPoint $point, IDataReader $reader = null, string $returnAs = '[[row-class-name]]', Storage|null $storage = null)
+    public function __construct(
+        DataAccessPoint $point, 
+        IDataReader $reader = null, 
+        string $returnAs = '[[row-class-name]]', 
+        Storage|null $storage = null
+    )
     {
         parent::__construct($point, $reader, $returnAs, $storage);
     }
@@ -45,7 +50,14 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param array $params параметры к запросу
      * @return [[table-class-name]]
      */
-    static function LoadByFilter(int $page = -1, int $pagesize = 20, string $filter = null, string $order = null, array $params = [], bool $calculateAffected = true) : ?[[table-class-name]]
+    public static function LoadByFilter(
+        int $page = -1, 
+        int $pagesize = 20, 
+        string $filter = null, 
+        string $order = null, 
+        array $params = [], 
+        bool $calculateAffected = true
+    ) : ?[[table-class-name]]
     {
         $storage = Storages::Create()->Load('[[storage-name]]');
         $additionalParams = ['page' => $page, 'pagesize' => $pagesize, 'params' => $params];
@@ -65,7 +77,11 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param int $pagesize размер страницы
      * @return [[table-class-name]] 
      */
-    static function LoadAll(int $page = -1, int $pagesize = 20, bool $calculateAffected = false) : ?[[table-class-name]]
+    public static function LoadAll(
+        int $page = -1, 
+        int $pagesize = 20, 
+        bool $calculateAffected = false
+    ) : ?[[table-class-name]]
     {
         return self::LoadByFilter($page, $pagesize, null, null, [], $calculateAffected);
     }
@@ -75,7 +91,7 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param int $id ID строки
      * @return [[row-class-name]]|null
      */
-    static function LoadById(int $id) : [[row-class-name]]|null 
+    public static function LoadById(int $id) : [[row-class-name]]|null 
     {
         $table = self::LoadByFilter(1, 1, '{id}=[[id:integer]]', null, ['id' => $id], false);
         return $table && $table->Count() > 0 ? $table->First() : null;
@@ -85,7 +101,7 @@ class [[table-class-name]] extends BaseModelDataTable {
      * Создание модели по названию хранилища
      * @return [[row-class-name]]
      */
-    static function LoadEmpty() : [[row-class-name]]
+    public static function LoadEmpty() : [[row-class-name]]
     {
         $table = self::LoadByFilter(-1, 20, 'false', null, [], false);
         return $table->CreateEmptyRow();
@@ -96,7 +112,7 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param int[] $ids ID строки
      * @return bool
      */
-    static function DeleteAllByIds(array $ids): bool
+    public static function DeleteAllByIds(array $ids): bool
     {
         return self::DeleteAllByFilter('{id} in ('.implode(',', $ids).')');
     }
@@ -106,12 +122,12 @@ class [[table-class-name]] extends BaseModelDataTable {
      * @param string $filter фильтр, допускается использование элементов вида {field}
      * @return bool
      */
-    static function DeleteAllByFilter(string $filter): bool
+    public static function DeleteAllByFilter(string $filter): bool
     {
         return self::DeleteByFilter('[[storage-name]]', $filter);
     }
 
-    static function DataMigrate(?Logger $logger = null): bool
+    public static function DataMigrate(?Logger $logger = null): bool
     {
         // миграция данных
         return true;
