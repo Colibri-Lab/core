@@ -87,7 +87,7 @@ class Server
 
         App::$response->Origin();
 
-        if ($result?->result ?? null) {
+        if (isset($result->result)) {
             if ($type == Server::JSON) {
                 App::$response->Close($result->code, json_encode($result->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), 'application/json', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers, $result->cookies);
             }
