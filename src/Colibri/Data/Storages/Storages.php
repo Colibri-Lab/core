@@ -369,6 +369,7 @@ class Storages
 
             $logger->error('Migrating data ...');
             foreach ($this->_storages as $name => $xstorage) {
+                $logger->error($name.': Checking storage ...');
 
                 $module = $xstorage['module'];
                 $tableModel = 'App\\Modules\\'.$module.'\\'.$xstorage['models']['table'];
