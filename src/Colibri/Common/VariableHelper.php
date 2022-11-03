@@ -376,7 +376,7 @@ class VariableHelper
      * @return mixed
      * @testFunction testVariableHelperExtend
      */
-    public static function Extend(mixed $o1, mixed $o2, bool $recursive = false): mixed
+    public static function Extend(mixed $o1, mixed $o2, bool $recursive = false, bool $nullsAsUnset = false): mixed
     {
 
         if ($recursive && !is_array($o2) && !is_object($o2)) {
@@ -387,8 +387,8 @@ class VariableHelper
         $o2 = (array)$o2;
 
         foreach ($o1 as $k => $v) {
-            if (isset($o2[$k])) {
-                $o1[$k] = $recursive ?VariableHelper::Extend($o1[$k], $o2[$k], $recursive) : $o2[$k];
+            if (isset($o2[$k]) && (!$nullsAsUnset || ($nullsAsUnset && $o2[$k] != null))) {
+                $o1[$k] = $recursive ? VariableHelper::Extend($o1[$k], $o2[$k], $recursive) : $o2[$k];
             }
         }
 
