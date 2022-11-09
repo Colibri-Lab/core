@@ -108,6 +108,6 @@ class TimeZoneHelper
             $decimal = "000000";
         }
         $format = preg_replace('/(%f)/', $decimal, $format);
-        return strftime($format, $microtime);
+        return date($format, $microtime);
     }
 }

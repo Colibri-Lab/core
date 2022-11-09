@@ -197,7 +197,7 @@ class Response
      */
     public function ExpiresAfter(int $seconds): Response
     {
-        $this->_addHeader('Expires', gmstrftime("%a, %d %b %Y %H:%M:%S GMT", time() - $seconds));
+        $this->_addHeader('Expires', gmdate("D, d M Y H:i:s GMT", time() - $seconds));
         return $this;
     }
 
@@ -210,7 +210,7 @@ class Response
      */
     public function ExpiresAt(int $date): Response
     {
-        $this->_addHeader('Expires', gmstrftime("%a, %d %b %Y %H:%M:%S GMT", $date));
+        $this->_addHeader('Expires', gmdate("D, d M Y H:i:s GMT", $date));
         return $this;
     }
 

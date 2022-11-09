@@ -611,10 +611,10 @@ class Storages
      * @param DataAccessPoint $accessPoint точка доступа
      * @param string $table таблица
      * @return void
-     
+    
     private function _dropStorageTable(Logger $logger, $accessPoint, $table)
     {
-        $res = $accessPoint->Query('rename table `' . $table . '` to `_' . $table . '_backup_' . strftime('%Y%m%d%H%M%S', time()) . '`', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        $res = $accessPoint->Query('rename table `' . $table . '` to `_' . $table . '_backup_' . date('YmdHis', time()) . '`', ['type' => DataAccessPoint::QueryTypeNonInfo]);
         if($res->error) {
             $logger->error($table.': Can not delete destination: ' . $res->query);
             throw new DataAccessPointsException('Can not delete destination: ' . $res->query);

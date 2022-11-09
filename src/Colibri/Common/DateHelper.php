@@ -68,7 +68,7 @@ class DateHelper
      * @return string
      * @testFunction testDateHelperToDbString
      */
-    public static function ToDbString(?int $time = null, ?string $format = '%Y-%m-%d %H:%M:%S'): string
+    public static function ToDbString(?int $time = null, ?string $format = 'Y-m-d H:i:s'): string
     {
         if (VariableHelper::IsNull($time)) {
             $time = time();
@@ -91,7 +91,7 @@ class DateHelper
         if (is_null($time)) {
             $time = time();
         }
-        return ((int)strftime('%d', $time)) . ' ' . TimeZoneHelper::Month2(strftime('%m', $time) - 1) . ' ' . strftime('%Y', $time) . ($showTime ? ' ' . strftime('%H', $time) . ':' . strftime('%M', $time) : '');
+        return ((int)date('d', $time)) . ' ' . TimeZoneHelper::Month2(date('m', $time) - 1) . ' ' . date('Y', $time) . ($showTime ? ' ' . date('H', $time) . ':' . date('i', $time) : '');
     }
 
     /**
@@ -234,14 +234,14 @@ class DateHelper
         try {
 
             // не считаем дату начала и считаем дату окончания полностью
-            $time1 = strftime('%Y-%m-%d 00:00:00', $time1);
+            $time1 = date('Y-m-d 00:00:00', $time1);
             $time1 = strtotime('+1 days', strtotime($time1));
-            $time2 = strftime('%Y-%m-%d 00:00:00', $time2);
+            $time2 = date('Y-m-d 00:00:00', $time2);
             $time2 = strtotime('+1 days', strtotime($time2));
 
             // считаем разницу в полных годах
-            $time1 = strftime('%Y-%m-%d 00:00:00', $time1);
-            $time2 = strftime('%Y-%m-%d 00:00:00', $time2);
+            $time1 = date('Y-m-d 00:00:00', $time1);
+            $time2 = date('Y-m-d 00:00:00', $time2);
             $time1c = date_create($time1);
             $time2c = date_create($time2);
             $diff = date_diff($time2c, $time1c, false);
@@ -252,8 +252,8 @@ class DateHelper
             $time2 = strtotime($time2);
 
             // считаем разницу в полных месяцах
-            $time1 = strftime('%Y-%m-%d 00:00:00', $time1);
-            $time2 = strftime('%Y-%m-%d 00:00:00', $time2);
+            $time1 = date('Y-m-d 00:00:00', $time1);
+            $time2 = date('Y-m-d 00:00:00', $time2);
 
             $time1c = date_create($time1);
             $time2c = date_create($time2);
@@ -264,8 +264,8 @@ class DateHelper
             $time1 = strtotime('+' . $m . ' month', strtotime($time1));
             $time2 = strtotime($time2);
 
-            $time1 = strftime('%Y-%m-%d 00:00:00', $time1);
-            $time2 = strftime('%Y-%m-%d 00:00:00', $time2);
+            $time1 = date('Y-m-d 00:00:00', $time1);
+            $time2 = date('Y-m-d 00:00:00', $time2);
 
             // считаем количество полных дней
             $time1c = date_create($time1);
