@@ -185,6 +185,14 @@ class DataRow extends BaseDataRow
                 $this->_data[$property] = $value instanceof UUIDField ? $value : new UUIDField($value);
             }
         }
+        else if($field->class === 'array') {
+            if ($mode == 'get') {
+                $this->_data[$property] = is_string($rowValue) ? json_decode($rowValue) : $rowValue;
+                $value = $this->_data[$property];
+            } else {
+                $this->_data[$property] = is_string($rowValue) ? $value : json_encode($value);
+            }
+        }
         else {
 
             $class = $storage->GetFieldClass($field);
