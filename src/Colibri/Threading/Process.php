@@ -91,7 +91,7 @@ class Process
      * Обработчик запросов, в большинстве случаев php_cli
      * Если у вас на сервере php_cli лежит в другом месте, необходимо изменить эту переменную
      */
-    const Handler = '/usr/bin/php';
+    const Handler = '/usr/bin/php8.1';
 
     /**
      * Выполняет Worker по имени класса в отдельном потоке
@@ -172,7 +172,7 @@ class Process
             App::$log->debug($command);
             App::$log->debug($request);
         }
-        $pid = shell_exec($command . ' > '.App::$webRoot.'/_cache/process.log & echo $!');
+        $pid = shell_exec($command . ' > '.App::$webRoot.'/_cache/log/process.log & echo $!');
         $this->_pid = trim($pid, "\n\r\t ");
     }
 

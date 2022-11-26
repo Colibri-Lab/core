@@ -84,7 +84,7 @@ abstract class Worker
         $this->_id = RandomizationHelper::Integer(0, 999999999);
 
         $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
-        $this->_log = new FileLogger($mode == App::ModeDevelopment ? Logger::Debug : Logger::Error, App::$webRoot . '_cache/worker_log_' . $this->_key. '.log'); // лог файл не режется на куски
+        $this->_log = new FileLogger($mode == App::ModeDevelopment ? Logger::Debug : Logger::Error, App::$webRoot . '_cache/log/worker_log_' . $this->_key. '.log'); // лог файл не режется на куски
     }
 
     /**
