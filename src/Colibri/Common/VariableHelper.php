@@ -482,7 +482,7 @@ class VariableHelper
         return \array_sum($array);
     }
 
-    public static function IsSimilar(array |object $actual, array |object $expected): bool
+    public static function IsSimilar(mixed $actual, mixed $expected): bool
     {
         try {
             if ((!is_array($actual) && !is_object($actual)) || (!is_array($expected) && !is_object($expected))) {
