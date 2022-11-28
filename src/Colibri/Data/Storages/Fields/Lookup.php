@@ -116,21 +116,36 @@ class Lookup
             }
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
-            $filter = $storage->GetRealFieldName($data->value ?? 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
+            $filter = !is_array($value) ? $storage->GetRealFieldName($data->value ?? 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'' : $storage->GetRealFieldName($data->value ?? 'id') . ' in (\'' . implode('\', \'', $value) . '\')';
             /** @var IDataReader */
-            $reader = $accessPoint->Query('select * from ' . $data->name . ($filter && $filter != '' ? ' where ' . $filter : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => 1]);
+            $reader = $accessPoint->Query('select * from ' . $data->name . ($filter && $filter != '' ? ' where ' . $filter : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => is_array($value) ? count($value) : 1]);
             if($reader->Count() == 0) {
                 return null;
             }
             $table = new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
-            $v = $table->First();
-            if(isset($data->value)) {
-                $v->value = $v->{ $data->value };
+            if($table->Count() === 1) {
+                $v = $table->First();
+                if(isset($data->value)) {
+                    $v->value = $v->{ $data->value };
+                }
+                if(isset($v->title)) {
+                    $v->title = $v->{ $data->title };
+                }
+                return $v;    
             }
-            if(isset($v->title)) {
-                $v->title = $v->{ $data->title };
+            else {
+                $ret = [];
+                foreach($table as $v) {
+                    if(isset($data->value)) {
+                        $v->value = $v->{ $data->value };
+                    }
+                    if(isset($data->title)) {
+                        $v->title = $v->{ $data->title };
+                    }
+                    $ret[] = $v;        
+                }
+                return $ret;
             }
-            return $v;
         }
         else if ($this->accessPoint) {
             $data = (object)$this->accessPoint;
