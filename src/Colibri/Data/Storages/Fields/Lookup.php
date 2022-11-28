@@ -111,6 +111,9 @@ class Lookup
         if ($this->storage) {
             $data = (object)$this->storage;
             $storage = Storages::Create()->Load($data->name);
+            if(!$storage) {
+                return null;
+            }
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
             $filter = $storage->GetRealFieldName($data->value ?? 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
