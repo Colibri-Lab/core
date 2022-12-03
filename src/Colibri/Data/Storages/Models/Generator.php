@@ -24,6 +24,85 @@ class Generator {
         return [$rootNamespace.$namespaceName, $tableClassName, $row];
     }
 
+    static function GetSchemaObject($fields): array
+    {
+        $jsonTypeMap = [
+            'bool' => 'boolean',
+            'int' => 'integer',
+            'float' => 'number',
+            'double' => 'number',
+            'string' => 'string',
+            'object' => 'object',
+            'array' => 'array',
+            'date' => 'string',
+            'datetime' => 'string',
+            'callable' => 'null',
+            'iterable' => 'null',
+            'resource' => 'null'
+        ];
+
+        $schemaRequired = [];
+        $schemaProperties = [];
+
+        if(empty((array)$fields)) {
+            return [[], ['\'patternProperties\' => [\'.*\' => [\'type\' => \'string\']]']];
+        }
+
+        foreach($fields as $field) {
+
+            $schemaType = '';
+            $schemaItems = '';
+            $schemaEnum = [];
+
+            $class = $field->class;
+            if (!in_array($field->class, array_keys($jsonTypeMap))) {
+                $class = explode('\\', $class);
+                $class = end($class);
+                $schemaType = $class . '::JsonSchema';
+            } else {
+                $schemaType = $jsonTypeMap[$field->class];
+            }
+
+            if($field->multiple) {
+                $schemaItems = $schemaType;
+                $schemaType = '\'array\'';
+            }
+
+            if($field->values) {
+                foreach($field->values as $value => $title) {
+                    $schemaEnum[] = '\''.$value.'\'';
+                }
+            }
+
+            if($schemaType === 'ObjectField::JsonSchema') {
+                [$sr, $sb] = self::GetSchemaObject($field->fields);
+                $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => [\'type\' => \'object\', \'required\' => ['.implode('', str_replace("\t\t\t", "", $sr)).'], \'properties\' => ['.implode('', str_replace("\t\t\t", "", $sb)).']],';
+            
+            } elseif ($schemaType === 'ArrayField::JsonSchema') {
+                [$sr, $sb] = self::GetSchemaObject($field->fields);
+                $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => ['.implode('', str_replace("\t\t\t", "", $sr)).'], \'properties\' => ['.implode('', str_replace("\t\t\t", "", $sb)).']]],';
+            } elseif ($schemaType === 'DateField::JsonSchema' || $schemaType === 'DateTimeField::JsonSchema') {
+                $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'string\', \'format\' => \'date'.($schemaType === 'DateTimeField::JsonSchema' ? '-time' : '').'\'],';
+            } else {
+                $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => '.(!isset($jsonTypeMap[$field->class]) ? $schemaType.',' : 
+                    '[\'type\' => '.
+                        ($field->required ? '\''.$schemaType.'\'' : '[\''.$schemaType.'\', \'null\']').', '.
+                        (!empty($schemaEnum) ? '\'enum\' => ['.implode(', ', $schemaEnum).'],' : '').
+                        ($field->class === 'string' ? '\'maxLength\' => '.$field->length.'' : '').
+                        ($schemaItems ? '\'items\' => '.$schemaItems : '').
+                    '],'
+                );
+            }
+
+            if($field->required) {
+                $schemaRequired[] = "\t\t\t".$field->name;
+            }
+        }
+
+        return [$schemaRequired, $schemaProperties];
+
+    }
+
 
     static function GenerateModelClasses(Storage $storage): void {
 
@@ -68,6 +147,8 @@ class Generator {
             'row-class-name' => '',
             'parent-row-class-name' => '',
             'uses' => '',
+            'schema-required' => '',
+            'schema-properties' => '',
         ];
 
         $properties = [
@@ -75,16 +156,21 @@ class Generator {
             ' * @property-read DateTimeField $datecreated Дата создания строки',
             ' * @property-read DateTimeField $datemodified Дата последнего обновления строки',
         ];
-        
+
+        [$schemaRequired, $schemaProperties] = self::GetSchemaObject($storage->fields);
+
         $uses = ['use Colibri\Data\Storages\Fields\DateTimeField;'];
         $consts = [];
         foreach($storage->fields as $field) {
+            /** @var Field $field */
+
             $class = $field->class;
             if(!in_array($field->class, $types)) {
                 $uses[] = 'use '.$storage->GetFieldClass($field).';';
                 $class = explode('\\', $class);
                 $class = end($class);
             }
+
             $properties[] = ' * @property'.($field->readonly ? '-read' : '').' '.$class.(!$field->required ? '|null' : '').' $'.$field->name.' '.$field->desc;
             if($field->values) {
                 foreach($field->values as $value => $title) {
@@ -93,7 +179,9 @@ class Generator {
                     $consts[] = "\t".'/** '.$title.' */'."\n\t".'public const '.$name.' = \''.$value.'\';';
                 }
             }
+
         }
+
         $uses = array_unique($uses);
 
         $fileName = str_replace('\\', '/', $models['table']);
@@ -125,6 +213,8 @@ class Generator {
             $args['properties-list'] = implode("\n", $properties);
             $args['uses'] = implode("\n", $uses);
             $args['consts'] = implode("\n", $consts);
+            $args['schema-required'] = implode("\n", $schemaRequired);
+            $args['schema-properties'] = implode("\n", $schemaProperties);
 
             $templateContent = File::Read(__DIR__.'/model-templates/row-template.template');
             foreach($args as $key => $value) {
@@ -145,7 +235,13 @@ class Generator {
                 return '# region Uses:'."\n".implode("\n", $uses)."\n".'# endregion Uses;';
             }, $rowModelContent);
             $rowModelContent = \preg_replace_callback('/# region Consts\:(.*)# endregion Consts;/s', function($match) use ($consts) {
-                return "\n\t".'# region Consts:'."\n".implode("\n", $consts)."\n\t".'# endregion Consts;';
+                return '# region Consts:'."\n".implode("\n", $consts)."\n\t".'# endregion Consts;';
+            }, $rowModelContent);
+            $rowModelContent = \preg_replace_callback('/# region SchemaRequired\:(.*)# endregion SchemaRequired;/s', function($match) use ($schemaRequired) {
+                return '# region SchemaRequired:'."\n".implode("\n", $schemaRequired)."\n\t\t\t".'# endregion SchemaRequired;';
+            }, $rowModelContent);
+            $rowModelContent = \preg_replace_callback('/# region SchemaProperties\:(.*)# endregion SchemaProperties;/s', function($match) use ($schemaProperties) {
+                return '# region SchemaProperties:'."\n".implode("\n", $schemaProperties)."\n\t\t\t".'# endregion SchemaProperties;';
             }, $rowModelContent);
             File::Write($rootPath.$fileName.'.php', $rowModelContent);
         }

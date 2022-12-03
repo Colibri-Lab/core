@@ -12,14 +12,20 @@
 namespace Colibri\Utils;
 
 use ArrayAccess;
+use Colibri\App;
+use Colibri\AppException;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Common\VariableHelper;
 use InvalidArgumentException;
 use IteratorAggregate;
+use Opis\JsonSchema\Errors\ErrorFormatter;
 use Traversable;
 use JsonSerializable;
 use Countable;
 use Colibri\Common\StringHelper;
+use Opis\JsonSchema\Validator;
+use Opis\JsonSchema\ValidationResult;
+use Opis\JsonSchema\Errors\ValidationError;
 
 /**
  * Класс обьект, все обьектноподобные классы и обьекты будут наследоваться от него
@@ -44,19 +50,22 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
     /**
      * Префикс свойств, для обеспечения правильной работы с хранилищами
-     *
-     * @var string
      */
-    protected $_prefix = "";
+    protected ?string $_prefix = "";
 
     /**
      * Индикатор изменения обьекта
-     *
-     * @var boolean
      */
-    protected $_changed = false;
+    protected ?bool $_changed = false;
 
-    protected $_changeKeyCase = true;
+    protected ?bool $_changeKeyCase = true;
+
+    /**
+     * Схема валидации данных
+     */
+    public const JsonSchema = [];
+
+    protected ValidationResult $_validationResult;
 
     /**
      * Конструктор
@@ -75,7 +84,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
                 $this->_prefix = $data->prefix;
             } elseif (is_array($data)) {
                 $this->_data = $data;
-            } else if(!$data) {
+            } elseif(!$data) {
                 $this->_data = [];
             }
             else {
@@ -105,6 +114,20 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         unset($this->_data);
     }
 
+    public static function Schema(bool $exportAsString = false, $addElements = []): object|string {
+        
+        $schema = VariableHelper::Extend([], static::JsonSchema);
+        if(!empty($addElements)) {
+            $schema = array_merge($schema, $addElements);
+        }
+
+        if($exportAsString) {
+            return json_encode($schema);
+        }
+
+        return (object)$schema;
+    }
+
     /**
      * Очищает все свойства
      *
@@ -123,6 +146,49 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
     {
         $this->_data = $data;
         $this->_changed = true;
+    }
+
+    public function SetValidationSchema(object|array|string $schema)
+    {
+        $this->_changeKeyCase = false;
+        self::$schema = $schema;
+    }
+
+    public function Validate(bool $throwExceptions = false): bool
+    {
+        if(empty(static::JsonSchema)) {
+            if($throwExceptions) {
+                throw new AppException('Schema is empty, can not validate');
+            }
+            else {
+                return false;
+            }
+        }
+
+        $schemaData = json_decode(json_encode(static::JsonSchema));
+        $data = $this->ToArray(true);
+        $data = VariableHelper::ArrayToObject($data);
+
+        $validator = new Validator();
+        $validator->setMaxErrors(100);
+        /** @var ValidationResult $result */
+        $this->_validationResult = $validator->validate($data, $schemaData);
+        if($this->_validationResult->hasError()) {
+            if($throwExceptions) {
+                /** @var ValidationError */
+                $validationError = $this->_validationResult->error();
+                $formatter = new ErrorFormatter();
+                $errors = $formatter->format($validationError, false);
+                $errors = implode("\n", $errors);
+                App::$log->critical(Debug::ROut($validationError));
+                throw new AppException($errors, 500);
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
+
     }
 
     /**
@@ -154,7 +220,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @return \stdClass
      */
-    public function Original()
+    public function Original(): object
     {
         return (object)$this->_original;
     }
@@ -164,7 +230,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @return string
      */
-    public function Prefix()
+    public function Prefix(): string
     {
         return $this->_prefix;
     }
@@ -173,7 +239,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * Изменен
      * @return bool 
      */
-    public function IsChanged()
+    public function IsChanged(): bool
     {
         return $this->_changed;
     }
@@ -215,7 +281,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * Возвращает JSON строку данных обьекта
      *
      */
-    public function ToJSON()
+    public function ToJSON(): string
     {
         return json_encode($this->ToArray());
     }
@@ -237,7 +303,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      */
     public function __isset($name)
     {
-        return isset($this->_data[$name]);;
+        return isset($this->_data[$name]);
     }
 
     /**

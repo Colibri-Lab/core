@@ -211,7 +211,7 @@ class VariableHelper
      * @return object|array|string
      * @testFunction testVariableHelperArrayToObject
      */
-    public static function ArrayToObject(array|object|string|null $array): object|array|string|null
+    public static function ArrayToObject(mixed $array): mixed
     {
         if(is_null($array)) {
             return null;
@@ -221,10 +221,18 @@ class VariableHelper
             return $array;
         }
 
+        if (self::IsArray($array) && !self::IsAssociativeArray($array)) {
+            foreach($array as $index => $v) {
+                $array[$index] = self::ArrayToObject($v);
+            }
+            return $array;
+        }
+
         $array = (array)$array;
         foreach ($array as $k => $v) {
             $array[$k] = self::ArrayToObject($v);
         }
+
         return (object)$array;
 
     }

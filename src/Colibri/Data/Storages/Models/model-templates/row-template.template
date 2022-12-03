@@ -17,7 +17,27 @@ use [[parent-row-class-name]] as BaseModelDataRow;
  * endregion Properties;
  */
 class [[row-class-name]] extends BaseModelDataRow {
-    
+
+    public const JsonSchema = [
+        'type' => 'object',
+        'required' => [
+            'id',
+            'datecreated',
+            'datemodified',
+            # region SchemaRequired:
+[[schema-required]]
+            # endregion SchemaRequired;
+        ],
+        'properties' => [
+            'id' => ['type' => 'integer'],
+            'datecreated' => ['type' => 'string', 'format' => 'date-time'],
+            'datemodified' => ['type' => 'string', 'format' => 'date-time'],
+            # region SchemaProperties:
+[[schema-properties]]
+            # endregion SchemaProperties;
+        ]
+    ];
+
     # region Consts:
     [[consts]]
     # endregion Consts;
