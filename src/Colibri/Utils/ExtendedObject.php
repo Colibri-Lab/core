@@ -84,10 +84,9 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
                 $this->_prefix = $data->prefix;
             } elseif (is_array($data)) {
                 $this->_data = $data;
-            } elseif(!$data) {
+            } elseif (!$data) {
                 $this->_data = [];
-            }
-            else {
+            } else {
                 $this->_data = get_object_vars($data);
             }
         }
@@ -97,7 +96,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         }
 
         $this->_changeKeyCase = $changeKeyCase;
-        if($this->_changeKeyCase) {
+        if ($this->_changeKeyCase) {
             $this->_data = array_change_key_case($this->_data, CASE_LOWER);
         }
 
@@ -114,18 +113,19 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         unset($this->_data);
     }
 
-    public static function Schema(bool $exportAsString = false, $addElements = []): object|string {
-        
+    public static function Schema(bool $exportAsString = false, $addElements = []): object|string
+    {
+
         $schema = VariableHelper::Extend([], static::JsonSchema);
-        if(!empty($addElements)) {
+        if (!empty($addElements)) {
             $schema = array_merge($schema, $addElements);
         }
 
-        if($exportAsString) {
+        if ($exportAsString) {
             return json_encode($schema);
         }
 
-        return (object)$schema;
+        return (object) $schema;
     }
 
     /**
@@ -148,7 +148,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         $this->_changed = true;
     }
 
-    public function SetValidationSchema(object|array|string $schema)
+    public function SetValidationSchema(object|array |string $schema)
     {
         $this->_changeKeyCase = false;
         self::$schema = $schema;
@@ -156,11 +156,10 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
     public function Validate(bool $throwExceptions = false): bool
     {
-        if(empty(static::JsonSchema)) {
-            if($throwExceptions) {
+        if (empty(static::JsonSchema)) {
+            if ($throwExceptions) {
                 throw new AppException('Schema is empty, can not validate');
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -173,8 +172,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         $validator->setMaxErrors(100);
         /** @var ValidationResult $result */
         $this->_validationResult = $validator->validate($data, $schemaData);
-        if($this->_validationResult->hasError()) {
-            if($throwExceptions) {
+        if ($this->_validationResult->hasError()) {
+            if ($throwExceptions) {
                 /** @var ValidationError */
                 $validationError = $this->_validationResult->error();
                 $formatter = new ErrorFormatter();
@@ -182,8 +181,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
                 $errors = implode("\n", $errors);
                 App::$log->critical(Debug::ROut($validationError));
                 throw new AppException($errors, 500);
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -196,7 +194,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @param boolean $noPrefix - удалить префиксы из свойств
      */
-    public function ToArray(bool $noPrefix = false) : array
+    public function ToArray(bool $noPrefix = false): array
     {
         $data = array();
         foreach ($this->_data as $key => $value) {
@@ -222,7 +220,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      */
     public function Original(): object
     {
-        return (object)$this->_original;
+        return (object) $this->_original;
     }
 
     /**
@@ -248,19 +246,17 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * Поле изменено
      * @return bool 
      */
-    public function IsPropertyChanged(string $property, bool $dummy = false) : bool
+    public function IsPropertyChanged(string $property, bool $dummy = false): bool
     {
 
         if (!empty($this->_prefix) && strpos($property, $this->_prefix) === false) {
             $property = $this->_prefix . $property;
         }
-        if(!isset($this->Original()->$property) && isset($this->_data[$property])) {
+        if (!isset($this->Original()->$property) && isset($this->_data[$property])) {
             return true;
-        }
-        else if(!isset($this->_data[$property]) && !isset($this->Original()->$property)) {
+        } elseif (!isset($this->_data[$property]) && !isset($this->Original()->$property)) {
             return false;
-        }
-        else {
+        } else {
             return $this->Original()->$property != $this->_data[$property];
         }
     }
@@ -322,14 +318,13 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string $property название свойства
      * @return mixed
      */
-    public function __get(string $property) : mixed
+    public function __get(string $property): mixed
     {
 
-        $propertyCamelCased = StringHelper::ToCamelCaseVar($property, true, false);
-        if(method_exists($this, 'getProperty'.$propertyCamelCased)) {
-            $value = $this->{'getProperty'.$propertyCamelCased}();
-        }
-        else {
+        $propertyCamelCased = StringHelper::ToCamelCaseVar($property, true);
+        if (method_exists($this, 'getProperty' . $propertyCamelCased)) {
+            $value = $this->{'getProperty' . $propertyCamelCased}();
+        } else {
 
             $property = $this->_changeKeyCase ? strtolower($property) : $property;
             if (!empty($this->_prefix) && strpos($property, $this->_prefix) === false) {
@@ -349,13 +344,12 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string $property название свойства
      * @param mixed $value значение свойства
      */
-    public function __set(string $property, mixed $value) : void
+    public function __set(string $property, mixed $value): void
     {
-        $propertyCamelCased = StringHelper::ToCamelCaseVar($property, true, false);
-        if(method_exists($this, 'setProperty'.$propertyCamelCased)) {
-            $this->{'setProperty'.$propertyCamelCased}($value);
-        }
-        else {
+        $propertyCamelCased = StringHelper::ToCamelCaseVar($property, true);
+        if (method_exists($this, 'setProperty' . $propertyCamelCased)) {
+            $this->{'setProperty' . $propertyCamelCased}($value);
+        } else {
             $property = $this->_changeKeyCase ? strtolower($property) : $property;
             if (!empty($this->_prefix) && strpos($property, $this->_prefix) === false) {
                 $property = $this->_prefix . $property;
@@ -372,7 +366,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string $property - название свойства
      * @param mixed $value значение свойства
      */
-    protected function _typeExchange(string $mode, string $property, mixed $value = null) : mixed
+    protected function _typeExchange(string $mode, string $property, mixed $value = null): mixed
     {
         if ($mode == 'get') {
             return isset($this->_data[$property]) ? $this->_data[$property] : null;
@@ -460,7 +454,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         return $this->ToArray(true);
     }
 
-    public function Count(): int 
+    public function Count(): int
     {
         return count($this->_data);
     }

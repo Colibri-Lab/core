@@ -247,14 +247,14 @@ class DataTable extends BaseDataTable
         foreach ($this->_storage->fields as $field) {
             $header[$field->name] = $field->desc;
         }
-        $stream->Append(XmlNode::LoadNode(XmlHelper::Encode($header, 'row', true)));
+        $stream->Append(XmlNode::LoadNode(XmlHelper::Encode($header, 'row')));
 
         foreach ($this->getIterator() as $row) {
             $r = [];
             foreach ($this->_storage->fields as $field) {
                 $r[$field->name] = $row->{$field->name};
             }
-            $stream->Append(XmlNode::LoadNode(XmlHelper::Encode($r, 'row', true)));
+            $stream->Append(XmlNode::LoadNode(XmlHelper::Encode($r, 'row')));
         }
 
         $stream->Save($file);

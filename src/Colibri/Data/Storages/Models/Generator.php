@@ -12,7 +12,7 @@ use Colibri\Data\Storages\Fields\Field;
 
 class Generator {
 
-    static function _convertNames(string $rootNamespace, string $table, string $row): array {
+    private static function _convertNames(string $rootNamespace, string $table, string $row): array {
         
         $parts = explode('\\', $table);
         
@@ -24,7 +24,7 @@ class Generator {
         return [$rootNamespace.$namespaceName, $tableClassName, $row];
     }
 
-    static function GetSchemaObject($fields): array
+    public static function GetSchemaObject($fields): array
     {
         $jsonTypeMap = [
             'bool' => 'boolean',
@@ -77,25 +77,26 @@ class Generator {
             if($schemaType === 'ObjectField::JsonSchema') {
                 [$sr, $sb] = self::GetSchemaObject($field->fields);
                 $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => [\'type\' => \'object\', \'required\' => ['.implode('', str_replace("\t\t\t", "", $sr)).'], \'properties\' => ['.implode('', str_replace("\t\t\t", "", $sb)).']],';
-            
             } elseif ($schemaType === 'ArrayField::JsonSchema') {
                 [$sr, $sb] = self::GetSchemaObject($field->fields);
                 $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => ['.implode('', str_replace("\t\t\t", "", $sr)).'], \'properties\' => ['.implode('', str_replace("\t\t\t", "", $sb)).']]],';
             } elseif ($schemaType === 'DateField::JsonSchema' || $schemaType === 'DateTimeField::JsonSchema') {
                 $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'string\', \'format\' => \'date'.($schemaType === 'DateTimeField::JsonSchema' ? '-time' : '').'\'],';
+            } elseif ($schemaType === 'ValueField::JsonSchema') {
+                $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'string\', \'enum\' => ['.implode(', ', $schemaEnum).']],';
             } else {
                 $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => '.(!isset($jsonTypeMap[$field->class]) ? $schemaType.',' : 
                     '[\'type\' => '.
-                        ($field->required ? '\''.$schemaType.'\'' : '[\''.$schemaType.'\', \'null\']').', '.
+                        ($field->params['required'] ? '\''.$schemaType.'\'' : '[\''.$schemaType.'\', \'null\']').', '.
                         (!empty($schemaEnum) ? '\'enum\' => ['.implode(', ', $schemaEnum).'],' : '').
-                        ($field->class === 'string' ? '\'maxLength\' => '.$field->length.'' : '').
+                        ($field->class === 'string' && (bool)$field->length ? '\'maxLength\' => '.$field->length.'' : '').
                         ($schemaItems ? '\'items\' => '.$schemaItems : '').
                     '],'
                 );
             }
 
-            if($field->required) {
-                $schemaRequired[] = "\t\t\t".$field->name;
+            if($field->params['required'] ?? false) {
+                $schemaRequired[] = "\t\t\t".'\''.$field->name.'\',';
             }
         }
 
@@ -104,7 +105,7 @@ class Generator {
     }
 
 
-    static function GenerateModelClasses(Storage $storage): void {
+    public static function GenerateModelClasses(Storage $storage): void {
 
         $types = [
             'bool',
@@ -248,7 +249,7 @@ class Generator {
 
     }
 
-    static function GenerateModelTemplates(Storage $storage) {
+    public static function GenerateModelTemplates(Storage $storage) {
         
         $rootPath = App::$appRoot;
         $module = isset($storage->settings['module']) ? $storage->settings['module'] : null;

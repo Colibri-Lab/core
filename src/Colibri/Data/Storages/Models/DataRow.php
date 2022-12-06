@@ -43,7 +43,7 @@ class DataRow extends BaseDataRow
      * @var Storage
      */
     protected $_storage;
-    
+
     /**
      * Конструктор
      *
@@ -52,9 +52,9 @@ class DataRow extends BaseDataRow
      * @param Storage|null $storage
      * @throws DataModelException
      */
-    public function __construct(DataTable $table, mixed $data = null, ?Storage $storage = null)
+    public function __construct(DataTable $table, mixed $data = null, ? Storage $storage = null)
     {
-        if(!$storage) {
+        if (!$storage) {
             throw new DataModelException('Unknown storage');
         }
         $this->_storage = $storage;
@@ -66,9 +66,9 @@ class DataRow extends BaseDataRow
      * @param mixed $obj обьект или массив
      * @return void 
      */
-    public function Fill(mixed $obj) : void
+    public function Fill(mixed $obj): void
     {
-        $obj = (object)$obj;
+        $obj = (object) $obj;
         if (!is_null($obj)) {
             foreach ($this->Storage()->fields as $field) {
                 $f = $this->Storage()->GetRealFieldName($field->name);
@@ -86,7 +86,7 @@ class DataRow extends BaseDataRow
             }
         }
     }
-    
+
     /**
      * Конвертация типов
      * @param string $mode режим, get или сет
@@ -94,26 +94,25 @@ class DataRow extends BaseDataRow
      * @param mixed $value значение
      * @return mixed результат
      */
-    protected function _typeExchange(string $mode, string $property, mixed $value = false) : mixed
+    protected function _typeExchange(string $mode, string $property, mixed $value = false): mixed
     {
 
         if ($this->_prefix && strstr($property, $this->_prefix) === false) {
-            $property = $this->_prefix.$property;
+            $property = $this->_prefix . $property;
         }
 
         $rowValue = $mode == 'get' ? (isset($this->_data[$property]) ? $this->_data[$property] : null) : $value;
         $fieldName = $this->Storage()->GetFieldName($property);
-        
+
         $storage = $this->Storage();
         /** @var Field */
         $field = isset($storage->fields->$fieldName) ? $storage->fields->$fieldName : false;
 
         if (!$field) {
             if ($mode == 'get') {
-                if($fieldName == 'id') {
-                    return (int)$rowValue;
-                }
-                else if(in_array($fieldName, ['datecreated', 'datemodified'])) {
+                if ($fieldName == 'id') {
+                    return (int) $rowValue;
+                } elseif (in_array($fieldName, ['datecreated', 'datemodified'])) {
                     return new DateTimeField($rowValue);
                 }
                 return $rowValue;
@@ -123,22 +122,21 @@ class DataRow extends BaseDataRow
             }
         }
 
-        if($mode == 'get' && !isset($this->_data[$property])) {
-            if($field->default !== null) {
-                $reader = $this->_storage->accessPoint->Query('select '.(empty($field->default) ? '\'\'' : $field->default).' as default_value', ['type' => DataAccessPoint::QueryTypeBigData]);
-                $rowValue = $reader->Read()->default_value;    
-            }
-            else {
+        if ($mode == 'get' && !isset($this->_data[$property])) {
+            if ($field->default !== null) {
+                $reader = $this->_storage->accessPoint->Query('select ' . (empty($field->default) ? '\'\'' : $field->default) . ' as default_value', ['type' => DataAccessPoint::QueryTypeBigData]);
+                $rowValue = $reader->Read()->default_value;
+            } else {
                 $rowValue = null;
             }
         }
-        
+
         if ($mode == 'get') {
             if ($field->isLookup) {
                 return $field->lookup->Selected($rowValue);
             } elseif ($field->isValues) {
                 if (!$field->multiple) {
-                    $v = $field->type == 'numeric' ? (float)$rowValue : $rowValue;
+                    $v = $field->type == 'numeric' ? (float) $rowValue : $rowValue;
                     $t = $v && isset($field->values[$v]) ? $field->values[$v] : '';
                     return $rowValue ? new ValueField($v, $t) : null;
                 } else {
@@ -152,76 +150,67 @@ class DataRow extends BaseDataRow
             }
         }
 
-        if($field->class === 'string' || !$field->class) {
+        if ($field->class === 'string' || !$field->class) {
             if ($mode == 'get') {
                 $value = $rowValue;
             } else {
                 $this->_data[$property] = $rowValue;
             }
-        }
-        else if($field->class === 'bool') {
+        } elseif ($field->class === 'bool') {
             if ($mode == 'get') {
-                $value = (bool)$rowValue;
+                $value = (bool) $rowValue;
             } else {
                 if ($field->required && is_null($rowValue)) {
                     $this->_data[$property] = false;
                 } else {
-                    $this->_data[$property] = ((bool)$rowValue) ? 1 : 0;
+                    $this->_data[$property] = ((bool) $rowValue) ? 1 : 0;
                 }
             }
-        }
-        else if($field->class === 'int' || $field->class === 'float' || $field->class === 'double') {
+        } elseif ($field->class === 'int' || $field->class === 'float' || $field->class === 'double') {
             if ($mode == 'get') {
-                $value = $rowValue == "" ? "" : ($rowValue == (float)$rowValue ? (float)$rowValue : $rowValue);
+                $value = $rowValue == "" ? "" : ($rowValue == (float) $rowValue ? (float) $rowValue : $rowValue);
             } else {
                 $this->_data[$property] = $field->required ? ($rowValue === "" ? 0 : $rowValue) : ($rowValue === "" ? null : $rowValue);
             }
-        }
-        else if($field->class === 'uuid') {
+        } elseif ($field->class === 'uuid') {
             if ($mode == 'get') {
                 $this->_data[$property] = $rowValue instanceof UUIDField ? $rowValue : new UUIDField($rowValue);
                 $value = $this->_data[$property];
             } else {
                 $this->_data[$property] = $value instanceof UUIDField ? $value : new UUIDField($value);
             }
-        }
-        else if($field->class === 'array') {
+        } elseif ($field->class === 'array') {
             if ($mode == 'get') {
                 $this->_data[$property] = is_string($rowValue) ? json_decode($rowValue) : $rowValue;
                 $value = $this->_data[$property];
             } else {
                 $this->_data[$property] = is_string($rowValue) ? $value : json_encode($value);
             }
-        }
-        else {
+        } else {
 
             $class = $storage->GetFieldClass($field);
-            
+
             if ($mode == 'get') {
                 try {
                     $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
-                }
-                catch(\Throwable $e) {
+                } catch (\Throwable $e) {
                     $this->_data[$property] = $rowValue;
                 }
                 $value = $this->_data[$property];
             } else {
 
-                if($rowValue instanceof $class) {
-                    $this->_data[$property] = (string)$rowValue;
-                }
-                else if(!is_null($rowValue)) {
+                if ($rowValue instanceof $class) {
+                    $this->_data[$property] = (string) $rowValue;
+                } elseif (!is_null($rowValue)) {
 
                     try {
                         $c = new $class($rowValue, $this->_storage, $field, $this);
-                        $this->_data[$property] = (string)$c;  
-                    }
-                    catch(\Throwable $e) {
+                        $this->_data[$property] = (string) $c;
+                    } catch (\Throwable $e) {
                         $this->_data[$property] = $rowValue;
                     }
 
-                }
-                else {
+                } else {
                     $this->_data[$property] = null;
                 }
 
@@ -236,7 +225,8 @@ class DataRow extends BaseDataRow
      * @param mixed $data данные для конвертации
      * @return mixed сконвертированные данные
      */
-    protected function _typeToData(mixed $data) : mixed {
+    protected function _typeToData(mixed $data): mixed
+    {
 
         foreach ($data as $k => $v) {
             $storage = $this->Storage();
@@ -244,32 +234,29 @@ class DataRow extends BaseDataRow
             /** @var Field */
             $field = isset($storage->fields->$kk) ? $storage->fields->$kk : false;
             if ($field) {
-                
-                if($field->class === 'string') {
+
+                if ($field->class === 'string') {
                     if (!is_object($v)) {
                         $data[$k] = str_replace("\r\n", "\n", $v);
                     } else {
                         $data[$k] = $v;
                     }
-                }
-                else if($field->class == 'bool') {
-                    if(is_null($v)) {
+                } elseif ($field->class == 'bool') {
+                    if (is_null($v)) {
                         if (!is_null($field->default)) {
                             $v = $field->default;
                         } else {
                             $v = null;
                         }
                     }
-                    
-                    if($v === true || $v === '1' || $v === 'true') {
+
+                    if ($v === true || $v === '1' || $v === 'true') {
                         $v = 1;
-                    }
-                    else if($v === false || $v === '0' || $v === 'false') {
+                    } elseif ($v === false || $v === '0' || $v === 'false') {
                         $v = 0;
                     }
 
-                }
-                else if($field->class == 'int') {
+                } elseif ($field->class == 'int') {
                     if (is_null($v)) {
                         if (!is_null($field->default)) {
                             $v = $field->default;
@@ -281,8 +268,7 @@ class DataRow extends BaseDataRow
                         $v = $field->required ? 0 : null;
                     }
                     $data[$k] = $v;
-                }
-                else if($field->class == 'uuid') {
+                } elseif ($field->class == 'uuid') {
 
                     if (is_null($v)) {
                         if (!is_null($field->default)) {
@@ -291,43 +277,44 @@ class DataRow extends BaseDataRow
                             $v = null;
                         }
                     }
-                    
+
                     if ($v === "") {
                         $v = $field->required ? 0 : null;
                     }
 
                     $data[$k] = $v instanceof UUIDField ? $v->binary : $v;
-                }
-                else {
-                    $data[$k] = is_null($v) ? null : (string)$v;
+                } elseif ($field->class === 'array') {
+                    $data[$k] = is_string($rowValue) ? $v : json_encode($v);
+                } else {
+                    $data[$k] = is_null($v) ? null : (string) $v;
                 }
 
             }
         }
         return $data;
     }
-    
+
     /**
      * Возвращает хранилище
      * @return Storage 
      */
-    public function Storage() : Storage
+    public function Storage(): Storage
     {
         return $this->_storage;
     }
-    
+
     /**
      * Возвращает строку в виде массива
      * @param bool $noPrefix да - возвращать без префиксами
      * @return array 
      */
-    public function ToArray(bool $noPrefix = false) : array
+    public function ToArray(bool $noPrefix = false): array
     {
         $ar = parent::ToArray($noPrefix);
         foreach ($ar as $key => $value) {
             if ($value instanceof FileField) {
                 $ar[$key] = $value->Source();
-            }  
+            }
         }
         return $ar;
     }
@@ -336,26 +323,25 @@ class DataRow extends BaseDataRow
      * Конвертирует в строку
      * @return string
      */
-    public function ToString() : string 
+    public function ToString(): string
     {
         $string = array();
         foreach ($this->Storage()->fields as $field) {
             $value = $this->{$field->name};
-            
-            if(VariableHelper::IsObject($value)) {
+
+            if (VariableHelper::IsObject($value)) {
                 $ref = new ReflectionClass($value);
                 $hasToString = $ref->hasMethod('ToString');
 
                 if ($hasToString) {
                     $value = $value->ToString();
                 }
-            }
-            else {
-                $string[] = (string)$value;
+            } else {
+                $string[] = (string) $value;
             }
             $string[] = StringHelper::StripHTML($value ?: '');
         }
-        
+
         $string = implode(' ', $string);
         $string = str_replace(array("\n", "\r", "\t"), " ", $string);
         $string = str_replace('&nbsp;', ' ', $string);
@@ -364,7 +350,7 @@ class DataRow extends BaseDataRow
     }
 
 
-    public function __toString() : string 
+    public function __toString(): string
     {
         return $this->id;
     }
@@ -373,7 +359,7 @@ class DataRow extends BaseDataRow
      * Поле изменено
      * @return bool 
      */
-    public function IsPropertyChanged(string $property, bool $convertData = false) : bool
+    public function IsPropertyChanged(string $property, bool $convertData = false): bool
     {
 
         if (!empty($this->_prefix) && strpos($property, $this->_prefix) === false) {
@@ -390,7 +376,7 @@ class DataRow extends BaseDataRow
      * Вызывает SaveRow у таблицы
      * @return QueryInfo|bool 
      */
-    public function Save() : QueryInfo|bool
+    public function Save(): QueryInfo|bool
     {
         return $this->table->SaveRow($this);
     }
@@ -399,7 +385,5 @@ class DataRow extends BaseDataRow
     {
         return $this->table->DeleteRow($this);
     }
-    
+
 }
-
-
