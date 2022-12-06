@@ -225,14 +225,15 @@ class DataRow extends BaseDataRow
      * @param mixed $data данные для конвертации
      * @return mixed сконвертированные данные
      */
-    protected function _typeToData(mixed $data): mixed
+    protected function _typeToData(mixed $data, bool $noPrefix = false): mixed
     {
 
+        $storage = $this->Storage();
         foreach ($data as $k => $v) {
-            $storage = $this->Storage();
             $kk = $storage->GetFieldName($k);
             /** @var Field */
             $field = isset($storage->fields->$kk) ? $storage->fields->$kk : false;
+
             if ($field) {
 
                 if ($field->class === 'string') {
@@ -284,13 +285,24 @@ class DataRow extends BaseDataRow
 
                     $data[$k] = $v instanceof UUIDField ? $v->binary : $v;
                 } elseif ($field->class === 'array') {
-                    $data[$k] = is_string($rowValue) ? $v : json_encode($v);
+                    $data[$k] = is_string($v) ? $v : json_encode($v);
                 } else {
                     $data[$k] = is_null($v) ? null : (string) $v;
                 }
 
             }
         }
+        
+        if($noPrefix) {
+            $newData = [];
+            foreach($data as $key => $value) {
+                $newData[$storage->GetFieldName($key)] = $value;
+            }
+            $data = $newData;
+        }
+        
+
+
         return $data;
     }
 

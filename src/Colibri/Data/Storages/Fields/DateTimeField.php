@@ -32,7 +32,7 @@ class DateTimeField extends DateTime implements JsonSerializable
      */
     public function __toString(): string
     {
-        return $this->format('yyyy-MM-dd HH:mm:ss');
+        return $this->format('yyyy-MM-ddTHH:mm:ss');
     }
 
     /**

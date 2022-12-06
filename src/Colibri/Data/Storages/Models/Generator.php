@@ -81,7 +81,7 @@ class Generator {
                 [$sr, $sb] = self::GetSchemaObject($field->fields);
                 $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => ['.implode('', str_replace("\t\t\t", "", $sr)).'], \'properties\' => ['.implode('', str_replace("\t\t\t", "", $sb)).']]],';
             } elseif ($schemaType === 'DateField::JsonSchema' || $schemaType === 'DateTimeField::JsonSchema') {
-                $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'string\', \'format\' => \'date'.($schemaType === 'DateTimeField::JsonSchema' ? '-time' : '').'\'],';
+                $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'string\', \'format\' => \''.($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date').'\'],';
             } elseif ($schemaType === 'ValueField::JsonSchema') {
                 $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'string\', \'enum\' => ['.implode(', ', $schemaEnum).']],';
             } else {

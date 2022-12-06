@@ -165,10 +165,21 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         }
 
         $schemaData = json_decode(json_encode(static::JsonSchema));
-        $data = $this->ToArray(true);
+        $data = $this->GetData(true, true);
         $data = VariableHelper::ArrayToObject($data);
 
         $validator = new Validator();
+        $formats = $validator->parser()->getFilterResolver();
+        $isDbDateTime = function (string $value): bool {
+            if (preg_match('/^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])[T|\s]([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)([01][0-9]|2[0-3]):([0-5][0-9]))?$/i', $value, $m)) {
+                return checkdate($m[2], $m[3], $m[1]);
+            }
+    
+            return false;
+        };
+        $formats->registerCallable("string", "db-date-time", $isDbDateTime);
+
+
         $validator->setMaxErrors(100);
         /** @var ValidationResult $result */
         $this->_validationResult = $validator->validate($data, $schemaData);
@@ -267,9 +278,9 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param bool $type конвертировать ли данные
      * @return mixed
      */
-    public function GetData($type = true)
+    public function GetData($type = true, bool $noPrefix = false)
     {
-        return $type ? $this->_typeToData($this->_data) : $this->_data;
+        return $type ? $this->_typeToData($this->_data, $noPrefix) : $this->_data;
     }
 
 
@@ -381,7 +392,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param mixed $data данные для конвертации
      * @return mixed конвертированные данные
      */
-    protected function _typeToData($data)
+    protected function _typeToData(mixed $data, bool $noPrefix = false)
     {
         return $data;
     }
