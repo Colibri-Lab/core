@@ -16,6 +16,7 @@ use Colibri\Common\DateHelper;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 use Colibri\Common\StringHelper;
+use DateTime;
 
 /**
  * Лог файл
@@ -89,12 +90,15 @@ class FileLogger extends Logger
             File::Create($this->_device, true, '777');
         }
 
+        $now = DateTime::createFromFormat('U.u', microtime(true));
+        $now = $now->format("m-d-Y H:i:s.u");
+
         $args = !is_array($data) ? [$data] : $data;
         $args[] = "\n";
         if (isset($args['context'])) {
             $args['context'] = implode("\t", $args['context']);
         }
-        $args = DateHelper::ToDbString(microtime(true), '%Y-%m-%d-%H-%M-%S-%f') . "\t" . implode("\t", $args);
+        $args = $now . "\t" . implode("\t", $args);
 
         if($this->_console) {
             Debug::Out($args);
@@ -102,7 +106,7 @@ class FileLogger extends Logger
 
         $fi = new File($this->_device);
         if ($fi->size > 1048576) {
-            File::Move($this->_device, $this->_device . '.' . DateHelper::ToDbString(microtime(true), '%Y-%m-%d-%H-%M-%S-%f'));
+            File::Move($this->_device, $this->_device . '.' . $now);
             File::Create($this->_device, true, '777');
         }
 

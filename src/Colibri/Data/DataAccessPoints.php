@@ -16,10 +16,7 @@ namespace Colibri\Data;
 
 use Colibri\App;
 use Colibri\Common\VariableHelper;
-use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
-use Colibri\Utils\Config\ConfigItemsList;
-use Colibri\Utils\Debug;
 
 /**
  * Класс фабрика для создания точек доступа
@@ -155,6 +152,7 @@ class DataAccessPoints
             }
 
             $database = $accessPointData->database;
+            $logqueries = $accessPointData->logqueries ?? false;
 
             // формируем данные для инициализации точки доступа
             $accessPointInit = (object)[
@@ -164,6 +162,7 @@ class DataAccessPoints
                 'password' => $this->_accessPoints->connections->$accessPointConnection->password,
                 'persistent' => (isset($this->_accessPoints->connections->$accessPointConnection->persistent) ? $this->_accessPoints->connections->$accessPointConnection->persistent : false),
                 'database' => $database,
+                'logqueries' => $logqueries,
                 'driver' => $this->_accessPoints->drivers->$accessPointType
             ];
 

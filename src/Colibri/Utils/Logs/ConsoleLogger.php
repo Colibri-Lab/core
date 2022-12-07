@@ -15,6 +15,7 @@ use Colibri\App;
 use Colibri\Common\DateHelper;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
+use DateTime;
 
 /**
  * Лог файл
@@ -72,12 +73,15 @@ class ConsoleLogger extends Logger
             return;
         }
 
+        $now = DateTime::createFromFormat('U.u', microtime(true));
+        $now = $now->format("m-d-Y H:i:s.u");
+
         $args = !is_array($data) ? [$data] : $data;
         $args[] = "\n";
         if (isset($args['context'])) {
             $args['context'] = implode("\t", $args['context']);
         }
-        $args = DateHelper::ToDbString(microtime(true), '%Y-%m-%d-%H-%M-%S-%f') . "\t" . implode("\t", $args);
+        $args = $now . "\t" . implode("\t", $args);
 
         $str = Debug::ROut($args);
         switch ($level) {

@@ -51,7 +51,7 @@ class DateHelper
      * @return string
      * @testFunction testDateHelperRFC
      */
-    public static function RFC(int $time = null): string
+    public static function RFC(float $time = null): string
     {
         $tz = date('Z');
         $tzs = ($tz < 0) ? '-' : '+';
@@ -68,7 +68,7 @@ class DateHelper
      * @return string
      * @testFunction testDateHelperToDbString
      */
-    public static function ToDbString(?int $time = null, ?string $format = 'Y-m-d H:i:s'): string
+    public static function ToDbString(?float $time = null, ?string $format = 'Y-m-d H:i:s'): string
     {
         if (VariableHelper::IsNull($time)) {
             $time = time();
@@ -86,7 +86,7 @@ class DateHelper
      * @return string
      * @testFunction testDateHelperToHumanDate
      */
-    public static function ToHumanDate(?int $time = null, ?bool $showTime = false): string
+    public static function ToHumanDate(?float $time = null, ?bool $showTime = false): string
     {
         if (is_null($time)) {
             $time = time();

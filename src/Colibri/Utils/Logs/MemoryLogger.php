@@ -12,6 +12,7 @@
 namespace Colibri\Utils\Logs;
 
 use Colibri\Common\DateHelper;
+use DateTime;
 
 /**
  * Класс для работы с логами в памяти
@@ -42,12 +43,15 @@ class MemoryLogger extends Logger
      */
     public function WriteLine(int $level, mixed $data): void
     {
+        $now = DateTime::createFromFormat('U.u', microtime(true));
+        $now = $now->format("m-d-Y H:i:s.u");
+        
         $args = !is_array($data) ? [$data] : $data;
         if (isset($args['context'])) {
             $args['context'] = implode("\t", $args['context']);
         }
         $args = implode("\t", $args);
-        $args = DateHelper::ToDbString(microtime(true), '%Y-%m-%d-%H-%M-%S-%f') . "\t" . $args;
+        $args = $now . "\t" . $args;
         $this->_device[] = $args;
     }
 

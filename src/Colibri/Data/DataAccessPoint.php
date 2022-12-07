@@ -12,11 +12,14 @@
 
 namespace Colibri\Data;
 
+use Colibri\App;
 use Colibri\Data\SqlClient\IConnection;
 use Colibri\Data\SqlClient\Command;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\SqlClient\IQueryBuilder;
 use Colibri\Data\SqlClient\QueryInfo;
+use Colibri\Utils\Debug;
+use DateTime;
 use stdClass;
 
 /**
@@ -135,7 +138,7 @@ class DataAccessPoint
     {
         if ($property == 'connection') {
             return $this->_connection;
-        } else if($property == 'point') {
+        } else if ($property == 'point') {
             return $this->_accessPointData;
         } else {
             return $this->Query('select * from ' . $property);
@@ -161,7 +164,7 @@ class DataAccessPoint
     public function Query($query, $commandParams = []): IDataReader|QueryInfo
     {
         // Превращаем параметры в обьект
-        $commandParams = (object)$commandParams;
+        $commandParams = (object) $commandParams;
 
         $commandClassObject = $this->_accessPointData->driver->command;
         $cmd = new $commandClassObject($query, $this->_connection);
@@ -172,7 +175,7 @@ class DataAccessPoint
         }
 
         if (isset($commandParams->params)) {
-            $cmd->params = (array)$commandParams->params;
+            $cmd->params = (array) $commandParams->params;
         }
 
         // если не передали type то выставляем в bigquery чтобы лишнего не запрашивать
@@ -180,21 +183,35 @@ class DataAccessPoint
             $commandParams->type = self::QueryTypeBigData;
         }
 
+        $queryStartTime = new DateTime();
+
+        if ($this->_accessPointData->logqueries ?? false) {
+            App::$log->debug('Query: ' . $commandParams->type . ', Text: ' . $query . ', Limits: ' . $cmd->page . ' - ' . $cmd->pagesize);
+            App::$log->debug(Debug::ROut($commandParams));
+        }
+
         try {
             if ($commandParams->type == self::QueryTypeReader) {
-                return $cmd->ExecuteReader();
-            } else if ($commandParams->type == self::QueryTypeBigData) {
-                return $cmd->ExecuteReader(false);
-            } else if ($commandParams->type == self::QueryTypeNonInfo) {
-                return $cmd->ExecuteNonQuery(isset($commandParams->returning) ? $commandParams->returning : '');
-            }    
-            else {
-                return new QueryInfo($cmd->type, 0, 0, 'Unknown command type: '.$commandParams->type, $cmd->query);
+                $return = $cmd->ExecuteReader();
+            } elseif ($commandParams->type == self::QueryTypeBigData) {
+                $return = $cmd->ExecuteReader(false);
+            } elseif ($commandParams->type == self::QueryTypeNonInfo) {
+                $return = $cmd->ExecuteNonQuery(isset($commandParams->returning) ? $commandParams->returning : '');
+            } else {
+                $return = new QueryInfo($cmd->type, 0, 0, 'Unknown command type: ' . $commandParams->type, $cmd->query);
             }
+
+        } catch (DataAccessPointsException $e) {
+            $return = new QueryInfo($cmd->type, 0, 0, $e->getMessage(), $cmd->query);
         }
-        catch(DataAccessPointsException $e) {
-            return new QueryInfo($cmd->type, 0, 0, $e->getMessage(), $cmd->query);
+
+        if ($this->_accessPointData->logqueries ?? false) {
+            $diff = $queryStartTime->diff(new DateTime());
+            App::$log->debug('QueryResult: time delta ' . ($diff->format('%F') / 1000));
+            App::$log->debug(Debug::Rout($return));
         }
+
+        return $return;
 
     }
 

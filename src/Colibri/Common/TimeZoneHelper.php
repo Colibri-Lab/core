@@ -107,7 +107,7 @@ class TimeZoneHelper
         } else {
             $decimal = "000000";
         }
-        $format = preg_replace('/(%f)/', $decimal, $format);
+        $format = preg_replace('/(f)/', $decimal, $format);
         return date($format, $microtime);
     }
 }

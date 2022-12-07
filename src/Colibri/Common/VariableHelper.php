@@ -35,6 +35,22 @@ class VariableHelper
         return ($var === null || $var === "");
     }
 
+    public static function IsObjectFieldsIsEmpty(mixed $object): bool
+    {
+        $isEmpty = true;
+        if (!is_object($object) && !is_array($object)) {
+            return self::IsEmpty($object);
+        }
+        
+        foreach((array)$object as $key => $value) {
+            if(!self::IsObjectFieldsIsEmpty($value)) {
+                $isEmpty = false;
+                break;
+            }
+        }
+        return $isEmpty;
+    }
+
     /**
      * Проверка на NULL
      *
