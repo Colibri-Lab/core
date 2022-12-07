@@ -74,6 +74,9 @@ class ConsoleLogger extends Logger
         }
 
         $now = DateTime::createFromFormat('U.u', microtime(true));
+        if(!$now) {
+            return;
+        }
         $now = $now->format("m-d-Y H:i:s.u");
 
         $args = !is_array($data) ? [$data] : $data;
