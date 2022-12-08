@@ -37,6 +37,8 @@ class QueryBuilder implements IQueryBuilder
         foreach ($data as $key => $value) {
             if (is_null($value)) {
                 $value = 'null';
+            } elseif(is_bool($value)) {
+                $value = '\'' . ($value ? 1 : 0) . '\'';
             } else {
                 $value = '\'' . addslashes($value) . '\'';
             }
@@ -67,6 +69,8 @@ class QueryBuilder implements IQueryBuilder
         foreach ($data as $key => $value) {
             if (is_null($value)) {
                 $value = 'null';
+            } elseif (is_bool($value)) {
+                $value = '\'' . ($value ? 1 : 0) . '\'';
             } else {
                 $value = '\'' . addslashes($value) . '\'';
             }
@@ -101,7 +105,14 @@ class QueryBuilder implements IQueryBuilder
         $vals = array_values($data);
         $vs = [];
         foreach ($vals as $val) {
-            $vs[] = $val === null ? 'null' : '\'' . addslashes($val) . '\'';
+            if (is_null($val)) {
+                $val = 'null';
+            } elseif (is_bool($val)) {
+                $val = '\'' . ($val ? 1 : 0) . '\'';
+            } else {
+                $val = '\'' . addslashes($val) . '\'';
+            }
+            $vs[] = $val;
         }
         $values = "(" . implode(",", $vs) . ")";
 
@@ -132,12 +143,15 @@ class QueryBuilder implements IQueryBuilder
         foreach ($data as $row) {
             $row = (array)$row;
             $vals = array_values($row);
-            foreach ($vals as $index => $v) {
-                if (VariableHelper::IsNull($v)) {
-                    $vals[$index] = 'NULL';
+            foreach ($vals as $index => $val) {
+                if (is_null($val)) {
+                    $val = 'null';
+                } elseif (is_bool($val)) {
+                    $val = '\'' . ($val ? 1 : 0) . '\'';
                 } else {
-                    $vals[$index] = '\'' . addslashes($v) . '\'';
+                    $val = '\'' . addslashes($val) . '\'';
                 }
+                $vals[$index] = $val;
             }
         
             $values .= ",(" . implode(", ", $vals) . ")";
@@ -160,8 +174,15 @@ class QueryBuilder implements IQueryBuilder
     {
         $data = (array)$data;
         $q = '';
-        foreach ($data as $k => $v) {
-            $q .= ',`' . $k . '`=' . (is_null($v) ? 'null' : '\'' . addslashes($v) . '\'');
+        foreach ($data as $k => $val) {
+            if (is_null($val)) {
+                $val = 'null';
+            } elseif (is_bool($val)) {
+                $val = '\'' . ($val ? 1 : 0) . '\'';
+            } else {
+                $val = '\'' . addslashes($val) . '\'';
+            }
+            $q .= ',`' . $k . '`=' . $val;
         }
         return "update " . $table . ' set ' . substr($q, 1) . ' where ' . $condition;
     }

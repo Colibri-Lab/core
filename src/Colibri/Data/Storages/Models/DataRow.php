@@ -58,6 +58,15 @@ class DataRow extends BaseDataRow
             throw new DataModelException('Unknown storage');
         }
         $this->_storage = $storage;
+
+        if(empty($data)) {
+            $dt = new \DateTime();
+            $data = [
+                $this->_storage->GetRealFieldName('id') => 0, 
+                $this->_storage->GetRealFieldName('datecreated') => $dt->format('Y-m-d H:i:s'), 
+                $this->_storage->GetRealFieldName('datemodified') => $dt->format('Y-m-d H:i:s')
+            ];
+        }
         parent::__construct($table, $data, $storage->name);
     }
 
@@ -163,7 +172,7 @@ class DataRow extends BaseDataRow
                 if ($field->required && is_null($rowValue)) {
                     $this->_data[$property] = false;
                 } else {
-                    $this->_data[$property] = ((bool) $rowValue) ? 1 : 0;
+                    $this->_data[$property] = $rowValue;
                 }
             }
         } elseif ($field->class === 'int' || $field->class === 'float' || $field->class === 'double') {
@@ -251,11 +260,13 @@ class DataRow extends BaseDataRow
                         }
                     }
 
-                    if ($v === true || $v === '1' || $v === 'true') {
-                        $v = 1;
-                    } elseif ($v === false || $v === '0' || $v === 'false') {
-                        $v = 0;
+                    if ($v === true || $v === '1' || $v === 1 || $v === 'true') {
+                        $v = true;
+                    } elseif ($v === false || $v === '0' || $v === 0 || $v === 'false') {
+                        $v = false;
                     }
+                    
+                    $data[$k] = $v;
 
                 } elseif ($field->class == 'int') {
                     if (is_null($v)) {
