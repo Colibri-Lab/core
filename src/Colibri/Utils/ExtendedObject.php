@@ -287,9 +287,9 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param bool $type конвертировать ли данные
      * @return mixed
      */
-    public function GetData($type = true, bool $noPrefix = false)
+    public function GetData($type = true)
     {
-        return $type ? $this->_typeToData($this->_data, $noPrefix) : $this->_data;
+        return $type ? $this->_typeToData($this->_data) : $this->_data;
     }
 
     /**
@@ -400,7 +400,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param mixed $data данные для конвертации
      * @return mixed конвертированные данные
      */
-    protected function _typeToData(mixed $data, bool $noPrefix = false)
+    protected function _typeToData(mixed $data)
     {
         return $data;
     }

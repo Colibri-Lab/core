@@ -70,7 +70,7 @@ class Generator {
 
             if($field->values) {
                 foreach($field->values as $value => $title) {
-                    $schemaEnum[] = '\''.$value.'\'';
+                    $schemaEnum[] = $field->class === 'string' ? '\''.$value.'\'' : $value;
                 }
             }
 

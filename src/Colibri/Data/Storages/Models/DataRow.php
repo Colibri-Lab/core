@@ -23,6 +23,7 @@ use Colibri\Common\VariableHelper;
 use Colibri\Data\Storages\Fields\DateTimeField;
 use Colibri\Data\Storages\Fields\Field;
 use Colibri\Data\Storages\Fields\ValueField;
+use Colibri\Exceptions\ValidationException;
 use ReflectionClass;
 use Colibri\Data\Storages\Fields\UUIDField;
 use Colibri\Data\DataAccessPoint;
@@ -234,89 +235,57 @@ class DataRow extends BaseDataRow
      * @param mixed $data данные для конвертации
      * @return mixed сконвертированные данные
      */
-    protected function _typeToData(mixed $data, bool $noPrefix = false): mixed
+    protected function _typeToData(mixed $data): mixed
     {
 
         $storage = $this->Storage();
-        foreach ($data as $k => $v) {
-            $kk = $storage->GetFieldName($k);
-            /** @var Field */
-            $field = isset($storage->fields->$kk) ? $storage->fields->$kk : false;
+        foreach ($data as $key => $value) {
 
+            $fieldName = $storage->GetFieldName($key);
+
+            /** @var Field */
+            $field = $storage->fields->$fieldName ?? null;
             if ($field) {
 
-                if ($field->class === 'string') {
-                    if (!is_object($v)) {
-                        $data[$k] = str_replace("\r\n", "\n", $v);
+                // подбираем значение по умолчанию
+                if (is_null($value) && !is_null($field->default)) {
+                    if($field->type === 'json' && strstr($field->default, 'json_array') !== false) {
+                        $value = '[]';
+                    } elseif ($field->type === 'json' && strstr($field->default, 'json_object') !== false) {
+                        $value = '{}';
                     } else {
-                        $data[$k] = $v;
+                        $value = $field->default;
                     }
+                }
+
+                if ($field->class === 'string') {
+                    $data[$key] = str_replace("\r\n", "\n", (string) $value);
                 } elseif ($field->class == 'bool') {
-                    if (is_null($v)) {
-                        if (!is_null($field->default)) {
-                            $v = $field->default;
-                        } else {
-                            $v = null;
-                        }
+                    if(in_array($value, [true, '1', 1, 'true'])) {
+                        $data[$key] = true;
+                    } elseif (in_array($value, [false, '0', 0, 'false'])) {
+                        $data[$key] = false;
+                    } else {
+                        $data[$key] = null;
                     }
-
-                    if ($v === true || $v === '1' || $v === 1 || $v === 'true') {
-                        $v = true;
-                    } elseif ($v === false || $v === '0' || $v === 0 || $v === 'false') {
-                        $v = false;
-                    }
-                    
-                    $data[$k] = $v;
-
                 } elseif ($field->class == 'int') {
-                    if (is_null($v)) {
-                        if (!is_null($field->default)) {
-                            $v = $field->default;
-                        } else {
-                            $v = null;
-                        }
-                    }
-                    if ($v === "") {
-                        $v = $field->required ? 0 : null;
-                    }
-                    $data[$k] = $v;
-                } elseif ($field->class == 'uuid') {
-
-                    if (is_null($v)) {
-                        if (!is_null($field->default)) {
-                            $v = $field->default;
-                        } else {
-                            $v = null;
-                        }
-                    }
-
-                    if ($v === "") {
-                        $v = $field->required ? 0 : null;
-                    }
-
-                    $data[$k] = $v instanceof UUIDField ? $v->binary : $v;
+                    $data[$key] = !is_numeric($value) ? null : (int)$value;
+                } elseif ($field->class == 'float') {
+                    $data[$key] = !is_numeric($value) ? null : (float)$value;
+                } elseif ($field->class == 'uuid') {                    
+                    $data[$key] = $value instanceof UUIDField ? $value->binary : $value;
                 } elseif ($field->class === 'array') {
-                    $data[$k] = is_string($v) ? $v : json_encode($v);
+                    $data[$key] = is_string($value) ? $value : json_encode($value);
                 } else {
-                    $data[$k] = is_null($v) ? null : (string) $v;
+                    $data[$key] = is_null($value) ? null : (string) $value;
+                }
+
+                if($field->required && is_null($value)) {
+                    throw new ValidationException('The ' . $key . ' field is required for storage ' . $storage->name, 500, null);
                 }
 
             }
         }
-
-        $data[$storage->GetRealFieldName('id')] = (int) $data[$storage->GetRealFieldName('id')];
-        $data[$storage->GetRealFieldName('datecreated')] = (string) $data[$storage->GetRealFieldName('datecreated')];
-        $data[$storage->GetRealFieldName('datemodified')] = (string) $data[$storage->GetRealFieldName('datemodified')];
-        
-        if($noPrefix) {
-            $newData = [];
-            foreach($data as $key => $value) {
-                $newData[$storage->GetFieldName($key)] = $value;
-            }
-            $data = $newData;
-        }
-        
-
 
         return $data;
     }
@@ -341,7 +310,11 @@ class DataRow extends BaseDataRow
                 $return[$fieldName] = (float) $fieldValue;
             } elseif ($fieldData->class === 'bool') {
                 $return[$fieldName] = (bool) $fieldValue;
+            } elseif ($fieldData->class === 'array') {
+                $return[$fieldName] = (array) $fieldValue;
             } elseif (strstr($fieldData->class, 'ValueField') !== false) {
+                $return[$fieldName] = (string) $fieldValue;
+            } elseif (strstr($fieldData->class, 'UUIDField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
             } elseif (strstr($fieldData->class, 'DateField') !== false || strstr($fieldData->class, 'DateTimeField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;

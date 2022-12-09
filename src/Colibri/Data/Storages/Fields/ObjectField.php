@@ -179,7 +179,11 @@ class ObjectField extends ExtendedObject
                 $return[$fieldName] = (float) $fieldValue;
             } elseif ($fieldData->class === 'bool') {
                 $return[$fieldName] = (bool) $fieldValue;
+            } elseif ($fieldData->class === 'array') {
+                $return[$fieldName] = (array) $fieldValue;
             } elseif (strstr($fieldData->class, 'ValueField') !== false) {
+                $return[$fieldName] = (string) $fieldValue;
+            } elseif (strstr($fieldData->class, 'UUIDField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
             } elseif (strstr($fieldData->class, 'DateField') !== false || strstr($fieldData->class, 'DateTimeField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
