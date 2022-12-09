@@ -25,7 +25,7 @@ use ReflectionClass;
 class ObjectField extends ExtendedObject
 {
 
-    protected ?DataRow $_datarow = null;
+    protected ?ExtendedObject $_datarow = null;
 
     /**
      * Поле
@@ -46,7 +46,7 @@ class ObjectField extends ExtendedObject
      * @param Field $field поле
      * @return void
      */
-    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null, ?DataRow $datarow = null)
+    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null, ExtendedObject $datarow = null)
     {
         parent::__construct(is_string($data) ? (array)json_decode($data) : (array)$data, '', false);
         $this->_storage = $storage;
@@ -147,7 +147,7 @@ class ObjectField extends ExtendedObject
             if ($mode == 'get') {
                 try {
                     $reflection = new ReflectionClass($class);
-                    if($reflection->isSubclassOf(BaseDataRow::class)) {
+                    if($reflection->isSubclassOf(DataRow::class)) {
                         $this->_data[$property] = $rowValue instanceof $class ? $rowValue : $class::Create($rowValue);
                     }
                     else {
