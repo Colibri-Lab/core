@@ -533,5 +533,45 @@ class VariableHelper
         }
     }
 
+    public static function MixedToArray(mixed $object): mixed
+    {
+        $typeName = gettype($object);
+        if($typeName === 'object') {
+            $className = get_class($object);
+            if($className === 'stdClass') {
+                $array = [
+                    '__class' => $className
+                ];
+                foreach($object as $property => $value) {
+                    $array[$property] = self::MixedToArray($value);
+                }
+                return $array;    
+            }
+            else {
+                $reflectionClass = new \ReflectionClass($className);
+                $array = [
+                    '__class' => $className
+                ];
+                foreach ($reflectionClass->getProperties() as $property) {
+                    $property->setAccessible(true);
+                    $array[$property->getName()] = self::MixedToArray($property->getValue($object));
+                    $property->setAccessible(false);
+                }
+    
+                return $array;    
+            }
+
+        } elseif ($typeName === 'array') {
+            $array = [];
+            foreach($object as $property => $value) {
+                $array[$property] = self::MixedToArray($value);
+            }
+            return $array;   
+        } else {
+            return $object;
+        }
+        
+    }
+
 
 }

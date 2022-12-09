@@ -162,6 +162,34 @@ class ObjectField extends ExtendedObject
 
         return $value;
     }
+
+    public function GetValidationData(): mixed
+    {
+
+        $return = [];
+
+        $fields = $this->_field->fields;
+        foreach($fields as $fieldName => $fieldData) {
+            $fieldValue = $this->$fieldName;
+            if($fieldData->class === 'string') {
+                $return[$fieldName] = (string) $fieldValue;
+            } elseif ($fieldData->class === 'int') {
+                $return[$fieldName] = (int) $fieldValue;
+            } elseif ($fieldData->class === 'float') {
+                $return[$fieldName] = (float) $fieldValue;
+            } elseif ($fieldData->class === 'bool') {
+                $return[$fieldName] = (bool) $fieldValue;
+            } elseif (strstr($fieldData->class, 'ValueField') !== false) {
+                $return[$fieldName] = (string) $fieldValue;
+            } elseif (strstr($fieldData->class, 'DateField') !== false || strstr($fieldData->class, 'DateTimeField') !== false) {
+                $return[$fieldName] = (string) $fieldValue;
+            } elseif (method_exists($fieldValue, 'GetValidationData')) {
+                $return[$fieldName] = $fieldValue->GetValidationData();
+            }
+        }
+
+        return (object)$return;
+    }
     
     /**
      * Геттер

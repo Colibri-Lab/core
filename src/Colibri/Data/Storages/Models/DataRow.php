@@ -303,6 +303,10 @@ class DataRow extends BaseDataRow
 
             }
         }
+
+        $data[$storage->GetRealFieldName('id')] = (int) $data[$storage->GetRealFieldName('id')];
+        $data[$storage->GetRealFieldName('datecreated')] = (string) $data[$storage->GetRealFieldName('datecreated')];
+        $data[$storage->GetRealFieldName('datemodified')] = (string) $data[$storage->GetRealFieldName('datemodified')];
         
         if($noPrefix) {
             $newData = [];
@@ -315,6 +319,38 @@ class DataRow extends BaseDataRow
 
 
         return $data;
+    }
+
+    public function GetValidationData(): mixed
+    {
+        $storage = $this->Storage();
+        
+        $return = [];
+        $return['id'] = (int) $this->id;
+        $return['datecreated'] = (string) $this->datecreated;
+        $return['datemodified'] = (string) $this->datemodified;
+
+        $fields = $storage->fields;
+        foreach($fields as $fieldName => $fieldData) {
+            $fieldValue = $this->$fieldName;
+            if($fieldData->class === 'string') {
+                $return[$fieldName] = (string) $fieldValue;
+            } elseif ($fieldData->class === 'int') {
+                $return[$fieldName] = (int) $fieldValue;
+            } elseif ($fieldData->class === 'float') {
+                $return[$fieldName] = (float) $fieldValue;
+            } elseif ($fieldData->class === 'bool') {
+                $return[$fieldName] = (bool) $fieldValue;
+            } elseif (strstr($fieldData->class, 'ValueField') !== false) {
+                $return[$fieldName] = (string) $fieldValue;
+            } elseif (strstr($fieldData->class, 'DateField') !== false || strstr($fieldData->class, 'DateTimeField') !== false) {
+                $return[$fieldName] = (string) $fieldValue;
+            } elseif (method_exists($fieldValue, 'GetValidationData')) {
+                $return[$fieldName] = $fieldValue->GetValidationData();
+            }
+        }
+
+        return (object)$return;
     }
 
     /**
@@ -399,8 +435,11 @@ class DataRow extends BaseDataRow
      * Вызывает SaveRow у таблицы
      * @return QueryInfo|bool 
      */
-    public function Save(): QueryInfo|bool
+    public function Save(bool $performValidationBeforeSave = false): QueryInfo|bool
     {
+        if($performValidationBeforeSave) {
+            $this->Validate(true);
+        }
         return $this->table->SaveRow($this);
     }
 

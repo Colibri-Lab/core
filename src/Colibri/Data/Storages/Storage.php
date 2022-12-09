@@ -259,7 +259,7 @@ class Storage
         return $this->_xstorage;
     }
 
-    public function Save()
+    public function Save(bool $performValidationBeforeSave = false)
     {
         $file = $this->file;
         $storageData = $this->ToArray();

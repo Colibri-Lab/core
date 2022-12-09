@@ -98,4 +98,13 @@ class ArrayField extends ArrayList
         return $this->ToString();
     }
 
+    public function GetValidationData(): mixed
+    {
+        $return = [];
+        foreach($this as $object) {
+            $return[] = $object->GetValidationData();
+        } 
+        return $return;
+    }
+
 }

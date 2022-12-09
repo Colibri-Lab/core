@@ -197,7 +197,7 @@ class Field
         }
     }
 
-    public function Save()
+    public function Save(bool $performValidationBeforeSave = false)
     {
         $xfield = $this->ToArray();
         unset($xfield['name']);

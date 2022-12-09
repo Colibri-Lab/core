@@ -16,8 +16,10 @@ use Colibri\App;
 use Colibri\AppException;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Common\VariableHelper;
+use Colibri\Utils\Logs\Logger;
 use InvalidArgumentException;
 use IteratorAggregate;
+use Colibri\Exceptions\ValidationException;
 use Opis\JsonSchema\Errors\ErrorFormatter;
 use Traversable;
 use JsonSerializable;
@@ -154,6 +156,11 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         self::$schema = $schema;
     }
 
+    public function GetValidationData(): mixed
+    {
+        return $this->_data;
+    }
+
     public function Validate(bool $throwExceptions = false): bool
     {
         if (empty(static::JsonSchema)) {
@@ -165,7 +172,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         }
 
         $schemaData = json_decode(json_encode(static::JsonSchema));
-        $data = $this->GetData(true, true);
+        $data = $this->GetValidationData();
         $data = VariableHelper::ArrayToObject($data);
 
         $validator = new Validator();
@@ -190,8 +197,10 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
                 $formatter = new ErrorFormatter();
                 $errors = $formatter->format($validationError, false);
                 $errors = implode("\n", $errors);
-                App::$log->critical(Debug::ROut($validationError));
-                throw new AppException($errors, 500);
+                $exception = new ValidationException($errors, 500, null, $validationError);
+                $exception->Log(Logger::Debug);
+                throw $exception;
+                
             } else {
                 return false;
             }
@@ -282,7 +291,6 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
     {
         return $type ? $this->_typeToData($this->_data, $noPrefix) : $this->_data;
     }
-
 
     /**
      * Возвращает JSON строку данных обьекта
