@@ -70,7 +70,12 @@ class Generator {
 
             if($field->values) {
                 foreach($field->values as $value => $title) {
-                    $schemaEnum[] = $field->class === 'string' ? '\''.$value.'\'' : $value;
+                    if ($schemaType === 'ValueField::JsonSchema') {
+                        $schemaEnum[] = '\''.$value.'\'';
+                    }
+                    else {
+                        $schemaEnum[] = is_string($value) ? '\''.$value.'\'' : $value;
+                    }
                 }
             }
 
@@ -81,9 +86,13 @@ class Generator {
                 [$sr, $sb] = self::GetSchemaObject($field->fields);
                 $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => ['.implode('', str_replace("\t\t\t", "", $sr)).'], \'properties\' => ['.implode('', str_replace("\t\t\t", "", $sb)).']]],';
             } elseif ($schemaType === 'DateField::JsonSchema' || $schemaType === 'DateTimeField::JsonSchema') {
-                $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'string\', \'format\' => \''.($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date').'\'],';
+                if($field->params['required']) {
+                    $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'string\', \'format\' => \''.($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date').'\'],';
+                } else {
+                    $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [ \'anyOf\' => [ [\'type\' => [\'string\', \'null\'], \'format\' => \''.($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date').'\'], [\'type\' => [\'string\', \'null\'], \'maxLength\' => 0] ] ],';
+                }   
             } elseif ($schemaType === 'ValueField::JsonSchema') {
-                $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => \'string\', \'enum\' => ['.implode(', ', $schemaEnum).']],';
+                $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => '.($field->params['required'] ? '[\'string\', \'null\']' : '\'string\'').', \'enum\' => ['.implode(', ', $schemaEnum).']],';
             } else {
                 $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => '.(!isset($jsonTypeMap[$field->class]) ? $schemaType.',' : 
                     '[\'type\' => '.

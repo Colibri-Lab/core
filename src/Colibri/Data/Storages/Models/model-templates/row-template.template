@@ -42,5 +42,12 @@ class [[row-class-name]] extends BaseModelDataRow {
     [[consts]]
     # endregion Consts;
 
+    public static function Create(?int $id = null): [[row-class-name]]
+    {
+        if(!$id) {
+            return [[table-class-name]]::LoadEmpty();
+        }
+        return [[table-class-name]]::LoadById($id);
+    }
 
 }

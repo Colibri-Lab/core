@@ -164,4 +164,16 @@ class Lookup
         }
     }
 
+    public function GetValueField(): string
+    {
+        if ($this->storage) {
+            $data = (object)$this->storage;
+            return $data->value;
+        }
+        else if ($this->accessPoint) {
+            $data = (object)$this->accessPoint;
+            return $data->value;
+        }
+    }
+
 }

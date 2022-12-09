@@ -11,7 +11,7 @@ class PayloadCopy implements ArrayAccess, Countable
 {
 
     private string $_type;
-    private mixed $_payloadData;
+    private mixed $_payloadData = null;
 
     public function __construct($type)
     {

@@ -15,6 +15,7 @@ use Colibri\Utils\Debug;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Storages\Storage;
 use Colibri\Data\Storages\Models\DataRow;
+use ReflectionClass;
 
 /**
  * Класс представление поля типа обьект
@@ -144,7 +145,17 @@ class ObjectField extends ExtendedObject
             $class = $this->_storage->GetFieldClass($field);
 
             if ($mode == 'get') {
-                $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->_storage, $field);
+                try {
+                    $reflection = new ReflectionClass($class);
+                    if($reflection->isSubclassOf(BaseDataRow::class)) {
+                        $this->_data[$property] = $rowValue instanceof $class ? $rowValue : $class::Create($rowValue);
+                    }
+                    else {
+                        $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
+                    }
+                } catch (\Throwable $e) {
+                    $this->_data[$property] = $rowValue;
+                }
                 $value = $this->_data[$property];
             } else {
 
@@ -170,8 +181,30 @@ class ObjectField extends ExtendedObject
 
         $fields = $this->_field->fields;
         foreach($fields as $fieldName => $fieldData) {
+            /** @var Field $fieldData */
             $fieldValue = $this->$fieldName;
-            if($fieldData->class === 'string') {
+            if ($fieldData->isLookup) {
+                if(is_array($fieldValue)) {
+                    $ret = [];
+                    foreach($fieldValue as $value) {
+                        if (is_object($value) && method_exists($value, 'GetValidationData')) {
+                            $ret[] = $value->GetValidationData();
+                        }
+                        else {
+                            $ret[] = $value->{$fieldData->lookup->GetValueField()};
+                        }
+                    }
+                    $return[$fieldName] = $ret;
+                }
+                else {
+                    if (is_object($fieldValue) && method_exists($fieldValue, 'GetValidationData')) {
+                        $return[$fieldName] = $fieldValue->GetValidationData();
+                    }
+                    else {
+                        $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField()};
+                    }
+                }
+            } elseif ($fieldData->class === 'string') {
                 $return[$fieldName] = (string) $fieldValue;
             } elseif ($fieldData->class === 'int') {
                 $return[$fieldName] = (int) $fieldValue;
@@ -202,13 +235,17 @@ class ObjectField extends ExtendedObject
      */
     public function __get(string $prop) : mixed
     {
-        if(strtolower($prop) == 'field') {
-            return $this->_field;
-        }
-        else if(strtolower($prop) == 'storage') {
-            return $this->_storage;
-        }
         return $this->_typeExchange('get', $prop);
+    }
+
+    public function Field(): Field
+    {
+        return $this->_field;
+    }
+
+    public function Storage(): Storage
+    {
+        return $this->_storage;
     }
     
     /**

@@ -181,11 +181,9 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
             if (preg_match('/^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])[T|\s]([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)([01][0-9]|2[0-3]):([0-5][0-9]))?$/i', $value, $m)) {
                 return checkdate($m[2], $m[3], $m[1]);
             }
-    
             return false;
         };
         $formats->registerCallable("string", "db-date-time", $isDbDateTime);
-
 
         $validator->setMaxErrors(100);
         /** @var ValidationResult $result */

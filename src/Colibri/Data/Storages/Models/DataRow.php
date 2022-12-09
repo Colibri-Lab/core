@@ -9,6 +9,7 @@
  */
 namespace Colibri\Data\Storages\Models;
 
+use App\Modules\EcoloPlace\Models\Credit;
 use Colibri\Data\Storages\Fields\ArrayField;
 use Colibri\Data\Storages\Fields\FileField;
 use Colibri\Data\Storages\Fields\FileListField;
@@ -24,6 +25,7 @@ use Colibri\Data\Storages\Fields\DateTimeField;
 use Colibri\Data\Storages\Fields\Field;
 use Colibri\Data\Storages\Fields\ValueField;
 use Colibri\Exceptions\ValidationException;
+use Colibri\Utils\ExtendedObject;
 use ReflectionClass;
 use Colibri\Data\Storages\Fields\UUIDField;
 use Colibri\Data\DataAccessPoint;
@@ -202,7 +204,13 @@ class DataRow extends BaseDataRow
 
             if ($mode == 'get') {
                 try {
-                    $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
+                    $reflection = new ReflectionClass($class);
+                    if($reflection->isSubclassOf(BaseDataRow::class)) {
+                        $this->_data[$property] = $rowValue instanceof $class ? $rowValue : $class::Create($rowValue);
+                    }
+                    else {
+                        $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
+                    }
                 } catch (\Throwable $e) {
                     $this->_data[$property] = $rowValue;
                 }
@@ -302,7 +310,28 @@ class DataRow extends BaseDataRow
         $fields = $storage->fields;
         foreach($fields as $fieldName => $fieldData) {
             $fieldValue = $this->$fieldName;
-            if($fieldData->class === 'string') {
+            if ($fieldData->isLookup) {
+                if(is_array($fieldValue)) {
+                    $ret = [];
+                    foreach($fieldValue as $value) {
+                        if (is_object($value) && method_exists($value, 'GetValidationData')) {
+                            $ret[] = $value->GetValidationData();
+                        }
+                        else {
+                            $ret[] = $value->{$fieldData->lookup->GetValueField()};
+                        }
+                    }
+                    $return[$fieldName] = $ret;
+                }
+                else {
+                    if (is_object($fieldValue) && method_exists($fieldValue, 'GetValidationData')) {
+                        $return[$fieldName] = $fieldValue->GetValidationData();
+                    }
+                    else {
+                        $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField()};
+                    }
+                }
+            } elseif ($fieldData->class === 'string') {
                 $return[$fieldName] = (string) $fieldValue;
             } elseif ($fieldData->class === 'int') {
                 $return[$fieldName] = (int) $fieldValue;
