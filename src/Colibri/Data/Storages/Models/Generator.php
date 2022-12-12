@@ -106,7 +106,8 @@ class Generator {
                         '[\'type\' => '.
                             '\''.$schemaType.'\', '.
                             (!empty($schemaEnum) ? '\'enum\' => ['.implode(', ', $schemaEnum).'],' : '').
-                            ($field->class === 'string' && (bool)$field->length ? '\'maxLength\' => '.$field->length.'' : '').
+                            ($field->class === 'string' && (bool)$field->length ? '\'maxLength\' => '.$field->length.', ' : '').
+                            ($field->class === 'string' && (bool)$field->params['canbeempty'] ? '' : '\'minLength\' => 1, ').
                             ($schemaItems ? '\'items\' => '.$schemaItems : '').
                         '],'
                     );
@@ -116,7 +117,8 @@ class Generator {
                         '[ \'oneOf\' => [ [ \'type\' => \'null\'], [\'type\' => '.
                             '\''.$schemaType.'\', '.
                             (!empty($schemaEnum) ? '\'enum\' => ['.implode(', ', $schemaEnum).'],' : '').
-                            ($field->class === 'string' && (bool)$field->length ? '\'maxLength\' => '.$field->length.'' : '').
+                            ($field->class === 'string' && (bool)$field->length ? '\'maxLength\' => '.$field->length.', ' : '').
+                            ($field->class === 'string' && (bool)$field->params['canbeempty'] ? '' : '\'minLength\' => 1, ').
                             ($schemaItems ? '\'items\' => '.$schemaItems : '').
                         '] ] ],'
                     );

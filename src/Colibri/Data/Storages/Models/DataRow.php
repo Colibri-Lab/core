@@ -71,6 +71,7 @@ class DataRow extends BaseDataRow
             ];
         }
         parent::__construct($table, $data, $storage->name);
+        $this->_processDefaultValues();
     }
 
     /**
