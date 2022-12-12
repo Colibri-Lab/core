@@ -209,7 +209,12 @@ class Generator {
                 foreach($field->values as $value => $title) {
                     $name = StringHelper::CreateHID($field->name.'-'.str_replace('_', '-', $value), true);
                     $name = StringHelper::ToCamelCaseAttr($name, true);
-                    $consts[] = "\t".'/** '.$title.' */'."\n\t".'public const '.$name.' = \''.$value.'\';';
+                    if(in_array($field->type, ['int', 'float', 'double', 'bool'])) {
+                        $consts[] = "\t".'/** '.$title.' */'."\n\t".'public const '.$name.' = '.$value.';';
+                    }
+                    else {
+                        $consts[] = "\t".'/** '.$title.' */'."\n\t".'public const '.$name.' = \''.$value.'\';';
+                    }
                 }
             }
 
