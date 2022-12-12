@@ -146,6 +146,10 @@ class ObjectField extends ExtendedObject
 
             if ($mode == 'get') {
                 try {
+                    if(is_null($rowValue)) {
+                        return $rowValue;
+                    }
+
                     $reflection = new ReflectionClass($class);
                     if($reflection->isSubclassOf(DataRow::class)) {
                         $this->_data[$property] = $rowValue instanceof $class ? $rowValue : $class::Create($rowValue);
@@ -153,6 +157,7 @@ class ObjectField extends ExtendedObject
                     else {
                         $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
                     }
+
                 } catch (\Throwable $e) {
                     $this->_data[$property] = $rowValue;
                 }
