@@ -13,6 +13,7 @@ use Colibri\Collections\ArrayList;
 use Colibri\Common\VariableHelper;
 use Colibri\Data\Storages\Storage;
 use Colibri\Data\Storages\Models\DataRow;
+use Colibri\Utils\ExtendedObject;
 
 /**
  * Класс представление поля типа массив обьектов
@@ -22,7 +23,7 @@ use Colibri\Data\Storages\Models\DataRow;
 class ArrayField extends ArrayList
 {
     
-    protected ?DataRow $_datarow = null;
+    protected ?ExtendedObject $_datarow = null;
 
     /**
      * Поле
@@ -43,7 +44,7 @@ class ArrayField extends ArrayList
      * @param Field $field поле
      * @return void
      */
-    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null, ?DataRow $datarow = null)
+    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null, ?ExtendedObject $datarow = null)
     {
         if (VariableHelper::IsNull($data) || VariableHelper::IsEmpty($data)) {
             $data = '[]';
@@ -53,7 +54,6 @@ class ArrayField extends ArrayList
         $this->_storage = $storage;
         $this->_field = $field;
         $this->_datarow = $datarow;
-        $this->_prefix = '';
     }
 
     /**

@@ -26,6 +26,16 @@ interface IQueryBuilder
      * @return string
      */
     public function CreateInsert(string $table, array|object $data, string $returning = ''): string;
+    
+    /**
+     * Создать запрос ввода/обновления данных
+     *
+     * @param string $table
+     * @param array|object $data
+     * @param string $returning
+     * @return string
+     */
+    public function CreateReplace(string $table, array|object $data, string $returning = ''): string;
 
     /**
      * Создать запрос ввода данных или обновления в случае дублирования данных в индексных полях

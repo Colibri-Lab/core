@@ -109,7 +109,7 @@ class Field
      */
     private function _loadValues(): void
     {
-        $this->_values = array();
+        $this->_values = [];
         if (!isset($this->_xfield['values'])) {
             return;
         }
@@ -129,7 +129,7 @@ class Field
      */
     private function _loadFields(): void
     {
-        $this->_fields = (object)array();
+        $this->_fields = (object)[];
         if (!isset($this->_xfield['fields'])) {
             return;
         }
@@ -168,6 +168,8 @@ class Field
                 return $this->_lookup && ($this->_lookup->accessPoint !== null || $this->_lookup->storage !== null);
             case 'isvalues':
                 return count((array)$this->_values) > 0;
+            case 'hasdefault':
+                return isset($this->_xfield['default']) && $this->_xfield['default'] !== null;
             case 'parent':
                 return $this->_parent;
             default:
@@ -199,7 +201,7 @@ class Field
         }
     }
 
-    public function Save(bool $performValidationBeforeSave = false)
+    public function Save()
     {
         $xfield = $this->ToArray();
         unset($xfield['name']);

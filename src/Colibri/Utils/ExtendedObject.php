@@ -65,7 +65,14 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
     /**
      * Схема валидации данных
      */
-    public const JsonSchema = [];
+    public const JsonSchema = [
+        'type' => 'object',
+        'patternProperties' => [
+            '.*' => [
+                'type' => ['number','string','boolean','object','array','null']
+            ]
+        ]
+    ];
 
     protected ValidationResult $_validationResult;
 
@@ -171,7 +178,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
             }
         }
 
-        $schemaData = json_decode(json_encode(static::JsonSchema));
+        $schemaData = static::JsonSchema;
+        $schemaData = json_decode(json_encode($schemaData));
         $data = $this->GetValidationData();
         $data = VariableHelper::ArrayToObject($data);
 

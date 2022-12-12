@@ -320,6 +320,7 @@ class DataRow extends BaseDataRow
 
         $fields = $storage->fields;
         foreach($fields as $fieldName => $fieldData) {
+            /** @var Field $fieldData */
             $fieldValue = $this->$fieldName;
             if(is_null($fieldValue)) {
                 $return[$fieldName] = null;
