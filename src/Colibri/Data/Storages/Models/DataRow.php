@@ -69,6 +69,7 @@ class DataRow extends BaseDataRow
                 $this->_storage->GetRealFieldName('datecreated') => $dt->format('Y-m-d H:i:s'), 
                 $this->_storage->GetRealFieldName('datemodified') => $dt->format('Y-m-d H:i:s')
             ];
+            $this->_processDefaultValues();
         }
         parent::__construct($table, $data, $storage->name);
     }
@@ -97,6 +98,37 @@ class DataRow extends BaseDataRow
                 }
             }
         }
+    }
+
+    private function _convertTo($value, $class): mixed 
+    {
+        switch($class) {
+            default:
+
+                break;
+            case 'string':
+                $value = (string) $value;
+                break;
+            case 'int':
+                $value = (int) $value;
+                break;
+            case 'float':
+                $value = (float) $value;
+                break;
+            case 'double':
+                $value = (double) $value;
+                break;
+            case 'bool':
+                $value = (bool) $value;
+                break;
+            case 'array':
+                $value = (array) json_decode($value);
+                break;
+            case 'uuid':
+                $value = new UUIDField($value);
+                break;
+        }
+        return $value;
     }
 
     /**
@@ -296,6 +328,16 @@ class DataRow extends BaseDataRow
         }
 
         return $data;
+    }
+
+    protected function _processDefaultValues(): bool
+    {
+        foreach($this->_storage->fields as $fieldName => $field) {
+            if(!is_null($field->default) && is_null($this->{$fieldName})) {
+                $this->$fieldName = $this->_convertTo($field->default, $field->class);
+            }
+        }
+        return true;
     }
 
     public function GetValidationData(): mixed
