@@ -188,6 +188,10 @@ class ObjectField extends ExtendedObject
         foreach($fields as $fieldName => $fieldData) {
             /** @var Field $fieldData */
             $fieldValue = $this->$fieldName;
+            if(is_null($fieldValue)) {
+                $return[$fieldName] = null;
+                continue;
+            }
             if ($fieldData->isLookup) {
                 if(is_array($fieldValue)) {
                     $ret = [];

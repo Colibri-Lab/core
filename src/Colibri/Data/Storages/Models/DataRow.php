@@ -69,7 +69,6 @@ class DataRow extends BaseDataRow
                 $this->_storage->GetRealFieldName('datecreated') => $dt->format('Y-m-d H:i:s'), 
                 $this->_storage->GetRealFieldName('datemodified') => $dt->format('Y-m-d H:i:s')
             ];
-            $this->_processDefaultValues();
         }
         parent::__construct($table, $data, $storage->name);
     }
@@ -98,37 +97,6 @@ class DataRow extends BaseDataRow
                 }
             }
         }
-    }
-
-    private function _convertTo($value, $class): mixed 
-    {
-        switch($class) {
-            default:
-
-                break;
-            case 'string':
-                $value = (string) $value;
-                break;
-            case 'int':
-                $value = (int) $value;
-                break;
-            case 'float':
-                $value = (float) $value;
-                break;
-            case 'double':
-                $value = (double) $value;
-                break;
-            case 'bool':
-                $value = (bool) $value;
-                break;
-            case 'array':
-                $value = (array) json_decode($value);
-                break;
-            case 'uuid':
-                $value = new UUIDField($value);
-                break;
-        }
-        return $value;
     }
 
     /**
@@ -168,7 +136,7 @@ class DataRow extends BaseDataRow
 
         if ($mode == 'get' && !isset($this->_data[$property])) {
             if ($field->default !== null) {
-                $reader = $this->_storage->accessPoint->Query('select ' . (empty($field->default) ? '\'\'' : $field->default) . ' as default_value', ['type' => DataAccessPoint::QueryTypeBigData]);
+                $reader = $this->_storage->accessPoint->Query('select ' . (VariableHelper::IsEmpty($field->default) ? '\'\'' : '\''.$field->default.'\'') . ' as default_value', ['type' => DataAccessPoint::QueryTypeBigData]);
                 $rowValue = $reader->Read()->default_value;
             } else {
                 $rowValue = null;
@@ -333,8 +301,9 @@ class DataRow extends BaseDataRow
     protected function _processDefaultValues(): bool
     {
         foreach($this->_storage->fields as $fieldName => $field) {
-            if(!is_null($field->default) && is_null($this->{$fieldName})) {
-                $this->$fieldName = $this->_convertTo($field->default, $field->class);
+            $realFieldName = $this->_storage->GetRealFieldName($fieldName);
+            if(!is_null($field->default) && !isset($this->_data[$realFieldName])) {
+                $this->__set($realFieldName, $field->default);
             }
         }
         return true;
@@ -352,6 +321,10 @@ class DataRow extends BaseDataRow
         $fields = $storage->fields;
         foreach($fields as $fieldName => $fieldData) {
             $fieldValue = $this->$fieldName;
+            if(is_null($fieldValue)) {
+                $return[$fieldName] = null;
+                continue;
+            }
             if ($fieldData->isLookup) {
                 if(is_array($fieldValue)) {
                     $ret = [];
@@ -484,7 +457,9 @@ class DataRow extends BaseDataRow
         if($performValidationBeforeSave) {
             $this->Validate(true);
         }
-        return $this->table->SaveRow($this);
+        $return = $this->table->SaveRow($this);
+        $this->_processDefaultValues();
+        return $return;
     }
 
     public function Delete(): QueryInfo

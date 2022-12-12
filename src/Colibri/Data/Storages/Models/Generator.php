@@ -92,16 +92,33 @@ class Generator {
                     $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [ \'anyOf\' => [ [\'type\' => [\'string\', \'null\'], \'format\' => \''.($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date').'\'], [\'type\' => [\'string\', \'null\'], \'maxLength\' => 0] ] ],';
                 }   
             } elseif ($schemaType === 'ValueField::JsonSchema') {
-                $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => '.($field->params['required'] ? '[\'string\', \'null\']' : '\'string\'').', \'enum\' => ['.implode(', ', $schemaEnum).']],';
+                if($field->params['required']) {
+                    $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [\'type\' => '.(!$field->params['required'] ? '[\'string\', \'null\']' : '\'string\'').', \'enum\' => ['.implode(', ', $schemaEnum).']],';
+                }
+                else {
+                    $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'string\', \'enum\' => ['.implode(', ', $schemaEnum).']] ] ],';
+                }
             } else {
-                $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => '.(!isset($jsonTypeMap[$field->class]) ? $schemaType.',' : 
-                    '[\'type\' => '.
-                        ($field->params['required'] ? '\''.$schemaType.'\'' : '[\''.$schemaType.'\', \'null\']').', '.
-                        (!empty($schemaEnum) ? '\'enum\' => ['.implode(', ', $schemaEnum).'],' : '').
-                        ($field->class === 'string' && (bool)$field->length ? '\'maxLength\' => '.$field->length.'' : '').
-                        ($schemaItems ? '\'items\' => '.$schemaItems : '').
-                    '],'
-                );
+                if ($field->params['required']) {
+                    $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => '.(!isset($jsonTypeMap[$field->class]) ? $schemaType.',' : 
+                        '[ \'oneOf\' => [ [ \'type\' => \'null\'], [\'type\' => '.
+                            '\''.$schemaType.'\', '.
+                            (!empty($schemaEnum) ? '\'enum\' => ['.implode(', ', $schemaEnum).'],' : '').
+                            ($field->class === 'string' && (bool)$field->length ? '\'maxLength\' => '.$field->length.'' : '').
+                            ($schemaItems ? '\'items\' => '.$schemaItems : '').
+                        '] ] ],'
+                    );
+                }
+                else {
+                    $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => '.(!isset($jsonTypeMap[$field->class]) ? $schemaType.',' : 
+                        '[\'type\' => '.
+                            '\''.$schemaType.'\', '.
+                            (!empty($schemaEnum) ? '\'enum\' => ['.implode(', ', $schemaEnum).'],' : '').
+                            ($field->class === 'string' && (bool)$field->length ? '\'maxLength\' => '.$field->length.'' : '').
+                            ($schemaItems ? '\'items\' => '.$schemaItems : '').
+                        '],'
+                    );
+                }
             }
 
             if($field->params['required'] ?? false) {
