@@ -231,11 +231,15 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         foreach ($this->_data as $key => $value) {
             $value = $this->_typeExchange('get', $key);
             if (is_array($value) || $value instanceof ArrayList) {
+                $ret = [];
                 foreach ($value as $index => $v) {
                     if ((is_string($v) || is_object($v)) && method_exists($v, 'ToArray')) {
-                        $value[$index] = $v->ToArray($noPrefix);
+                        $ret[$index] = $v->ToArray($noPrefix);
+                    } else {
+                        $ret[$index] = $v;
                     }
                 }
+                $value = $ret;
             } elseif ((is_string($value) || is_object($value)) && method_exists($value, 'ToArray')) {
                 $value = $value->ToArray($noPrefix);
             }
