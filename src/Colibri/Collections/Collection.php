@@ -11,6 +11,9 @@
  */
 
 namespace Colibri\Collections;
+use ArrayAccess;
+use Countable;
+use InvalidArgumentException;
 use IteratorAggregate;
 use JsonSerializable;
 
@@ -18,7 +21,7 @@ use JsonSerializable;
  * Базовый класс коллекций
  * @testFunction testCollection
  */
-class Collection implements ICollection, IteratorAggregate, JsonSerializable
+class Collection implements ICollection, IteratorAggregate, JsonSerializable, ArrayAccess, Countable
 {
 
     /**
@@ -344,5 +347,67 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable
     {
         return $this->ToArray();
     }
+
+    /**
+     * Устанавливает значение по индексу
+     * @param string $offset
+     * @param mixed $value
+     * @return void
+     * @testFunction testDataTableOffsetSet
+     */
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        if(is_string($offset)) {
+            $this->Add($offset, $value);
+        } else {
+            throw new InvalidArgumentException('Invalid offset');
+        }
+    }
+
+    /**
+     * Проверяет есть ли данные по индексу
+     * @param string|int $offset
+     * @return bool
+     */
+    public function offsetExists(mixed $offset): bool
+    {
+        if(is_string($offset)) {
+            return $this->Exists($offset);
+        } else {
+            return $offset < $this->Count();
+        }
+    }
+
+    /**
+     * удаляет данные по индексу
+     * @param string|int $offset
+     * @return void
+     * @testFunction testDataTableOffsetUnset
+     */
+    public function offsetUnset(mixed $offset): void
+    {
+        if(is_string($offset)) {
+            $this->Delete($offset);
+        } else {
+            $this->DeleteAt($offset);
+        }
+    }
+
+    /**
+     * Возвращает значение по индексу
+     *
+     * @param int $offset
+     * @return mixed
+     * @testFunction testDataTableOffsetGet
+     */
+    public function offsetGet(mixed $offset): mixed
+    {
+        if(is_string($offset)) {
+            return $this->Item($offset);
+        } else {
+            return $this->ItemAt($offset);
+        }
+    }
+
 
 }

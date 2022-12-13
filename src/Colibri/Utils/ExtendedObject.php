@@ -14,6 +14,7 @@ namespace Colibri\Utils;
 use ArrayAccess;
 use Colibri\App;
 use Colibri\AppException;
+use Colibri\Collections\ArrayList;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Common\VariableHelper;
 use Colibri\Utils\Logs\Logger;
@@ -229,7 +230,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         $data = array();
         foreach ($this->_data as $key => $value) {
             $value = $this->_typeExchange('get', $key);
-            if (is_array($value)) {
+            if (is_array($value) || $value instanceof ArrayList) {
                 foreach ($value as $index => $v) {
                     if ((is_string($v) || is_object($v)) && method_exists($v, 'ToArray')) {
                         $value[$index] = $v->ToArray($noPrefix);

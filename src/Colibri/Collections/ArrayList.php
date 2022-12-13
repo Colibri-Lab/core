@@ -11,6 +11,8 @@
  */
 
 namespace Colibri\Collections;
+use ArrayAccess;
+use Countable;
 use JsonSerializable;
 use Colibri\Utils\Debug;
 
@@ -18,7 +20,7 @@ use Colibri\Utils\Debug;
  * Базовый класс списка, реализует стандартный функционал
  * @testFunction testArrayList
  */
-class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable
+class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, ArrayAccess, Countable
 {
 
     /**
@@ -262,6 +264,56 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable
             $newList->Add($closure($value));
         }
         return $newList;
+    }
+
+    /**
+     * Устанавливает значение по индексу
+     * @param int $offset
+     * @param mixed $value
+     * @return void
+     * @testFunction testDataTableOffsetSet
+     */
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        if (is_null($offset)) {
+            $this->Add($value);
+        }
+        else {
+            $this->Set($offset, $value);
+        }
+    }
+
+    /**
+     * Проверяет есть ли данные по индексу
+     * @param int $offset
+     * @return bool
+     */
+    public function offsetExists(mixed $offset): bool
+    {
+        return $offset < $this->Count();
+    }
+
+    /**
+     * удаляет данные по индексу
+     * @param int $offset
+     * @return void
+     * @testFunction testDataTableOffsetUnset
+     */
+    public function offsetUnset(mixed $offset): void
+    {
+        $this->DeleteAt($offset);
+    }
+
+    /**
+     * Возвращает значение по индексу
+     *
+     * @param int $offset
+     * @return mixed
+     * @testFunction testDataTableOffsetGet
+     */
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->Item($offset);
     }
 
 }
