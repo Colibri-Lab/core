@@ -27,8 +27,9 @@ class Javascript
 
             $commandline = $this->_config->command;
             $time = microtime(true);
-            $cacheFileIn = App::$webRoot . App::$config->Query('runtime')->GetValue() . 'code'.$time.'.js';
-            $cacheFileOut = App::$webRoot . App::$config->Query('runtime')->GetValue() . 'code'.$time.'-minified.js';
+            $runtime = App::$config->Query('runtime')->GetValue();
+            $cacheFileIn = App::$appRoot . $runtime . 'code'.$time.'.js';
+            $cacheFileOut = App::$appRoot . $runtime . 'code'.$time.'-minified.js';
             
             File::Write($cacheFileIn, $content);
             $commandline = sprintf($commandline, $cacheFileIn, $cacheFileOut);
