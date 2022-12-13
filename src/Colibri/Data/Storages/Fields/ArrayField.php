@@ -107,4 +107,13 @@ class ArrayField extends ArrayList
         return $return;
     }
 
+    public function ToArray(bool $noPrefix = false): array
+    {
+        $ret = [];
+        foreach($this as $item) {
+            $ret[] = $item->ToArray(true);
+        }
+        return $ret;
+    }
+
 }

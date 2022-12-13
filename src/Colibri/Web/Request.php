@@ -251,5 +251,19 @@ class Request
         return new PayloadCopy($type);
     }
 
+    public function GetUniqueRequestId(): string
+    {
+
+        $requestData = [
+            $_GET, 
+            $_POST,
+            $_COOKIE
+        ];
+
+        $requestData = json_encode($requestData);
+
+        return md5($requestData);
+
+    }
 
 }
