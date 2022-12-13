@@ -37,9 +37,9 @@ class QueryBuilder implements IQueryBuilder
         foreach ($data as $key => $value) {
             if (is_null($value)) {
                 $value = 'null';
-            } elseif(is_bool($value)) {
+            } elseif (is_bool($value)) {
                 $value = '\'' . ($value ? 1 : 0) . '\'';
-            } else {
+            } elseif (strstr($value, '[[') === false || strstr($value, ']]') === false) {
                 $value = '\'' . addslashes($value) . '\'';
             }
             $data[$key] = $value;
@@ -71,7 +71,7 @@ class QueryBuilder implements IQueryBuilder
                 $value = 'null';
             } elseif (is_bool($value)) {
                 $value = '\'' . ($value ? 1 : 0) . '\'';
-            } else {
+            } elseif (strstr($value, '[[') === false || strstr($value, ']]') === false) {
                 $value = '\'' . addslashes($value) . '\'';
             }
             $data[$key] = $value;
@@ -109,7 +109,7 @@ class QueryBuilder implements IQueryBuilder
                 $val = 'null';
             } elseif (is_bool($val)) {
                 $val = '\'' . ($val ? 1 : 0) . '\'';
-            } else {
+            } elseif (strstr($val, '[[') === false || strstr($val, ']]') === false) {
                 $val = '\'' . addslashes($val) . '\'';
             }
             $vs[] = $val;
@@ -148,7 +148,7 @@ class QueryBuilder implements IQueryBuilder
                     $val = 'null';
                 } elseif (is_bool($val)) {
                     $val = '\'' . ($val ? 1 : 0) . '\'';
-                } else {
+                } elseif (strstr($val, '[[') === false || strstr($val, ']]') === false) {
                     $val = '\'' . addslashes($val) . '\'';
                 }
                 $vals[$index] = $val;
@@ -179,7 +179,7 @@ class QueryBuilder implements IQueryBuilder
                 $val = 'null';
             } elseif (is_bool($val)) {
                 $val = '\'' . ($val ? 1 : 0) . '\'';
-            } else {
+            } elseif (strstr($val, '[[') === false || strstr($val, ']]') === false) {
                 $val = '\'' . addslashes($val) . '\'';
             }
             $q .= ',`' . $k . '`=' . $val;

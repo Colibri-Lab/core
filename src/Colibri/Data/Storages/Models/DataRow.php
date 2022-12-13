@@ -447,7 +447,15 @@ class DataRow extends BaseDataRow
         $data = $this->GetData();
         $original = $this->Original();
 
-        return ($original->$property ?? null) != ($data[$property] ?? null);
+        $originalValue = ($original->$property ?? null);
+        $newValue = ($data[$property] ?? null);
+
+        if(is_string($newValue) && StringHelper::IsJsonString($newValue)) {
+            $newValue = json_decode($newValue);
+            $originalValue = json_decode($originalValue);
+        }
+
+        return $originalValue != $newValue;
     }
 
     /**

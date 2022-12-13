@@ -163,10 +163,27 @@ class DataTable extends BaseDataTable
         unset($data[$idf]); 
         $data[$idm] = DateHelper::ToDBString(time());
 
+        $params = [];
         $fieldValues = [];
         foreach ($data as $key => $value) {
             if (!$id || $row->IsPropertyChanged($key)) {
-                $fieldValues[$key] = $value;
+                $fieldName = $this->_storage->GetFieldName($key);
+                /** @var \Colibri\Data\Storages\Fields\Field $field */
+                $field = $this->_storage->fields->$fieldName;
+                $paramType = 'string';
+                if ($field && in_array($field->type, ['blob', 'tinyblob', 'longblob'])) {
+                    $paramType = 'blob';
+                } elseif ($field && in_array($field->type, ['integer', 'int', 'smallint', 'tinyint', 'medium', 'bigint', 'decimal', 'numeric'])) {
+                    $paramType = 'integer';
+                } elseif ($field && in_array($field->type, ['double', 'float'])) {
+                    $paramType = 'double';
+                } elseif ($field && in_array($field->type, ['bool', 'boolean'])) {
+                    $paramType = 'integer';
+                    $value = $value === true ? 1 : 0;
+                }
+
+                $params[$key] = $value;
+                $fieldValues[$key] = '[['.$key.':'.$paramType.']]';
             }
         }
 
@@ -175,7 +192,7 @@ class DataTable extends BaseDataTable
         }
 
         if (!$id) {
-            $res = $this->_storage->accessPoint->Insert($this->_storage->name, $fieldValues);
+            $res = $this->_storage->accessPoint->Insert($this->_storage->name, $fieldValues, '', $params);
             if ($res->insertid == 0) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
                 return $res;
@@ -184,7 +201,7 @@ class DataTable extends BaseDataTable
             $row->$idc = DateHelper::ToDBString(time());
             $row->$idm = DateHelper::ToDBString(time());
         } else {
-            $res = $this->_storage->accessPoint->Update($this->_storage->name, $fieldValues, $idf . '=' . $id);
+            $res = $this->_storage->accessPoint->Update($this->_storage->name, $fieldValues, $idf . '=' . $id, $params);
             if ($res->error) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
                 return $res;

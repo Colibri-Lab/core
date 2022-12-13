@@ -224,11 +224,15 @@ class DataAccessPoint
      * @return QueryInfo
      * @testFunction testDataAccessPointInsert
      */
-    public function Insert($table, $row = array(), $returning = ''): QueryInfo
+    public function Insert(string $table, array $row = [], string $returning = '', ?array $params = null): QueryInfo
     {
+        $queryParams = ['type' => self::QueryTypeNonInfo, 'returning' => $returning];
+        if(!is_null($params)) {
+            $queryParams['params'] = $params;
+        }
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateInsert($table, $row), ['type' => self::QueryTypeNonInfo, 'returning' => $returning]);
+        return $this->Query($queryBuilder->CreateInsert($table, $row), $queryParams);
     }
 
     /**
@@ -243,7 +247,7 @@ class DataAccessPoint
      * @return QueryInfo
      * @testFunction testDataAccessPointInsertOrUpdate
      */
-    public function InsertOrUpdate($table, $row = array(), $exceptFields = array(), $returning = '' /* used only in postgres*/): QueryInfo
+    public function InsertOrUpdate(string $table, array $row = [], array $exceptFields = [], string $returning = '' /* used only in postgres*/): QueryInfo
     {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
@@ -258,7 +262,7 @@ class DataAccessPoint
      * @return QueryInfo
      * @testFunction testDataAccessPointInsertBatch
      */
-    public function InsertBatch($table, $rows = array()): QueryInfo
+    public function InsertBatch(string $table, array $rows = []): QueryInfo
     {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
@@ -274,11 +278,15 @@ class DataAccessPoint
      * @return QueryInfo|null
      * @testFunction testDataAccessPointUpdate
      */
-    public function Update($table, $row, $condition): QueryInfo
+    public function Update(string $table, array $row, string $condition, ?array $params = null): QueryInfo
     {
+        $queryParams = ['type' => self::QueryTypeNonInfo];
+        if(!is_null($params)) {
+            $queryParams['params'] = $params;
+        }
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateUpdate($table, $condition, $row), ['type' => self::QueryTypeNonInfo]);
+        return $this->Query($queryBuilder->CreateUpdate($table, $condition, $row), $queryParams);
     }
 
     /**
@@ -289,7 +297,7 @@ class DataAccessPoint
      * @return QueryInfo
      * @testFunction testDataAccessPointDelete
      */
-    public function Delete($table, $condition = ''): QueryInfo
+    public function Delete(string $table, string $condition = ''): QueryInfo
     {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();

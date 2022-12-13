@@ -17,6 +17,7 @@ use Colibri\Common\RandomizationHelper;
 use Colibri\Utils\Debug;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Xml\XmlNode;
+use Throwable;
 
 class StringHelper
 {
@@ -71,6 +72,17 @@ class StringHelper
             return false;
         }
         return $s == StringHelper::ToLower($s);
+    }
+
+    public static function IsJsonString(string $s): bool
+    {
+        try {
+            $d = json_decode($s);
+            return $d !== null;
+        }
+        catch(Throwable $e) {
+            return false;
+        }
     }
 
     /**

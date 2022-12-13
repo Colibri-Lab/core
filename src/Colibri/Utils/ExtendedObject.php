@@ -202,8 +202,12 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
                 $validationError = $this->_validationResult->error();
                 $formatter = new ErrorFormatter();
                 $errors = $formatter->format($validationError, false);
-                $errors = implode("\n", $errors);
-                $exception = new ValidationException($errors, 500, null, $validationError);
+                $errorsString = [];
+                foreach($errors as $key => $value) {
+                    $errorsString[] = $key . ': '  . $value;
+                }
+                $errorsString = implode("\n", $errorsString);
+                $exception = new ValidationException($errorsString, 500, null, ['raw' => $validationError, 'formatted' => $errors]);
                 $exception->Log(Logger::Debug);
                 throw $exception;
                 

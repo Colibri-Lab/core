@@ -61,9 +61,9 @@ class ArrayField extends ArrayList
      * @param int $index индекс
      * @return ObjectField обьект
      */
-    public function Item(int $index): ObjectField
+    public function Item(int $index): ObjectField|DataRow
     {
-        return $this->data[$index] instanceof ObjectField ? $this->data[$index] : new ObjectField($this->data[$index], $this->_storage, $this->_field);
+        return $this->data[$index] instanceof ObjectField || $this->data[$index] instanceof DataRow ? $this->data[$index] : new ObjectField($this->data[$index], $this->_storage, $this->_field);
     }
 
     /**
