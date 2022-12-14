@@ -76,7 +76,7 @@ class Javascript
     public function Run(string $content): string
     {
 
-        if($this->_config->convert) {
+        if($this->_config?->convert ?? false) {
             $content = $this->_convert($content);
         }
 
