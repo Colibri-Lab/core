@@ -70,7 +70,11 @@ class Javascript
         foreach($consts as $key => $value) {
             $ret[] = $key . ' = ' . $value;
         }
-        return $content . implode(',', $ret);
+        $content = $content . implode(',', $ret);
+
+        // надо заменить 
+
+        return $content;
     }
 
     public function Run(string $content): string
