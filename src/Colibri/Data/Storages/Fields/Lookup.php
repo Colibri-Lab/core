@@ -116,7 +116,11 @@ class Lookup
             }
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
-            $filter = !is_array($value) ? $storage->GetRealFieldName($data->value ?? 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'' : $storage->GetRealFieldName($data->value ?? 'id') . ' in (\'' . implode('\', \'', $value) . '\')';
+            if(!is_array($value)) {
+                $filter = $storage->GetRealFieldName($data->value ?? 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
+            } else {
+                $filter = $storage->GetRealFieldName($data->value ?? 'id') . ' in (\'' . implode('\', \'', array_map(function($v) { return is_object($v) ? $v->value : $v; }, (array)$value)) . '\')';
+            }
             /** @var IDataReader */
             $reader = $accessPoint->Query('select * from ' . $data->name . ($filter && $filter != '' ? ' where ' . $filter : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => is_array($value) ? count($value) : 1]);
             if($reader->Count() == 0) {
