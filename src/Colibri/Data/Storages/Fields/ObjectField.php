@@ -163,15 +163,17 @@ class ObjectField extends ExtendedObject
                 }
                 $value = $this->_data[$property];
             } else {
-
-                if($rowValue instanceof $class) {
-                    $this->_data[$property] = (string)$rowValue;
+                try {
+                    if($rowValue instanceof $class) {
+                        $this->_data[$property] = (string)$rowValue;
+                    }
+                    else {
+                        $c = new $class($rowValue, $this->_storage, $field);
+                        $this->_data[$property] = (string)$c;
+                    }
+                } catch (\Throwable $e) {
+                    $this->_data[$property] = $rowValue;
                 }
-                else {
-                    $c = new $class($rowValue, $this->_storage, $field);
-                    $this->_data[$property] = (string)$c;
-                }
-
             }
             
         }
