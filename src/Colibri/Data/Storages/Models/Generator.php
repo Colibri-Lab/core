@@ -27,18 +27,18 @@ class Generator {
     public static function GetSchemaObject($fields, string $rowClass): array
     {
         $jsonTypeMap = [
-            'bool' => 'boolean',
-            'int' => 'integer',
-            'float' => 'number',
-            'double' => 'number',
-            'string' => 'string',
-            'object' => 'object',
-            'array' => 'array',
-            'date' => 'string',
-            'datetime' => 'string',
-            'callable' => 'null',
-            'iterable' => 'null',
-            'resource' => 'null'
+            'bool' => ['boolean', 'number'],
+            'int' => ['integer'],
+            'float' => ['number'],
+            'double' => ['number'],
+            'string' => ['string'],
+            'object' => ['object'],
+            'array' => ['array'],
+            'date' => ['string'],
+            'datetime' => ['string'],
+            'callable' => ['null'],
+            'iterable' => ['null'],
+            'resource' => ['null']
         ];
 
         $schemaRequired = [];
@@ -79,6 +79,11 @@ class Generator {
                 }
             }
 
+            if(is_array($schemaType) && in_array('boolean', $schemaType) && empty($schemaEnum)) {
+                // надо запихать значения
+                $schemaEnum = ['true', 'false', '0', '1'];
+            }
+
             if($schemaType === $rowClass) {
                 $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [ \'$ref\' => \'#\' ], ';
             } elseif ($schemaType === 'ObjectField::JsonSchema') {
@@ -104,10 +109,10 @@ class Generator {
                 if ($field->params['required'] ?? false) {
                     $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => '.(!isset($jsonTypeMap[$field->class]) ? $schemaType.',' : 
                         '[\'type\' => '.
-                            '\''.$schemaType.'\', '.
+                            (count($schemaType) === 1 ? '\''.$schemaType[0].'\'' : '[\''.implode('\',\'',$schemaType).'\']').', '.
                             (!empty($schemaEnum) ? '\'enum\' => ['.implode(', ', $schemaEnum).'],' : '').
                             ($field->class === 'string' && (bool)$field->length ? '\'maxLength\' => '.$field->length.', ' : '').
-                            ($field->class === 'string' && (bool)($field->params['canbeempty'] ?? true) ? '' : '\'minLength\' => 1, ').
+                            ($field->class === 'string' ? ((bool)($field->params['canbeempty'] ?? true) ? '' : '\'minLength\' => 1, ') : '').
                             ($schemaItems ? '\'items\' => '.$schemaItems : '').
                         '],'
                     );
@@ -115,10 +120,10 @@ class Generator {
                 else {
                     $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => '.(!isset($jsonTypeMap[$field->class]) ? '[ \'oneOf\' => [ [ \'type\' => \'null\'], ' . $schemaType.' ] ],' : 
                         '[ \'oneOf\' => [ [ \'type\' => \'null\'], [\'type\' => '.
-                            '\''.$schemaType.'\', '.
+                            (count($schemaType) === 1 ? '\''.$schemaType[0].'\'' : '[\''.implode('\',\'',$schemaType).'\']').', '.
                             (!empty($schemaEnum) ? '\'enum\' => ['.implode(', ', $schemaEnum).'],' : '').
                             ($field->class === 'string' && (bool)$field->length ? '\'maxLength\' => '.$field->length.', ' : '').
-                            ($field->class === 'string' && (bool)($field->params['canbeempty'] ?? true) ? '' : '\'minLength\' => 1, ').
+                            ($field->class === 'string' ? ((bool)($field->params['canbeempty'] ?? true) ? '' : '\'minLength\' => 1, ') : '').
                             ($schemaItems ? '\'items\' => '.$schemaItems : '').
                         '] ] ],'
                     );
