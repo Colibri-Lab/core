@@ -85,7 +85,12 @@ class Generator {
             }
 
             if($schemaType === $rowClass) {
-                $schemaProperties[] = "\t\t\t" . '\''.$field->name.'\' => [ \'$ref\' => \'#\' ], ';
+                if ($field->params['required'] ?? false) {
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [ \'$ref\' => \'#\' ], ';
+                }
+                else {
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [ \'oneOf\' => [ [ \'type\' => \'null\' ], [\'$ref\' => \'#\'] ] ], ';
+                }
             } elseif ($schemaType === 'ObjectField::JsonSchema') {
                 [$sr, $sb] = self::GetSchemaObject($field->fields, $rowClass);
                 $schemaProperties[] = "\t\t\t".'\''.$field->name.'\' => [\'type\' => \'object\', \'required\' => ['.implode('', str_replace("\t\t\t", "", $sr)).'], \'properties\' => ['.implode('', str_replace("\t\t\t", "", $sb)).']],';
