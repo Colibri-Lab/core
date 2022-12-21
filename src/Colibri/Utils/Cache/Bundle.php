@@ -199,7 +199,7 @@ class Bundle
      * @return array
      * @testFunction testBundleGetChildAssets
      */
-    protected static function GetChildAssets(string $path, array $exts, array $exception = [], bool $preg = false): array
+    public static function GetChildAssets(string $path, array $exts, array $exception = [], bool $preg = false): array
     {
         $files = [];
 

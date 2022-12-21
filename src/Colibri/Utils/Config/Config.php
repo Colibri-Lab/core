@@ -44,31 +44,30 @@ class Config implements IteratorAggregate
      */
     public function __construct(mixed $fileName, bool $isFile = true, string $file = '')
     {
-        
+
         $this->_file = $file;
 
         if (is_array($fileName) || is_object($fileName)) {
             $this->_configData = $fileName;
-        }
-        else if (is_numeric($fileName) || $fileName) {
-            $path = App::$appRoot . '/config/' . $fileName;
+        } else if (is_numeric($fileName) || $fileName) {
             try {
-                if ($isFile && file_exists($path)) {
+                if ($isFile && file_exists(App::$appRoot . '/config/' . $fileName)) {
+                    $path = App::$appRoot . '/config/' . $fileName;
                     $this->_configData = \yaml_parse_file($path);
                     $this->_file = $fileName;
-                }
-                else if (!VariableHelper::IsEmpty(trim($fileName))) {
+                } elseif ($isFile && file_exists($fileName)) {
+                    $path = $fileName;
+                    $this->_configData = \yaml_parse_file($path);
+                    $this->_file = $fileName;
+                } elseif (!VariableHelper::IsEmpty(trim($fileName))) {
                     $this->_configData = \yaml_parse($fileName);
-                }
-                else {
+                } else {
                     $this->_configData = [];
                 }
-            }
-            catch (\Throwable $e) {
+            } catch (\Throwable $e) {
                 if ($isFile) {
                     $message = 'Error reading config file: ' . $path . '. Error message: ' . $e->getMessage();
-                }
-                else {
+                } else {
                     $message = 'Error reading config: ' . $fileName . '. Error message: ' . $e->getMessage();
                 }
                 throw new ConfigException($message);
@@ -119,20 +118,16 @@ class Config implements IteratorAggregate
                 if (File::Exists(App::$appRoot . '/config/' . $matches[1])) {
                     $return = \yaml_parse_file(App::$appRoot . '/config/' . $matches[1]);
                     $file = $matches[1];
-                }
-                else if (File::Exists(App::$appRoot . $matches[1])) {
+                } else if (File::Exists(App::$appRoot . $matches[1])) {
                     $return = \yaml_parse_file(App::$appRoot . $matches[1]);
                     $file = $matches[1];
-                }
-                else if (File::Exists($matches[1])) {
+                } else if (File::Exists($matches[1])) {
                     $return = \yaml_parse_file($matches[1]);
                     $file = $matches[1];
-                }
-                else {
+                } else {
                     $return = null;
                 }
-            }
-            else {
+            } else {
                 $return = null;
             }
         }
@@ -165,12 +160,10 @@ class Config implements IteratorAggregate
                         $cmdItem = $matches[1];
                         $cmdIndex = $matches[2];
                         [$data, $file] = $this->_prepareValue($data[$cmdItem][$cmdIndex], $file);
-                    }
-                    else {
+                    } else {
                         throw new ConfigException('Illeval query: ' . $item);
                     }
-                }
-                else {
+                } else {
                     if (!isset($data[$commandItem])) {
                         throw new ConfigException('Illeval query: ' . $item);
                     }
@@ -178,20 +171,17 @@ class Config implements IteratorAggregate
                     [$data, $file] = $this->_prepareValue($data[$commandItem], $file);
                 }
             }
-        }
-        catch (ConfigException $e) {
+        } catch (ConfigException $e) {
             if ($default) {
                 $data = $default;
-            }
-            else {
+            } else {
                 throw $e;
             }
         }
 
         if (is_array($data) && !$this->isKindOfObject($data)) {
             return new ConfigItemsList($data, $file);
-        }
-        else {
+        } else {
             return new Config($data, false, $file);
         }
     }
@@ -205,7 +195,7 @@ class Config implements IteratorAggregate
     public function AsObject(): object|string|null
     {
         if (is_array($this->_configData)) {
-            return (object)VariableHelper::ArrayToObject($this->_configData);
+            return (object) VariableHelper::ArrayToObject($this->_configData);
         }
         return $this->_configData;
     }
@@ -218,7 +208,7 @@ class Config implements IteratorAggregate
      */
     public function AsArray(): ?array
     {
-        return (array)$this->_configData;
+        return (array) $this->_configData;
     }
 
     /**
@@ -243,13 +233,13 @@ class Config implements IteratorAggregate
      * @return boolean
      * @testFunction testConfigIsKindOfObject
      */
-    public function isKindOfObject(string|array|null $param): bool
+    public function isKindOfObject(string|array |null $param): bool
     {
-        if(is_null($param)) {
+        if (is_null($param)) {
             return false;
         }
 
-        $param = (array)$param;
+        $param = (array) $param;
         foreach ($param as $key => $value) {
             if (is_string($key)) {
                 return true;
@@ -259,7 +249,7 @@ class Config implements IteratorAggregate
         return false;
     }
 
-    public function Save(string $fileName = ''): bool 
+    public function Save(string $fileName = ''): bool
     {
         $fileName = $fileName ?: $this->_file;
         $path = App::$appRoot . '/config/' . $fileName;
@@ -269,14 +259,14 @@ class Config implements IteratorAggregate
     /**
      * Собирает все файлы конфигураций в папке /config
      */
-    static function Enumerate(): array 
+    static function Enumerate(): array
     {
-        
+
         $ret = [];
         $finder = new Finder();
-        $files = $finder->Files(App::$appRoot.'/config/', '/.yaml/');
-        foreach($files as $file) {
-            $ret[] = str_replace(App::$appRoot.'/config/', '', $file->path);
+        $files = $finder->Files(App::$appRoot . '/config/', '/.yaml/');
+        foreach ($files as $file) {
+            $ret[] = str_replace(App::$appRoot . '/config/', '', $file->path);
         }
         return $ret;
 
@@ -291,23 +281,21 @@ class Config implements IteratorAggregate
     {
         try {
             $command = explode('.', $item);
-            if($value !== null) {
-                $command = '$this->_configData[\''.implode('\'][\'', $command).'\']=$value;';
-            }
-            else {
-                $command = 'unset($this->_configData[\''.implode('\'][\'', $command).'\']);';
+            if ($value !== null) {
+                $command = '$this->_configData[\'' . implode('\'][\'', $command) . '\']=$value;';
+            } else {
+                $command = 'unset($this->_configData[\'' . implode('\'][\'', $command) . '\']);';
             }
             eval($command);
-        }
-        catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             throw new ConfigException('Illeval query: ' . $item);
         }
     }
 
-    public function Item(int $index): mixed 
+    public function Item(int $index): mixed
     {
         $keys = array_keys($this->_configData);
-        if($index < count($keys)) {
+        if ($index < count($keys)) {
             return $this->Query($keys[$index]);
         }
         return null;
