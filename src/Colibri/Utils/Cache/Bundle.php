@@ -163,7 +163,7 @@ class Bundle
     /**
      * @testFunction testBundleGetNamespaceAssets
      */
-    protected static function GetNamespaceAssets(string $path, array $exts, array $exception = [], bool $preg = false): array
+    public static function GetNamespaceAssets(string $path, array $exts, array $exception = [], bool $preg = false): array
     {
         $files = [];
 

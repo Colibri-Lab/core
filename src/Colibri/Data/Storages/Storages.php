@@ -198,7 +198,7 @@ class Storages
      */
     public function Migrate(Logger $logger, bool $isDev = false)
     {
-        
+        $langModule = App::$moduleManager->lang;
         $logger->info('Starting migration process');
 
         try {
@@ -272,9 +272,14 @@ class Storages
                         $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '('.implode(',', array_map(function($v) { return '\''.$v['value'].'\''; }, $xfield['values'])).')' : '';
                     }
 
+                    $xdesc = isset($xfield['desc']) ? $xfield['desc'] : '';
+                    if($langModule) {
+                        $xdesc = $xdesc[$langModule->Default()] ?? $xdesc;
+                    }
+
                     if (!isset($ofields[$fname])) {
                         $logger->error($name.': '.$fieldName.': Field destination not found: creating');
-                        $this->_createStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($fparams['required']) ? $fparams['required'] : false, isset($xfield['desc']) ? $xfield['desc'] : '');
+                        $this->_createStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($fparams['required']) ? $fparams['required'] : false, $xdesc);
                     } else {
                         // проверить на соответствие
                         $ofield = $ofields[$fname];
@@ -289,7 +294,7 @@ class Storages
 
                         if ($orType || $orDefault || $orRequired) {
                             $logger->error($name.': '.$fieldName.': Field destination changed: updating');
-                            $this->_alterStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $default, $required, isset($xfield['desc']) ? $xfield['desc'] : '');
+                            $this->_alterStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $default, $required, $xdesc);
                         }
                     }
                 }
@@ -297,8 +302,12 @@ class Storages
                 foreach($virutalFields as $fieldName => $xVirtualField) {
                     $fname = $name . '_' . $fieldName;
                     $fparams = $xVirtualField['params'] ?? [];
+                    $xdesc = isset($xVirtualField['desc']) ? $xVirtualField['desc'] : '';
+                    if($langModule) {
+                        $xdesc = $xdesc[$langModule->Default()] ?? $xdesc;
+                    }
                     if (!isset($ofields[$fname])) {
-                        $this->_createStorageVirtualField($logger, $dtp, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $xVirtualField['expression'], isset($xVirtualField['desc']) ? $xVirtualField['desc'] : '');
+                        $this->_createStorageVirtualField($logger, $dtp, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $xVirtualField['expression'], $xdesc);
                     }
                     else {
                         $ofield = $ofields[$fname];
@@ -312,7 +321,7 @@ class Storages
 
                         if ($orType || $orExpression || $orRequired) {
                             $logger->error($name.': '.$fieldName.': Field destination changed: updating');
-                            $this->_alterStorageVirtualField($logger, $dtp, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $expression, isset($xVirtualField['desc']) ? $xVirtualField['desc'] : '');
+                            $this->_alterStorageVirtualField($logger, $dtp, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $expression, $xdesc);
                         }
 
                     }

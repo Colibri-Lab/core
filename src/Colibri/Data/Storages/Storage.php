@@ -254,7 +254,7 @@ class Storage
      * Возвращает настройки хранилища в виде 
      * @return array 
      */
-    public function ToArray($changeLang = false)
+    public function ToArray($changeLang = true)
     {
         return $this->_xstorage;
     }
