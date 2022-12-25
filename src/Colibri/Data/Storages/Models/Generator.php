@@ -72,11 +72,7 @@ class Generator
 
             if ($field->values) {
                 foreach ($field->values as $value => $title) {
-                    if ($schemaType === 'ValueField::JsonSchema') {
-                        $schemaEnum[] = '\'' . $value . '\'';
-                    } else {
-                        $schemaEnum[] = is_string($value) ? '\'' . $value . '\'' : $value;
-                    }
+                    $schemaEnum[] = is_string($value) ? '\'' . $value . '\'' : $value;
                 }
             }
 
@@ -104,10 +100,11 @@ class Generator
                     $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [ \'anyOf\' => [ [\'type\' => [\'string\', \'null\'], \'format\' => \'' . ($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date') . '\'], [\'type\' => [\'string\', \'null\'], \'maxLength\' => 0] ] ],';
                 }
             } elseif ($schemaType === 'ValueField::JsonSchema') {
+                $schemaType = in_array($field->type, ['int', 'float', 'double']) ? 'number' : 'string';
                 if ($field->params['required'] ?? false) {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => ' . (!$field->params['required'] ?? false ? '[\'string\', \'null\']' : '\'string\'') . ', \'enum\' => [' . implode(', ', $schemaEnum) . ']],';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => ' . '\'' . $schemaType . '\', \'enum\' => [' . implode(', ', $schemaEnum) . ']],';
                 } else {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'string\', \'enum\' => [' . implode(', ', $schemaEnum) . ']] ] ],';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'' . $schemaType . '\', \'enum\' => [' . implode(', ', $schemaEnum) . ']] ] ],';
                 }
             } else {
                 if ($field->params['required'] ?? false) {

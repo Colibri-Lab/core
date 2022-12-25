@@ -119,6 +119,9 @@ class Field
             if (!is_array($value)) {
                 $value = ['value' => $value, 'title' => $value];
             }
+            if(isset($value['type']) && $value['type'] === 'number') {
+                $value['value'] = (float)$value['value'];
+            }
             $this->_values[$value['value']] = isset($value['title']) ? $value['title'] : $value['value'];
         }
     }
