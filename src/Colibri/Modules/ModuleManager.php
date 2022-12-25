@@ -82,8 +82,8 @@ class ModuleManager
                     continue;
                 }
 
-                $keysArray = $moduleConfig->Query('for', [])->ToArray(); 
-                if(!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
+                $keysArray = $moduleConfig->Query('for', [])->ToArray();
+                if (!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
                     continue;
                 }
 
@@ -101,8 +101,7 @@ class ModuleManager
 
                 App::$monitoring->EndTimer($moduleName);
             }
-        }
-        catch (ConfigException $e) {
+        } catch (ConfigException $e) {
             App::$log->debug('Modules not found');
         }
 
@@ -116,7 +115,7 @@ class ModuleManager
      * @return Module|null
      * @testFunction testModuleManagerInitModule
      */
-    public function InitModule(Config $configNode): ?Module
+    public function InitModule(Config $configNode): ? Module
     {
         $moduleEntry = $configNode->Query('entry')->GetValue();
 
@@ -211,8 +210,7 @@ class ModuleManager
             try {
                 $templates[] = PhpTemplate::Create($tname);
 
-            }
-            catch (\Throwable $e) {
+            } catch (\Throwable $e) {
                 App::$log->debug('Запрошен шаблон модуля, который не существует: ' . $tname);
             }
         }

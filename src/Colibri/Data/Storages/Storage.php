@@ -60,7 +60,7 @@ class Storage
      */
     public function __construct(array |object $xstorage, ?string $name = null)
     {
-        $xstorage = (array)$xstorage;
+        $xstorage = (array) $xstorage;
         $this->_xstorage = $xstorage;
         $this->_name = $name;
         $this->_init();
@@ -71,7 +71,7 @@ class Storage
         if (isset($this->_xstorage['name'])) {
             $this->_name = $this->_xstorage['name'];
         }
-        $this->_dataPoint = isset($this->_xstorage['access-point']) ?App::$dataAccessPoints->Get($this->_xstorage['access-point']) : null;
+        $this->_dataPoint = isset($this->_xstorage['access-point']) ? App::$dataAccessPoints->Get($this->_xstorage['access-point']) : null;
         $this->_loadFields();
     }
 
@@ -124,7 +124,7 @@ class Storage
     private function _loadFields()
     {
         $xfields = $this->_xstorage['fields'] ?? [];
-        $this->_fields = (object)array();
+        $this->_fields = (object) array();
         foreach ($xfields as $name => $xfield) {
             $xfield['name'] = $name;
             $this->_fields->$name = new Field($xfield, $this);
@@ -176,17 +176,13 @@ class Storage
 
         if (class_exists($field->class)) {
             return $field->class;
-        }
-        else if (class_exists('Colibri\\Data\\Storages\\Fields\\' . $field->class)) {
+        } elseif (class_exists('Colibri\\Data\\Storages\\Fields\\' . $field->class)) {
             return 'Colibri\\Data\\Storages\\Fields\\' . $field->class;
-        }
-        else if (class_exists($rootNamespace . 'Models\\Fields\\' . $field->class)) {
+        } elseif (class_exists($rootNamespace . 'Models\\Fields\\' . $field->class)) {
             return $rootNamespace . 'Models\\Fields\\' . $field->class;
-        }
-        else if (class_exists($rootNamespace . 'Models\\' . $field->class)) {
+        } elseif (class_exists($rootNamespace . 'Models\\' . $field->class)) {
             return $rootNamespace . 'Models\\' . $field->class;
-        }
-        else {
+        } else {
             throw new AppException('Unknown class: ' . $field->class);
         }
 
@@ -241,7 +237,7 @@ class Storage
         return $this->_xstorage['templates'] ?? [];
     }
 
-    public function GetModule(): ?Module
+    public function GetModule(): ? Module
     {
         $module = isset($this->_xstorage['module']) ? $this->_xstorage['module'] : null;
         if (!$module) {
@@ -326,8 +322,7 @@ class Storage
             $this->_fields->$name = new Field($this->_xstorage['fields'][$name], $this);
             $this->_fields->$name->UpdateData($data);
             return $this->_fields->$name;
-        }
-        else {
+        } else {
             $parentField = $this->GetField($path);
             $field = $parentField->AddField($data['name'], ['name' => $data['name']]);
             $field->UpdateData($data);
@@ -343,9 +338,8 @@ class Storage
         $parentPath = implode('/', $path);
         if (!$parentPath) {
             unset($this->_xstorage['fields'][$field->name]);
-            unset($this->_fields->{ $field->name});
-        }
-        else {
+            unset($this->_fields->{$field->name});
+        } else {
             $parentField = $this->GetField($parentPath);
             $parentField->DeleteField($field->name);
         }

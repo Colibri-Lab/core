@@ -60,56 +60,52 @@ class Storages
         try {
             $storagesConfig = App::$config->Query('databases.storages');
             $this->_storages = $storagesConfig->AsArray();
-            foreach($this->_storages as $name => $storage) {
-                if($name === '__global_types') {
+            foreach ($this->_storages as $name => $storage) {
+                if ($name === '__global_types') {
                     $this->_types = VariableHelper::Extend($this->_types, $this->_storages[$name]);
                     unset($this->_storages[$name]);
-                }
-                else {
+                } else {
                     $this->_storages[$name]['name'] = $name;
                     $this->_storages[$name]['path'] = $storagesConfig->GetFile();
                 }
-            }    
-        }
-        catch(ConfigException $e) {
+            }
+        } catch (ConfigException $e) {
             $this->_storages = [];
         }
-        
+
         // Собираем хранилища из модулей
         try {
             $modules = App::$config->Query('modules.entries');
-        }
-        catch(ConfigException $e) {
+        } catch (ConfigException $e) {
             $modules = [];
         }
-        
-        foreach($modules as $moduleConfig) {
-            if(!$moduleConfig->Query('enabled')->GetValue()) {
+
+        foreach ($modules as $moduleConfig) {
+            if (!$moduleConfig->Query('enabled')->GetValue()) {
                 continue;
             }
             /** @var Config $moduleConfig */
             try {
-                
+
                 $keysArray = $moduleConfig->Query('for', [])->ToArray();
-                if(!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
+                if (!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
                     continue;
                 }
-                
+
                 $config = $moduleConfig->Query('config.databases.storages');
                 $storagesConfig = $config->AsArray();
-                foreach($storagesConfig as $name => $storage) {
-                    if($name === '__global_types') {
+                foreach ($storagesConfig as $name => $storage) {
+                    $storagesConfig[$name] = $moduleConfig->Query('config.databases.storages.' . $name)->AsArray();
+                    if ($name === '__global_types') {
                         $this->_types = VariableHelper::Extend($this->_types, $storagesConfig[$name]);
                         unset($storagesConfig[$name]);
-                    }
-                    else {
+                    } else {
                         $storagesConfig[$name]['name'] = $name;
                         $storagesConfig[$name]['file'] = $config->GetFile();
                     }
                 }
                 $this->_storages = array_merge($this->_storages, $storagesConfig);
-            }
-            catch(ConfigException $e) {
+            } catch (ConfigException $e) {
 
             }
         }
@@ -119,7 +115,8 @@ class Storages
 
     }
 
-    private function _fromShortString(string $field): array {
+    private function _fromShortString(string $field): array
+    {
         $parts = explode(',', $field);
         $type = trim($parts[0] ?? 'varchar');
         $class = trim($parts[1] ?? 'string');
@@ -129,10 +126,10 @@ class Storages
         $default = trim($parts[5] ?? '');
         $length = null;
 
-        if(strstr($type, '(') !== false) {
+        if (strstr($type, '(') !== false) {
             $type = trim($type, ')');
             $type = explode('(', $type);
-            $length = (int)$type[1];
+            $length = (int) $type[1];
             $type = $type[0];
         }
 
@@ -144,47 +141,49 @@ class Storages
             'note' => $note,
             'default' => $default
         ];
-        if($length) {
+        if ($length) {
             $return['length'] = $length;
         }
 
         return $return;
     }
 
-    private function _replaceTypes($fields): array {
+    private function _replaceTypes($fields): array
+    {
 
-        foreach($fields as $name => $field) {
+        foreach ($fields as $name => $field) {
 
-            if(is_string($field)) {
+            if (is_string($field)) {
                 // короткая запись
                 // type(length?), class, component
                 $field = $this->_fromShortString($field);
                 $fields[$name] = $field;
             }
-            
-            if(isset($field['inherit']) && $this->_types[$field['inherit']]) {
+
+            if (isset($field['inherit']) && $this->_types[$field['inherit']]) {
                 $inherit = $field['inherit'];
                 unset($field['inherit']);
                 $fields[$name] = VariableHelper::Extend($this->_types[$inherit], $field, true);
                 $field = $fields[$name];
             }
 
-            if(isset($field['fields'])) {
+            if (isset($field['fields'])) {
                 $fields[$name]['fields'] = $this->_replaceTypes($field['fields']);
             }
 
-            
+
         }
 
         return $fields;
-    } 
+    }
 
     /**
      * Статический конструктор
      * @return Storages 
      */
-    public static function Create() {
-        if(!self::$instance) {
+    public static function Create()
+    {
+        if (!self::$instance) {
             self::$instance = new Storages();
         }
         return self::$instance;
@@ -205,17 +204,17 @@ class Storages
 
             foreach ($this->_storages as $name => $xstorage) {
 
-                $logger->info($name.': Migrating storage');
+                $logger->info($name . ': Migrating storage');
 
                 if (!$xstorage['access-point']) {
-                    $logger->error($name.': No access point found');
+                    $logger->error($name . ': No access point found');
                     continue;
                 }
 
                 $dtp = App::$dataAccessPoints->Get($xstorage['access-point']);
                 $reader = $dtp->Query('SHOW TABLES LIKE \'' . $name . '\'');
                 if ($reader->count == 0) {
-                    $logger->error($name.': Storage destination not found: creating');
+                    $logger->error($name . ': Storage destination not found: creating');
                     $this->_createStorageTable($logger, $dtp, $name);
                 }
 
@@ -224,11 +223,11 @@ class Storages
                 $reader = $dtp->Query('SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=\'' . $dtp->point->database . '\' and TABLE_NAME=\'' . $name . '\'');
                 while ($ofield = $reader->Read()) {
 
-                    $ofield->GENERATION_EXPRESSION = preg_replace_callback("/_utf8mb\d\\\'(.*?)\\\'/", function($match) {
-                        return '\''.$match[1].'\'';
+                    $ofield->GENERATION_EXPRESSION = preg_replace_callback("/_utf8mb\d\\\'(.*?)\\\'/", function ($match) {
+                        return '\'' . $match[1] . '\'';
                     }, $ofield->GENERATION_EXPRESSION);
 
-                    $ofields[$ofield->COLUMN_NAME] = (object)[
+                    $ofields[$ofield->COLUMN_NAME] = (object) [
                         'Field' => $ofield->COLUMN_NAME,
                         'Type' => $ofield->COLUMN_TYPE,
                         'Null' => $ofield->IS_NULLABLE,
@@ -259,26 +258,36 @@ class Storages
                 $virutalFields = [];
 
                 $xfields = $xstorage['fields'] ?? [];
-                $logger->error($name.': Checking fields');
+                $logger->error($name . ': Checking fields');
                 foreach ($xfields as $fieldName => $xfield) {
                     $fname = $name . '_' . $fieldName;
                     $fparams = $xfield['params'] ?? [];
 
-                    if(($xfield['virtual'] ?? false) === true) {
+                    if (($xfield['virtual'] ?? false) === true) {
                         $virutalFields[$fieldName] = $xfield;
                     }
 
-                    if($xfield['type'] == 'enum') {
-                        $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '('.implode(',', array_map(function($v) { return '\''.$v['value'].'\''; }, $xfield['values'])).')' : '';
+                    if ($xfield['type'] == 'enum') {
+                        $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '(' . implode(',', array_map(function ($v) {
+                            return '\'' . $v['value'] . '\''; 
+                        }, $xfield['values'])) . ')' : '';
+                    } elseif ($xfield['type'] === 'bool' || $xfield['type'] === 'boolean') {
+                        $xfield['type'] = 'tinyint';
+                        $xfield['length'] = 1;
+                        if(isset($xfield['default'])) {
+                            $xfield['default'] = $xfield['default'] === 'true' ? 1 : 0;
+                        }
+                    } elseif ($xfield['type'] === 'json') {
+                        $fparams['required'] = false;
                     }
 
                     $xdesc = isset($xfield['desc']) ? $xfield['desc'] : '';
-                    if($langModule) {
+                    if ($langModule) {
                         $xdesc = $xdesc[$langModule->Default()] ?? $xdesc;
                     }
 
                     if (!isset($ofields[$fname])) {
-                        $logger->error($name.': '.$fieldName.': Field destination not found: creating');
+                        $logger->error($name . ': ' . $fieldName . ': Field destination not found: creating');
                         $this->_createStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($fparams['required']) ? $fparams['required'] : false, $xdesc);
                     } else {
                         // проверить на соответствие
@@ -286,30 +295,29 @@ class Storages
 
                         $required = isset($fparams['required']) ? $fparams['required'] : false;
                         $default = isset($xfield['default']) ? $xfield['default'] : null;
-                        [,$length,] = $this->_updateDefaultAndLength($fieldName,  $xfield['type'], $required, $xfield['length'] ?? null, $default);
+                        [, $length,] = $this->_updateDefaultAndLength($fieldName, $xfield['type'], $required, $xfield['length'] ?? null, $default);
 
                         $orType = $ofield->Type != $xfield['type'] . ($length ? '(' . $length . ')' : '');
                         $orDefault = $ofield->Default != $default;
                         $orRequired = $required != ($ofield->Null == 'NO');
 
                         if ($orType || $orDefault || $orRequired) {
-                            $logger->error($name.': '.$fieldName.': Field destination changed: updating');
+                            $logger->error($name . ': ' . $fieldName . ': Field destination changed: updating');
                             $this->_alterStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $default, $required, $xdesc);
                         }
                     }
                 }
 
-                foreach($virutalFields as $fieldName => $xVirtualField) {
+                foreach ($virutalFields as $fieldName => $xVirtualField) {
                     $fname = $name . '_' . $fieldName;
                     $fparams = $xVirtualField['params'] ?? [];
                     $xdesc = isset($xVirtualField['desc']) ? $xVirtualField['desc'] : '';
-                    if($langModule) {
+                    if ($langModule) {
                         $xdesc = $xdesc[$langModule->Default()] ?? $xdesc;
                     }
                     if (!isset($ofields[$fname])) {
                         $this->_createStorageVirtualField($logger, $dtp, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $xVirtualField['expression'], $xdesc);
-                    }
-                    else {
+                    } else {
                         $ofield = $ofields[$fname];
 
                         $required = isset($fparams['required']) ? $fparams['required'] : false;
@@ -320,7 +328,7 @@ class Storages
                         $orRequired = $required != ($ofield->Null == 'NO');
 
                         if ($orType || $orExpression || $orRequired) {
-                            $logger->error($name.': '.$fieldName.': Field destination changed: updating');
+                            $logger->error($name . ': ' . $fieldName . ': Field destination changed: updating');
                             $this->_alterStorageVirtualField($logger, $dtp, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $expression, $xdesc);
                         }
 
@@ -328,10 +336,10 @@ class Storages
                 }
 
                 $xindexes = isset($xstorage['indices']) ? $xstorage['indices'] : [];
-                $logger->error($name.': Checking indices');
+                $logger->error($name . ': Checking indices');
                 foreach ($xindexes as $indexName => $xindex) {
                     if (!isset($indices[$indexName])) {
-                        $logger->error($name.': '.$indexName.': Index not found: creating');
+                        $logger->error($name . ': ' . $indexName . ': Index not found: creating');
                         $this->_createStorageIndex($logger, $dtp, $name, $indexName, $xindex['fields'], $xindex['type'], $xindex['method']);
                     } else {
                         $oindex = $indices[$indexName];
@@ -356,21 +364,21 @@ class Storages
                         }
 
                         if ($fields1 != $fields2 || $xtype != $otype || $xmethod != $omethod) {
-                            $logger->error($name.': '.$indexName.': Index changed: updating');
+                            $logger->error($name . ': ' . $indexName . ': Index changed: updating');
                             $this->_alterStorageIndex($logger, $dtp, $name, $indexName, $xindex['fields'], $xtype, $xmethod);
                         }
                     }
                 }
 
                 $xobjects = isset($xstorage['objects']) ? $xstorage['objects'] : [];
-                foreach($xobjects as $xobject) {
-                    if(isset($xobject['json'])) {
+                foreach ($xobjects as $xobject) {
+                    if (isset($xobject['json'])) {
                         // обьект в json
                         $object = json_decode($xobject['json']);
                         $datatable = new StorageDataTable(App::$dataAccessPoints->Get($name));
-                        if(!$datatable->SaveRow($datatable->CreateEmptyRow($object))) {
+                        if (!$datatable->SaveRow($datatable->CreateEmptyRow($object))) {
 
-                        } 
+                        }
                     }
                 }
 
@@ -378,25 +386,23 @@ class Storages
 
             $logger->error('Migrating data ...');
             foreach ($this->_storages as $name => $xstorage) {
-                $logger->error($name.': Checking storage ...');
+                $logger->error($name . ': Checking storage ...');
 
                 $module = $xstorage['module'];
-                $tableModel = 'App\\Modules\\'.$module.'\\'.$xstorage['models']['table'];
+                $tableModel = 'App\\Modules\\' . $module . '\\' . $xstorage['models']['table'];
                 $module = App::$moduleManager->$module;
-                
-                if(is_object($module) && method_exists($tableModel, 'DataMigrate')) {
-                    $logger->error($name.': Migrating data ...');
+
+                if (is_object($module) && method_exists($tableModel, 'DataMigrate')) {
+                    $logger->error($name . ': Migrating data ...');
                     $tableModel::DataMigrate($logger);
                 }
 
             }
 
-        }
-        catch(DataAccessPointsException $e) {
-            if($isDev) {
+        } catch (DataAccessPointsException $e) {
+            if ($isDev) {
                 $logger->emergency('Returned with exception: ' . $e->getMessage());
-            }
-            else {
+            } else {
                 throw $e;
             }
         }
@@ -421,8 +427,8 @@ class Storages
                 key `' . $table . '_datecreated_idx` (`' . $table . '_datecreated`),
                 key `' . $table . '_datemodified_idx` (`' . $table . '_datemodified`)
             ) DEFAULT CHARSET=utf8', ['type' => DataAccessPoint::QueryTypeNonInfo]);
-        if($res->error) {
-            $logger->error($table.': Can not create destination: '.$res->query);
+        if ($res->error) {
+            $logger->error($table . ': Can not create destination: ' . $res->query);
             throw new DataAccessPointsException('Can not create destination: ' . $res->query);
         }
     }
@@ -434,18 +440,16 @@ class Storages
             $default = $default ? 'TRUE' : 'FALSE';
         }
 
-        if($type == 'json') {
-            $default = $default ? '('.$default.')' : null;
+        if ($type == 'json') {
+            $default = $default ? '(' . $default . ')' : null;
             $required = false;
-        }
-        else if(strstr($type, 'enum') !== false) {
-            $default = $default ? "'".$default."'" : null;
-        }
-        else if(strstr($type, 'char') !== false) {
-            $default = $default ? "'".$default."'" : null;
+        } elseif (strstr($type, 'enum') !== false) {
+            $default = $default ? "'" . $default . "'" : null;
+        } elseif (strstr($type, 'char') !== false) {
+            $default = $default ? "'" . $default . "'" : null;
         }
 
-        if($type == 'varchar' && !$length) {
+        if ($type == 'varchar' && !$length) {
             $length = 255;
         }
 
@@ -470,10 +474,10 @@ class Storages
 
         // ! специфика UUID нужно выключить параметр sql_log_bin
         $sqlLogBinVal = 0;
-        if(strstr($default, 'UUID') !== false) {
+        if (strstr($default, 'UUID') !== false) {
             $reader = $accessPoint->Query('SELECT @@sql_log_bin as val');
             $sqlLogBinVal = $reader->Read()->val;
-            if($sqlLogBinVal == 1) {
+            if ($sqlLogBinVal == 1) {
                 $accessPoint->Query('set sql_log_bin=0', ['type' => DataAccessPoint::QueryTypeNonInfo]);
             }
         }
@@ -482,13 +486,13 @@ class Storages
             ALTER TABLE `' . $table . '` 
             ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
             ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? ' COMMENT \'' . $comment . '\'' : ''), ['type' => DataAccessPoint::QueryTypeNonInfo]);
-            
-        if($sqlLogBinVal == 1) {
+
+        if ($sqlLogBinVal == 1) {
             $accessPoint->Query('set sql_log_bin=1', ['type' => DataAccessPoint::QueryTypeNonInfo]);
         }
-        
-        if($res->error) {
-            $logger->error($table.': Can not save field: ' . $res->query);
+
+        if ($res->error) {
+            $logger->error($table . ': Can not save field: ' . $res->query);
             throw new DataAccessPointsException('Can not save field: ' . $res->query);
         }
     }
@@ -499,11 +503,11 @@ class Storages
         $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ' 
-            GENERATED ALWAYS AS (' . $expression . ') STORED ' . 
+            GENERATED ALWAYS AS (' . $expression . ') STORED ' .
             ($comment ? ' COMMENT \'' . $comment . '\'' : ''), ['type' => DataAccessPoint::QueryTypeNonInfo]);
-            
-        if($res->error) {
-            $logger->error($table.': Can not save field: ' . $res->query);
+
+        if ($res->error) {
+            $logger->error($table . ': Can not save field: ' . $res->query);
             throw new DataAccessPointsException('Can not save field: ' . $res->query);
         }
     }
@@ -524,15 +528,15 @@ class Storages
     {
 
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
-        
+
         $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
             MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
             ' . (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? 'COMMENT \'' . $comment . '\'' : ''),
             ['type' => DataAccessPoint::QueryTypeNonInfo]
         );
-        if($res->error) {
-            $logger->error($table.': Can not save field: ' . $res->query);
+        if ($res->error) {
+            $logger->error($table . ': Can not save field: ' . $res->query);
             throw new DataAccessPointsException('Can not save field: ' . $res->query);
         }
 
@@ -541,17 +545,17 @@ class Storages
     private function _alterStorageVirtualField(Logger $logger, $accessPoint, $table, $field, $type, $length, $expression, $comment)
     {
 
-        
-        
+
+
         $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
-            MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . 
-            ' GENERATED ALWAYS AS (' . $expression . ') STORED ' . 
+            MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') .
+            ' GENERATED ALWAYS AS (' . $expression . ') STORED ' .
             ($comment ? ' COMMENT \'' . $comment . '\'' : ''),
             ['type' => DataAccessPoint::QueryTypeNonInfo]
         );
-        if($res->error) {
-            $logger->error($table.': Can not save field: ' . $res->query);
+        if ($res->error) {
+            $logger->error($table . ': Can not save field: ' . $res->query);
             throw new DataAccessPointsException('Can not save field: ' . $res->query);
         }
 
@@ -569,7 +573,7 @@ class Storages
      */
     private function _createStorageIndex(Logger $logger, $accessPoint, $table, $indexName, $fields, $type, $method)
     {
-        if($type === 'FULLTEXT') {
+        if ($type === 'FULLTEXT') {
             $method = '';
         }
 
@@ -577,8 +581,8 @@ class Storages
             ALTER TABLE `' . $table . '` 
             ADD' . ($type !== 'NORMAL' ? ' ' . $type : '') . ' INDEX `' . $indexName . '` (`' . $table . '_' . implode('`,`' . $table . '_', $fields) . '`) ' . ($method ? ' USING ' . $method : '') . '
         ', ['type' => DataAccessPoint::QueryTypeNonInfo]);
-        if($res->error) {
-            $logger->error($table.': Can not create index: ' . $res->query);
+        if ($res->error) {
+            $logger->error($table . ': Can not create index: ' . $res->query);
             throw new DataAccessPointsException('Can not create index: ' . $res->query);
         }
     }
@@ -600,8 +604,8 @@ class Storages
             ALTER TABLE `' . $table . '` 
             DROP INDEX `' . $indexName . '`
         ', ['type' => DataAccessPoint::QueryTypeNonInfo]);
-        if($res->error) {
-            $logger->error($table.': Can not delete index: ' . $res->query);
+        if ($res->error) {
+            $logger->error($table . ': Can not delete index: ' . $res->query);
             throw new DataAccessPointsException('Can not delete index: ' . $res->query);
         }
 
@@ -609,30 +613,30 @@ class Storages
             ALTER TABLE `' . $table . '` 
             ADD' . ($type !== 'NORMAL' ? ' ' . $type : '') . ' INDEX `' . $indexName . '` (`' . $table . '_' . implode('`,`' . $table . '_', $fields) . '`) ' . ($method ? ' USING ' . $method : '') . '
         ', ['type' => DataAccessPoint::QueryTypeNonInfo]);
-        if($res->error) {
-            $logger->error($table.': Can not create index: ' . $res->query);
+        if ($res->error) {
+            $logger->error($table . ': Can not create index: ' . $res->query);
             throw new DataAccessPointsException('Can not create index: ' . $res->query);
         }
     }
 
     /**
-     * Удаляет таблицу из базы данных
-     * @param DataAccessPoint $accessPoint точка доступа
-     * @param string $table таблица
-     * @return void
+    * Удаляет таблицу из базы данных
+    * @param DataAccessPoint $accessPoint точка доступа
+    * @param string $table таблица
+    * @return void
     
     private function _dropStorageTable(Logger $logger, $accessPoint, $table)
     {
-        $res = $accessPoint->Query('rename table `' . $table . '` to `_' . $table . '_backup_' . date('YmdHis', time()) . '`', ['type' => DataAccessPoint::QueryTypeNonInfo]);
-        if($res->error) {
-            $logger->error($table.': Can not delete destination: ' . $res->query);
-            throw new DataAccessPointsException('Can not delete destination: ' . $res->query);
-        }
+    $res = $accessPoint->Query('rename table `' . $table . '` to `_' . $table . '_backup_' . date('YmdHis', time()) . '`', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+    if($res->error) {
+    $logger->error($table.': Can not delete destination: ' . $res->query);
+    throw new DataAccessPointsException('Can not delete destination: ' . $res->query);
+    }
     }
     */
     #endregion
 
-    public function Exists($name)
+    public function Exists($name): bool
     {
         return isset($this->_storages[$name]);
     }
@@ -643,9 +647,9 @@ class Storages
      * @param string $name
      * @return Storage|null
      */
-    public function Load($name): ?Storage
+    public function Load($name): ? Storage
     {
-        if(!isset($this->_storages[$name])) {
+        if (!isset($this->_storages[$name])) {
             return null;
         }
         return new Storage($this->_storages[$name], $name);
@@ -689,5 +693,5 @@ class Storages
         return $return;
     }
 
-    
+
 }

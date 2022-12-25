@@ -7,9 +7,9 @@ class ValueField implements JsonSerializable
 {
 
     private string $_value;
-    private string $_title;
+    private string|array|object $_title;
 
-    public function __construct(string $value, string $title)
+    public function __construct(string $value, string|array|object $title)
     {
         $this->_value = $value;
         $this->_title = $title;

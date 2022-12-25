@@ -156,7 +156,7 @@ class DataRow extends BaseDataRow
                     $vv = is_array($rowValue) ? $rowValue : explode(',', $rowValue);
                     $r = array();
                     foreach ($vv as $v) {
-                        $r[$v] = new ValueField($v, $v && isset($this->_values[$v]) ? $this->_values[$v] : '');
+                        $r[$v] = new ValueField($v, $v && isset($field->values[$v]) ? $field->values[$v] : '');
                     }
                     return $r;
                 }
