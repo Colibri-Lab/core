@@ -62,11 +62,11 @@ class DataRow extends BaseDataRow
         }
         $this->_storage = $storage;
 
-        if(empty($data)) {
+        if (empty($data)) {
             $dt = new \DateTime();
             $data = [
-                $this->_storage->GetRealFieldName('id') => 0, 
-                $this->_storage->GetRealFieldName('datecreated') => $dt->format('Y-m-d H:i:s'), 
+                $this->_storage->GetRealFieldName('id') => 0,
+                $this->_storage->GetRealFieldName('datecreated') => $dt->format('Y-m-d H:i:s'),
                 $this->_storage->GetRealFieldName('datemodified') => $dt->format('Y-m-d H:i:s')
             ];
         }
@@ -137,7 +137,7 @@ class DataRow extends BaseDataRow
 
         if ($mode == 'get' && !isset($this->_data[$property])) {
             if ($field->default !== null) {
-                $reader = $this->_storage->accessPoint->Query('select ' . (VariableHelper::IsEmpty($field->default) ? '\'\'' : '\''.$field->default.'\'') . ' as default_value', ['type' => DataAccessPoint::QueryTypeBigData]);
+                $reader = $this->_storage->accessPoint->Query('select ' . (VariableHelper::IsEmpty($field->default) ? '\'\'' : '\'' . $field->default . '\'') . ' as default_value', ['type' => DataAccessPoint::QueryTypeBigData]);
                 $rowValue = $reader->Read()->default_value;
             } else {
                 $rowValue = null;
@@ -206,10 +206,9 @@ class DataRow extends BaseDataRow
             if ($mode == 'get') {
                 try {
                     $reflection = new ReflectionClass($class);
-                    if($reflection->isSubclassOf(BaseDataRow::class)) {
+                    if ($reflection->isSubclassOf(BaseDataRow::class)) {
                         $this->_data[$property] = $rowValue instanceof $class ? $rowValue : $class::Create($rowValue);
-                    }
-                    else {
+                    } else {
                         $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
                     }
                 } catch (\Throwable $e) {
@@ -258,7 +257,7 @@ class DataRow extends BaseDataRow
 
                 // подбираем значение по умолчанию
                 if (is_null($value) && !is_null($field->default)) {
-                    if($field->type === 'json' && strstr($field->default, 'json_array') !== false) {
+                    if ($field->type === 'json' && strstr($field->default, 'json_array') !== false) {
                         $value = '[]';
                     } elseif ($field->type === 'json' && strstr($field->default, 'json_object') !== false) {
                         $value = '{}';
@@ -270,7 +269,7 @@ class DataRow extends BaseDataRow
                 if ($field->class === 'string') {
                     $data[$key] = str_replace("\r\n", "\n", (string) $value);
                 } elseif ($field->class == 'bool') {
-                    if(in_array($value, [true, '1', 1, 'true'])) {
+                    if (in_array($value, [true, '1', 1, 'true'])) {
                         $data[$key] = true;
                     } elseif (in_array($value, [false, '0', 0, 'false'])) {
                         $data[$key] = false;
@@ -278,10 +277,10 @@ class DataRow extends BaseDataRow
                         $data[$key] = null;
                     }
                 } elseif ($field->class == 'int') {
-                    $data[$key] = !is_numeric($value) ? null : (int)$value;
+                    $data[$key] = !is_numeric($value) ? null : (int) $value;
                 } elseif ($field->class == 'float') {
-                    $data[$key] = !is_numeric($value) ? null : (float)$value;
-                } elseif ($field->class == 'uuid') {                    
+                    $data[$key] = !is_numeric($value) ? null : (float) $value;
+                } elseif ($field->class == 'uuid') {
                     $data[$key] = $value instanceof UUIDField ? $value->binary : $value;
                 } elseif ($field->class === 'array') {
                     $data[$key] = is_string($value) ? $value : json_encode($value);
@@ -289,7 +288,7 @@ class DataRow extends BaseDataRow
                     $data[$key] = is_null($value) ? null : (string) $value;
                 }
 
-                if($field->required && is_null($value)) {
+                if ($field->required && is_null($value)) {
                     throw new ValidationException('The ' . $key . ' field is required for storage ' . $storage->name, 500, null);
                 }
 
@@ -301,9 +300,9 @@ class DataRow extends BaseDataRow
 
     protected function _processDefaultValues(): bool
     {
-        foreach($this->_storage->fields as $fieldName => $field) {
+        foreach ($this->_storage->fields as $fieldName => $field) {
             $realFieldName = $this->_storage->GetRealFieldName($fieldName);
-            if(!is_null($field->default) && !isset($this->_data[$realFieldName])) {
+            if (!is_null($field->default) && !isset($this->_data[$realFieldName])) {
                 $this->__set($realFieldName, $field->default);
             }
         }
@@ -313,38 +312,35 @@ class DataRow extends BaseDataRow
     public function GetValidationData(): mixed
     {
         $storage = $this->Storage();
-        
+
         $return = [];
         $return['id'] = (int) $this->id;
         $return['datecreated'] = (string) $this->datecreated;
         $return['datemodified'] = (string) $this->datemodified;
 
         $fields = $storage->fields;
-        foreach($fields as $fieldName => $fieldData) {
+        foreach ($fields as $fieldName => $fieldData) {
             /** @var Field $fieldData */
             $fieldValue = $this->$fieldName;
-            if(is_null($fieldValue)) {
+            if (is_null($fieldValue)) {
                 $return[$fieldName] = null;
                 continue;
             }
             if ($fieldData->isLookup) {
-                if(is_array($fieldValue)) {
+                if (is_array($fieldValue)) {
                     $ret = [];
-                    foreach($fieldValue as $value) {
+                    foreach ($fieldValue as $value) {
                         if (is_object($value) && method_exists($value, 'GetValidationData')) {
                             $ret[] = $value->GetValidationData();
-                        }
-                        else {
+                        } else {
                             $ret[] = $value->{$fieldData->lookup->GetValueField()};
                         }
                     }
                     $return[$fieldName] = $ret;
-                }
-                else {
+                } else {
                     if (is_object($fieldValue) && method_exists($fieldValue, 'GetValidationData')) {
                         $return[$fieldName] = $fieldValue->GetValidationData();
-                    }
-                    else {
+                    } else {
                         $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField()};
                     }
                 }
@@ -359,7 +355,12 @@ class DataRow extends BaseDataRow
             } elseif ($fieldData->class === 'array') {
                 $return[$fieldName] = (array) $fieldValue;
             } elseif (strstr($fieldData->class, 'ValueField') !== false) {
-                $return[$fieldName] = (string) $fieldValue;
+                $type = $fieldData->type;
+                if (in_array($type, ['int', 'float', 'double', 'decimal'])) {
+                    $return[$fieldName] = (float) ((string) $fieldValue);
+                } else {
+                    $return[$fieldName] = (string) $fieldValue;
+                }
             } elseif (strstr($fieldData->class, 'UUIDField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
             } elseif (strstr($fieldData->class, 'DateField') !== false || strstr($fieldData->class, 'DateTimeField') !== false) {
@@ -369,7 +370,7 @@ class DataRow extends BaseDataRow
             }
         }
 
-        return (object)$return;
+        return (object) $return;
     }
 
     /**
@@ -450,7 +451,7 @@ class DataRow extends BaseDataRow
         $originalValue = ($original->$property ?? null);
         $newValue = ($data[$property] ?? null);
 
-        if(is_string($newValue) && StringHelper::IsJsonString($newValue)) {
+        if (is_string($newValue) && StringHelper::IsJsonString($newValue)) {
             $newValue = json_decode($newValue);
             $originalValue = json_decode($originalValue);
         }
@@ -464,7 +465,7 @@ class DataRow extends BaseDataRow
      */
     public function Save(bool $performValidationBeforeSave = false): QueryInfo|bool
     {
-        if($performValidationBeforeSave) {
+        if ($performValidationBeforeSave) {
             $this->Validate(true);
         }
         $return = $this->table->SaveRow($this);
