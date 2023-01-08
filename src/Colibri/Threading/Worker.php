@@ -83,10 +83,7 @@ abstract class Worker
         $this->_key = $key ? $key : uniqid();
         $this->_id = RandomizationHelper::Integer(0, 999999999);
 
-        $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
-        $isDev = in_array($mode, [App::ModeDevelopment, App::ModeLocal]);
-
-        $this->_log = new FileLogger($isDev ? Logger::Debug : Logger::Error, App::$webRoot . '_cache/log/worker_log_' . $this->_key . '.log'); // лог файл не режется на куски
+        $this->_log = new FileLogger(App::$isDev ? Logger::Debug : Logger::Error, App::$webRoot . '_cache/log/worker_log_' . $this->_key . '.log'); // лог файл не режется на куски
     }
 
     /**

@@ -92,6 +92,12 @@ final class App
     public static bool $isDev = false;
 
     /**
+     * Локальный режим
+     * @var boolean
+     */
+    public static bool $isLocal = false;
+
+    /**
      * Конфигурационный файл приложения
      *
      * @var Config
@@ -224,6 +230,9 @@ final class App
         $mode = self::$config->Query('mode')->GetValue();
         if ($mode == App::ModeDevelopment || $mode == App::ModeLocal) {
             self::$isDev = true;
+            if ($mode === App::ModeLocal) {
+                self::$isLocal = true;
+            }
         }
 
         // определяем домен, и ключ домена по хосту

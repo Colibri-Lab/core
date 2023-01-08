@@ -41,11 +41,10 @@ class Bundle
      * @return string
      * @testFunction testBundleCompile
      */
-    public static function Compile(string $name, array $exts, string $path, array $exception = array(), bool $preg = false, bool $returnContent = false /*, &$returnFiles = []*/): string
+    public static function Compile(string $name, array $exts, string $path, array $exception = array(), bool $preg = false, bool $returnContent = false, ?array &$returnFiles = null): string
     {
-        $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
-        if (!$returnContent && !in_array($mode, [App::ModeDevelopment, App::ModeLocal]) && File::Exists($jpweb)) {
+        if (!$returnContent && !App::$isDev && File::Exists($jpweb)) {
             return str_replace(App::$webRoot, '/', $jpweb);
         }
 
@@ -59,7 +58,7 @@ class Bundle
             $files = array_merge($namespaces, $files);
 
         }
-
+        
         $content = '';
         foreach ($files as $file) {
             if (!File::Exists($file)) {
@@ -73,6 +72,10 @@ class Bundle
                 $c = $args->content;
             }
 
+            if($returnFiles) {
+                $lastLine = count(explode("\n", $content));
+                $returnFiles[] = ['file' => $file, 'starts' => $lastLine];
+            }
             $content .= $c;
         }
 
@@ -123,9 +126,8 @@ class Bundle
      */
     public static function CompileFiles(string $name, array $exts, array $files, bool $returnContent = false): string
     {
-        $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
-        if (!$returnContent && !in_array($mode, [App::ModeDevelopment, App::ModeLocal]) && File::Exists($jpweb)) {
+        if (!$returnContent && !App::$isDev && File::Exists($jpweb)) {
             return str_replace(App::$webRoot, '/', $jpweb);
         }
 
@@ -236,11 +238,10 @@ class Bundle
     {
 
         $name = $domain . '.' . $name;
-        $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
 
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
         if (File::Exists($jpweb)) {
-            if (in_array($mode, [App::ModeDevelopment, App::ModeLocal])) {
+            if (App::$isDev) {
                 $lastModified = 0;
                 foreach ($ar as $settings) {
                     if (!isset($settings['path']) || !$settings['path']) {
@@ -263,7 +264,8 @@ class Bundle
             }
         }
 
-        $content = array();
+        $content = [];
+        $returnedFiles = App::$isLocal ? [] : null;
 
         $args = App::$instance->DispatchEvent(EventsContainer::BundleStart, (object) ['exts' => [$ext]]);
         if (isset($args['content'])) {
@@ -280,9 +282,13 @@ class Bundle
                 $settings['path'],
                 isset($settings['exception']) ? $settings['exception'] : array(),
                 isset($settings['preg']) ? $settings['preg'] : false,
-                true
+                true,
+                $returnedFiles
             );
         }
+
+        Debug::Out($returnedFiles);
+        exit;
 
         $content = implode('', $content);
 
