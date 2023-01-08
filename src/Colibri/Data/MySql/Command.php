@@ -78,9 +78,9 @@ final class Command extends SqlCommand
         // ! поменять когда будет php7
         $params = [&$stmt, implode('', $types)];
         for ($i = 0; $i < count($values); $i++) {
-            $params[] = &$values[$i];
+            $params[] = & $values[$i];
         }
-       
+
         call_user_func_array('mysqli_stmt_bind_param', $params);
 
         return $stmt;
@@ -129,17 +129,15 @@ final class Command extends SqlCommand
             $stmt = $this->_prepareStatement($preparedQuery);
             mysqli_stmt_execute($stmt);
             $res = mysqli_stmt_get_result($stmt);
-        }
-        catch(MySqlException $e) {
-            if($e->getCode() == 0) {
+        } catch (MySqlException $e) {
+            if ($e->getCode() == 0) {
                 // нет параметров
                 $res = mysqli_query($this->connection->resource, $preparedQuery);
-            }
-            else {
+            } else {
                 throw $e;
             }
         }
-        
+
         if (!($res instanceof \mysqli_result)) {
             throw new MySqlException(mysqli_error($this->_connection->resource) . ' query: ' . $preparedQuery, mysqli_errno($this->_connection->resource));
         }

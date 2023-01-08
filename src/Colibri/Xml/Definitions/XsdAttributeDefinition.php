@@ -35,14 +35,14 @@ class XsdAttributeDefinition implements \JsonSerializable
      *
      * @var XmlNode
      */
-    private ?XmlNode $_node;
+    private ? XmlNode $_node;
 
     /**
      * Схема
      *
      * @var XsdSchemaDefinition
      */
-    private ?XsdSchemaDefinition $_schema;
+    private ? XsdSchemaDefinition $_schema;
 
     /**
      * Конструктор
@@ -67,32 +67,24 @@ class XsdAttributeDefinition implements \JsonSerializable
     {
         if (strtolower($name) == 'annotation') {
             return $this->_node->Item('xs:annotation') ? trim($this->_node->Item('xs:annotation')->value, "\r\t\n ") : '';
-        }
-        else if (strtolower($name) == 'name') {
+        } elseif (strtolower($name) == 'name') {
             return $this->_node->attributes->name->value;
-        }
-        else if (strtolower($name) == 'type') {
+        } elseif (strtolower($name) == 'type') {
             if ($this->_node->attributes->type) {
                 return isset($this->_schema->types[$this->_node->attributes->type->value]) ? $this->_schema->types[$this->_node->attributes->type->value] : new XsdBaseTypeDefinition($this->_node->attributes->type->value);
             }
             return new XsdSimpleTypeDefinition($this->_node->Item('xs:simpleType'));
-        }
-        else if (strtolower($name) == 'use') {
+        } elseif (strtolower($name) == 'use') {
             return $this->_node->attributes->use ? $this->_node->attributes->use->value : null;
-        }
-        else if (strtolower($name) == 'default') {
+        } elseif (strtolower($name) == 'default') {
             return $this->_node->attributes->default ? $this->_node->attributes->default->value : null;
-        }
-        else if (strtolower($name) == 'group') {
+        } elseif (strtolower($name) == 'group') {
             return $this->_node->attributes->group ? $this->_node->attributes->group->value : null;
-        }
-        else if (strtolower($name) == 'autocomplete') {
+        } elseif (strtolower($name) == 'autocomplete') {
             return $this->_node->attributes->autocomplete && $this->_node->attributes->autocomplete->value ? explode(',', $this->_node->attributes->autocomplete->value) : null;
-        }
-        else if (strtolower($name) == 'generate') {
+        } elseif (strtolower($name) == 'generate') {
             return $this->_node->attributes->generate && $this->_node->attributes->generate->value ? $this->_node->attributes->generate->value : null;
-        }
-        else if (strtolower($name) == 'lookup') {
+        } elseif (strtolower($name) == 'lookup') {
             return $this->_node->attributes->lookup && $this->_node->attributes->lookup->value ? $this->_node->attributes->lookup->value : null;
         }
     }
@@ -105,7 +97,7 @@ class XsdAttributeDefinition implements \JsonSerializable
      */
     public function jsonSerialize(): object
     {
-        return (object)array('name' => $this->name, 'annotation' => $this->annotation, 'type' => $this->type, 'use' => $this->use, 'default' => $this->default, 'group' => $this->group, 'autocomplete' => $this->autocomplete, 'generate' => $this->generate, 'lookup' => $this->lookup);
+        return (object) array('name' => $this->name, 'annotation' => $this->annotation, 'type' => $this->type, 'use' => $this->use, 'default' => $this->default, 'group' => $this->group, 'autocomplete' => $this->autocomplete, 'generate' => $this->generate, 'lookup' => $this->lookup);
     }
 
     /**
@@ -116,6 +108,6 @@ class XsdAttributeDefinition implements \JsonSerializable
      */
     public function ToObject(): object
     {
-        return (object)array('name' => $this->name, 'annotation' => $this->annotation, 'type' => $this->type->ToObject(), 'use' => $this->use, 'default' => $this->default, 'group' => $this->group, 'autocomplete' => $this->autocomplete, 'generate' => $this->generate, 'lookup' => $this->lookup);
+        return (object) array('name' => $this->name, 'annotation' => $this->annotation, 'type' => $this->type->ToObject(), 'use' => $this->use, 'default' => $this->default, 'group' => $this->group, 'autocomplete' => $this->autocomplete, 'generate' => $this->generate, 'lookup' => $this->lookup);
     }
 }

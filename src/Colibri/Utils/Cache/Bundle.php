@@ -43,21 +43,20 @@ class Bundle
      */
     public static function Compile(string $name, array $exts, string $path, array $exception = array(), bool $preg = false, bool $returnContent = false /*, &$returnFiles = []*/): string
     {
-        $mode = App::$config ?App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
+        $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
         if (!$returnContent && !in_array($mode, [App::ModeDevelopment, App::ModeLocal]) && File::Exists($jpweb)) {
             return str_replace(App::$webRoot, '/', $jpweb);
         }
 
-        if(File::Exists($path) && !File::IsDirectory($path)) {
+        if (File::Exists($path) && !File::IsDirectory($path)) {
             $files = [$path];
-        }
-        else {
+        } else {
 
             $namespaces = self::GetNamespaceAssets($path, $exts, $exception, $preg);
             $files = self::GetChildAssets($path, $exts, $exception, $preg);
-    
-            $files = array_merge($namespaces, $files); 
+
+            $files = array_merge($namespaces, $files);
 
         }
 
@@ -68,12 +67,12 @@ class Bundle
             }
 
             $c = File::Read($file) . "\n";
-            $args = (object)['content' => $c, 'file' => $file];
+            $args = (object) ['content' => $c, 'file' => $file];
             $args = App::$instance->DispatchEvent(EventsContainer::BundleFile, $args);
             if (isset($args->content)) {
                 $c = $args->content;
             }
-            
+
             $content .= $c;
         }
 
@@ -85,7 +84,6 @@ class Bundle
             File::Delete($jpweb);
         }
 
-        exit;
         File::Write($jpweb, $content, true, '777');
 
         return str_replace(App::$webRoot, '/', $jpweb);
@@ -95,10 +93,9 @@ class Bundle
     {
         $lastModified = 0;
 
-        if(File::Exists($path) && !File::IsDirectory($path)) {
+        if (File::Exists($path) && !File::IsDirectory($path)) {
             $files = [$path];
-        }
-        else {
+        } else {
             $namespaces = self::GetNamespaceAssets($path, $exts, $exception, $preg);
             $files = self::GetChildAssets($path, $exts, $exception, $preg);
             $files = array_merge($namespaces, $files);
@@ -126,7 +123,7 @@ class Bundle
      */
     public static function CompileFiles(string $name, array $exts, array $files, bool $returnContent = false): string
     {
-        $mode = App::$config ?App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
+        $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
         if (!$returnContent && !in_array($mode, [App::ModeDevelopment, App::ModeLocal]) && File::Exists($jpweb)) {
             return str_replace(App::$webRoot, '/', $jpweb);
@@ -139,7 +136,7 @@ class Bundle
             }
 
             $c = File::Read($file) . "\n\n";
-            $args = (object)['content' => $c, 'file' => $file];
+            $args = (object) ['content' => $c, 'file' => $file];
             $args = App::$instance->DispatchEvent(EventsContainer::BundleFile, $args);
             if (isset($args->content)) {
                 $c = $args->content;
@@ -237,7 +234,7 @@ class Bundle
      */
     public static function Automate(string $domain, string $name, string $ext, array $ar, ?string $useDomainsInUrls = null): string
     {
-        
+
         $name = $domain . '.' . $name;
         $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
 
@@ -246,33 +243,35 @@ class Bundle
             if (in_array($mode, [App::ModeDevelopment, App::ModeLocal])) {
                 $lastModified = 0;
                 foreach ($ar as $settings) {
-                    if(!isset($settings['path']) || !$settings['path']) {
+                    if (!isset($settings['path']) || !$settings['path']) {
                         continue;
                     }
-                    $lastModified = max($lastModified, self::LastModified(isset($settings['name']) ? $settings['name'] : '',
+                    $lastModified = max($lastModified, self::LastModified(
+                        isset($settings['name']) ? $settings['name'] : '',
                         isset($settings['exts']) ? $settings['exts'] : [$ext],
                         $settings['path'],
                         isset($settings['exception']) ? $settings['exception'] : array(),
-                        isset($settings['preg']) ? $settings['preg'] : false));
+                        isset($settings['preg']) ? $settings['preg'] : false
+                    )
+                    );
                 }
                 if (filemtime($jpweb) > $lastModified) {
                     return str_replace(App::$webRoot, '/', $jpweb . '?' . md5_file($jpweb));
                 }
-            }
-            else {
+            } else {
                 return str_replace(App::$webRoot, '/', $jpweb . '?' . md5_file($jpweb));
             }
         }
 
         $content = array();
 
-        $args = App::$instance->DispatchEvent(EventsContainer::BundleStart, (object)['exts' => [$ext]]);
+        $args = App::$instance->DispatchEvent(EventsContainer::BundleStart, (object) ['exts' => [$ext]]);
         if (isset($args['content'])) {
             $content[] = $args['content'];
         }
 
         foreach ($ar as $settings) {
-            if(!isset($settings['path']) || !$settings['path']) {
+            if (!isset($settings['path']) || !$settings['path']) {
                 continue;
             }
             $content[] = Bundle::Compile(
@@ -287,28 +286,29 @@ class Bundle
 
         $content = implode('', $content);
 
-        $args = App::$instance->DispatchEvent(EventsContainer::BundleComplete, (object)['content' => $content, 'exts' => [$ext]]);
+        $args = App::$instance->DispatchEvent(EventsContainer::BundleComplete, (object) ['content' => $content, 'exts' => [$ext]]);
         if (isset($args->content)) {
             $content = $args->content;
         }
         $recacheKey = md5($content);
 
-        if($useDomainsInUrls) {
+        if ($useDomainsInUrls) {
             $content = str_replace('url(', 'url(' . $useDomainsInUrls, $content);
         }
 
         File::Write($jpweb, $content, true, '777');
-        
+
         self::Export($domain, $ext, $content);
 
         return str_replace(App::$webRoot, '/', $jpweb . '?' . $recacheKey);
     }
 
-    static function Export(string $domain, string $ext, string $content) {
+    static function Export(string $domain, string $ext, string $content)
+    {
         try {
 
             $generateForMobile = App::$config->Query('mobile.bundler.for')->ToArray();
-            if(in_array($domain, $generateForMobile)) {
+            if (in_array($domain, $generateForMobile)) {
                 // надо залить в мобильный проект
                 $exportPath = App::$config->Query('mobile.bundler.export')->GetValue();
                 $base = App::$config->Query('mobile.bundler.base')->GetValue();
@@ -316,18 +316,17 @@ class Bundle
 
 
                 $paths = App::$config->Query('mobile.bundler.paths')->AsObject();
-                foreach($paths as $settings) {
-                    if(in_array($ext, (array)$settings->types)) {
+                foreach ($paths as $settings) {
+                    if (in_array($ext, (array) $settings->types)) {
                         File::Write($exportPath . $settings->path, $content, true, '777');
                         break;
                     }
                 }
-                
+
             }
-            
-        }
-        catch(ConfigException $e) {
-            
+
+        } catch (ConfigException $e) {
+
         }
 
     }

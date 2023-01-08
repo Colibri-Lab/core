@@ -29,14 +29,14 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
      *
      * @var XmlNode
      */
-    private ?XmlNode $_node;
+    private ? XmlNode $_node;
 
     /**
      * Конструктор
      *
      * @param XmlNode|null $typeNode
      */
-    public function __construct(?XmlNode $typeNode)
+    public function __construct(? XmlNode $typeNode)
     {
         $this->_node = $typeNode;
     }
@@ -52,21 +52,19 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
     {
         if (strtolower($property) == 'name') {
             return $this->_node->attributes->name ? $this->_node->attributes->name->value : 'simpleType';
-        }
-        else if (strtolower($property) == 'annotation') {
+        } elseif (strtolower($property) == 'annotation') {
             $annotation = [];
             $anno = $this->_node->Query('./xs:annotation');
             foreach ($anno as $a) {
                 $annotation[] = $a->value;
             }
             return trim(implode('', $annotation), "\n\r\t ");
-        }
-        else if (strtolower($property) == 'restrictions') {
+        } elseif (strtolower($property) == 'restrictions') {
             $rest = $this->_node->Item('xs:restriction');
             if (!$rest) {
                 return null;
             }
-            $returnRestrictions = (object)['base' => str_replace('xs:', '', $rest->attributes->base ? $rest->attributes->base->value : null)];
+            $returnRestrictions = (object) ['base' => str_replace('xs:', '', $rest->attributes->base ? $rest->attributes->base->value : null)];
             $restrictions = $rest->children;
             foreach ($restrictions as $restriction) {
                 switch ($restriction->name) {
@@ -99,8 +97,7 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
                 }
             }
             return $returnRestrictions;
-        }
-        else if (strtolower($property) == 'attributes') {
+        } elseif (strtolower($property) == 'attributes') {
             $attributes = [];
             $attrs = $this->_node->Query('./xs:attribute');
             if ($attrs->Count() > 0) {
@@ -111,6 +108,7 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
             }
             return $attributes;
         }
+        return null;
     }
 
     /**
@@ -121,7 +119,7 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
      */
     public function jsonSerialize(): object|array
     {
-        return (object)array('name' => $this->name, 'annotation' => $this->annotation, 'restrictions' => $this->restrictions, 'attributes' => $this->attributes);
+        return (object) array('name' => $this->name, 'annotation' => $this->annotation, 'restrictions' => $this->restrictions, 'attributes' => $this->attributes);
     }
 
     /**
@@ -132,6 +130,6 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
      */
     public function ToObject(): object
     {
-        return (object)array('name' => $this->name, 'annotation' => $this->annotation, 'restrictions' => $this->restrictions, 'attributes' => $this->attributes);
+        return (object) array('name' => $this->name, 'annotation' => $this->annotation, 'restrictions' => $this->restrictions, 'attributes' => $this->attributes);
     }
 }

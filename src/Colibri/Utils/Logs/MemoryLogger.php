@@ -44,11 +44,11 @@ class MemoryLogger extends Logger
     public function WriteLine(int $level, mixed $data): void
     {
         $now = DateTime::createFromFormat('U.u', microtime(true));
-        if(!$now) {
+        if (!$now) {
             return;
         }
         $now = $now->format("m-d-Y H:i:s.u");
-        
+
         $args = !is_array($data) ? [$data] : $data;
         if (isset($args['context'])) {
             $args['context'] = implode("\t", $args['context']);

@@ -9,6 +9,7 @@
  */
 
 namespace Colibri\Common;
+
 use Colibri\Utils\Debug;
 use DateTime;
 use DateTimeZone;
@@ -22,19 +23,19 @@ class DateHelper
 {
 
     /** Количество секунд в году */
-    const YEAR  = 31556926;
+    const YEAR = 31556926;
     /** Количество секунд в месяце */
     const MONTH = 2629744;
     /** Количество секунд в неделю */
-    const WEEK  = 604800;
+    const WEEK = 604800;
     /** Количество секунд в дне */
-    const DAY   = 86400;
+    const DAY = 86400;
     /** Количество секунд в час */
-    const HOUR  = 3600;
+    const HOUR = 3600;
     /** Количество секунд в минуту */
     const MINUTE = 60;
 
-    public static function Create(int $year, int $month, int $day) 
+    public static function Create(int $year, int $month, int $day)
     {
         return mktime(0, 0, 0, $month, $day, $year);
     }
@@ -56,7 +57,7 @@ class DateHelper
         $tz = date('Z');
         $tzs = ($tz < 0) ? '-' : '+';
         $tz = abs($tz);
-        $tz = (int)($tz / 3600) * 100 + ($tz % 3600) / 60;
+        $tz = (int) ($tz / 3600) * 100 + ($tz % 3600) / 60;
         return sprintf("%s %s%04d", date('D, j M Y H:i:s', VariableHelper::IsNull($time) ? time() : $time), $tzs, $tz);
     }
 
@@ -91,7 +92,7 @@ class DateHelper
         if (is_null($time)) {
             $time = time();
         }
-        return ((int)date('d', $time)) . ' ' . TimeZoneHelper::Month2(date('m', $time) - 1) . ' ' . date('Y', $time) . ($showTime ? ' ' . date('H', $time) . ':' . date('i', $time) : '');
+        return ((int) date('d', $time)) . ' ' . TimeZoneHelper::Month2(date('m', $time) - 1) . ' ' . date('Y', $time) . ($showTime ? ' ' . date('H', $time) . ':' . date('i', $time) : '');
     }
 
     /**
@@ -192,13 +193,13 @@ class DateHelper
 
         if ($number >= 60) {
             $secs = $number % 60;
-            $number = (int)($number / 60);
+            $number = (int) ($number / 60);
             if ($number >= 60) {
                 $mins = $number % 60;
-                $number = (int)($number / 60);
+                $number = (int) ($number / 60);
                 if ($number >= 60) {
                     $hours = $number % 60;
-                    $number = (int)($number / 60);
+                    $number = (int) ($number / 60);
                 } else {
                     $hours = $number;
                 }
@@ -278,12 +279,12 @@ class DateHelper
             $d = 0;
         }
 
-        return (object)['years' => $y, 'months' => $m, 'days' => $d];
+        return (object) ['years' => $y, 'months' => $m, 'days' => $d];
     }
 
     static function FromDDMMYYYY(string $dateString, string $delimiter = '.', $format = '%Y-%m-%d %H:%M:%S'): string
     {
-        if(strstr($dateString, ' ') !== false) {
+        if (strstr($dateString, ' ') !== false) {
             $dateString = explode(' ', $dateString);
             $dateString = $dateString[0];
         }
@@ -297,10 +298,10 @@ class DateHelper
     {
         $date = explode('-', $date);
         $zone = $date[1];
-        $date = (int)($date[0] / 1000);
+        $date = (int) ($date[0] / 1000);
         $dt = new DateTimeField('now');
         $dt->setTimestamp($date);
-        $dt->setTimezone(new DateTimeZone('-'.$zone));
+        $dt->setTimezone(new DateTimeZone('-' . $zone));
         return $dt;
     }
 }

@@ -28,7 +28,7 @@ class FileListField extends ArrayList
     {
         parent::__construct([]);
         $data = str_replace("\n", "", str_replace("\r", "", $data));
-        if(!empty($data)) {
+        if (!empty($data)) {
             $sources = explode(';', $data);
             foreach ($sources as $file) {
                 $this->Add(new FileField($file));

@@ -30,20 +30,18 @@ class Data extends ArrayList
      * @return Data
      * @testFunction testDataFromArray
      */
-    public static function FromArray(array $array, ?string $keyBefore = null, ?Data &$d = null)
+    public static function FromArray(array $array, ?string $keyBefore = null, ? Data &$d = null)
     {
-        if(!$d) {
+        if (!$d) {
             $d = new Data();
         }
 
         foreach ($array as $k => $v) {
-            if($v instanceof RequestedFile || $v instanceof File) {
+            if ($v instanceof RequestedFile || $v instanceof File) {
                 $d->Add(new DataFile($keyBefore !== null ? $keyBefore . '[' . $k . ']' : $k, $v->binary, $v->name, $v->mimetype));
-            }
-            else if(is_object($v) || is_array($v)) {
+            } elseif (is_object($v) || is_array($v)) {
                 self::FromArray($v, $keyBefore !== null ? $keyBefore . '[' . $k . ']' : $k, $d);
-            }
-            else if(!is_null($v)) {
+            } elseif (!is_null($v)) {
                 $d->Add(new DataItem($keyBefore !== null ? $keyBefore . '[' . $k . ']' : $k, $v));
             }
         }

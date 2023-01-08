@@ -12,7 +12,6 @@
 namespace Colibri\Utils\Logs;
 
 use Colibri\App;
-use Colibri\Common\DateHelper;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 use Colibri\Common\StringHelper;
@@ -41,7 +40,7 @@ class FileLogger extends Logger
      */
     public function __construct(int $maxLogLevel = 7, mixed $device = '', $console = false)
     {
-        if(!$device) {
+        if (!$device) {
             $device = '_cache/log/unnamed.log';
         }
         $this->_device = StringHelper::StartsWith($device, '/') ? $device : App::$webRoot . $device;
@@ -91,10 +90,10 @@ class FileLogger extends Logger
         }
 
         $now = DateTime::createFromFormat('U.u', microtime(true));
-        if(!$now) {
+        if (!$now) {
             return;
         }
-        
+
         $now = $now->format("m-d-Y H:i:s.u");
 
         $args = !is_array($data) ? [$data] : $data;
@@ -104,7 +103,7 @@ class FileLogger extends Logger
         }
         $args = $now . "\t" . implode("\t", $args);
 
-        if($this->_console) {
+        if ($this->_console) {
             Debug::Out($args);
         }
 

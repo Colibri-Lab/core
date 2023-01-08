@@ -52,7 +52,7 @@ class Debug
     public static function Out()
     {
         $result = self::_createArgs(func_get_args());
-        echo "<pre>\n" . str_replace("<", "&lt;", str_replace(">", "&gt;", implode(" : ", $result)))  . "\n</pre>";
+        echo "<pre>\n" . str_replace("<", "&lt;", str_replace(">", "&gt;", implode(" : ", $result))) . "\n</pre>";
         if (isset($_SERVER['argv'])) {
             // закрываем ob
             // try { ob_flush(); } catch(\Throwable $e) {  }
@@ -67,7 +67,7 @@ class Debug
     public static function ROut()
     {
         $result = self::_createArgs(func_get_args());
-        return "\n" . str_replace("<", "&lt;", str_replace(">", "&gt;", implode(" : ", $result)))  . "\n";
+        return "\n" . str_replace("<", "&lt;", str_replace(">", "&gt;", implode(" : ", $result))) . "\n";
     }
 
     /**

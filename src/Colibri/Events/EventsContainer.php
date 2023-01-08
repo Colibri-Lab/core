@@ -177,6 +177,6 @@ class EventsContainer
      */
     const LogWriten = 'logger.writen';
 
-    #endregion
+#endregion
 
 }

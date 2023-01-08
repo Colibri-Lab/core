@@ -50,7 +50,7 @@ class PhpTemplate extends Template
         $args = new ExtendedObject($args);
         $args->template = $this;
 
-        $this->DispatchEvent(EventsContainer::TemplateRendering, (object)['template' => $this, 'args' => $args]);
+        $this->DispatchEvent(EventsContainer::TemplateRendering, (object) ['template' => $this, 'args' => $args]);
 
         ob_start();
 
@@ -59,9 +59,9 @@ class PhpTemplate extends Template
         $ret = ob_get_contents();
         ob_end_clean();
 
-        $args = (object)['template' => $this, 'content' => $ret];
+        $args = (object) ['template' => $this, 'content' => $ret];
         $this->DispatchEvent(EventsContainer::TemplateRendered, $args);
-        if(isset($args->content)) {
+        if (isset($args->content)) {
             $ret = $args->content;
         }
 

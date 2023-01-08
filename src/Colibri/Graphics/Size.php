@@ -93,23 +93,18 @@ class Size
 
         if ($_width == 0 && $_height == 0) {
             return new Size(0, 0);
-        }
-        else if ($_width == 0) {
+        } elseif ($_width == 0) {
             $_height = $_height <= $this->height ? $_height : $this->height;
             $_width = $_height / ($this->height / $this->width);
-        }
-        else if ($_height == 0) {
+        } elseif ($_height == 0) {
             $_width = ($_width <= $this->width ? $_width : $this->width);
             $_height = $_width / ($this->width / $this->height);
-        }
-        else if ($this->width <= $_width && $this->height <= $_height) {
+        } elseif ($this->width <= $_width && $this->height <= $_height) {
             $_width = $this->width;
             $_height = $this->height;
-        }
-        else if ($this->width / $_width > $this->height / $_height) {
+        } elseif ($this->width / $_width > $this->height / $_height) {
             $_height = $this->height * ($_width / $this->width);
-        }
-        else {
+        } else {
             $_width = $this->width * ($_height / $this->height);
         }
 
@@ -131,23 +126,18 @@ class Size
 
         if ($_width == 0 && $_height == 0) {
             return new Size(0, 0);
-        }
-        else if ($_width == 0) {
+        } elseif ($_width == 0) {
             $_height = ($_height <= $this->height ? $_height : $this->height);
             $_width = $_height / ($this->height / $this->width);
-        }
-        else if ($_height == 0) {
+        } elseif ($_height == 0) {
             $_width = ($_width <= $this->width ? $_width : $this->width);
             $_height = $_width / ($this->width / $this->height);
-        }
-        else if ($this->width <= $_width && $this->height <= $_height) {
+        } elseif ($this->width <= $_width && $this->height <= $_height) {
             $_width = $this->width;
             $_height = $this->height;
-        }
-        else if ($this->width / $_width > $this->height / $_height) {
+        } elseif ($this->width / $_width > $this->height / $_height) {
             $_width = $this->width * ($_height / $this->height);
-        }
-        else {
+        } else {
             $_height = $this->height * ($_width / $this->width);
         }
 
@@ -161,7 +151,7 @@ class Size
      * @param int $h
      * @return void
      */
-    public function Expand(int $w, int$h): void
+    public function Expand(int $w, int $h): void
     {
         $this->width += $w;
         $this->height += $h;

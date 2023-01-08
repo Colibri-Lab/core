@@ -32,7 +32,7 @@ trait TEventDispatcher
      * Добавить обработчик события
      * @testFunction testHandleEvent
      */
-    public function HandleEvent(array|string $ename, mixed $listener): self
+    public function HandleEvent(array |string $ename, mixed $listener): self
     {
         EventDispatcher::Create()->AddEventListener($ename, $listener, $this);
         return $this;

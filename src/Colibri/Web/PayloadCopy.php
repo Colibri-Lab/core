@@ -27,8 +27,7 @@ class PayloadCopy implements ArrayAccess, Countable
 
         if ($this->_type == Request::PAYLOAD_TYPE_JSON) {
             $this->_payloadData = json_decode($payload);
-        }
-        else if ($this->_type == Request::PAYLOAD_TYPE_XML) {
+        } elseif ($this->_type == Request::PAYLOAD_TYPE_XML) {
             $this->_payloadData = XmlHelper::Decode($payload);
         }
     }
@@ -57,8 +56,7 @@ class PayloadCopy implements ArrayAccess, Countable
 
         if (is_null($offset)) {
             throw new RuntimeException('Error accessing unknown offset');
-        }
-        else {
+        } else {
             $this->_payloadData->$offset = $value;
         }
     }
@@ -122,7 +120,7 @@ class PayloadCopy implements ArrayAccess, Countable
         if (empty($this->_payloadData)) {
             $this->_loadPayload();
         }
-        return (array)$this->_payloadData;
+        return (array) $this->_payloadData;
     }
 
 }

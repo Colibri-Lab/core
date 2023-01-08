@@ -111,7 +111,7 @@ class Monitoring
         $timer = $this->_timers[$name];
         $timer->end = \microtime(true);
         $timer->memoryAfter = \memory_get_usage(true);
-        $timer->interval = (int)(($timer->end - $timer->start) * 1000);
+        $timer->interval = (int) (($timer->end - $timer->start) * 1000);
         $this->_timers[$name] = $timer;
 
         if ($this->_logging == self::EveryTimer) {
@@ -139,12 +139,12 @@ class Monitoring
 
     private function _message($name, $timer)
     {
-        return DateHelper::ToDbString($this->_aditionalData['time']).'. '.
-            'Timer «' . $name . '». '. "\t".
-            'Time: ' . DateHelper::TimeToString($timer->start) . ' - ' . DateHelper::TimeToString($timer->end) . '. '."\t".
-            'Delta: ' . $timer->interval . ' ms, '."\t".
-            'Мemory: ' . StringHelper::FormatFileSize($timer->memoryBefore) . ' - ' . StringHelper::FormatFileSize($timer->memoryAfter) . "\t".
-            'Uri: '.$this->_aditionalData['uri'].'.';
+        return DateHelper::ToDbString($this->_aditionalData['time']) . '. ' .
+            'Timer «' . $name . '». ' . "\t" .
+            'Time: ' . DateHelper::TimeToString($timer->start) . ' - ' . DateHelper::TimeToString($timer->end) . '. ' . "\t" .
+            'Delta: ' . $timer->interval . ' ms, ' . "\t" .
+            'Мemory: ' . StringHelper::FormatFileSize($timer->memoryBefore) . ' - ' . StringHelper::FormatFileSize($timer->memoryAfter) . "\t" .
+            'Uri: ' . $this->_aditionalData['uri'] . '.';
     }
 
 }

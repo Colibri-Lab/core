@@ -31,9 +31,9 @@ class QueryBuilder implements IQueryBuilder
      * @return string
      * @testFunction testQueryBuilderCreateInsert
      */
-    public function CreateInsert(string $table, array|object $data, string $returning = ''): string
+    public function CreateInsert(string $table, array |object $data, string $returning = ''): string
     {
-        $data = (array)$data;
+        $data = (array) $data;
         foreach ($data as $key => $value) {
             if (is_null($value)) {
                 $value = 'null';
@@ -63,9 +63,9 @@ class QueryBuilder implements IQueryBuilder
      * @return string
      * @testFunction testQueryBuilderCreateInsert
      */
-    public function CreateReplace(string $table, array|object $data, string $returning = ''): string
+    public function CreateReplace(string $table, array |object $data, string $returning = ''): string
     {
-        $data = (array)$data;
+        $data = (array) $data;
         foreach ($data as $key => $value) {
             if (is_null($value)) {
                 $value = 'null';
@@ -96,9 +96,9 @@ class QueryBuilder implements IQueryBuilder
      * @return string
      * @testFunction testQueryBuilderCreateInsertOrUpdate
      */
-    public function CreateInsertOrUpdate(string $table, array|object $data, array $exceptFields = array(), string $returning = ''): string
+    public function CreateInsertOrUpdate(string $table, array |object $data, array $exceptFields = array(), string $returning = ''): string
     {
-        $data = (array)$data;
+        $data = (array) $data;
         $keys = array_keys($data);
         $fields = '(`' . implode("`, `", $keys) . '`)';
 
@@ -134,14 +134,14 @@ class QueryBuilder implements IQueryBuilder
      * @return string
      * @testFunction testQueryBuilderCreateBatchInsert
      */
-    public function CreateBatchInsert(string $table, array|object $data)
+    public function CreateBatchInsert(string $table, array |object $data)
     {
-        $keys = array_keys((array)$data[0]);
+        $keys = array_keys((array) $data[0]);
         $fields = '(`' . implode("`, `", $keys) . '`)';
 
         $values = '';
         foreach ($data as $row) {
-            $row = (array)$row;
+            $row = (array) $row;
             $vals = array_values($row);
             foreach ($vals as $index => $val) {
                 if (is_null($val)) {
@@ -153,7 +153,7 @@ class QueryBuilder implements IQueryBuilder
                 }
                 $vals[$index] = $val;
             }
-        
+
             $values .= ",(" . implode(", ", $vals) . ")";
         }
         $values = substr($values, 1);
@@ -170,9 +170,9 @@ class QueryBuilder implements IQueryBuilder
      * @return string
      * @testFunction testQueryBuilderCreateUpdate
      */
-    public function CreateUpdate(string $table, string $condition, array|object $data): string
+    public function CreateUpdate(string $table, string $condition, array |object $data): string
     {
-        $data = (array)$data;
+        $data = (array) $data;
         $q = '';
         foreach ($data as $k => $val) {
             if (is_null($val)) {

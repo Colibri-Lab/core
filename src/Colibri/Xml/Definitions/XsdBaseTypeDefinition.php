@@ -49,10 +49,10 @@ class XsdBaseTypeDefinition implements \JsonSerializable
     {
         if (strtolower($name) == 'name') {
             return str_replace('xs:', '', $this->_base);
+        } elseif (strtolower($name) == 'restrictions') {
+            return (object) ['base' => $this->name];
         }
-        else if (strtolower($name) == 'restrictions') {
-            return (object)['base' => $this->name];
-        }
+        return null;
     }
 
     /**
@@ -63,7 +63,7 @@ class XsdBaseTypeDefinition implements \JsonSerializable
      */
     public function jsonSerialize(): object|array
     {
-        return (object)array('name' => $this->name, 'restrictions' => $this->restrictions);
+        return (object) array('name' => $this->name, 'restrictions' => $this->restrictions);
     }
 
     /**
@@ -74,6 +74,6 @@ class XsdBaseTypeDefinition implements \JsonSerializable
      */
     public function ToObject(): object
     {
-        return (object)array('name' => $this->name, 'restrictions' => $this->restrictions);
+        return (object) array('name' => $this->name, 'restrictions' => $this->restrictions);
     }
 }

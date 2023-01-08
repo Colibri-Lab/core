@@ -22,20 +22,20 @@ use Colibri\Utils\ExtendedObject;
  */
 class ArrayField extends ArrayList
 {
-    
-    protected ?ExtendedObject $_datarow = null;
+
+    protected ? ExtendedObject $_datarow = null;
 
     /**
      * Поле
      * @var Field
      */
-    protected ?Field $_field = null;
+    protected ? Field $_field = null;
 
     /**
      * Хранилище
      * @var Storage
      */
-    protected ?Storage $_storage = null;
+    protected ? Storage $_storage = null;
 
     /**
      * Конструктор
@@ -44,7 +44,7 @@ class ArrayField extends ArrayList
      * @param Field $field поле
      * @return void
      */
-    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null, ?ExtendedObject $datarow = null)
+    public function __construct(mixed $data, ? Storage $storage = null, ? Field $field = null, ? ExtendedObject $datarow = null)
     {
         if (VariableHelper::IsNull($data) || VariableHelper::IsEmpty($data)) {
             $data = '[]';
@@ -80,8 +80,7 @@ class ArrayField extends ArrayList
         foreach ($this->data as $v) {
             if (is_object($v) && method_exists($v, 'ToString')) {
                 $obj[] = $v->ToString();
-            }
-            else {
+            } else {
                 $obj[] = $v;
             }
         }
@@ -101,16 +100,16 @@ class ArrayField extends ArrayList
     public function GetValidationData(): mixed
     {
         $return = [];
-        foreach($this as $object) {
+        foreach ($this as $object) {
             $return[] = $object->GetValidationData();
-        } 
+        }
         return $return;
     }
 
     public function ToArray(bool $noPrefix = false): array
     {
         $ret = [];
-        foreach($this as $item) {
+        foreach ($this as $item) {
             $ret[] = $item->ToArray(true);
         }
         return $ret;

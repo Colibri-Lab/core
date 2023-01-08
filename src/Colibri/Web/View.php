@@ -16,7 +16,7 @@ class View
      */
     public function __construct()
     {
-    // Do nothing
+        // Do nothing
     }
 
     /**
@@ -34,7 +34,7 @@ class View
      * @param ExtendedObject|null $args 
      * @return string 
      */
-    public function Render(Template $template, ?ExtendedObject $args = null)
+    public function Render(Template $template, ? ExtendedObject $args = null)
     {
 
         if (VariableHelper::IsNull($args)) {

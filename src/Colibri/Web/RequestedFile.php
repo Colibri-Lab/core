@@ -66,14 +66,14 @@ class RequestedFile
      *
      * @param array|object $arrFILE
      */
-    function __construct(array|object $arrFILE)
+    function __construct(array |object $arrFILE)
     {
 
         if (!$arrFILE) {
             return;
         }
 
-        $arrFILE = (array)$arrFILE;
+        $arrFILE = (array) $arrFILE;
 
         $this->name = $arrFILE["name"];
         $ret = preg_split("/\./i", $this->name);
@@ -97,8 +97,7 @@ class RequestedFile
         $prop = strtolower($prop);
         if ($prop == 'isvalid') {
             return !empty($this->name);
-        }
-        else if ($prop == 'binary') {
+        } elseif ($prop == 'binary') {
             return file_get_contents($this->temporary);
         }
         return null;
@@ -109,9 +108,9 @@ class RequestedFile
      */
     function __destruct()
     {
-    // if (file_exists($this->temporary)) {
-    //     unlink($this->temporary);
-    // }
+        // if (file_exists($this->temporary)) {
+        //     unlink($this->temporary);
+        // }
     }
 
     /**

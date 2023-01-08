@@ -8,11 +8,12 @@
  * @package Colibri\Graphics
  */
 namespace Colibri\Graphics;
-            
+
 /**
  * Класс представляющий точку на экране
  */
-class Point {
+class Point
+{
 
     /**
      * Позиция X
@@ -26,17 +27,17 @@ class Point {
      * @var int
      */
     public int $y;
-    
+
     /**
      * Конструктор
      *
      * @param integer $x
      * @param integer $y
      */
-    public function __construct(int $x = 0, int $y = 0) {
+    public function __construct(int $x = 0, int $y = 0)
+    {
         $this->x = $x;
         $this->y = $y;
     }
-    
-}
 
+}

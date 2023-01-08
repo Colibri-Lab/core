@@ -20,7 +20,7 @@ class DateTimeField extends DateTime implements JsonSerializable
 
     static $defaultLocale = null;
 
-    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
+    public function __construct(mixed $data, ? Storage $storage = null, ? Field $field = null)
     {
         parent::__construct($data);
     }
@@ -57,7 +57,7 @@ class DateTimeField extends DateTime implements JsonSerializable
      */
     public function getAge(DateTime|string $now = 'NOW'): int
     {
-        return (int)$this->diff($now)->format('%y');
+        return (int) $this->diff($now)->format('%y');
     }
 
     public function format(string $format, ?string $locale = null)
@@ -70,8 +70,7 @@ class DateTimeField extends DateTime implements JsonSerializable
             $intlFormatter->setPattern($format);
             $intlFormatter->setTimeZone($this->getTimezone());
             $result = $intlFormatter->format($this);
-        }
-        else {
+        } else {
             $result = parent::format($format);
         }
 
@@ -89,18 +88,18 @@ class DateTimeField extends DateTime implements JsonSerializable
                 'нояб.',
                 'дек.',
             ], [
-                'янв',
-                'фев',
-                'мар',
-                'апр',
-                'июн',
-                'июл',
-                'авг',
-                'сен',
-                'окт',
-                'ноя',
-                'дек',
-            ], $result);
+                    'янв',
+                    'фев',
+                    'мар',
+                    'апр',
+                    'июн',
+                    'июл',
+                    'авг',
+                    'сен',
+                    'окт',
+                    'ноя',
+                    'дек',
+                ], $result);
         }
 
         return $result;
@@ -109,7 +108,7 @@ class DateTimeField extends DateTime implements JsonSerializable
 
     public function jsonSerialize(): string
     {
-        return (string)$this;
+        return (string) $this;
     }
 
 }

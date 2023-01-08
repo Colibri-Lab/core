@@ -84,7 +84,7 @@ class TimeZoneHelper
      * @return string
      * @testFunction testTimeZoneHelperWeekday
      */
-    public static function Weekday(int $weekday):? string
+    public static function Weekday(int $weekday): ?string
     {
         return isset(self::$texts[self::$zone]['weekdays'][$weekday]) ? self::$texts[self::$zone]['weekdays'][$weekday] : null;
     }

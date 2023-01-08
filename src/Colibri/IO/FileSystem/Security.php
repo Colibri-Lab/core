@@ -57,7 +57,7 @@ class Security
 
         if ($flags instanceof ICollection) {
             $this->flags = $flags->rawArray;
-        } else if (is_array($flags)) {
+        } elseif (is_array($flags)) {
             $this->flags = $flags;
         } else {
             throw new AppException('illegal arguments: ' . __CLASS__);

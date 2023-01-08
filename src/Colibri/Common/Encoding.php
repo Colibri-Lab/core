@@ -20,32 +20,31 @@ class Encoding
      * @return mixed
      * @testFunction testEncodingConvert
      */
-    public static function Convert(string|array|object $string, string $to, ?string $from = null): string|array|object
+    public static function Convert(string|array |object $string, string $to, ?string $from = null): string|array |object
     {
         if (is_array($string) || is_object($string)) {
 
             $isObject = is_object($string);
             $return = [];
-            $string = (array)$string;
-            foreach($string as $key => $value) {
+            $string = (array) $string;
+            foreach ($string as $key => $value) {
                 $return[Encoding::Convert($key, $to, $from)] = Encoding::Convert($value, $to, $from);
             }
 
-            if($isObject) {
-                $return = (object)$return;
+            if ($isObject) {
+                $return = (object) $return;
             }
 
             return $return;
-            
-        }
-        else if(!is_string($string)) {
+
+        } elseif (!is_string($string)) {
             return $string;
         }
 
         if (!$from) {
             $from = Encoding::Detect($string);
         }
-        
+
         $to = strtolower($to);
         $from = strtolower($from);
         if ($from != $to) {

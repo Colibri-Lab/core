@@ -1,6 +1,7 @@
 <?php
 
 namespace Colibri\Data\Storages\Fields;
+
 use JsonSerializable;
 
 class UUIDField implements JsonSerializable
@@ -17,9 +18,8 @@ class UUIDField implements JsonSerializable
     {
         if ($property == 'binary') {
             return $this->_value;
-        }
-        else if ($property == 'string') {
-            return (string)$this;
+        } elseif ($property == 'string') {
+            return (string) $this;
         }
         return null;
     }
@@ -28,8 +28,7 @@ class UUIDField implements JsonSerializable
     {
         if ($property == 'binary') {
             $this->_value = $value;
-        }
-        else if ($property == 'string') {
+        } elseif ($property == 'string') {
             $this->_pack($value);
         }
     }
@@ -66,7 +65,7 @@ class UUIDField implements JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return (string)$this;
+        return (string) $this;
     }
-    
+
 }

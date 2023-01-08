@@ -1,6 +1,7 @@
 <?php
 
 namespace Colibri\Data\Storages\Fields;
+
 use Colibri\Data\Storages\Storage;
 use Colibri\Data\Models\DataRow;
 use Throwable;
@@ -13,21 +14,21 @@ class ClosureField implements JsonSerializable
 
     private string $_value;
 
-    protected ?DataRow $_datarow = null;
+    protected ? DataRow $_datarow = null;
 
     /**
      * Поле
      * @var Field
      */
-    protected ?Field $_field = null;
+    protected ? Field $_field = null;
 
     /**
      * Хранилище
      * @var Storage
      */
-    protected ?Storage $_storage = null;
+    protected ? Storage $_storage = null;
 
-    public function __construct(string $value, ?Storage $storage = null, ?Field $field = null, ?DataRow $datarow = null)
+    public function __construct(string $value, ? Storage $storage = null, ? Field $field = null, ? DataRow $datarow = null)
     {
         $this->_value = $value;
         $this->_storage = $storage;
@@ -50,27 +51,26 @@ class ClosureField implements JsonSerializable
         }
     }
 
-    public function Invoke(mixed ...$params): mixed
+    public function Invoke(mixed...$params): mixed
     {
         try {
-            eval('$function = '.$this->_value.';');
+            eval('$function = ' . $this->_value . ';');
             $function = Closure::fromCallable($function);
             return $function->call($this, ...$params);
-        }
-        catch(Throwable $e) {
+        } catch (Throwable $e) {
             return null;
         }
 
     }
 
-    public function __toString(): string 
+    public function __toString(): string
     {
         return $this->_value;
     }
 
     public function jsonSerialize(): mixed
     {
-        return (string)$this;
+        return (string) $this;
     }
 
 }

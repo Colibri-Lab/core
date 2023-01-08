@@ -28,7 +28,7 @@ class XsdSchemaDefinition implements \JsonSerializable
      *
      * @var XmlNode
      */
-    private ?XmlNode $_schema;
+    private ? XmlNode $_schema;
 
     /**
      * Массив типов
@@ -97,8 +97,7 @@ class XsdSchemaDefinition implements \JsonSerializable
     {
         if (strtolower($property) == 'types') {
             return $this->_types;
-        }
-        else if (strtolower($property) == 'elements') {
+        } elseif (strtolower($property) == 'elements') {
             $elements = [];
             foreach ($this->_schema->Query('./xs:element') as $element) {
                 $el = new XsdElementDefinition($element, $this);
@@ -117,7 +116,7 @@ class XsdSchemaDefinition implements \JsonSerializable
      */
     public function jsonSerialize(): object|array
     {
-        return (object)array('types' => $this->types, 'elements' => $this->elements);
+        return (object) array('types' => $this->types, 'elements' => $this->elements);
     }
 
     /**
@@ -139,6 +138,6 @@ class XsdSchemaDefinition implements \JsonSerializable
             $elements[$element->name] = $element->ToObject();
         }
 
-        return (object)array('types' => $types, 'elements' => $elements);
+        return (object) array('types' => $types, 'elements' => $elements);
     }
 }

@@ -81,8 +81,7 @@ abstract class Template
     {
         if (strtolower($prop) == 'file') {
             return $this->_file;
-        }
-        else if (strtolower($prop) == 'path') {
+        } elseif (strtolower($prop) == 'path') {
             $f = new File($this->_file);
             return $f->directory->path;
         }

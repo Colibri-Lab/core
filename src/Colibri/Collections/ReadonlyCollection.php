@@ -41,7 +41,7 @@ class ReadonlyCollection extends Collection
      * @throws CollectionException
      * @testFunction testReadonlyCollectionAdd
      */
-    public function Add(string $key, mixed $value): mixed 
+    public function Add(string $key, mixed $value): mixed
     {
         throw new CollectionException('This is a readonly collection');
     }
@@ -53,7 +53,7 @@ class ReadonlyCollection extends Collection
      * @throws CollectionException
      * @testFunction testReadonlyCollectionDelete
      */
-    public function Delete(string $key): bool 
+    public function Delete(string $key): bool
     {
         throw new CollectionException('This is a readonly collection');
     }

@@ -21,7 +21,7 @@ namespace Colibri\Graphics;
  */
 class Font
 {
-    
+
     /**
      * Название шрифта
      *
@@ -46,7 +46,7 @@ class Font
      * @var int
      */
     private int $_fontSize;
-    
+
     /**
      * Конструктор
      *
@@ -67,13 +67,13 @@ class Font
         }
 
         $this->_angle = $angle;
-        
+
         if ($this->_file == '') {
             $this->_file = basename($this->_path);
             $this->_path = dirname($this->_path);
         }
     }
-    
+
     /**
      * Геттер
      *
@@ -84,54 +84,54 @@ class Font
     {
         $return = null;
         switch ($prop) {
-            case "file":{
-                $return = $this->_file;
-                break;
-            }
-            case "path":{
-                $return = $this->_path;
-                break;
-            }
-            case "angle":{
-                $return = $this->_angle;
-                break;
-            }
+            case "file": {
+                    $return = $this->_file;
+                    break;
+                }
+            case "path": {
+                    $return = $this->_path;
+                    break;
+                }
+            case "angle": {
+                    $return = $this->_angle;
+                    break;
+                }
             case "src": {
-                $return = $this->_path."/".$this->_file;
-                break;
-            }
+                    $return = $this->_path . "/" . $this->_file;
+                    break;
+                }
             case "size": {
-                $return = $this->_fontSize;
-                break;
-            }
+                    $return = $this->_fontSize;
+                    break;
+                }
             default: {
-                break;
-            }
+                    break;
+                }
         }
         return $return;
     }
-    
+
     /**
      * Возвращает размер области вывода текста
      * @param string $text
      */
     public function MeasureText(string $text): Quadro
     {
-        $ar = imagettfbbox($this->_fontSize, $this->_angle, $this->_path."/".$this->_file, $text);
+        $ar = imagettfbbox($this->_fontSize, $this->_angle, $this->_path . "/" . $this->_file, $text);
 
         $r = new Quadro();
         $r->lowerleft->x = $ar[0];
         $r->lowerleft->y = $ar[1];
-        
+
         $r->lowerright->x = $ar[2];
         $r->lowerright->y = $ar[3];
-        
+
         $r->upperright->x = $ar[4];
         $r->upperright->y = $ar[5];
-        
+
         $r->upperleft->x = $ar[6];
         $r->upperleft->y = $ar[7];
-        
+
         return $r;
     }
 
@@ -143,7 +143,7 @@ class Font
      */
     public function InscribeText(string $text, Point &$startAt, Size &$size)
     {
-        $rect = imagettfbbox($this->_fontSize, 0, $this->_path."/".$this->_file, $text.'|');
+        $rect = imagettfbbox($this->_fontSize, 0, $this->_path . "/" . $this->_file, $text . '|');
         if (0 == $this->_angle) {
             $size->height = $rect[1] - $rect[7];
             $size->width = $rect[2] - $rect[0];
@@ -171,5 +171,3 @@ class Font
         }
     }
 }
-
-

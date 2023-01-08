@@ -28,7 +28,7 @@ class HtmlHelper
      * @return string
      * @testFunction testHtmlHelperEncode
      */
-    public static function Encode(array|object $object, string $tag = 'object'): string
+    public static function Encode(array |object $object, string $tag = 'object'): string
     {
         if (is_string($object)) {
             return $object;

@@ -11,8 +11,6 @@
 namespace Colibri\Data\Storages\Models;
 
 use Colibri\App;
-use Colibri\Data\Storages\Fields\FileField;
-use Colibri\Data\Storages\Fields\FileListField;
 use Colibri\Data\Storages\Storage;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\Models\DataTable as BaseDataTable;
@@ -42,7 +40,7 @@ class DataTable extends BaseDataTable
      * Хранилише
      * @var Storage
      */
-    protected ?Storage $_storage = null;
+    protected ? Storage $_storage = null;
 
     protected string $_returnAsExtended;
 
@@ -54,7 +52,7 @@ class DataTable extends BaseDataTable
      * @param Storage|null $storage хранилище
      * @return void 
      */
-    public function __construct(DataAccessPoint $point, IDataReader $reader = null, string $returnAs = 'Colibri\\Data\\Storages\\Models\\DataRow', ?Storage $storage = null)
+    public function __construct(DataAccessPoint $point, IDataReader $reader = null, string $returnAs = 'Colibri\\Data\\Storages\\Models\\DataRow', ? Storage $storage = null)
     {
         $this->_returnAsExtended = $returnAs;
         parent::__construct($point, $reader);
@@ -95,50 +93,49 @@ class DataTable extends BaseDataTable
         return new $className($this, $result, $this->_storage);
     }
 
-    public static function LoadByQuery(Storage|string $storage, string $query, array $params): ?static 
+    public static function LoadByQuery(Storage|string $storage, string $query, array $params): ?static
     {
-        if(is_string($storage)) {
+        if (is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
         }
-        
+
         $res = preg_match_all('/\{([^\}]+)\}/', $query, $matches, \PREG_SET_ORDER);
-        if($res > 0) {
-            foreach($matches as $match) {
-                $query = str_replace($match[0], $storage->name.'_'.$match[1], $query);
+        if ($res > 0) {
+            foreach ($matches as $match) {
+                $query = str_replace($match[0], $storage->name . '_' . $match[1], $query);
             }
         }
-    
+
         list(, $rowClass) = $storage->GetModelClasses();
-        
+
         $reader = $storage->accessPoint->Query($query, $params);
-        if($reader instanceof IDataReader) {
-            return new static($storage->accessPoint, $reader, $rowClass, $storage);
-        }
-        else {
-            App::$log->debug($reader->error.' '.$reader->query);
+        if ($reader instanceof IDataReader) {
+            return new static ($storage->accessPoint, $reader, $rowClass, $storage);
+        } else {
+            App::$log->debug($reader->error . ' ' . $reader->query);
             return null;
         }
     }
 
-    protected static function DeleteByFilter(Storage|string $storage, string $filter): bool 
+    protected static function DeleteByFilter(Storage|string $storage, string $filter): bool
     {
-        if(is_string($storage)) {
+        if (is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
         }
-        
+
         $res = preg_match_all('/\{([^\}]+)\}/', $filter, $matches, \PREG_SET_ORDER);
-        if($res > 0) {
-            foreach($matches as $match) {
-                $filter = str_replace($match[0], $storage->name.'_'.$match[1], $filter);
+        if ($res > 0) {
+            foreach ($matches as $match) {
+                $filter = str_replace($match[0], $storage->name . '_' . $match[1], $filter);
             }
         }
-    
+
         $res = $storage->accessPoint->Delete($storage->name, $filter);
-        if(!$res->error) {
+        if (!$res->error) {
             return true;
         }
 
-        App::$log->debug('Error: '.$res->error.', query: '.$res->query);
+        App::$log->debug('Error: ' . $res->error . ', query: ' . $res->query);
         return false;
     }
 
@@ -160,7 +157,7 @@ class DataTable extends BaseDataTable
         // получаем сконвертированные данные
         $data = $row->GetData();
 
-        unset($data[$idf]); 
+        unset($data[$idf]);
         $data[$idm] = DateHelper::ToDBString(time());
 
         $params = [];
@@ -183,11 +180,11 @@ class DataTable extends BaseDataTable
                 }
 
                 $params[$key] = $value;
-                $fieldValues[$key] = '[['.$key.':'.$paramType.']]';
+                $fieldValues[$key] = '[[' . $key . ':' . $paramType . ']]';
             }
         }
 
-        if(empty($fieldValues)) {
+        if (empty($fieldValues)) {
             return $id != 0;
         }
 
@@ -236,7 +233,7 @@ class DataTable extends BaseDataTable
         fputcsv($stream->stream, $header, ';');
 
         foreach ($this->getIterator() as $row) {
-            $ar = (array)$row->original;
+            $ar = (array) $row->original;
             $r = [];
             foreach ($this->_storage->fields as $field) {
                 $val = $ar[$this->_storage->GetRealFieldName($field->name)];
@@ -284,18 +281,18 @@ class DataTable extends BaseDataTable
      */
     public function ExportJson(string $file): void
     {
-        
+
         if (File::Exists($file)) {
             File::Delete($file);
         }
 
         File::Create($file, true);
-        File::Append($file, '['."\n");
+        File::Append($file, '[' . "\n");
 
         foreach ($this as $row) {
-            File::Append($file, $row->ToJSON().", \n");
+            File::Append($file, $row->ToJSON() . ", \n");
         }
-        
+
         File::Append($file, ']');
 
     }
@@ -312,7 +309,7 @@ class DataTable extends BaseDataTable
 
         $header = fgetcsv($stream->stream, 0, ';');
         $dataTable = DataTable::Create($this->_storage->accessPoint);
-        $dataTable->Load('select * from '.$this->_storage->name.' where false');
+        $dataTable->Load('select * from ' . $this->_storage->name . ' where false');
         while ($row = fgetcsv($stream->stream, 0, ';')) {
             if ($firstrow-- > 1) {
                 continue;
@@ -337,7 +334,7 @@ class DataTable extends BaseDataTable
         $xml = XmlNode::Load($file, true);
         $rows = $xml->Query('//row');
         $dataTable = DataTable::Create($this->_storage->accessPoint);
-        $dataTable->Load('select * from '.$this->_storage->name.' where false');
+        $dataTable->Load('select * from ' . $this->_storage->name . ' where false');
         foreach ($rows as $row) {
             if ($firstrow-- > 1) {
                 continue;

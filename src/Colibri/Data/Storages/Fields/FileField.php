@@ -67,7 +67,7 @@ class FileField implements JsonSerializable
      * @param string $data путь к файлу
      * @return void
      */
-    public function __construct($data, ?Storage $storage = null, ?Field $field = null)
+    public function __construct($data, ? Storage $storage = null, ? Field $field = null)
     {
         $this->_path = $data;
         $this->_name = basename($this->_path);
@@ -113,13 +113,11 @@ class FileField implements JsonSerializable
                     if ($this->mimetype->isImage && !$this->isOnline) {
                         if ($this->isValid) {
                             $info = Graphics::Info(App::$webRoot . $this->_path);
-                        }
-                        else {
+                        } else {
                             return new Size();
                         }
                         return $info->size;
-                    }
-                    else {
+                    } else {
                         return null;
                     }
                 }
@@ -213,12 +211,10 @@ class FileField implements JsonSerializable
                     $this->Cache($size);
                 }
                 return str_replace(App::$webRoot, '/', $this->CacheName($size));
-            }
-            else {
+            } else {
                 return str_replace(App::$webRoot, '/', $this->_path);
             }
-        }
-        else {
+        } else {
             return str_replace(App::$webRoot, '/', $this->_path);
         }
     }
@@ -235,7 +231,7 @@ class FileField implements JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return (string)$this;
+        return (string) $this;
     }
 
 }

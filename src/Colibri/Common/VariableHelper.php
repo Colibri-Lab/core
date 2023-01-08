@@ -9,6 +9,7 @@
  */
 
 namespace Colibri\Common;
+
 use Colibri\App;
 
 /**
@@ -28,8 +29,7 @@ class VariableHelper
     {
         if (is_object($var)) {
             return is_null($var);
-        }
-        else if (is_array($var)) {
+        } elseif (is_array($var)) {
             return empty($var);
         }
         return ($var === null || $var === "");
@@ -41,9 +41,9 @@ class VariableHelper
         if (!is_object($object) && !is_array($object)) {
             return self::IsEmpty($object);
         }
-        
-        foreach((array)$object as $key => $value) {
-            if(!self::IsObjectFieldsIsEmpty($value)) {
+
+        foreach ((array) $object as $key => $value) {
+            if (!self::IsObjectFieldsIsEmpty($value)) {
                 $isEmpty = false;
                 break;
             }
@@ -176,7 +176,7 @@ class VariableHelper
             return null;
         }
         foreach ($array as $i => $value) {
-            $array[$i] = $case == CASE_LOWER ?StringHelper::ToLower($value) : StringHelper::ToUpper($value);
+            $array[$i] = $case == CASE_LOWER ? StringHelper::ToLower($value) : StringHelper::ToUpper($value);
         }
         return $array;
     }
@@ -207,15 +207,15 @@ class VariableHelper
     public static function ObjectToArray(object|array $object): array
     {
         if (!self::IsObject($object) && !self::IsArray($object)) {
-            return (array)$object;
+            return (array) $object;
         }
 
-        $object = (array)$object;
+        $object = (array) $object;
         foreach ($object as $k => $v) {
             $object[$k] = self::ObjectToArray($v);
         }
 
-        return (array)$object;
+        return (array) $object;
 
 
     }
@@ -229,27 +229,27 @@ class VariableHelper
      */
     public static function ArrayToObject(mixed $array): mixed
     {
-        if(is_null($array)) {
+        if (is_null($array)) {
             return null;
         }
-        
+
         if (!self::IsObject($array) && !self::IsArray($array)) {
             return $array;
         }
 
         if (self::IsArray($array) && !self::IsAssociativeArray($array)) {
-            foreach($array as $index => $v) {
+            foreach ($array as $index => $v) {
                 $array[$index] = self::ArrayToObject($v);
             }
             return $array;
         }
 
-        $array = (array)$array;
+        $array = (array) $array;
         foreach ($array as $k => $v) {
             $array[$k] = self::ArrayToObject($v);
         }
 
-        return (object)$array;
+        return (object) $array;
 
     }
 
@@ -288,8 +288,8 @@ class VariableHelper
         $array = array_combine(array_column($array, $keyName), array_values($array));
 
         foreach ($array as $k => &$v) {
-            if (isset($array[(int)$v[$parentName]])) {
-                $array[(int)$v[$parentName]][$childrenName][(int)$k] = & $v;
+            if (isset($array[(int) $v[$parentName]])) {
+                $array[(int) $v[$parentName]][$childrenName][(int) $k] = & $v;
             }
             unset($v);
         }
@@ -330,8 +330,7 @@ class VariableHelper
         $len = strlen($data);
         try {
             return pack("H" . $len, $data);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return '';
         }
     }
@@ -407,8 +406,8 @@ class VariableHelper
             return $o2;
         }
 
-        $o1 = (array)$o1;
-        $o2 = (array)$o2;
+        $o1 = (array) $o1;
+        $o2 = (array) $o2;
 
         foreach ($o1 as $k => $v) {
             if (isset($o2[$k]) && (!$emptyAsUnset || ($emptyAsUnset && $o2[$k]))) {
@@ -460,7 +459,7 @@ class VariableHelper
         }
 
         $ret = array();
-        $object = (array)$object;
+        $object = (array) $object;
         foreach ($object as $k => $v) {
             $ret[] = $keyPrefix . $k . $spl2 . ($quote ? '"' : '') . StringHelper::PrepareAttribute($v) . ($quote ? '"' : '');
         }
@@ -513,8 +512,8 @@ class VariableHelper
                 return $actual == $expected;
             }
 
-            $actual = (array)$actual;
-            $expected = (array)$expected;
+            $actual = (array) $actual;
+            $expected = (array) $expected;
             foreach ($expected as $key => $value) {
                 if (!self::IsSimilar($actual[$key], $expected[$key])) {
                     return false;
@@ -526,8 +525,7 @@ class VariableHelper
                 }
             }
             return true;
-        }
-        catch (\Throwable $e) {
+        } catch (\Throwable $e) {
             App::$log->debug($e->getMessage());
             return false;
         }
@@ -536,18 +534,17 @@ class VariableHelper
     public static function MixedToArray(mixed $object): mixed
     {
         $typeName = gettype($object);
-        if($typeName === 'object') {
+        if ($typeName === 'object') {
             $className = get_class($object);
-            if($className === 'stdClass') {
+            if ($className === 'stdClass') {
                 $array = [
                     '__class' => $className
                 ];
-                foreach($object as $property => $value) {
+                foreach ($object as $property => $value) {
                     $array[$property] = self::MixedToArray($value);
                 }
-                return $array;    
-            }
-            else {
+                return $array;
+            } else {
                 $reflectionClass = new \ReflectionClass($className);
                 $array = [
                     '__class' => $className
@@ -557,20 +554,20 @@ class VariableHelper
                     $array[$property->getName()] = self::MixedToArray($property->getValue($object));
                     $property->setAccessible(false);
                 }
-    
-                return $array;    
+
+                return $array;
             }
 
         } elseif ($typeName === 'array') {
             $array = [];
-            foreach($object as $property => $value) {
+            foreach ($object as $property => $value) {
                 $array[$property] = self::MixedToArray($value);
             }
-            return $array;   
+            return $array;
         } else {
             return $object;
         }
-        
+
     }
 
 

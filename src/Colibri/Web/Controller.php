@@ -86,7 +86,7 @@ class Controller
      */
     public function Finish(int $code, string $message, mixed $result = null, string $charset = 'utf-8', array $headers = [], array $cookies = []): object
     {
-        $res = (object)[];
+        $res = (object) [];
         $res->code = $code;
         $res->message = $message;
         $res->result = $result;
@@ -112,8 +112,7 @@ class Controller
         if (strpos($class, 'App\\Modules\\') === 0) {
             $class = str_replace('App\\', '', $class);
             $class = str_replace('Controllers\\', '', $class);
-        }
-        else {
+        } else {
             $class = str_replace('App\\Controllers\\', '', $class);
         }
         $class = str_replace('\\', '/', $class);
@@ -128,11 +127,9 @@ class Controller
 
         if (!$method && !$type) {
             $url = StringHelper::AddToQueryString($path, $params, true);
-        }
-        else if (!$method && $type) {
+        } elseif (!$method && $type) {
             $url = $path . 'index.' . $type;
-        }
-        else {
+        } else {
             $url = $path . StringHelper::FromCamelCaseAttr($method) . '.' . $type;
         }
 

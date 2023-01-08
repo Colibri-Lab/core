@@ -11,7 +11,6 @@
 
 namespace Colibri\Utils\Logs;
 
-use Colibri\Utils\Debug;
 
 /**
  * Класс для работы с GrayLog
@@ -52,7 +51,7 @@ class GraylogLogger extends Logger
     {
 
 
-        $data = (object)$data;
+        $data = (object) $data;
         if ($level > $this->_maxLogLevel) {
             return;
         }
@@ -60,8 +59,7 @@ class GraylogLogger extends Logger
         $host = '';
         if (isset($this->_device->host)) {
             $host = $this->_device->host;
-        }
-        else if (isset($_SERVER['HTTP_HOST'])) {
+        } elseif (isset($_SERVER['HTTP_HOST'])) {
             $host = $_SERVER['HTTP_HOST'];
         }
 
@@ -72,15 +70,14 @@ class GraylogLogger extends Logger
             'full_message' => $data->context,
             'level' => $level,
         ];
-        $gelf = array_merge($gelf, (array)$data);
+        $gelf = array_merge($gelf, (array) $data);
 
-        $data = json_encode((object)$gelf, JSON_UNESCAPED_UNICODE);
+        $data = json_encode((object) $gelf, JSON_UNESCAPED_UNICODE);
 
         $socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         if ($socket) {
             socket_sendto($socket, $data, strlen($data), 0, $this->_device->server, $this->_device->port);
-        }
-        else {
+        } else {
             throw new LoggerException('Не смогли создать сокен в GrayLog', 500);
         }
     }

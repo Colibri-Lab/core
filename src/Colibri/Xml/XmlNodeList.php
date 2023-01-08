@@ -64,7 +64,7 @@ class XmlNodeList implements \IteratorAggregate
      * @return XmlNode|null
      * @testFunction testXmlNodeListItem
      */
-    public function Item(int $index): ?XmlNode
+    public function Item(int $index): ? XmlNode
     {
         if ($this->_data->item($index)) {
             return new XmlNode($this->_data->item($index), $this->_document);

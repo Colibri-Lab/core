@@ -55,21 +55,21 @@ final class App
      *
      * @var App
      */
-    public static ?App $instance = null;
+    public static ? App $instance = null;
 
     /**
      * Обьект запроса
      *
      * @var Request
      */
-    public static ?Request $request = null;
+    public static ? Request $request = null;
 
     /**
      * Обьект ответа
      *
      * @var Response
      */
-    public static ?Response $response = null;
+    public static ? Response $response = null;
 
     /**
      * Корень приложения
@@ -96,46 +96,46 @@ final class App
      *
      * @var Config
      */
-    public static ?Config $config = null;
+    public static ? Config $config = null;
 
     /**
      * Диспатчер событий
      *
      * @var EventDispatcher
      */
-    public static ?EventDispatcher $eventDispatcher = null;
+    public static ? EventDispatcher $eventDispatcher = null;
 
     /**
      * Менеджер модулей
      *
      * @var ModuleManager
      */
-    public static ?ModuleManager $moduleManager = null;
+    public static ? ModuleManager $moduleManager = null;
 
     /**
      * Доступ к данным DAL
      *
      * @var DataAccessPoints
      */
-    public static ?DataAccessPoints $dataAccessPoints = null;
+    public static ? DataAccessPoints $dataAccessPoints = null;
 
     /**
      * Лог девайс
      * @var Logger
      */
-    public static ?Logger $log = null;
+    public static ? Logger $log = null;
 
     /**
      * Менеджер процессов
      * @var Manager
      */
-    public static ?Manager $threadingManager = null;
+    public static ? Manager $threadingManager = null;
 
     /**
      * Мониторинг
      * @var Monitoring
      */
-    public static ?Monitoring $monitoring = null;
+    public static ? Monitoring $monitoring = null;
 
     /**
      * Ключ домена
@@ -145,14 +145,14 @@ final class App
     /**
      * Раутер
      */
-    public static ?Router $router = null;
+    public static ? Router $router = null;
 
     /**
      * Закрываем конструктор
      */
     private function __construct()
     {
-    // Do nothing
+        // Do nothing
     }
 
     /**
@@ -184,8 +184,7 @@ final class App
 
             if (File::Exists(realpath(getcwd() . '/../config/app.yaml'))) {
                 $_SERVER['DOCUMENT_ROOT'] = realpath(getcwd() . '/');
-            }
-            else if (File::Exists(realpath(getcwd() . '/../../config/app.yaml'))) {
+            } elseif (File::Exists(realpath(getcwd() . '/../../config/app.yaml'))) {
                 $_SERVER['DOCUMENT_ROOT'] = realpath(getcwd() . '/../');
             }
 
@@ -220,7 +219,7 @@ final class App
         if (!self::$log) {
             self::$log = Logger::Create(self::$config->Query('logger'));
         }
-        
+
 
         $mode = self::$config->Query('mode')->GetValue();
         if ($mode == App::ModeDevelopment || $mode == App::ModeLocal) {
@@ -232,13 +231,13 @@ final class App
             $host = $_SERVER['HTTP_HOST'];
             $domains = self::$config->Query('hosts.domains')->AsObject();
 
-            foreach($domains as $key => $patterns) {
-                foreach($patterns as $pattern) {
+            foreach ($domains as $key => $patterns) {
+                foreach ($patterns as $pattern) {
 
                     $pattern = preg_quote($pattern);
                     $pattern = str_replace('\\*', '.*', $pattern);
-                    $res = preg_match('/'.$pattern.'/', $host, $matches);
-                    if($res > 0) {
+                    $res = preg_match('/' . $pattern . '/', $host, $matches);
+                    if ($res > 0) {
                         // нашли
                         self::$domainKey = $key;
                         break 2;
@@ -246,19 +245,17 @@ final class App
                 }
             }
 
-        }
-        catch(ConfigException $e) {
+        } catch (ConfigException $e) {
         }
 
         /**
          * Создаем обьект мониторинга
          */
         $monitoringConfig = self::$config->Query('monitoring');
-        if($monitoringConfig) {
+        if ($monitoringConfig) {
             $level = $monitoringConfig->Query('level')->GetValue();
-            $logging = $monitoringConfig->Query('logging')->GetValue();    
-        }
-        else {
+            $logging = $monitoringConfig->Query('logging')->GetValue();
+        } else {
             $logging = self::$isDev ? Logger::Debug : Logger::Critical;
             $level = self::$isDev ? Monitoring::EveryTimer : Monitoring::Never;
         }
@@ -282,7 +279,7 @@ final class App
 
         $this->DispatchEvent(EventsContainer::AppInitializing);
 
-        if(!self::$router) {
+        if (!self::$router) {
             self::$router = new Router();
             self::$router->UpdateRequest();
         }

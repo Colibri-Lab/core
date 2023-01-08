@@ -86,13 +86,12 @@ abstract class Logger implements LoggerInterface
             $loggerType = $loggerConfig->Query('type')->GetValue();
             $loggerLevel = $loggerConfig->Query('level')->GetValue();
             $loggerDevice = $loggerConfig->Query('device')->AsObject();
-        }
-        else if (is_array($loggerConfig)) {
+        } elseif (is_array($loggerConfig)) {
             $loggerType = $loggerConfig['type'];
             $loggerLevel = $loggerConfig['level'];
             $loggerDevice = $loggerConfig['device'];
             if (is_array($loggerDevice)) {
-                $loggerDevice = (object)$loggerDevice;
+                $loggerDevice = (object) $loggerDevice;
             }
         }
 
@@ -121,7 +120,7 @@ abstract class Logger implements LoggerInterface
     public function emergency($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Emergency, ['message' => $message, 'context' => $context]);
-        $this->DispatchEvent(EventsContainer::LogWriten, (object)['type' => Logger::Emergency, 'message' => $message, 'context' => $context]);
+        $this->DispatchEvent(EventsContainer::LogWriten, (object) ['type' => Logger::Emergency, 'message' => $message, 'context' => $context]);
     }
 
     /**
@@ -138,7 +137,7 @@ abstract class Logger implements LoggerInterface
     public function alert($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Alert, ['message' => $message, 'context' => $context]);
-        $this->DispatchEvent(EventsContainer::LogWriten, (object)['type' => Logger::Alert, 'message' => $message, 'context' => $context]);
+        $this->DispatchEvent(EventsContainer::LogWriten, (object) ['type' => Logger::Alert, 'message' => $message, 'context' => $context]);
     }
 
     /**
@@ -154,7 +153,7 @@ abstract class Logger implements LoggerInterface
     public function critical($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Critical, ['message' => $message, 'context' => $context]);
-        $this->DispatchEvent(EventsContainer::LogWriten, (object)['type' => Logger::Critical, 'message' => $message, 'context' => $context]);
+        $this->DispatchEvent(EventsContainer::LogWriten, (object) ['type' => Logger::Critical, 'message' => $message, 'context' => $context]);
     }
 
     /**
@@ -169,7 +168,7 @@ abstract class Logger implements LoggerInterface
     public function error($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Error, ['message' => $message, 'context' => $context]);
-        $this->DispatchEvent(EventsContainer::LogWriten, (object)['type' => Logger::Error, 'message' => $message, 'context' => $context]);
+        $this->DispatchEvent(EventsContainer::LogWriten, (object) ['type' => Logger::Error, 'message' => $message, 'context' => $context]);
     }
 
     /**
@@ -186,7 +185,7 @@ abstract class Logger implements LoggerInterface
     public function warning($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Warning, ['message' => $message, 'context' => $context]);
-        $this->DispatchEvent(EventsContainer::LogWriten, (object)['type' => Logger::Warning, 'message' => $message, 'context' => $context]);
+        $this->DispatchEvent(EventsContainer::LogWriten, (object) ['type' => Logger::Warning, 'message' => $message, 'context' => $context]);
     }
 
     /**
@@ -200,7 +199,7 @@ abstract class Logger implements LoggerInterface
     public function notice($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Notice, ['message' => $message, 'context' => $context]);
-        $this->DispatchEvent(EventsContainer::LogWriten, (object)['type' => Logger::Notice, 'message' => $message, 'context' => $context]);
+        $this->DispatchEvent(EventsContainer::LogWriten, (object) ['type' => Logger::Notice, 'message' => $message, 'context' => $context]);
     }
 
     /**
@@ -216,7 +215,7 @@ abstract class Logger implements LoggerInterface
     public function info($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Informational, ['message' => $message, 'context' => $context]);
-        $this->DispatchEvent(EventsContainer::LogWriten, (object)['type' => Logger::Informational, 'message' => $message, 'context' => $context]);
+        $this->DispatchEvent(EventsContainer::LogWriten, (object) ['type' => Logger::Informational, 'message' => $message, 'context' => $context]);
     }
 
     /**
@@ -230,7 +229,7 @@ abstract class Logger implements LoggerInterface
     public function debug($message, array $context = array()): void
     {
         $this->WriteLine(Logger::Debug, ['message' => $message, 'context' => $context]);
-        $this->DispatchEvent(EventsContainer::LogWriten, (object)['type' => Logger::Debug, 'message' => $message, 'context' => $context]);
+        $this->DispatchEvent(EventsContainer::LogWriten, (object) ['type' => Logger::Debug, 'message' => $message, 'context' => $context]);
     }
 
     /**
@@ -245,6 +244,6 @@ abstract class Logger implements LoggerInterface
     public function log($level, $message, array $context = array()): void
     {
         $this->WriteLine($level, ['message' => $message, 'context' => $context]);
-        $this->DispatchEvent(EventsContainer::LogWriten, (object)['type' => $level, 'message' => $message, 'context' => $context]);
+        $this->DispatchEvent(EventsContainer::LogWriten, (object) ['type' => $level, 'message' => $message, 'context' => $context]);
     }
 }

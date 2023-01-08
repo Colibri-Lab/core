@@ -30,7 +30,7 @@ class RequestFileCollection extends RequestCollection
             if (is_array($value['name'])) {
                 $add[$key] = [];
                 for ($i = 0; $i < count($value['name']); $i++) {
-                    $add[$key][] = (object)[
+                    $add[$key][] = (object) [
                         'name' => $value['name'][$i],
                         'type' => $value['type'][$i],
                         'tmp_name' => $value['tmp_name'][$i],
@@ -38,9 +38,8 @@ class RequestFileCollection extends RequestCollection
                         'size' => $value['size'][$i]
                     ];
                 }
-            }
-            else {
-                $add[$key] = (object)$value;
+            } else {
+                $add[$key] = (object) $value;
             }
         }
         parent::__construct($add, $stripSlashes);

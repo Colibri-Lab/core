@@ -25,13 +25,13 @@ class XmlQuery
      *
      * @var XmlNode
      */
-    private ?XmlNode $_contextNode;
+    private ? XmlNode $_contextNode;
     /**
      * Элемент управления запросами
      *
      * @var DOMXPath
      */
-    private ?DOMXPath $_operator;
+    private ? DOMXPath $_operator;
     /**
      * Вернуть в виде именованной коллекции, или в виде простого списка
      *

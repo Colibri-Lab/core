@@ -39,8 +39,7 @@ class XmlHelper
             $key = StringHelper::ToCamelCaseAttr($key);
             if (is_object($value) || is_array($value)) {
                 $ret[] = XmlHelper::Encode($value, $key);
-            }
-            else {
+            } else {
                 $ret[] = '<' . $key . '>' . $value . '</' . $key . '>';
             }
         }

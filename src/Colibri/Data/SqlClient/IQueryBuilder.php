@@ -25,8 +25,8 @@ interface IQueryBuilder
      * @param string $returning
      * @return string
      */
-    public function CreateInsert(string $table, array|object $data, string $returning = ''): string;
-    
+    public function CreateInsert(string $table, array |object $data, string $returning = ''): string;
+
     /**
      * Создать запрос ввода/обновления данных
      *
@@ -35,7 +35,7 @@ interface IQueryBuilder
      * @param string $returning
      * @return string
      */
-    public function CreateReplace(string $table, array|object $data, string $returning = ''): string;
+    public function CreateReplace(string $table, array |object $data, string $returning = ''): string;
 
     /**
      * Создать запрос ввода данных или обновления в случае дублирования данных в индексных полях
@@ -46,7 +46,7 @@ interface IQueryBuilder
      * @param string $returning
      * @return string
      */
-    public function CreateInsertOrUpdate(string $table, array|object $data, array $exceptFields = array(), string $returning = '');
+    public function CreateInsertOrUpdate(string $table, array |object $data, array $exceptFields = array(), string $returning = '');
 
     /**
      * Создать запрос ввода данных пачкой
@@ -55,7 +55,7 @@ interface IQueryBuilder
      * @param array|object $data
      * @return string
      */
-    public function CreateBatchInsert(string $table, array|object $data);
+    public function CreateBatchInsert(string $table, array |object $data);
 
     /**
      * Создать запрос на обновление данных
@@ -65,7 +65,7 @@ interface IQueryBuilder
      * @param array|object $data
      * @return string
      */
-    public function CreateUpdate(string $table, string $condition, array|object $data): string;
+    public function CreateUpdate(string $table, string $condition, array |object $data): string;
 
     /**
      * Создать запрос на удаление данных

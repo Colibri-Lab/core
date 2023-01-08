@@ -63,21 +63,20 @@ class Module
             $config = new Config($config, file_exists($config));
         }
         $this->_config = $config;
-        
+
         $reflection = new \ReflectionClass(static::class);
         $filename = $reflection->getFileName();
         $this->_modulePath = str_replace('Module.php', '', $filename);
-        $this->_moduleNamespace = $reflection->getNamespaceName().'\\';
-        
+        $this->_moduleNamespace = $reflection->getNamespaceName() . '\\';
+
         $configArray = $this->_config->AsArray();
-        $this->_moduleConfigFile = str_replace(')', '' , str_replace('include(', '', $configArray['config']));
+        $this->_moduleConfigFile = str_replace(')', '', str_replace('include(', '', $configArray['config']));
 
         try {
             $databasesConfigArray = $this->Config()->Query('config.databases')->AsArray();
-            $this->_moduleStoragesConfigPath = str_replace(')', '' , str_replace('include(', '', $databasesConfigArray['storages']));
+            $this->_moduleStoragesConfigPath = str_replace(')', '', str_replace('include(', '', $databasesConfigArray['storages']));
 
-        }
-        catch(\Throwable $e) {
+        } catch (\Throwable $e) {
 
         }
 
@@ -89,10 +88,10 @@ class Module
      * @param mixed $config
      * @return mixed
      */
-    public static function Create(mixed $config) : self
+    public static function Create(mixed $config): self
     {
         if (!static::$instance) {
-            static::$instance = new static($config);
+            static::$instance = new static ($config);
         }
         return static::$instance;
     }
@@ -102,24 +101,21 @@ class Module
      *
      * @return Config
      */
-    public function Config() : Config
+    public function Config(): Config
     {
         return $this->_config;
     }
 
-    public function __get(string $prop) : mixed
+    public function __get(string $prop): mixed
     {
         $prop = strtolower($prop);
         if ($prop == 'modulepath') {
             return $this->_modulePath;
-        }
-        else if ($prop == 'modulenamespace') {
+        } elseif ($prop == 'modulenamespace') {
             return $this->_moduleNamespace;
-        }
-        else if($prop == 'moduleconfigpath') {
+        } elseif ($prop == 'moduleconfigpath') {
             return $this->_moduleConfigFile;
-        }
-        else if($prop == 'modulestoragespath') {
+        } elseif ($prop == 'modulestoragespath') {
             return $this->_moduleStoragesConfigPath;
         }
         return false;
@@ -130,7 +126,7 @@ class Module
      *
      * @return void
      */
-    public function InitializeModule() : void
+    public function InitializeModule(): void
     {
     }
 
@@ -139,7 +135,7 @@ class Module
      *
      * @return void
      */
-    public function Install() : void
+    public function Install(): void
     {
     }
 
@@ -148,7 +144,7 @@ class Module
      *
      * @return void
      */
-    public function Uninstall() : void
+    public function Uninstall(): void
     {
     }
 
@@ -157,7 +153,7 @@ class Module
      *
      * @return void
      */
-    public function Dispose() : void
+    public function Dispose(): void
     {
     }
 
@@ -166,7 +162,7 @@ class Module
      *
      * @return array
      */
-    public function GetPermissions() : array
+    public function GetPermissions(): array
     {
         return [];
     }

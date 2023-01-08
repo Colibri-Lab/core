@@ -11,6 +11,7 @@
  */
 
 namespace Colibri\Collections;
+
 use ArrayAccess;
 use Countable;
 use JsonSerializable;
@@ -53,7 +54,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * @testFunction testArrayListGetIterator
      * 
      */
-    public function getIterator() : ArrayListIterator
+    public function getIterator(): ArrayListIterator
     {
         return new ArrayListIterator($this);
     }
@@ -62,7 +63,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Проверка наличия значения в списке
      * @testFunction testArrayListContains
      */
-    public function Contains(mixed $item) : bool
+    public function Contains(mixed $item): bool
     {
         return in_array($item, $this->data, true);
     }
@@ -71,7 +72,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Возвращает индекс по значению
      * @testFunction testArrayListIndexOf
      */
-    public function IndexOf(mixed $item) : int
+    public function IndexOf(mixed $item): int
     {
         return array_search($item, $this->data, true);
     }
@@ -80,7 +81,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Возвращает значение по идексу
      * @testFunction testArrayListItem
      */
-    public function Item(int $index) : mixed
+    public function Item(int $index): mixed
     {
         if (!isset($this->data[$index])) {
             return null;
@@ -92,7 +93,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Добавляет значение с список
      * @testFunction testArrayListAdd
      */
-    public function Add(mixed $value) : mixed
+    public function Add(mixed $value): mixed
     {
         $this->data[] = $value;
         return $value;
@@ -102,7 +103,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Устанавливает значение по указанному индексу
      * @testFunction testArrayListSet
      */
-    public function Set(int $index, mixed $value) : mixed
+    public function Set(int $index, mixed $value): mixed
     {
         $this->data[$index] = $value;
         return $value;
@@ -112,7 +113,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Добавляет значения
      * @testFunction testArrayListAppend
      */
-    public function Append(mixed $values) : void
+    public function Append(mixed $values): void
     {
         if ($values instanceof IArrayList) {
             $values = $values->ToArray();
@@ -125,7 +126,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Внедряет значение в список после индекса
      * @testFunction testArrayListInsertAt
      */
-    public function InsertAt(mixed $value, int $toIndex) : void
+    public function InsertAt(mixed $value, int $toIndex): void
     {
         array_splice($this->data, $toIndex, 0, array($value));
     }
@@ -134,7 +135,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Удаляет значение
      * @testFunction testArrayListDelete
      */
-    public function Delete(mixed $value) : bool
+    public function Delete(mixed $value): bool
     {
         $indices = array_search($value, $this->data, true);
         if ($indices > -1) {
@@ -148,7 +149,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Удаляет значение по индексу
      * @testFunction testArrayListDeleteAt
      */
-    public function DeleteAt(int $index) : array
+    public function DeleteAt(int $index): array
     {
         return array_splice($this->data, $index, 1);
     }
@@ -157,7 +158,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Очищает список
      * @testFunction testArrayListClear
      */
-    public function Clear() : void
+    public function Clear(): void
     {
         $this->data = array();
     }
@@ -166,7 +167,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * В строку
      * @testFunction testArrayListToString4
      */
-    public function ToString(string $splitter = ',') : string
+    public function ToString(string $splitter = ','): string
     {
         return implode($splitter, $this->data);
     }
@@ -175,7 +176,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Возвращает массив
      * @testFunction testArrayListToArray
      */
-    public function ToArray() : array
+    public function ToArray(): array
     {
         return $this->data;
     }
@@ -184,31 +185,28 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Сортирует данные в массиве
      * @testFunction testArrayListSort
      */
-    public function Sort(string $k = null, int $sorttype = SORT_ASC) : void
+    public function Sort(string $k = null, int $sorttype = SORT_ASC): void
     {
         $rows = array();
         $i = 0;
         foreach ($this->data as $index => $row) {
-            if(is_object($row)) {
-                $key = $row->$k; 
-            }
-            else if(is_array($row)) {
+            if (is_object($row)) {
+                $key = $row->$k;
+            } elseif (is_array($row)) {
                 $key = $row[$k];
-            }
-            else {
+            } else {
                 $key = $index;
             }
 
-            if(isset($rows[$key])) {
-                $key = $key.($i++);
+            if (isset($rows[$key])) {
+                $key = $key . ($i++);
             }
             $rows[$key] = $row;
         }
 
-        if($sorttype == SORT_ASC) {
+        if ($sorttype == SORT_ASC) {
             ksort($rows);
-        }
-        else {
+        } else {
             krsort($rows);
         }
         $this->data = array_values($rows);
@@ -218,7 +216,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Возвращает количество записей в массиве
      * @testFunction testArrayListCount
      */
-    public function Count() : int
+    public function Count(): int
     {
         return count($this->data);
     }
@@ -227,7 +225,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Возвращает первый пункт в списке
      * @testFunction testArrayListFirst
      */
-    public function First() : mixed
+    public function First(): mixed
     {
         return $this->Item(0);
     }
@@ -236,7 +234,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Возвращает последний пункт в списке
      * @testFunction testArrayListLast
      */
-    public function Last() : mixed
+    public function Last(): mixed
     {
         return $this->Item($this->Count() - 1);
     }
@@ -249,8 +247,8 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     public function Filter(\Closure $closure): ArrayList
     {
         $newList = new ArrayList();
-        foreach($this as $value) {
-            if($closure($value) === true) {
+        foreach ($this as $value) {
+            if ($closure($value) === true) {
                 $newList->Add($value);
             }
         }
@@ -260,7 +258,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     public function Map(\Closure $closure): ArrayList
     {
         $newList = new ArrayList();
-        foreach($this as $value) {
+        foreach ($this as $value) {
             $newList->Add($closure($value));
         }
         return $newList;
@@ -277,8 +275,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     {
         if (is_null($offset)) {
             $this->Add($value);
-        }
-        else {
+        } else {
             $this->Set($offset, $value);
         }
     }

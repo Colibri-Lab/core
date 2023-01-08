@@ -40,21 +40,21 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @var DataAccessPoint
      */
-    protected ?DataAccessPoint $_point = null;
+    protected ? DataAccessPoint $_point = null;
 
     /**
      * Ридер
      *
      * @var IDataReader
      */
-    protected ?IDataReader $_reader = null;
+    protected ? IDataReader $_reader = null;
 
     /**
      * Кэш загруженных строк
      *
      * @var ArrayList
      */
-    protected ?ArrayList $_cache = null;
+    protected ? ArrayList $_cache = null;
 
     /**
      * Название класса представления строк
@@ -115,7 +115,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      */
     public function Load(string $query, array $params = [])
     {
-        $params = (object)$params;
+        $params = (object) $params;
 
         if ($this->_cache) {
             $this->_cache->Clear();
@@ -130,8 +130,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
             if (strstr($query, ' ') !== false) {
                 // есть пробел, значит это не название таблицы нужно выдать ошибку
                 throw new DataModelException('Param query can be only the table name or select query');
-            }
-            else {
+            } else {
                 $query = 'select * from ' . $query;
                 $condition = [];
                 if (isset($params->params)) {
@@ -199,7 +198,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return DataAccessPoint|null
      * @testFunction testDataTablePoint
      */
-    public function Point(): ?DataAccessPoint
+    public function Point(): ? DataAccessPoint
     {
         return $this->_point;
     }
@@ -266,8 +265,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     {
         if ($index >= $this->_cache->Count()) {
             return $this->_readTo($index);
-        }
-        else {
+        } else {
             return $this->_cache->Item($index);
         }
     }
@@ -328,7 +326,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 
         // получаем что то типа <encoding>_<collation type>
         $parts = explode('_', $collation);
-        return (object)['encoding' => reset($parts), 'collation' => $collation];
+        return (object) ['encoding' => reset($parts), 'collation' => $collation];
     }
 
     /**
@@ -348,7 +346,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
         $tables = [];
         $idFields = [];
         $notNullFields = [];
-        $fields = $row->properties;
+        $fields = $this->Fields();
         foreach ($fields as $field) {
             if (in_array('PRI_KEY', $field->flags)) {
                 $idFields[] = strtolower($field->name);
@@ -375,18 +373,18 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
         $encoding = $this->_getTableEncoding($table);
 
         // устанавливаем кодировку клиента      
-        $this->_point->Query('set names ' . $encoding->encoding, (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
+        $this->_point->Query('set names ' . $encoding->encoding, (object) ['type' => DataAccessPoint::QueryTypeNonInfo]);
 
         $fieldValues = [];
         foreach ($row as $key => $value) {
             if ($row->IsPropertyChanged($key, $convert)) {
-                $fieldValues[$key] = $encoding->encoding != Encoding::UTF8 && $convert ?Encoding::Convert((string)$value, $encoding->encoding) : $value;
+                $fieldValues[$key] = $encoding->encoding != Encoding::UTF8 && $convert ? Encoding::Convert((string) $value, $encoding->encoding) : $value;
             }
         }
 
         $isFilled = false;
         foreach ($idFields as $field) {
-            if ($row->{ $field}) {
+            if ($row->{$field}) {
                 $isFilled = true;
             }
         }
@@ -396,7 +394,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
                 // есть обновляем
                 $flt = [];
                 foreach ($idFields as $field) {
-                    $flt[] = $field . '=\'' . $row->{ $field} . '\'';
+                    $flt[] = $field . '=\'' . $row->{$field} . '\'';
                 }
 
                 $res = $this->_point->Update($table, $fieldValues, implode(' and ', $flt));
@@ -404,8 +402,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
                     return $res;
                 }
             }
-        }
-        else {
+        } else {
             $res = $this->_point->Insert($table, $fieldValues);
             if ($res->affected == 0) {
                 return $res;
@@ -419,7 +416,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
             }
 
         }
-        
+
         $row->UpdateOriginal();
 
         return true;
@@ -457,7 +454,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 
         $condition = [];
         foreach ($idFields as $f) {
-            $condition[] = $f->escaped . '=\'' . $row->{ $f->name} . '\'';
+            $condition[] = $f->escaped . '=\'' . $row->{$f->name} . '\'';
         }
 
         return $this->_point->Delete($table, implode(' and ', $condition));
@@ -525,7 +522,18 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      */
     public function Clear(): void
     {
-        $this->_point->Delete($this->_storage->name, ''); // используется truncate
+        $tables = [];
+        $fields = $this->Fields();
+        foreach ($fields as $field) {
+            $table = (isset($field->originalTable) ? $field->originalTable : $field->table);
+            if ($table) {
+                $tables[$field->db . '.' . $table] = $field->db . '.' . $table;
+            }
+        }
+
+        $table = reset($tables);
+
+        $this->_point->Delete($table, ''); // используется truncate
     }
 
     /**
@@ -539,8 +547,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     {
         if (is_null($offset)) {
             $this->_cache->Add($value);
-        }
-        else {
+        } else {
             $this->_cache->Set($offset, $value);
         }
     }

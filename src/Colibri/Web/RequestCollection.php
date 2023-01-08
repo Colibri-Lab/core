@@ -44,23 +44,20 @@ class RequestCollection extends ReadonlyCollection
      */
     protected function _stripSlashes(mixed $obj, bool $strip = false): mixed
     {
-        if(!$this->_stripSlashes) {
+        if (!$this->_stripSlashes) {
             return $obj;
         }
-        
+
         if (is_array($obj)) {
             foreach ($obj as $k => $v) {
                 $obj[$k] = $this->_stripSlashes($v, $strip);
             }
             return $obj;
-        }
-        else if (is_object($obj)) {
+        } elseif (is_object($obj)) {
             return $obj;
-        }
-        else if(is_string($obj)) {
+        } elseif (is_string($obj)) {
             return $strip ? stripslashes($obj) : addslashes($obj);
-        }
-        else {
+        } else {
             return $obj;
         }
     }

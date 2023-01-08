@@ -57,8 +57,7 @@ class ArrayListIterator implements \Iterator
     {
         if ($this->valid()) {
             return $this->_class->Item($this->_current);
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -81,8 +80,7 @@ class ArrayListIterator implements \Iterator
         $this->_current++;
         if ($this->valid()) {
             return $this->_class->Item($this->_current);
-        }
-        else {
+        } else {
             return null;
         }
     }

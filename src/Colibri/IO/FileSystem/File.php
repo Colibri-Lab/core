@@ -9,6 +9,7 @@
  */
 
 namespace Colibri\IO\FileSystem;
+
 use JsonSerializable;
 
 /**
@@ -30,7 +31,7 @@ use JsonSerializable;
  */
 class File extends Node implements JsonSerializable
 {
-    
+
     /** режим чтение */
     const MODE_READ = "rb9";
     /** режим запись */
@@ -248,7 +249,7 @@ class File extends Node implements JsonSerializable
      * @return FileStream|null
      * @testFunction testFileOpen
      */
-    public static function Open(string $path): ?FileStream
+    public static function Open(string $path): ? FileStream
     { //ireader
         if (self::Exists($path)) {
             return new FileStream($path);

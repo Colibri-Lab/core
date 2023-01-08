@@ -7,17 +7,18 @@ use Colibri\AppException;
 
 class SmtpHelper
 {
-    public static function Send(array $configArray, string $address, string $subject, string $body): void {
+    public static function Send(array $configArray, string $address, string $subject, string $body): void
+    {
 
         $smtpEnabled = $configArray['enabled'];
-        if(!$smtpEnabled) {
+        if (!$smtpEnabled) {
             return;
         }
 
         $smtpHost = isset($configArray['host']) ? $configArray['host'] : '';
         $smtpPort = isset($configArray['port']) ? $configArray['port'] : '';
         $smtpSecure = isset($configArray['secure']) ? $configArray['secure'] : '';
-        $smtpUser = isset($configArray['user']) ? $configArray['user']: '';
+        $smtpUser = isset($configArray['user']) ? $configArray['user'] : '';
         $smtpPassword = isset($configArray['password']) ? $configArray['password'] : '';
         $smtpFrom = isset($configArray['from']) ? $configArray['from'] : '';
         $smtpFromName = isset($configArray['fromname']) ? $configArray['fromname'] : '';
@@ -38,11 +39,10 @@ class SmtpHelper
         $mailer->Body = $body;
         $mailer->addAddress($address);
         try {
-            if(!$mailer->Send()) {
+            if (!$mailer->Send()) {
                 throw new AppException($mailer->ErrorInfo);
             }
-        }
-        catch(AppException $e) {
+        } catch (AppException $e) {
             throw new AppException('Не получилось отправить письмо!', 500, $e);
         }
         unset($mailer);

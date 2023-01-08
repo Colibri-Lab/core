@@ -9,9 +9,6 @@
  */
 namespace Colibri\Data\Storages\Fields;
 
-use Colibri\Common\DateHelper;
-use Colibri\Common\VariableHelper;
-use Colibri\Utils\Debug;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Storages\Storage;
 use Colibri\Data\Storages\Models\DataRow;
@@ -25,20 +22,20 @@ use ReflectionClass;
 class ObjectField extends ExtendedObject
 {
 
-    protected ?ExtendedObject $_datarow = null;
+    protected ? ExtendedObject $_datarow = null;
 
     /**
      * Поле
      * @var Field
      */
-    protected ?Field $_field = null;
+    protected ? Field $_field = null;
 
     /**
      * Хранилище
      * @var Storage
      */
-    protected ?Storage $_storage = null;
-    
+    protected ? Storage $_storage = null;
+
     /**
      * Конструктор
      * @param string|mixed[string] $data данные
@@ -46,14 +43,14 @@ class ObjectField extends ExtendedObject
      * @param Field $field поле
      * @return void
      */
-    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null, ExtendedObject $datarow = null)
+    public function __construct(mixed $data, ? Storage $storage = null, ? Field $field = null, ExtendedObject $datarow = null)
     {
-        parent::__construct(is_string($data) ? (array)json_decode($data) : (array)$data, '', false);
+        parent::__construct(is_string($data) ? (array) json_decode($data) : (array) $data, '', false);
         $this->_storage = $storage;
         $this->_field = $field;
         $this->_datarow = $datarow;
     }
-    
+
     /**
      * Замена типов
      * @param string $mode режим, get или set
@@ -61,15 +58,15 @@ class ObjectField extends ExtendedObject
      * @param mixed $value значение
      * @return mixed результат
      */
-    protected function _typeExchange(string $mode, string $property, mixed $value = false) : mixed
+    protected function _typeExchange(string $mode, string $property, mixed $value = false): mixed
     {
         if ($this->_prefix && strstr($property, $this->_prefix) === false) {
-            $property = $this->_prefix.$property;
+            $property = $this->_prefix . $property;
         }
 
         $rowValue = $mode == 'get' ? (isset($this->_data[$property]) ? $this->_data[$property] : null) : $value;
         $fieldName = $this->_storage->GetFieldName($property);
-        
+
         /** @var Field */
         $field = isset($this->_field->fields->$fieldName) ? $this->_field->fields->$fieldName : false;
 
@@ -81,19 +78,18 @@ class ObjectField extends ExtendedObject
                 return null;
             }
         }
-        
+
         if ($mode == 'get') {
             if ($field->isLookup) {
                 return $field->lookup->Selected(isset($this->_data[$property]) ? $this->_data[$property] : 0);
             } elseif ($field->isValues) {
                 if (!$field->multiple) {
-                    if(isset($this->_data[$property])) {
-                        $v = $field->type == 'numeric' ? (float)$this->_data[$property] : $this->_data[$property];
-                        $v = is_array($v) || is_object($v) ? ((array)$v)['value'] : $v;
+                    if (isset($this->_data[$property])) {
+                        $v = $field->type == 'numeric' ? (float) $this->_data[$property] : $this->_data[$property];
+                        $v = is_array($v) || is_object($v) ? ((array) $v)['value'] : $v;
                         $t = isset($field->values[$v]) ? $field->values[$v] : '';
                         return new ValueField($v, $t);
-                    }
-                    else {
+                    } else {
                         return null;
                     }
                 } else {
@@ -107,54 +103,49 @@ class ObjectField extends ExtendedObject
             }
         }
 
-        if($field->class === 'string' || !$field->class) {
+        if ($field->class === 'string' || !$field->class) {
             if ($mode == 'get') {
                 $value = $rowValue;
             } else {
                 $this->_data[$property] = $rowValue;
             }
-        }
-        else if($field->class === 'bool') {
+        } elseif ($field->class === 'bool') {
             if ($mode == 'get') {
-                $value = (bool)$rowValue;
+                $value = (bool) $rowValue;
             } else {
                 if ($field->required && is_null($rowValue)) {
                     $this->_data[$property] = false;
                 } else {
-                    $this->_data[$property] = ((bool)$rowValue) ? 1 : 0;
+                    $this->_data[$property] = ((bool) $rowValue) ? 1 : 0;
                 }
             }
-        }
-        else if($field->class === 'int' || $field->class === 'float' || $field->class === 'double') {
+        } elseif ($field->class === 'int' || $field->class === 'float' || $field->class === 'double') {
             if ($mode == 'get') {
-                $value = $rowValue == "" ? "" : ($rowValue == (float)$rowValue ? (float)$rowValue : $rowValue);
+                $value = $rowValue == "" ? "" : ($rowValue == (float) $rowValue ? (float) $rowValue : $rowValue);
             } else {
                 $this->_data[$property] = $field->required ? ($rowValue === "" ? 0 : $rowValue) : ($rowValue === "" ? null : $rowValue);
             }
-        }
-        else if($field->class === 'array') {
+        } elseif ($field->class === 'array') {
             if ($mode == 'get') {
                 $value = $rowValue == "" ? "" : (is_array($rowValue) ? $rowValue : explode(',', $rowValue));
             } else {
                 $this->_data[$property] = $field->required ? ($rowValue === "" ? [] : $rowValue) : ($rowValue === "" ? null : $rowValue);
             }
-        }
-        else {
+        } else {
 
-            
+
             $class = $this->_storage->GetFieldClass($field);
 
             if ($mode == 'get') {
                 try {
-                    if(is_null($rowValue)) {
+                    if (is_null($rowValue)) {
                         return $rowValue;
                     }
 
                     $reflection = new ReflectionClass($class);
-                    if($reflection->isSubclassOf(DataRow::class)) {
+                    if ($reflection->isSubclassOf(DataRow::class)) {
                         $this->_data[$property] = $rowValue instanceof $class ? $rowValue : $class::Create($rowValue);
-                    }
-                    else {
+                    } else {
                         $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
                     }
 
@@ -164,18 +155,17 @@ class ObjectField extends ExtendedObject
                 $value = $this->_data[$property];
             } else {
                 try {
-                    if($rowValue instanceof $class) {
-                        $this->_data[$property] = (string)$rowValue;
-                    }
-                    else {
+                    if ($rowValue instanceof $class) {
+                        $this->_data[$property] = (string) $rowValue;
+                    } else {
                         $c = new $class($rowValue, $this->_storage, $field);
-                        $this->_data[$property] = (string)$c;
+                        $this->_data[$property] = (string) $c;
                     }
                 } catch (\Throwable $e) {
                     $this->_data[$property] = $rowValue;
                 }
             }
-            
+
         }
 
         return $value;
@@ -187,31 +177,28 @@ class ObjectField extends ExtendedObject
         $return = [];
 
         $fields = $this->_field->fields;
-        foreach($fields as $fieldName => $fieldData) {
+        foreach ($fields as $fieldName => $fieldData) {
             /** @var Field $fieldData */
             $fieldValue = $this->$fieldName;
-            if(is_null($fieldValue)) {
+            if (is_null($fieldValue)) {
                 $return[$fieldName] = null;
                 continue;
             }
             if ($fieldData->isLookup) {
-                if(is_array($fieldValue)) {
+                if (is_array($fieldValue)) {
                     $ret = [];
-                    foreach($fieldValue as $value) {
+                    foreach ($fieldValue as $value) {
                         if (is_object($value) && method_exists($value, 'GetValidationData')) {
                             $ret[] = $value->GetValidationData();
-                        }
-                        else {
+                        } else {
                             $ret[] = $value->{$fieldData->lookup->GetValueField()};
                         }
                     }
                     $return[$fieldName] = $ret;
-                }
-                else {
+                } else {
                     if (is_object($fieldValue) && method_exists($fieldValue, 'GetValidationData')) {
                         $return[$fieldName] = $fieldValue->GetValidationData();
-                    }
-                    else {
+                    } else {
                         $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField()};
                     }
                 }
@@ -236,15 +223,15 @@ class ObjectField extends ExtendedObject
             }
         }
 
-        return (object)$return;
+        return (object) $return;
     }
-    
+
     /**
      * Геттер
      * @param string $prop свойство
      * @return mixed значение
      */
-    public function __get(string $prop) : mixed
+    public function __get(string $prop): mixed
     {
         return $this->_typeExchange('get', $prop);
     }
@@ -258,25 +245,25 @@ class ObjectField extends ExtendedObject
     {
         return $this->_storage;
     }
-    
+
     /**
      * Сеттер
      * @param string $property свойство
      * @param mixed $value значение
      * @return void 
      */
-    public function __set(string $property, mixed $value) : void
+    public function __set(string $property, mixed $value): void
     {
         $this->_typeExchange('set', $property, $value);
     }
-    
+
     /**
      * Возвращает в виде строки
      * @return string результат JSON
      */
-    public function ToString() : string
+    public function ToString(): string
     {
-        $obj = (object)array();
+        $obj = (object) array();
         foreach ($this->_data as $k => $v) {
             if (is_object($v) && method_exists($v, 'ToArray')) {
                 $obj->{$k} = $v->ToArray();
@@ -292,10 +279,9 @@ class ObjectField extends ExtendedObject
      *
      * @return string
      */
-    public function __toString() : string {
+    public function __toString(): string
+    {
         return $this->ToString();
     }
-    
+
 }
-
-

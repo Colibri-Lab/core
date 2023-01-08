@@ -14,9 +14,7 @@ namespace Colibri\Data;
 
 use Colibri\App;
 use Colibri\Data\SqlClient\IConnection;
-use Colibri\Data\SqlClient\Command;
 use Colibri\Data\SqlClient\IDataReader;
-use Colibri\Data\SqlClient\IQueryBuilder;
 use Colibri\Data\SqlClient\QueryInfo;
 use Colibri\Utils\Debug;
 use DateTime;
@@ -138,7 +136,7 @@ class DataAccessPoint
     {
         if ($property == 'connection') {
             return $this->_connection;
-        } else if ($property == 'point') {
+        } elseif ($property == 'point') {
             return $this->_accessPointData;
         } else {
             return $this->Query('select * from ' . $property);
@@ -227,7 +225,7 @@ class DataAccessPoint
     public function Insert(string $table, array $row = [], string $returning = '', ?array $params = null): QueryInfo
     {
         $queryParams = ['type' => self::QueryTypeNonInfo, 'returning' => $returning];
-        if(!is_null($params)) {
+        if (!is_null($params)) {
             $queryParams['params'] = $params;
         }
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
@@ -281,7 +279,7 @@ class DataAccessPoint
     public function Update(string $table, array $row, string $condition, ?array $params = null): QueryInfo
     {
         $queryParams = ['type' => self::QueryTypeNonInfo];
-        if(!is_null($params)) {
+        if (!is_null($params)) {
             $queryParams['params'] = $params;
         }
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;

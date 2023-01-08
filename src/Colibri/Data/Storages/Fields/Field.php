@@ -9,8 +9,6 @@
  */
 namespace Colibri\Data\Storages\Fields;
 
-use Colibri\Data\Exception;
-use Colibri\Xml\XmlNode;
 use Colibri\Data\Storages\Storage;
 use Colibri\Data\Storages\Fields\Lookup;
 
@@ -38,7 +36,7 @@ class Field
      * Хранилище
      * @var Storage
      */
-    private ?Storage $_storage = null;
+    private ? Storage $_storage = null;
 
     /**
      * Список поле внутри текущего поля
@@ -70,7 +68,7 @@ class Field
      */
     private $_formula;
 
-    private ?Field $_parent = null;
+    private ? Field $_parent = null;
 
     /**
      * Конструктор
@@ -78,7 +76,7 @@ class Field
      * @param Storage $storage хранилище
      * @return void
      */
-    public function __construct(array $xfield, ?Storage $storage = null, ?Field $parent = null)
+    public function __construct(array $xfield, ? Storage $storage = null, ? Field $parent = null)
     {
         $this->_storage = $storage;
         $this->_xfield = $xfield;
@@ -88,7 +86,8 @@ class Field
         $this->_init();
     }
 
-    private function _init() {
+    private function _init()
+    {
         $this->_loadValues();
         $this->_loadFields();
         $this->_loadFormula();
@@ -119,8 +118,8 @@ class Field
             if (!is_array($value)) {
                 $value = ['value' => $value, 'title' => $value];
             }
-            if(isset($value['type']) && $value['type'] === 'number') {
-                $value['value'] = (float)$value['value'];
+            if (isset($value['type']) && $value['type'] === 'number') {
+                $value['value'] = (float) $value['value'];
             }
             $this->_values[$value['value']] = isset($value['title']) ? $value['title'] : $value['value'];
         }
@@ -132,7 +131,7 @@ class Field
      */
     private function _loadFields(): void
     {
-        $this->_fields = (object)[];
+        $this->_fields = (object) [];
         if (!isset($this->_xfield['fields'])) {
             return;
         }
@@ -170,7 +169,7 @@ class Field
             case 'islookup':
                 return $this->_lookup && ($this->_lookup->accessPoint !== null || $this->_lookup->storage !== null);
             case 'isvalues':
-                return count((array)$this->_values) > 0;
+                return count((array) $this->_values) > 0;
             case 'hasdefault':
                 return isset($this->_xfield['default']) && $this->_xfield['default'] !== null;
             case 'parent':
@@ -182,7 +181,7 @@ class Field
 
     public function __set(string $prop, mixed $value): void
     {
-        if(isset($this->_xfield[$prop])) {
+        if (isset($this->_xfield[$prop])) {
             $this->_xfield[$prop] = $value;
             $this->_init();
         }
@@ -196,10 +195,9 @@ class Field
     public function UpdateField(Field $field)
     {
         $this->_xfield['fields'][$field->name] = $field->ToArray();
-        if($this->_parent) {
+        if ($this->_parent) {
             $this->_parent->UpdateField($this);
-        }
-        else {
+        } else {
             $this->_storage->UpdateField($this);
         }
     }
@@ -208,7 +206,7 @@ class Field
     {
         $xfield = $this->ToArray();
         unset($xfield['name']);
-        foreach($this->_fields as $fname => $field) {
+        foreach ($this->_fields as $fname => $field) {
             $xfield['fields'][$fname] = $field->Save();
         }
         return $xfield;
@@ -216,7 +214,7 @@ class Field
 
     public function AddField($name, $data): Field
     {
-        if(!isset($this->_xfield['fields'])) {
+        if (!isset($this->_xfield['fields'])) {
             $this->_xfield['fields'] = [];
         }
 
@@ -230,71 +228,68 @@ class Field
 
     public function UpdateData($data): void
     {
-        foreach($data as $key => $value) {
-            if( 
-                ( $key == 'lookup' && array_key_exists('none', $value) ) || 
-                ( $key == 'values' && empty($value) ) || 
-                ( $key == 'selector' && (!isset($value['ondemand']) || $value['ondemand'] === false) && (!isset($value['value']) || $value['value'] === '') && (!isset($value['title']) || $value['title'] === '') && (!isset($value['__render']) || $value['__render'] === '') ) ||
-                ( $key == 'note' && empty($value) ) || 
-                ( $key == 'desc' && empty($value) )
+        foreach ($data as $key => $value) {
+            if (
+                ($key == 'lookup' && array_key_exists('none', $value)) ||
+                ($key == 'values' && empty($value)) ||
+                ($key == 'selector' && (!isset($value['ondemand']) || $value['ondemand'] === false) && (!isset($value['value']) || $value['value'] === '') && (!isset($value['title']) || $value['title'] === '') && (!isset($value['__render']) || $value['__render'] === '')) ||
+                ($key == 'note' && empty($value)) ||
+                ($key == 'desc' && empty($value))
             ) {
-                if(isset($this->_xfield[$key])) {
+                if (isset($this->_xfield[$key])) {
                     unset($this->_xfield[$key]);
                 }
-            }  
-            else if( $key !== 'fields') {
-                if($key === 'selector') {
-                    if(!$value['title']) {
+            } elseif ($key !== 'fields') {
+                if ($key === 'selector') {
+                    if (!$value['title']) {
                         unset($value['title']);
                     }
-                    if(!$value['value']) {
+                    if (!$value['value']) {
                         unset($value['value']);
                     }
-                    if(!$value['__render']) {
+                    if (!$value['__render']) {
                         unset($value['__render']);
                     }
-                    if(!$value['ondemand']) {
+                    if (!$value['ondemand']) {
                         unset($value['ondemand']);
                     }
-                }
-                else if( $key === 'attrs' ) {
-                    if(!isset($value['width']) || !$value['width']) {
+                } elseif ($key === 'attrs') {
+                    if (!isset($value['width']) || !$value['width']) {
                         unset($value['width']);
                     }
-                    if(!isset($value['height']) || !$value['height']) {
+                    if (!isset($value['height']) || !$value['height']) {
                         unset($value['height']);
                     }
-                    if(!isset($value['class']) || !$value['class']) {
+                    if (!isset($value['class']) || !$value['class']) {
                         unset($value['class']);
                     }
                 }
                 $this->_xfield[$key] = $value;
             }
-            
+
         }
 
-        if(!isset($this->_xfield['hasdefault']) || $this->_xfield['hasdefault'] !== true) {
+        if (!isset($this->_xfield['hasdefault']) || $this->_xfield['hasdefault'] !== true) {
             unset($this->_xfield['default']);
         }
         unset($this->_xfield['hasdefault']);
 
-        if(isset($this->_xfield['length']) && $this->_xfield['length'] === '') {
+        if (isset($this->_xfield['length']) && $this->_xfield['length'] === '') {
             unset($this->_xfield['length']);
         }
 
-        if(isset($this->_xfield['storage'])) {
+        if (isset($this->_xfield['storage'])) {
             unset($this->_xfield['storage']);
         }
-        if(isset($this->_xfield['field'])) {
+        if (isset($this->_xfield['field'])) {
             unset($this->_xfield['field']);
         }
 
 
         $this->_loadFields();
-        if($this->_parent) {
+        if ($this->_parent) {
             $this->_parent->UpdateField($this);
-        }
-        else {
+        } else {
             $this->_storage->UpdateField($this);
         }
     }
@@ -303,33 +298,33 @@ class Field
     {
         unset($this->_xfield['fields'][$name]);
         unset($this->_fields->$name);
-        if($this->_parent) {
+        if ($this->_parent) {
             $this->_parent->UpdateField($this);
-        }
-        else {
+        } else {
             $this->_storage->UpdateField($this);
         }
     }
 
-    public function MoveField($field, $relative, $sibling) {
-        
+    public function MoveField($field, $relative, $sibling)
+    {
+
         // перемещает во внутреннем массиве
         $xfields = $this->_xfield['fields'];
-        if(!isset($xfields[$field->name])) {
+        if (!isset($xfields[$field->name])) {
             return false;
         }
 
         $newxFields = [];
         $xfieldMove = $xfields[$field->name];
-        foreach($xfields as $name => $xfield) {
-            if($name != $field->name) {
+        foreach ($xfields as $name => $xfield) {
+            if ($name != $field->name) {
 
-                if($name == $relative->name && $sibling === 'before') {
-                    $newxFields[$field->name] = $xfieldMove;                        
+                if ($name == $relative->name && $sibling === 'before') {
+                    $newxFields[$field->name] = $xfieldMove;
                 }
                 $newxFields[$name] = $xfield;
-                if($name == $relative->name && $sibling === 'after') {
-                    $newxFields[$field->name] = $xfieldMove;                        
+                if ($name == $relative->name && $sibling === 'after') {
+                    $newxFields[$field->name] = $xfieldMove;
                 }
 
             }

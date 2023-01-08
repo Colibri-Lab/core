@@ -11,6 +11,7 @@
  */
 
 namespace Colibri\Collections;
+
 use ArrayAccess;
 use Countable;
 use InvalidArgumentException;
@@ -38,8 +39,8 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     {
         if (is_array($data)) {
             $this->data = $data;
-        } else if (is_object($data)) {
-            $this->data = $data instanceof ICollection ? $data->ToArray() : (array)$data;
+        } elseif (is_object($data)) {
+            $this->data = $data instanceof ICollection ? $data->ToArray() : (array) $data;
         }
 
         if (is_null($this->data)) {
@@ -62,7 +63,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * Проверяет содержит ли коллекция значение
      * @testFunction testCollectionContains
      */
-    public function Contains(mixed $item): bool 
+    public function Contains(mixed $item): bool
     {
         return in_array($item, $this->data, true);
     }
@@ -323,8 +324,8 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     public function Filter(\Closure $closure): Collection
     {
         $newColection = new Collection();
-        foreach($this as $key => $value) {
-            if($closure($key, $value) === true) {
+        foreach ($this as $key => $value) {
+            if ($closure($key, $value) === true) {
                 $newColection->Add($key, $value);
             }
         }
@@ -335,14 +336,14 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     {
         $start = ($page - 1) * $pagesize;
         $end = min($start + $pagesize, $this->Count());
-        
+
         $newCollection = new Collection();
-        for($i = $start; $i < $end; $i++) {
+        for ($i = $start; $i < $end; $i++) {
             $newCollection->Add($this->Key($i), $this->ItemAt($i));
         }
         return $newCollection;
     }
-    
+
     public function jsonSerialize(): array
     {
         return $this->ToArray();
@@ -357,7 +358,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        if(is_string($offset)) {
+        if (is_string($offset)) {
             $this->Add($offset, $value);
         } else {
             throw new InvalidArgumentException('Invalid offset');
@@ -371,7 +372,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      */
     public function offsetExists(mixed $offset): bool
     {
-        if(is_string($offset)) {
+        if (is_string($offset)) {
             return $this->Exists($offset);
         } else {
             return $offset < $this->Count();
@@ -386,7 +387,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      */
     public function offsetUnset(mixed $offset): void
     {
-        if(is_string($offset)) {
+        if (is_string($offset)) {
             $this->Delete($offset);
         } else {
             $this->DeleteAt($offset);
@@ -402,7 +403,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      */
     public function offsetGet(mixed $offset): mixed
     {
-        if(is_string($offset)) {
+        if (is_string($offset)) {
             return $this->Item($offset);
         } else {
             return $this->ItemAt($offset);

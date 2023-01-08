@@ -34,7 +34,7 @@ class Lookup
      *
      * @var Storage
      */
-    private ?Storage $_storage = null;
+    private ? Storage $_storage = null;
 
     /**
      * Данные поля
@@ -74,24 +74,22 @@ class Lookup
      * @param int $pagesize размер страницы, по умолачнию 20
      * @return DataTable|null данные по связке
      */
-    public function Load(int $page = -1, int $pagesize = 50): ?DataTable
+    public function Load(int $page = -1, int $pagesize = 50): ? DataTable
     {
         if ($this->storage) {
-            $data = (object)$this->storage;
+            $data = (object) $this->storage;
             $storage = Storages::Create()->Load($data->name);
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
             $reader = $accessPoint->Query('select * from ' . $storage->name . ($data->filter && $this->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]);
             return new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
-        }
-        else if ($this->accessPoint) {
+        } elseif ($this->accessPoint) {
 
-            $data = (object)$this->accessPoint;
+            $data = (object) $this->accessPoint;
             $accessPoint = App::$dataAccessPoints->Get($data->name);
             if ($page > 0) {
                 $reader = $accessPoint->Query('select ' . $data->fields . ' from ' . $data->table . ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]);
-            }
-            else {
+            } else {
                 $reader = $accessPoint->Query('select ' . $data->fields . ' from ' . $data->table . ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData]);
             }
 
@@ -109,75 +107,76 @@ class Lookup
     public function Selected(mixed $value): mixed
     {
         if ($this->storage) {
-            $data = (object)$this->storage;
+            $data = (object) $this->storage;
             $storage = Storages::Create()->Load($data->name);
-            if(!$storage) {
+            if (!$storage) {
                 return null;
             }
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
-            if(!is_array($value)) {
+            if (!is_array($value)) {
                 $filter = $storage->GetRealFieldName($data->value ?? 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
             } else {
-                $filter = $storage->GetRealFieldName($data->value ?? 'id') . ' in (\'' . implode('\', \'', array_map(function($v) { return is_object($v) ? $v->value : $v; }, (array)$value)) . '\')';
+                $filter = $storage->GetRealFieldName($data->value ?? 'id') . ' in (\'' . implode('\', \'', array_map(function ($v) {
+                    return is_object($v) ? $v->value : $v; }, (array) $value)) . '\')';
             }
             /** @var IDataReader */
             $reader = $accessPoint->Query('select * from ' . $data->name . ($filter && $filter != '' ? ' where ' . $filter : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => is_array($value) ? count($value) : 1]);
-            if($reader->Count() == 0) {
+            if ($reader->Count() == 0) {
                 return null;
             }
             $table = new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
-            if($table->Count() === 1) {
+            if ($table->Count() === 1) {
                 $v = $table->First();
-                if(isset($data->value)) {
-                    $v->value = $v->{ $data->value };
+                if (isset($data->value)) {
+                    $v->value = $v->{$data->value};
                 }
-                if(isset($v->title)) {
-                    $v->title = $v->{ $data->title };
+                if (isset($v->title)) {
+                    $v->title = $v->{$data->title};
                 }
-                return $v;    
-            }
-            else {
+                return $v;
+            } else {
                 $ret = [];
-                foreach($table as $v) {
-                    if(isset($data->value)) {
-                        $v->value = $v->{ $data->value };
+                foreach ($table as $v) {
+                    if (isset($data->value)) {
+                        $v->value = $v->{$data->value};
                     }
-                    if(isset($data->title)) {
-                        $v->title = $v->{ $data->title };
+                    if (isset($data->title)) {
+                        $v->title = $v->{$data->title};
                     }
-                    $ret[] = $v;        
+                    $ret[] = $v;
                 }
                 return $ret;
             }
-        }
-        else if ($this->accessPoint) {
-            $data = (object)$this->accessPoint;
+        } elseif ($this->accessPoint) {
+            $data = (object) $this->accessPoint;
             $accessPoint = App::$dataAccessPoints->Get($data->name);
             $filter = $data->value . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
             /** @var IDataReader */
             $reader = $accessPoint->Query('select * from (select ' . $data->fields . ' from ' . $data->table . ') t where ' . $filter . ($data->order ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData]);
-            if($reader->Count() == 0) {
+            if ($reader->Count() == 0) {
                 return null;
             }
             $table = new DataTable($accessPoint, $reader);
             $v = $table->First();
-            $v->value = $v->{ $data->value};
-            $v->title = $v->{ $data->title};
+            $v->value = $v->{$data->value};
+            $v->title = $v->{$data->title};
             return $v;
         }
+
+        return null;
     }
 
-    public function GetValueField(): string
+    public function GetValueField(): ?string
     {
         if ($this->storage) {
-            $data = (object)$this->storage;
+            $data = (object) $this->storage;
+            return $data->value;
+        } elseif ($this->accessPoint) {
+            $data = (object) $this->accessPoint;
             return $data->value;
         }
-        else if ($this->accessPoint) {
-            $data = (object)$this->accessPoint;
-            return $data->value;
-        }
+        return null;
     }
 
 }

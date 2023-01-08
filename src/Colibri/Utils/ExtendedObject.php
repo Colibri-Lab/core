@@ -70,7 +70,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         'type' => 'object',
         'patternProperties' => [
             '.*' => [
-                'type' => ['number','string','boolean','object','array','null']
+                'type' => ['number', 'string', 'boolean', 'object', 'array', 'null']
             ]
         ]
     ];
@@ -204,14 +204,14 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
                 $formatter = new ErrorFormatter();
                 $errors = $formatter->format($validationError, false);
                 $errorsString = [];
-                foreach($errors as $key => $value) {
-                    $errorsString[] = $key . ': '  . $value;
+                foreach ($errors as $key => $value) {
+                    $errorsString[] = $key . ': ' . $value;
                 }
                 $errorsString = implode("\n", $errorsString);
                 $exception = new ValidationException($errorsString, 500, null, ['raw' => $validationError, 'formatted' => $errors]);
                 $exception->Log(Logger::Debug);
                 throw $exception;
-                
+
             } else {
                 return false;
             }

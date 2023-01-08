@@ -42,10 +42,10 @@ class ExtendedObjectIterator implements \Iterator
      *
      * @param array $data - коллекция
      */
-    public function __construct(array $data = null) 
+    public function __construct(array $data = null)
     {
-        $this->_data = (array)$data;
-        $this->_keys = array_keys((array)$data);
+        $this->_data = (array) $data;
+        $this->_keys = array_keys((array) $data);
     }
 
     /**
@@ -53,7 +53,7 @@ class ExtendedObjectIterator implements \Iterator
      * 
      * @return void
      */
-    public function rewind() : void
+    public function rewind(): void
     {
         $this->_current = 0;
     }
@@ -63,7 +63,7 @@ class ExtendedObjectIterator implements \Iterator
      *
      * @return mixed
      */
-    public function current() : mixed
+    public function current(): mixed
     {
         if ($this->valid()) {
             return $this->_data[$this->_keys[$this->_current]];
@@ -77,9 +77,9 @@ class ExtendedObjectIterator implements \Iterator
      *
      * @return string
      */
-    public function key() : string
+    public function key(): string
     {
-        if($this->valid()) {
+        if ($this->valid()) {
             return $this->_keys[$this->_current];
         }
         return null;
@@ -91,7 +91,7 @@ class ExtendedObjectIterator implements \Iterator
      * @return mixed
      * 
      */
-    public function next() : mixed
+    public function next(): mixed
     {
         $this->_current++;
         if ($this->valid()) {
@@ -106,7 +106,7 @@ class ExtendedObjectIterator implements \Iterator
      *
      * @return bool
      */
-    public function valid() : bool
+    public function valid(): bool
     {
         return $this->_current >= 0 && $this->_current < count($this->_keys);
     }

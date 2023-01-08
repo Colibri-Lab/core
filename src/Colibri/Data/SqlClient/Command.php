@@ -33,7 +33,7 @@ abstract class Command
      *
      * @var IConnection
      */
-    protected ?IConnection $_connection = null;
+    protected ? IConnection $_connection = null;
 
     /**
      * Командная строка
@@ -69,7 +69,7 @@ abstract class Command
      * @param string $commandtext
      * @param IConnection $connection
      */
-    public function __construct(string $commandtext = '', ?IConnection $connection = null)
+    public function __construct(string $commandtext = '', ? IConnection $connection = null)
     {
         $this->_commandtext = $commandtext;
         $this->_connection = $connection;

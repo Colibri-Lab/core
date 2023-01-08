@@ -7,12 +7,12 @@ class Item implements \JsonSerializable
 
     private ?object $_data = null;
 
-    public ?Item $parent = null;
+    public ? Item $parent = null;
 
     public function __construct(string $name, string $title, string $description, string $icon = '', string $execute = '')
     {
         $this->parent = null;
-        $this->_data = (object)[
+        $this->_data = (object) [
             'name' => $name,
             'title' => $title,
             'description' => $description,
@@ -30,11 +30,11 @@ class Item implements \JsonSerializable
         return new self($name, $title, $description, $icon, $execute);
     }
 
-    static function FromArray(array $array): self 
+    static function FromArray(array $array): self
     {
         $item = new self($array['name'] ?? '', $array['title'] ?? '', $array['description'] ?? '', $array['icon'] ?? '', $array['execute'] ?? '');
-        if(!empty($array['children'] ?? []) && is_array($array['children'])) {
-            foreach($array['children'] as $itemArray) {
+        if (!empty($array['children'] ?? []) && is_array($array['children'])) {
+            foreach ($array['children'] as $itemArray) {
                 $item->Add(Item::FromArray($itemArray));
             }
         }
@@ -78,17 +78,15 @@ class Item implements \JsonSerializable
     public function Add(Item|array $item): Item
     {
 
-        if(is_array($item)) {
-            foreach($item as $i) {
+        if (is_array($item)) {
+            foreach ($item as $i) {
                 $this->Add($i);
             }
-        }
-        else {
+        } else {
             $item->parent = $this;
             if (!($found = $this->_find($item->name))) {
                 $this->_data->children[] = $item;
-            }
-            else {
+            } else {
                 $found->Merge($item->children);
             }
         }
@@ -101,7 +99,7 @@ class Item implements \JsonSerializable
         return $this->_data;
     }
 
-    public function ToArray(): array|object
+    public function ToArray(): array |object
     {
         return json_decode(json_encode($this), true);
     }

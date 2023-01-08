@@ -1,11 +1,13 @@
 <?php
 
 namespace Colibri\Exceptions;
+
 use Colibri\App;
 use Colibri\Common\VariableHelper;
 use Colibri\Utils\Debug;
 
-class ValidationException extends \Exception {
+class ValidationException extends \Exception
+{
 
     private mixed $_exceptionData = null;
 
@@ -15,7 +17,7 @@ class ValidationException extends \Exception {
         parent::__construct($message, $code, $previousException);
     }
 
-    public function getExceptionData(): mixed 
+    public function getExceptionData(): mixed
     {
         return $this->_exceptionData;
     }
@@ -33,5 +35,5 @@ class ValidationException extends \Exception {
             $this->getExceptionData()
         ]));
     }
-    
+
 }

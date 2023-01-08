@@ -53,17 +53,16 @@ class Server
      */
     public function __construct()
     {
-    // Do nothing
+        // Do nothing
     }
 
     private function _convertDataToCharset(mixed $data, string $charset): mixed
     {
-        $data = (array)$data;
+        $data = (array) $data;
         foreach ($data as $key => $value) {
             if (is_object($value) || is_array($value)) {
                 $data[$key] = $this->_convertDataToCharset($value, $charset);
-            }
-            else {
+            } else {
                 $data[$key] = Encoding::Convert($value, $charset);
             }
         }
@@ -77,7 +76,7 @@ class Server
      */
     protected function Finish(string $type, mixed $result)
     {
-        $result = (object)$result;
+        $result = (object) $result;
         if (!isset($result->headers)) {
             $result->headers = [];
         }
@@ -90,28 +89,22 @@ class Server
         if (isset($result->result)) {
             if ($type == Server::JSON) {
                 App::$response->Close($result->code, json_encode($result->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), 'application/json', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers, $result->cookies);
-            }
-            elseif ($type == Server::XML) {
+            } elseif ($type == Server::XML) {
                 App::$response->Close($result->code, XmlHelper::Encode($result->result), 'application/xml', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers, $result->cookies);
-            }
-            elseif ($type == Server::HTML) {
+            } elseif ($type == Server::HTML) {
                 App::$response->Close($result->code, $result->message ? $result->message : HtmlHelper::Encode($result->result), 'text/html', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers, $result->cookies);
-            }
-            elseif ($type == Server::Stream) {
+            } elseif ($type == Server::Stream) {
                 // если запросили например PDF или еще что то 
                 if (is_string($result->result) && is_string($result->message)) {
                     App::$response->DownloadFile($result->message, $result->result);
-                }
-                else {
+                } else {
                     App::$response->Close(500, 'Ошибка формирования ответа');
                 }
             }
-        }
-        else {
+        } else {
             if ($type == Server::CSS) {
                 App::$response->Close($result->code, $result->message, 'text/css', 'utf-8', $result->headers, $result->cookies);
-            }
-            else {
+            } else {
                 App::$response->Close($result->code, $result->message, 'text/html', 'utf-8', $result->headers, $result->cookies);
             }
         }
@@ -123,10 +116,10 @@ class Server
     protected function _responseWithError(string $type, string $message, int $code = -1, string $cmd = '', mixed $data = null)
     {
 
-        $this->Finish($type, (object)[
+        $this->Finish($type, (object) [
             'code' => 404,
             'message' => $message,
-            'result' => (object)[
+            'result' => (object) [
                 'code' => $code,
                 'command' => $cmd,
                 'data' => $data
@@ -146,8 +139,7 @@ class Server
             $parts = explode('\\', $class);
             if (count($parts) >= 3) {
                 array_splice($parts, 2, 0, 'Controllers');
-            }
-            else {
+            } else {
                 $parts[] = 'Controllers\\';
             }
             $class = implode('\\', $parts);
@@ -172,11 +164,10 @@ class Server
             $method = $matches[1];
             $type = $matches[2];
             $class = str_replace($method . '.' . $type, '', $cmd);
-        }
-        else if(preg_match('/\/([^\/]+)$/', $cmd, $matches) > 0) {
+        } elseif (preg_match('/\/([^\/]+)$/', $cmd, $matches) > 0) {
             $method = $matches[1];
             $type = Server::JSON;
-            $class = preg_replace('/'.$method.'$/', '', $cmd);
+            $class = preg_replace('/' . $method . '$/', '', $cmd);
         }
 
         $class = $this->_getControllerFullName($class);
@@ -216,10 +207,10 @@ class Server
         $post = App::$request->post;
         $payload = App::$request->GetPayloadCopy();
 
-        $args = (object)['class' => $class, 'method' => $method, 'get' => $get, 'post' => $post, 'payload' => $payload];
+        $args = (object) ['class' => $class, 'method' => $method, 'get' => $get, 'post' => $post, 'payload' => $payload];
         $this->DispatchEvent(EventsContainer::RpcGotRequest, $args);
         if (isset($args->cancel) && $args->cancel === true) {
-            $result = isset($args->result) ? $args->result : (object)[];
+            $result = isset($args->result) ? $args->result : (object) [];
             $this->Finish($type, $result);
         }
 
@@ -227,7 +218,7 @@ class Server
 
         if (!class_exists($class)) {
             $message = 'Unknown class ' . $class;
-            $this->DispatchEvent(EventsContainer::RpcRequestError, (object)[
+            $this->DispatchEvent(EventsContainer::RpcRequestError, (object) [
                 'class' => $class,
                 'method' => $method,
                 'get' => $get,
@@ -248,7 +239,7 @@ class Server
 
         if (!method_exists($class, $method)) {
             $message = 'Unknown method ' . $method . ' in object ' . $class;
-            $this->DispatchEvent(EventsContainer::RpcRequestError, (object)[
+            $this->DispatchEvent(EventsContainer::RpcRequestError, (object) [
                 'class' => $class,
                 'method' => $method,
                 'get' => $get,
@@ -262,26 +253,25 @@ class Server
                 $message,
                 Server::UnknownMethodInObject,
                 $cmd,
-            [
-                'message' => $message,
-                'code' => Server::UnknownMethodInObject,
-                'get' => $get,
-                'post' => $post,
-                'payload' => $payload
-            ]
+                [
+                    'message' => $message,
+                    'code' => Server::UnknownMethodInObject,
+                    'get' => $get,
+                    'post' => $post,
+                    'payload' => $payload
+                ]
             );
             return;
         }
 
-        if($requestMethod === 'OPTIONS') {
+        if ($requestMethod === 'OPTIONS') {
             // если это запрос на опции то вернуть
-            $this->Finish($type, (object)['code' => 200, 'message' => 'ok', 'options' => true]);
-        }
-        else {
+            $this->Finish($type, (object) ['code' => 200, 'message' => 'ok', 'options' => true]);
+        } else {
             $obj = new $class();
-            $result = (object)$obj->$method($get, $post, $payload);    
-            
-            $args = (object)[
+            $result = (object) $obj->$method($get, $post, $payload);
+
+            $args = (object) [
                 'object' => $obj,
                 'class' => $class,
                 'method' => $method,

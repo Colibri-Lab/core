@@ -996,7 +996,7 @@ class NestedSet
      * array $joinWith Array structure: array('outer' => array('table' => array('fieldfrom', 'fieldto')), 'inner' => array('table' => array('fieldfrom', 'fieldto')), etc where array key - join type (inner, outer, cross), condition - condition string
      * where array key - condition (AND, OR, etc), value - condition string.
      *
-     * @param string $joinWith
+     * @param array|string $joinWith
      * @param string $prefix
      * @return string
      */

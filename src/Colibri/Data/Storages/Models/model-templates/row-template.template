@@ -16,7 +16,8 @@ use [[parent-row-class-name]] as BaseModelDataRow;
 [[properties-list]]
  * endregion Properties;
  */
-class [[row-class-name]] extends BaseModelDataRow {
+class [[row-class-name]] extends BaseModelDataRow 
+{
 
     public const JsonSchema = [
         'type' => 'object',

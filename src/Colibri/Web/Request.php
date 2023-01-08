@@ -49,7 +49,7 @@ class Request
      * @var Request
      *
      */
-    static ?Request $instance = null;
+    static ? Request $instance = null;
 
     /** Тип запроса JSON */
     const PAYLOAD_TYPE_JSON = 'json';
@@ -69,7 +69,7 @@ class Request
 
     private function _detectJsonEncodedData(): void
     {
-        if(isset($_POST['json_encoded_data'])) {
+        if (isset($_POST['json_encoded_data'])) {
             $json = $_POST['json_encoded_data'];
             $data = json_decode(base64_decode($json), true);
             $_POST = VariableHelper::Extend($_POST, $data);
@@ -143,8 +143,7 @@ class Request
             case 'session': {
                     if (isset($_SESSION)) {
                         $return = new RequestCollection($_SESSION);
-                    }
-                    else {
+                    } else {
                         $return = new RequestCollection([]);
                     }
                     break;
@@ -180,17 +179,13 @@ class Request
             case 'remoteip': {
                     if ($this->server->HTTP_X_FORWARDED_FOR) {
                         $return = $this->server->HTTP_X_FORWARDED_FOR;
-                    }
-                    else if ($this->server->REMOTE_ADDR) {
+                    } elseif ($this->server->REMOTE_ADDR) {
                         $return = $this->server->REMOTE_ADDR;
-                    }
-                    else if ($this->server->X_REAL_IP) {
+                    } elseif ($this->server->X_REAL_IP) {
                         $return = $this->server->X_REAL_IP;
-                    }
-                    else if ($this->server->HTTP_FORWARDED) {
+                    } elseif ($this->server->HTTP_FORWARDED) {
                         $return = $this->server->HTTP_FORWARDED;
-                    }
-                    else {
+                    } else {
                         $return = '';
                     }
                     break;
@@ -215,8 +210,7 @@ class Request
             case 'headers': {
                     if (function_exists('apache_request_headers')) {
                         $headers = apache_request_headers();
-                    }
-                    else {
+                    } else {
                         $headers = [];
                         foreach ($this->server as $key => $value) {
                             if (strpos($key, 'http_') === 0) {
@@ -255,7 +249,7 @@ class Request
     {
 
         $requestData = [
-            $_GET, 
+            $_GET,
             $_POST,
             $_COOKIE
         ];

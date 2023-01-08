@@ -30,7 +30,7 @@ class DataRow extends ExtendedObject
      *
      * @var DataTable
      */
-    protected ?DataTable $_table = null;
+    protected ? DataTable $_table = null;
 
     /**
      * Конструктор
@@ -39,7 +39,7 @@ class DataRow extends ExtendedObject
      * @param mixed $data
      * @param string $tablePrefix
      */
-    public function __construct(DataTable $table,  mixed $data, string $tablePrefix = '')
+    public function __construct(DataTable $table, mixed $data, string $tablePrefix = '')
     {
         parent::__construct($data, $tablePrefix);
         $this->_table = $table;
@@ -98,11 +98,11 @@ class DataRow extends ExtendedObject
         return new ExtendedObject($this->_data, $this->_prefix);
     }
 
-    public function Type(string $property): string 
+    public function Type(string $property): string
     {
         $fields = $this->properties;
         foreach ($fields as $prop => $field) {
-            if($prop == $property) {
+            if ($prop == $property) {
                 return $field->type;
             }
         }
@@ -111,8 +111,8 @@ class DataRow extends ExtendedObject
 
     public function IsPropertyChanged(string $property, bool $convertData = false): bool
     {
-        if($this->Type($property) === 'JSON') {
-            
+        if ($this->Type($property) === 'JSON') {
+
             $originalValue = $this->Original()?->$property;
             $originalValue = !$convertData ? Encoding::Convert($originalValue, Encoding::UTF8) : $originalValue;
             $originalValue = json_decode($originalValue);
@@ -123,9 +123,8 @@ class DataRow extends ExtendedObject
 
             return $originalValue != $dataValue;
 
-        }
-        else {
-            return parent::IsPropertyChanged($property); 
+        } else {
+            return parent::IsPropertyChanged($property);
         }
     }
 

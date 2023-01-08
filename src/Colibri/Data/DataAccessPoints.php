@@ -188,7 +188,7 @@ class DataAccessPoints
         $return = null;
         if ($property == 'accesspoints') {
             $return = $this->_accessPoints;
-        } else if ($property == 'pool') {
+        } elseif  ($property == 'pool') {
             $return = $this->_accessPointsPool;
         } else {
             $return = $this->Get($property);

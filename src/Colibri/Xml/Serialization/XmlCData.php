@@ -42,6 +42,6 @@ class XmlCData implements \JsonSerializable
      */
     public function jsonSerialize(): object|array
     {
-        return (object)array('class' => self::class , 'value' => $this->value);
+        return (object) array('class' => self::class, 'value' => $this->value);
     }
 }

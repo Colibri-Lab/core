@@ -57,12 +57,12 @@ class EventDispatcher
      * Добавляет обработчик события
      * @testFunction testEventDispatcherAddEventListener
      */
-    public function AddEventListener(array|string $ename, mixed $listener, ?object $object = null): bool
+    public function AddEventListener(array |string $ename, mixed $listener, ?object $object = null): bool
     {
-        if(is_array($ename)) {
-            
+        if (is_array($ename)) {
+
             $ret = [];
-            foreach($ename as $e) {
+            foreach ($ename as $e) {
                 $ret[] = $this->AddEventListener($e, $listener, $object);
             }
             return !in_array(false, $ret);
@@ -78,7 +78,7 @@ class EventDispatcher
 
         $minfo = $listener;
         if (is_object($object)) {
-            $minfo = (object)[];
+            $minfo = (object) [];
             $minfo->listener = $listener;
             $minfo->object = $object;
         }
@@ -119,7 +119,7 @@ class EventDispatcher
 
         $minfo = $listener;
         if (is_object($object)) {
-            $minfo = (object)[];
+            $minfo = (object) [];
             $minfo->listener = $listener;
             $minfo->object = $object;
         }
@@ -188,7 +188,7 @@ class EventDispatcher
 
         $minfo = $listener;
         if (is_object($object)) {
-            $minfo = (object)[];
+            $minfo = (object) [];
             $minfo->listener = $listener;
             $minfo->object = $object;
         }
@@ -200,7 +200,7 @@ class EventDispatcher
      * Возвращает список обработчиков события
      * @testFunction testEventDispatcherRegisteredListeners
      */
-    public function RegisteredListeners(string $ename = ""): ?ArrayList
+    public function RegisteredListeners(string $ename = ""): ? ArrayList
     {
         if ($this->_events->Count() == 0) {
             return null;

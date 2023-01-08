@@ -41,9 +41,9 @@ class MetaTemplate extends Template
     public function Render(mixed $args = null): string
     {
 
-        $args = (object)$args;
+        $args = (object) $args;
 
-        $this->DispatchEvent(EventsContainer::TemplateRendering, (object)['template' => $this, 'args' => $args]);
+        $this->DispatchEvent(EventsContainer::TemplateRendering, (object) ['template' => $this, 'args' => $args]);
 
         $content = File::Read($this->_file);
         if ($args->mode === 'js') {
@@ -56,20 +56,18 @@ class MetaTemplate extends Template
                     return args;
                 })(container);
             ';
-        }
-        else if ($args->mode === 'php') {
+        } elseif ($args->mode === 'php') {
             $f = eval('return function($mode, $args) {
                 ' . $this->_convertToPhp($content) . '
                 return $args;
             };');
             // возварщает обьект
             $content = $f($args->mode, $args);
-        }
-        else {
+        } else {
             $content = '';
         }
 
-        $this->DispatchEvent(EventsContainer::TemplateRendered, (object)['template' => $this, 'content' => $content]);
+        $this->DispatchEvent(EventsContainer::TemplateRendered, (object) ['template' => $this, 'content' => $content]);
 
         return $content;
 

@@ -14,7 +14,7 @@ namespace Colibri\Data\SqlClient;
 
 class QueryInfo
 {
-    
+
     public string $type;
 
     public int $insertid;
@@ -24,7 +24,7 @@ class QueryInfo
     public string $error;
 
     public string $query;
-    
+
     public function __construct(string $type, int $insertid, int $affected, string $error, string $query)
     {
         $this->type = $type;

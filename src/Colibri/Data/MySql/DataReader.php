@@ -51,15 +51,22 @@ final class DataReader implements IDataReader
     private ?int $_affected = null;
 
     /**
+     * Строка зарпоса после обработки
+     * @var string|null
+     */
+    private ?string $_preparedQuery = null;
+
+    /**
      * Создание обьекта
      *
      * @param mixed $results
      * @param int $affected
      */
-    public function __construct(mixed $results, ?int $affected = null)
+    public function __construct(mixed $results, ?int $affected = null, ?string $preparedQuery = null)
     {
         $this->_results = $results;
         $this->_affected = $affected;
+        $this->_preparedQuery = $preparedQuery;
     }
 
     /**
@@ -165,7 +172,7 @@ final class DataReader implements IDataReader
 
     public function __set(string $property, mixed $value): void
     {
-        if(strtolower($property) == 'affected') {
+        if (strtolower($property) == 'affected') {
             $this->_affected = $value;
         }
     }
@@ -225,7 +232,7 @@ final class DataReader implements IDataReader
 
         $result = array();
         foreach ($flags as $n => $t) {
-            if ($flags_num & $n) {
+            if ($flags_num& $n) {
                 $result[] = $t;
             }
         }

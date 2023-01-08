@@ -22,14 +22,14 @@ class Node
      *
      * @var Attributes
      */
-    protected ?Attributes $attributes = null;
+    protected ? Attributes $attributes = null;
 
     /**
      * Права доступа
      *
      * @var Security
      */
-    protected ?Security $access = null;
+    protected ? Security $access = null;
 
     /**
      * Сеттер

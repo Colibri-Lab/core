@@ -34,7 +34,7 @@ class Request
      *
      * @var Credentials
      */
-    public ?Credentials $credentials;
+    public ? Credentials $credentials;
 
     /**
      * Адрес
@@ -148,7 +148,7 @@ class Request
         string $encryption = Encryption::UrlEncoded,
         mixed $postData = null,
         string $boundary = ''
-        )
+    )
     {
 
         if (!self::__checkWebRequest()) {
@@ -190,8 +190,7 @@ class Request
 
                 $data .= $eol;
                 $data .= $content->value . $eol;
-            }
-            else if ($content instanceof DataItem) {
+            } elseif ($content instanceof DataItem) {
                 $data .= "--" . $delimiter . $eol
                     . 'Content-Disposition: form-data; name="' . $content->name . "\"" . $eol . $eol
                     . $content->value . $eol;
@@ -214,14 +213,11 @@ class Request
 
         if ($this->encryption == Encryption::Multipart) {
             return $this->_createMultipartRequestBody($this->boundary, $this->postData);
-        }
-        else if ($this->encryption == Encryption::XmlEncoded) {
+        } elseif ($this->encryption == Encryption::XmlEncoded) {
             $return = VariableHelper::IsString($this->postData) ? $this->postData : XmlHelper::Encode($this->postData, null, false);
-        }
-        else if ($this->encryption == Encryption::JsonEncoded) {
+        } elseif ($this->encryption == Encryption::JsonEncoded) {
             $return = VariableHelper::IsString($this->postData) ? $this->postData : json_encode($this->postData);
-        }
-        else {
+        } else {
 
             foreach ($this->postData as $value) {
                 $data[] = $value->name . '=' . rawurlencode($value->value);
@@ -268,7 +264,7 @@ class Request
      * @return Result
      * @testFunction testRequestExecute
      */
-    public function Execute(mixed $postData = null) : Result
+    public function Execute(mixed $postData = null): Result
     {
 
         if (!VariableHelper::IsNull($postData)) {
@@ -280,12 +276,10 @@ class Request
         curl_setopt($handle, CURLOPT_URL, $this->target);
         if (!$this->async) {
             curl_setopt($handle, CURLOPT_TIMEOUT, $this->timeout);
-        }
-        else {
+        } else {
             if ($this->timeout_ms) {
                 curl_setopt($handle, CURLOPT_TIMEOUT_MS, $this->timeout_ms ? $this->timeout_ms : 100);
-            }
-            else {
+            } else {
                 curl_setopt($handle, CURLOPT_TIMEOUT_MS, $this->timeout ? $this->timeout * 1000 : 100);
             }
             curl_setopt($handle, CURLOPT_NOSIGNAL, 1);
@@ -297,8 +291,7 @@ class Request
 
         if (!empty($this->referer)) {
             curl_setopt($handle, CURLOPT_REFERER, $this->referer);
-        }
-        else {
+        } else {
             curl_setopt($handle, CURLOPT_REFERER, $_SERVER['SERVER_NAME']);
         }
         if (!empty($this->cookieFile)) {
@@ -329,11 +322,9 @@ class Request
         if ($this->encryption == Encryption::Multipart) {
             curl_setopt($handle, CURLOPT_CUSTOMREQUEST, 'POST');
             $_headers[] = "Content-Type: multipart/form-data; boundary=" . Request::Boundary . $this->boundary;
-        }
-        else if ($this->encryption == Encryption::JsonEncoded) {
+        } elseif ($this->encryption == Encryption::JsonEncoded) {
             $_headers[] = "Content-Type: application/json";
-        }
-        else if ($this->encryption == Encryption::XmlEncoded) {
+        } elseif ($this->encryption == Encryption::XmlEncoded) {
             $_headers[] = "Content-Type: application/xml";
         }
 
@@ -343,11 +334,9 @@ class Request
                 $data = $this->_joinPostData($this->postData);
                 curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
             }
-        }
-        else if ($this->method == Type::Get) {
+        } elseif ($this->method == Type::Get) {
             curl_setopt($handle, CURLOPT_HTTPGET, true);
-        }
-        else {
+        } else {
             curl_setopt($handle, CURLOPT_CUSTOMREQUEST, StringHelper::ToUpper($this->method));
             if (!VariableHelper::IsNull($this->postData)) {
                 $data = $this->_joinPostData($this->postData);

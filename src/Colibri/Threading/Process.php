@@ -104,7 +104,7 @@ class Process
         $this->_worker = $worker;
         $this->_debug = $debug;
         $this->_entry = $entry;
-        $this->_params = (object)[];
+        $this->_params = (object) [];
     }
 
     /**
@@ -115,7 +115,7 @@ class Process
      * @return Process
      * @testFunction testProcessCreate
      */
-    public static function Create(Worker $worker, bool $debug = false) : Process
+    public static function Create(Worker $worker, bool $debug = false): Process
     {
         return new Process($worker, $debug);
     }
@@ -126,19 +126,16 @@ class Process
      * @param string $prop свойство
      * @return mixed
      */
-    public function __get(string $prop) : mixed
+    public function __get(string $prop): mixed
     {
         $prop = strtolower($prop);
         if ($prop == 'pid') {
             return $this->_pid;
-        }
-        else if($prop == 'command') {
+        } elseif ($prop == 'command') {
             return 'cd ' . App::$request->server->document_root . $this->_entry . '/ && ' . Process::Handler . ' index.php ' . App::$request->host . ' / key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($this->_params) . '"';
-        }
-        else if($prop == 'request') {
+        } elseif ($prop == 'request') {
             return $this->_entry . '/?key=' . $this->_worker->key . '&worker=' . $this->_worker->Serialize() . '&params=' . $this->_worker->PrepareParams($this->_params);
-        }
-        else if($prop == 'params') {
+        } elseif ($prop == 'params') {
             return $this->_params;
         }
         return null;
@@ -146,8 +143,8 @@ class Process
 
     public function __set(string $property, mixed $value): void
     {
-        if($property === 'params') {
-            $this->_params = (object)$value;
+        if ($property === 'params') {
+            $this->_params = (object) $value;
         }
     }
 
@@ -158,21 +155,21 @@ class Process
      * @return void
      * @testFunction testProcessRun
      */
-    public function Run(?object $params = null) : void
+    public function Run(?object $params = null): void
     {
-        if($params) {
+        if ($params) {
             $this->_params = $params;
         }
 
         $command = $this->command;
         $request = $this->request;
 
-        if($this->_debug) {
+        if ($this->_debug) {
             App::$log->debug('Executing command');
             App::$log->debug($command);
             App::$log->debug($request);
         }
-        $pid = shell_exec($command . ' > '.App::$webRoot.'/_cache/log/process.log & echo $!');
+        $pid = shell_exec($command . ' > ' . App::$webRoot . '/_cache/log/process.log & echo $!');
         $this->_pid = trim($pid, "\n\r\t ");
     }
 
@@ -182,7 +179,7 @@ class Process
      * @return boolean true если запущен, false если нет
      * @testFunction testProcessIsRunning
      */
-    public function IsRunning() : bool
+    public function IsRunning(): bool
     {
         if ($this->_pid) {
             exec('ps ' . $this->_pid, $state);
@@ -197,7 +194,7 @@ class Process
      * @return bool true если удалось остановить, false если нет
      * @testFunction testProcessStop
      */
-    public function Stop() : bool
+    public function Stop(): bool
     {
         if ($this->IsRunning()) {
             exec('kill -KILL ' . $this->_pid);
@@ -214,7 +211,7 @@ class Process
      * @return boolean
      * @testFunction testProcessIsProcessRunning
      */
-    public static function IsProcessRunning(int $pid) : bool
+    public static function IsProcessRunning(int $pid): bool
     {
         exec('ps ' . $pid, $state);
         return (count($state) >= 2);
@@ -227,7 +224,7 @@ class Process
      * @return boolean
      * @testFunction testProcessStopProcess
      */
-    public static function StopProcess(int $pid) : bool
+    public static function StopProcess(int $pid): bool
     {
         if (Process::IsProcessRunning($pid)) {
             exec('kill -KILL ' . $pid);

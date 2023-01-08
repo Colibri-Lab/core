@@ -86,7 +86,7 @@ abstract class Worker
         $mode = App::$config ? App::$config->Query('mode')->GetValue() : App::ModeDevelopment;
         $isDev = in_array($mode, [App::ModeDevelopment, App::ModeLocal]);
 
-        $this->_log = new FileLogger($isDev ? Logger::Debug : Logger::Error, App::$webRoot . '_cache/log/worker_log_' . $this->_key. '.log'); // лог файл не режется на куски
+        $this->_log = new FileLogger($isDev ? Logger::Debug : Logger::Error, App::$webRoot . '_cache/log/worker_log_' . $this->_key . '.log'); // лог файл не режется на куски
     }
 
     /**
@@ -97,7 +97,7 @@ abstract class Worker
     /**
      * @testFunction testWorkerRun
      */
-    abstract public function Run() : void;
+    abstract public function Run(): void;
 
     /**
      * функция Getter для получения данных по потоку
@@ -105,26 +105,26 @@ abstract class Worker
      * @param string $prop
      * @return mixed
      */
-    public function __get(string $prop) : mixed
+    public function __get(string $prop): mixed
     {
 
         $return = null;
         $prop = strtolower($prop);
         switch ($prop) {
             case 'id':
-                $return =  $this->_id;
+                $return = $this->_id;
                 break;
             case 'timelimit':
-                $return =  $this->_timeLimit;
+                $return = $this->_timeLimit;
                 break;
             case 'prio':
-                $return =  $this->_prio;
+                $return = $this->_prio;
                 break;
             case 'log':
-                $return =  $this->_log;
+                $return = $this->_log;
                 break;
             case 'key':
-                $return =  $this->_key;
+                $return = $this->_key;
                 break;
             default:
                 throw new Exception(ErrorCodes::UnknownProperty, $prop);
@@ -186,7 +186,7 @@ abstract class Worker
      */
     public function Serialize()
     {
-        return VariableHelper::Serialize($this); 
+        return VariableHelper::Serialize($this);
     }
 
     /**

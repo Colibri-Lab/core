@@ -11,9 +11,6 @@
 
 namespace Colibri\Utils\Logs;
 
-use Colibri\App;
-use Colibri\Common\DateHelper;
-use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 use DateTime;
 
@@ -74,7 +71,7 @@ class ConsoleLogger extends Logger
         }
 
         $now = DateTime::createFromFormat('U.u', microtime(true));
-        if(!$now) {
+        if (!$now) {
             return;
         }
         $now = $now->format("m-d-Y H:i:s.u");
@@ -99,10 +96,10 @@ class ConsoleLogger extends Logger
                 break;
             case Logger::Warning:
                 echo "\033[33m$str \033[0m\n";
-                break;  
+                break;
             case Logger::Informational:
                 echo "\033[36m$str \033[0m\n";
-                break;      
+                break;
             default:
                 echo $str;
                 break;

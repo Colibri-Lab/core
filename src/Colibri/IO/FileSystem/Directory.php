@@ -41,7 +41,7 @@ class Directory extends Node
      *
      * @var Directory
      */
-    private ?Directory $_parent = null;
+    private ? Directory $_parent = null;
 
     /**
      * Путь в виде массива  
@@ -81,10 +81,10 @@ class Directory extends Node
                     break;
                 }
             case 'patharray': {
-                    if(!$this->_pathArray) {
+                    if (!$this->_pathArray) {
                         $this->_pathArray = explode('/', $this->path);
                     }
-                    $return = $this->_pathArray; 
+                    $return = $this->_pathArray;
                     break;
                 }
             case 'name': {
@@ -92,10 +92,10 @@ class Directory extends Node
                     break;
                 }
             case 'parent': {
-                    if(!$this->_parent) {                        
+                    if (!$this->_parent) {
                         $pathParts = $this->pathArray;
                         unset($pathParts[count($pathParts) - 1]);
-                        $this->_parent = new Directory(implode('/', $pathParts).'/');
+                        $this->_parent = new Directory(implode('/', $pathParts) . '/');
                     }
                     $return = $this->_parent;
                     break;
@@ -163,8 +163,7 @@ class Directory extends Node
     {
         try {
             return substr($path, strlen($path) - 1, 1) == '/';
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
@@ -230,8 +229,7 @@ class Directory extends Node
                 if ($object != '.' && $object != '..') {
                     if (is_dir($path . "/" . $object)) {
                         self::Delete($path . '/' . $object);
-                    }
-                    else {
+                    } else {
                         unlink($path . '/' . $object);
                     }
                 }
@@ -263,8 +261,7 @@ class Directory extends Node
             if (($file != '.') && ($file != '..')) {
                 if (is_dir($from . '/' . $file)) {
                     self::Copy($from . '/' . $file . '/', $to . '/' . $file . '/');
-                }
-                else {
+                } else {
                     File::Copy($from . '/' . $file, $to . '/' . $file);
                 }
             }
@@ -324,7 +321,7 @@ class Directory extends Node
             'created' => $this->getAttributesObject()->created,
             'modified' => $this->getAttributesObject()->modified,
             'lastaccess' => $this->getAttributesObject()->lastaccess,
-            'parent' => ($this->parent->path.'/') ?? null
+            'parent' => ($this->parent->path . '/') ?? null
             /* get directory security */
         ];
     }

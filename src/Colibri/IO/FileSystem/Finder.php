@@ -31,7 +31,7 @@ class Finder
      */
     public function __construct()
     {
-    // Do nothing
+        // Do nothing
     }
 
     /**
@@ -51,18 +51,17 @@ class Finder
 
         try {
             $directoryIterator = new DirectoryIterator($path);
-            foreach($directoryIterator as $file) {
+            foreach ($directoryIterator as $file) {
                 if (is_dir($file->getPathname())) {
                     continue;
                 }
                 if (!VariableHelper::IsEmpty($match) && preg_match($match, basename($file)) == 0) {
                     continue;
                 }
-    
+
                 $ret->Add(new File($file->getPathname()));
-            }    
-        }
-        catch(Throwable $e) {
+            }
+        } catch (Throwable $e) {
 
         }
 
@@ -98,7 +97,7 @@ class Finder
      */
     public function FilesRecursive(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC): ArrayList
     {
-        
+
         $ret = new ArrayList();
         try {
             $directoryIterator = new RecursiveDirectoryIterator($path);
@@ -110,11 +109,10 @@ class Finder
                 }
                 $ret->Add(new File($file->getPathname()));
             }
-        }
-        catch(Throwable $e) {
+        } catch (Throwable $e) {
 
         }
-        
+
         if ($sortField) {
             $ret->Sort($sortField, $sortType);
         }
@@ -135,13 +133,12 @@ class Finder
         $ret = new ArrayList();
         try {
             $directoryIterator = new DirectoryIterator($path);
-            foreach($directoryIterator as $file) {
+            foreach ($directoryIterator as $file) {
                 if (is_dir($file->getPathname()) && !in_array($file->getFilename(), ['.', '..'])) {
                     $ret->Add(new File($file->getPathname()));
                 }
             }
-        }
-        catch(Throwable $e) {
+        } catch (Throwable $e) {
 
         }
 
@@ -151,7 +148,7 @@ class Finder
 
         return $ret;
 
-        
+
         // $files = glob($path . '{,.}[!.,!..]*', GLOB_ONLYDIR | GLOB_MARK | GLOB_BRACE);
         // sort($files, SORT_ASC);
         // foreach ($files as $file) {
@@ -184,7 +181,7 @@ class Finder
 
             $keys = [];
             foreach ($regexIterator as $file) {
-                
+
                 if (is_file($file)) {
                     continue;
                 }
@@ -192,7 +189,7 @@ class Finder
                 $lpath = $file->getPathname();
                 $lpath = preg_replace('/\/\.$/', '/', $lpath);
                 $lpath = preg_replace('/\/\.\.$/', '/', $lpath);
-                if(isset($keys[$lpath]) || $path == $lpath) {
+                if (isset($keys[$lpath]) || $path == $lpath) {
                     continue;
                 }
 
@@ -200,11 +197,10 @@ class Finder
                 $ret->Add(new Directory($lpath));
 
             }
-        }
-        catch(Throwable $e) {
+        } catch (Throwable $e) {
 
         }
-        
+
 
         if ($sortField) {
             $ret->Sort($sortField, $sortType);
@@ -226,13 +222,12 @@ class Finder
         $ret = new ArrayList();
         try {
             $directoryIterator = new DirectoryIterator($path);
-            foreach($directoryIterator as $file) {
+            foreach ($directoryIterator as $file) {
                 if (!in_array($file->getFilename(), ['.', '..'])) {
                     $ret->Add(new File($file->getPathname()));
                 }
             }
-        }
-        catch(Throwable $e) {
+        } catch (Throwable $e) {
 
         }
 

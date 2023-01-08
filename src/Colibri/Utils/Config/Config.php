@@ -49,7 +49,7 @@ class Config implements IteratorAggregate
 
         if (is_array($fileName) || is_object($fileName)) {
             $this->_configData = $fileName;
-        } else if (is_numeric($fileName) || $fileName) {
+        } elseif (is_numeric($fileName) || $fileName) {
             try {
                 if ($isFile && file_exists(App::$appRoot . '/config/' . $fileName)) {
                     $path = App::$appRoot . '/config/' . $fileName;
@@ -118,10 +118,10 @@ class Config implements IteratorAggregate
                 if (File::Exists(App::$appRoot . '/config/' . $matches[1])) {
                     $return = \yaml_parse_file(App::$appRoot . '/config/' . $matches[1]);
                     $file = $matches[1];
-                } else if (File::Exists(App::$appRoot . $matches[1])) {
+                } elseif (File::Exists(App::$appRoot . $matches[1])) {
                     $return = \yaml_parse_file(App::$appRoot . $matches[1]);
                     $file = $matches[1];
-                } else if (File::Exists($matches[1])) {
+                } elseif (File::Exists($matches[1])) {
                     $return = \yaml_parse_file($matches[1]);
                     $file = $matches[1];
                 } else {

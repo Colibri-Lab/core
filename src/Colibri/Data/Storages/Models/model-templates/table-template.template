@@ -20,7 +20,8 @@ use [[namespace-path]]\[[row-class-name]];
  * @method [[row-class-name]] _read()
  * 
  */
-class [[table-class-name]] extends BaseModelDataTable {
+class [[table-class-name]] extends BaseModelDataTable 
+{
 
     /**
      * Конструктор

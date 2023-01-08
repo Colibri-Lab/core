@@ -17,7 +17,7 @@ use Colibri\IO\FileSystem\File;
  */
 class FileStreaming
 {
-    
+
     /**
      * Вернуть данные в файле в виде base64-encoded
      *
@@ -30,9 +30,9 @@ class FileStreaming
         $fi = new File($file);
         $mime = new MimeType($fi->extension);
         $mimeType = $mime->data;
-        return 'data:'.$mimeType.';base64,'.base64_encode($fileData);
+        return 'data:' . $mimeType . ';base64,' . base64_encode($fileData);
     }
-    
+
     /**
      * Вернуть данные в файле в виде строки
      *
@@ -57,9 +57,9 @@ class FileStreaming
         if ($fi->extension == 'svg') {
             return File::Read($file);
         } elseif ($background) {
-            return '<img src="/res/1x1.gif" style="background-image: url('.str_replace('//', '/', str_replace(App::$webRoot, '/', $file)).')" />';
+            return '<img src="/res/1x1.gif" style="background-image: url(' . str_replace('//', '/', str_replace(App::$webRoot, '/', $file)) . ')" />';
         } else {
-            return '<img src="'.str_replace('//', '/', str_replace(App::$webRoot, '/', $file)).'" />';
+            return '<img src="' . str_replace('//', '/', str_replace(App::$webRoot, '/', $file)) . '" />';
         }
     }
 }
