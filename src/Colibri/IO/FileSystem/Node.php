@@ -86,4 +86,14 @@ class Node
         }
         return $this->access;
     }
+
+    public static function Link(string $sourcePath, string $destPath, bool $recursive = true, string $mode = '777')
+    {
+        if(!file_exists($destPath) && file_exists($sourcePath)) {
+            $path2 = dirname($destPath[strlen($destPath) - 1] == '/' ? $destPath . '#' : $destPath);
+            shell_exec('mkdir' . ($recursive ? ' -p' : '') . ' -m' . $mode . ' ' . $path2);
+            symlink($sourcePath, $destPath);
+        }
+    }
+
 }

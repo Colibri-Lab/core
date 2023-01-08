@@ -86,6 +86,12 @@ final class App
     public static string $webRoot = '';
 
     /**
+     * Путь к папке vendor
+     * @var string
+     */
+    public static string $vendorRoot = '';
+
+    /**
      * Режим разработки
      * @var boolean
      */
@@ -214,6 +220,8 @@ final class App
 
             // корень приложения должен находится на уровень выше
             self::$appRoot = realpath(self::$webRoot . '/../') . '/';
+
+            self::$vendorRoot = realpath(self::$appRoot) . '/vendor/';
         }
 
         // поднимаем конфиги

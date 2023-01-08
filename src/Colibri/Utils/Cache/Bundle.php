@@ -10,16 +10,14 @@
 
 namespace Colibri\Utils\Cache;
 
+use axy\sourcemap\SourceMap;
 use Colibri\App;
-use Colibri\Common\Encoding;
-use Colibri\Events\Event;
 use Colibri\Events\EventsContainer;
 use Colibri\IO\FileSystem\File;
 use Colibri\IO\FileSystem\Directory;
 use Colibri\IO\FileSystem\Exception as FileSystemException;
 use Colibri\IO\FileSystem\Finder;
 use Colibri\Utils\Debug;
-use axy\sourcemap\SourceMap;
 use Colibri\Utils\Config\ConfigException;
 
 /**
@@ -41,7 +39,7 @@ class Bundle
      * @return string
      * @testFunction testBundleCompile
      */
-    public static function Compile(string $name, array $exts, string $path, array $exception = array(), bool $preg = false, bool $returnContent = false, ?array &$returnFiles = null): string
+    public static function Compile(string $name, array $exts, string $path, array $exception = array(), bool $preg = false, bool $returnContent = false, ?array &$sourcesMap = null): string
     {
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
         if (!$returnContent && !App::$isDev && File::Exists($jpweb)) {
@@ -51,14 +49,11 @@ class Bundle
         if (File::Exists($path) && !File::IsDirectory($path)) {
             $files = [$path];
         } else {
-
             $namespaces = self::GetNamespaceAssets($path, $exts, $exception, $preg);
             $files = self::GetChildAssets($path, $exts, $exception, $preg);
-
             $files = array_merge($namespaces, $files);
-
         }
-        
+
         $content = '';
         foreach ($files as $file) {
             if (!File::Exists($file)) {
@@ -72,10 +67,12 @@ class Bundle
                 $c = $args->content;
             }
 
-            if($returnFiles) {
-                $lastLine = count(explode("\n", $content));
-                $returnFiles[] = ['file' => $file, 'starts' => $lastLine];
-            }
+            // $f = new File($file);
+            // if ($sourcesMap !== null && App::$isLocal && $f->extension === 'js') {
+            //     $sourcesMap[$file] = count(explode("\n", $content)) + 1;
+            //     $c = "\n" . '//# '. $file . ';' . $sourcesMap[$file] . "\n" . $c;
+            // }
+
             $content .= $c;
         }
 
@@ -247,13 +244,14 @@ class Bundle
                     if (!isset($settings['path']) || !$settings['path']) {
                         continue;
                     }
-                    $lastModified = max($lastModified, self::LastModified(
-                        isset($settings['name']) ? $settings['name'] : '',
-                        isset($settings['exts']) ? $settings['exts'] : [$ext],
-                        $settings['path'],
-                        isset($settings['exception']) ? $settings['exception'] : array(),
-                        isset($settings['preg']) ? $settings['preg'] : false
-                    )
+                    $lastModified = max(
+                        $lastModified, self::LastModified(
+                            isset($settings['name']) ? $settings['name'] : '',
+                            isset($settings['exts']) ? $settings['exts'] : [$ext],
+                            $settings['path'],
+                            isset($settings['exception']) ? $settings['exception'] : array(),
+                            isset($settings['preg']) ? $settings['preg'] : false
+                        )
                     );
                 }
                 if (filemtime($jpweb) > $lastModified) {
@@ -265,12 +263,13 @@ class Bundle
         }
 
         $content = [];
-        $returnedFiles = App::$isLocal ? [] : null;
 
         $args = App::$instance->DispatchEvent(EventsContainer::BundleStart, (object) ['exts' => [$ext]]);
         if (isset($args['content'])) {
             $content[] = $args['content'];
         }
+
+        // $sourcesMap = App::$isLocal ? [] : null;
 
         foreach ($ar as $settings) {
             if (!isset($settings['path']) || !$settings['path']) {
@@ -282,13 +281,48 @@ class Bundle
                 $settings['path'],
                 isset($settings['exception']) ? $settings['exception'] : array(),
                 isset($settings['preg']) ? $settings['preg'] : false,
-                true,
-                $returnedFiles
+                true
+                // ,
+                // $sourcesMap
             );
         }
 
-        Debug::Out($returnedFiles);
-        exit;
+        // if(App::$isLocal && !empty($sourcesMap)) {
+        //     $map = new SourceMap([
+        //         'version' => 3,
+        //         'file' => $name,
+        //         'mappings' => 'A',
+        //         'sources' => []
+        //     ]);
+        //     $i = 0;
+        //     foreach($sourcesMap as $file => $line) {
+        //         $fc = File::Read($file);
+        //         $fileUrl = str_replace(App::$vendorRoot, '', $file);
+        //         $fileName = basename($file);
+        //         $sourceName = 'colibri:' . $fileUrl;
+        //         $map->sources->add($sourceName);
+        //         $map->sources->setContent($sourceName, $fc);
+        //         $fc = explode("\n", $fc);
+        //         foreach($fc as $ll => $lc) {
+        //             $map->addPosition([
+        //                 'generated' => [
+        //                     'line' => $line + $ll,
+        //                     'column' => 0,
+        //                 ],
+        //                 'source' => [
+        //                     'fileIndex' => $i,
+        //                     'file' => $fileName,
+        //                     'line' => $ll,
+        //                     'column' => 0,
+        //                 ],
+        //             ]);        
+        //         }
+        //         $i++;
+        //     }
+        //     $mapName = $jpweb . '.map';
+        //     $map->Save($mapName, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        //     $content[] = '//# sourceMappingURL=/' . str_replace(App::$webRoot, '', $mapName) . '?' . md5(microtime(true));
+        // }
 
         $content = implode('', $content);
 

@@ -4,6 +4,7 @@ namespace Colibri\Modules;
 
 use Colibri\App;
 use Colibri\Common\StringHelper;
+use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Config\Config;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Utils\Debug;
@@ -68,6 +69,21 @@ class Module
         $filename = $reflection->getFileName();
         $this->_modulePath = str_replace('Module.php', '', $filename);
         $this->_moduleNamespace = $reflection->getNamespaceName() . '\\';
+
+        // если начинается не с вендора то надо попробовать найти 
+        // composer.json и выкопать из него где реально лежит модуль
+        if(strstr($this->_modulePath, '/vendor/') === false && strstr($this->_modulePath, '/App/') === false) {
+            $pathParts = explode('/', $this->_modulePath);
+            $composerPath = implode('/', $pathParts) . '/composer.json';
+            while(!File::Exists($composerPath)) {
+                array_pop($pathParts);
+                $composerPath = implode('/', $pathParts) . '/composer.json';
+            }
+            $composerContent = (object)json_decode(File::Read($composerPath));
+            $name = $composerContent->name;
+            $psr4 = $composerContent->autoload->{'psr-4'}->{$this->_moduleNamespace};
+            $this->_modulePath = App::$appRoot . 'vendor/' . $name . '/' . $psr4;
+        }
 
         $configArray = $this->_config->AsArray();
         $this->_moduleConfigFile = str_replace(')', '', str_replace('include(', '', $configArray['config']));
