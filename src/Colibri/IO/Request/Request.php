@@ -214,7 +214,7 @@ class Request
         if ($this->encryption == Encryption::Multipart) {
             return $this->_createMultipartRequestBody($this->boundary, $this->postData);
         } elseif ($this->encryption == Encryption::XmlEncoded) {
-            $return = VariableHelper::IsString($this->postData) ? $this->postData : XmlHelper::Encode($this->postData, null, false);
+            $return = VariableHelper::IsString($this->postData) ? $this->postData : XmlHelper::Encode($this->postData, null);
         } elseif ($this->encryption == Encryption::JsonEncoded) {
             $return = VariableHelper::IsString($this->postData) ? $this->postData : json_encode($this->postData);
         } else {
@@ -331,7 +331,7 @@ class Request
         if ($this->method == Type::Post) {
             curl_setopt($handle, CURLOPT_POST, true);
             if (!VariableHelper::IsNull($this->postData)) {
-                $data = $this->_joinPostData($this->postData);
+                $data = $this->_joinPostData();
                 curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
             }
         } elseif ($this->method == Type::Get) {
@@ -339,7 +339,7 @@ class Request
         } else {
             curl_setopt($handle, CURLOPT_CUSTOMREQUEST, StringHelper::ToUpper($this->method));
             if (!VariableHelper::IsNull($this->postData)) {
-                $data = $this->_joinPostData($this->postData);
+                $data = $this->_joinPostData();
                 curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
             }
         }
@@ -380,4 +380,21 @@ class Request
         return $result;
 
     }
+
+    public static function Get(
+        string $target,
+        int $timeout = 0,
+        bool $sslVerify = true,
+        array $headers = []
+    ): Result
+    {
+        $req = new Request($target, Type::Get);
+        $req->timeout = $timeout;
+        $req->sslVerify = $sslVerify;
+        if(!empty($headers)) {
+            $req->headers = $headers;
+        }
+        return $req->Execute();
+    }
+
 }

@@ -140,13 +140,34 @@ class Config implements IteratorAggregate
      * пути указываются в javascript нотации
      * например: settings.item[0].info или settings.item.buh.notice_email
      *
-     * @param string $item строковое представление пути в конфигурационном файле
+     * @param string|array $item строковое представление пути в конфигурационном файле, если передан массив то будет последовательно запрошены все элементы пока не будет найден позитивный оптвет, если ничего не будет найдено то будет попытка вернуть $default
      * @param mixed $default значение по умолчанию, если путь не найден
      * @return ConfigItemsList|Config
      * @testFunction testConfigQuery
      */
-    public function Query(string $item, mixed $default = null): ConfigItemsList|Config
+    public function Query(string|array $item, mixed $default = null): ConfigItemsList|Config
     {
+        if(is_array($item)) {
+            $result = null;
+            foreach($item as $query) {
+                try {
+                    $result = $this->Query($query);
+                    break;
+                }
+                catch(ConfigException $e) {
+                    continue;
+                }
+            }
+
+            if(is_null($result) && $default !== null) {
+                $result = $default;
+            } elseif ($default === null) {
+                throw new ConfigException('Illeval query: ' . implode(';', $item));
+            } else {
+                return $result;
+            }
+        }
+
         $command = explode('.', $item);
 
         $file = $this->_file;

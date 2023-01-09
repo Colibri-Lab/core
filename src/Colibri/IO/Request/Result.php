@@ -31,9 +31,23 @@ class Result
     public string $data;
 
     /**
+     * Ошибка
+     *
+     * @var string
+     */
+    public string $error;
+
+    /**
      * Массив заголовков
      *
      * @var object|array
      */
     public object|array $headers;
+    
+    /**
+     * Массив заголовков HTTP
+     *
+     * @var object|array
+     */
+    public object|array $httpheaders;
 }
