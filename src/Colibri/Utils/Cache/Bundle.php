@@ -39,7 +39,7 @@ class Bundle
      * @return string
      * @testFunction testBundleCompile
      */
-    public static function Compile(string $name, array $exts, string $path, array $exception = array(), bool $preg = false, bool $returnContent = false, ?array &$sourcesMap = null): string
+    public static function Compile(string $name, array $exts, string $path, array $exception = array(), bool $preg = false, bool $returnContent = false): string
     {
         $jpweb = App::$webRoot . App::$config->Query('cache')->GetValue() . 'code/' . $name;
         if (!$returnContent && !App::$isDev && File::Exists($jpweb)) {
@@ -66,12 +66,6 @@ class Bundle
             if (isset($args->content)) {
                 $c = $args->content;
             }
-
-            // $f = new File($file);
-            // if ($sourcesMap !== null && App::$isLocal && $f->extension === 'js') {
-            //     $sourcesMap[$file] = count(explode("\n", $content)) + 1;
-            //     $c = "\n" . '//# '. $file . ';' . $sourcesMap[$file] . "\n" . $c;
-            // }
 
             $content .= $c;
         }
@@ -269,8 +263,6 @@ class Bundle
             $content[] = $args['content'];
         }
 
-        // $sourcesMap = App::$isLocal ? [] : null;
-
         foreach ($ar as $settings) {
             if (!isset($settings['path']) || !$settings['path']) {
                 continue;
@@ -282,47 +274,8 @@ class Bundle
                 isset($settings['exception']) ? $settings['exception'] : array(),
                 isset($settings['preg']) ? $settings['preg'] : false,
                 true
-                // ,
-                // $sourcesMap
             );
         }
-
-        // if(App::$isLocal && !empty($sourcesMap)) {
-        //     $map = new SourceMap([
-        //         'version' => 3,
-        //         'file' => $name,
-        //         'mappings' => 'A',
-        //         'sources' => []
-        //     ]);
-        //     $i = 0;
-        //     foreach($sourcesMap as $file => $line) {
-        //         $fc = File::Read($file);
-        //         $fileUrl = str_replace(App::$vendorRoot, '', $file);
-        //         $fileName = basename($file);
-        //         $sourceName = 'colibri:' . $fileUrl;
-        //         $map->sources->add($sourceName);
-        //         $map->sources->setContent($sourceName, $fc);
-        //         $fc = explode("\n", $fc);
-        //         foreach($fc as $ll => $lc) {
-        //             $map->addPosition([
-        //                 'generated' => [
-        //                     'line' => $line + $ll,
-        //                     'column' => 0,
-        //                 ],
-        //                 'source' => [
-        //                     'fileIndex' => $i,
-        //                     'file' => $fileName,
-        //                     'line' => $ll,
-        //                     'column' => 0,
-        //                 ],
-        //             ]);        
-        //         }
-        //         $i++;
-        //     }
-        //     $mapName = $jpweb . '.map';
-        //     $map->Save($mapName, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-        //     $content[] = '//# sourceMappingURL=/' . str_replace(App::$webRoot, '', $mapName) . '?' . md5(microtime(true));
-        // }
 
         $content = implode('', $content);
 
@@ -343,7 +296,7 @@ class Bundle
         return str_replace(App::$webRoot, '/', $jpweb . '?' . $recacheKey);
     }
 
-    static function Export(string $domain, string $ext, string $content)
+    public static function Export(string $domain, string $ext, string $content)
     {
         try {
 
