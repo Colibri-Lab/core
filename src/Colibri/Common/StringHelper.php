@@ -222,17 +222,25 @@ class StringHelper
      * @return boolean
      * @testFunction testStringHelperIsEmail
      */
-    public static function IsEmail(string $address): bool
+    public static function IsEmail(string $address, bool $checkThatDomainExists = false): bool
     {
         if (!is_string($address)) {
             return false;
         }
 
         if (function_exists('filter_var')) {
-            return filter_var($address, FILTER_VALIDATE_EMAIL) !== false;
+            $return = filter_var($address, FILTER_VALIDATE_EMAIL) !== false;
         } else {
-            return preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address);
+            $return = preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address);
         }
+
+        if($return && $checkThatDomainExists) {
+            $parts = explode('@', $address);
+            $domain = end($parts);
+            return checkdnsrr(idn_to_ascii($domain), 'MX');
+        }
+
+        return $return;
     }
 
     /**
