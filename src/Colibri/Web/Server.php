@@ -214,8 +214,6 @@ class Server
             $this->Finish($type, $result);
         }
 
-
-
         if (!class_exists($class)) {
             $message = 'Unknown class ' . $class;
             $this->DispatchEvent(EventsContainer::RpcRequestError, (object) [
@@ -268,6 +266,9 @@ class Server
             // если это запрос на опции то вернуть
             $this->Finish($type, (object) ['code' => 200, 'message' => 'ok', 'options' => true]);
         } else {
+
+            App::$monitoring->StartTimer('web-request');
+
             $obj = new $class();
             $result = (object) $obj->$method($get, $post, $payload);
 
@@ -284,6 +285,8 @@ class Server
 
             // на случай, если не включен модуль языков
             $args->result = NoLangHelper::ParseArray($args->result);
+
+            App::$monitoring->EndTimer('web-request');
 
             $this->Finish($type, $args->result);
         }
