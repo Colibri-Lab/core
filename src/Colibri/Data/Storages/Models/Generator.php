@@ -89,10 +89,18 @@ class Generator
                 }
             } elseif ($schemaType === 'ObjectField::JsonSchema') {
                 [$sr, $sb] = self::GetSchemaObject($field->fields, $rowClass);
-                $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']],';
+                if ($field->params['required'] ?? false) {
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']],';
+                } else {
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]]],';
+                }
             } elseif ($schemaType === 'ArrayField::JsonSchema') {
                 [$sr, $sb] = self::GetSchemaObject($field->fields, $rowClass);
-                $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]],';
+                if ($field->params['required'] ?? false) {
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]],';
+                } else {
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]]]],';
+                }
             } elseif ($schemaType === 'DateField::JsonSchema' || $schemaType === 'DateTimeField::JsonSchema') {
                 if ($field->params['required'] ?? false) {
                     $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => \'string\', \'format\' => \'' . ($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date') . '\'],';
