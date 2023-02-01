@@ -166,7 +166,7 @@ class DataTable extends BaseDataTable
             if (!$id || $row->IsPropertyChanged($key)) {
                 $fieldName = $this->_storage->GetFieldName($key);
                 /** @var \Colibri\Data\Storages\Fields\Field $field */
-                $field = $this->_storage->fields->$fieldName;
+                $field = $this->_storage->fields->$fieldName ?? null;
                 $paramType = 'string';
                 if ($field && in_array($field->type, ['blob', 'tinyblob', 'longblob'])) {
                     $paramType = 'blob';
