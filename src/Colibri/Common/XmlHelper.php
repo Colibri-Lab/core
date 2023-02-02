@@ -61,4 +61,22 @@ class XmlHelper
         return XmlNode::LoadNode($xmlString, 'utf-8');
     }
 
+    public static function ToObject(string|XmlNode $xml): object|string
+    {
+        if(is_string($xml)) {
+            $xml = XmlNode::LoadNode($xml, 'utf-8');
+        }
+
+        if($xml->elements->Count() == 0) {
+            return $xml->value;
+        }
+
+        $ret = [];
+        foreach($xml->Query('./*') as $node) {
+            $ret[$node->name] = self::ToObject($node);
+        }
+        return (object)$ret;
+
+    }
+
 }
