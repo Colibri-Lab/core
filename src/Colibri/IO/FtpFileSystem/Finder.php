@@ -28,7 +28,7 @@ class Finder
 
     private object $_connectionInfo;
 
-    private \FTP\Connection $_connection;
+    private mixed $_connection;
 
     /**
      * Конструктор
