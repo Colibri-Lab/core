@@ -52,7 +52,7 @@ class File implements JsonSerializable
 
     private object $item;
 
-    private \FTP\Connection $connection;
+    private mixed $connection;
 
     /**
      * Длина файла в байтах
@@ -68,7 +68,7 @@ class File implements JsonSerializable
      *
      * @param string $path Путь к файлу
      */
-    public function __construct(object $item, \FTP\Connection $connection)
+    public function __construct(object $item, mixed $connection)
     {
         $this->cachePath = App::$appRoot . App::$config->Query('runtime')->GetValue();
         $this->connection = $connection;
