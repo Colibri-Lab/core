@@ -299,6 +299,20 @@ class VariableHelper
         });
     }
 
+    public static function ToPlane(array|object $var, string $prefix = ''): array
+    {
+        $ret = [];
+        foreach($var as $key => $value) {
+            $k = $prefix ? (is_string($key) ? '.' . $key : '[' . $key . ']') : $key;
+            if(is_array($value) || is_object($value)) {
+                $ret = array_merge($ret, self::ToPlane($value, $prefix . $k));
+            } else {
+                $ret[$prefix . $k] = $value;                    
+            } 
+        }
+        return $ret;
+    }
+
     /**
      * Превратить текст в 16-ричное представление
      *
