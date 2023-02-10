@@ -263,9 +263,11 @@ class ObjectField extends ExtendedObject
      */
     public function ToString(): string
     {
-        $obj = (object) array();
+        $obj = (object) [];
         foreach ($this->_data as $k => $v) {
-            if (is_object($v) && method_exists($v, 'ToArray')) {
+            if (is_object($v) && get_class($v) === ValueField::class) {
+                $obj->{$k} = (string) $v;
+            } elseif (is_object($v) && method_exists($v, 'ToArray')) {
                 $obj->{$k} = $v->ToArray();
             } else {
                 $obj->{$k} = $v;
@@ -282,6 +284,32 @@ class ObjectField extends ExtendedObject
     public function __toString(): string
     {
         return $this->ToString();
+    }
+
+    public function ToArray(bool $noPrefix = false): array
+    {
+        $newArray = [];
+        foreach($this as $key => $value) {
+            
+            if (is_array($value) || $value instanceof ArrayList) {
+                $ret = [];
+                foreach ($value as $index => $v) {
+                    if ((is_string($v) || is_object($v)) && method_exists($v, 'ToArray')) {
+                        $ret[$index] = $v->ToArray($noPrefix);
+                    } else {
+                        $ret[$index] = $v;
+                    }
+                }
+                $value = $ret;
+            } elseif (is_object($value) && $value instanceof ValueField) {
+                $value = (string) $value;
+            } elseif (is_object($value) && method_exists($value, 'ToArray')) {
+                $value = $value->ToArray($noPrefix);
+            }
+
+            $newArray[$key] = $value;
+        }
+        return $newArray;
     }
 
 }

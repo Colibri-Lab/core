@@ -110,7 +110,7 @@ class ArrayField extends ArrayList
     {
         $ret = [];
         foreach ($this as $item) {
-            $ret[] = $item->ToArray(true);
+            $ret[] = $item->ToArray($noPrefix);
         }
         return $ret;
     }

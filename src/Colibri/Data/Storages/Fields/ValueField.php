@@ -35,9 +35,13 @@ class ValueField implements JsonSerializable
         }
     }
 
+    public function ToString(): string {
+        return $this->_value ?: '';
+    }
+
     public function __toString(): string
     {
-        return $this->_value ?: '';
+        return $this->ToString();
     }
 
     public function ToArray(): array
@@ -47,7 +51,7 @@ class ValueField implements JsonSerializable
 
     public function jsonSerialize(): string
     {
-        return $this->ToArray();
+        return $this->__toString();
     }
 
 

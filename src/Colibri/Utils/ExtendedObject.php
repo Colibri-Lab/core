@@ -240,7 +240,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
                     }
                 }
                 $value = $ret;
-            } elseif ((is_string($value) || is_object($value)) && method_exists($value, 'ToArray')) {
+            } elseif (is_object($value) && method_exists($value, 'ToArray')) {
                 $value = $value->ToArray($noPrefix);
             }
             $data[!$noPrefix ? $key : substr($key, strlen($this->_prefix))] = $value;
