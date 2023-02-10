@@ -596,6 +596,10 @@ class XmlNode
         return $this->Query('./child::*[@name="' . $name . '"]', true);
     }
 
+    public function CreateTextNode($string) {
+        return new XmlNode($this->_document->createTextNode($string), $this->_document);
+    }
+
     /**
      * Выполняет XPath запрос
      *
