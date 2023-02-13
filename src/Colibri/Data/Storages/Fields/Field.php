@@ -28,6 +28,7 @@ use Colibri\Data\Storages\Fields\Lookup;
  * @property-read bool $readonly да, если поле запрещено к редактированию
  * @property-read bool $inTemplate да, если поле должно отображаться в шаблоне
  * @property string $formula формула
+ * @property array $rawvalues
  * 
  */
 class Field
@@ -174,6 +175,8 @@ class Field
                 return isset($this->_xfield['default']) && $this->_xfield['default'] !== null;
             case 'parent':
                 return $this->_parent;
+            case 'rawvalues':
+                return isset($this->_xfield['values']) ? $this->_xfield['values'] : null;
             default:
                 return isset($this->_xfield[$prop]) ? $this->_xfield[$prop] : null;
         }

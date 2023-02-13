@@ -227,6 +227,23 @@ class Generator
                 $class = end($class);
             }
 
+            if($class === 'ValueField') {
+                $adClasses = [];
+                $values = $field->rawvalues;
+                foreach($values as $v) {
+                    if($v['type'] === 'text') {
+                        $adClasses[] = 'string';
+                    } else {
+                        $adClasses[] = 'int';
+                        $adClasses[] = 'float';
+                    }
+                }
+                $adClasses = array_unique($adClasses);
+                if(!empty($adClasses)) {
+                    $class = $class . '|' . implode('|', $adClasses);
+                }
+            }
+
             $desc = $field->{'desc'};
             if ($langModule) {
                 $desc = $desc[$langModule->Default()] ?? $desc;
