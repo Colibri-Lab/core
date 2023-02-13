@@ -22,13 +22,13 @@ use Colibri\Data\Storages\Fields\Lookup;
  * @property-read bool $isLookup да, если поле связано с другой таблицей
  * @property-read bool $isValues да, если есть значения
  * @property-read Lookup $lookup связка
- * @property string[string] $values значения
+ * @property object<string, string> $values значения
  * @property-read mixed $default значение по умолчанию
  * @property-read bool $required да, если поле обязательное
  * @property-read bool $readonly да, если поле запрещено к редактированию
  * @property-read bool $inTemplate да, если поле должно отображаться в шаблоне
  * @property string $formula формула
- *
+ * 
  */
 class Field
 {
@@ -194,7 +194,7 @@ class Field
 
     public function UpdateField(Field $field)
     {
-        $this->_xfield['fields'][$field->name] = $field->ToArray();
+        $this->_xfield['fields'][$field->{'name'}] = $field->ToArray();
         if ($this->_parent) {
             $this->_parent->UpdateField($this);
         } else {

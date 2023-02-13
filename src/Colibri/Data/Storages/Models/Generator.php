@@ -56,13 +56,13 @@ class Generator
             $schemaItems = '';
             $schemaEnum = [];
 
-            $class = $field->class;
-            if (!in_array($field->class, array_keys($jsonTypeMap))) {
+            $class = $field->{'class'};
+            if (!in_array($field->{'class'}, array_keys($jsonTypeMap))) {
                 $class = explode('\\', $class);
                 $class = end($class);
                 $schemaType = $class . '::JsonSchema';
             } else {
-                $schemaType = $jsonTypeMap[$field->class];
+                $schemaType = $jsonTypeMap[$field->{'class'}];
             }
 
             if ($field->multiple) {
@@ -83,55 +83,55 @@ class Generator
 
             if ($schemaType === $rowClass) {
                 if ($field->params['required'] ?? false) {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [ \'$ref\' => \'#\' ], ';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [ \'$ref\' => \'#\' ], ';
                 } else {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [ \'oneOf\' => [ [ \'type\' => \'null\' ], [\'$ref\' => \'#\'] ] ], ';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [ \'oneOf\' => [ [ \'type\' => \'null\' ], [\'$ref\' => \'#\'] ] ], ';
                 }
             } elseif ($schemaType === 'ObjectField::JsonSchema') {
                 [$sr, $sb] = self::GetSchemaObject($field->fields, $rowClass);
                 if ($field->params['required'] ?? false) {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']],';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']],';
                 } else {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]]],';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]]],';
                 }
             } elseif ($schemaType === 'ArrayField::JsonSchema') {
                 [$sr, $sb] = self::GetSchemaObject($field->fields, $rowClass);
                 if ($field->params['required'] ?? false) {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]],';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]],';
                 } else {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]]]],';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]]]],';
                 }
             } elseif ($schemaType === 'DateField::JsonSchema' || $schemaType === 'DateTimeField::JsonSchema') {
                 if ($field->params['required'] ?? false) {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => \'string\', \'format\' => \'' . ($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date') . '\'],';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [\'type\' => \'string\', \'format\' => \'' . ($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date') . '\'],';
                 } else {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [ \'anyOf\' => [ [\'type\' => [\'string\', \'null\'], \'format\' => \'' . ($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date') . '\'], [\'type\' => [\'string\', \'null\'], \'maxLength\' => 0] ] ],';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [ \'anyOf\' => [ [\'type\' => [\'string\', \'null\'], \'format\' => \'' . ($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date') . '\'], [\'type\' => [\'string\', \'null\'], \'maxLength\' => 0] ] ],';
                 }
             } elseif ($schemaType === 'ValueField::JsonSchema') {
                 $schemaType = in_array($field->type, ['int', 'float', 'double']) ? 'number' : 'string';
                 if ($field->params['required'] ?? false) {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [\'type\' => ' . '\'' . $schemaType . '\', \'enum\' => [' . implode(', ', $schemaEnum) . ']],';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [\'type\' => ' . '\'' . $schemaType . '\', \'enum\' => [' . implode(', ', $schemaEnum) . ']],';
                 } else {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'' . $schemaType . '\', \'enum\' => [' . implode(', ', $schemaEnum) . ']] ] ],';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'' . $schemaType . '\', \'enum\' => [' . implode(', ', $schemaEnum) . ']] ] ],';
                 }
             } else {
                 if ($field->params['required'] ?? false) {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => ' . (!isset($jsonTypeMap[$field->class]) ? $schemaType . ',' :
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => ' . (!isset($jsonTypeMap[$field->{'class'}]) ? $schemaType . ',' :
                         '[\'type\' => ' .
                         (count($schemaType) === 1 ? '\'' . $schemaType[0] . '\'' : '[\'' . implode('\',\'', $schemaType) . '\']') . ', ' .
                         (!empty($schemaEnum) ? '\'enum\' => [' . implode(', ', $schemaEnum) . '],' : '') .
-                        ($field->class === 'string' && (bool) $field->length ? '\'maxLength\' => ' . $field->length . ', ' : '') .
-                        ($field->class === 'string' ? ((bool) ($field->params['canbeempty'] ?? true) ? '' : '\'minLength\' => 1, ') : '') .
+                        ($field->{'class'} === 'string' && (bool) $field->length ? '\'maxLength\' => ' . $field->length . ', ' : '') .
+                        ($field->{'class'} === 'string' ? ((bool) ($field->params['canbeempty'] ?? true) ? '' : '\'minLength\' => 1, ') : '') .
                         ($schemaItems ? '\'items\' => ' . $schemaItems : '') .
                         '],'
                     );
                 } else {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->name . '\' => ' . (!isset($jsonTypeMap[$field->class]) ? '[ \'oneOf\' => [ [ \'type\' => \'null\'], ' . $schemaType . ' ] ],' :
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => ' . (!isset($jsonTypeMap[$field->{'class'}]) ? '[ \'oneOf\' => [ [ \'type\' => \'null\'], ' . $schemaType . ' ] ],' :
                         '[ \'oneOf\' => [ [ \'type\' => \'null\'], [\'type\' => ' .
                         (count($schemaType) === 1 ? '\'' . $schemaType[0] . '\'' : '[\'' . implode('\',\'', $schemaType) . '\']') . ', ' .
                         (!empty($schemaEnum) ? '\'enum\' => [' . implode(', ', $schemaEnum) . '],' : '') .
-                        ($field->class === 'string' && (bool) $field->length ? '\'maxLength\' => ' . $field->length . ', ' : '') .
-                        ($field->class === 'string' ? ((bool) ($field->params['canbeempty'] ?? true) ? '' : '\'minLength\' => 1, ') : '') .
+                        ($field->{'class'} === 'string' && (bool) $field->length ? '\'maxLength\' => ' . $field->length . ', ' : '') .
+                        ($field->{'class'} === 'string' ? ((bool) ($field->params['canbeempty'] ?? true) ? '' : '\'minLength\' => 1, ') : '') .
                         ($schemaItems ? '\'items\' => ' . $schemaItems : '') .
                         '] ] ],'
                     );
@@ -140,7 +140,7 @@ class Generator
             }
 
             if ($field->params['required'] ?? false) {
-                $schemaRequired[] = "\t\t\t" . '\'' . $field->name . '\',';
+                $schemaRequired[] = "\t\t\t" . '\'' . $field->{'name'} . '\',';
             }
         }
 
@@ -152,7 +152,7 @@ class Generator
     public static function GenerateModelClasses(Storage $storage): void
     {
 
-        $langModule = App::$moduleManager->lang;
+        $langModule = App::$moduleManager->Get('lang');
 
         $types = [
             'bool',
@@ -179,13 +179,13 @@ class Generator
             $rootNamespace = App::$moduleManager->$module->moduleNamespace;
         }
 
-        $models = $storage->models;
+        $models = $storage->{'models'};
         $table = $models['table'];
         $row = $models['row'];
 
         [$rootNamespace, $table, $row] = self::_convertNames($rootNamespace, $table, $row);
 
-        $storageDesc = $storage->desc;
+        $storageDesc = $storage->{'desc'};
         if ($langModule) {
             $storageDesc = $storageDesc[$langModule->Default()] ?? $storageDesc;
         }
@@ -217,8 +217,8 @@ class Generator
         foreach ($storage->fields as $field) {
             /** @var Field $field */
 
-            $class = $field->class;
-            if (!in_array($field->class, $types)) {
+            $class = $field->{'class'};
+            if (!in_array($field->{'class'}, $types)) {
                 $fullClassName = $storage->GetFieldClass($field);
                 if ($fullClassName !== $rootNamespace . '\\' . $row) {
                     $uses[] = 'use ' . $fullClassName . ';';
@@ -227,20 +227,20 @@ class Generator
                 $class = end($class);
             }
 
-            $desc = $field->desc;
+            $desc = $field->{'desc'};
             if ($langModule) {
                 $desc = $desc[$langModule->Default()] ?? $desc;
             }
 
-            $properties[] = ' * @property' . ($field->readonly ? '-read' : '') . ' ' . $class . (!$field->required ? '|null' : '') . ' $' . $field->name . ' ' . $desc;
+            $properties[] = ' * @property' . ($field->readonly ? '-read' : '') . ' ' . $class . (!$field->required ? '|null' : '') . ' $' . $field->{'name'} . ' ' . $desc;
             if ($field->values) {
                 foreach ($field->values as $value => $title) {
                     if ($langModule) {
                         $title = $title[$langModule->Default()] ?? $title;
                     }
-                    $name = StringHelper::CreateHID($field->name . '-' . str_replace('_', '-', $value), true);
+                    $name = StringHelper::CreateHID($field->{'name'} . '-' . str_replace('_', '-', $value), true);
                     $name = StringHelper::ToCamelCaseAttr($name, true);
-                    if (in_array($field->type, ['int', 'float', 'double', 'bool'])) {
+                    if (in_array($field->{'type'}, ['int', 'float', 'double', 'bool'])) {
                         $consts[] = "\t" . '/** ' . $title . ' */' . "\n\t" . 'public const ' . $name . ' = ' . $value . ';';
                     } else {
                         $consts[] = "\t" . '/** ' . $title . ' */' . "\n\t" . 'public const ' . $name . ' = \'' . $value . '\';';
@@ -329,7 +329,7 @@ class Generator
             $rootPath = App::$moduleManager->$module->modulePath;
         }
 
-        $view = $storage->view;
+        $view = $storage->{'view'};
         if (!$view) {
             return;
         }

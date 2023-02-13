@@ -168,13 +168,13 @@ class DataTable extends BaseDataTable
                 /** @var \Colibri\Data\Storages\Fields\Field $field */
                 $field = $this->_storage->fields->$fieldName ?? null;
                 $paramType = 'string';
-                if ($field && in_array($field->type, ['blob', 'tinyblob', 'longblob'])) {
+                if ($field && in_array($field->{'type'}, ['blob', 'tinyblob', 'longblob'])) {
                     $paramType = 'blob';
-                } elseif ($field && in_array($field->type, ['integer', 'int', 'smallint', 'tinyint', 'medium', 'bigint', 'decimal', 'numeric'])) {
+                } elseif ($field && in_array($field->{'type'}, ['integer', 'int', 'smallint', 'tinyint', 'medium', 'bigint', 'decimal', 'numeric'])) {
                     $paramType = 'integer';
-                } elseif ($field && in_array($field->type, ['double', 'float'])) {
+                } elseif ($field && in_array($field->{'type'}, ['double', 'float'])) {
                     $paramType = 'double';
-                } elseif ($field && in_array($field->type, ['bool', 'boolean'])) {
+                } elseif ($field && in_array($field->{'type'}, ['bool', 'boolean'])) {
                     $paramType = 'integer';
                     $value = $value === true ? 1 : 0;
                 }
@@ -233,7 +233,7 @@ class DataTable extends BaseDataTable
         fputcsv($stream->stream, $header, ';');
 
         foreach ($this->getIterator() as $row) {
-            $ar = (array) $row->original;
+            $ar = (array) $row->Original();
             $r = [];
             foreach ($this->_storage->fields as $field) {
                 $val = $ar[$this->_storage->GetRealFieldName($field->name)];

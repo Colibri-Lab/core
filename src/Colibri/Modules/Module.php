@@ -17,6 +17,7 @@ use Colibri\Utils\Debug;
  * @property-read string $moduleNamepsace
  * @property-read string $moduleConfigPath
  * @property-read string $moduleStoragesPath
+ * @property self $instance
  */
 class Module
 {

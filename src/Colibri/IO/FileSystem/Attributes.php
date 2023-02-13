@@ -16,6 +16,8 @@ namespace Colibri\IO\FileSystem;
  * @property int $created дата создания файла
  * @property int $modified дата последней модификации
  * @property int $lastaccess дата последнего доступа
+ * @property int $readonly только для чтения
+ * @property int $hidden скрытый
  *
  */
 class Attributes

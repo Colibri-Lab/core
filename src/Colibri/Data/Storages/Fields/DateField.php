@@ -17,7 +17,7 @@ class DateField extends DateTimeField
      */
     public function __toString(): string
     {
-        return $this->format('yyyy-MM-dd');
+        return (string)$this->format('yyyy-MM-dd');
     }
 
 

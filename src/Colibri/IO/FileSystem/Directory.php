@@ -14,10 +14,12 @@ namespace Colibri\IO\FileSystem;
  * Класс для работы с директориями
  *
  * @property-read Attributes $attributes
+ * @property-read array $pathArray
  * @property-read string $name
  * @property-read string $path
  * @property-read boolean $dotfile
  * @property-read int $size
+ * @property-read int $current
  * @property-read Directory $parent
  * @property-read Security $access
  * @property-write boolean $created
@@ -108,8 +110,9 @@ class Directory extends Node
                     $return = substr($this->name, 0, 1) == '.';
                     break;
                 }
-            case 'access':
+            case 'access': {
                 return $this->getSecurityObject();
+            }
             default: {
                     break;
                 }

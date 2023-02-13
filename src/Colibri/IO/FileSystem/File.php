@@ -26,6 +26,11 @@ use JsonSerializable;
  * @property-read boolean $exists
  * @property-read Security $access
  * @property-read string $content
+ * @property-read string $binary
+ * @property-read string $mimetype
+ * @property-read mixed $attr_created
+ * @property-read mixed $attr_modified
+ * @property-read mixed $attr_lastaccess,
  *
  * @testFunction testFile
  */

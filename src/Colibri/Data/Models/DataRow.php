@@ -19,7 +19,7 @@ use Colibri\Common\Encoding;
  * @property array $properties
  * @property bool $changed
  * @property-read DataTable $table
- *
+ * @property int $id
  * @testFunction testDataRow
  */
 class DataRow extends ExtendedObject

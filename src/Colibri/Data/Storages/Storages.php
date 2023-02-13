@@ -13,23 +13,14 @@ namespace Colibri\Data\Storages;
 use Colibri\App;
 use Colibri\Common\VariableHelper;
 use Colibri\Data\DataAccessPoint;
-use Colibri\Helpers\Date;
-use Colibri\Helpers\Variable;
-use Colibri\IO\FileSystem\Directory;
-use Colibri\IO\FileSystem\File;
-use Colibri\Modules\Module;
+use Colibri\Data\DataAccessPointsException;
+use Colibri\Data\Storages\Models\DataTable as StorageDataTable;
 use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
-use Colibri\Utils\Debug;
-use Colibri\Xml\XmlNode;
-use Colibri\Data\DataAccessPointsException;
-use Colibri\Data\Models\DataRow;
-use Colibri\Data\Models\DataTable;
-use Colibri\Data\Storages\Models\DataTable as StorageDataTable;
 use Colibri\Utils\Logs\Logger;
 
 /**
- * Класс список хранилищ
+ * Storages object
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages
  */
@@ -39,19 +30,19 @@ class Storages
     private static $instance;
 
     /**
-     * Данные о хранилищах
-     * @var array
+     * Array of storage data
+     * @var array|null
      */
     private ?array $_storages = null;
 
     /**
-     * Набор типов данных
+     * Types
+     * @var array|null
      */
     private ?array $_types = null;
 
     /**
-     * Конструктор
-     * @return void
+     * Constructs an Storages object
      */
     public function __construct()
     {
@@ -115,6 +106,11 @@ class Storages
 
     }
 
+    /**
+     * Extracts a short field record
+     * @param string $field
+     * @return array
+     */
     private function _fromShortString(string $field): array
     {
         $parts = explode(',', $field);
@@ -148,7 +144,12 @@ class Storages
         return $return;
     }
 
-    private function _replaceTypes($fields): array
+    /**
+     * Replaces a global types
+     * @param array $fields
+     * @return array
+     */
+    private function _replaceTypes(array $fields): array
     {
 
         foreach ($fields as $name => $field) {
@@ -178,8 +179,8 @@ class Storages
     }
 
     /**
-     * Статический конструктор
-     * @return Storages 
+     * Singleton
+     * @return Storages
      */
     public static function Create()
     {
@@ -192,12 +193,14 @@ class Storages
     #region "Checking"
 
     /**
-     * проверяет все ли правильно в базе данных
+     * Migrates a database
+     * @param Logger $logger
+     * @param bool $isDev
      * @return void
      */
     public function Migrate(Logger $logger, bool $isDev = false)
     {
-        $langModule = App::$moduleManager->lang;
+        $langModule = App::$moduleManager->Get('lang');
         $logger->info('Starting migration process');
 
         try {
@@ -410,13 +413,15 @@ class Storages
     }
 
     /**
-     * Создает таблицу в базе данных соответсвующую хранилищу
-     * @param DataAccessPoint $accessPoint точка доступа
-     * @param string $table название таблицы
-     * @param bool $levels да, если это дерево
+     * Creates a storage table
+     * @param Logger $logger
+     * @param DataAccessPoint $accessPoint
+     * @param string $table
+     * @param bool $levels
+     * @throws DataAccessPointsException
      * @return void
      */
-    private function _createStorageTable(Logger $logger, $accessPoint, $table, $levels = false)
+    private function _createStorageTable(Logger $logger, DataAccessPoint $accessPoint, string $table, bool $levels = false)
     {
         $res = $accessPoint->Query('
             create table `' . $table . '`(
@@ -433,7 +438,16 @@ class Storages
         }
     }
 
-    private function _updateDefaultAndLength($field, $type, $required, $length, $default): array
+    /**
+     * Update a default value
+     * @param string $field
+     * @param string $type
+     * @param bool $required
+     * @param int $length
+     * @param mixed $default
+     * @return array
+     */
+    private function _updateDefaultAndLength(string $field, string $type, bool $required, ?int $length, mixed $default): array
     {
 
         if (\is_bool($default)) {
@@ -458,17 +472,20 @@ class Storages
     }
 
     /**
-     * Создает поле в таблице
-     * @param DataAccessPoint $accessPoint точка доступа
-     * @param string $table таблица
-     * @param string $field поле
-     * @param string $type тип
-     * @param mixed $default значение по умолчанию
-     * @param bool $indexed индексировать
-     * @param bool $required обязательное
+     * Creates a storage field
+     * @param Logger $logger
+     * @param DataAccessPoint $accessPoint
+     * @param string $table
+     * @param string $field
+     * @param string $type
+     * @param int $length
+     * @param mixed $default
+     * @param bool $required
+     * @param string $comment
+     * @throws DataAccessPointsException
      * @return void
      */
-    private function _createStorageField(Logger $logger, $accessPoint, $table, $field, $type, $length, $default, $required, $comment)
+    private function _createStorageField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, int $length, mixed $default, bool $required, string $comment)
     {
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
 
@@ -497,7 +514,20 @@ class Storages
         }
     }
 
-    private function _createStorageVirtualField(Logger $logger, $accessPoint, $table, $field, $type, $length, $expression, $comment)
+    /**
+     * Creates a virtual field
+     * @param Logger $logger
+     * @param DataAccessPoint $accessPoint
+     * @param string $table
+     * @param string $field
+     * @param string $type
+     * @param int $length
+     * @param string $expression
+     * @param string $comment
+     * @throws DataAccessPointsException
+     * @return void
+     */
+    private function _createStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, int $length, string $expression, string $comment)
     {
 
         $res = $accessPoint->Query('
@@ -514,17 +544,20 @@ class Storages
 
 
     /**
-     * Обновляет поле
-     * @param DataAccessPoint $accessPoint точка доступа
-     * @param string $table таблица
-     * @param string $field поле
-     * @param string $type тип
-     * @param mixed $default значение по умолчанию
-     * @param bool $indexed индексировать
-     * @param bool $required обязательное
+     * Alters a storage field
+     * @param Logger $logger
+     * @param DataAccessPoint $accessPoint
+     * @param string $table
+     * @param string $field
+     * @param string $type
+     * @param int $length
+     * @param mixed $default
+     * @param bool $required
+     * @param string $comment
+     * @throws DataAccessPointsException
      * @return void
      */
-    private function _alterStorageField(Logger $logger, $accessPoint, $table, $field, $type, $length, $default, $required, $comment)
+    private function _alterStorageField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, int $length, mixed $default, bool $required, string $comment)
     {
 
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
@@ -542,10 +575,21 @@ class Storages
 
     }
 
-    private function _alterStorageVirtualField(Logger $logger, $accessPoint, $table, $field, $type, $length, $expression, $comment)
+    /**
+     * Alters a virtual field
+     * @param Logger $logger
+     * @param DataAccessPoint $accessPoint
+     * @param string $table
+     * @param array $field
+     * @param string $type
+     * @param int $length
+     * @param string $expression
+     * @param string $comment
+     * @throws DataAccessPointsException
+     * @return void
+     */
+    private function _alterStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $table, array $field, string $type, int $length, string $expression, string $comment)
     {
-
-
 
         $res = $accessPoint->Query('
             ALTER TABLE `' . $table . '` 
@@ -562,16 +606,18 @@ class Storages
     }
 
     /**
-     * Создает индекс
-     * @param DataAccessPoint $accessPoint точка доступа
-     * @param string $table таблица
-     * @param string $indexName наименование индекса
-     * @param string[] $fields наименование полей индекса
-     * @param string $type тип (NORMAL, UNIQUE, FULLTEXT)
-     * @param string $method метод (BTREE, HASH)
-     * @return void 
+     * Creates a storage table
+     * @param Logger $logger
+     * @param mixed $accessPoint
+     * @param string $table
+     * @param string $indexName
+     * @param array $fields
+     * @param string $type
+     * @param string $method
+     * @throws DataAccessPointsException
+     * @return void
      */
-    private function _createStorageIndex(Logger $logger, $accessPoint, $table, $indexName, $fields, $type, $method)
+    private function _createStorageIndex(Logger $logger, $accessPoint, string $table, string $indexName, array $fields, string $type, string $method)
     {
         if ($type === 'FULLTEXT') {
             $method = '';
@@ -588,16 +634,18 @@ class Storages
     }
 
     /**
-     * Обновляет индекс
-     * @param DataAccessPoint $accessPoint точка доступа
-     * @param string $table таблица
-     * @param string $indexName наименование индекса
-     * @param string[] $fields наименование полей индекса
-     * @param string $type тип (NORMAL, UNIQUE, FULLTEXT)
-     * @param string $method метод (BTREE, HASH)
-     * @return void 
+     * Alters the storage table
+     * @param Logger $logger
+     * @param DataAccessPoint $accessPoint
+     * @param string $table
+     * @param string $indexName
+     * @param array $fields
+     * @param string $type
+     * @param string $method
+     * @throws DataAccessPointsException
+     * @return void
      */
-    private function _alterStorageIndex(Logger $logger, $accessPoint, $table, $indexName, $fields, $type, $method)
+    private function _alterStorageIndex(Logger $logger, DataAccessPoint $accessPoint, string $table, string $indexName, array $fields, string $type, string $method)
     {
 
         $res = $accessPoint->Query('
@@ -624,15 +672,16 @@ class Storages
     * @param DataAccessPoint $accessPoint точка доступа
     * @param string $table таблица
     * @return void
-    
-    private function _dropStorageTable(Logger $logger, $accessPoint, $table)
-    {
-    $res = $accessPoint->Query('rename table `' . $table . '` to `_' . $table . '_backup_' . date('YmdHis', time()) . '`', ['type' => DataAccessPoint::QueryTypeNonInfo]);
-    if($res->error) {
-    $logger->error($table.': Can not delete destination: ' . $res->query);
-    throw new DataAccessPointsException('Can not delete destination: ' . $res->query);
-    }
-    }
+    * @code
+    * private function _dropStorageTable(Logger $logger, $accessPoint, $table)
+    * {
+    *   $res = $accessPoint->Query('rename table `' . $table . '` to `_' . $table . '_backup_' . date('YmdHis', time()) . '`', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+    *   if($res->error) {
+    *       $logger->error($table.': Can not delete destination: ' . $res->query);
+    *       throw new DataAccessPointsException('Can not delete destination: ' . $res->query);
+    *   }
+    * }
+    * @endcode
     */
     #endregion
 
@@ -658,9 +707,9 @@ class Storages
 
     /**
      * Возвращает массив всех хранилищ
-     * @return Storage[string] список хранлищ
+     * @return array<Storage> список хранлищ
      */
-    public function GetStorages()
+    public function GetStorages(): array
     {
         $storages = [];
         foreach ($this->_storages as $xstorage) {
@@ -670,6 +719,11 @@ class Storages
         return $storages;
     }
 
+    /**
+     * Getter
+     * @param string $prop
+     * @return mixed
+     */
     public function __get($prop)
     {
         $prop = strtolower($prop);

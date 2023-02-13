@@ -30,6 +30,8 @@ use Colibri\Utils\Config\Config;
  * @property-read object $fields
  * @property-read DataAccessPoint $accessPoint
  * @property-read string $name
+ * 
+ * 
  */
 class Storage
 {
@@ -133,7 +135,7 @@ class Storage
 
     public function UpdateField(Field $field)
     {
-        $this->_xstorage['fields'][$field->name] = $field->ToArray();
+        $this->_xstorage['fields'][$field->{'name'}] = $field->ToArray();
     }
 
     /**
@@ -174,16 +176,16 @@ class Storage
             $rootNamespace = App::$moduleManager->$module->moduleNamespace;
         }
 
-        if (class_exists($field->class)) {
-            return $field->class;
-        } elseif (class_exists('Colibri\\Data\\Storages\\Fields\\' . $field->class)) {
-            return 'Colibri\\Data\\Storages\\Fields\\' . $field->class;
-        } elseif (class_exists($rootNamespace . 'Models\\Fields\\' . $field->class)) {
-            return $rootNamespace . 'Models\\Fields\\' . $field->class;
-        } elseif (class_exists($rootNamespace . 'Models\\' . $field->class)) {
-            return $rootNamespace . 'Models\\' . $field->class;
+        if (class_exists($field->{'class'})) {
+            return $field->{'class'};
+        } elseif (class_exists('Colibri\\Data\\Storages\\Fields\\' . $field->{'class'})) {
+            return 'Colibri\\Data\\Storages\\Fields\\' . $field->{'class'};
+        } elseif (class_exists($rootNamespace . 'Models\\Fields\\' . $field->{'class'})) {
+            return $rootNamespace . 'Models\\Fields\\' . $field->{'class'};
+        } elseif (class_exists($rootNamespace . 'Models\\' . $field->{'class'})) {
+            return $rootNamespace . 'Models\\' . $field->{'class'};
         } else {
-            throw new AppException('Unknown class: ' . $field->class);
+            throw new AppException('Unknown class: ' . $field->{'class'});
         }
 
     }
@@ -257,7 +259,7 @@ class Storage
 
     public function Save(bool $performValidationBeforeSave = false)
     {
-        $file = $this->file;
+        $file = $this->{'file'};
         $storageData = $this->ToArray();
         unset($storageData['name']);
         unset($storageData['file']);
@@ -305,7 +307,7 @@ class Storage
 
     public function Delete(): void
     {
-        $file = $this->file;
+        $file = $this->{'file'};
         $config = Config::LoadFile($file);
         $config->Set($this->name, null);
         $config->Save();
@@ -337,11 +339,11 @@ class Storage
         unset($path[count($path) - 1]);
         $parentPath = implode('/', $path);
         if (!$parentPath) {
-            unset($this->_xstorage['fields'][$field->name]);
-            unset($this->_fields->{$field->name});
+            unset($this->_xstorage['fields'][$field->{'name'}]);
+            unset($this->_fields->{$field->{'name'}});
         } else {
             $parentField = $this->GetField($parentPath);
-            $parentField->DeleteField($field->name);
+            $parentField->DeleteField($field->{'name'});
         }
     }
 

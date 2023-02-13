@@ -21,13 +21,15 @@ use Colibri\IO\FileSystem\File as BaseFile;
  * @property-read string $filename
  * @property-read string $name
  * @property-read string $extension
- * @property-read Directory $directory
+ * @property-read mixed $directory
  * @property-read boolean $dotfile
  * @property-read string $path
  * @property-read int $size
  * @property-read boolean $exists
- * @property-read Security $access
+ * @property-read mixed $access
  * @property-read string $content
+ * @property-read string $binary
+ * @property-read string $mimetype
  *
  * @testFunction testFile
  */
@@ -110,15 +112,6 @@ class File implements JsonSerializable
                     }
                     break;
                 }
-            case 'directory': {
-                    if ($this->info['dirname'] !== '') {
-                        if (!($this->info['dirname'] instanceof Directory)) {
-                            $this->info['dirname'] = new Directory($this->info['dirname'] . '/');
-                        }
-                        $return = $this->info['dirname'];
-                    }
-                    break;
-                }
             case 'dotfile': {
                     $return = substr($this->name, 0, 1) == '.';
                     break;
@@ -171,10 +164,6 @@ class File implements JsonSerializable
             'ext' => $this->extension,
             'path' => $this->path,
             'size' => $this->size,
-
-            'created' => $this->attr_created,
-            'modified' => $this->attr_modified,
-            'lastaccess' => $this->attr_lastaccess,
         );
     }
     public function jsonSerialize(): array

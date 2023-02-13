@@ -81,7 +81,7 @@ class DataAccessPoints
                 continue;
             }
             
-            /** @var Config $moduleConfig */
+            /** @var \Colibri\Utils\Config\Config $moduleConfig */
             try {
 
                 $keysArray = $moduleConfig->Query('for', [])->ToArray(); 

@@ -16,7 +16,7 @@ use Colibri\Utils\ExtendedObject;
 /**
  * Работа с изображениями
  *
- * @property-read bool $isvalid
+ * @property-read bool $isValid
  * @property-read Size $size
  * @property string $type
  * @property-read string $data
@@ -263,7 +263,7 @@ class Graphics
             );
             ImageDestroy($this->_img);
             $this->_img = $newImage;
-            $this->size = $size;
+            $this->_size = $size;
             $this->_safeAlpha();
 
             $this->_history[] = array('operation' => 'crop', 'postfix' => 'croped-' . $start->x . 'x' . $start->y . '.' . $size->width . 'x' . $size->height);

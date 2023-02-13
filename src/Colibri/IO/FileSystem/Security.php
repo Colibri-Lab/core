@@ -56,7 +56,7 @@ class Security
         }
 
         if ($flags instanceof ICollection) {
-            $this->flags = $flags->rawArray;
+            $this->flags = $flags->{'rawArray'};
         } elseif (is_array($flags)) {
             $this->flags = $flags;
         } else {

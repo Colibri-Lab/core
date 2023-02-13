@@ -83,9 +83,9 @@ class ObjectField extends ExtendedObject
             if ($field->isLookup) {
                 return $field->lookup->Selected(isset($this->_data[$property]) ? $this->_data[$property] : 0);
             } elseif ($field->isValues) {
-                if (!$field->multiple) {
+                if (!$field->{'multiple'}) {
                     if (isset($this->_data[$property])) {
-                        $v = $field->type == 'numeric' ? (float) $this->_data[$property] : $this->_data[$property];
+                        $v = $field->{'type'} == 'numeric' ? (float) $this->_data[$property] : $this->_data[$property];
                         $v = is_array($v) || is_object($v) ? ((array) $v)['value'] : $v;
                         $t = isset($field->values[$v]) ? $field->values[$v] : '';
                         return new ValueField($v, $t);
@@ -103,13 +103,13 @@ class ObjectField extends ExtendedObject
             }
         }
 
-        if ($field->class === 'string' || !$field->class) {
+        if ($field->{'class'} === 'string' || !$field->{'class'}) {
             if ($mode == 'get') {
                 $value = $rowValue;
             } else {
                 $this->_data[$property] = $rowValue;
             }
-        } elseif ($field->class === 'bool') {
+        } elseif ($field->{'class'} === 'bool') {
             if ($mode == 'get') {
                 $value = (bool) $rowValue;
             } else {
@@ -119,13 +119,13 @@ class ObjectField extends ExtendedObject
                     $this->_data[$property] = ((bool) $rowValue) ? 1 : 0;
                 }
             }
-        } elseif ($field->class === 'int' || $field->class === 'float' || $field->class === 'double') {
+        } elseif ($field->{'class'} === 'int' || $field->{'class'} === 'float' || $field->{'class'} === 'double') {
             if ($mode == 'get') {
                 $value = $rowValue == "" ? "" : ($rowValue == (float) $rowValue ? (float) $rowValue : $rowValue);
             } else {
                 $this->_data[$property] = $field->required ? ($rowValue === "" ? 0 : $rowValue) : ($rowValue === "" ? null : $rowValue);
             }
-        } elseif ($field->class === 'array') {
+        } elseif ($field->{'class'} === 'array') {
             if ($mode == 'get') {
                 $value = $rowValue == "" ? "" : (is_array($rowValue) ? $rowValue : explode(',', $rowValue));
             } else {
@@ -202,21 +202,21 @@ class ObjectField extends ExtendedObject
                         $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField()};
                     }
                 }
-            } elseif ($fieldData->class === 'string') {
+            } elseif ($fieldData->{'class'} === 'string') {
                 $return[$fieldName] = (string) $fieldValue;
-            } elseif ($fieldData->class === 'int') {
+            } elseif ($fieldData->{'class'} === 'int') {
                 $return[$fieldName] = (int) $fieldValue;
-            } elseif ($fieldData->class === 'float') {
+            } elseif ($fieldData->{'class'} === 'float') {
                 $return[$fieldName] = (float) $fieldValue;
-            } elseif ($fieldData->class === 'bool') {
+            } elseif ($fieldData->{'class'} === 'bool') {
                 $return[$fieldName] = (bool) $fieldValue;
-            } elseif ($fieldData->class === 'array') {
+            } elseif ($fieldData->{'class'} === 'array') {
                 $return[$fieldName] = (array) $fieldValue;
-            } elseif (strstr($fieldData->class, 'ValueField') !== false) {
+            } elseif (strstr($fieldData->{'class'}, 'ValueField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
-            } elseif (strstr($fieldData->class, 'UUIDField') !== false) {
+            } elseif (strstr($fieldData->{'class'}, 'UUIDField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
-            } elseif (strstr($fieldData->class, 'DateField') !== false || strstr($fieldData->class, 'DateTimeField') !== false) {
+            } elseif (strstr($fieldData->{'class'}, 'DateField') !== false || strstr($fieldData->{'class'}, 'DateTimeField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
             } elseif (method_exists($fieldValue, 'GetValidationData')) {
                 $return[$fieldName] = $fieldValue->GetValidationData();

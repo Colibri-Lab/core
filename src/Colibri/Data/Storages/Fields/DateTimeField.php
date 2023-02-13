@@ -28,7 +28,7 @@ class DateTimeField extends DateTime implements JsonSerializable
     /**
      * Return Date in ISO8601 format
      *
-     * @return String
+     * @return string
      */
     public function __toString(): string
     {

@@ -18,7 +18,6 @@ use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\SqlClient\QueryInfo;
 use Colibri\Utils\Debug;
 use DateTime;
-use stdClass;
 
 /**
  * Точка доступа
@@ -82,6 +81,7 @@ use stdClass;
  *
  * @property-read string $name
  * @property-read IConnection $connection 
+ * @property-read object $point
  *
  * @testFunction testDataAccessPoint
  */
@@ -98,21 +98,21 @@ class DataAccessPoint
     /**
      * Информация о подключении
      *
-     * @var stdClass
+     * @var object
      */
-    private $_accessPointData;
+    private object $_accessPointData;
 
     /**
      * Подключение
      *
      * @var IConnection
      */
-    private $_connection;
+    private IConnection $_connection;
 
     /**
      * Конструктор
      *
-     * @param stdClass $accessPointData
+     * @param object $accessPointData
      */
     public function __construct($accessPointData)
     {
@@ -149,13 +149,13 @@ class DataAccessPoint
      * ! Внимание
      * ! Для выполнения зарпоса с параметрами необходимо сделать следующее:
      * ! 1. параметры передаются в двойных квадратных скобках [[param:type]] где type=integer|double|string|blob
-     * ! 2. параметры передаются в ассоциативном массиве, либо в виде stdClass
+     * ! 2. параметры передаются в ассоциативном массиве, либо в виде object
      * ! например: select * from test where id=[[id:integer]] and stringfield like [[likeparam:string]]
      * ! реальный запрос будет следующий с параметрами ['id' => '1', 'likeparam' => '%brbrbr%']: select * from test where id=1 and stringfield like '%brbrbr%'
      * ! запросы можно засунуть в коллекцию и выполнять с разными параметрами 
      * 
      * @param string $query 
-     * @param stdClass|array $commandParams [page, pagesize, params, type = bigdata|noninfo|reader (default reader), returning = '']
+     * @param object|array $commandParams [page, pagesize, params, type = bigdata|noninfo|reader (default reader), returning = '']
      * @return IDataReader|QueryInfo|null
      * @testFunction testDataAccessPointQuery
      */

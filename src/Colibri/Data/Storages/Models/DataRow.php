@@ -29,6 +29,11 @@ use Colibri\Data\SqlClient\QueryInfo;
  * Представление строки в таблице в хранилище
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Models
+ * 
+ * @property int $id
+ * @property DateTimeField $datecreated
+ * @property DateTimeField $datemodified
+ * 
  */
 class DataRow extends BaseDataRow
 {
@@ -139,8 +144,8 @@ class DataRow extends BaseDataRow
             if ($field->isLookup) {
                 return $field->lookup->Selected($rowValue);
             } elseif ($field->isValues) {
-                if (!$field->multiple) {
-                    $v = $field->type == 'numeric' ? (float) $rowValue : $rowValue;
+                if (!$field->{'multiple'}) {
+                    $v = $field->{'type'} == 'numeric' ? (float) $rowValue : $rowValue;
                     $t = $v && isset($field->values[$v]) ? $field->values[$v] : '';
                     return $rowValue ? new ValueField($v, $t) : null;
                 } else {
@@ -154,13 +159,13 @@ class DataRow extends BaseDataRow
             }
         }
 
-        if ($field->class === 'string' || !$field->class) {
+        if ($field->{'class'} === 'string' || !$field->{'class'}) {
             if ($mode == 'get') {
                 $value = $rowValue;
             } else {
                 $this->_data[$property] = $rowValue;
             }
-        } elseif ($field->class === 'bool') {
+        } elseif ($field->{'class'} === 'bool') {
             if ($mode == 'get') {
                 $value = (bool) $rowValue;
             } else {
@@ -170,20 +175,20 @@ class DataRow extends BaseDataRow
                     $this->_data[$property] = $rowValue;
                 }
             }
-        } elseif ($field->class === 'int' || $field->class === 'float' || $field->class === 'double') {
+        } elseif ($field->{'class'} === 'int' || $field->{'class'} === 'float' || $field->{'class'} === 'double') {
             if ($mode == 'get') {
                 $value = $rowValue == "" ? "" : ($rowValue == (float) $rowValue ? (float) $rowValue : $rowValue);
             } else {
                 $this->_data[$property] = $field->required ? ($rowValue === "" ? 0 : $rowValue) : ($rowValue === "" ? null : $rowValue);
             }
-        } elseif ($field->class === 'uuid') {
+        } elseif ($field->{'class'} === 'uuid') {
             if ($mode == 'get') {
                 $this->_data[$property] = $rowValue instanceof UUIDField ? $rowValue : new UUIDField($rowValue);
                 $value = $this->_data[$property];
             } else {
                 $this->_data[$property] = $value instanceof UUIDField ? $value : new UUIDField($value);
             }
-        } elseif ($field->class === 'array') {
+        } elseif ($field->{'class'} === 'array') {
             if ($mode == 'get') {
                 $this->_data[$property] = is_string($rowValue) ? json_decode($rowValue) : $rowValue;
                 $value = $this->_data[$property];
@@ -248,18 +253,18 @@ class DataRow extends BaseDataRow
 
                 // подбираем значение по умолчанию
                 if (is_null($value) && !is_null($field->default)) {
-                    if ($field->type === 'json' && strstr($field->default, 'json_array') !== false) {
+                    if ($field->{'type'} === 'json' && strstr($field->default, 'json_array') !== false) {
                         $value = '[]';
-                    } elseif ($field->type === 'json' && strstr($field->default, 'json_object') !== false) {
+                    } elseif ($field->{'type'} === 'json' && strstr($field->default, 'json_object') !== false) {
                         $value = '{}';
                     } else {
                         $value = $field->default;
                     }
                 }
 
-                if ($field->class === 'string') {
+                if ($field->{'class'} === 'string') {
                     $data[$key] = str_replace("\r\n", "\n", (string) $value);
-                } elseif ($field->class == 'bool') {
+                } elseif ($field->{'class'} == 'bool') {
                     if (in_array($value, [true, '1', 1, 'true'])) {
                         $data[$key] = true;
                     } elseif (in_array($value, [false, '0', 0, 'false'])) {
@@ -267,13 +272,13 @@ class DataRow extends BaseDataRow
                     } else {
                         $data[$key] = null;
                     }
-                } elseif ($field->class == 'int') {
+                } elseif ($field->{'class'} == 'int') {
                     $data[$key] = !is_numeric($value) ? null : (int) $value;
-                } elseif ($field->class == 'float') {
+                } elseif ($field->{'class'} == 'float') {
                     $data[$key] = !is_numeric($value) ? null : (float) $value;
-                } elseif ($field->class == 'uuid') {
+                } elseif ($field->{'class'} == 'uuid') {
                     $data[$key] = $value instanceof UUIDField ? $value->binary : $value;
-                } elseif ($field->class === 'array') {
+                } elseif ($field->{'class'} === 'array') {
                     $data[$key] = is_string($value) ? $value : json_encode($value);
                 } else {
                     $data[$key] = is_null($value) ? null : (string) $value;
@@ -335,26 +340,26 @@ class DataRow extends BaseDataRow
                         $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField()};
                     }
                 }
-            } elseif ($fieldData->class === 'string') {
+            } elseif ($fieldData->{'class'} === 'string') {
                 $return[$fieldName] = (string) $fieldValue;
-            } elseif ($fieldData->class === 'int') {
+            } elseif ($fieldData->{'class'} === 'int') {
                 $return[$fieldName] = (int) $fieldValue;
-            } elseif ($fieldData->class === 'float') {
+            } elseif ($fieldData->{'class'} === 'float') {
                 $return[$fieldName] = (float) $fieldValue;
-            } elseif ($fieldData->class === 'bool') {
+            } elseif ($fieldData->{'class'} === 'bool') {
                 $return[$fieldName] = (bool) $fieldValue;
-            } elseif ($fieldData->class === 'array') {
+            } elseif ($fieldData->{'class'} === 'array') {
                 $return[$fieldName] = (array) $fieldValue;
-            } elseif (strstr($fieldData->class, 'ValueField') !== false) {
-                $type = $fieldData->type;
+            } elseif (strstr($fieldData->{'class'}, 'ValueField') !== false) {
+                $type = $fieldData->{'type'};
                 if (in_array($type, ['int', 'float', 'double', 'decimal'])) {
                     $return[$fieldName] = (float) ((string) $fieldValue);
                 } else {
                     $return[$fieldName] = (string) $fieldValue;
                 }
-            } elseif (strstr($fieldData->class, 'UUIDField') !== false) {
+            } elseif (strstr($fieldData->{'class'}, 'UUIDField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
-            } elseif (strstr($fieldData->class, 'DateField') !== false || strstr($fieldData->class, 'DateTimeField') !== false) {
+            } elseif (strstr($fieldData->{'class'}, 'DateField') !== false || strstr($fieldData->{'class'}, 'DateTimeField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
             } elseif (method_exists($fieldValue, 'GetValidationData')) {
                 $return[$fieldName] = $fieldValue->GetValidationData();
@@ -422,7 +427,7 @@ class DataRow extends BaseDataRow
 
     public function __toString(): string
     {
-        return $this->id;
+        return (string)$this->id;
     }
 
     /**

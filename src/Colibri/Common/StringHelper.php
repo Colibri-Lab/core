@@ -919,7 +919,7 @@ class StringHelper
 
                 $text = $xml->xml;
 
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
 
             }
 
