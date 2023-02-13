@@ -134,6 +134,7 @@ class ModuleManager
     }
 
     /**
+     * @magic
      * @testFunction testModuleManager__get
      */
     public function __get(string $property): mixed
@@ -147,6 +148,11 @@ class ModuleManager
             default:
                 return $this->_list->$property;
         }
+    }
+
+    public function Get(string $moduleName): mixed
+    {
+        return $this->_list->$moduleName;
     }
 
     /**
