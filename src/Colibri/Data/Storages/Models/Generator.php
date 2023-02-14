@@ -101,14 +101,18 @@ class Generator
                     $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [ \'oneOf\' => [ [ \'type\' => \'null\' ], [\'$ref\' => \'#\'] ] ], ';
                 }
             } elseif ($schemaType === 'ObjectField::JsonSchema') {
-                $schemaType = StringHelper::ToCamelCaseVar(($classPrefix ? $classPrefix . '_' : '') . $field->name . '_object_field', true) . '::JsonSchema';
+                if(!empty((array)$field->fields)) {
+                    $schemaType = StringHelper::ToCamelCaseVar(($classPrefix ? $classPrefix . '_' : '') . $field->name . '_object_field', true) . '::JsonSchema';
+                }
                 if ($field->params['required'] ?? false) {
                     $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => '.$schemaType.',';
                 } else {
                     $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [  \'oneOf\' => [ '.$schemaType.', [ \'type\' => \'null\'] ] ],';
                 }
             } elseif ($schemaType === 'ArrayField::JsonSchema') {
-                $schemaType = StringHelper::ToCamelCaseVar(($classPrefix ? $classPrefix . '_' : '') . $field->name . '_array_field', true) . '::JsonSchema';
+                if(!empty((array)$field->fields)) {
+                    $schemaType = StringHelper::ToCamelCaseVar(($classPrefix ? $classPrefix . '_' : '') . $field->name . '_array_field', true) . '::JsonSchema';
+                }
                 if ($field->params['required'] ?? false) {
                     $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => '.$schemaType.',';
                 } else {
