@@ -174,10 +174,10 @@ class Generator
             $class = explode('\\', $class);
             $class = end($class);
 
-            if($class === 'ObjectField') {
+            if($class === 'ObjectField' && !empty((array)$field->fields)) {
                 [$class, $fullSubClassName] = self::GenerateObjectFieldClass($storage, $field, $classPrefix);
                 $uses[] = 'use ' . $fullSubClassName . ';';
-            } else if($class === 'ArrayField') {
+            } else if($class === 'ArrayField' && !empty((array)$field->fields)) {
                 [$class, $fullSubClassName] = self::GenerateArrayFieldClass($storage, $field, $classPrefix);
                 $uses[] = 'use ' . $fullSubClassName . ';';
             }
