@@ -1,0 +1,35 @@
+<?php
+
+namespace [[namespace-path]];
+
+use Colibri\Data\Storages\Fields\ObjectField;
+
+# region Uses:
+[[uses]]
+# endregion Uses;
+
+/**
+ * Представление поля в таблице в хранилище [[property-desc]]
+ * @author <author name and email>
+ * @package [[namespace-path]]\Fields
+ * 
+ * region Properties:
+[[properties-list]]
+ * endregion Properties;
+ */
+class [[class-name]] extends ObjectField
+{
+    public const JsonSchema = [
+        'type' => 'object',
+        'required' => [
+            # region SchemaRequired:
+[[schema-required]]
+            # endregion SchemaRequired;
+        ],
+        'properties' => [
+            # region SchemaProperties:
+[[schema-properties]]
+            # endregion SchemaProperties;
+        ]
+    ];
+}

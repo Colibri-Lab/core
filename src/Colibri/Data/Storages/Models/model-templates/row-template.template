@@ -6,6 +6,8 @@ namespace [[namespace-path]];
 [[uses]]
 # endregion Uses;
 use [[parent-row-class-name]] as BaseModelDataRow;
+use Colibri\App;
+use Colibri\Utils\Debug;
 
 /**
  * Представление строки в таблице в хранилище [[storage-desc]]

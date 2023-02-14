@@ -7,6 +7,7 @@ use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\Storages\Storages;
 use Colibri\Data\Storages\Storage;
 use Colibri\Utils\Logs\Logger;
+use Colibri\Data\SqlClient\QueryInfo;
 use [[parent-table-class-name]] as BaseModelDataTable;
 use [[namespace-path]]\[[row-class-name]];
 
@@ -18,6 +19,7 @@ use [[namespace-path]]\[[row-class-name]];
  * @method [[row-class-name]][] getIterator()
  * @method [[row-class-name]] _createDataRowObject()
  * @method [[row-class-name]] _read()
+ * @method [[row-class-name]] offsetGet(mixed $offset)
  * 
  */
 class [[table-class-name]] extends BaseModelDataTable 

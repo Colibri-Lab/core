@@ -1,0 +1,24 @@
+<?php
+
+namespace [[namespace-path]];
+
+use Colibri\Data\Storages\Fields\ArrayField;
+
+# region Uses:
+[[uses]]
+# endregion Uses;
+
+/**
+ * Представление поля в таблице в хранилище [[property-desc]]
+ * @author <author name and email>
+ * @package [[namespace-path]]\Fields
+ * @method [[child-class-name]] Item(int $index)
+ * @method [[child-class-name]] offsetGet(mixed $offset)
+ */
+class [[class-name]] extends ArrayField
+{
+    public const JsonSchema = [
+        'type' => 'array',
+        'items' => [[child-class-name]]::JsonSchema
+    ];
+}

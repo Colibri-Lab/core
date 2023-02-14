@@ -155,11 +155,25 @@ class Storage
             }
             $rootNamespace = App::$moduleManager->$module->moduleNamespace;
         }
-        if (isset($this->_xstorage['models']) && isset($this->_xstorage['models']['table']) && class_exists($rootNamespace . $this->_xstorage['models']['table'])) {
-            $tableClass = $rootNamespace . $this->_xstorage['models']['table'];
+        
+        if (isset($this->_xstorage['models']) && isset($this->_xstorage['models']['table'])) {
+            $tableClassName = $this->_xstorage['models']['table'];
+            if(strstr($tableClassName, 'Models\\') === false) {
+                $tableClassName = 'Models\\' . $tableClassName;
+            }
+            if(class_exists($rootNamespace . $tableClassName)) {
+                $tableClass = $rootNamespace . $tableClassName;
+            }
         }
-        if (isset($this->_xstorage['models']) && isset($this->_xstorage['models']['row']) && class_exists($rootNamespace . $this->_xstorage['models']['row'])) {
-            $rowClass = $rootNamespace . $this->_xstorage['models']['row'];
+        
+        if (isset($this->_xstorage['models']) && isset($this->_xstorage['models']['row'])) {
+            $rowClassName = $this->_xstorage['models']['row'];
+            if(strstr($rowClassName, 'Models\\') === false) {
+                $rowClassName = 'Models\\' . $rowClassName;
+            }
+            if(class_exists($rootNamespace . $this->_xstorage['models']['row'])) {
+                $rowClass = $rootNamespace . $this->_xstorage['models']['row'];
+            }
         }
         return [$tableClass, $rowClass];
     }

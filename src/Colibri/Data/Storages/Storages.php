@@ -392,7 +392,11 @@ class Storages
                 $logger->error($name . ': Checking storage ...');
 
                 $module = $xstorage['module'];
-                $tableModel = 'App\\Modules\\' . $module . '\\' . $xstorage['models']['table'];
+                $tableClass = $xstorage['models']['table'];
+                if(strstr($tableClass, 'Models\\') === false) {
+                    $tableClass = 'Models\\' . $tableClass;
+                }
+                $tableModel = 'App\\Modules\\' . $module . '\\' . $tableClass;
                 $module = App::$moduleManager->$module;
 
                 if (is_object($module) && method_exists($tableModel, 'DataMigrate')) {
