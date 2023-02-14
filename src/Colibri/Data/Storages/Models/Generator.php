@@ -200,6 +200,11 @@ class Generator
                 $class = $class . '|' . implode('|', $adClasses);
             }
         }
+
+        if($field->{'type'} === 'enum') {
+            $class = $class . '|ValueField';
+            $uses[] = 'use Colibri\Data\Storages\Fields\ValueField;';
+        }
         
         $desc = $field->{'desc'};
         if ($langModule) {
