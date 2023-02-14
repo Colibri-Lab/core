@@ -489,7 +489,7 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _createStorageField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, int $length, mixed $default, bool $required, string $comment)
+    private function _createStorageField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, ?int $length, mixed $default, bool $required, string $comment)
     {
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
 
