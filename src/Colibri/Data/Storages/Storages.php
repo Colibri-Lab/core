@@ -489,7 +489,7 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _createStorageField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, ?int $length, mixed $default, bool $required, string $comment)
+    private function _createStorageField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, ?int $length, mixed $default, ?bool $required, ?string $comment)
     {
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
 
@@ -525,13 +525,13 @@ class Storages
      * @param string $table
      * @param string $field
      * @param string $type
-     * @param int $length
+     * @param int|null $length
      * @param string $expression
      * @param string $comment
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _createStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, int $length, string $expression, string $comment)
+    private function _createStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, ?int $length, ?string $expression, ?string $comment)
     {
 
         $res = $accessPoint->Query('
@@ -554,14 +554,14 @@ class Storages
      * @param string $table
      * @param string $field
      * @param string $type
-     * @param int $length
+     * @param int|null $length
      * @param mixed $default
      * @param bool $required
      * @param string $comment
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _alterStorageField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, int $length, mixed $default, bool $required, string $comment)
+    private function _alterStorageField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, ?int $length, mixed $default, bool $required, ?string $comment)
     {
 
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
