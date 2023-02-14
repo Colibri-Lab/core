@@ -621,7 +621,7 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _createStorageIndex(Logger $logger, $accessPoint, string $table, string $indexName, array $fields, string $type, string $method)
+    private function _createStorageIndex(Logger $logger, $accessPoint, string $table, string $indexName, array $fields, string $type, ?string $method)
     {
         if ($type === 'FULLTEXT') {
             $method = '';
