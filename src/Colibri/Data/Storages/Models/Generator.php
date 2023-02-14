@@ -112,11 +112,18 @@ class Generator
             } elseif ($schemaType === 'ArrayField::JsonSchema') {
                 if(!empty((array)$field->fields)) {
                     $schemaType = StringHelper::ToCamelCaseVar(($classPrefix ? $classPrefix . '_' : '') . $field->name . '_array_field', true) . '::JsonSchema';
-                }
-                if ($field->params['required'] ?? false) {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => '.$schemaType.',';
+                    if ($field->params['required'] ?? false) {
+                        $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => '.$schemaType.',';
+                    } else {
+                        $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [  \'oneOf\' => [ '.$schemaType.', [ \'type\' => \'null\'] ] ],';
+                    }
                 } else {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [  \'oneOf\' => [ '.$schemaType.', [ \'type\' => \'null\'] ] ],';
+                    [$sr, $sb] = self::GetSchemaObject($field->fields, $rowClass, $classPrefix . '_' . $field->name);
+                    if ($field->params['required'] ?? false) {
+                        $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]],';
+                    } else {
+                        $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [  \'oneOf\' => [ [ \'type\' => \'null\' ], [\'type\' => \'array\', \'items\' => [\'type\' => \'object\', \'required\' => [' . implode('', str_replace("\t\t\t", "", $sr)) . '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]]]],';
+                    }
                 }
             } elseif ($schemaType === 'DateField::JsonSchema' || $schemaType === 'DateTimeField::JsonSchema') {
                 if ($field->params['required'] ?? false) {
