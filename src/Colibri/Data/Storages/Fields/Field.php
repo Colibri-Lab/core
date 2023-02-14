@@ -27,6 +27,7 @@ use Colibri\Data\Storages\Fields\Lookup;
  * @property-read bool $required да, если поле обязательное
  * @property-read bool $readonly да, если поле запрещено к редактированию
  * @property-read bool $inTemplate да, если поле должно отображаться в шаблоне
+ * @property-read Field $parent
  * @property string $formula формула
  * @property array $rawvalues
  * 

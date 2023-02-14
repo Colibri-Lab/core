@@ -74,6 +74,7 @@ class XmlSerialized implements \JsonSerializable
         } elseif (strtolower($property) == 'name') {
             return $this->_name;
         }
+        return null;
     }
 
     /**

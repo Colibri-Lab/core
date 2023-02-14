@@ -19,6 +19,7 @@ use Colibri\Xml\XmlNode;
  * @property-read string $name название типа
  * @property-read string $annotation аннотация типа
  * @property-read object $restrictions ограничения
+ * @property-read object $attributes
  * @testFunction testXsdSimpleTypeDefinition
  */
 class XsdSimpleTypeDefinition implements \JsonSerializable
@@ -30,6 +31,8 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
      * @var XmlNode
      */
     private ? XmlNode $_node;
+
+    private ?XsdSchemaDefinition $_schema;
 
     /**
      * Конструктор
@@ -51,7 +54,7 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
     public function __get(string $property): mixed
     {
         if (strtolower($property) == 'name') {
-            return $this->_node->attributes->name ? $this->_node->attributes->name->value : 'simpleType';
+            return $this->_node->attributes->{'name'} ? $this->_node->attributes->{'name'}->value : 'simpleType';
         } elseif (strtolower($property) == 'annotation') {
             $annotation = [];
             $anno = $this->_node->Query('./xs:annotation');
@@ -64,7 +67,7 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
             if (!$rest) {
                 return null;
             }
-            $returnRestrictions = (object) ['base' => str_replace('xs:', '', $rest->attributes->base ? $rest->attributes->base->value : null)];
+            $returnRestrictions = (object) ['base' => str_replace('xs:', '', $rest->attributes->{'base'} ? $rest->attributes->{'base'}->value : null)];
             $restrictions = $rest->children;
             foreach ($restrictions as $restriction) {
                 switch ($restriction->name) {

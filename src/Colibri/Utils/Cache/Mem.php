@@ -107,7 +107,8 @@ class Mem
         if (!Mem::$instance) {
             return false;
         }
-        return Mem::$instance->add($name, $value, \MEMCACHE_COMPRESSED, $livetime);
+        // MEMCACHE_COMPRESSED = 2
+        return Mem::$instance->add($name, $value, 2, $livetime);
     }
 
     /**

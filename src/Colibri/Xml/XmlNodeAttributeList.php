@@ -18,8 +18,9 @@ use Colibri\Utils\Debug;
  * Список атрибутов
  * @property-read int $count
  * @testFunction testXmlNodeAttributeList
+ * @method XmlAttribute offsetGet(mixed $offset)
  */
-class XmlNodeAttributeList implements \IteratorAggregate, \Countable
+class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAccess
 {
 
     /**
@@ -142,6 +143,50 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable
         }
     }
 
+    /**
+     * Устанавливает значение по индексу
+     * @param mixed $offset
+     * @param mixed $value
+     * @return void
+     * @testFunction testDataTableOffsetSet
+     */
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->Append($offset, $value);
+    }
+
+    /**
+     * Проверяет есть ли данные по индексу
+     * @param int $offset
+     * @return bool
+     */
+    public function offsetExists(mixed $offset): bool
+    {
+        return $offset < $this->Count();
+    }
+
+    /**
+     * удаляет данные по индексу
+     * @param string $offset
+     * @return void
+     * @testFunction testDataTableOffsetUnset
+     */
+    public function offsetUnset(mixed $offset): void
+    {
+        $this->Remove($offset);
+    }
+
+    /**
+     * Возвращает значение по индексу
+     *
+     * @param int $offset
+     * @return mixed
+     * @testFunction testDataTableOffsetGet
+     */
+    public function offsetGet(mixed $offset): mixed
+    {
+        return is_numeric($offset) ? $this->Item($offset) : $this->$offset;
+    }
 
 
 

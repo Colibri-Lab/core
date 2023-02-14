@@ -16,6 +16,8 @@ namespace Colibri\Xml;
  *
  * @property-read \DOMDocument $document
  * @testFunction testXmlNodeList
+ * @method XmlNode offsetGet(mixed $offset)
+ * 
  */
 class XmlNodeList implements \IteratorAggregate
 {

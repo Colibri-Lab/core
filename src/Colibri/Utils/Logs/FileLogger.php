@@ -32,6 +32,8 @@ class FileLogger extends Logger
 
     private bool $_console;
 
+    private mixed $_handler;
+
     /**
      * Конструктор
      *

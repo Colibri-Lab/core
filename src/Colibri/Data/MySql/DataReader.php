@@ -21,7 +21,7 @@ use resource;
  * Класс обеспечивающий работу с результатами запросов
  * 
  * @property-read bool $hasRows
- * @property-read int $affected
+ * @property int $affected
  * @property-read int $count
  * 
  * @testFunction testDataReader

@@ -18,6 +18,8 @@ use DOMDocument;
  * Список узлов
  * @property-read DOMDocument $document
  * @testFunction testXmlNamedNodeList
+ * @method XmlNode offsetGet(mixed $offset)
+ * 
  */
 class XmlNamedNodeList extends ReadonlyCollection
 {

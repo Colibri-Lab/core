@@ -45,6 +45,8 @@ use Exception;
  * @property-read XmlNode $next
  * @property-read XmlNode $prev
  * @property-write string $cdata
+ * @property object $tag
+ * @property-read bool $isCData
  * @property-read int $elementsCount количество дочерних элементов
  * 
  * @testFunction testXmlNode
@@ -264,7 +266,7 @@ class XmlNode
                     return $this->_node->nodeName;
                 }
             case 'data': {
-                    return $this->_node->data;
+                    return $this->_node->textContent;
                 }
             case 'encoding': {
                     return $this->_document->encoding ? $this->_document->encoding : 'utf-8';
@@ -381,7 +383,7 @@ class XmlNode
      * Setter
      *
      * @param string $property сохраняемое свойство
-     * @param string $value значение свойства
+     * @param mixed $value значение свойства
      * @return void
      * @testFunction testXmlNode__set
      */
@@ -477,8 +479,8 @@ class XmlNode
 
         if ($nodes instanceof XmlNode) {
             if ($nodes->name == 'html') {
-                if ($nodes->body) {
-                    $nodes = $nodes->body;
+                if ($nodes->{'body'}) {
+                    $nodes = $nodes->{'body'};
                     if ($nodes->children->Count() > 0) {
                         foreach ($nodes->children as $node) {
                             $node->raw = $this->_document->importNode($node->raw, true);
@@ -490,8 +492,8 @@ class XmlNode
                         $nodes->document = $this->_document;
                         $this->_node->appendChild($nodes->raw);
                     }
-                } elseif ($nodes->head) {
-                    $nodes = $nodes->head;
+                } elseif ($nodes->{'head'}) {
+                    $nodes = $nodes->{'head'};
                     $nodes->raw = $this->_document->importNode($nodes->raw, true);
                     $nodes->document = $this->_document;
                     $this->_node->appendChild($nodes->raw);

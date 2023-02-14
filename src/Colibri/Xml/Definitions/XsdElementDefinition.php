@@ -69,9 +69,9 @@ class XsdElementDefinition implements \JsonSerializable
         if (strtolower($property) == 'annotation') {
             return $this->_node->Item('xs:annotation') ? trim($this->_node->Item('xs:annotation')->value, "\r\t\n ") : '';
         } elseif (strtolower($property) == 'name') {
-            return $this->_node->attributes->name->value;
+            return $this->_node->attributes->{'name'}->value;
         } elseif (strtolower($property) == 'occurs') {
-            return (object) ['min' => ($this->_node->attributes->minOccurs ? $this->_node->attributes->minOccurs->value : 'unbounded'), 'max' => ($this->_node->attributes->maxOccurs ? $this->_node->attributes->maxOccurs->value : 'unbounded')];
+            return (object) ['min' => ($this->_node->attributes->{'minOccurs'} ? $this->_node->attributes->{'minOccurs'}->value : 'unbounded'), 'max' => ($this->_node->attributes->{'maxOccurs'} ? $this->_node->attributes->{'maxOccurs'}->value : 'unbounded')];
         } elseif (strtolower($property) == 'attributes') {
             $attributes = [];
             $type = $this->_node->Item('xs:complexType');
@@ -99,8 +99,8 @@ class XsdElementDefinition implements \JsonSerializable
                 return [];
             }
         } elseif (strtolower($property) == 'type') {
-            if ($this->_node->attributes->type) {
-                return isset($this->_schema->types[$this->_node->attributes->type->value]) ? $this->_schema->types[$this->_node->attributes->type->value] : new XsdBaseTypeDefinition($this->_node->attributes->type->value);
+            if ($this->_node->attributes->{'type'}) {
+                return isset($this->_schema->types[$this->_node->attributes->{'type'}->value]) ? $this->_schema->types[$this->_node->attributes->{'type'}->value] : new XsdBaseTypeDefinition($this->_node->attributes->{'type'}->value);
             }
             $type = $this->_node->Item('xs:simpleType');
             if (!$type) {
@@ -108,12 +108,13 @@ class XsdElementDefinition implements \JsonSerializable
             }
             return new XsdBaseTypeDefinition($type);
         } elseif (strtolower($property) == 'autocomplete') {
-            return $this->_node->attributes->autocomplete && $this->_node->attributes->autocomplete->value ? explode(',', $this->_node->attributes->autocomplete->value) : null;
+            return $this->_node->attributes->{'autocomplete'} && $this->_node->attributes->{'autocomplete'}->value ? explode(',', $this->_node->attributes->{'autocomplete'}->value) : null;
         } elseif (strtolower($property) == 'generate') {
-            return $this->_node->attributes->generate && $this->_node->attributes->generate->value ? $this->_node->attributes->generate->value : null;
+            return $this->_node->attributes->{'generate'} && $this->_node->attributes->{'generate'}->value ? $this->_node->attributes->{'generate'}->value : null;
         } elseif (strtolower($property) == 'lookup') {
-            return $this->_node->attributes->lookup && $this->_node->attributes->lookup->value ? $this->_node->attributes->lookup->value : null;
+            return $this->_node->attributes->{'lookup'} && $this->_node->attributes->{'lookup'}->value ? $this->_node->attributes->{'lookup'}->value : null;
         }
+        return null;
     }
 
     /**

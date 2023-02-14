@@ -68,25 +68,26 @@ class XsdAttributeDefinition implements \JsonSerializable
         if (strtolower($name) == 'annotation') {
             return $this->_node->Item('xs:annotation') ? trim($this->_node->Item('xs:annotation')->value, "\r\t\n ") : '';
         } elseif (strtolower($name) == 'name') {
-            return $this->_node->attributes->name->value;
+            return $this->_node->attributes->{'name'}->value;
         } elseif (strtolower($name) == 'type') {
-            if ($this->_node->attributes->type) {
-                return isset($this->_schema->types[$this->_node->attributes->type->value]) ? $this->_schema->types[$this->_node->attributes->type->value] : new XsdBaseTypeDefinition($this->_node->attributes->type->value);
+            if ($this->_node->attributes->{'type'}) {
+                return isset($this->_schema->types[$this->_node->attributes->{'type'}->value]) ? $this->_schema->types[$this->_node->attributes->{'type'}->value] : new XsdBaseTypeDefinition($this->_node->attributes->{'type'}->value);
             }
             return new XsdSimpleTypeDefinition($this->_node->Item('xs:simpleType'));
         } elseif (strtolower($name) == 'use') {
-            return $this->_node->attributes->use ? $this->_node->attributes->use->value : null;
+            return $this->_node->attributes->{'use'} ? $this->_node->attributes->{'use'}->value : null;
         } elseif (strtolower($name) == 'default') {
-            return $this->_node->attributes->default ? $this->_node->attributes->default->value : null;
+            return $this->_node->attributes->{'default'} ? $this->_node->attributes->{'default'}->value : null;
         } elseif (strtolower($name) == 'group') {
-            return $this->_node->attributes->group ? $this->_node->attributes->group->value : null;
+            return $this->_node->attributes->{'group'} ? $this->_node->attributes->{'group'}->value : null;
         } elseif (strtolower($name) == 'autocomplete') {
-            return $this->_node->attributes->autocomplete && $this->_node->attributes->autocomplete->value ? explode(',', $this->_node->attributes->autocomplete->value) : null;
+            return $this->_node->attributes->{'autocomplete'} && $this->_node->attributes->{'autocomplete'}->value ? explode(',', $this->_node->attributes->{'autocomplete'}->value) : null;
         } elseif (strtolower($name) == 'generate') {
-            return $this->_node->attributes->generate && $this->_node->attributes->generate->value ? $this->_node->attributes->generate->value : null;
+            return $this->_node->attributes->{'generate'} && $this->_node->attributes->{'generate'}->value ? $this->_node->attributes->{'generate'}->value : null;
         } elseif (strtolower($name) == 'lookup') {
-            return $this->_node->attributes->lookup && $this->_node->attributes->lookup->value ? $this->_node->attributes->lookup->value : null;
+            return $this->_node->attributes->{'lookup'} && $this->_node->attributes->{'lookup'}->value ? $this->_node->attributes->{'lookup'}->value : null;
         }
+        return null;
     }
 
     /**
