@@ -649,7 +649,7 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _alterStorageIndex(Logger $logger, DataAccessPoint $accessPoint, string $table, string $indexName, array $fields, string $type, string $method)
+    private function _alterStorageIndex(Logger $logger, DataAccessPoint $accessPoint, string $table, string $indexName, array $fields, string $type, ?string $method)
     {
 
         $res = $accessPoint->Query('
