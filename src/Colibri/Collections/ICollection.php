@@ -14,6 +14,9 @@ namespace Colibri\Collections;
 
 /**
  * Интерфейс для именованных массивов
+ * @property-read string $database
+ * @property-read string $host
+ * @property-read string $port
  */
 interface ICollection
 {

@@ -584,5 +584,24 @@ class VariableHelper
 
     }
 
+    public static function Map(mixed $object, ?\Closure $closure): mixed
+    {
+        if(!$closure) {
+            return $object;
+        }
+
+        $newObject = [];
+        foreach($object as $key => $value) {
+            if(is_array($value) || is_object($value)) {
+                [$key, $value] = $closure($key, self::Map($value, $closure));
+            } else {
+                [$key, $value] = $closure($key, $value);
+            }
+            $newObject[$key] = $value;
+        }
+
+        return $newObject;
+        
+    }
 
 }

@@ -15,6 +15,8 @@
 namespace Colibri\Data;
 
 use Colibri\App;
+use Colibri\Collections\ArrayList;
+use Colibri\Collections\ArrayListIterator;
 use Colibri\Common\VariableHelper;
 use Colibri\Utils\Config\ConfigException;
 
@@ -24,9 +26,13 @@ use Colibri\Utils\Config\ConfigException;
  * @property-read object $accessPoints
  * @property-read array $pool
  * 
+ * @method DataAccessPoint[] getIterator()
+ * @method DataAccessPoint offsetGet(mixed $offset)
+ * @method DataAccessPoint offsetExists(mixed $offset)
+ * 
  * @testFunction testDataAccessPoints
  */
-class DataAccessPoints
+class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
 {
 
     /**
@@ -48,7 +54,7 @@ class DataAccessPoints
      *
      * @var array
      */
-    private $_accessPointsPool;
+    private array $_accessPointsPool;
 
     /**
      * Конструктор
@@ -129,7 +135,7 @@ class DataAccessPoints
      * @return DataAccessPoint
      * @testFunction testDataAccessPointsGet
      */
-    public function Get($name)
+    public function Get(string $name): DataAccessPoint
     {
 
         if (isset($this->_accessPointsPool[$name])) {
@@ -176,13 +182,25 @@ class DataAccessPoints
         return $return;
     }
 
+    public function Key(int $index): ?string
+    {
+        $keys = array_keys($this->_accessPointsPool);
+        return $keys[$index] ?? null;
+    }
+
+    public function ItemAt(int $index): DataAccessPoint
+    {
+        $key = $this->Key($index);
+        return $this->_accessPointsPool[$key];
+    }
+
     /**
      * Геттер
      *
      * @param string $property
      * @return void
      */
-    public function __get($property)
+    public function __get($property): mixed
     {
         $property = strtolower($property);
         $return = null;
@@ -195,4 +213,63 @@ class DataAccessPoints
         }
         return $return;
     }
+
+    /**
+     * Устанавливает значение по индексу
+     * @param string $offset
+     * @param mixed $value
+     * @return void
+     */
+    public function offsetSet($offset, $value)
+    {
+        throw new \RuntimeException();
+    }
+
+    /**
+     * Проверяет есть ли данные по индексу
+     * @param string $offset
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        if (!VariableHelper::IsString($offset)) {
+            throw new \InvalidArgumentException();
+        }
+        return isset($this->pool[$offset]);
+    }
+
+    /**
+     * удаляет данные по индексу
+     * @param string $offset
+     * @return void
+     */
+    public function offsetUnset($offset)
+    {
+        throw new \RuntimeException();
+    }
+
+    /**
+     * Возвращает значение по индексу
+     *
+     * @param string $offset
+     * @return DataAccessPoint
+     */
+    public function offsetGet($offset)
+    {
+        if (!VariableHelper::IsString($offset)) {
+            throw new \InvalidArgumentException();
+        }
+        return $this->pool[$offset];
+    }
+
+    public function getIterator(): DataAccessPointIterator
+    {
+        return new DataAccessPointIterator($this);
+    }
+
+    public function Count(): int
+    {
+        return count($this->pool);
+    }
+
 }

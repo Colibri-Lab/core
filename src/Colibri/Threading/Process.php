@@ -12,6 +12,7 @@
 namespace Colibri\Threading;
 
 use Colibri\App;
+use Colibri\Common\VariableHelper;
 use Colibri\Utils\Debug;
 
 /**
@@ -48,9 +49,11 @@ use Colibri\Utils\Debug;
  * @testFunction testProcess
  * 
  * @property-read int $pid
+ * @property-read string $name
  * @property-read string $command
  * @property-read string $request
  * @property array|object $params
+ * @property-read Worker $worker;
  * 
  */
 class Process
@@ -99,11 +102,12 @@ class Process
      * @param Worker $worker
      * @param bool $debug отобразить команду запуска воркера
      */
-    public function __construct(Worker $worker, bool $debug = false, string $entry = '')
+    public function __construct(Worker $worker, bool $debug = false, string $entry = '', $pid = 0)
     {
         $this->_worker = $worker;
         $this->_debug = $debug;
         $this->_entry = $entry;
+        $this->_pid = $pid;
         $this->_params = (object) [];
     }
 
@@ -115,9 +119,35 @@ class Process
      * @return Process
      * @testFunction testProcessCreate
      */
-    public static function Create(Worker $worker, bool $debug = false): Process
+    public static function Create(Worker $worker, bool $debug = false, string $entry = ''): Process
     {
-        return new Process($worker, $debug);
+        return new Process($worker, $debug, $entry);
+    }
+
+    public static function ByWorkerName(string $workerName, bool $debug = false, string $entry = ''): ?Process
+    {
+        exec('ps -ax | grep ' . $workerName, $console);
+        
+        $pid = 0;
+        $worker = null;
+        foreach($console as $line) {
+            if(strstr($line, $workerName) !== false && strstr($line, 'index.php') !== false) {
+                $line = trim($line);
+                $line = preg_replace('/\s+/', ' ', $line);
+                $parts = explode(' ', $line);
+                $pid = $parts[0];
+                $worker = VariableHelper::Unserialize(str_replace('worker=', '', $parts[10]));
+                $worker->Prepare(str_replace('params=', '', $parts[11]));
+                break;
+            }
+        }
+
+        if($pid === 0) {
+            return null;
+        }
+
+        return new Process($worker, $debug, $entry, $pid);
+
     }
 
     /**
@@ -131,10 +161,15 @@ class Process
         $prop = strtolower($prop);
         if ($prop == 'pid') {
             return $this->_pid;
+        } elseif ($prop === 'name') {
+            $parts = explode('\\', get_class($this->_worker));
+            return end($parts);
+        } elseif ($prop === 'worker') {
+            return $this->_worker;
         } elseif ($prop == 'command') {
-            return 'cd ' . App::$request->server->document_root . $this->_entry . '/ && ' . Process::Handler . ' index.php ' . App::$request->host . ' / key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($this->_params) . '"';
+            return 'cd ' . App::$request->server->document_root . $this->_entry . '/ && ' . Process::Handler . ' index.php ' . App::$request->host . ' / name="'.$this->name.'" key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($this->_params) . '"';
         } elseif ($prop == 'request') {
-            return $this->_entry . '/?key=' . $this->_worker->key . '&worker=' . $this->_worker->Serialize() . '&params=' . $this->_worker->PrepareParams($this->_params);
+            return $this->_entry . '/?name='.$this->name.'&key=' . $this->_worker->key . '&worker=' . $this->_worker->Serialize() . '&params=' . $this->_worker->PrepareParams($this->_params);
         } elseif ($prop == 'params') {
             return $this->_params;
         }

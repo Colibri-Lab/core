@@ -127,6 +127,10 @@ final class Connection implements IConnection
                 return mysqli_ping($this->_resource);
             case 'database':
                 return $this->_connectioninfo->database;
+            case 'host':
+                return $this->_connectioninfo->host;
+            case 'port':
+                return $this->_connectioninfo->port;
             default:
                 return null;
         }

@@ -48,6 +48,7 @@ class Manager
         return self::$instance;
     }
 
+
     /**
      * Запускает обработку воркера
      *
