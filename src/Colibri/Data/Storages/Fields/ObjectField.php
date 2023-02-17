@@ -88,7 +88,11 @@ class ObjectField extends ExtendedObject
                         $v = $field->{'type'} == 'numeric' ? (float) $this->_data[$property] : $this->_data[$property];
                         $v = is_array($v) || is_object($v) ? ((array) $v)['value'] : $v;
                         $t = isset($field->values[$v]) ? $field->values[$v] : '';
-                        return new ValueField($v, $t);
+                        if($field->{'class'} === 'ValueField') {
+                            return new ValueField($v, $t);
+                        } else {
+                            return $v;
+                        }
                     } else {
                         return null;
                     }
@@ -96,7 +100,11 @@ class ObjectField extends ExtendedObject
                     $vv = is_array($this->_data[$property]) ? $this->_data[$property] : explode(',', $this->_data[$property]);
                     $r = array();
                     foreach ($vv as $v) {
-                        $r[$v] = new ValueField($v, $this->_values[$v]);
+                        if($field->{'class'} === 'ValueField') {
+                            $r[$v] = new ValueField($v, $this->_values[$v]);
+                        } else {
+                            $r[$v] = $v;
+                        }
                     }
                     return $r;
                 }

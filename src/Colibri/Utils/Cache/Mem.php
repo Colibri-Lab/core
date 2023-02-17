@@ -84,7 +84,6 @@ class Mem
         if (!Mem::$instance) {
             return false;
         }
-
         if (!Mem::Exists($name)) {
             return Mem::$instance->add($name, $value, false, $livetime);
         } else {

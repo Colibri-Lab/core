@@ -28,9 +28,9 @@ use JsonSerializable;
  * @property-read string $content
  * @property-read string $binary
  * @property-read string $mimetype
- * @property-read mixed $attr_created
- * @property-read mixed $attr_modified
- * @property-read mixed $attr_lastaccess,
+ * @property-read int $attr_created
+ * @property-read int $attr_modified
+ * @property-read int $attr_lastaccess,
  *
  * @testFunction testFile
  */

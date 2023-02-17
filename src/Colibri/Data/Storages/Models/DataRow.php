@@ -147,12 +147,20 @@ class DataRow extends BaseDataRow
                 if (!$field->{'multiple'}) {
                     $v = $field->{'type'} == 'numeric' ? (float) $rowValue : $rowValue;
                     $t = $v && isset($field->values[$v]) ? $field->values[$v] : '';
-                    return $rowValue ? new ValueField($v, $t) : null;
+                    if($field->{'class'} === 'ValueField') {
+                        return $rowValue ? new ValueField($v, $t) : null;
+                    } else {
+                        return $v;
+                    }
                 } else {
                     $vv = is_array($rowValue) ? $rowValue : explode(',', $rowValue);
-                    $r = array();
+                    $r = [];
                     foreach ($vv as $v) {
-                        $r[$v] = new ValueField($v, $v && isset($field->values[$v]) ? $field->values[$v] : '');
+                        if($field->{'class'} === 'ValueField') {
+                            $r[$v] = new ValueField($v, $v && isset($field->values[$v]) ? $field->values[$v] : '');
+                        } else {
+                            $r[$v] = $v;
+                        }
                     }
                     return $r;
                 }
