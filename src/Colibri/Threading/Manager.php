@@ -57,9 +57,9 @@ class Manager
      */
     private function _processWorkers(): void
     {
-        if (App::$request->get->worker) {
-            $worker = Worker::Unserialize(App::$request->get->worker);
-            $worker->Prepare(App::$request->get->params);
+        if (App::$request->get->{'worker'}) {
+            $worker = Worker::Unserialize(App::$request->get->{'worker'});
+            $worker->Prepare(App::$request->get->{'params'});
             $worker->Run();
             exit;
         }

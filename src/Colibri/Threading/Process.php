@@ -167,7 +167,7 @@ class Process
         } elseif ($prop === 'worker') {
             return $this->_worker;
         } elseif ($prop == 'command') {
-            return 'cd ' . App::$request->server->document_root . $this->_entry . '/ && ' . Process::Handler . ' index.php ' . App::$request->host . ' / name="'.$this->name.'" key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($this->_params) . '"';
+            return 'cd ' . App::$request->server->{'document_root'} . $this->_entry . '/ && ' . Process::Handler . ' index.php ' . App::$request->host . ' / name="'.$this->name.'" key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($this->_params) . '"';
         } elseif ($prop == 'request') {
             return $this->_entry . '/?name='.$this->name.'&key=' . $this->_worker->key . '&worker=' . $this->_worker->Serialize() . '&params=' . $this->_worker->PrepareParams($this->_params);
         } elseif ($prop == 'params') {

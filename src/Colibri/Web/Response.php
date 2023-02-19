@@ -512,7 +512,7 @@ class Response
     public function Origin(): void
     {
         $this->_addHeaders([
-            'Access-Control-Allow-Origin' => App::$request->server->http_origin,
+            'Access-Control-Allow-Origin' => App::$request->server->{'http_origin'},
             'Access-Control-Allow-Credentials' => 'true',
             'Access-Control-Allow-Headers' => App::$request->headers->{'access-control-request-headers'},
             'Access-Control-Allow-Method' => App::$request->headers->{'access-control-request-method'},

@@ -202,7 +202,7 @@ class Server
             list($type, $class, $method) = $this->__parseCommand($default);
         }
 
-        $requestMethod = App::$request->server->request_method;
+        $requestMethod = App::$request->server->{'request_method'};
         $get = App::$request->get;
         $post = App::$request->post;
         $payload = App::$request->GetPayloadCopy();
