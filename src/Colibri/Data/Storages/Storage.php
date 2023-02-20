@@ -405,5 +405,10 @@ class Storage
 
     }
 
+    public function GetStatus(): object
+    {
+        $reader = $this->accessPoint->Query('SHOW TABLE STATUS LIKE \''.$this->name.'\'');
+        return $reader->Read();
+    }
 
 }
