@@ -45,11 +45,16 @@ class XmlQuery
      * @param XmlNode $node контекстный узел
      * @param boolean $returnAsNamedMap вернуть в виде именованной коллекции
      */
-    public function __construct(XmlNode $node, bool $returnAsNamedMap = false)
+    public function __construct(XmlNode $node, bool $returnAsNamedMap = false, array $namespaces = [])
     {
         $this->_returnAsNamedMap = $returnAsNamedMap;
         $this->_contextNode = $node;
         $this->_operator = new DOMXPath($this->_contextNode->document);
+        if(!empty($namespaces)) {
+            foreach($namespaces as $prefix => $namespace) {
+                $this->_operator->registerNamespace($prefix, $namespace);
+            }
+        }
     }
 
     /**

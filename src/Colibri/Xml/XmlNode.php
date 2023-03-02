@@ -610,9 +610,9 @@ class XmlNode
      * @return XmlNodeList|XmlNamedNodeList
      * @testFunction testXmlNodeQuery
      */
-    public function Query(string $query, bool $returnAsNamedMap = false): XmlNodeList|XmlNamedNodeList
+    public function Query(string $query, bool $returnAsNamedMap = false, array $namespaces = []): XmlNodeList|XmlNamedNodeList
     {
-        $xq = new XmlQuery($this, $returnAsNamedMap);
+        $xq = new XmlQuery($this, $returnAsNamedMap, $namespaces);
         return $xq->Query($query);
     }
 
