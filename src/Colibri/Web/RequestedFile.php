@@ -12,6 +12,7 @@
  */
 
 namespace Colibri\Web;
+use Symfony\Component\String\Exception\InvalidArgumentException;
 
 /**
  * Файл из списка файлов запроса
@@ -98,6 +99,9 @@ class RequestedFile
         if ($prop == 'isvalid') {
             return !empty($this->name);
         } elseif ($prop == 'binary') {
+            if(!$this->temporary) {
+                throw new InvalidArgumentException('File path can not be empty');
+            }
             return file_get_contents($this->temporary);
         }
         return null;
