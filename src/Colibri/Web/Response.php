@@ -461,8 +461,7 @@ class Response
                     'path' => $cookie->path ?? '',
                     'domain' => $cookie->domain ?? '',
                     'secure' => $cookie->secure ?? false,
-                    'samesite' => $cookie->samesite ?? 'None',
-                    'httponly' => true
+                    'samesite' => $cookie->samesite ?? 'None'
                 ]);
             }
 
