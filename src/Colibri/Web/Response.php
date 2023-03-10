@@ -40,7 +40,7 @@ class Response
     /**
      * Коды ответов
      */
-    static $codes = array(
+    static $codes = [
         100 => 'Continue',
         101 => 'Switching Protocols',
         102 => 'Processing',
@@ -151,7 +151,7 @@ class Response
         598 => 'Network read timeout error',
         // Unknown
         599 => 'Network connect timeout error', // Unknown
-    );
+    ];
 
     /**
      * Конструктор
@@ -461,7 +461,8 @@ class Response
                     'path' => $cookie->path ?? '',
                     'domain' => $cookie->domain ?? '',
                     'secure' => $cookie->secure ?? false,
-                    'samesite' => $cookie->samesite ?? 'None'
+                    'samesite' => $cookie->samesite ?? 'None',
+                    'httponly' => true
                 ]);
             }
 
