@@ -98,6 +98,7 @@ class MimeType
         "jpg" => "image/jpeg",
         "png" => "image/png",
         "js" => "application/x-javascript",
+        "json" => "application/json",
         "latex" => "application/x-latex",
         "lha" => "application/octet-stream",
         "lsf" => "video/x-la-asf",

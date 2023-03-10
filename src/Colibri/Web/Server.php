@@ -14,6 +14,7 @@ namespace Colibri\Web;
 
 use Colibri\App;
 use Colibri\Common\Encoding;
+use Colibri\Common\MimeType;
 use Colibri\Common\XmlHelper;
 use Colibri\Common\HtmlHelper;
 use Colibri\Events\TEventDispatcher;
@@ -86,28 +87,31 @@ class Server
 
         App::$response->Origin();
 
-        if (isset($result->result)) {
-            if ($type == Server::JSON) {
-                App::$response->Close($result->code, json_encode($result->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), 'application/json', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers, $result->cookies);
-            } elseif ($type == Server::XML) {
-                App::$response->Close($result->code, XmlHelper::Encode($result->result), 'application/xml', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers, $result->cookies);
-            } elseif ($type == Server::HTML) {
-                App::$response->Close($result->code, $result->message ? $result->message : HtmlHelper::Encode($result->result), 'text/html', (isset($result->charset) ? $result->charset : 'utf-8'), $result->headers, $result->cookies);
-            } elseif ($type == Server::Stream) {
-                // если запросили например PDF или еще что то 
-                if (is_string($result->result) && is_string($result->message)) {
-                    App::$response->DownloadFile($result->message, $result->result);
-                } else {
-                    App::$response->Close(500, 'Ошибка формирования ответа');
-                }
-            }
-        } else {
-            if ($type == Server::CSS) {
-                App::$response->Close($result->code, $result->message, 'text/css', 'utf-8', $result->headers, $result->cookies);
+        $mime = new MimeType($type);
+
+        // if we responsing with file
+        if ($type == Server::Stream && $result?->result) {
+            // если запросили например PDF или еще что то 
+            if (is_string($result->result) && is_string($result->message)) {
+                App::$response->DownloadFile($result->message, $result->result);
             } else {
-                App::$response->Close($result->code, $result->message, 'text/html', 'utf-8', $result->headers, $result->cookies);
+                App::$response->Close(500, 'Ошибка формирования ответа');
             }
         }
+
+        $content = $result?->message ?? HtmlHelper::Encode($result?->result ?? []);
+        if ($type == Server::JSON) {
+            $content = json_encode($result?->result ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        } elseif ($type === Server::XML) {
+            $content = XmlHelper::Encode($result?->result ?? []);
+        } elseif ($type == Server::HTML) {
+            $content = $result?->message ?? HtmlHelper::Encode($result?->result ?? []);
+        } elseif ($type == Server::CSS) {
+            $content = $result?->message ?? [];
+        }
+
+        App::$response->Close($result->code, $content, $mime->data, $result?->charset ?? 'utf-8', $result?->headers ?? [], $result?->cookies ?? []);
+        
     }
 
     /**
