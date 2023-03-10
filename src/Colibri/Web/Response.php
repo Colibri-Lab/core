@@ -205,7 +205,7 @@ class Response
      */
     public function NoCache(): Response
     {
-        $this->_addHeader('Pragma', 'no-cache');
+        // $this->_addHeader('Pragma', 'no-cache');
         $this->_addHeader('X-Accel-Expires', '0');
         return $this;
     }
@@ -221,6 +221,7 @@ class Response
     public function ContentType(string $type, ?string $encoding = null): Response
     {
         $this->_addHeader('Content-type', $type . ($encoding ? "; charset=" . $encoding : ""));
+        $this->_addHeader('X-Content-Type-Options', 'nosniff');
         return $this;
     }
 
@@ -259,7 +260,7 @@ class Response
      */
     public function Cache(int $seconds): Response
     {
-        $this->_addHeader('Pragma', 'no-cache');
+        // $this->_addHeader('Pragma', 'no-cache');
         $this->_addHeader('X-Accel-Expires', $seconds);
         return $this;
     }
@@ -349,7 +350,7 @@ class Response
      */
     public function Pragma(string $type = 'binary'): Response
     {
-        $this->_addHeader('Pragma', $type);
+        // $this->_addHeader('Pragma', $type);
         return $this;
     }
 
@@ -489,7 +490,7 @@ class Response
         $this->ContentTransferEncoding('binary');
         $this->ExpiresAt(0);
         $this->CacheControl('must-revalidate');
-        $this->Pragma('public');
+        //$this->Pragma('public');
         $this->ContentLength(strlen($filecontent));
         $this->Close(200, $filecontent, $mime->data, 'utf-8');
     }
