@@ -215,7 +215,7 @@ class File extends Node implements JsonSerializable
      * @param string $path пусть к файлу
      * @param string $content контент, который нужно записать
      * @param boolean $recursive если true то папки будут созданы по всему пути до достижения $path
-     * @param integer $mode режим создания файла и папок, по умолчанию 777
+     * @param string $mode режим создания файла и папок, по умолчанию 777
      * @return void
      * @testFunction testFileWrite
      */
