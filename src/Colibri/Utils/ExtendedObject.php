@@ -185,6 +185,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         $data = VariableHelper::ArrayToObject($data);
 
         $validator = new Validator();
+        
         $formats = $validator->parser()->getFilterResolver();
         $isDbDateTime = function (string $value): bool {
             if (preg_match('/^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])[T|\s]([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)([01][0-9]|2[0-3]):([0-5][0-9]))?$/i', $value, $m)) {
@@ -208,7 +209,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
                     $errorsString[] = $key . ': ' . $value;
                 }
                 $errorsString = implode("\n", $errorsString);
-                $exception = new ValidationException($errorsString, 500, null, ['raw' => $validationError, 'formatted' => $errors]);
+                $exception = new ValidationException($errorsString, 500, null, ['formatted' => $errors, 'data' => $data, 'schema' => static::JsonSchema]); // 'raw' => $validationError, 
                 $exception->Log(Logger::Debug);
                 throw $exception;
 

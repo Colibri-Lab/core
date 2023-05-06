@@ -96,9 +96,9 @@ class Generator
 
             if ($schemaType === $rowClass . '::JsonSchema') {
                 if ($field->params['required'] ?? false) {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [ \'$ref\' => \'#\' ], ';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => ObjectField::JsonSchema, '; // [ \'$ref\' => \'#\' ]
                 } else {
-                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [ \'oneOf\' => [ [ \'type\' => \'null\' ], [\'$ref\' => \'#\'] ] ], ';
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [ \'oneOf\' => [ [ \'type\' => \'null\' ], ObjectField::JsonSchema ] ], '; // [\'$ref\' => \'#\']
                 }
             } elseif ($schemaType === 'ObjectField::JsonSchema') {
                 if(!empty((array)$field->fields)) {
