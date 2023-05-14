@@ -158,12 +158,6 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         $this->_changed = true;
     }
 
-    public function SetValidationSchema(object|array |string $schema)
-    {
-        $this->_changeKeyCase = false;
-        self::$schema = $schema;
-    }
-
     public function GetValidationData(): mixed
     {
         return $this->_data;
