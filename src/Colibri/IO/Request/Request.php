@@ -121,6 +121,8 @@ class Request
      */
     public bool $sslVerify = true;
 
+    public ?string $contentType = null;
+
     /**
      * Checks if the curl module loaded
      *
@@ -325,8 +327,8 @@ class Request
         } elseif ($this->encryption == Encryption::JsonEncoded) {
             $_headers[] = "Content-Type: application/json";
         } elseif ($this->encryption == Encryption::XmlEncoded) {
-            $_headers[] = "Content-Type: application/xml";
-        }
+            $_headers[] = "Content-Type: " . ($this->contentType ?: "application/xml");
+        } 
 
         if ($this->method == Type::Post) {
             curl_setopt($handle, CURLOPT_POST, true);

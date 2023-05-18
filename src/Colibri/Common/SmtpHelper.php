@@ -7,7 +7,7 @@ use Colibri\AppException;
 
 class SmtpHelper
 {
-    public static function Send(array $configArray, string $address, string $subject, string $body): void
+    public static function Send(array $configArray, string $address, string $subject, string $body, array $attachments = []): void
     {
 
         $smtpEnabled = $configArray['enabled'];
@@ -38,6 +38,9 @@ class SmtpHelper
         $mailer->isHTML();
         $mailer->Body = $body;
         $mailer->addAddress($address);
+        foreach($attachments as $attachment) {
+            $mailer->addAttachment($attachment['path'], $attachment['name'], $attachment['encoding'] ?? PHPMailer::ENCODING_BASE64, $attachment['type'] ?? '', $attachment['disposition'] ?? 'attachment');
+        }
         try {
             if (!$mailer->Send()) {
                 throw new AppException($mailer->ErrorInfo);
