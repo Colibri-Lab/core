@@ -23,9 +23,9 @@ trait TEventDispatcher
      * Поднять событие
      * @testFunction testDispatchEvent
      */
-    public function DispatchEvent(string|Event $event, mixed $args = null): ?object
+    public function DispatchEvent(string|Event $event, mixed $args = null, bool $async = false): ?object
     {
-        return EventDispatcher::Create()->Dispatch(new Event($this, $event), $args);
+        return EventDispatcher::Create()->Dispatch(new Event($this, $event), $args, $async);
     }
 
     /**

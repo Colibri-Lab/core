@@ -5,6 +5,8 @@ namespace Colibri\Events;
 
 use Colibri\Collections\ArrayList;
 use Colibri\Collections\Collection;
+use Colibri\Events\Handlers\IClosure;
+use Colibri\Events\Handlers\LocalClosure;
 
 /**
  * Менеджер событий
@@ -76,12 +78,13 @@ class EventDispatcher
             return false;
         }
 
-        $minfo = $listener;
-        if (is_object($object)) {
-            $minfo = (object) [];
-            $minfo->listener = $listener;
-            $minfo->object = $object;
-        }
+        if(!($listener instanceof IClosure)) {
+            if (is_object($object)) {
+                $listener = new LocalClosure($listener, $object);
+            } else {
+                $listener = new LocalClosure($listener);
+            }
+        } 
 
         $e = $this->_events->$ename;
         if (is_null($e)) {
@@ -89,8 +92,8 @@ class EventDispatcher
             $this->_events->Add($ename, $e);
         }
 
-        if (!$e->Contains($minfo)) {
-            $e->Add($minfo);
+        if (!$e->Contains($listener)) {
+            $e->Add($listener);
             return true;
         }
 
@@ -117,50 +120,54 @@ class EventDispatcher
             return false;
         }
 
-        $minfo = $listener;
-        if (is_object($object)) {
-            $minfo = (object) [];
-            $minfo->listener = $listener;
-            $minfo->object = $object;
-        }
+        if(!($listener instanceof IClosure)) {
+            if (is_object($object)) {
+                $listener = new LocalClosure($listener, $object);
+            } else {
+                $listener = new LocalClosure($listener);
+            }
+        } 
 
-        return $e->Delete($minfo);
+        return $e->Delete($listener);
     }
 
     /**
      * Поднять событие
      * @testFunction testEventDispatcherDispatch
      */
-    public function Dispatch(string|Event $event, mixed $args = null): ?object
+    public function Dispatch(string|Event $event, mixed $args = null, bool $async = false): ?object
     {
         if (!($event instanceof Event) || !$this->_events->Exists($event->name)) {
             return null;
         }
 
+        $args = (object)$args;
+
+        /** @var ArrayList */
         $e = $this->_events->Item($event->name);
         if ($e == null) {
             return null;
         }
 
-        foreach ($e as $item) {
-            if (is_callable($item)) {
-                $result = $item($event, $args);
-            } elseif (is_object($item)) {
-                $object = $item->object;
-                $listener = $item->listener;
-                if (is_callable($listener)) {
-                    $newListener = @\Closure::bind($listener, $object);
-                    $result = $newListener($event, $args);
-                } elseif ((is_string($object) || is_object($object)) && method_exists($object, strval($listener))) {
-                    $result = $object->$listener($event, $args);
-                }
-            } elseif (function_exists(strval($item))) {
-                $result = $item($event, $args);
+        foreach ($e as $iclosure) {
+            /** @var IClosure */
+            if( !($iclosure instanceof IClosure) ) {
+                continue;
             }
 
-            if (!$result) {
-                break;
+            if($async) {
+                $process = $iclosure->AsyncInvoke($event, $args);
+                if(!$args->asyncResults) {
+                    $args->asyncResults = [];
+                }
+                $args->asyncResults[] = $process;
+            } else {
+                $result = $iclosure->Invoke($event, $args);
+                if (!$result) {
+                    break;
+                }
             }
+            
         }
 
         return $args;

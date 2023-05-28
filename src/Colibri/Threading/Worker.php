@@ -13,6 +13,7 @@ namespace Colibri\Threading;
 use Colibri\App;
 use Colibri\Common\RandomizationHelper;
 use Colibri\Common\VariableHelper;
+use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Logs\FileLogger;
 use Colibri\Utils\Logs\Logger;
 use Colibri\Threading\ErrorCodes;
@@ -220,4 +221,12 @@ abstract class Worker
 
         return false;
     }
+
+    public function WriteResults(object $args): bool
+    {
+        $workerDataPath = App::$appRoot . App::$config->Query('runtime')->GetValue() . 'workers/';
+        File::Write($workerDataPath . $this->_key, json_encode($args), true, '777');
+        return File::Exists($workerDataPath . $this->_key);
+    }
+
 }

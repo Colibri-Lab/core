@@ -13,6 +13,7 @@ namespace Colibri\Threading;
 
 use Colibri\App;
 use Colibri\Common\VariableHelper;
+use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 
 /**
@@ -53,7 +54,8 @@ use Colibri\Utils\Debug;
  * @property-read string $command
  * @property-read string $request
  * @property array|object $params
- * @property-read Worker $worker;
+ * @property-read Worker $worker
+ * @property-read ?object $results
  * 
  */
 class Process
@@ -91,6 +93,11 @@ class Process
     private object $_params;
 
     /**
+     * Ключ воркера
+     */
+    private string $_workerKey = '';
+
+    /**
      * Обработчик запросов, в большинстве случаев php_cli
      * Если у вас на сервере php_cli лежит в другом месте, необходимо изменить эту переменную
      */
@@ -105,6 +112,7 @@ class Process
     public function __construct(Worker $worker, bool $debug = false, string $entry = '', $pid = 0)
     {
         $this->_worker = $worker;
+        $this->_workerKey = $worker->key;
         $this->_debug = $debug;
         $this->_entry = $entry;
         $this->_pid = $pid;
@@ -150,6 +158,20 @@ class Process
 
     }
 
+    public function GetWorkerResults(bool $removeResults = true): ?object
+    {
+        $workerKey = $this->_workerKey;
+        $workerDataPath = App::$appRoot . App::$config->Query('runtime')->GetValue() . 'workers/';
+        $results = null;
+        if(File::Exists($workerDataPath . $workerKey)) {
+            $results = json_decode(File::Read($workerDataPath . $workerKey));
+            if($removeResults) {
+                File::Delete($workerDataPath . $workerKey);
+            }
+        }
+        return $results;
+    }
+
     /**
      * Getter
      *
@@ -172,6 +194,8 @@ class Process
             return $this->_entry . '/?name='.$this->name.'&key=' . $this->_worker->key . '&worker=' . $this->_worker->Serialize() . '&params=' . $this->_worker->PrepareParams($this->_params);
         } elseif ($prop == 'params') {
             return $this->_params;
+        } elseif ($prop == 'results') {
+            return $this->GetWorkerResults();
         }
         return null;
     }

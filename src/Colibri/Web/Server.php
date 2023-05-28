@@ -22,6 +22,7 @@ use Colibri\Events\EventsContainer;
 use Colibri\Common\StringHelper;
 use Colibri\Common\VariableHelper;
 use Colibri\Common\NoLangHelper;
+use Colibri\Utils\Debug;
 
 /**
  * Веб сервер
