@@ -274,6 +274,9 @@ class Config implements IteratorAggregate
     {
         $fileName = $fileName ?: $this->_file;
         $path = App::$appRoot . '/config/' . $fileName;
+        if(!File::Exists($path)) {
+            $path = App::$appRoot . $fileName;
+        }
         return \yaml_emit_file($path, $this->_configData, \YAML_UTF8_ENCODING, \YAML_ANY_BREAK);
     }
 
