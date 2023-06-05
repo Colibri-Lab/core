@@ -304,7 +304,7 @@ class VariableHelper
         $ret = [];
         foreach($var as $key => $value) {
             $k = $prefix ? (is_string($key) ? '.' . $key : '[' . $key . ']') : $key;
-            if(is_array($value) || is_object($value)) {
+            if((is_array($value) || is_object($value))) {
                 $ret = array_merge($ret, self::ToPlane($value, $prefix . $k));
             } else {
                 $ret[$prefix . $k] = $value;                    
