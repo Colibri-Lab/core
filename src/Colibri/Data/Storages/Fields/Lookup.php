@@ -121,7 +121,7 @@ class Lookup
                     return is_object($v) ? $v->value : $v; }, (array) $value)) . '\')';
             }
             /** @var IDataReader */
-            $reader = $accessPoint->Query('select * from ' . $data->name . ($filter && $filter != '' ? ' where ' . $filter : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => is_array($value) ? count($value) : 1]);
+            $reader = $accessPoint->Query('select * from ' . $storage->table . ($filter && $filter != '' ? ' where ' . $filter : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => is_array($value) ? count($value) : 1]);
             if ($reader->Count() == 0) {
                 return null;
             }

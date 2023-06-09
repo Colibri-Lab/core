@@ -65,10 +65,14 @@ class [[table-class-name]] extends BaseModelDataTable
         $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
         $additionalParams = ['page' => $page, 'pagesize' => $pagesize, 'params' => $params];
         $additionalParams['type'] = $calculateAffected ? DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
+        $filter = $filter ? ['('.$filter.')'] : [];
+        if($storage?->{'params'}?->{'softdeletes'}) {
+            $filter[] = $storage->table . '_datedeleted is null';
+        }
         return self::LoadByQuery(
             $storage,
             'select * from ' . $storage->table . 
-                ($filter ? ' where ' . $filter : '') . 
+                (!empty($filter) ? ' where ' . implode(' and ', $filter) : '') . 
                 ($order ? ' order by ' . $order : ''), 
             $additionalParams
         );

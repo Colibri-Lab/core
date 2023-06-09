@@ -130,10 +130,18 @@ class DataTable extends BaseDataTable
             }
         }
 
-        $res = $storage->accessPoint->Delete($storage->table, $filter);
-        if (!$res->error) {
-            return true;
+        if($storage?->{'params'}?->{'softdeletes'} === true) {
+            $res = $storage->accessPoint->Update($storage->table, [$storage->name . '_datedeleted' => DateHelper::ToDbString()], $filter);
+            if (!$res->error) {
+                return true;
+            }    
+        } else {
+            $res = $storage->accessPoint->Delete($storage->table, $filter);
+            if (!$res->error) {
+                return true;
+            }    
         }
+
 
         App::$log->debug('Error: ' . $res->error . ', query: ' . $res->query);
         return false;
