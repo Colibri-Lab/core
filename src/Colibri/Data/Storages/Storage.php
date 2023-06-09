@@ -25,6 +25,8 @@ use Colibri\Utils\Config\Config;
 /**
  * Класс Хранилище
  *
+ * @property-read string $name
+ * @property-read string $table
  * @property-read boolean $levels
  * @property-read array $settings
  * @property-read object $fields

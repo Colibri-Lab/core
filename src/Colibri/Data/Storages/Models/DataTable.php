@@ -189,7 +189,7 @@ class DataTable extends BaseDataTable
         }
 
         if (!$id) {
-            $res = $this->_storage->accessPoint->Insert($this->_storage->name, $fieldValues, '', $params);
+            $res = $this->_storage->accessPoint->Insert($this->_storage->table, $fieldValues, '', $params);
             if ($res->insertid == 0) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
                 return $res;
@@ -198,7 +198,7 @@ class DataTable extends BaseDataTable
             $row->$idc = DateHelper::ToDBString(time());
             $row->$idm = DateHelper::ToDBString(time());
         } else {
-            $res = $this->_storage->accessPoint->Update($this->_storage->name, $fieldValues, $idf . '=' . $id, $params);
+            $res = $this->_storage->accessPoint->Update($this->_storage->table, $fieldValues, $idf . '=' . $id, $params);
             if ($res->error) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
                 return $res;

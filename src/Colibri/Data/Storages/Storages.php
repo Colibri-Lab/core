@@ -701,7 +701,7 @@ class Storages
     */
     #endregion
 
-    public function Exists($name): bool
+    public function Exists(string $name, ?string $module = null): bool
     {
         return isset($this->_storages[$name]);
     }
@@ -712,7 +712,7 @@ class Storages
      * @param string $name
      * @return Storage|null
      */
-    public function Load($name): ? Storage
+    public function Load(string $name, ?string $module = null): ? Storage
     {
         if (!isset($this->_storages[$name])) {
             return null;
