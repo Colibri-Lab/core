@@ -429,6 +429,7 @@ class Generator
         }
 
         $args = [
+            'module-name' => $module,
             'storage-name' => $storage->name,
             'storage-desc' => $storageDesc,
             'namespace-path' => '',

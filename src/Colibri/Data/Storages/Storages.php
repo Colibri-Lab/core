@@ -83,6 +83,7 @@ class Storages
                     continue;
                 }
 
+                $tablePrefix = $moduleConfig->Query('config.databases.table-prefix', '')->GetValue();
                 $config = $moduleConfig->Query('config.databases.storages');
                 $storagesConfig = $config->AsArray();
                 foreach ($storagesConfig as $name => $storage) {
@@ -92,6 +93,7 @@ class Storages
                         unset($storagesConfig[$name]);
                     } else {
                         $storagesConfig[$name]['name'] = $name;
+                        $storagesConfig[$name]['prefix'] = $tablePrefix;
                         $storagesConfig[$name]['file'] = $config->GetFile();
                     }
                 }
@@ -207,6 +209,9 @@ class Storages
 
             foreach ($this->_storages as $name => $xstorage) {
 
+                $prefix = isset($xstorage['prefix']) ? $xstorage['prefix'] : '';
+                $table_name = $prefix ? $prefix . '_' . $name : $name;
+
                 $logger->info($name . ': Migrating storage');
 
                 if (!$xstorage['access-point']) {
@@ -215,15 +220,15 @@ class Storages
                 }
 
                 $dtp = App::$dataAccessPoints->Get($xstorage['access-point']);
-                $reader = $dtp->Query('SHOW TABLES LIKE \'' . $name . '\'');
+                $reader = $dtp->Query('SHOW TABLES LIKE \'' . $table_name . '\'');
                 if ($reader->count == 0) {
-                    $logger->error($name . ': Storage destination not found: creating');
-                    $this->_createStorageTable($logger, $dtp, $name);
+                    $logger->error($table_name . ': Storage destination not found: creating');
+                    $this->_createStorageTable($logger, $dtp, $prefix, $name);
                 }
 
                 // проверяем наличие и типы полей, и если отличаются пересоздаем
                 $ofields = array();
-                $reader = $dtp->Query('SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=\'' . $dtp->point->database . '\' and TABLE_NAME=\'' . $name . '\'');
+                $reader = $dtp->Query('SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=\'' . $dtp->point->database . '\' and TABLE_NAME=\'' . $table_name . '\'');
                 while ($ofield = $reader->Read()) {
 
                     $ofield->GENERATION_EXPRESSION = preg_replace_callback("/_utf8mb\d\\\'(.*?)\\\'/", function ($match) {
@@ -241,7 +246,7 @@ class Storages
                     ];
                 }
 
-                $indexesReader = $dtp->Query('SHOW INDEX FROM ' . $name);
+                $indexesReader = $dtp->Query('SHOW INDEX FROM ' . $table_name);
                 $indices = array();
                 while ($index = $indexesReader->Read()) {
                     if ($index->Key_name && $index->Key_name != 'PRIMARY') {
@@ -261,7 +266,7 @@ class Storages
                 $virutalFields = [];
 
                 $xfields = $xstorage['fields'] ?? [];
-                $logger->error($name . ': Checking fields');
+                $logger->error($table_name . ': Checking fields');
                 foreach ($xfields as $fieldName => $xfield) {
                     $fname = $name . '_' . $fieldName;
                     $fparams = $xfield['params'] ?? [];
@@ -291,7 +296,7 @@ class Storages
 
                     if (!isset($ofields[$fname])) {
                         $logger->error($name . ': ' . $fieldName . ': Field destination not found: creating');
-                        $this->_createStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($fparams['required']) ? $fparams['required'] : false, $xdesc);
+                        $this->_createStorageField($logger, $dtp, $prefix, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, isset($xfield['default']) ? $xfield['default'] : null, isset($fparams['required']) ? $fparams['required'] : false, $xdesc);
                     } else {
                         // проверить на соответствие
                         $ofield = $ofields[$fname];
@@ -306,7 +311,7 @@ class Storages
 
                         if ($orType || $orDefault || $orRequired) {
                             $logger->error($name . ': ' . $fieldName . ': Field destination changed: updating');
-                            $this->_alterStorageField($logger, $dtp, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $default, $required, $xdesc);
+                            $this->_alterStorageField($logger, $dtp, $prefix, $name, $fieldName, $xfield['type'], isset($xfield['length']) ? $xfield['length'] : null, $default, $required, $xdesc);
                         }
                     }
                 }
@@ -319,7 +324,7 @@ class Storages
                         $xdesc = $xdesc[$langModule->Default()] ?? $xdesc;
                     }
                     if (!isset($ofields[$fname])) {
-                        $this->_createStorageVirtualField($logger, $dtp, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $xVirtualField['expression'], $xdesc);
+                        $this->_createStorageVirtualField($logger, $dtp, $prefix, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $xVirtualField['expression'], $xdesc);
                     } else {
                         $ofield = $ofields[$fname];
 
@@ -332,7 +337,7 @@ class Storages
 
                         if ($orType || $orExpression || $orRequired) {
                             $logger->error($name . ': ' . $fieldName . ': Field destination changed: updating');
-                            $this->_alterStorageVirtualField($logger, $dtp, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $expression, $xdesc);
+                            $this->_alterStorageVirtualField($logger, $dtp, $prefix, $name, $fieldName, $xVirtualField['type'], isset($xVirtualField['length']) ? $xVirtualField['length'] : null, $expression, $xdesc);
                         }
 
                     }
@@ -343,7 +348,7 @@ class Storages
                 foreach ($xindexes as $indexName => $xindex) {
                     if (!isset($indices[$indexName])) {
                         $logger->error($name . ': ' . $indexName . ': Index not found: creating');
-                        $this->_createStorageIndex($logger, $dtp, $name, $indexName, $xindex['fields'], $xindex['type'], $xindex['method']);
+                        $this->_createStorageIndex($logger, $dtp, $prefix, $name, $indexName, $xindex['fields'], $xindex['type'], $xindex['method']);
                     } else {
                         $oindex = $indices[$indexName];
                         $fields1 = $name . '_' . implode(',' . $name . '_', $xindex['fields']);
@@ -368,22 +373,22 @@ class Storages
 
                         if ($fields1 != $fields2 || $xtype != $otype || $xmethod != $omethod) {
                             $logger->error($name . ': ' . $indexName . ': Index changed: updating');
-                            $this->_alterStorageIndex($logger, $dtp, $name, $indexName, $xindex['fields'], $xtype, $xmethod);
+                            $this->_alterStorageIndex($logger, $dtp, $prefix, $name, $indexName, $xindex['fields'], $xtype, $xmethod);
                         }
                     }
                 }
 
-                $xobjects = isset($xstorage['objects']) ? $xstorage['objects'] : [];
-                foreach ($xobjects as $xobject) {
-                    if (isset($xobject['json'])) {
-                        // обьект в json
-                        $object = json_decode($xobject['json']);
-                        $datatable = new StorageDataTable(App::$dataAccessPoints->Get($name));
-                        if (!$datatable->SaveRow($datatable->CreateEmptyRow($object))) {
+                // TODO: хуйня какая то
+                // $xobjects = isset($xstorage['objects']) ? $xstorage['objects'] : [];
+                // foreach ($xobjects as $xobject) {
+                //     if (isset($xobject['json'])) {
+                //         $object = json_decode($xobject['json']);
+                //         $datatable = new StorageDataTable(App::$dataAccessPoints->Get($name));
+                //         if (!$datatable->SaveRow($datatable->CreateEmptyRow($object))) {
 
-                        }
-                    }
-                }
+                //         }
+                //     }
+                // }
 
             }
 
@@ -420,15 +425,16 @@ class Storages
      * Creates a storage table
      * @param Logger $logger
      * @param DataAccessPoint $accessPoint
+     * @param string $prefix
      * @param string $table
      * @param bool $levels
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _createStorageTable(Logger $logger, DataAccessPoint $accessPoint, string $table, bool $levels = false)
+    private function _createStorageTable(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, bool $levels = false)
     {
         $res = $accessPoint->Query('
-            create table `' . $table . '`(
+            create table `' . ($prefix ? $prefix . '_' : '') . $table . '`(
                 `' . $table . '_id` bigint unsigned auto_increment, 
                 `' . $table . '_datecreated` timestamp not null default CURRENT_TIMESTAMP, 
                 `' . $table . '_datemodified` timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP, 
@@ -479,6 +485,7 @@ class Storages
      * Creates a storage field
      * @param Logger $logger
      * @param DataAccessPoint $accessPoint
+     * @param string $prefix
      * @param string $table
      * @param string $field
      * @param string $type
@@ -489,7 +496,7 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _createStorageField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, ?int $length, mixed $default, ?bool $required, ?string $comment)
+    private function _createStorageField(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, string $field, string $type, ?int $length, mixed $default, ?bool $required, ?string $comment)
     {
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
 
@@ -504,7 +511,7 @@ class Storages
         }
 
         $res = $accessPoint->Query('
-            ALTER TABLE `' . $table . '` 
+            ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
             ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
             ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? ' COMMENT \'' . $comment . '\'' : ''), ['type' => DataAccessPoint::QueryTypeNonInfo]);
 
@@ -522,6 +529,7 @@ class Storages
      * Creates a virtual field
      * @param Logger $logger
      * @param DataAccessPoint $accessPoint
+     * @param string $prefix
      * @param string $table
      * @param string $field
      * @param string $type
@@ -531,11 +539,11 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _createStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, ?int $length, ?string $expression, ?string $comment)
+    private function _createStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, string $field, string $type, ?int $length, ?string $expression, ?string $comment)
     {
 
         $res = $accessPoint->Query('
-            ALTER TABLE `' . $table . '` 
+            ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
             ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ' 
             GENERATED ALWAYS AS (' . $expression . ') STORED ' .
             ($comment ? ' COMMENT \'' . $comment . '\'' : ''), ['type' => DataAccessPoint::QueryTypeNonInfo]);
@@ -551,6 +559,7 @@ class Storages
      * Alters a storage field
      * @param Logger $logger
      * @param DataAccessPoint $accessPoint
+     * @param string $prefix
      * @param string $table
      * @param string $field
      * @param string $type
@@ -561,13 +570,13 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _alterStorageField(Logger $logger, DataAccessPoint $accessPoint, string $table, string $field, string $type, ?int $length, mixed $default, bool $required, ?string $comment)
+    private function _alterStorageField(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, string $field, string $type, ?int $length, mixed $default, bool $required, ?string $comment)
     {
 
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
 
         $res = $accessPoint->Query('
-            ALTER TABLE `' . $table . '` 
+            ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
             MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
             ' . (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? 'COMMENT \'' . $comment . '\'' : ''),
             ['type' => DataAccessPoint::QueryTypeNonInfo]
@@ -583,6 +592,7 @@ class Storages
      * Alters a virtual field
      * @param Logger $logger
      * @param DataAccessPoint $accessPoint
+     * @param string $prefix
      * @param string $table
      * @param array $field
      * @param string $type
@@ -592,11 +602,11 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _alterStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $table, array $field, string $type, int $length, string $expression, string $comment)
+    private function _alterStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, array $field, string $type, int $length, string $expression, string $comment)
     {
 
         $res = $accessPoint->Query('
-            ALTER TABLE `' . $table . '` 
+            ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
             MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') .
             ' GENERATED ALWAYS AS (' . $expression . ') STORED ' .
             ($comment ? ' COMMENT \'' . $comment . '\'' : ''),
@@ -613,6 +623,7 @@ class Storages
      * Creates a storage table
      * @param Logger $logger
      * @param mixed $accessPoint
+     * @param string $prefix
      * @param string $table
      * @param string $indexName
      * @param array $fields
@@ -621,14 +632,14 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _createStorageIndex(Logger $logger, $accessPoint, string $table, string $indexName, array $fields, string $type, ?string $method)
+    private function _createStorageIndex(Logger $logger, $accessPoint, string $prefix, string $table, string $indexName, array $fields, string $type, ?string $method)
     {
         if ($type === 'FULLTEXT') {
             $method = '';
         }
 
         $res = $accessPoint->Query('
-            ALTER TABLE `' . $table . '` 
+            ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
             ADD' . ($type !== 'NORMAL' ? ' ' . $type : '') . ' INDEX `' . $indexName . '` (`' . $table . '_' . implode('`,`' . $table . '_', $fields) . '`) ' . ($method ? ' USING ' . $method : '') . '
         ', ['type' => DataAccessPoint::QueryTypeNonInfo]);
         if ($res->error) {
@@ -641,6 +652,7 @@ class Storages
      * Alters the storage table
      * @param Logger $logger
      * @param DataAccessPoint $accessPoint
+     * @param string $prefix
      * @param string $table
      * @param string $indexName
      * @param array $fields
@@ -649,11 +661,11 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _alterStorageIndex(Logger $logger, DataAccessPoint $accessPoint, string $table, string $indexName, array $fields, string $type, ?string $method)
+    private function _alterStorageIndex(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, string $indexName, array $fields, string $type, ?string $method)
     {
 
         $res = $accessPoint->Query('
-            ALTER TABLE `' . $table . '` 
+            ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
             DROP INDEX `' . $indexName . '`
         ', ['type' => DataAccessPoint::QueryTypeNonInfo]);
         if ($res->error) {

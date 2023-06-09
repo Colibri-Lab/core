@@ -62,12 +62,12 @@ class [[table-class-name]] extends BaseModelDataTable
         bool $calculateAffected = true
     ) : ?[[table-class-name]]
     {
-        $storage = Storages::Create()->Load('[[storage-name]]');
+        $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
         $additionalParams = ['page' => $page, 'pagesize' => $pagesize, 'params' => $params];
         $additionalParams['type'] = $calculateAffected ? DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
         return self::LoadByQuery(
             $storage,
-            'select * from ' . $storage->name . 
+            'select * from ' . $storage->table . 
                 ($filter ? ' where ' . $filter : '') . 
                 ($order ? ' order by ' . $order : ''), 
             $additionalParams
@@ -127,7 +127,8 @@ class [[table-class-name]] extends BaseModelDataTable
      */
     public static function DeleteAllByFilter(string $filter): bool
     {
-        return self::DeleteByFilter('[[storage-name]]', $filter);
+        $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
+        return self::DeleteByFilter($storage->table, $filter);
     }
 
     public static function DataMigrate(?Logger $logger = null): bool

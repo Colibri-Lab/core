@@ -193,7 +193,7 @@ class Config implements IteratorAggregate
                 }
             }
         } catch (ConfigException $e) {
-            if ($default) {
+            if ($default !== null) {
                 $data = $default;
             } else {
                 throw $e;

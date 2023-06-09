@@ -40,7 +40,7 @@ class Router
             /** @var Config $moduleConfig */
             try {
 
-                $configArray = $moduleConfig->Query('config.routes', [])->AsArray();
+                $configArray = $moduleConfig->Query('config.routes')->AsArray();
                 $this->_configArray = VariableHelper::Extend($this->_configArray, $configArray, true);
             } catch (ConfigException $e) {
 

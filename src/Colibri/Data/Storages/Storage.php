@@ -108,6 +108,9 @@ class Storage
             case 'name':
                 $return = $this->_name;
                 break;
+            case 'table':
+                $return = (isset($this->_xstorage['prefix']) ? $this->_xstorage['prefix'] . '_' : '') . $this->_name;
+                break;
         }
         return $return;
     }
@@ -277,6 +280,7 @@ class Storage
         $storageData = $this->ToArray();
         unset($storageData['name']);
         unset($storageData['file']);
+        unset($storageData['prefix']);
 
         if (isset($storageData['components'])) {
             if (!$storageData['components']['default']) {
@@ -407,7 +411,7 @@ class Storage
 
     public function GetStatus(): object
     {
-        $reader = $this->accessPoint->Query('SHOW TABLE STATUS LIKE \''.$this->name.'\'');
+        $reader = $this->accessPoint->Query('SHOW TABLE STATUS LIKE \''.$this->table.'\'');
         return $reader->Read();
     }
 

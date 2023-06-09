@@ -81,7 +81,7 @@ class Lookup
             $storage = Storages::Create()->Load($data->name);
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
-            $reader = $accessPoint->Query('select * from ' . $storage->name . ($data->filter && $this->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]);
+            $reader = $accessPoint->Query('select * from ' . $storage->table . ($data->filter && $this->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]);
             return new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
         } elseif ($this->accessPoint) {
 

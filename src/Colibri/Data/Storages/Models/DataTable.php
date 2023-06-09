@@ -130,7 +130,7 @@ class DataTable extends BaseDataTable
             }
         }
 
-        $res = $storage->accessPoint->Delete($storage->name, $filter);
+        $res = $storage->accessPoint->Delete($storage->table, $filter);
         if (!$res->error) {
             return true;
         }
