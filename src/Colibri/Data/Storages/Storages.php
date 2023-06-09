@@ -224,7 +224,7 @@ class Storages
                 if ($reader->count == 0) {
                     $logger->error($table_name . ': Storage destination not found: creating');
                     $this->_createStorageTable($logger, $dtp, $prefix, $name);
-                }
+                } 
 
                 // проверяем наличие и типы полей, и если отличаются пересоздаем
                 $ofields = array();
@@ -438,9 +438,11 @@ class Storages
                 `' . $table . '_id` bigint unsigned auto_increment, 
                 `' . $table . '_datecreated` timestamp not null default CURRENT_TIMESTAMP, 
                 `' . $table . '_datemodified` timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP, 
+                `' . $table . '_datedeleted` timestamp null, 
                 primary key ' . $table . '_primary (`' . $table . '_id`), 
                 key `' . $table . '_datecreated_idx` (`' . $table . '_datecreated`),
-                key `' . $table . '_datemodified_idx` (`' . $table . '_datemodified`)
+                key `' . $table . '_datemodified_idx` (`' . $table . '_datemodified`),
+                key `' . $table . '_datedeleted_idx` (`' . $table . '_datedeleted`)
             ) DEFAULT CHARSET=utf8', ['type' => DataAccessPoint::QueryTypeNonInfo]);
         if ($res->error) {
             $logger->error($table . ': Can not create destination: ' . $res->query);
