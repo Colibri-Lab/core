@@ -30,6 +30,7 @@ class SmtpHelper
         $mailer->Port = $smtpPort;
         $mailer->SMTPSecure = $smtpSecure;
         
+        $mailer->SMTPAutoTLS = false;
         if($smtpUser) {
             $mailer->SMTPAuth = true;
             $mailer->Username = $smtpUser;
