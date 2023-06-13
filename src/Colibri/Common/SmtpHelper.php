@@ -29,9 +29,12 @@ class SmtpHelper
         $mailer->Host = $smtpHost;
         $mailer->Port = $smtpPort;
         $mailer->SMTPSecure = $smtpSecure;
-        $mailer->SMTPAuth = true;
-        $mailer->Username = $smtpUser;
-        $mailer->Password = $smtpPassword;
+        
+        if($smtpUser) {
+            $mailer->SMTPAuth = true;
+            $mailer->Username = $smtpUser;
+            $mailer->Password = $smtpPassword;
+        }
 
         $mailer->setFrom($smtpFrom, $smtpFromName);
         $mailer->Subject = $subject;
