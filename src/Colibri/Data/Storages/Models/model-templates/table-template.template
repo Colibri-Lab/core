@@ -66,7 +66,7 @@ class [[table-class-name]] extends BaseModelDataTable
         $additionalParams = ['page' => $page, 'pagesize' => $pagesize, 'params' => $params];
         $additionalParams['type'] = $calculateAffected ? DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
         $filter = $filter ? ['('.$filter.')'] : [];
-        if($storage?->{'params'}?->{'softdeletes'}) {
+        if($storage?->{'params'}?->{'softdeletes'} ?? false) {
             $filter[] = $storage->table . '_datedeleted is null';
         }
         return self::LoadByQuery(
