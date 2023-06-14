@@ -291,7 +291,6 @@ class Request
 
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle, CURLOPT_FOLLOWLOCATION, true);
-        // ! вспомнить зачем это было сделано
         if($this->sshSecurityLevel) {
             curl_setopt($handle, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=' . $this->sshSecurityLevel);
         }
