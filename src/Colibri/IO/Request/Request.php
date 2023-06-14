@@ -289,7 +289,8 @@ class Request
 
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($handle, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
+        // ! вспомнить зачем это было сделано
+        // curl_setopt($handle, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
 
         if (!empty($this->referer)) {
             curl_setopt($handle, CURLOPT_REFERER, $this->referer);
