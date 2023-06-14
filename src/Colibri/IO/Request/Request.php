@@ -123,6 +123,8 @@ class Request
 
     public ?string $contentType = null;
 
+    public ?int $sshSecurityLevel = null;
+
     /**
      * Checks if the curl module loaded
      *
@@ -290,7 +292,9 @@ class Request
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($handle, CURLOPT_FOLLOWLOCATION, true);
         // ! вспомнить зачем это было сделано
-        // curl_setopt($handle, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
+        if($this->sshSecurityLevel) {
+            curl_setopt($handle, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=' . $this->sshSecurityLevel);
+        }
 
         if (!empty($this->referer)) {
             curl_setopt($handle, CURLOPT_REFERER, $this->referer);
