@@ -12,7 +12,14 @@ class JobWorker extends Worker
         $queue = $this->_params->queue;
 
         $this->_log->info($queue . ': Begin job routine');
-        while($job = Manager::Create()->GetNextJob($queue)) {
+        while(true) {
+
+            $job = Manager::Create()->GetNextJob($queue);
+            if(!$job) {
+                sleep(10);
+                continue;
+            }
+
             $this->_log->info($queue . ': Job starts');
             if(!$job->Handle()) {
                 $this->_log->info($queue . ': Job fails!');
