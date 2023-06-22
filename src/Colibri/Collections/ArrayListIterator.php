@@ -24,7 +24,7 @@ class ArrayListIterator implements \Iterator
     /**
      * Данные итератора
      */
-    private mixed $_class = null;
+    private ?ArrayList $_class = null;
 
     /**
      * Текущая позиция
@@ -34,7 +34,7 @@ class ArrayListIterator implements \Iterator
     /**
      * Создает итератор для ArrayList-а
      */
-    public function __construct(IteratorAggregate $class = null)
+    public function __construct(ArrayList $class = null)
     {
         $this->_class = $class;
     }
@@ -55,7 +55,7 @@ class ArrayListIterator implements \Iterator
      */
     public function current(): mixed
     {
-        if ($this->valid()) {
+        if ($this->valid() && method_exists($this->_class, 'Item')) {
             return $this->_class->Item($this->_current);
         } else {
             return false;
