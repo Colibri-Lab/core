@@ -482,6 +482,11 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
     {
         return $this->ToArray(true);
     }
+    
+    public static function JsonUnserialize(string $json): static 
+    {
+        return new static(json_decode($json));
+    }
 
     public function Count(): int
     {

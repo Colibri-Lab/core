@@ -24,7 +24,7 @@ class ArrayListIterator implements \Iterator
     /**
      * Данные итератора
      */
-    private ?ArrayList $_class = null;
+    private ?IteratorAggregate $_class = null;
 
     /**
      * Текущая позиция
@@ -34,7 +34,7 @@ class ArrayListIterator implements \Iterator
     /**
      * Создает итератор для ArrayList-а
      */
-    public function __construct(ArrayList $class = null)
+    public function __construct(IteratorAggregate $class = null)
     {
         $this->_class = $class;
     }
