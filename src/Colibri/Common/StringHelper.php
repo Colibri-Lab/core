@@ -957,4 +957,8 @@ class StringHelper
         return $return;
     }
 
+    public static function Trim($string, $trim_chars = '\s') {
+        return preg_replace('/^['.$trim_chars.']*(?U)(.*)['.$trim_chars.']*$/u', '\\1',$string);
+    }
+
 }
