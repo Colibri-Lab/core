@@ -261,7 +261,7 @@ class Manager
 
             $job = Manager::Create()->GetNextJob($queue);
             if(!$job) {
-                sleep(10);
+                sleep(3);
                 continue;
             }
 
