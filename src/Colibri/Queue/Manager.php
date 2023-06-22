@@ -4,6 +4,8 @@ namespace Colibri\Queue;
 use Colibri\App;
 use Colibri\Common\DateHelper;
 use Colibri\Data\DataAccessPoint;
+use Colibri\Utils\ExtendedObject;
+use Colibri\Utils\Logs\FileLogger;
 use Colibri\Utils\Logs\Logger;
 
 class Manager 
@@ -236,12 +238,16 @@ class Manager
 
     }
 
-    public function GetNextJob(string $queue): Job
+    public function GetNextJob(string $queue): ?Job
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
-        $reader = $accessPoint->Query('select * from '.$this->_storages['list'].' where not datereserved is null order by id limit 1');
+        $reader = $accessPoint->Query('select * from '.$this->_storages['list'].' where datereserved is null order by id limit 1');
         $data = $reader->Read();
+        if(!$data) {
+            return null;
+        }
         $class = $data->class;
+        $data->payload = new ExtendedObject(json_decode($data->payload));
         $job = new $class($data);
         return $job;
     }
@@ -249,16 +255,24 @@ class Manager
     public function ProcessJobs(string $queue): void
     {
 
-        $worker = new JobWorker();
-        $process = App::$threadingManager->CreateProcess($worker);
-        $process->Run((object)[
-            'queue' => $queue
-        ]);
+        $logger = new FileLogger(Logger::Debug, '_cache/log/queue-' . $queue . '.log');
+        $logger->info($queue . ': Begin job routine');
+        while(true) {
 
-        if(!$process->IsRunning()) {
-            throw new Exception('Can not start process for queue: ' . $queue);
+            $job = Manager::Create()->GetNextJob($queue);
+            if(!$job) {
+                sleep(10);
+                continue;
+            }
+
+            $logger->info($queue . ': Job starts');
+            if(!$job->Handle()) {
+                $logger->info($queue . ': Job fails!');
+            } else {
+                $logger->info($queue . ': Job success');
+            }
+
         }
-
     }
     
 
