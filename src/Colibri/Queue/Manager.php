@@ -254,14 +254,14 @@ class Manager
 
     public function ProcessJobs(string $queue): void
     {
-
+        
         $logger = new FileLogger(Logger::Debug, '_cache/log/queue-' . $queue . '.log');
         $logger->info($queue . ': Begin job routine');
         while(true) {
 
             $job = Manager::Create()->GetNextJob($queue);
             if(!$job) {
-                sleep(3);
+                sleep($this->_config['timeout'] ?? 3);
                 continue;
             }
 
