@@ -43,6 +43,8 @@ class DataRow extends BaseDataRow
      */
     protected $_storage;
 
+    protected static array $casts = [];
+
     /**
      * Конструктор
      *
@@ -206,7 +208,11 @@ class DataRow extends BaseDataRow
         } else {
 
             $class = $storage->GetFieldClass($field);
-
+            $casts = static::$casts;
+            if(isset($casts[$field->{'name'}])) {
+                $class = $casts[$field->{'name'}];
+            }
+    
             if ($mode == 'get') {
                 try {
                     if(is_null($rowValue)) {

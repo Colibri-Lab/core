@@ -22,6 +22,8 @@ use ReflectionClass;
 class ObjectField extends ExtendedObject
 {
 
+    protected static array $casts = [];
+
     protected ? ExtendedObject $_datarow = null;
 
     /**
