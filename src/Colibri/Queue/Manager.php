@@ -255,7 +255,7 @@ class Manager
     public function ProcessJobs(string $queue): void
     {
         
-        $logger = new FileLogger(Logger::Debug, '_cache/log/queue-' . $queue . '.log');
+        $logger = new FileLogger(Logger::Debug, '_cache/log/queue-' . $queue . '.log', true);
         $logger->info($queue . ': Begin job routine');
         while(true) {
 

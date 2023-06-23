@@ -23,7 +23,7 @@ abstract class Job extends ExtendedObject
 
     public function IsLastAttempt(): bool
     {
-        return $this->attempts ?: 0 > static::$maxAttempts;
+        return ($this->attempts ?: 0) > static::$maxAttempts;
     }
 
     public function Add(): bool
