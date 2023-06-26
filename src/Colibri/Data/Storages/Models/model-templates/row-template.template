@@ -35,6 +35,7 @@ class [[row-class-name]] extends BaseModelDataRow
             'id' => ['type' => 'integer'],
             'datecreated' => ['type' => 'string', 'format' => 'db-date-time'],
             'datemodified' => ['type' => 'string', 'format' => 'db-date-time'],
+            'datedeleted' => [  'oneOf' => [ ['type' => 'null'], ['type' => 'string', 'format' => 'db-date-time'] ] ],
             # region SchemaProperties:
 [[schema-properties]]
             # endregion SchemaProperties;

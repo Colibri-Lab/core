@@ -447,6 +447,7 @@ class Generator
             ' * @property int $id ID строки',
             ' * @property DateTimeField $datecreated Дата создания строки',
             ' * @property DateTimeField $datemodified Дата последнего обновления строки',
+            ' * @property DateTimeField $datedeleted Дата удаления строки (если включно мягкое удаление)',
         ];
 
         [$schemaRequired, $schemaProperties] = self::GetSchemaObject($storage->fields, $row, '');

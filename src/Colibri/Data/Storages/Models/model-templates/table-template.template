@@ -132,7 +132,7 @@ class [[table-class-name]] extends BaseModelDataTable
     public static function DeleteAllByFilter(string $filter): bool
     {
         $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
-        return self::DeleteByFilter($storage->table, $filter);
+        return self::DeleteByFilter($storage, $filter);
     }
 
     public static function DataMigrate(?Logger $logger = null): bool

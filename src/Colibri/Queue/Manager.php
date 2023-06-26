@@ -252,6 +252,9 @@ class Manager
         return $job;
     }
 
+    /**
+     * @suppress PHP0420
+     */
     public function ProcessJobs(string $queue): void
     {
         

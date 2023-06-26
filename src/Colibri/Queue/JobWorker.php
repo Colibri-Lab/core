@@ -6,6 +6,9 @@ use Colibri\Threading\Worker;
 class JobWorker extends Worker
 {
     
+    /**
+     * @suppress PHP0420
+     */
     public function Run(): void
     {
         
