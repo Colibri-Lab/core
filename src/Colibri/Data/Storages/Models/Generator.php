@@ -172,7 +172,7 @@ class Generator
 
     }
 
-    private static function GenerateField(Storage $storage, Field $field, string $rootNamespace, string $row, array &$uses, array &$properties, array &$consts, string $classPrefix)
+    private static function GenerateField(Storage $storage, Field $field, string $rootNamespace, string $row, array &$uses, array &$properties, array &$consts, array &$casts, string $classPrefix)
     {
         $langModule = App::$moduleManager->Get('lang');
 
@@ -188,9 +188,11 @@ class Generator
             if($class === 'ObjectField' && !empty((array)$field->fields)) {
                 [$class, $fullSubClassName] = self::GenerateObjectFieldClass($storage, $field, $classPrefix);
                 $uses[] = 'use ' . $fullSubClassName . ';';
+                $casts[$field->{'name'}] = $class . '::class';
             } else if($class === 'ArrayField' && !empty((array)$field->fields)) {
                 [$class, $fullSubClassName] = self::GenerateArrayFieldClass($storage, $field, $classPrefix);
                 $uses[] = 'use ' . $fullSubClassName . ';';
+                $casts[$field->{'name'}] = $class . '::class';
             }
 
         }
@@ -344,12 +346,12 @@ class Generator
             'schema-properties' => '',
         ];
 
-        $properties = $uses = $consts = [];
+        $properties = $uses = $consts = $casts = [];
 
         [$schemaRequired, $schemaProperties] = self::GetSchemaObject($field->fields, $className, ($classPrefix ? $classPrefix . '_' : '') . $fieldName);
 
         foreach($field->fields as $f) {
-            self::GenerateField($storage, $f, $rootNamespace, $row, $uses, $properties, $consts, ($classPrefix ? $classPrefix . '_' : '') . $fieldName);
+            self::GenerateField($storage, $f, $rootNamespace, $row, $uses, $properties, $consts, $casts, ($classPrefix ? $classPrefix . '_' : '') . $fieldName);
         }
 
         $uses = array_unique($uses);
@@ -366,6 +368,7 @@ class Generator
             $args['properties-list'] = implode("\n", $properties);
             $args['uses'] = implode("\n", $uses);
             $args['consts'] = implode("\n", $consts);
+            $args['casts'] = "\t\t".StringHelper::ImplodeWithKeys($casts, ",\n\t\t", " => ", "'");
             $args['schema-required'] = implode("\n", $schemaRequired);
             $args['schema-properties'] = implode("\n", $schemaProperties);
 
@@ -386,6 +389,9 @@ class Generator
             }, $rowModelContent);
             $rowModelContent = \preg_replace_callback('/# region Consts\:(.*)# endregion Consts;/s', function ($match) use ($consts) {
                 return '# region Consts:' . "\n" . implode("\n", $consts) . "\n\t" . '# endregion Consts;';
+            }, $rowModelContent);
+            $rowModelContent = \preg_replace_callback('/# region Casts\:(.*)# endregion Casts;/s', function ($match) use ($casts) {
+                return '# region Casts:' . "\n\t\t" . StringHelper::ImplodeWithKeys($casts, ",\n\t\t", " => ", "'") . "\n\t" . '# endregion Casts;';
             }, $rowModelContent);
             $rowModelContent = \preg_replace_callback('/# region SchemaRequired\:(.*)# endregion SchemaRequired;/s', function ($match) use ($schemaRequired) {
                 return '# region SchemaRequired:' . "\n" . implode("\n", $schemaRequired) . "\n\t\t\t" . '# endregion SchemaRequired;';
@@ -439,6 +445,7 @@ class Generator
             'row-class-name' => '',
             'parent-row-class-name' => '',
             'uses' => '',
+            'casts' => '',
             'schema-required' => '',
             'schema-properties' => '',
         ];
@@ -454,9 +461,10 @@ class Generator
 
         $uses = ['use Colibri\Data\Storages\Fields\DateTimeField;'];
         $consts = [];
+        $casts = [];
         foreach ($storage->fields as $field) {
             /** @var Field $field */
-            self::GenerateField($storage, $field, $rootNamespace, $row, $uses, $properties, $consts, '');
+            self::GenerateField($storage, $field, $rootNamespace, $row, $uses, $properties, $consts, $casts, '');
         }
 
         $uses = array_unique($uses);
@@ -491,6 +499,7 @@ class Generator
             $args['properties-list'] = implode("\n", $properties);
             $args['uses'] = implode("\n", $uses);
             $args['consts'] = implode("\n", $consts);
+            $args['casts'] = "\t\t".StringHelper::ImplodeWithKeys($casts, ",\n\t\t", " => ", "'");
             $args['schema-required'] = implode("\n", $schemaRequired);
             $args['schema-properties'] = implode("\n", $schemaProperties);
 
@@ -513,6 +522,9 @@ class Generator
             }, $rowModelContent);
             $rowModelContent = \preg_replace_callback('/# region Consts\:(.*)# endregion Consts;/s', function ($match) use ($consts) {
                 return '# region Consts:' . "\n" . implode("\n", $consts) . "\n\t" . '# endregion Consts;';
+            }, $rowModelContent);
+            $rowModelContent = \preg_replace_callback('/# region Casts\:(.*)# endregion Casts;/s', function ($match) use ($casts) {
+                return '# region Casts:' . "\n\t\t".StringHelper::ImplodeWithKeys($casts, ",\n\t\t", " => ", "'") . "\n\t" . '# endregion Casts;';
             }, $rowModelContent);
             $rowModelContent = \preg_replace_callback('/# region SchemaRequired\:(.*)# endregion SchemaRequired;/s', function ($match) use ($schemaRequired) {
                 return '# region SchemaRequired:' . "\n" . implode("\n", $schemaRequired) . "\n\t\t\t" . '# endregion SchemaRequired;';

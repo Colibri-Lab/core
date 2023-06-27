@@ -21,4 +21,10 @@ class [[class-name]] extends ArrayField
         'type' => 'array',
         'items' => [[child-class-name]]::JsonSchema
     ];
+
+    public function Item(int $index): [[child-class-name]]
+    {
+        return $this->data[$index] instanceof [[child-class-name]] ? $this->data[$index] : new [[child-class-name]]($this->data[$index], $this->_storage, $this->_field);
+    }
+
 }

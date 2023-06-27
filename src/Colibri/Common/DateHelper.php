@@ -69,7 +69,7 @@ class DateHelper
      * @return string
      * @testFunction testDateHelperToDbString
      */
-    public static function ToDbString(?float $time = null, ?string $format = 'Y-m-d H:i:s'): string
+    public static function ToDbString(float|string|null $time = null, ?string $format = 'Y-m-d H:i:s'): string
     {
         if (VariableHelper::IsNull($time)) {
             $time = time();
@@ -282,14 +282,14 @@ class DateHelper
         return (object) ['years' => $y, 'months' => $m, 'days' => $d];
     }
 
-    static function FromDDMMYYYY(string $dateString, string $delimiter = '.', $format = '%Y-%m-%d %H:%M:%S'): string
+    static function FromDDMMYYYY(string $dateString, string $delimiter = '.', $format = 'Y-m-d H:i:s'): string
     {
         if (strstr($dateString, ' ') !== false) {
             $dateString = explode(' ', $dateString);
             $dateString = $dateString[0];
         }
 
-        $parts = explode($delimiter, $dateString);
+        $parts = $dateString ? explode($delimiter, $dateString) : [];
         $time = self::Create($parts[2] ?? 0, $parts[1] ?? 0, $parts[0] ?? 0);
         return self::ToDbString($time, $format);
     }

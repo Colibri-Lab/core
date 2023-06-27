@@ -68,9 +68,9 @@ final class Connection implements IConnection
         }
 
         try {
-            $this->_resource = pg_connect('host='.$this->_connectioninfo->host.':'.$this->_connectioninfo->port.' dbname='.$this->_connectioninfo->database.' user="'.$this->_connectioninfo->user.'" password='.$this->_connectioninfo->password);
+            $this->_resource = pg_pconnect('host='.$this->_connectioninfo->host.' port='.$this->_connectioninfo->port.' dbname='.$this->_connectioninfo->database.' user="'.$this->_connectioninfo->user.'" password='.$this->_connectioninfo->password, PGSQL_CONNECT_FORCE_NEW);
             if (!$this->_resource) {
-                throw new PgSqlException('Connection: ' . $this->_connectioninfo->host . ' ' . $this->_connectioninfo->port . ' ' . $this->_connectioninfo->user . ': ' . mysqli_connect_error());
+                throw new PgSqlException('Connection: ' . $this->_connectioninfo->host . ' ' . $this->_connectioninfo->port . ' ' . $this->_connectioninfo->user . ': ' . pg_last_error());
             }
         } catch (\Throwable $e) {
             throw new PgSqlException('Connection: ' . $this->_connectioninfo->host . ' ' . $this->_connectioninfo->port . ' ' . $this->_connectioninfo->user . ': ' . $e->getMessage(), $e->getCode(), $e);

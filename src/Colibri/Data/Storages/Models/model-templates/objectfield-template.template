@@ -32,4 +32,11 @@ class [[class-name]] extends ObjectField
             # endregion SchemaProperties;
         ]
     ];
+
+    protected static array $casts = [
+    # region Casts:
+[[casts]]
+    # endregion Casts;
+    ];
+
 }

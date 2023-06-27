@@ -679,6 +679,15 @@ class StringHelper
         return implode($splitter, $array);
     }
 
+    public static function ImplodeWithKeys(array $array, string $splitter1, string $splitter2, string $keyDecorator = ''): string
+    {
+        $ret = [];
+        foreach($array as $key => $value) {
+            $ret[] = $keyDecorator . $key . $keyDecorator . $splitter2 . $value;
+        }
+        return implode($splitter1, $ret);
+    }
+
     /**
      * Возвращает распаршенный url
      * @param string $url 

@@ -145,6 +145,10 @@ class ObjectField extends ExtendedObject
 
 
             $class = $this->_storage->GetFieldClass($field);
+            $casts = static::$casts;
+            if(isset($casts[$field->{'name'}])) {
+                $class = $casts[$field->{'name'}];
+            }
 
             if ($mode == 'get') {
                 try {

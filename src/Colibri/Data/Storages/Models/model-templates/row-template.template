@@ -46,6 +46,12 @@ class [[row-class-name]] extends BaseModelDataRow
     [[consts]]
     # endregion Consts;
 
+    protected static array $casts = [
+    # region Casts:
+    [[casts]]
+    # endregion Casts;
+    ];
+
     public static function Create(?int $id = null): [[row-class-name]]
     {
         if(!$id) {
