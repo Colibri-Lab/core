@@ -279,7 +279,11 @@ class Config implements IteratorAggregate
         if(!File::Exists($path)) {
             $path = App::$appRoot . $fileName;
         }
-        return \yaml_emit_file($path, $this->_configData, \YAML_UTF8_ENCODING, \YAML_ANY_BREAK);
+        $return = \yaml_emit_file($path, $this->_configData, \YAML_UTF8_ENCODING, \YAML_ANY_BREAK);
+        if(!$return) {
+            throw new ConfigException('Can not save config file ' . $fileName);
+        }
+        return true;
     }
 
     /**

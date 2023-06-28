@@ -78,7 +78,9 @@ class ArrayField extends ArrayList
             $this->data = array();
         }
         foreach ($this->data as $v) {
-            if (is_object($v) && method_exists($v, 'ToString')) {
+            if (is_object($v) && method_exists($v, 'ToArray')) {
+                $obj[] = $v->ToArray();
+            } else if (is_object($v) && method_exists($v, 'ToString')) {
                 $obj[] = $v->ToString();
             } else {
                 $obj[] = $v;

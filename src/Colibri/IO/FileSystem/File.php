@@ -225,7 +225,9 @@ class File extends Node implements JsonSerializable
             self::Create($path, $recursive, $mode);
         }
 
-        file_put_contents($path, $content);
+        if(file_put_contents($path, $content) === false) {
+            throw new \ErrorException('Can not write to file ' . $path);
+        }
     }
 
     /**
