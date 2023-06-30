@@ -52,10 +52,12 @@ class Debug
     public static function Out()
     {
         $result = self::_createArgs(func_get_args());
-        echo "<pre>\n" . str_replace("<", "&lt;", str_replace(">", "&gt;", implode(" : ", $result))) . "\n</pre>";
-        if (isset($_SERVER['argv'])) {
+        if (App::$request->server->{'commandline'}) {
+            echo str_replace("<", "&lt;", str_replace(">", "&gt;", implode(" : ", $result))) . "\n";
             // закрываем ob
-            // try { ob_flush(); } catch(\Throwable $e) {  }
+            try { @ob_flush(); } catch(\Throwable $e) {  }
+        } else {
+            echo "<pre>\n" . str_replace("<", "&lt;", str_replace(">", "&gt;", implode(" : ", $result))) . "\n</pre>";
         }
     }
 
