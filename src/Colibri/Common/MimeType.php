@@ -425,4 +425,11 @@ class MimeType
         }
         return null;
     }
+
+    public static function GetTypeFromFileName(string $filename): ?string
+    {
+        $filename = explode('.', $filename);
+        $type = end($filename);
+        return $type;
+    }
 }
