@@ -30,7 +30,8 @@ class JobWorker extends Worker
                 $this->_log->info($queue . ': Job success');
             }
         }
-        $this->_log->info($queue . ': Job routine ends');
+        
+        // $this->_log->info($queue . ': Job routine ends');
 
     }
 

@@ -15,6 +15,7 @@ namespace Colibri\Data\PgSql;
 use Colibri\Data\SqlClient\Command as SqlCommand;
 use Colibri\Data\PgSql\Exception as PgSqlException;
 use Colibri\Data\SqlClient\IDataReader;
+use Colibri\Data\SqlClient\QueryInfo;
 use Colibri\Utils\Debug;
 use \PgSql\Result;
 
@@ -166,6 +167,7 @@ final class Command extends SqlCommand
             pg_query($this->_connection->resource, $this->query);
             return new QueryInfo($this->type, mysqli_insert_id($this->connection->resource), mysqli_affected_rows($this->connection->resource), mysqli_error($this->connection->resource), $this->query);
         }
+        return new QueryInfo($this->type, 0, 0, '', $this->query);
     }
 
     /**

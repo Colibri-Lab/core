@@ -52,6 +52,7 @@ class ArrayListIterator implements \Iterator
     /**
      * Возвращает текущую позицию
      * @testFunction testArrayListIteratorCurrent
+     * @suppress PHP0418
      */
     public function current(): mixed
     {
@@ -73,6 +74,7 @@ class ArrayListIterator implements \Iterator
 
     /**
      * Переходит дальше и возвращает значение
+     * @suppress PHP0418
      * @testFunction testArrayListIteratorNext
      */
     public function next(): mixed
@@ -87,6 +89,7 @@ class ArrayListIterator implements \Iterator
 
     /**
      * Проверяет валидна ли текущая позиция
+     * @suppress PHP0418
      * @testFunction testArrayListIteratorValid
      */
     public function valid(): bool
