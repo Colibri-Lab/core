@@ -202,6 +202,20 @@ class ModuleManager
         return $paths;
     }
 
+    public function GetPathsFromModuleConfig(): array
+    {
+        $paths = [];
+        foreach ($this->list as $module) {
+            $p = $module->Config()->Query('config.paths.ui', [])->ToArray();
+            if(!empty($p)) {
+                foreach($p as $path) {
+                    $paths[] = [App::$appRoot . $path];
+                }
+            }
+        }
+        return $paths;
+    }
+
     /**
      * Возвращает список шаблонов, которые нужно запустить
      * @param string $extend строка, которую нужно дополнить в конце, например .Bundle/
