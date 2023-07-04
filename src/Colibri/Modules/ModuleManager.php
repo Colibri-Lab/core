@@ -198,7 +198,7 @@ class ModuleManager
                 $p = array_merge($p, $extendArray);
             }
             $paths[] = $p;
-        }
+        } 
         return $paths;
     }
 
@@ -209,7 +209,12 @@ class ModuleManager
             $p = $module->Config()->Query('config.paths.ui', [])->ToArray();
             if(!empty($p)) {
                 foreach($p as $path) {
-                    $paths[] = [array_merge([App::$appRoot . $path], $extendArray)];
+                    $pp = ['path' => App::$appRoot . $path];
+                    if($extendArray) {
+                        $paths[] = [...$pp, ...$extendArray];
+                    } else {
+                        $paths[] = $pp;
+                    }
                 }
             }
         }
