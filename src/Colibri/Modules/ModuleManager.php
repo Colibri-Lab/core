@@ -202,14 +202,14 @@ class ModuleManager
         return $paths;
     }
 
-    public function GetPathsFromModuleConfig(): array
+    public function GetPathsFromModuleConfig(?array $extendArray = null): array
     {
         $paths = [];
         foreach ($this->list as $module) {
             $p = $module->Config()->Query('config.paths.ui', [])->ToArray();
             if(!empty($p)) {
                 foreach($p as $path) {
-                    $paths[] = [App::$appRoot . $path];
+                    $paths[] = [array_merge([App::$appRoot . $path], $extendArray)];
                 }
             }
         }
