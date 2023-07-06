@@ -211,7 +211,7 @@ class ModuleManager
                 foreach($p as $path) {
                     $pp = ['path' => App::$appRoot . $path];
                     if($extendArray) {
-                        $paths[] = [...$pp, ...$extendArray];
+                        $paths[] = array_merge($p, $extendArray);
                     } else {
                         $paths[] = $pp;
                     }
