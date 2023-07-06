@@ -23,12 +23,11 @@ use Colibri\IO\FileSystem\File;
 class CacheManager
 {
 
-    private static function _getPath($section, $file)
+    private static function _getPath(string $section, string $fileName)
     {
-        $etag = md5($file);
+        $etag = md5($fileName);
         $pathParts = substr($etag, 0, 2) . '/' . substr($etag, 2, 2);
-
-        return App::$webRoot . '_cache/' . $section . '/' . $pathParts . '/';
+        return App::$appRoot . App::$config->Query('runtime')->GetValue() . $section . '/' . $pathParts;
     }
 
     /**
@@ -39,61 +38,13 @@ class CacheManager
      * @return string
      * @testFunction testCacheManagerPut
      */
-    public static function Put($section, $file)
+    public static function Put(string $section, string $fileName, string $fileContent)
     {
-
-        $targetPath = self::_getPath($section, $file);
-        $fileName = basename($file);
-        $targetFilePath = $targetPath . $fileName;
-
-        $mtime = filemtime($file);
-
-        $compareTime = $mtime;
-        if (File::Exists($targetFilePath)) {
-            $compareTime = filemtime($targetFilePath);
-
-            if ($compareTime != $mtime) {
-                File::Delete($targetFilePath);
-            }
-        }
-
-
-        File::Write($targetFilePath, File::Read($file));
-
+        $targetFilePath = self::GetPath($section, $fileName);
+        File::Write($targetFilePath, $fileContent, true, '777');
         return $targetFilePath;
     }
 
-    /**
-     * Создать кэш файл из данных
-     *
-     * @param string $section секция кэша
-     * @param string $fileName название файла (без пути)
-     * @param string $data данные, которые нужно записать, по умолчанию ничего
-     * @return string
-     * @testFunction testCacheManagerCreate
-     */
-    public static function Create($section, $fileName, $data = '')
-    {
-
-        $targetPath = self::_getPath($section, $fileName);
-        $fileName = basename($fileName);
-
-        $targetFilePath = $targetPath . $fileName;
-
-        $md5 = md5($data);
-        $compareWith = '';
-        if (File::Exists($targetFilePath)) {
-            $compareWith = md5_file($targetFilePath);
-
-            if ($compareWith != $md5) {
-                File::Delete($targetFilePath);
-            }
-        }
-
-        File::Write($targetFilePath, $data, true);
-
-        return $targetFilePath;
-    }
 
     /**
      * Проверяет наличие кэша
@@ -101,11 +52,9 @@ class CacheManager
      * @param string $file файл
      * @return bool есть/нет
      */
-    public static function Exists($section, $file)
+    public static function Exists(string $section, string $fileName)
     {
-        $targetPath = self::_getPath($section, $file);
-        $fileName = basename($file);
-        return File::Exists($targetPath . $fileName);
+        return File::Exists(self::GetPath($section, $fileName));
     }
 
     /**
@@ -115,14 +64,14 @@ class CacheManager
      * @param string $file файл
      * @return string 
      */
-    public static function Get($section, $file)
+    public static function Get(string $section, string $fileName): ?string
     {
-        $targetPath = self::_getPath($section, $file);
-        $fileName = basename($file);
-        return $targetPath . $fileName;
+        if(self::Exists($section, $fileName)) {
+            return File::Read(self::GetPath($section, $fileName));
+        } else {
+            return null;
+        }
     }
-
-
 
     /**
      * Возвращает данные файл кэша
@@ -130,13 +79,9 @@ class CacheManager
      * @param string $file файл
      * @return string|null 
      */
-    public static function GetStream($section, $file)
+    public static function GetPath(string $section, string $fileName): string
     {
-        $targetPath = self::_getPath($section, $file);
-        $fileName = basename($file);
-        if (File::Exists($targetPath . $fileName)) {
-            return File::Read($targetPath . $fileName);
-        }
-        return null;
+        $targetPath = self::_getPath($section, $fileName);
+        return $targetPath . $fileName;
     }
 }
