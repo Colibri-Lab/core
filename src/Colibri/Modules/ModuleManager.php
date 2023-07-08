@@ -209,9 +209,9 @@ class ModuleManager
             $p = $module->Config()->Query('config.paths.ui', [])->ToArray();
             if(!empty($p)) {
                 foreach($p as $path) {
-                    $pp = ['path' => App::$appRoot . $path];
+                    $pp = ['path' => App::$appRoot . $path]; 
                     if($extendArray) {
-                        $paths[] = array_merge($p, $extendArray);
+                        $paths[] = array_merge($pp, $extendArray);
                     } else {
                         $paths[] = $pp;
                     }
