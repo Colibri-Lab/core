@@ -102,7 +102,9 @@ class DataTable extends BaseDataTable
         $res = preg_match_all('/\{([^\}]+)\}/', $query, $matches, \PREG_SET_ORDER);
         if ($res > 0) {
             foreach ($matches as $match) {
-                $query = str_replace($match[0], $storage->name . '_' . $match[1], $query);
+                if(preg_match('/[\s\":;]/', $match[0]) === 0) {
+                    $query = str_replace($match[0], $storage->name . '_' . $match[1], $query);
+                }
             }
         }
 

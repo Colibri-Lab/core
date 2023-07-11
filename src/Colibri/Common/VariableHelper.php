@@ -194,7 +194,19 @@ class VariableHelper
         if (!is_array($array)) {
             return null;
         }
-        return array_change_key_case($array, $case);
+
+        $ret = [];
+        foreach($array as $key => $value) {
+            if($case === CASE_LOWER) {
+                $ret[StringHelper::ToLower($key)] = $value;
+            } else if($case === CASE_UPPER) {
+                $ret[StringHelper::ToUpper($key)] = $value;
+            } else {
+                $ret[$key] = $value;
+            }
+        }
+
+        return array_change_key_case($ret, $case);
     }
 
     /**
@@ -467,6 +479,9 @@ class VariableHelper
      */
     public static function ToString(mixed $object, string $spl1 = ' ', string $spl2 = '=', bool $quote = true, string $keyPrefix = ''): string
     {
+        if(is_string($object)) {
+            return $object;
+        }
 
         if (!is_object($object) && !is_array($object) || !is_string($spl1) || !is_string($spl2) || !\is_bool(true) || !is_string($keyPrefix)) {
             return false;
