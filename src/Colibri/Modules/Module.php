@@ -183,4 +183,27 @@ class Module
     {
         return [];
     }
+
+    public function GetPathsFromModuleConfig(?array $extendArray = null): array
+    {
+        $paths = [];
+        $p = $this->Config()->Query('config.paths.ui', [])->ToArray();
+        if(!empty($p)) {
+            foreach($p as $path) {
+                if(is_object($path)) {
+                    $path = $path->path;
+                } else if(is_array($path)) {
+                    $path = $path['path'];
+                }
+                $pp = ['path' => App::$appRoot . $path]; 
+                if($extendArray) {
+                    $paths[] = array_merge($pp, $extendArray);
+                } else {
+                    $paths[] = $pp;
+                }
+            }
+        }
+        return $paths;
+    }
+
 }

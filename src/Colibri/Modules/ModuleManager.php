@@ -206,22 +206,7 @@ class ModuleManager
     {
         $paths = [];
         foreach ($this->list as $module) {
-            $p = $module->Config()->Query('config.paths.ui', [])->ToArray();
-            if(!empty($p)) {
-                foreach($p as $path) {
-                    if(is_object($path)) {
-                        $path = $path->path;
-                    } else if(is_array($path)) {
-                        $path = $path['path'];
-                    }
-                    $pp = ['path' => App::$appRoot . $path]; 
-                    if($extendArray) {
-                        $paths[] = array_merge($pp, $extendArray);
-                    } else {
-                        $paths[] = $pp;
-                    }
-                }
-            }
+            $paths = [...$paths, ...$module->GetPathsFromModuleConfig($extendArray)];
         }
         return $paths;
     }
