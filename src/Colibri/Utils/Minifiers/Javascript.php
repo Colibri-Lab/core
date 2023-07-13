@@ -37,17 +37,35 @@ class Javascript
         return $names;
     }
 
+    private function _getAdditionalObjectNames() {
+        $return = [];
+        foreach (App::$moduleManager->list as $module) {
+            $p = $module->Config()->Query('config.paths.ui', [])->ToArray();
+            if(!empty($p)) {
+                foreach($p as $object) {
+                    if(is_object($object)) {
+                        $return[] = $object->root;
+                    } else if(is_array($object)) {
+                        $return[] = $object['root'];
+                    }
+                }
+            }
+        }
+        return $return;
+    }
+
     private function _convert($content): string
     {
         $prefix = RandomizationHelper::Character(1);
         $names = $this->_getNames(range('A', 'Z'), $prefix);
+        $roots = $this->_getAdditionalObjectNames();
 
         $content = '_c_ = () => {};' . $content;
         $content = preg_replace('/console\.log\([^\)]*\)/s', '_c_()', $content);
         $content = preg_replace('/console\.dir\([^\)]*\)/s', '_c_()', $content);
         $content = preg_replace('/console\.error\([^\)]*\)/s', '_c_()', $content);
 
-        preg_match_all('/\n(Colibri|App)[^\[\(]*?\s\=\s/s', $content, $matches);
+        preg_match_all('/\n(Colibri|App'.(!empty($roots) ? '|'.implode('|',$roots):'').')[^\[\(]*?\s\=\s/s', $content, $matches);
         $matches[0] = array_map(function ($v) {
             $v = trim(str_replace(' = ', '', $v), "\r\n\t ");
             if ($v === 'Colibri.UI.AddTemplate' || $v === 'Colibri.UI.Forms.Field.RegisterFieldComponent' || $v === 'Colibri.UI.Viewer.Register') {
@@ -60,10 +78,7 @@ class Javascript
         $index = 0;
         $consts = [];
         array_map(function ($v) use ($names, &$consts, &$index, &$content) {
-            $content = preg_replace_callback('/[^\'\"]' . $v . '/s', function ($match) use ($names, $index) {
-                return substr($match[0], 0, 1) . $names[$index];
-            }
-                , $content);
+            $content = preg_replace_callback('/[^\'\"]' . $v . '/s', function ($match) use ($names, $index) { return substr($match[0], 0, 1) . $names[$index]; }, $content);
             $consts[$v] = $names[$index];
             $index++;
         }, $matches[0]);
