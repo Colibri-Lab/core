@@ -69,7 +69,7 @@ class File extends Node implements JsonSerializable
     {
         $this->info = Directory::PathInfo($path);
         if ($this->info['basename'] == '') {
-            throw new Exception('path argument is not a file path');
+            throw new Exception('path argument is not a file path: ' . $path);
         }
 
         if ($this->info['dirname'] == '.') {
@@ -326,7 +326,7 @@ class File extends Node implements JsonSerializable
     public static function Delete(string $path): bool
     {
         if (!self::Exists($path)) {
-            throw new Exception('file not exists');
+            throw new Exception('file not exists: ' . $path);
         }
 
         return unlink($path);
@@ -343,7 +343,7 @@ class File extends Node implements JsonSerializable
     public static function Copy(string $from, string $to): void
     {
         if (!self::Exists($from)) {
-            throw new Exception('file not exists');
+            throw new Exception('file not exists: ' . $from);
         }
 
         copy($from, $to);
@@ -360,7 +360,7 @@ class File extends Node implements JsonSerializable
     public static function Move(string $from, string $to): void
     {
         if (!self::Exists($from)) {
-            throw new Exception('source file not exists');
+            throw new Exception('source file not exists: ' . $from);
         }
 
         rename($from, $to);
