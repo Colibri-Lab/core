@@ -61,9 +61,9 @@ class Javascript
         $roots = $this->_getAdditionalObjectNames();
 
         $content = '_c_ = () => {};' . $content;
-        $content = preg_replace('/console\.log\([^\)]*\)/s', '_c_()', $content);
-        $content = preg_replace('/console\.dir\([^\)]*\)/s', '_c_()', $content);
-        $content = preg_replace('/console\.error\([^\)]*\)/s', '_c_()', $content);
+        $content = preg_replace('/console\.log/s', '_c_', $content);
+        $content = preg_replace('/console\.dir/s', '_c_', $content);
+        $content = preg_replace('/console\.error/s', '_c_', $content);
 
         preg_match_all('/\n(Colibri|App'.(!empty($roots) ? '|'.implode('|',$roots):'').')[^\[\(]*?\s\=\s/s', $content, $matches);
         $matches[0] = array_map(function ($v) {
