@@ -324,7 +324,7 @@ class Response
      */
     public function ContentDisposition(string $type, string $name): Response
     {
-        $this->_addHeader('Content-Disposition', $type . '; filename="' . StringHelper::Replace($name, '"', '') . '"');
+        $this->_addHeader('Content-Disposition', $type . '; filename="' . urlencode(StringHelper::Replace($name, '"', '')) . '"');
         return $this;
     }
 
