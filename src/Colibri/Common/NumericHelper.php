@@ -65,4 +65,21 @@ class NumericHelper
     {
         return $price;
     }
+
+    /**
+     * Исправляет число
+     */
+    public static function Normalize(mixed $string): float {
+
+        if(!is_string($string)) {
+            return $string;
+        }
+
+        $string = str_replace(' ', '', $string);
+        $string = str_replace(',', '.', $string);
+
+        return (float)$string;
+
+    }
+    
 }
