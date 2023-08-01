@@ -33,6 +33,10 @@ class [[class-name]] extends ObjectField
         ]
     ];
 
+    # region Consts:
+    [[consts]]
+    # endregion Consts;
+
     protected static array $casts = [
     # region Casts:
 [[casts]]

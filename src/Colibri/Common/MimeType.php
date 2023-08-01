@@ -73,6 +73,13 @@ class MimeType
         $this->_type = $type;
     }
 
+    private function _loadAndSave(): void
+    {
+        $runtimePath = App::$appRoot . App::$config->Query('runtime')->GetValue();
+        $content = file_get_contents('http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types');
+        File::Write($runtimePath . 'mime.types', $content, true, '777');
+    }
+
     private function _loadMimeTypes() {
         $runtimePath = App::$appRoot . App::$config->Query('runtime')->GetValue();
         if(File::Exists($runtimePath . 'mime.types')) {
@@ -83,11 +90,13 @@ class MimeType
         }
 
         if($modified < time() - 30 * 86400) {
-            $content = file_get_contents('http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types');
-            File::Write($runtimePath . 'mime.types', $content, true, '777');
+            $this->_loadAndSave();
         }
 
         $mimetypesContent = File::Read($runtimePath . 'mime.types');
+        if(!$mimetypesContent) {
+            $this->_loadAndSave();
+        }
         $mimetypesContent = explode("\n", $mimetypesContent);
         foreach($mimetypesContent as $line) {
             if(!$line) {

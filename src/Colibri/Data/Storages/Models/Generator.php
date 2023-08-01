@@ -230,7 +230,7 @@ class Generator
                 if ($langModule) {
                     $title = $title[$langModule->Default()] ?? $title;
                 }
-                $name = StringHelper::CreateHID($field->{'name'} . '-' . str_replace('_', '-', $value), true);
+                $name = StringHelper::CreateHID(str_replace('_', '-', $field->{'name'}) . '-' . str_replace('_', '-', $value), true);
                 $name = StringHelper::ToCamelCaseAttr($name, true);
                 if (in_array($field->{'type'}, ['int', 'float', 'double', 'bool'])) {
                     $consts[] = "\t" . '/** ' . $title . ' */' . "\n\t" . 'public const ' . $name . ' = ' . $value . ';';
