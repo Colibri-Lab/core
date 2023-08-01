@@ -326,9 +326,13 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string $name название свойства
      * @return boolean
      */
-    public function __isset($name)
+    public function __isset($property)
     {
-        return isset($this->_data[$name]);
+        if (!empty($this->_prefix) && strpos($property, $this->_prefix) === false) {
+            $property = $this->_prefix . $property;
+        }
+
+        return isset($this->_data[$property]);
     }
 
     /**
@@ -336,9 +340,12 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @param string $name название свойства
      */
-    public function __unset($name)
+    public function __unset($property)
     {
-        unset($this->_data[$name]);
+        if (!empty($this->_prefix) && strpos($property, $this->_prefix) === false) {
+            $property = $this->_prefix . $property;
+        }
+        unset($this->_data[$property]);
     }
 
     /**
