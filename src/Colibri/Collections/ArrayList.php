@@ -185,6 +185,19 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * Сортирует данные в массиве
      * @testFunction testArrayListSort
      */
+    public function SortByClosure(\Closure $closure): self
+    {
+        $array = $this->ToArray();
+        usort($array, $closure);
+        $this->Clear();
+        $this->Append($array);
+        return $this;
+    }
+    
+    /**
+     * Сортирует данные в массиве
+     * @testFunction testArrayListSort
+     */
     public function Sort(string $k = null, int $sorttype = SORT_ASC): void
     {
         $rows = array();
@@ -253,6 +266,17 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
             }
         }
         return $newList;
+    }
+
+    public function Find(\Closure $closure): mixed
+    {
+
+        $filtered = $this->Filter($closure);
+        if(empty($filtered)) {
+            return null;
+        }
+
+        return $filtered[0];
     }
 
     public function Map(\Closure $closure): ArrayList

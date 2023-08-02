@@ -73,6 +73,13 @@ use Colibri\Common\StringHelper;
 class Controller
 {
 
+    protected ?string $_type = null; 
+
+    public function __construct(?string $type = null) 
+    {
+        $this->_type = $type;
+    }
+
     /**
      * Завершает работу обработчика
      *

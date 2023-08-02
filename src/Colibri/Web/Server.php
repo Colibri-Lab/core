@@ -274,7 +274,7 @@ class Server
 
             App::$monitoring->StartTimer('web-request');
 
-            $obj = new $class();
+            $obj = new $class($type);
             $result = (object) $obj->$method($get, $post, $payload);
 
             $args = (object) [
