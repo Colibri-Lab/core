@@ -71,6 +71,7 @@ class Manager
                         `datereserved` timestamp NULL,
                         `queue` varchar(255) NULL,
                         `class` varchar(512) NULL,
+                        `payload_class` varchar(512) NULL,
                         `payload` json NULL,
                         `attempts` int NULL DEFAULT 0,
                         PRIMARY KEY (`id`),
@@ -93,6 +94,7 @@ class Manager
                         `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
                         `queue` varchar(255) NULL,
                         `class` varchar(512) NULL,
+                        `payload_class` varchar(512) NULL,
                         `payload` json NULL,
                         `exception` json NULL,
                         PRIMARY KEY (`id`),
@@ -113,6 +115,7 @@ class Manager
                         `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
                         `queue` varchar(255) NULL,
                         `class` varchar(512) NULL,
+                        `payload_class` varchar(512) NULL,
                         `payload` json NULL,
                         `result` json NULL,
                         PRIMARY KEY (`id`),
@@ -197,6 +200,7 @@ class Manager
         $res = $accessPoint->Insert($this->_storages['error'], [
             'queue' => $job->queue,
             'class' => $job->class,
+            'payload_class' => get_class($job->payload),
             'payload' => json_encode($job->payload),
             'exception' => json_encode([
                 'file' => $e->getFile(),
@@ -228,6 +232,7 @@ class Manager
         $res = $accessPoint->Insert($this->_storages['success'], [
             'queue' => $job->queue,
             'class' => $job->class,
+            'payload_class' => get_class($job->payload),
             'payload' => json_encode($job->payload),
             'result' => json_encode($result)
         ]);
@@ -247,7 +252,8 @@ class Manager
             return null;
         }
         $class = $data->class;
-        $data->payload = new ExtendedObject(json_decode($data->payload));
+        $payloadClass = $data->payload_class ?? 'ExtendedObject';
+        $data->payload = new $payloadClass(json_decode($data->payload));
         $job = new $class($data);
         return $job;
     }
@@ -269,7 +275,7 @@ class Manager
             }
 
             $logger->info($queue . ': Job starts');
-            if(!$job->Handle()) {
+            if(!$job->Handle($logger)) {
                 $logger->info($queue . ': Job fails!');
             } else {
                 $logger->info($queue . ': Job success');

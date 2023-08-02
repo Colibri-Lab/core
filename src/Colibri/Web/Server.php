@@ -95,13 +95,11 @@ class Server
             // если запросили например PDF или еще что то 
             if (is_string($result->result) && is_string($result->message)) {
                 App::$response->DownloadFile($result->message, $result->result);
-            } else {
-                App::$response->Close(500, 'Ошибка формирования ответа');
-            }
+            } 
         }
 
         $content = $result?->message ?? HtmlHelper::Encode($result?->result ?? []);
-        if ($type == Server::JSON) {
+        if ($type == Server::JSON || $type == Server::Stream) {
             $content = json_encode($result?->result ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         } elseif ($type === Server::XML) {
             $content = XmlHelper::Encode($result?->result ?? []);
@@ -111,7 +109,7 @@ class Server
             $content = $result?->message ?? [];
         }
 
-        App::$response->Close($result->code, $content, $mime->data, $result?->charset ?? 'utf-8', $result?->headers ?? [], $result?->cookies ?? []);
+        App::$response->Close($result->code ?: 500, $content, $mime->data ?? 'application/octet-stream', $result?->charset ?? 'utf-8', $result?->headers ?? [], $result?->cookies ?? []);
         
     }
 
@@ -273,9 +271,29 @@ class Server
         } else {
 
             App::$monitoring->StartTimer('web-request');
+            
+            try {
+                $obj = new $class($type);
+                $result = (object) $obj->$method($get, $post, $payload);
+            } catch (\Throwable $e) {
+                
+                // если что то не так то выводим ошибку
+                $result = (object)[
+                    'code' => $e->getCode() ?: 500,
+                    'result' => [
+                        'message' => $e->getMessage(),
+                        'line' => $e->getLine(),
+                        'file' => $e->getFile(),
+                        'trace' => $e->getTrace()
+                    ]
+                ];
+                
+                $code = $e->getCode() ?: 500;
 
-            $obj = new $class($type);
-            $result = (object) $obj->$method($get, $post, $payload);
+                $message = $e->getMessage();
+                App::$log->debug($code . ': ' . $message);
+                App::$log->debug($e->getTraceAsString());
+            }
 
             $args = (object) [
                 'object' => $obj,

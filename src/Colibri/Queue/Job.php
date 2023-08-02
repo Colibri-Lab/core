@@ -3,6 +3,7 @@
 namespace Colibri\Queue;
 use Colibri\Common\DateHelper;
 use Colibri\Utils\ExtendedObject;
+use Colibri\Utils\Logs\Logger;
 
 abstract class Job extends ExtendedObject 
 {
@@ -13,13 +14,14 @@ abstract class Job extends ExtendedObject
     {
         $job = new static();
         $job->payload = $payload;
+        $job->payload_class = get_class($payload);
         $job->class = static::class;
         $job->attempts = $attempts;
         $job->queue = $queue;
         return $job;
     }
 
-    public abstract function Handle(): bool;
+    public abstract function Handle(Logger $logger): bool;
 
     public function IsLastAttempt(): bool
     {
@@ -87,6 +89,7 @@ abstract class Job extends ExtendedObject
             'queue' => $this->queue,
             'attempts' => $this->attempts,
             'class' => static::class,
+            'payload_class' => get_class($this->payload),
             'payload' => json_encode($this->payload),
             'id' => $this->id ?: null
         ];
