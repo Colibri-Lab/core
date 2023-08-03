@@ -490,9 +490,8 @@ class Response
         $this->ContentTransferEncoding('binary');
         $this->ExpiresAt(0);
         $this->CacheControl('must-revalidate');
-        //$this->Pragma('public');
         $this->ContentLength(strlen($filecontent));
-        $this->Close(200, $filecontent, $mime->data, 'utf-8');
+        $this->Close(200, $filecontent, $mime->data ?: 'application/octet-stream', 'utf-8');
     }
 
     /**
