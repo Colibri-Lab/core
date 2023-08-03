@@ -24,6 +24,18 @@ use Colibri\Utils\Debug;
 class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, ArrayAccess, Countable
 {
 
+    public const JsonSchema = [
+        'type' => 'array',
+        'items' => [
+            'type' => 'object',
+            'patternProperties' => [
+                '.*' => [
+                    'type' => ['number', 'string', 'boolean', 'object', 'array', 'null']
+                ]
+            ]
+        ]
+    ];
+
     /**
      * Данные
      *
