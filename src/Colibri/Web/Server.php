@@ -2,12 +2,12 @@
 
 /**
  * Веб сервер
- * 
+ *
  * @author Ваган Григорян <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
  * @package Colibri\Utils\Config
  * @version 1.0.0
- * 
+ *
  */
 
 namespace Colibri\Web;
@@ -30,25 +30,23 @@ use Colibri\Utils\Debug;
  */
 class Server
 {
-
-
     use TEventDispatcher;
 
     /**
      * Список ошибок
      */
-    const IncorrectCommandObject = 1;
-    const UnknownMethodInObject = 2;
+    public const IncorrectCommandObject = 1;
+    public const UnknownMethodInObject = 2;
 
     /**
      * Список типов
      */
-    const JSON = 'json';
-    const XML = 'xml';
-    const HTML = 'html';
-    const CSS = 'css';
-    const JS = 'js';
-    const Stream = 'stream';
+    public const JSON = 'json';
+    public const XML = 'xml';
+    public const HTML = 'html';
+    public const CSS = 'css';
+    public const JS = 'js';
+    public const Stream = 'stream';
 
     /**
      * Конструктор
@@ -91,11 +89,11 @@ class Server
         $mime = new MimeType($type);
 
         // if we responsing with file
-        if ($type == Server::Stream && $result?->result) {
-            // если запросили например PDF или еще что то 
-            if (is_string($result->result) && is_string($result->message)) {
-                App::$response->DownloadFile($result->message, $result->result);
-            } 
+        if (
+            $type == Server::Stream && $result?->result &&
+            (is_string($result->result) && is_string($result->message))
+        ) {
+            App::$response->DownloadFile($result->message, $result->result);
         }
 
         $content = $result?->message ?? HtmlHelper::Encode($result?->result ?? []);
@@ -109,15 +107,27 @@ class Server
             $content = $result?->message ?? [];
         }
 
-        App::$response->Close($result->code ?: 500, $content, $mime->data ?? 'application/octet-stream', $result?->charset ?? 'utf-8', $result?->headers ?? [], $result?->cookies ?? []);
-        
+        App::$response->Close(
+            $result->code ?: 500,
+            $content,
+            $mime->data ?? 'application/octet-stream',
+            $result?->charset ?? 'utf-8',
+            $result?->headers ?? [],
+            $result?->cookies ?? []
+        );
+
     }
 
     /**
      * Отправляет ответ об ошибке в виде XML
      */
-    protected function _responseWithError(string $type, string $message, int $code = -1, string $cmd = '', mixed $data = null)
-    {
+    protected function _responseWithError(
+        string $type,
+        string $message,
+        int $code = -1,
+        string $cmd = '',
+        mixed $data = null
+    ) {
 
         $this->Finish($type, (object) [
             'code' => 404,
@@ -181,14 +191,14 @@ class Server
 
     /**
      * Запускает команду
-     * 
+     *
      * Команда должна быть сформирована следующим образом
      * папки, после \App\Controllers превращаются в namespace
-     * т.е. /buh/test-rpc/test-query.json 
+     * т.е. /buh/test-rpc/test-query.json
      * будет превращено в \App\Controllers\Buh\TestRpcController
-     * а метод будет TestQuery 
-     * 
-     * т.е. нам нужно получить lowercase url в котором все большие 
+     * а метод будет TestQuery
+     *
+     * т.е. нам нужно получить lowercase url в котором все большие
      * буквы заменяются на - и маленькая буква, т.е. test-rpc = TestRpc
      *
      * @return void
@@ -210,7 +220,13 @@ class Server
         $post = App::$request->post;
         $payload = App::$request->GetPayloadCopy();
 
-        $args = (object) ['class' => $class, 'method' => $method, 'get' => $get, 'post' => $post, 'payload' => $payload];
+        $args = (object) [
+            'class' => $class,
+            'method' => $method,
+            'get' => $get,
+            'post' => $post,
+            'payload' => $payload
+        ];
         $this->DispatchEvent(EventsContainer::RpcGotRequest, $args);
         if (isset($args->cancel) && $args->cancel === true) {
             $result = isset($args->result) ? $args->result : (object) [];
@@ -271,23 +287,24 @@ class Server
         } else {
 
             App::$monitoring->StartTimer('web-request');
-            
+
             try {
                 $obj = new $class($type);
                 $result = (object) $obj->$method($get, $post, $payload);
             } catch (\Throwable $e) {
-                
+
                 // если что то не так то выводим ошибку
                 $result = (object)[
                     'code' => $e->getCode() ?: 500,
                     'result' => [
+                        'exception' => get_class($e),
                         'message' => $e->getMessage(),
                         'line' => $e->getLine(),
                         'file' => $e->getFile(),
                         'trace' => $e->getTrace()
                     ]
                 ];
-                
+
                 $code = $e->getCode() ?: 500;
 
                 $message = $e->getMessage();
