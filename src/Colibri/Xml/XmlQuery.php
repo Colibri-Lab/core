@@ -60,7 +60,7 @@ class XmlQuery
     /**
      * Выполняет запрос
      *
-     * @param string $xpathQuery строка запроса 
+     * @param string $xpathQuery строка запроса
      * @return XmlNodeList|XmlNamedNodeList список узлов
      * @testFunction testXmlQueryQuery
      */

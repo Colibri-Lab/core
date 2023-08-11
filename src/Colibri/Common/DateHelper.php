@@ -21,19 +21,18 @@ use Colibri\Data\Storages\Fields\DateTimeField;
  */
 class DateHelper
 {
-
     /** Количество секунд в году */
-    const YEAR = 31556926;
+    public const YEAR = 31556926;
     /** Количество секунд в месяце */
-    const MONTH = 2629744;
+    public const MONTH = 2629744;
     /** Количество секунд в неделю */
-    const WEEK = 604800;
+    public const WEEK = 604800;
     /** Количество секунд в дне */
-    const DAY = 86400;
+    public const DAY = 86400;
     /** Количество секунд в час */
-    const HOUR = 3600;
+    public const HOUR = 3600;
     /** Количество секунд в минуту */
-    const MINUTE = 60;
+    public const MINUTE = 60;
 
     public static function Create(int $year, int $month, int $day)
     {
@@ -92,7 +91,31 @@ class DateHelper
         if (is_null($time)) {
             $time = time();
         }
-        return ((int) date('d', $time)) . ' ' . TimeZoneHelper::Month2(date('m', $time) - 1) . ' ' . date('Y', $time) . ($showTime ? ' ' . date('H', $time) . ':' . date('i', $time) : '');
+        return ((int) date('d', $time)) . ' ' .
+            TimeZoneHelper::Month2(date('m', $time) - 1) . ' ' .
+            date('Y', $time) .
+            ($showTime ? ' ' . date('H', $time) . ':' . date('i', $time) : '');
+    }
+
+
+    public static function ToQuarter(
+        $time,
+        $quarterName = 'квартал',
+        $numberOnly = false
+    ) {
+
+        if(is_string($time)) {
+            $time = strtotime($time);
+        }
+
+        $kv = (int)((date('n', $time)-1)/3+1);
+        if ($numberOnly) {
+            return $kv;
+        }
+
+        $year = date('Y', $time);
+
+        return $kv.' '.$quarterName.' '.$year;
     }
 
     /**
@@ -229,7 +252,7 @@ class DateHelper
      * @return object
      * @testFunction testDateHelperDiff
      */
-    static function Diff(int $time1, int $time2): string
+    public static function Diff(int $time1, int $time2): string
     {
 
         try {
@@ -282,7 +305,7 @@ class DateHelper
         return (object) ['years' => $y, 'months' => $m, 'days' => $d];
     }
 
-    static function FromDDMMYYYY(string $dateString, string $delimiter = '.', $format = 'Y-m-d H:i:s'): string
+    public static function FromDDMMYYYY(string $dateString, string $delimiter = '.', $format = 'Y-m-d H:i:s'): string
     {
         if (strstr($dateString, ' ') !== false) {
             $dateString = explode(' ', $dateString);
@@ -294,7 +317,7 @@ class DateHelper
         return self::ToDbString($time, $format);
     }
 
-    static function FromJSDate(string $date): DateTimeField
+    public static function FromJSDate(string $date): DateTimeField
     {
         $date = explode('-', $date);
         $zone = $date[1];
