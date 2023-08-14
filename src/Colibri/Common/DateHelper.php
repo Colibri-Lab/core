@@ -21,6 +21,9 @@ use Colibri\Data\Storages\Fields\DateTimeField;
  */
 class DateHelper
 {
+    private const NBSP = '&nbsp;';
+    private const DATEFORMAT = 'Y-m-d 00:00:00';
+
     /** Количество секунд в году */
     public const YEAR = 31556926;
     /** Количество секунд в месяце */
@@ -156,7 +159,8 @@ class DateHelper
                 continue;
             }
             $numberOfUnits = floor($time / $unit);
-            $ret = ($numberOfUnits > 1 ? $numberOfUnits . ' ' : '') . StringHelper::FormatSequence($numberOfUnits, $labels) . ' назад';
+            $ret = ($numberOfUnits > 1 ? $numberOfUnits . ' ' : '') .
+                StringHelper::FormatSequence($numberOfUnits, $labels) . ' назад';
             if ($ret == 'день назад') {
                 $ret = 'вчера';
             }
@@ -258,14 +262,14 @@ class DateHelper
         try {
 
             // не считаем дату начала и считаем дату окончания полностью
-            $time1 = date('Y-m-d 00:00:00', $time1);
+            $time1 = date(self::DATEFORMAT, $time1);
             $time1 = strtotime('+1 days', strtotime($time1));
-            $time2 = date('Y-m-d 00:00:00', $time2);
+            $time2 = date(self::DATEFORMAT, $time2);
             $time2 = strtotime('+1 days', strtotime($time2));
 
             // считаем разницу в полных годах
-            $time1 = date('Y-m-d 00:00:00', $time1);
-            $time2 = date('Y-m-d 00:00:00', $time2);
+            $time1 = date(self::DATEFORMAT, $time1);
+            $time2 = date(self::DATEFORMAT, $time2);
             $time1c = date_create($time1);
             $time2c = date_create($time2);
             $diff = date_diff($time2c, $time1c, false);
@@ -276,8 +280,8 @@ class DateHelper
             $time2 = strtotime($time2);
 
             // считаем разницу в полных месяцах
-            $time1 = date('Y-m-d 00:00:00', $time1);
-            $time2 = date('Y-m-d 00:00:00', $time2);
+            $time1 = date(self::DATEFORMAT, $time1);
+            $time2 = date(self::DATEFORMAT, $time2);
 
             $time1c = date_create($time1);
             $time2c = date_create($time2);
@@ -288,8 +292,8 @@ class DateHelper
             $time1 = strtotime('+' . $m . ' month', strtotime($time1));
             $time2 = strtotime($time2);
 
-            $time1 = date('Y-m-d 00:00:00', $time1);
-            $time2 = date('Y-m-d 00:00:00', $time2);
+            $time1 = date(self::DATEFORMAT, $time1);
+            $time2 = date(self::DATEFORMAT, $time2);
 
             // считаем количество полных дней
             $time1c = date_create($time1);
@@ -303,6 +307,40 @@ class DateHelper
         }
 
         return (object) ['years' => $y, 'months' => $m, 'days' => $d];
+    }
+
+    /**
+     * Рассчитывает разницу в полных годах в полных месяцах и полных днях между датами
+     */
+    public static function DiffFullTokens(
+        $time1,
+        $time2,
+        $splitter = ' ',
+        $tokens = [
+            ['год', 'года', 'лет'],
+            ['месяц', 'месяца', 'месяцев'],
+            ['день', 'дня', 'дней']
+        ]
+    ): string {
+
+        $diff = self::Diff($time1, $time2);
+        return
+            trim(($diff->years > 0 ? str_replace(
+                ' ',
+                self::NBSP,
+                StringHelper::FormatSequence($diff->years, $tokens[0], true)
+            ).$splitter : '')
+            .trim($diff->months > 0 ? str_replace(
+                ' ',
+                self::NBSP,
+                StringHelper::FormatSequence($diff->months, $tokens[1], true)
+            ).$splitter : '')
+            .trim($diff->days > 0 ? str_replace(
+                ' ',
+                self::NBSP,
+                StringHelper::FormatSequence($diff->days, $tokens[2], true)
+            ) : ''), $splitter);
+
     }
 
     public static function FromDDMMYYYY(string $dateString, string $delimiter = '.', $format = 'Y-m-d H:i:s'): string
