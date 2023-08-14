@@ -2,12 +2,12 @@
 
 /**
  * Итератор для коллекции, чтобы можно было использовать в foreach
- * 
+ *
  * @author Ваган Григорян <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
  * @package Colibri\Collections
  * @version 1.0.0
- * 
+ *
  */
 
 namespace Colibri\Collections;
@@ -18,7 +18,6 @@ namespace Colibri\Collections;
  */
 class CollectionIterator implements \Iterator
 {
-
     /**
      * Обьект коллекции
      *
