@@ -65,13 +65,16 @@ class File implements JsonSerializable
 
     private string $cachePath;
 
+    private mixed $finder;
+
     /**
      * Конструктор
      *
      * @param string $path Путь к файлу
      */
-    public function __construct(object $item, mixed $connection)
+    public function __construct(object $item, mixed $connection, mixed $finder)
     {
+        $this->finder = $finder;
         $this->cachePath = App::$appRoot . App::$config->Query('runtime')->GetValue();
         $this->connection = $connection;
         $this->item = $item;
@@ -131,12 +134,12 @@ class File implements JsonSerializable
                 }
             case 'binary':
             case 'content': {
-                    if(ftp_get($this->connection, $this->cachePath . $this->name, $this->item->name)) {
-                        $return = BaseFile::Read($this->cachePath . $this->name);
-                        BaseFile::Delete($this->cachePath . $this->name);
-                    }
-                    break;
+                if($this->Download($this->cachePath . $this->name)) {
+                    $return = BaseFile::Read($this->cachePath . $this->name);
+                    BaseFile::Delete($this->cachePath . $this->name);
                 }
+                break;
+            }
 
         }
         return $return;
@@ -144,9 +147,19 @@ class File implements JsonSerializable
 
     public function Download($localPath): bool
     {
-        if(ftp_get($this->connection, $localPath, $this->item->name)) {
-            return false;
+        try {
+            
+            if(ftp_get($this->connection, $localPath, $this->item->name)) {
+                return false;
+            }
+
+        } catch(\Throwable $e) {
+            $this->connection = $this->finder->Reconnect();
+            if(ftp_get($this->connection, $localPath, $this->item->name)) {
+                return false;
+            }
         }
+
         return true;
     }
 

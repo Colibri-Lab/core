@@ -63,6 +63,12 @@ class Finder
     
     }
 
+    public function Reconnect(): mixed
+    {
+        $this->_connect();
+        return $this->_connection;
+    }
+
     private function _ftpList(string $path, bool $recursive = false): array
     {
         $list = ftp_rawlist($this->_connection, $path, false);
