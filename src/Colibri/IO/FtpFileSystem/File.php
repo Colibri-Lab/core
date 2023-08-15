@@ -149,13 +149,13 @@ class File implements JsonSerializable
     {
         try {
             
-            if(ftp_get($this->connection, $localPath, $this->item->name)) {
-                return false;
+            if(!ftp_get($this->connection, $localPath, $this->item->name)) {
+                throw new Exception('Can not download file');
             }
 
         } catch(\Throwable $e) {
             $this->connection = $this->finder->Reconnect();
-            if(ftp_get($this->connection, $localPath, $this->item->name)) {
+            if(!ftp_get($this->connection, $localPath, $this->item->name)) {
                 return false;
             }
         }
