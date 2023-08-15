@@ -2,7 +2,7 @@
 
 /**
  * FileSystem
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
  * @package Colibri\IO\FileSystem
@@ -25,7 +25,6 @@ use Throwable;
  */
 class Finder
 {
-
     private object $_connectionInfo;
 
     private mixed $_connection;
@@ -46,13 +45,18 @@ class Finder
         }
     }
 
-    private function _connect() {
+    private function _connect()
+    {
 
-        $this->_connection = ftp_connect($this->_connectionInfo->host, $this->_connectionInfo->port, $this->_connectionInfo->timeout);
+        $this->_connection = ftp_connect(
+            $this->_connectionInfo->host,
+            $this->_connectionInfo->port,
+            $this->_connectionInfo->timeout
+        );
         if(!$this->_connection) {
             throw new Exception('Can not connect to host');
         }
-        
+
         if(!ftp_login($this->_connection, $this->_connectionInfo->user, $this->_connectionInfo->password)) {
             throw new Exception('Can not login');
         }
@@ -60,7 +64,7 @@ class Finder
         if(!ftp_pasv($this->_connection, $this->_connectionInfo->passive)) {
             throw new Exception('Can not set pasv mode');
         }
-    
+
     }
 
     public function Reconnect(): mixed
@@ -79,9 +83,18 @@ class Finder
         $ret = [];
         foreach ($list as $child) {
             $chunks = preg_split("/\s+/", $child);
-            
+
             $item = [];
-            [$item['perm'], $item['number'], $item['user'], $item['group'], $item['size'], $item['month'], $item['day'], $item['time']] = $chunks;
+            [
+                $item['perm'],
+                $item['number'],
+                $item['user'],
+                $item['group'],
+                $item['size'],
+                $item['month'],
+                $item['day'],
+                $item['time']
+            ] = $chunks;
             $item['type'] = substr($chunks[0], 0, 1) === 'd' ? 'directory' : 'file';
 
             array_splice($chunks, 0, 8);
@@ -121,12 +134,12 @@ class Finder
                 if (!VariableHelper::IsEmpty($match) && preg_match($match, $item->name) == 0) {
                     continue;
                 }
-                
-                $ret->Add(new File($item, $this->_connection));
+
+                $ret->Add(new File($item, $this->_connection, $this));
             }
 
         } catch (Throwable $e) {
-
+            $ret->Clear();
         }
 
         if ($sortField) {
