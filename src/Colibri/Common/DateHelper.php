@@ -256,7 +256,7 @@ class DateHelper
      * @return object
      * @testFunction testDateHelperDiff
      */
-    public static function Diff(int $time1, int $time2): string
+    public static function Diff(int $time1, int $time2): object
     {
 
         try {
