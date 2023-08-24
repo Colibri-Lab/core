@@ -28,6 +28,7 @@ use Colibri\Data\Storages\Fields\Lookup;
  * @property-read bool $readonly да, если поле запрещено к редактированию
  * @property-read bool $inTemplate да, если поле должно отображаться в шаблоне
  * @property-read Field $parent
+ * @property-read ?string $param тип поля в запросе
  * @property string $formula формула
  * @property array $rawvalues
  * 
@@ -178,6 +179,14 @@ class Field
                 return $this->_parent;
             case 'rawvalues':
                 return isset($this->_xfield['values']) ? $this->_xfield['values'] : null;
+            case 'param': 
+                if(in_array($this->_xfield['type'], ['varchar', 'char', 'text', 'mediumtext', 'longtext'])) {
+                    return 'string';
+                } elseif (in_array($this->_xfield['type'], ['int', 'float', 'bigint', 'double'])) {
+                    return 'integer';
+                } else {
+                    return null;
+                }
             default:
                 return isset($this->_xfield[$prop]) ? $this->_xfield[$prop] : null;
         }

@@ -631,7 +631,7 @@ class StringHelper
      * @return string[]|null
      * @testFunction testStringHelperExplode
      */
-    public static function Explode(string $string, string|array $delimiters, bool $addDelimiters = false): ?array
+    public static function Explode(string|array $string, string|array $delimiters, bool $addDelimiters = false): ?array
     {
         if (!is_array(($delimiters)) && !is_array($string)) {
             $return = preg_split('/' . preg_quote($delimiters) . '/u', $string);

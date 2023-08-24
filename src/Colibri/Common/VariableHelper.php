@@ -17,7 +17,6 @@ use Colibri\App;
  */
 class VariableHelper
 {
-
     /**
      * Проверить пустое ли значение в переменной
      *
@@ -32,7 +31,7 @@ class VariableHelper
         } elseif (is_array($var)) {
             return empty($var);
         }
-        return ($var === null || $var === "");
+        return $var === null || $var === "";
     }
 
     public static function IsObjectFieldsIsEmpty(mixed $object): bool
@@ -199,7 +198,7 @@ class VariableHelper
         foreach($array as $key => $value) {
             if($case === CASE_LOWER) {
                 $ret[StringHelper::ToLower($key)] = $value;
-            } else if($case === CASE_UPPER) {
+            } elseif($case === CASE_UPPER) {
                 $ret[StringHelper::ToUpper($key)] = $value;
             } else {
                 $ret[$key] = $value;
@@ -289,14 +288,19 @@ class VariableHelper
 
     /**
      * Собирает массив в дерево
-     * @param array $array 
-     * @param int $parent 
-     * @param string $parentName 
-     * @param string $childrenName 
-     * @return array 
+     * @param array $array
+     * @param int $parent
+     * @param string $parentName
+     * @param string $childrenName
+     * @return array
      */
-    public static function ArrayToTree(array $array, int $parent = 0, string $parentName = 'parent', string $childrenName = 'children', string $keyName = 'id'): array
-    {
+    public static function ArrayToTree(
+        array $array,
+        int $parent = 0,
+        string $parentName = 'parent',
+        string $childrenName = 'children',
+        string $keyName = 'id'
+    ): array {
         $array = array_combine(array_column($array, $keyName), array_values($array));
 
         foreach ($array as $k => &$v) {
@@ -319,9 +323,35 @@ class VariableHelper
             if((is_array($value) || is_object($value))) {
                 $ret = array_merge($ret, self::ToPlane($value, $prefix . $k));
             } else {
-                $ret[$prefix . $k] = $value;                    
-            } 
+                $ret[$prefix . $k] = $value;
+            }
         }
+        return $ret;
+    }
+
+    public static function ToJsonFilters(array|object $var, string $prefix = ''): array
+    {
+
+        $ret = [];
+
+        $var = self::ToPlane($var, $prefix);
+        foreach($var as $key => $value) {
+            if(StringHelper::EndsWith($key, ']')) {
+                $res = preg_match_all('/\[(\d+)\]/', $key, $matches);
+                if($res > 0) {
+                    $lastMatch = end($matches[0]);
+                    $lastMatchValue = end($matches[1]);
+                    $key = substr($key, 0, strlen($key) - strlen($lastMatch));
+                    if(!isset($ret[$key])) {
+                        $ret[$key] = [];
+                    }
+                    $ret[$key][$lastMatchValue] = $value;
+                }
+            } else {
+                $ret[$key] = $value;
+            }
+        }
+
         return $ret;
     }
 
@@ -477,13 +507,25 @@ class VariableHelper
      * @return string
      * @testFunction testVariableHelperToString
      */
-    public static function ToString(mixed $object, string $spl1 = ' ', string $spl2 = '=', bool $quote = true, string $keyPrefix = ''): string
-    {
+    public static function ToString(
+        mixed $object,
+        string $spl1 = ' ',
+        string $spl2 = '=',
+        bool $quote = true,
+        string $keyPrefix = ''
+    ): string {
         if(is_string($object)) {
             return $object;
         }
 
-        if (!is_object($object) && !is_array($object) || !is_string($spl1) || !is_string($spl2) || !\is_bool(true) || !is_string($keyPrefix)) {
+        if (
+            !is_object($object) &&
+            !is_array($object) ||
+            !is_string($spl1) ||
+            !is_string($spl2) ||
+            !\is_bool(true) ||
+            !is_string($keyPrefix)
+        ) {
             return false;
         }
 
@@ -528,7 +570,7 @@ class VariableHelper
      */
     public static function Sum(array $array): float
     {
-        if (!is_array($array) || count($array) == 0) {
+        if (!is_array($array) || empty($array)) {
             return 0;
         }
         return \array_sum($array);
@@ -616,7 +658,7 @@ class VariableHelper
         }
 
         return $newObject;
-        
+
     }
 
     public static function CallableToString(mixed $callable): string
@@ -630,16 +672,17 @@ class VariableHelper
         $list = array_slice($list, ($begn-1), ($endn-($begn-1))); // lines of closure definition
         $last = (count($list)-1); // last line number
         if(
-            (substr_count($list[0],'function') > 1) || 
-            (substr_count($list[0],'{') > 1) || 
-            (substr_count($list[$last],'}') > 1)
-        )
-        { 
-            throw new \Exception("Too complex context definition in: `$path`. Check lines: $begn & $endn."); 
+            (substr_count($list[0], 'function') > 1) ||
+            (substr_count($list[0], '{') > 1) ||
+            (substr_count($list[$last], '}') > 1)
+        ) {
+            throw new \BadFunctionCallException(
+                "Too complex context definition in: `$path`. Check lines: $begn & $endn."
+            );
         }
 
         $list[0] = ('function'.explode('function', $list[0])[1]);
-        $list[$last] = (explode('}',$list[$last])[0].'}');
+        $list[$last] = (explode('}', $list[$last])[0].'}');
 
 
         return implode($dlim, $list);
