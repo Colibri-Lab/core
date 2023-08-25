@@ -7,6 +7,7 @@
  * @copyright 2019 Colibri
  * @package Colibri\Data\Storages\Fields
  */
+
 namespace Colibri\Data\Storages\Fields;
 
 use Colibri\Utils\ExtendedObject;
@@ -21,22 +22,21 @@ use ReflectionClass;
  */
 class ObjectField extends ExtendedObject
 {
-
     protected static array $casts = [];
 
-    protected ? ExtendedObject $_datarow = null;
+    protected ?ExtendedObject $_datarow = null;
 
     /**
      * Поле
      * @var Field
      */
-    protected ? Field $_field = null;
+    protected ?Field $_field = null;
 
     /**
      * Хранилище
      * @var Storage
      */
-    protected ? Storage $_storage = null;
+    protected ?Storage $_storage = null;
 
     /**
      * Конструктор
@@ -45,8 +45,12 @@ class ObjectField extends ExtendedObject
      * @param Field $field поле
      * @return void
      */
-    public function __construct(mixed $data, ? Storage $storage = null, ? Field $field = null, ExtendedObject $datarow = null)
-    {
+    public function __construct(
+        mixed $data,
+        ?Storage $storage = null,
+        ?Field $field = null,
+        ?ExtendedObject $datarow = null
+    ) {
         parent::__construct(is_string($data) ? (array) json_decode($data) : (array) $data, '', false);
         $this->_storage = $storage;
         $this->_field = $field;
@@ -264,7 +268,7 @@ class ObjectField extends ExtendedObject
      * Сеттер
      * @param string $property свойство
      * @param mixed $value значение
-     * @return void 
+     * @return void
      */
     public function __set(string $property, mixed $value): void
     {
@@ -304,7 +308,7 @@ class ObjectField extends ExtendedObject
     {
         $newArray = [];
         foreach($this as $key => $value) {
-            
+
             if (is_array($value) || $value instanceof ArrayList) {
                 $ret = [];
                 foreach ($value as $index => $v) {

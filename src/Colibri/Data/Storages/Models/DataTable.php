@@ -113,7 +113,7 @@ class DataTable extends BaseDataTable
             'params' => $params
         ];
         $filter = $filter ? ['('.$filter.')'] : [];
-        if($storage?->{'params'}?->{'softdeletes'}) {
+        if(isset($storage?->{'params'}['softdeletes']) && $storage?->{'params'}['softdeletes']) {
             $filter[] = $storage->table . '_datedeleted is null';
         }
         $additionalParams['type'] = $calculateAffected ?

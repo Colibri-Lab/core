@@ -62,6 +62,15 @@ class FileField implements JsonSerializable
      */
     private $_content;
 
+    public const JsonSchema = [
+        'type' => 'object',
+        'patternProperties' => [
+            '.*' => [
+                'type' => ['number', 'string', 'boolean', 'object', 'array', 'null']
+            ]
+        ]
+    ];
+
     /**
      * Конструктор
      * @param string $data путь к файлу
