@@ -35,12 +35,11 @@ use Colibri\Data\SqlClient\QueryInfo;
  */
 class DataTable extends BaseDataTable
 {
-
     /**
      * Хранилише
      * @var Storage
      */
-    protected ? Storage $_storage = null;
+    protected ?Storage $_storage = null;
 
     protected string $_returnAsExtended;
 
@@ -50,10 +49,14 @@ class DataTable extends BaseDataTable
      * @param IDataReader|null $reader ридер
      * @param string|\Closure $returnAs возвращать в виде класса
      * @param Storage|null $storage хранилище
-     * @return void 
+     * @return void
      */
-    public function __construct(DataAccessPoint $point, IDataReader $reader = null, string $returnAs = 'Colibri\\Data\\Storages\\Models\\DataRow', ? Storage $storage = null)
-    {
+    public function __construct(
+        DataAccessPoint $point,
+        IDataReader $reader = null,
+        string $returnAs = 'Colibri\\Data\\Storages\\Models\\DataRow',
+        ?Storage $storage = null
+    ) {
         $this->_returnAsExtended = $returnAs;
         parent::__construct($point, $reader);
         $this->_storage = $storage;
@@ -70,7 +73,7 @@ class DataTable extends BaseDataTable
 
     /**
      * Возвращает обьект хранилище
-     * @return Storage 
+     * @return Storage
      */
     public function Storage(): Storage
     {
@@ -93,8 +96,42 @@ class DataTable extends BaseDataTable
         return new $className($this, $result, $this->_storage);
     }
 
-    public static function LoadByQuery(Storage|string $storage, string $query, array $params): ?static
-    {
+    protected static function _loadByFilter(
+        Storage $storage,
+        int $page = -1,
+        int $pagesize = 20,
+        string $filter = null,
+        string $order = null,
+        array $params = [],
+        bool $calculateAffected = true
+    ): ?static {
+        $jsonTables = isset($params['__jsonTables']) ? ' ' . implode(' ', $params['__jsonTables']) : '';
+        unset($params['__jsonTables']);
+        $additionalParams = [
+            'page' => $page,
+            'pagesize' => $pagesize,
+            'params' => $params
+        ];
+        $filter = $filter ? ['('.$filter.')'] : [];
+        if($storage?->{'params'}?->{'softdeletes'}) {
+            $filter[] = $storage->table . '_datedeleted is null';
+        }
+        $additionalParams['type'] = $calculateAffected ?
+            DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
+        return self::LoadByQuery(
+            $storage,
+            'select * from ' . $storage->table . $jsonTables .
+                (!empty($filter) ? ' where ' . implode(' and ', $filter) : '') .
+                ($order ? ' order by ' . $order : ''),
+            $additionalParams
+        );
+    }
+
+    public static function LoadByQuery(
+        Storage|string $storage,
+        string $query,
+        array $params
+    ): ?static {
         if (is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
         }
@@ -136,12 +173,12 @@ class DataTable extends BaseDataTable
             $res = $storage->accessPoint->Update($storage->table, [$storage->name . '_datedeleted' => DateHelper::ToDbString()], $filter);
             if (!$res->error) {
                 return true;
-            }    
+            }
         } else {
             $res = $storage->accessPoint->Delete($storage->table, $filter);
             if (!$res->error) {
                 return true;
-            }    
+            }
         }
 
 
@@ -222,7 +259,7 @@ class DataTable extends BaseDataTable
     /**
      * Экспорт в csv
      * @param string $file файл, куда выгружать
-     * @return void 
+     * @return void
      */
     public function ExportCSV(string $file): void
     {
@@ -258,7 +295,7 @@ class DataTable extends BaseDataTable
     /**
      * Выгрузить в XML
      * @param string $file файл, куда выгружать
-     * @return void 
+     * @return void
      */
     public function ExportXML(string $file): void
     {
@@ -287,7 +324,7 @@ class DataTable extends BaseDataTable
     /**
      * Выгрузить в XML
      * @param string $file файл, куда выгружать
-     * @return void 
+     * @return void
      */
     public function ExportJson(string $file): void
     {
@@ -311,7 +348,7 @@ class DataTable extends BaseDataTable
      * Импортировать из CSV
      * @param string $file файл источник
      * @param int $firstrow номер строки, с которой начинаются данные
-     * @return void 
+     * @return void
      */
     public function ImportCSV(string $file, int $firstrow = 1): void
     {
@@ -337,7 +374,7 @@ class DataTable extends BaseDataTable
      * Импортировать из XML
      * @param string $file файл источник
      * @param int $firstrow номер строки, с которой начинаются данные
-     * @return void 
+     * @return void
      */
     public function ImportXML(string $file, int $firstrow = 1): void
     {

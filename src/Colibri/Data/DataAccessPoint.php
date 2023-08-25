@@ -21,13 +21,13 @@ use DateTime;
 
 /**
  * Точка доступа
- * 
+ *
  * <code>
- * 
+ *
  *      $accessPoint = App::$dataAccessPoints->Get('main');
- *      
+ *
  *      # Получение данных по запросу
- * 
+ *
  *      class Queries {
  *          const TestSelectQuery = 'select * from test where id=[[id:integer]] and text=[[text:string]] and dbl=[[dbl::double]]';
  *      }
@@ -35,65 +35,64 @@ use DateTime;
  *      while($result = $reader->Read()) {
  *          print_r($result); // обьект
  *      }
- *      
+ *
  *      # или без параметров
- * 
+ *
  *      $reader = $accessPoint->Query('select * from test where id=\'2\' and text=\'adfasdfasdf\' and dbl=\'1.1\'', ['page' => 1, 'pagesize' => 10]);
  *      while($result = $reader->Read()) {
  *          print_r($result); // обьект
  *      }
  *
  *      $accessPoint->Query('BEGIN');
- * 
- *      # если необходимо выполнить запрос insert, update или delete 
+ *
+ *      # если необходимо выполнить запрос insert, update или delete
  *      $nonQueryInfo = $accessPoint->Query('delete from test where id=1', ['type' => DataAccessPoint::QueryTypeNonInfo]);
- *      
- *      # если необходимо выполнить запрос с большим количеством данных, например для запросов с автоподкачкой 
+ *
+ *      # если необходимо выполнить запрос с большим количеством данных, например для запросов с автоподкачкой
  *      $reader = $accessPoint->Query('select * from test', ['page' => 1, 'pagesize' => 100, 'type' => DataAccessPoint::QueryTypeBigData]);
- *      
+ *
  *      # ввод данных
  *      $nonQueryInfo = $accessPoint->Insert('test', ['text' => 'адфасдфасдфасдф', 'dbl' => 1.1], 'id'); # только для postgresql
  *      # возвращается класс QueryInfo, для postgres необходимо передать дополнительный параметр returning - название поля, которое нужно вернуть
- * 
- *      # обновление данных     
+ *
+ *      # обновление данных
  *      $returnsBool = $accessPoint->Update('test', ['text' => 'adfasdfasdf', 'dbl' => 1.2], 'id=1');
  *      # возвращает true если обновление прошло успешно
- * 
+ *
  *      # ввод с обновлением данных, если есть дубликат по identity полю или sequence для postgresql
- *      $nonQueryInfo = $accessPoint->InsertOrUpdate('test', ['id' => 1, 'text' => 'adfadsfads', 'dbl' => 1.1], ['id', 'text'], 'id'); 
+ *      $nonQueryInfo = $accessPoint->InsertOrUpdate('test', ['id' => 1, 'text' => 'adfadsfads', 'dbl' => 1.1], ['id', 'text'], 'id');
  *      # поле returning нужно только для postgresql
  *      # возвращается класс QueryInfo, для postgres необходимо передать дополнительный параметр returning - название поля, которое нужно вернуть
- * 
+ *
  *      # ввод данны пачкой
  *      $nonQueryInfo = $accessPoint->InsertBatch('test', [ ['text' => 'adsfasdf', 'dbl' => 1.0], ['text' => 'adsfasdf', 'dbl' => 1.1] ]);
- * 
+ *
  *      $accessPoint->Query('COMMIT');
- * 
+ *
  *      # удаление данных
  *      $returnsBool = $accessPoint->Delete('test', 'id=1');
  *      # возвращает true если удаление прошло успешно, нужно учесть, что если не передать параметр condition то будет выполнено truncate table test
- * 
+ *
  *      # получение списка таблиц
  *      $tablesReader = $accessPoint->Tables();
- *      # возвращает IDataReader 
- * 
+ *      # возвращает IDataReader
+ *
  * </code>
  *
  * @property-read string $name
- * @property-read IConnection $connection 
+ * @property-read IConnection $connection
  * @property-read object $point
  *
  * @testFunction testDataAccessPoint
  */
 class DataAccessPoint
 {
-
     /** Выполнить запрос и вернуть Reader */
-    const QueryTypeReader = 'reader';
+    public const QueryTypeReader = 'reader';
     /** Выполнить запрос и вернуть Reader, но без подсчета общего количества строк */
-    const QueryTypeBigData = 'bigdata';
+    public const QueryTypeBigData = 'bigdata';
     /** Выполнить запрос, который не подразумевает чтения данных */
-    const QueryTypeNonInfo = 'noninfo';
+    public const QueryTypeNonInfo = 'noninfo';
 
     /**
      * Информация о подключении
@@ -152,9 +151,9 @@ class DataAccessPoint
      * ! 2. параметры передаются в ассоциативном массиве, либо в виде object
      * ! например: select * from test where id=[[id:integer]] and stringfield like [[likeparam:string]]
      * ! реальный запрос будет следующий с параметрами ['id' => '1', 'likeparam' => '%brbrbr%']: select * from test where id=1 and stringfield like '%brbrbr%'
-     * ! запросы можно засунуть в коллекцию и выполнять с разными параметрами 
-     * 
-     * @param string $query 
+     * ! запросы можно засунуть в коллекцию и выполнять с разными параметрами
+     *
+     * @param string $query
      * @param object|array $commandParams [page, pagesize, params, type = bigdata|noninfo|reader (default reader), returning = '']
      * @return IDataReader|QueryInfo|null
      * @testFunction testDataAccessPointQuery
@@ -184,7 +183,9 @@ class DataAccessPoint
         $queryStartTime = new DateTime();
 
         if ($this->_accessPointData->logqueries ?? false) {
-            App::$log->debug('Query: ' . $commandParams->type . ', Text: ' . $query . ', Limits: ' . $cmd->page . ' - ' . $cmd->pagesize);
+            App::$log->debug('Query: ' . $commandParams->type .
+                ', Text: ' . $query .
+                ', Limits: ' . $cmd->page . ' - ' . $cmd->pagesize);
             App::$log->debug(Debug::ROut($commandParams));
         }
 
@@ -255,7 +256,7 @@ class DataAccessPoint
     /**
      * Вводит кного строк разом
      *
-     * @param string $table таблица 
+     * @param string $table таблица
      * @param array $rows вводимые строки
      * @return QueryInfo
      * @testFunction testDataAccessPointInsertBatch
@@ -317,7 +318,7 @@ class DataAccessPoint
 
     /**
      * Создает транзакцию
-     * @return void 
+     * @return void
      * @testFunction testDataAccessPointBegin
      */
     public function Begin(): QueryInfo
@@ -327,7 +328,7 @@ class DataAccessPoint
 
     /**
      * Коммитит транзакцию
-     * @return void 
+     * @return void
      * @testFunction testDataAccessPointCommit
      */
     public function Commit(): QueryInfo
@@ -337,7 +338,7 @@ class DataAccessPoint
 
     /**
      * Отменяет транзакцию
-     * @return void 
+     * @return void
      * @testFunction testDataAccessPointRollback
      */
     public function Rollback(): QueryInfo

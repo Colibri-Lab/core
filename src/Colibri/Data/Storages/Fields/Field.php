@@ -7,6 +7,7 @@
  * @copyright 2019 Colibri
  * @package Colibri\Data\Storages\Fields
  */
+
 namespace Colibri\Data\Storages\Fields;
 
 use Colibri\Data\Storages\Storage;
@@ -31,7 +32,7 @@ use Colibri\Data\Storages\Fields\Lookup;
  * @property-read ?string $param тип поля в запросе
  * @property string $formula формула
  * @property array $rawvalues
- * 
+ *
  */
 class Field
 {
@@ -39,7 +40,7 @@ class Field
      * Хранилище
      * @var Storage
      */
-    private ? Storage $_storage = null;
+    private ?Storage $_storage = null;
 
     /**
      * Список поле внутри текущего поля
@@ -71,7 +72,7 @@ class Field
      */
     private $_formula;
 
-    private ? Field $_parent = null;
+    private ?Field $_parent = null;
 
     /**
      * Конструктор
@@ -79,7 +80,7 @@ class Field
      * @param Storage $storage хранилище
      * @return void
      */
-    public function __construct(array $xfield, ? Storage $storage = null, ? Field $parent = null)
+    public function __construct(array $xfield, ?Storage $storage = null, ?Field $parent = null)
     {
         $this->_storage = $storage;
         $this->_xfield = $xfield;
@@ -179,14 +180,25 @@ class Field
                 return $this->_parent;
             case 'rawvalues':
                 return isset($this->_xfield['values']) ? $this->_xfield['values'] : null;
-            case 'param': 
-                if(in_array($this->_xfield['type'], ['varchar', 'char', 'text', 'mediumtext', 'longtext'])) {
+            case 'param':
+                if(in_array($this->_xfield['type'], [
+                    'varchar', 
+                    'char', 
+                    'text', 
+                    'mediumtext', 
+                    'longtext', 
+                    'date', 
+                    'datetime'
+                ])) {
                     return 'string';
-                } elseif (in_array($this->_xfield['type'], ['int', 'float', 'bigint', 'double'])) {
+                } elseif (in_array($this->_xfield['type'], ['int', 'float', 'bigint', 'double','bool','tinyint'])) {
                     return 'integer';
+                } elseif ($this->_xfield['type'] === 'enum') {
+                    return $this->_xfield['values'][0]['type'] === 'text' ? 'string' : 'integer';
                 } else {
                     return null;
                 }
+                // no break
             default:
                 return isset($this->_xfield[$prop]) ? $this->_xfield[$prop] : null;
         }
