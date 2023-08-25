@@ -28,7 +28,11 @@ use JsonSerializable;
  * @property-read string $path путь к файлу
  * @property-read MimeType $mimetype Майм тип для файла
  * @property-read string $type тип файла
+ * @property-read string $extension тип файла
+ * @property-read string $ext тип файла
  * @property-read string $data данные файла
+ * @property-read string $binary данные файла
+ * @property-read string $content данные файла
  * @property-read Size $size размер изображения, если это графика
  * @property-read string $id название файла, алиас на name
  * @property-read string $name название файла
@@ -109,9 +113,13 @@ class FileField implements JsonSerializable
             case "mimetype": {
                     return new MimeType($this->_ext);
                 }
+            case "extension":
+            case "ext":
             case "type": {
                     return $this->_ext;
                 }
+            case "binary":
+            case "content":
             case "data": {
                     if (is_null($this->_content)) {
                         $this->_content = File::Read(App::$webRoot . $this->_path);
