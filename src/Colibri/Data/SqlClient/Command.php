@@ -167,7 +167,7 @@ abstract class Command
      *
      * @return QueryInfo
      */
-    abstract public function ExecuteNonQuery(): QueryInfo;
+    abstract public function ExecuteNonQuery(?string $returning = null): QueryInfo;
 
     /**
      * Подготавливает строку, добавляет постраничку и все, что необходимо для конкретного драйвера

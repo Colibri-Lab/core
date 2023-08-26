@@ -225,4 +225,20 @@ class QueryBuilder implements IQueryBuilder
     {
         return "show columns from " . $table;
     }
+
+    public function CreateBegin(): string
+    {
+        return 'start transaction';
+    }
+
+    public function CreateCommit(): string
+    {
+        return 'commit';
+    }
+
+    public function CreateRollback(): string
+    {
+        return 'rollback';
+    }
+
 }

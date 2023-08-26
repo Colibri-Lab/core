@@ -152,7 +152,7 @@ final class Command extends SqlCommand
      * @return QueryInfo
      * @testFunction testCommandExecuteNonQuery
      */
-    public function ExecuteNonQuery(): QueryInfo
+    public function ExecuteNonQuery(?string $dummy = null): QueryInfo
     {
         mysqli_select_db($this->_connection->resource, $this->_connection->database);
 

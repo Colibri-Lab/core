@@ -90,4 +90,10 @@ interface IQueryBuilder
      * @return string
      */
     public function CreateShowField(string $table): string;
+
+    
+    public function CreateBegin(): string;
+    public function CreateCommit(): string;
+    public function CreateRollback(): string;
+
 }

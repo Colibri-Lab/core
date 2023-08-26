@@ -17,75 +17,46 @@ use Colibri\Data\PgSql\Exception as PgSqlException;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\SqlClient\QueryInfo;
 use Colibri\Utils\Debug;
-use \PgSql\Result;
+use PgSql\Result;
 
 /**
  * Класс для выполнения команд в точку доступа
- * 
+ *
  * @inheritDoc
- * 
+ *
  * @testFunction testCommand
  */
 final class Command extends SqlCommand
 {
-
     /**
      * Подготавливает запрос с параметрами
      * @param string $query
      * @return mixed
      * @testFunction testCommand_prepareStatement
      */
-    private function _prepareStatement(string $query): mixed
+    private function _prepareStatement(string $query): string
     {
+        $params = $this->_params;
+        preg_replace_callback('/\[\[([^\]]+)\]\]/', function ($match) use ($params) {
 
-        if (!$this->_params) {
-            throw new PgSqlException('no params', 0);
-        }
-
-        $res = preg_match_all('/\[\[([^\]]+)\]\]/', $query, $matches);
-        if ($res == 0) {
-            throw new PgSqlException('no params', 0);
-        }
-
-        $typesAliases = ['integer' => 'i', 'double' => 'd', 'string' => 's', 'blob' => 'b'];
-
-        $types = [];
-        $values = [];
-        foreach ($matches[1] as $match) {
-
-            // если тип не указан то берем string
-            if (strstr($match, ':') === false) {
-                $match = $match . ':string';
-            }
-
+            $match = $match[1];
+            $type = 'string';
             $matching = explode(':', $match);
-            if (!is_array($this->_params[$matching[0]])) {
-                $types[] = $typesAliases[$matching[1]];
-                $values[] = $this->_params[$matching[0]];
-                $query = str_replace('[[' . $match . ']]', '?', $query);
-            } else {
-                $types = array_merge($types, array_fill(0, count($this->_params[$matching[0]]), $typesAliases[$matching[1]]));
-                $values = array_merge($values, $this->_params[$matching[0]]);
-                $query = str_replace('[[' . $match . ']]', implode(',', array_fill(0, count($this->_params[$matching[0]]), '?')), $query);
+            if(count($matching) > 1) {
+                $type = $matching[1];
             }
-        }
 
-        $stmt = pg_prepare($this->_connection->resource, '', $query);
-        if (!$stmt) {
-            throw new PgSqlException(pg_last_error($this->_connection->resource), mysqli_errno($this->_connection->resource));
-        }
+            if ($type === 'string') {
+                return '\''.($params[$matching[0]] ?? '').'\'';
+            } elseif ($type === 'integer') {
+                return $params[$matching[0]] ?? 'null';
+            } elseif ($type === 'double') {
+                return $params[$matching[0]] ?? 'null';
+            }
 
-        // чертов бред!
-        // ! поменять когда будет php7
-        $params = [&$stmt, implode('', $types)];
-        for ($i = 0; $i < count($values); $i++) {
-            $params[] = & $values[$i];
-        }
+        }, $query);
 
-        call_user_func_array('mysqli_stmt_bind_param', $params);
-        
-
-        return $stmt;
+        return $query;
     }
 
     /**
@@ -99,7 +70,7 @@ final class Command extends SqlCommand
     {
 
         // выбираем базу данныx, с которой работает данный линк
-        mysqli_select_db($this->_connection->resource, $this->_connection->database);
+        // mysqli_select_db($this->_connection->resource, $this->_connection->database);
 
         // если нужно посчитать количество результатов
         $affected = null;
@@ -107,15 +78,12 @@ final class Command extends SqlCommand
 
             // выполняем запрос для получения количества результатов без limit-ов
             $limitQuery = 'select count(*) as affected from (' . $this->query . ') tbl';
-            if ($this->_params) {
-                // $stmt = $this->_prepareStatement($limitQuery);
-                // mysqli_stmt_execute($stmt);
-                // $ares = mysqli_stmt_get_result($stmt);
-            } else {
-                $ares = pg_query($this->_connection->resource, $limitQuery);
-            }
+            $limitQuery = $this->_prepareStatement($limitQuery);
+            $ares = pg_query($this->_connection->resource, $limitQuery);
             if (!($ares instanceof Result)) {
-                throw new PgSqlException(pg_last_error($this->_connection->resource) . ' query: ' . $limitQuery, mysqli_errno($this->_connection->resource));
+                throw new PgSqlException(pg_last_error(
+                    $this->_connection->resource
+                ) . ' query: ' . $limitQuery, mysqli_errno($this->_connection->resource));
             }
             if (pg_num_rows($ares) > 0) {
                 $affected = pg_fetch_object($ares)->affected;
@@ -125,24 +93,11 @@ final class Command extends SqlCommand
 
         // добавляем к тексту запроса limit-ы
         $preparedQuery = $this->PrepareQueryString();
-
+        $preparedQuery = $this->_prepareStatement($preparedQuery);
         // выполняем запрос
-        try {
-            // $stmt = $this->_prepareStatement($preparedQuery);
-            // pg_execute($connection, $stmtname, $params)
-            // mysqli_stmt_execute($stmt);
-            // $res = mysqli_stmt_get_result($stmt);
-        } catch (PgSqlException $e) {
-            if ($e->getCode() == 0) {
-                // нет параметров
-                $res = pg_query($this->connection->resource, $preparedQuery);
-            } else {
-                throw $e;
-            }
-        }
-
-        if (!($res instanceof \mysqli_result)) {
-            throw new PgSqlException(mysqli_error($this->_connection->resource) . ' query: ' . $preparedQuery, mysqli_errno($this->_connection->resource));
+        $res = pg_query($this->connection->resource, $preparedQuery);
+        if (!($res instanceof Result)) {
+            throw new PgSqlException(pg_last_error($this->_connection->resource) . ' query: ' . $preparedQuery);
         }
 
         return new DataReader($res, $affected, $preparedQuery);
@@ -155,19 +110,22 @@ final class Command extends SqlCommand
      * @return QueryInfo
      * @testFunction testCommandExecuteNonQuery
      */
-    public function ExecuteNonQuery(): QueryInfo
+    public function ExecuteNonQuery(?string $returning = null): QueryInfo
     {
-        // pg_sel($this->_connection->resource, $this->_connection->database);
-
-        if ($this->_params) {
-            // $stmt = $this->_prepareStatement($this->query);
-            // mysqli_stmt_execute($stmt);
-            // return new QueryInfo($this->type, mysqli_stmt_insert_id($stmt), mysqli_stmt_affected_rows($stmt), mysqli_stmt_error($stmt), $this->query);
-        } else {
-            pg_query($this->_connection->resource, $this->query);
-            return new QueryInfo($this->type, mysqli_insert_id($this->connection->resource), mysqli_affected_rows($this->connection->resource), mysqli_error($this->connection->resource), $this->query);
+        $query = $this->_prepareStatement($this->query);
+        $res = pg_query($this->_connection->resource, $query . ($returning ? ' returning ' . $returning : ''));
+        $insertId = 0;
+        if($returning) {
+            $object = pg_fetch_assoc($res);
+            $insertId = $object->$returning;
         }
-        return new QueryInfo($this->type, 0, 0, '', $this->query);
+        return new QueryInfo(
+            $this->type,
+            $insertId,
+            pg_affected_rows($this->connection->resource),
+            pg_last_error($this->connection->resource),
+            $this->query
+        );
     }
 
     /**

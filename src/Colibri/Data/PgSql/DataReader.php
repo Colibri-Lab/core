@@ -86,7 +86,7 @@ final class DataReader implements IDataReader
     public function Close(): void
     {
         if ($this->_results && isset($this->_results->current_field)) {
-            mysqli_free_result($this->_results);
+            pg_free_result($this->_results);
             $this->_results = null;
         }
     }

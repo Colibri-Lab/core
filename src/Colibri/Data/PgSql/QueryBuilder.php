@@ -225,4 +225,21 @@ class QueryBuilder implements IQueryBuilder
     {
         return 'SELECT * FROM information_schema.columns WHERE '.($schema ? 'table_schema = \''.$schema.'\' AND ' : '').'table_name = \''.$table.'\'';
     }
+
+    
+    public function CreateBegin(): string
+    {
+        return 'begin transaction';
+    }
+
+    public function CreateCommit(): string
+    {
+        return 'commit';
+    }
+
+    public function CreateRollback(): string
+    {
+        return 'rollback';
+    }
+
 }

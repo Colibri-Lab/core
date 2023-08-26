@@ -17,12 +17,12 @@ use Colibri\Data\PgSql\Exception as PgSqlException;
 
 /**
  * Класс подключения к базе данных MySql
- * 
+ *
  * @property-read resource $resource
  * @property-read resource $raw
  * @property-read resource $connection
  * @property-read bool $isAlive
- * 
+ *
  * @testFunction testConnection
  */
 final class Connection implements IConnection
@@ -42,8 +42,14 @@ final class Connection implements IConnection
      * @param bool $persistent
      * @param string $database
      */
-    public function __construct(string $host, string $port, string $user, string $password, bool $persistent = false, string $database = null)
-    {
+    public function __construct(
+        string $host,
+        string $port,
+        string $user,
+        string $password,
+        bool $persistent = false,
+        string $database = null
+    ) {
         $this->_connectioninfo = (object) [
             'host' => $host,
             'port' => $port,
@@ -68,12 +74,31 @@ final class Connection implements IConnection
         }
 
         try {
-            $this->_resource = pg_pconnect('host='.$this->_connectioninfo->host.' port='.$this->_connectioninfo->port.' dbname='.$this->_connectioninfo->database.' user="'.$this->_connectioninfo->user.'" password='.$this->_connectioninfo->password, PGSQL_CONNECT_FORCE_NEW);
+            $this->_resource = pg_pconnect(
+                'host='.$this->_connectioninfo->host.
+                ' port='.$this->_connectioninfo->port.
+                ' dbname='.$this->_connectioninfo->database.
+                ' user='.$this->_connectioninfo->user.
+                ' password='.$this->_connectioninfo->password,
+                PGSQL_CONNECT_FORCE_NEW
+            );
             if (!$this->_resource) {
-                throw new PgSqlException('Connection: ' . $this->_connectioninfo->host . ' ' . $this->_connectioninfo->port . ' ' . $this->_connectioninfo->user . ': ' . pg_last_error());
+                throw new PgSqlException(
+                    'Connection: ' . $this->_connectioninfo->host . ' ' .
+                    $this->_connectioninfo->port . ' ' .
+                    $this->_connectioninfo->user . ': ' .
+                    pg_last_error()
+                );
             }
         } catch (\Throwable $e) {
-            throw new PgSqlException('Connection: ' . $this->_connectioninfo->host . ' ' . $this->_connectioninfo->port . ' ' . $this->_connectioninfo->user . ': ' . $e->getMessage(), $e->getCode(), $e);
+            throw new PgSqlException(
+                'Connection: ' . $this->_connectioninfo->host . ' ' .
+                $this->_connectioninfo->port . ' ' .
+                $this->_connectioninfo->user . ': ' .
+                $e->getMessage(),
+                $e->getCode(),
+                $e
+            );
         }
 
         // if (!empty($this->_connectioninfo->database) && !mysqli_select_db($this->_resource, $this->_connectioninfo->database)) {
