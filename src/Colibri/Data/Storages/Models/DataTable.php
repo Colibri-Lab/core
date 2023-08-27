@@ -114,7 +114,7 @@ class DataTable extends BaseDataTable
         ];
         $filter = $filter ? ['('.$filter.')'] : [];
         if(isset($storage?->{'params'}['softdeletes']) && $storage?->{'params'}['softdeletes']) {
-            $filter[] = $storage->table . '_datedeleted is null';
+            $filter[] = $storage->name . '_datedeleted is null';
         }
         $additionalParams['type'] = $calculateAffected ?
             DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
