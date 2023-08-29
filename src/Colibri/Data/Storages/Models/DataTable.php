@@ -170,7 +170,11 @@ class DataTable extends BaseDataTable
         }
 
         if($storage?->{'params'}?->{'softdeletes'} === true) {
-            $res = $storage->accessPoint->Update($storage->table, [$storage->name . '_datedeleted' => DateHelper::ToDbString()], $filter);
+            $res = $storage->accessPoint->Update(
+                $storage->table,
+                [$storage->name . '_datedeleted' => DateHelper::ToDbString()],
+                $filter
+            );
             if (!$res->error) {
                 return true;
             }
@@ -179,6 +183,38 @@ class DataTable extends BaseDataTable
             if (!$res->error) {
                 return true;
             }
+        }
+
+
+        App::$log->debug('Error: ' . $res->error . ', query: ' . $res->query);
+        return false;
+    }
+
+    protected static function UpdateByFilter(Storage|string $storage, string $filter, array $fields): bool
+    {
+        if (is_string($storage)) {
+            $storage = Storages::Create()->Load($storage);
+        }
+
+        $res = preg_match_all('/\{([^\}]+)\}/', $filter, $matches, \PREG_SET_ORDER);
+        if ($res > 0) {
+            foreach ($matches as $match) {
+                $filter = str_replace($match[0], $storage->name . '_' . $match[1], $filter);
+            }
+        }
+
+        $newFields = [];
+        foreach($fields as $key => $value) {
+            $newFields[$storage->name . '_' . $key] = $value;
+        }
+
+        $res = $storage->accessPoint->Update(
+            $storage->table,
+            $newFields,
+            $filter
+        );
+        if (!$res->error) {
+            return true;
         }
 
 
