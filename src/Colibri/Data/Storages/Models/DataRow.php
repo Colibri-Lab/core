@@ -7,6 +7,7 @@
  * @copyright 2019 Colibri
  * @package Colibri\Data\Storages\Models
  */
+
 namespace Colibri\Data\Storages\Models;
 
 use Colibri\Data\Storages\Fields\FileField;
@@ -29,11 +30,11 @@ use Colibri\Data\SqlClient\QueryInfo;
  * Представление строки в таблице в хранилище
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Models
- * 
+ *
  * @property int $id
  * @property DateTimeField $datecreated
  * @property DateTimeField $datemodified
- * 
+ *
  */
 class DataRow extends BaseDataRow
 {
@@ -53,7 +54,7 @@ class DataRow extends BaseDataRow
      * @param Storage|null $storage
      * @throws DataModelException
      */
-    public function __construct(DataTable $table, mixed $data = null, ? Storage $storage = null)
+    public function __construct(DataTable $table, mixed $data = null, ?Storage $storage = null)
     {
         if (!$storage) {
             throw new DataModelException('Unknown storage');
@@ -75,7 +76,7 @@ class DataRow extends BaseDataRow
     /**
      * Заполняет строку из обьекта
      * @param mixed $obj обьект или массив
-     * @return void 
+     * @return void
      */
     public function Fill(mixed $obj): void
     {
@@ -212,7 +213,7 @@ class DataRow extends BaseDataRow
             if(isset($casts[$field->{'name'}])) {
                 $class = $casts[$field->{'name'}];
             }
-    
+
             if ($mode == 'get') {
                 try {
                     if(is_null($rowValue)) {
@@ -355,9 +356,9 @@ class DataRow extends BaseDataRow
                     if (is_object($fieldValue) && method_exists($fieldValue, 'GetValidationData')) {
                         if($fieldData->{'class'} === 'string') {
                             $ret = (string)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
-                        } else if($fieldData->{'class'} === 'float') {
+                        } elseif($fieldData->{'class'} === 'float') {
                             $ret = (float)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
-                        } else if($fieldData->{'class'} === 'int') {
+                        } elseif($fieldData->{'class'} === 'int') {
                             $ret = (int)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
                         } else {
                             $ret = $fieldValue->GetValidationData();
@@ -398,7 +399,7 @@ class DataRow extends BaseDataRow
 
     /**
      * Возвращает хранилище
-     * @return Storage 
+     * @return Storage
      */
     public function Storage(): Storage
     {
@@ -408,7 +409,7 @@ class DataRow extends BaseDataRow
     /**
      * Возвращает строку в виде массива
      * @param bool $noPrefix да - возвращать без префиксами
-     * @return array 
+     * @return array
      */
     public function ToArray(bool $noPrefix = false): array
     {
@@ -459,7 +460,7 @@ class DataRow extends BaseDataRow
 
     /**
      * Поле изменено
-     * @return bool 
+     * @return bool
      */
     public function IsPropertyChanged(string $property, bool $convertData = false): bool
     {
@@ -484,7 +485,7 @@ class DataRow extends BaseDataRow
 
     /**
      * Вызывает SaveRow у таблицы
-     * @return QueryInfo|bool 
+     * @return QueryInfo|bool
      */
     public function Save(bool $performValidationBeforeSave = false): QueryInfo|bool
     {
