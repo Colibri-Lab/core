@@ -46,7 +46,7 @@ class QueryBuilder implements IQueryBuilder
         }
 
         $keys = array_keys($data);
-        $fields = '(`' . join("`, `", $keys) . '`)';
+        $fields = '("' . join('", "', $keys) . '")';
 
         $vals = array_values($data);
         $values = "(" . join(", ", $vals) . ")";
@@ -78,7 +78,7 @@ class QueryBuilder implements IQueryBuilder
         }
 
         $keys = array_keys($data);
-        $fields = '(`' . join("`, `", $keys) . '`)';
+        $fields = '("' . join('", "', $keys) . '")';
 
         $vals = array_values($data);
         $values = "(" . join(", ", $vals) . ")";
@@ -100,7 +100,7 @@ class QueryBuilder implements IQueryBuilder
     {
         $data = (array) $data;
         $keys = array_keys($data);
-        $fields = '(`' . implode("`, `", $keys) . '`)';
+        $fields = '("' . implode('", "', $keys) . '")';
 
         $vals = array_values($data);
         $vs = [];
@@ -119,7 +119,7 @@ class QueryBuilder implements IQueryBuilder
         $updateStatement = '';
         foreach ($data as $k => $v) {
             if (!in_array($k, $exceptFields)) {
-                $updateStatement .= ',`' . $k . '`=' . ($v == null ? 'null' : '\'' . addslashes($v) . '\'');
+                $updateStatement .= ',"' . $k . '"=' . ($v == null ? 'null' : '\'' . addslashes($v) . '\'');
             }
         }
 
@@ -137,7 +137,7 @@ class QueryBuilder implements IQueryBuilder
     public function CreateBatchInsert(string $table, array |object $data)
     {
         $keys = array_keys((array) $data[0]);
-        $fields = '(`' . implode("`, `", $keys) . '`)';
+        $fields = '("' . implode('", "', $keys) . '")';
 
         $values = '';
         foreach ($data as $row) {
@@ -182,7 +182,7 @@ class QueryBuilder implements IQueryBuilder
             } elseif (strstr($val, '[[') === false || strstr($val, ']]') === false) {
                 $val = '\'' . addslashes($val) . '\'';
             }
-            $q .= ',`' . $k . '`=' . $val;
+            $q .= ',"' . $k . '"=' . $val;
         }
         return "update " . $table . ' set ' . substr($q, 1) . ' where ' . $condition;
     }
@@ -226,7 +226,7 @@ class QueryBuilder implements IQueryBuilder
         return 'SELECT * FROM information_schema.columns WHERE '.($schema ? 'table_schema = \''.$schema.'\' AND ' : '').'table_name = \''.$table.'\'';
     }
 
-    
+
     public function CreateBegin(): string
     {
         return 'begin transaction';
