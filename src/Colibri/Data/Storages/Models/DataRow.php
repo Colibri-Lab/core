@@ -221,9 +221,11 @@ class DataRow extends BaseDataRow
                     } else {
                         $reflection = new ReflectionClass($class);
                         if ($reflection->isSubclassOf(BaseDataRow::class)) {
-                            $this->_data[$property] = $rowValue instanceof $class ? $rowValue : $class::Create($rowValue);
+                            $this->_data[$property] = $rowValue instanceof $class ?
+                                $rowValue : $class::Create($rowValue);
                         } else {
-                            $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
+                            $this->_data[$property] = $rowValue instanceof $class ?
+                                $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
                         }
                     }
                 } catch (\Throwable $e) {
