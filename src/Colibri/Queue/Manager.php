@@ -1,20 +1,21 @@
 <?php
 
 namespace Colibri\Queue;
+
 use Colibri\App;
 use Colibri\Common\DateHelper;
 use Colibri\Data\DataAccessPoint;
+use Colibri\Threading\Process;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\FileLogger;
 use Colibri\Utils\Logs\Logger;
 
-class Manager 
+class Manager
 {
-
     private array $_config = [];
     private string $_driver = '';
     private array $_storages = [];
-    
+
     public static ?self $instance = null;
 
     public static function Create(): self
@@ -37,7 +38,7 @@ class Manager
 
         if(!$this->_driver || !$this->_storages) {
             return false;
-        } 
+        }
 
         $logger->debug('Starting migration of queues');
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -74,6 +75,7 @@ class Manager
                         `payload_class` varchar(512) NULL,
                         `payload` json NULL,
                         `attempts` int NULL DEFAULT 0,
+                        `parallel` tinyint(1) NULL DEFAULT 0,
                         PRIMARY KEY (`id`),
                         INDEX `'.$this->_storages['list'].'_datecreated`(`datecreated`),
                         INDEX `'.$this->_storages['list'].'_datemodified`(`datemodified`),
@@ -138,7 +140,7 @@ class Manager
 
     }
 
-    public function AddJob(Job $job): bool
+    public function AddJob(IJob $job): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
 
@@ -148,13 +150,15 @@ class Manager
 
         $res = $accessPoint->Insert($this->_storages['list'], $job->ToArray());
         if($res->insertid !== -1) {
+            $this->id = $res->insertid;
             return true;
         }
+
 
         return false;
     }
 
-    public function UpdateJob(Job $job): bool
+    public function UpdateJob(IJob $job): bool
     {
 
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -170,7 +174,7 @@ class Manager
         return false;
     }
 
-    public function DeleteJob(Job $job): bool
+    public function DeleteJob(IJob $job): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
 
@@ -185,7 +189,7 @@ class Manager
         return false;
     }
 
-    public function FailJob(Job $job, \Throwable $e): bool
+    public function FailJob(IJob $job, \Throwable $e): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
 
@@ -217,7 +221,7 @@ class Manager
 
     }
 
-    public function SuccessJob(Job $job, array|object $result): bool
+    public function SuccessJob(IJob $job, array|object $result): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
 
@@ -243,10 +247,20 @@ class Manager
 
     }
 
-    public function GetNextJob(string $queue): ?Job
+    public function GetNextJob(array $queue): ?IJob
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
-        $reader = $accessPoint->Query('select * from '.$this->_storages['list'].' where datereserved is null order by id limit 1');
+        $reader = $accessPoint->Query(
+            'select
+                *
+            from
+                '.$this->_storages['list'].'
+            where
+                datereserved is null and
+                queue in (\''.implode('\',\'', $queue).'\')
+            order by id
+            limit 1'
+        );
         $data = $reader->Read();
         if(!$data) {
             return null;
@@ -254,8 +268,29 @@ class Manager
         $class = $data->class;
         $payloadClass = $data->payload_class ?? 'ExtendedObject';
         $data->payload = new $payloadClass(json_decode($data->payload));
-        $job = new $class($data);
-        return $job;
+        return new $class($data);
+        
+    }
+
+    public function GetJobById(int $id): ?IJob
+    {
+        $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $reader = $accessPoint->Query(
+            'select
+                *
+            from
+                '.$this->_storages['list'].'
+            where
+                id=\''.$id.'\'
+        ');
+        $data = $reader->Read();
+        if(!$data) {
+            return null;
+        }
+        $class = $data->class;
+        $payloadClass = $data->payload_class ?? 'ExtendedObject';
+        $data->payload = new $payloadClass(json_decode($data->payload));
+        return new $class($data);
     }
 
     /**
@@ -263,26 +298,37 @@ class Manager
      */
     public function ProcessJobs(string $queue): void
     {
-        
+
         $logger = new FileLogger(Logger::Debug, '_cache/log/queue-' . $queue . '.log', true);
         $logger->info($queue . ': Begin job routine');
         while(true) {
 
-            $job = Manager::Create()->GetNextJob($queue);
+            $job = Manager::Create()->GetNextJob(explode(',', $queue));
             if(!$job) {
                 sleep($this->_config['timeout'] ?? 3);
                 continue;
             }
 
-            $logger->info($queue . ': Job starts');
-            if(!$job->Handle($logger)) {
-                $logger->info($queue . ': Job fails!');
+            $logger->info($job->queue . ': ' . $job->id);
+            $job->Begin();
+
+            if($job->IsParallel()) {
+
+                $worker = new JobParallelWorker();
+                $process = new Process($worker);
+                $process->Run((object)['queue' => $job->queue, 'id' => $job->id]);
+
             } else {
-                $logger->info($queue . ': Job success');
+                $logger->info($job->queue . ': Job starts');
+                if(!$job->Handle($logger)) {
+                    $logger->info($job->queue . ': Job fails!');
+                } else {
+                    $logger->info($job->queue . ': Job success');
+                }
             }
 
         }
     }
-    
+
 
 }

@@ -5,12 +5,22 @@ use Colibri\Common\DateHelper;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\Logger;
 
-abstract class Job extends ExtendedObject 
+/**
+ * @property ?int $id
+ * @property string $queue
+ * @property int $attempts
+ * @property string $class
+ * @property string $payload_class
+ * @property int $attempts
+ * @property ExtendedObject $payload
+ */
+
+abstract class Job extends ExtendedObject implements IJob
 {
 
     protected static $maxAttempts = 5;
 
-    public static function Create(ExtendedObject $payload, string $queue = 'default', int $attempts = 0): static
+    public static function Create(ExtendedObject $payload, string $queue = 'default', int $attempts = 0, bool $parallel = false, ?int $id = null): static
     {
         $job = new static();
         $job->payload = $payload;
@@ -18,6 +28,8 @@ abstract class Job extends ExtendedObject
         $job->class = static::class;
         $job->attempts = $attempts;
         $job->queue = $queue;
+        $job->parallel = $parallel;
+        $job->id = $id;
         return $job;
     }
 
@@ -26,6 +38,11 @@ abstract class Job extends ExtendedObject
     public function IsLastAttempt(): bool
     {
         return ($this->attempts ?: 0) > static::$maxAttempts;
+    }
+    
+    public function IsParallel(): bool
+    {
+        return ($this->parallel ?: false);
     }
 
     public function Add(): bool
@@ -88,6 +105,8 @@ abstract class Job extends ExtendedObject
         return [
             'queue' => $this->queue,
             'attempts' => $this->attempts,
+            'datereserved' => $this->datereserved,
+            'parallel' => $this->parallel,
             'class' => static::class,
             'payload_class' => get_class($this->payload),
             'payload' => json_encode($this->payload),
