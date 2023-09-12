@@ -53,7 +53,7 @@ class Request
      *
      * @var Data | string | null
      */
-    public Data|string|null $postData = null;
+    public mixed $postData = null;
     /**
      * Шифрование
      *
@@ -218,9 +218,11 @@ class Request
         if ($this->encryption == Encryption::Multipart) {
             return $this->_createMultipartRequestBody($this->boundary, $this->postData);
         } elseif ($this->encryption == Encryption::XmlEncoded) {
-            $return = VariableHelper::IsString($this->postData) ? $this->postData : XmlHelper::Encode($this->postData, null);
+            $return = VariableHelper::IsString($this->postData) ?
+                $this->postData : XmlHelper::Encode($this->postData, null);
         } elseif ($this->encryption == Encryption::JsonEncoded) {
-            $return = VariableHelper::IsString($this->postData) ? $this->postData : json_encode($this->postData);
+            $return = VariableHelper::IsString($this->postData) ?
+                $this->postData : json_encode($this->postData, JSON_UNESCAPED_UNICODE);
         } else {
 
             foreach ($this->postData as $value) {
@@ -322,7 +324,8 @@ class Request
         );
 
         if ($this->cookies) {
-            $_headers[] = "Cookie: " . is_array($this->cookies) ? http_build_query($this->cookies, '', '; ') : $this->cookies;
+            $_headers[] = "Cookie: " . is_array($this->cookies) ? 
+                http_build_query($this->cookies, '', '; ') : $this->cookies;
         }
 
         if ($this->encryption == Encryption::Multipart) {
@@ -332,7 +335,7 @@ class Request
             $_headers[] = "Content-Type: application/json";
         } elseif ($this->encryption == Encryption::XmlEncoded) {
             $_headers[] = "Content-Type: " . ($this->contentType ?: "application/xml");
-        } 
+        }
 
         if ($this->method == Type::Post) {
             curl_setopt($handle, CURLOPT_POST, true);
