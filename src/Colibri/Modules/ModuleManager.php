@@ -77,13 +77,14 @@ class ModuleManager
         try {
             $this->_settings = App::$config->Query('modules');
             $entities = $this->_settings->Query('entries');
+            $domainKey = App::$domainKey;
             foreach ($entities as $moduleConfig) {
                 if (!$moduleConfig->Query('enabled', true)->GetValue()) {
                     continue;
                 }
 
                 $keysArray = $moduleConfig->Query('for', [])->ToArray();
-                if (!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
+                if (!empty($keysArray) && !in_array($domainKey, $keysArray)) {
                     continue;
                 }
 
