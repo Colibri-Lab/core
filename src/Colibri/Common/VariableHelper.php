@@ -688,4 +688,17 @@ class VariableHelper
         return implode($dlim, $list);
     }
 
+    public static function UniqueByProperty(array $array, string $field): array
+    {
+        $keyMap = [];
+        $newArray = [];
+        foreach($array as $value) {
+            if(isset($value[$field]) && !in_array($value[$field], $keyMap)) {
+                $newArray[] = $value;
+                $keyMap[] = $value[$field];
+            }
+        }
+        return $newArray;
+    }
+
 }

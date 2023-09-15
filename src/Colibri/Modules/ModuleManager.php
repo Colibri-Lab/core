@@ -5,6 +5,7 @@ namespace Colibri\Modules;
 use Colibri\App;
 use Colibri\AppException;
 use Colibri\Collections\Collection;
+use Colibri\Common\VariableHelper;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Events\EventsContainer;
 use Colibri\Utils\Config\Config;
@@ -209,7 +210,7 @@ class ModuleManager
         foreach ($this->list as $module) {
             $paths = [...$paths, ...$module->GetPathsFromModuleConfig($extendArray)];
         }
-        return $paths;
+        return VariableHelper::UniqueByProperty($paths, 'path');
     }
 
     /**
