@@ -8,11 +8,14 @@ use Colibri\Utils\Debug;
 
 class ValidationException extends \Exception
 {
-
     private mixed $_exceptionData = null;
 
-    public function __construct(string $message = "", int $code = 0, \Throwable $previousException = null, mixed $exceptionData = null)
-    {
+    public function __construct(
+        string $message = "",
+        int $code = 0,
+        \Throwable $previousException = null,
+        mixed $exceptionData = null
+    ) {
         $this->_exceptionData = $exceptionData;
         parent::__construct($message, $code, $previousException);
     }

@@ -21,7 +21,6 @@ use Colibri\Utils\Debug;
  */
 class Module
 {
-
     // подключаем trait событийной модели
     use TEventDispatcher;
 
@@ -71,7 +70,7 @@ class Module
         $this->_modulePath = str_replace('Module.php', '', $filename);
         $this->_moduleNamespace = $reflection->getNamespaceName() . '\\';
 
-        // если начинается не с вендора то надо попробовать найти 
+        // если начинается не с вендора то надо попробовать найти
         // composer.json и выкопать из него где реально лежит модуль
         if(strstr($this->_modulePath, '/vendor/') === false && strstr($this->_modulePath, '/App/') === false) {
             $pathParts = explode('/', $this->_modulePath);
@@ -91,10 +90,14 @@ class Module
 
         try {
             $databasesConfigArray = $this->Config()->Query('config.databases')->AsArray();
-            $this->_moduleStoragesConfigPath = str_replace(')', '', str_replace('include(', '', $databasesConfigArray['storages']));
+            $this->_moduleStoragesConfigPath = str_replace(
+                ')',
+                '',
+                str_replace('include(', '', $databasesConfigArray['storages'])
+            );
 
         } catch (\Throwable $e) {
-
+            // do nothing
         }
 
     }
@@ -118,24 +121,25 @@ class Module
      *
      * @return Config
      */
-    public function Config(): Config
+    public function Config(?string $item = null, mixed $default = null): Config
     {
-        return $this->_config;
+        return $item ? $this->_config->Query('config.' . $item, $default) : $this->_config;
     }
 
     public function __get(string $prop): mixed
     {
+        $return = null;
         $prop = strtolower($prop);
         if ($prop == 'modulepath') {
-            return $this->_modulePath;
+            $return = $this->_modulePath;
         } elseif ($prop == 'modulenamespace') {
-            return $this->_moduleNamespace;
+            $return = $this->_moduleNamespace;
         } elseif ($prop == 'moduleconfigpath') {
-            return $this->_moduleConfigFile;
+            $return = $this->_moduleConfigFile;
         } elseif ($prop == 'modulestoragespath') {
-            return $this->_moduleStoragesConfigPath;
+            $return = $this->_moduleStoragesConfigPath;
         }
-        return false;
+        return $return;
     }
 
     /**
@@ -190,12 +194,12 @@ class Module
         $p = $this->Config()->Query('config.paths.ui', [])->ToArray();
         if(!empty($p)) {
             foreach($p as $path) {
-                if(is_object($path)) {
+                if (is_object($path)) {
                     $path = $path->path;
-                } else if(is_array($path)) {
+                } elseif (is_array($path)) {
                     $path = $path['path'];
                 }
-                $pp = ['path' => App::$appRoot . $path]; 
+                $pp = ['path' => App::$appRoot . $path];
                 if($extendArray) {
                     $paths[] = array_merge($pp, $extendArray);
                 } else {

@@ -293,16 +293,22 @@ class Server
                 $result = (object) $obj->$method($get, $post, $payload);
             } catch (\Throwable $e) {
 
+                $errorResult = [
+                    'exception' => get_class($e),
+                    'message' => $e->getMessage(),
+                    'line' => $e->getLine(),
+                    'file' => $e->getFile(),
+                    'trace' => $e->getTrace()
+                ];
+
+                if(method_exists($e, 'getExceptionDataAsArray')) {
+                    $errorResult['data'] = $e->{'getExceptionDataAsArray'}();
+                }
+
                 // если что то не так то выводим ошибку
                 $result = (object)[
                     'code' => $e->getCode() ?: 500,
-                    'result' => [
-                        'exception' => get_class($e),
-                        'message' => $e->getMessage(),
-                        'line' => $e->getLine(),
-                        'file' => $e->getFile(),
-                        'trace' => $e->getTrace()
-                    ]
+                    'result' => $errorResult
                 ];
 
                 $code = $e->getCode() ?: 500;
