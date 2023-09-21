@@ -295,14 +295,17 @@ class Server
 
                 $errorResult = [
                     'exception' => get_class($e),
-                    'message' => $e->getMessage(),
-                    'line' => $e->getLine(),
-                    'file' => $e->getFile(),
-                    'trace' => $e->getTrace()
+                    'message' => $e->getMessage()
                 ];
 
                 if(method_exists($e, 'getExceptionDataAsArray')) {
                     $errorResult['data'] = $e->{'getExceptionDataAsArray'}();
+                }
+
+                if(App::$isDev || App::$isLocal) {
+                    $errorResult['line'] = $e->getLine();
+                    $errorResult['file'] = $e->getFile();
+                    $errorResult['trace'] = $e->getTrace();
                 }
 
                 // если что то не так то выводим ошибку
