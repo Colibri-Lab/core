@@ -63,15 +63,30 @@ final class Command extends SqlCommand
                 $values[] = $this->_params[$matching[0]];
                 $query = str_replace('[[' . $match . ']]', '?', $query);
             } else {
-                $types = array_merge($types, array_fill(0, count($this->_params[$matching[0]]), $typesAliases[$matching[1]]));
-                $values = array_merge($values, $this->_params[$matching[0]]);
-                $query = str_replace('[[' . $match . ']]', implode(',', array_fill(0, count($this->_params[$matching[0]]), '?')), $query);
+                $types = array_merge(
+                    $types, array_fill(
+                        0, count($this->_params[$matching[0]]), 
+                        $typesAliases[$matching[1]]
+                    )
+                );
+                $values = array_merge(
+                    $values, 
+                    $this->_params[$matching[0]]
+                );
+                $query = str_replace(
+                    '[[' . $match . ']]',
+                    implode(',', array_fill(0, count($this->_params[$matching[0]]), '?')),
+                    $query
+                );
             }
         }
 
         $stmt = mysqli_prepare($this->_connection->resource, $query);
         if (!$stmt) {
-            throw new MySqlException(mysqli_error($this->_connection->resource), mysqli_errno($this->_connection->resource));
+            throw new MySqlException(
+                mysqli_error($this->_connection->resource),
+                mysqli_errno($this->_connection->resource)
+            );
         }
 
         // чертов бред!
@@ -113,7 +128,10 @@ final class Command extends SqlCommand
                 $ares = mysqli_query($this->_connection->resource, $limitQuery);
             }
             if (!($ares instanceof \mysqli_result)) {
-                throw new MySqlException(mysqli_error($this->_connection->resource) . ' query: ' . $limitQuery, mysqli_errno($this->_connection->resource));
+                throw new MySqlException(
+                    mysqli_error($this->_connection->resource) . ' query: ' . $limitQuery,
+                    mysqli_errno($this->_connection->resource)
+                );
             }
             if (mysqli_num_rows($ares) > 0) {
                 $affected = mysqli_fetch_object($ares)->affected;
@@ -139,7 +157,10 @@ final class Command extends SqlCommand
         }
 
         if (!($res instanceof \mysqli_result)) {
-            throw new MySqlException(mysqli_error($this->_connection->resource) . ' query: ' . $preparedQuery, mysqli_errno($this->_connection->resource));
+            throw new MySqlException(
+                mysqli_error($this->_connection->resource) . ' query: ' . $preparedQuery, 
+                mysqli_errno($this->_connection->resource)
+            );
         }
 
         return new DataReader($res, $affected, $preparedQuery);
@@ -159,10 +180,22 @@ final class Command extends SqlCommand
         if ($this->_params) {
             $stmt = $this->_prepareStatement($this->query);
             mysqli_stmt_execute($stmt);
-            return new QueryInfo($this->type, mysqli_stmt_insert_id($stmt), mysqli_stmt_affected_rows($stmt), mysqli_stmt_error($stmt), $this->query);
+            return new QueryInfo(
+                $this->type,
+                mysqli_stmt_insert_id($stmt),
+                mysqli_stmt_affected_rows($stmt),
+                mysqli_stmt_error($stmt), 
+                $this->query
+            );
         } else {
             mysqli_query($this->_connection->resource, $this->query);
-            return new QueryInfo($this->type, mysqli_insert_id($this->connection->resource), mysqli_affected_rows($this->connection->resource), mysqli_error($this->connection->resource), $this->query);
+            return new QueryInfo(
+                $this->type,
+                mysqli_insert_id($this->connection->resource),
+                mysqli_affected_rows($this->connection->resource),
+                mysqli_error($this->connection->resource),
+                $this->query
+            );
         }
     }
 
