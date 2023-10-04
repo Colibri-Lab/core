@@ -252,7 +252,7 @@ class Generator
         }
 
         if($field->{'type'} === 'enum') {
-            $class = $class . '|ValueField';
+            $class = strstr($class, 'ValueField') === false ? $class . '|ValueField' : $class;
             $uses[] = 'use Colibri\Data\Storages\Fields\ValueField;';
         }
 
