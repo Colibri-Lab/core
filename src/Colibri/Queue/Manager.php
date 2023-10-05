@@ -299,8 +299,6 @@ class Manager
     public function ProcessJobs(string $queue): void
     {
 
-        $logger = new FileLogger(Logger::Debug, '_cache/log/queue-' . $queue . '.log', true);
-        $logger->info($queue . ': Begin job routine');
         while(true) {
 
             $job = Manager::Create()->GetNextJob(explode(',', $queue));
@@ -309,6 +307,9 @@ class Manager
                 continue;
             }
 
+            $logger = new FileLogger(Logger::Debug, '_cache/log/queue-' . $job->queue . '.log', true);
+            $logger->info($job->queue . ': Begin job routine');
+            
             $logger->info($job->queue . ': ' . $job->id);
             $job->Begin();
 
