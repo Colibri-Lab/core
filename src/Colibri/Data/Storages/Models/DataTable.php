@@ -169,7 +169,8 @@ class DataTable extends BaseDataTable
             }
         }
 
-        if($storage?->{'params'}?->{'softdeletes'} === true) {
+        $params = (object)$storage?->{'params'};
+        if($params?->{'softdeletes'} === true) {
             $res = $storage->accessPoint->Update(
                 $storage->table,
                 [$storage->name . '_datedeleted' => DateHelper::ToDbString()],
