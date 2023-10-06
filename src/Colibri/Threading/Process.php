@@ -2,11 +2,11 @@
 
 /**
  * Threading
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Threading
- * 
+ *
  */
 
 namespace Colibri\Threading;
@@ -48,7 +48,7 @@ use Colibri\Utils\Debug;
  *
  *
  * @testFunction testProcess
- * 
+ *
  * @property-read int $pid
  * @property-read string $name
  * @property-read string $command
@@ -56,11 +56,10 @@ use Colibri\Utils\Debug;
  * @property array|object $params
  * @property-read Worker $worker
  * @property-read ?object $results
- * 
+ *
  */
 class Process
 {
-
     /**
      * PID процесса Worker-а
      *
@@ -70,7 +69,7 @@ class Process
 
     /**
      * Worker который нужно запустить
-     * 
+     *
      * @var Worker
      */
     private $_worker;
@@ -101,7 +100,7 @@ class Process
      * Обработчик запросов, в большинстве случаев php_cli
      * Если у вас на сервере php_cli лежит в другом месте, необходимо изменить эту переменную
      */
-    const Handler = '/usr/bin/php';
+    public const Handler = '/usr/bin/php';
 
     /**
      * Выполняет Worker по имени класса в отдельном потоке
@@ -135,7 +134,7 @@ class Process
     public static function ByWorkerName(string $workerName, bool $debug = false, string $entry = ''): ?Process
     {
         exec('ps -ax | grep ' . $workerName, $console);
-        
+
         $pid = 0;
         $worker = null;
         foreach($console as $line) {
@@ -228,7 +227,8 @@ class Process
             App::$log->debug($command);
             App::$log->debug($request);
         }
-        $pid = shell_exec($command . ' > ' . App::$webRoot . '/_cache/log/process.log & echo $!');
+        $cmd = $command . ' > ' . App::$webRoot . '/_cache/log/process.log & echo $!';
+        $pid = shell_exec($cmd);
         $this->_pid = trim($pid, "\n\r\t ");
     }
 
@@ -242,7 +242,7 @@ class Process
     {
         if ($this->_pid) {
             exec('ps ' . $this->_pid, $state);
-            return (count($state) >= 2);
+            return count($state) >= 2;
         }
         return false;
     }
