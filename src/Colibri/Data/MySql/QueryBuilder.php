@@ -179,6 +179,8 @@ class QueryBuilder implements IQueryBuilder
                 $val = 'null';
             } elseif (is_bool($val)) {
                 $val = '\'' . ($val ? 1 : 0) . '\'';
+            } elseif (strpos($val, '^') === 0) {
+                $val = substr($val, 1);
             } elseif (strstr($val, '[[') === false || strstr($val, ']]') === false) {
                 $val = '\'' . addslashes($val) . '\'';
             }

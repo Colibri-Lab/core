@@ -26,7 +26,6 @@ use Colibri\Collections\ArrayListIterator;
  */
 class Config implements IteratorAggregate
 {
-
     private string $_file = '';
 
     /**
@@ -142,7 +141,9 @@ class Config implements IteratorAggregate
      * пути указываются в javascript нотации
      * например: settings.item[0].info или settings.item.buh.notice_email
      *
-     * @param string|array $item строковое представление пути в конфигурационном файле, если передан массив то будет последовательно запрошены все элементы пока не будет найден позитивный оптвет, если ничего не будет найдено то будет попытка вернуть $default
+     * @param string|array $item строковое представление пути в конфигурационном файле,
+     *      если передан массив то будет последовательно запрошены все элементы пока не будет
+     *      найден позитивный оптвет, если ничего не будет найдено то будет попытка вернуть $default
      * @param mixed $default значение по умолчанию, если путь не найден
      * @return ConfigItemsList|Config
      * @testFunction testConfigQuery
@@ -155,8 +156,7 @@ class Config implements IteratorAggregate
                 try {
                     $result = $this->Query($query);
                     break;
-                }
-                catch(ConfigException $e) {
+                } catch(ConfigException $e) {
                     continue;
                 }
             }
@@ -289,7 +289,7 @@ class Config implements IteratorAggregate
     /**
      * Собирает все файлы конфигураций в папке /config
      */
-    static function Enumerate(): array
+    public static function Enumerate(): array
     {
 
         $ret = [];
@@ -331,7 +331,7 @@ class Config implements IteratorAggregate
         return null;
     }
 
-    function getIterator()
+    public function getIterator()
     {
         return new ArrayListIterator($this);
     }

@@ -254,7 +254,16 @@ class DataTable extends BaseDataTable
                 $paramType = 'string';
                 if ($field && in_array($field->{'type'}, ['blob', 'tinyblob', 'longblob'])) {
                     $paramType = 'blob';
-                } elseif ($field && in_array($field->{'type'}, ['integer', 'int', 'smallint', 'tinyint', 'medium', 'bigint', 'decimal', 'numeric'])) {
+                } elseif ($field && in_array($field->{'type'}, [
+                    'integer',
+                    'int',
+                    'smallint',
+                    'tinyint',
+                    'medium',
+                    'bigint',
+                    'decimal',
+                    'numeric'
+                ])) {
                     $paramType = 'integer';
                 } elseif ($field && in_array($field->{'type'}, ['double', 'float'])) {
                     $paramType = 'double';

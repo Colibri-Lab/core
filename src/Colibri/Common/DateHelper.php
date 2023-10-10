@@ -365,4 +365,10 @@ class DateHelper
         $dt->setTimezone(new DateTimeZone('-' . $zone));
         return $dt;
     }
+
+    public static function DaysInMonth(DateTime $dt): int
+    {
+        return cal_days_in_month(CAL_GREGORIAN, $dt->format('M'), $dt->format('yyyy'));
+    }
+
 }

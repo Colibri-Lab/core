@@ -604,7 +604,7 @@ class Storages
      * @throws DataAccessPointsException
      * @return void
      */
-    private function _alterStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, array $field, string $type, int $length, string $expression, string $comment)
+    private function _alterStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, string $field, string $type, ?int $length, string $expression, string $comment)
     {
 
         $res = $accessPoint->Query('
