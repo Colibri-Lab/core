@@ -206,6 +206,14 @@ class DataTable extends BaseDataTable
 
         $newFields = [];
         foreach($fields as $key => $value) {
+            if(substr($value, 0, 1) === '^') {
+                $res = preg_match_all('/\{([^\}]+)\}/', $value, $matches, \PREG_SET_ORDER);
+                if ($res > 0) {
+                    foreach ($matches as $match) {
+                        $value = str_replace($match[0], $storage->name . '_' . $match[1], $value);
+                    }
+                }
+            }
             $newFields[$storage->name . '_' . $key] = $value;
         }
 
