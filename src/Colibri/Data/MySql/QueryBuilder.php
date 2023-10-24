@@ -228,9 +228,15 @@ class QueryBuilder implements IQueryBuilder
         return "show columns from " . $table;
     }
 
-    public function CreateBegin(): string
+    public function CreateBegin(string $type = 'readonly'): string
     {
-        return 'start transaction';
+        if($type === 'readonly') {
+            return 'start transaction READ ONLY';
+        } elseif($type === 'readwrite') {
+            return 'start transaction READ WRITE';
+        } else {
+            return 'start transaction';
+        }
     }
 
     public function CreateCommit(): string

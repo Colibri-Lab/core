@@ -113,6 +113,9 @@ class DataAccessPoint
     /** Выполнить запрос, который не подразумевает чтения данных */
     public const QueryTypeNonInfo = 'noninfo';
 
+    public const TransationReadonly = 'readonly';
+    public const TransationReadWrite = 'readwrite';
+
     /**
      * Информация о подключении
      *
@@ -363,11 +366,11 @@ class DataAccessPoint
      * @return void
      * @testFunction testDataAccessPointBegin
      */
-    public function Begin(): QueryInfo
+    public function Begin(string $type = self::TransationReadonly): QueryInfo
     {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateBegin(), ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        return $this->Query($queryBuilder->CreateBegin($type), ['type' => DataAccessPoint::QueryTypeNonInfo]);
     }
 
     /**

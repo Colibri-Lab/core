@@ -34,27 +34,26 @@ use Colibri\Collections\IArrayList;
  */
 class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 {
-
     /**
      * Точка доступа
      *
      * @var DataAccessPoint
      */
-    protected ? DataAccessPoint $_point = null;
+    protected ?DataAccessPoint $_point = null;
 
     /**
      * Ридер
      *
      * @var IDataReader
      */
-    protected ? IDataReader $_reader = null;
+    protected ?IDataReader $_reader = null;
 
     /**
      * Кэш загруженных строк
      *
      * @var ArrayList
      */
-    protected ? ArrayList $_cache = null;
+    protected ?ArrayList $_cache = null;
 
     /**
      * Название класса представления строк
@@ -198,7 +197,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return DataAccessPoint|null
      * @testFunction testDataTablePoint
      */
-    public function Point(): ? DataAccessPoint
+    public function Point(): ?DataAccessPoint
     {
         return $this->_point;
     }
@@ -299,7 +298,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 
     /**
      * Создает пустую строку
-     * 
+     *
      * @param object|array $data данные строки
      *
      * @return mixed
@@ -372,13 +371,17 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 
         $encoding = $this->_getTableEncoding($table);
 
-        // устанавливаем кодировку клиента      
-        $this->_point->Query('set names ' . $encoding->encoding, (object) ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        // устанавливаем кодировку клиента
+        $this->_point->Query(
+            'set names ' . $encoding->encoding,
+            (object) ['type' => DataAccessPoint::QueryTypeNonInfo]
+        );
 
         $fieldValues = [];
         foreach ($row as $key => $value) {
             if ($row->IsPropertyChanged($key, $convert)) {
-                $fieldValues[$key] = $encoding->encoding != Encoding::UTF8 && $convert ? Encoding::Convert((string) $value, $encoding->encoding) : $value;
+                $fieldValues[$key] = $encoding->encoding != Encoding::UTF8 && $convert ?
+                    Encoding::Convert((string) $value, $encoding->encoding) : $value;
             }
         }
 

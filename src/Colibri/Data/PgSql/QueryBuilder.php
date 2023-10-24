@@ -227,7 +227,7 @@ class QueryBuilder implements IQueryBuilder
     }
 
 
-    public function CreateBegin(): string
+    public function CreateBegin(string $type = 'readonly'): string
     {
         return 'begin transaction';
     }

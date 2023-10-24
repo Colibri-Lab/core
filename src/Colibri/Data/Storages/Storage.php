@@ -32,8 +32,8 @@ use Colibri\Utils\Config\Config;
  * @property-read object $fields
  * @property-read DataAccessPoint $accessPoint
  * @property-read string $name
- * 
- * 
+ *
+ *
  */
 class Storage
 {
@@ -145,7 +145,7 @@ class Storage
 
     /**
      * Возвращает модели репу и модель
-     * @return array 
+     * @return array
      */
     public function GetModelClasses()
     {
@@ -160,7 +160,7 @@ class Storage
             }
             $rootNamespace = App::$moduleManager->$module->moduleNamespace;
         }
-        
+
         if (isset($this->_xstorage['models']) && isset($this->_xstorage['models']['table'])) {
             $tableClassName = $this->_xstorage['models']['table'];
             if(strstr($tableClassName, 'Models\\') === false) {
@@ -170,7 +170,7 @@ class Storage
                 $tableClass = $rootNamespace . $tableClassName;
             }
         }
-        
+
         if (isset($this->_xstorage['models']) && isset($this->_xstorage['models']['row'])) {
             $rowClassName = $this->_xstorage['models']['row'];
             if(strstr($rowClassName, 'Models\\') === false) {
@@ -258,7 +258,7 @@ class Storage
         return $this->_xstorage['templates'] ?? [];
     }
 
-    public function GetModule(): ? Module
+    public function GetModule(): ?Module
     {
         $module = isset($this->_xstorage['module']) ? $this->_xstorage['module'] : null;
         if (!$module) {
@@ -268,8 +268,8 @@ class Storage
     }
 
     /**
-     * Возвращает настройки хранилища в виде 
-     * @return array 
+     * Возвращает настройки хранилища в виде
+     * @return array
      */
     public function ToArray($changeLang = true)
     {
@@ -415,6 +415,16 @@ class Storage
     {
         $reader = $this->accessPoint->Query('SHOW TABLE STATUS LIKE \''.$this->table.'\'');
         return $reader->Read();
+    }
+
+    public function DisableKeys()
+    {
+        $this->accessPoint->Query('ALTER TABLE '.$this->table.' DISABLE KEYS');
+    }
+
+    public function EnableKeys()
+    {
+        $this->accessPoint->Query('ALTER TABLE '.$this->table.' ENABLE KEYS');
     }
 
 }

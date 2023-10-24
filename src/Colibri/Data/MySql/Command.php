@@ -20,14 +20,13 @@ use mysqli_stmt;
 
 /**
  * Класс для выполнения команд в точку доступа
- * 
+ *
  * @inheritDoc
- * 
+ *
  * @testFunction testCommand
  */
 final class Command extends SqlCommand
 {
-
     /**
      * Подготавливает запрос с параметрами
      * @param string $query
@@ -64,13 +63,15 @@ final class Command extends SqlCommand
                 $query = str_replace('[[' . $match . ']]', '?', $query);
             } else {
                 $types = array_merge(
-                    $types, array_fill(
-                        0, count($this->_params[$matching[0]]), 
+                    $types,
+                    array_fill(
+                        0,
+                        count($this->_params[$matching[0]]),
                         $typesAliases[$matching[1]]
                     )
                 );
                 $values = array_merge(
-                    $values, 
+                    $values,
                     $this->_params[$matching[0]]
                 );
                 $query = str_replace(
@@ -158,7 +159,7 @@ final class Command extends SqlCommand
 
         if (!($res instanceof \mysqli_result)) {
             throw new MySqlException(
-                mysqli_error($this->_connection->resource) . ' query: ' . $preparedQuery, 
+                mysqli_error($this->_connection->resource) . ' query: ' . $preparedQuery,
                 mysqli_errno($this->_connection->resource)
             );
         }
@@ -184,7 +185,7 @@ final class Command extends SqlCommand
                 $this->type,
                 mysqli_stmt_insert_id($stmt),
                 mysqli_stmt_affected_rows($stmt),
-                mysqli_stmt_error($stmt), 
+                mysqli_stmt_error($stmt),
                 $this->query
             );
         } else {
