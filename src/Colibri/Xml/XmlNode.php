@@ -22,7 +22,7 @@ use Exception;
 
 /**
  * Класс работы с XML объектом
- * 
+ *
  * @property-read string $type
  * @property string $value
  * @property-read string $name
@@ -48,12 +48,11 @@ use Exception;
  * @property object $tag
  * @property-read bool $isCData
  * @property-read int $elementsCount количество дочерних элементов
- * 
+ *
  * @testFunction testXmlNode
  */
 class XmlNode
 {
-
     /**
      * Raw обьект документа
      *
@@ -127,7 +126,7 @@ class XmlNode
     /**
      *  Создает XmlNode из неполного документа
      *
-     * @param string $xmlString Строка xml  
+     * @param string $xmlString Строка xml
      * @param string $encoding Кодировка строки
      * @return XmlNode
      * @testFunction testXmlNodeLoadNode
@@ -226,6 +225,13 @@ class XmlNode
         }
     }
 
+    public function Export(string $documentTag): self
+    {
+        $xml = XmlNode::LoadNode('<'.$documentTag.'></'.$documentTag.'>', 'utf-8');
+        $xml->Append($this);
+        return $xml;
+    }
+
     /**
      * Сохраняет в файл или возвращает строку HTML хранящуюся в обьекте
      *
@@ -254,114 +260,114 @@ class XmlNode
     {
         switch (strtolower($property)) {
             case 'type': {
-                    return $this->_node->nodeType;
-                }
+                return $this->_node->nodeType;
+            }
             case 'value': {
-                    return $this->_node->nodeValue;
-                }
+                return $this->_node->nodeValue;
+            }
             case 'iscdata': {
-                    return $this->_node->firstChild instanceof \DOMCdataSection;
-                }
+                return $this->_node->firstChild instanceof \DOMCdataSection;
+            }
             case 'name': {
-                    return $this->_node->nodeName;
-                }
+                return $this->_node->nodeName;
+            }
             case 'data': {
-                    return $this->_node->textContent;
-                }
+                return $this->_node->textContent;
+            }
             case 'encoding': {
-                    return $this->_document->encoding ? $this->_document->encoding : 'utf-8';
-                }
+                return $this->_document->encoding ? $this->_document->encoding : 'utf-8';
+            }
             case 'attributes': {
-                    if (!is_null($this->_node->attributes)) {
-                        return new XmlNodeAttributeList($this->_document, $this->_node, $this->_node->attributes);
-                    } else {
-                        return null;
-                    }
+                if (!is_null($this->_node->attributes)) {
+                    return new XmlNodeAttributeList($this->_document, $this->_node, $this->_node->attributes);
+                } else {
+                    return null;
                 }
+            }
             case 'root': {
-                    return $this->_document ? new XmlNode($this->_document->documentElement, $this->_document) : null;
-                }
+                return $this->_document ? new XmlNode($this->_document->documentElement, $this->_document) : null;
+            }
             case 'parent': {
-                    return $this->_node->parentNode ? new XmlNode($this->_node->parentNode, $this->_document) : null;
-                }
+                return $this->_node->parentNode ? new XmlNode($this->_node->parentNode, $this->_document) : null;
+            }
             case 'nodes': {
-                    if ($this->_node->childNodes) {
-                        return new XmlNodeList($this->_node->childNodes, $this->_document);
-                    } else {
-                        return null;
-                    }
+                if ($this->_node->childNodes) {
+                    return new XmlNodeList($this->_node->childNodes, $this->_document);
+                } else {
+                    return null;
                 }
+            }
             case 'firstchild': {
-                    return $this->_node->firstChild ? new XmlNode($this->_node->firstChild, $this->_document) : null;
-                }
+                return $this->_node->firstChild ? new XmlNode($this->_node->firstChild, $this->_document) : null;
+            }
             case 'elements': {
-                    return $this->Query('./child::*', true);
-                }
+                return $this->Query('./child::*', true);
+            }
             case 'children': {
-                    return $this->Query('./child::*');
-                }
+                return $this->Query('./child::*');
+            }
             case 'texts': {
-                    return $this->Query('./child::text()');
-                }
+                return $this->Query('./child::text()');
+            }
             case 'elementscount': {
-                    $xp = new \DOMXPath($this->_document);
-                    return $xp->evaluate('count(./child::*)', $this->_node);
-                }
+                $xp = new \DOMXPath($this->_document);
+                return $xp->evaluate('count(./child::*)', $this->_node);
+            }
             case 'index': {
-                    $xp = new \DOMXPath($this->_document);
-                    return $xp->evaluate('count(preceding-sibling::*)', $this->_node);
-                }
+                $xp = new \DOMXPath($this->_document);
+                return $xp->evaluate('count(preceding-sibling::*)', $this->_node);
+            }
             case 'document': {
-                    return $this->_document;
-                }
+                return $this->_document;
+            }
             case 'raw': {
-                    return $this->_node;
-                }
+                return $this->_node;
+            }
             case 'xml': {
-                    return $this->_document->saveXML($this->_node, LIBXML_NOEMPTYTAG);
-                }
+                return $this->_document->saveXML($this->_node, LIBXML_NOEMPTYTAG);
+            }
             case 'innerxml': {
-                    $data = $this->_document->saveXML($this->_node, LIBXML_NOEMPTYTAG);
-                    $data = preg_replace('/<' . $this->name . '[^>]*>/im', '', $data);
-                    return preg_replace('/<\/' . $this->name . '[^>]*>/im', '', $data);
-                }
+                $data = $this->_document->saveXML($this->_node, LIBXML_NOEMPTYTAG);
+                $data = preg_replace('/<' . $this->name . '[^>]*>/im', '', $data);
+                return preg_replace('/<\/' . $this->name . '[^>]*>/im', '', $data);
+            }
             case 'html': {
-                    return $this->_document->saveHTML($this->_node);
-                }
+                return $this->_document->saveHTML($this->_node);
+            }
             case 'innerhtml': {
-                    $data = $this->_document->saveHTML($this->_node);
-                    $data = preg_replace('/<' . $this->name . '[^>]*>/im', '', $data);
-                    return preg_replace('/<\/' . $this->name . '[^>]*>/im', '', $data);
-                }
+                $data = $this->_document->saveHTML($this->_node);
+                $data = preg_replace('/<' . $this->name . '[^>]*>/im', '', $data);
+                return preg_replace('/<\/' . $this->name . '[^>]*>/im', '', $data);
+            }
             case 'next': {
-                    return $this->_node->nextSibling ? new XmlNode($this->_node->nextSibling, $this->_document) : null;
-                }
+                return $this->_node->nextSibling ? new XmlNode($this->_node->nextSibling, $this->_document) : null;
+            }
             case 'prev': {
-                    return $this->_node->previousSibling ? new XmlNode($this->_node->previousSibling, $this->_document) : null;
-                }
+                return $this->_node->previousSibling ? new XmlNode($this->_node->previousSibling, $this->_document) : null;
+            }
             case 'tag': {
-                    return $this->_tag;
-                }
+                return $this->_tag;
+            }
             default: {
-                    $item = $this->Item($property);
-                    if (is_null($item)) {
-                        $items = $this->getElementsByName($property);
-                        if ($items->Count() > 0) {
-                            $item = $items->First();
-                        } else {
-                            if ($this->type == 1) {
-                                $item = $this->attributes->$property;
-                            }
+                $item = $this->Item($property);
+                if (is_null($item)) {
+                    $items = $this->getElementsByName($property);
+                    if ($items->Count() > 0) {
+                        $item = $items->First();
+                    } else {
+                        if ($this->type == 1) {
+                            $item = $this->attributes->$property;
                         }
                     }
-                    return $item;
                 }
+                return $item;
+            }
         }
     }
 
     /**
      * Возвращает путь исходя из запроса
-     * @param string $query - запрос к каждому паренту для возвращения данных 
+     * @param string $query - запрос к каждому паренту для возвращения данных
      * @return string
      */
     public function Path(string $query): string
@@ -391,28 +397,28 @@ class XmlNode
     {
         switch (strtolower($property)) {
             case 'value': {
-                    $this->_node->nodeValue = $value;
-                    break;
-                }
+                $this->_node->nodeValue = $value;
+                break;
+            }
             case 'cdata': {
-                    $this->_node->appendChild($this->_document->createCDATASection($value));
-                    break;
-                }
+                $this->_node->appendChild($this->_document->createCDATASection($value));
+                break;
+            }
             case 'raw': {
-                    $this->_node = $value;
-                    break;
-                }
+                $this->_node = $value;
+                break;
+            }
             case 'document': {
-                    $this->_document = $value;
-                    break;
-                }
+                $this->_document = $value;
+                break;
+            }
             case 'tag': {
-                    $this->_tag = $value;
-                    break;
-                }
+                $this->_tag = $value;
+                break;
+            }
             default: {
-                    break;
-                }
+                break;
+            }
         }
     }
 
@@ -423,7 +429,7 @@ class XmlNode
      * @return XmlNode|null
      * @testFunction testXmlNodeItem
      */
-    public function Item(string $name): ? XmlNode
+    public function Item(string $name): ?XmlNode
     {
         $list = $this->Items($name);
         if ($list->Count() > 0) {
@@ -575,7 +581,7 @@ class XmlNode
      * Заменяет текущий узел на заданный
      *
      * @param XmlNode $node узел для замены
-     * @return void 
+     * @return void
      * @testFunction testXmlNodeReplaceTo
      */
     public function ReplaceTo(XmlNode $node): void
@@ -598,7 +604,8 @@ class XmlNode
         return $this->Query('./child::*[@name="' . $name . '"]', true);
     }
 
-    public function CreateTextNode($string) {
+    public function CreateTextNode($string)
+    {
         return new XmlNode($this->_document->createTextNode($string), $this->_document);
     }
 
