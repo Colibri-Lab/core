@@ -228,7 +228,7 @@ class QueryBuilder implements IQueryBuilder
         return "show columns from " . $table;
     }
 
-    public function CreateBegin(string $type = 'readonly'): string
+    public function CreateBegin(string $type = null): string
     {
         if($type === 'readonly') {
             return 'start transaction READ ONLY';

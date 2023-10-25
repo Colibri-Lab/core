@@ -96,6 +96,19 @@ class DataTable extends BaseDataTable
         return new $className($this, $result, $this->_storage);
     }
 
+    private static function _replaceFields(string $value, Storage $storage): string
+    {
+        $res = preg_match_all('/\{([^\}]+)\}/', $value, $matches, \PREG_SET_ORDER);
+        if ($res > 0) {
+            foreach ($matches as $match) {
+                if(preg_match('/[\s\":;]/', $match[0]) === 0) {
+                    $value = str_replace($match[0], $storage->GetRealFieldName($match[1]), $value);
+                }
+            }
+        }
+        return $value;
+    }
+
     protected static function _loadByFilter(
         Storage $storage,
         int $page = -1,
@@ -136,14 +149,7 @@ class DataTable extends BaseDataTable
             $storage = Storages::Create()->Load($storage);
         }
 
-        $res = preg_match_all('/\{([^\}]+)\}/', $query, $matches, \PREG_SET_ORDER);
-        if ($res > 0) {
-            foreach ($matches as $match) {
-                if(preg_match('/[\s\":;]/', $match[0]) === 0) {
-                    $query = str_replace($match[0], $storage->name . '_' . $match[1], $query);
-                }
-            }
-        }
+        $query = self::_replaceFields($query, $storage);
 
         list(, $rowClass) = $storage->GetModelClasses();
 
@@ -156,18 +162,15 @@ class DataTable extends BaseDataTable
         }
     }
 
-    protected static function DeleteByFilter(Storage|string $storage, string $filter): bool
-    {
+    protected static function DeleteByFilter(
+        Storage|string $storage,
+        string $filter
+    ): bool {
         if (is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
         }
 
-        $res = preg_match_all('/\{([^\}]+)\}/', $filter, $matches, \PREG_SET_ORDER);
-        if ($res > 0) {
-            foreach ($matches as $match) {
-                $filter = str_replace($match[0], $storage->name . '_' . $match[1], $filter);
-            }
-        }
+        $filter = self::_replaceFields($filter, $storage);
 
         $params = (object)$storage?->{'params'};
         if($params?->{'softdeletes'} === true) {
@@ -191,30 +194,24 @@ class DataTable extends BaseDataTable
         return false;
     }
 
-    protected static function UpdateByFilter(Storage|string $storage, string $filter, array $fields): bool
-    {
+    protected static function UpdateByFilter(
+        Storage|string $storage,
+        string $filter,
+        array $fields
+    ): bool {
         if (is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
         }
 
-        $res = preg_match_all('/\{([^\}]+)\}/', $filter, $matches, \PREG_SET_ORDER);
-        if ($res > 0) {
-            foreach ($matches as $match) {
-                $filter = str_replace($match[0], $storage->name . '_' . $match[1], $filter);
-            }
-        }
+        $filter = self::_replaceFields($filter, $storage);
+
 
         $newFields = [];
         foreach($fields as $key => $value) {
             if(substr($value, 0, 1) === '^') {
-                $res = preg_match_all('/\{([^\}]+)\}/', $value, $matches, \PREG_SET_ORDER);
-                if ($res > 0) {
-                    foreach ($matches as $match) {
-                        $value = str_replace($match[0], $storage->name . '_' . $match[1], $value);
-                    }
-                }
+                $value = self::_replaceFields($value, $storage);
             }
-            $newFields[$storage->name . '_' . $key] = $value;
+            $newFields[$storage->GetRealFieldName($key)] = $value;
         }
 
         $res = $storage->accessPoint->Update(
@@ -238,8 +235,11 @@ class DataTable extends BaseDataTable
      * @return QueryInfo|bool
      * @throws DataModelException
      */
-    public function SaveRow(DataRow|BaseDataRow $row, ?string $idField = null, ?bool $convert = true): QueryInfo|bool
-    {
+    public function SaveRow(
+        DataRow|BaseDataRow $row,
+        ?string $idField = null,
+        ?bool $convert = true
+    ): QueryInfo|bool {
 
         $idf = $this->_storage->GetRealFieldName('id');
         $idc = $this->_storage->GetRealFieldName('datecreated');
@@ -290,7 +290,12 @@ class DataTable extends BaseDataTable
         }
 
         if (!$id) {
-            $res = $this->_storage->accessPoint->Insert($this->_storage->table, $fieldValues, '', $params);
+            $res = $this->_storage->accessPoint->Insert(
+                $this->_storage->table,
+                $fieldValues,
+                '',
+                $params
+            );
             if ($res->insertid == 0) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
                 return $res;
@@ -299,7 +304,12 @@ class DataTable extends BaseDataTable
             $row->$idc = DateHelper::ToDBString(time());
             $row->$idm = DateHelper::ToDBString(time());
         } else {
-            $res = $this->_storage->accessPoint->Update($this->_storage->table, $fieldValues, $idf . '=' . $id, $params);
+            $res = $this->_storage->accessPoint->Update(
+                $this->_storage->table,
+                $fieldValues,
+                $idf . '=' . $id,
+                $params
+            );
             if ($res->error) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
                 return $res;
@@ -448,4 +458,55 @@ class DataTable extends BaseDataTable
             $dataTable->SaveRow($datarow);
         }
     }
+
+    protected static function _loadFromFileXML(
+        Storage|string $storage,
+        string|File $file,
+        string $tag,
+        array $fieldsMap,
+        array $additionalFields = []
+    ): bool {
+
+        if (is_string($storage)) {
+            $storage = Storages::Create()->Load($storage);
+        }
+
+        $variables = [];
+        $values = [];
+        foreach($fieldsMap as $key => $value) {
+            $variables[] = $key;
+            if(is_array($value)) {
+                foreach($value as $v) {
+                    $values[] = self::_replaceFields($v, $storage);
+                }
+            } else {
+                $values[] = self::_replaceFields($value, $storage);
+            }
+        }
+
+        $additionalFieldsString = [];
+        foreach($additionalFields as $key => $value) {
+            $key = self::_replaceFields($key, $storage);
+            $additionalFieldsString[] = $key . '=\'' . $value . '\'';
+        }
+
+        $result = $storage->accessPoint->Query('
+            LOAD XML LOCAL INFILE \''.($file instanceof File ? $file->path : $file) . '\'
+            INTO TABLE '.$storage->table.'
+            CHARACTER SET utf8mb4
+            ROWS IDENTIFIED BY \''.$tag.'\'
+            ('.implode(',', $variables).')
+            SET '.implode(',', $additionalFieldsString).','.implode(',', $values).';
+        ', [
+            'type' => DataAccessPoint::QueryTypeNonInfo
+        ]);
+
+        if($result->error) {
+            throw new DataModelException($result->error);
+        }
+
+        return true;
+
+    }
+
 }

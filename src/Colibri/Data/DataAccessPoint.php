@@ -366,7 +366,7 @@ class DataAccessPoint
      * @return void
      * @testFunction testDataAccessPointBegin
      */
-    public function Begin(string $type = self::TransationReadonly): QueryInfo
+    public function Begin(?string $type = null): QueryInfo
     {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
