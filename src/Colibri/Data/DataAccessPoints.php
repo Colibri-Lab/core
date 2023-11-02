@@ -158,7 +158,8 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
             }
 
             $database = $accessPointData->database;
-            $logqueries = $accessPointData->logqueries ?? false;
+            $logqueries = $accessPointData->logqueries ?? null;
+            $mindelay = $accessPointData->mindelay ?? null;
 
             // формируем данные для инициализации точки доступа
             $accessPointInit = (object)[
@@ -169,6 +170,7 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
                 'persistent' => (isset($this->_accessPoints->connections->$accessPointConnection->persistent) ? $this->_accessPoints->connections->$accessPointConnection->persistent : false),
                 'database' => $database,
                 'logqueries' => $logqueries,
+                'mindelay' => $mindelay,
                 'driver' => $this->_accessPoints->drivers->$accessPointType
             ];
 

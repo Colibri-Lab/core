@@ -215,13 +215,6 @@ class DataAccessPoint
 
         $queryStartTime = new DateTime();
 
-        if ($this->_accessPointData->logqueries ?? false) {
-            App::$log->debug('Query: ' . $commandParams->type .
-                ', Text: ' . $query .
-                ', Limits: ' . $cmd->page . ' - ' . $cmd->pagesize);
-            App::$log->debug(Debug::ROut($commandParams));
-        }
-
         try {
             if ($commandParams->type == self::QueryTypeReader) {
                 $return = $cmd->ExecuteReader();
@@ -237,10 +230,27 @@ class DataAccessPoint
             $return = new QueryInfo($cmd->type, 0, 0, $e->getMessage(), $cmd->query);
         }
 
-        if ($this->_accessPointData->logqueries ?? false) {
+        $logSetting = $this->_accessPointData->logqueries ?? [];
+        $minDelay = $this->_accessPointData->mindelay ?? 0;
+        if (!empty($logSetting)) {
             $diff = $queryStartTime->diff(new DateTime());
-            App::$log->debug('QueryResult: time delta ' . ($diff->format('%F') / 1000));
-            App::$log->debug(Debug::Rout($return));
+            $delay = ($diff->format('%f') / 1000);
+            if($delay > $minDelay) {
+                if(in_array('text', $logSetting)) {
+                    App::$log->debug('Query: ' . $delay . ' ms: ' .
+                        str_replace("\r", " ", str_replace("\n", " ", $query)) .
+                        ' (' . $cmd->page . ', ' . $cmd->pagesize . ') - ' .
+                        ', Type: ' . $commandParams->type);
+                }
+                if(in_array('params', $logSetting)) {
+                    App::$log->debug(Debug::ROut($commandParams));
+                }
+                if(in_array('return', $logSetting)) {
+                    App::$log->debug(Debug::Rout($return));
+                }
+                App::$log->debug('--------');
+            }
+
         }
 
         return $return;
