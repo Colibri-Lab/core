@@ -103,7 +103,8 @@ class ObjectField extends ExtendedObject
                         return null;
                     }
                 } else {
-                    $vv = is_array($this->_data[$property]) ? $this->_data[$property] : explode(',', $this->_data[$property]);
+                    $vv = is_array($this->_data[$property]) ?
+                        $this->_data[$property] : explode(',', $this->_data[$property]);
                     $r = array();
                     foreach ($vv as $v) {
                         if($field->{'class'} === 'ValueField') {
@@ -137,13 +138,16 @@ class ObjectField extends ExtendedObject
             if ($mode == 'get') {
                 $value = $rowValue == "" ? "" : ($rowValue == (float) $rowValue ? (float) $rowValue : $rowValue);
             } else {
-                $this->_data[$property] = $field->required ? ($rowValue === "" ? 0 : $rowValue) : ($rowValue === "" ? null : $rowValue);
+                $this->_data[$property] = $field->required ?
+                    ($rowValue === "" ? 0 : $rowValue) : ($rowValue === "" ? null : $rowValue);
             }
         } elseif ($field->{'class'} === 'array') {
             if ($mode == 'get') {
-                $value = $rowValue == "" ? "" : (is_array($rowValue) ? $rowValue : explode(',', $rowValue));
+                $value = $rowValue == "" ? "" :
+                    (is_array($rowValue) || is_object($rowValue) ? (array)$rowValue : explode(',', $rowValue));
             } else {
-                $this->_data[$property] = $field->required ? ($rowValue === "" ? [] : $rowValue) : ($rowValue === "" ? null : $rowValue);
+                $this->_data[$property] = $field->required ?
+                    ($rowValue === "" ? [] : $rowValue) : ($rowValue === "" ? null : $rowValue);
             }
         } else {
 
@@ -164,7 +168,8 @@ class ObjectField extends ExtendedObject
                     if ($reflection->isSubclassOf(DataRow::class)) {
                         $this->_data[$property] = $rowValue instanceof $class ? $rowValue : $class::Create($rowValue);
                     } else {
-                        $this->_data[$property] = $rowValue instanceof $class ? $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
+                        $this->_data[$property] = $rowValue instanceof $class ?
+                            $rowValue : new $class($rowValue, $this->Storage(), $field, $this);
                     }
 
                 } catch (\Throwable $e) {
