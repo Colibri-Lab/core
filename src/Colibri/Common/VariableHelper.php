@@ -701,4 +701,13 @@ class VariableHelper
         return $newArray;
     }
 
+    public static function SplitArrayToParts($array, $partlength): array
+    {
+        $ret = [];
+        while(!empty($array)) {
+            $ret[] = array_splice($array, 0, $partlength);
+        }
+        return $ret;
+    }
+
 }
