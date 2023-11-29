@@ -53,6 +53,9 @@ use Exception;
  */
 class XmlNode
 {
+
+    const XmlStart = '<?xml version="1.0" encoding="%s"?>';
+
     /**
      * Raw обьект документа
      *
@@ -137,10 +140,17 @@ class XmlNode
             $dom = new \DOMDocument('1.0', $encoding);
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
-            $dom->loadXML((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString);
+            $dom->loadXML((
+                strstr($xmlString, '<' . '?xml') === false ?
+                str_replace('%s', $encoding, self::XmlStart) : ''
+            ) . $xmlString);
             return new XmlNode($dom->documentElement, $dom);
         } catch (\Throwable $e) {
-            throw new AppException('Error in xml data ' . ((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString) . ': ' . $e->getMessage());
+            throw new AppException(
+                'Error in xml data ' . (
+                    (strstr($xmlString, '<' . '?xml') === false ?
+                    str_replace('%s', $encoding, self::XmlStart) : ''
+                ) . $xmlString) . ': ' . $e->getMessage());
         }
     }
 
@@ -158,10 +168,16 @@ class XmlNode
             $dom = new \DOMDocument('1.0', $encoding);
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
-            @$dom->loadHTML((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . '<div>' . $xmlString . '</div>');
+            @$dom->loadHTML((
+                strstr($xmlString, '<' . '?xml') === false ?
+                str_replace('%s', $encoding, self::XmlStart) : ''
+            ) . '<div>' . $xmlString . '</div>');
             return new XmlNode($dom->documentElement->firstChild->firstChild, $dom);
         } catch (\Throwable $e) {
-            throw new AppException('Error in xml data ' . ((strstr($xmlString, '<' . '?xml') === false ? '<' . '?xml version="1.0" encoding="' . $encoding . '"?' . '>' : '') . $xmlString) . ': ' . $e->getMessage());
+            throw new AppException('Error in xml data ' . (
+                (strstr($xmlString, '<' . '?xml') === false ?
+                str_replace('%s', $encoding, self::XmlStart) : ''
+                ) . $xmlString) . ': ' . $e->getMessage());
         }
     }
 
