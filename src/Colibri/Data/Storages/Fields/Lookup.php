@@ -7,6 +7,7 @@
  * @copyright 2019 Colibri
  * @package Colibri\Data\Storages\Fields
  */
+
 namespace Colibri\Data\Storages\Fields;
 
 use Colibri\Data\Storages\Storage;
@@ -28,13 +29,12 @@ use Colibri\Data\DataAccessPoint;
  */
 class Lookup
 {
-
     /**
      * Хранилище
      *
      * @var Storage
      */
-    private ? Storage $_storage = null;
+    private ?Storage $_storage = null;
 
     /**
      * Данные поля
@@ -74,23 +74,38 @@ class Lookup
      * @param int $pagesize размер страницы, по умолачнию 20
      * @return DataTable|null данные по связке
      */
-    public function Load(int $page = -1, int $pagesize = 50): ? DataTable
+    public function Load(int $page = -1, int $pagesize = 50): ?DataTable
     {
         if ($this->storage) {
             $data = (object) $this->storage;
             $storage = Storages::Create()->Load($data->name);
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
-            $reader = $accessPoint->Query('select * from ' . $storage->table . ($data->filter && $this->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]);
+            $reader = $accessPoint->Query(
+                'select * from ' . $storage->table . ($data->filter && $this->filter != '' ?
+                    ' where ' . $data->filter : '') . ($data->order && $data->order != '' ?
+                    ' order by ' . $data->order : ''),
+                ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]
+            );
             return new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
         } elseif ($this->accessPoint) {
 
             $data = (object) $this->accessPoint;
             $accessPoint = App::$dataAccessPoints->Get($data->name);
             if ($page > 0) {
-                $reader = $accessPoint->Query('select ' . $data->fields . ' from ' . $data->table . ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]);
+                $reader = $accessPoint->Query(
+                    'select ' . $data->fields . ' from ' . $data->table .
+                    ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') .
+                    ($data->order && $data->order != '' ? ' order by ' . $data->order : ''),
+                    ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]
+                );
             } else {
-                $reader = $accessPoint->Query('select ' . $data->fields . ' from ' . $data->table . ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') . ($data->order && $data->order != '' ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData]);
+                $reader = $accessPoint->Query(
+                    'select ' . $data->fields . ' from ' . $data->table .
+                    ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') .
+                    ($data->order && $data->order != '' ? ' order by ' . $data->order : ''),
+                    ['type' => DataAccessPoint::QueryTypeBigData]
+                );
             }
 
             return new DataTable($accessPoint, $reader);
@@ -115,13 +130,25 @@ class Lookup
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
             if (!is_array($value)) {
-                $filter = $storage->GetRealFieldName($data->value ?? 'id') . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
+                $filter = $storage->GetRealFieldName(
+                    $data->value ?? 'id'
+                ) . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
             } else {
-                $filter = $storage->GetRealFieldName($data->value ?? 'id') . ' in (\'' . implode('\', \'', array_map(function ($v) {
-                    return is_object($v) ? $v->value : $v; }, (array) $value)) . '\')';
+                $filter = $storage->GetRealFieldName(
+                    $data->value ?? 'id'
+                ) . ' in (\'' . implode('\', \'', array_map(function ($v) {
+                    return is_object($v) ? $v->value : $v;
+                }, (array) $value)) . '\')';
             }
             /** @var IDataReader */
-            $reader = $accessPoint->Query('select * from ' . $storage->table . ($filter && $filter != '' ? ' where ' . $filter : ''), ['type' => DataAccessPoint::QueryTypeBigData, 'page' => 1, 'pagesize' => is_array($value) ? count($value) : 1]);
+            $reader = $accessPoint->Query(
+                'select * from ' . $storage->table . ($filter && $filter != '' ? ' where ' . $filter : ''),
+                [
+                    'type' => DataAccessPoint::QueryTypeBigData,
+                    'page' => 1,
+                    'pagesize' => is_array($value) ? count($value) : 1
+                ]
+            );
             if ($reader->Count() == 0) {
                 return null;
             }
@@ -153,7 +180,11 @@ class Lookup
             $accessPoint = App::$dataAccessPoints->Get($data->name);
             $filter = $data->value . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
             /** @var IDataReader */
-            $reader = $accessPoint->Query('select * from (select ' . $data->fields . ' from ' . $data->table . ') t where ' . $filter . ($data->order ? ' order by ' . $data->order : ''), ['type' => DataAccessPoint::QueryTypeBigData]);
+            $reader = $accessPoint->Query(
+                'select * from (select ' . $data->fields . ' from ' . $data->table . ') t where ' .
+                    $filter . ($data->order ? ' order by ' . $data->order : ''),
+                ['type' => DataAccessPoint::QueryTypeBigData]
+            );
             if ($reader->Count() == 0) {
                 return null;
             }

@@ -136,7 +136,11 @@ class DataRow extends BaseDataRow
 
         if ($mode == 'get' && !isset($this->_data[$property])) {
             if ($field->default !== null) {
-                $reader = $this->_storage->accessPoint->Query('select ' . (VariableHelper::IsEmpty($field->default) ? '\'\'' : '\'' . $field->default . '\'') . ' as default_value', ['type' => DataAccessPoint::QueryTypeBigData]);
+                $reader = $this->_storage->accessPoint->Query(
+                    'select ' . (VariableHelper::IsEmpty($field->default) ?
+                        '\'\'' : '\'' . $field->default . '\'') . ' as default_value',
+                    ['type' => DataAccessPoint::QueryTypeBigData]
+                );
                 $rowValue = $reader->Read()->default_value;
             } else {
                 $rowValue = null;
@@ -190,7 +194,8 @@ class DataRow extends BaseDataRow
             if ($mode == 'get') {
                 $value = $rowValue == "" ? "" : ($rowValue == (float) $rowValue ? (float) $rowValue : $rowValue);
             } else {
-                $this->_data[$property] = $field->required ? ($rowValue === "" ? 0 : $rowValue) : ($rowValue === "" ? null : $rowValue);
+                $this->_data[$property] = $field->required ?
+                    ($rowValue === "" ? 0 : $rowValue) : ($rowValue === "" ? null : $rowValue);
             }
         } elseif ($field->{'class'} === 'uuid') {
             if ($mode == 'get') {
@@ -306,7 +311,8 @@ class DataRow extends BaseDataRow
                 }
 
                 if ($field->required && is_null($value)) {
-                    throw new ValidationException('The ' . $key . ' field is required for storage ' . $storage->name, 500, null);
+                    throw new ValidationException('The ' . $key .
+                        ' field is required for storage ' . $storage->name, 500, null);
                 }
 
             }
@@ -389,7 +395,8 @@ class DataRow extends BaseDataRow
                 }
             } elseif (strstr($fieldData->{'class'}, 'UUIDField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
-            } elseif (strstr($fieldData->{'class'}, 'DateField') !== false || strstr($fieldData->{'class'}, 'DateTimeField') !== false) {
+            } elseif (strstr($fieldData->{'class'}, 'DateField') !== false ||
+                strstr($fieldData->{'class'}, 'DateTimeField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
             } elseif (method_exists($fieldValue, 'GetValidationData')) {
                 $return[$fieldName] = $fieldValue->GetValidationData();

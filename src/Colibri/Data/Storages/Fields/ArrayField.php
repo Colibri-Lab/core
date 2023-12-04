@@ -7,6 +7,7 @@
  * @copyright 2019 Colibri
  * @package Colibri\Data\Storages\Fields
  */
+
 namespace Colibri\Data\Storages\Fields;
 
 use Colibri\Collections\ArrayList;
@@ -22,20 +23,19 @@ use Colibri\Utils\ExtendedObject;
  */
 class ArrayField extends ArrayList
 {
-
-    protected ? ExtendedObject $_datarow = null;
+    protected ?ExtendedObject $_datarow = null;
 
     /**
      * Поле
      * @var Field
      */
-    protected ? Field $_field = null;
+    protected ?Field $_field = null;
 
     /**
      * Хранилище
      * @var Storage
      */
-    protected ? Storage $_storage = null;
+    protected ?Storage $_storage = null;
 
     /**
      * Конструктор
@@ -44,8 +44,12 @@ class ArrayField extends ArrayList
      * @param Field $field поле
      * @return void
      */
-    public function __construct(mixed $data, ? Storage $storage = null, ? Field $field = null, ? ExtendedObject $datarow = null)
-    {
+    public function __construct(
+        mixed $data,
+        ?Storage $storage = null,
+        ?Field $field = null,
+        ?ExtendedObject $datarow = null
+    ) {
         if (VariableHelper::IsNull($data) || VariableHelper::IsEmpty($data)) {
             $data = '[]';
         }
@@ -63,7 +67,10 @@ class ArrayField extends ArrayList
      */
     public function Item(int $index): ObjectField|DataRow
     {
-        return $this->data[$index] instanceof ObjectField || $this->data[$index] instanceof DataRow ? $this->data[$index] : new ObjectField($this->data[$index], $this->_storage, $this->_field);
+        return $this->data[$index] instanceof ObjectField ||
+            $this->data[$index] instanceof DataRow ?
+                $this->data[$index] :
+                new ObjectField($this->data[$index], $this->_storage, $this->_field);
     }
 
     /**
@@ -80,7 +87,7 @@ class ArrayField extends ArrayList
         foreach ($this->data as $v) {
             if (is_object($v) && method_exists($v, 'ToArray')) {
                 $obj[] = $v->ToArray();
-            } else if (is_object($v) && method_exists($v, 'ToString')) {
+            } elseif (is_object($v) && method_exists($v, 'ToString')) {
                 $obj[] = $v->ToString();
             } else {
                 $obj[] = $v;
