@@ -273,6 +273,7 @@ class Storages
 
                     if (($xfield['virtual'] ?? false) === true) {
                         $virutalFields[$fieldName] = $xfield;
+                        continue;
                     }
 
                     if ($xfield['type'] == 'enum') {
