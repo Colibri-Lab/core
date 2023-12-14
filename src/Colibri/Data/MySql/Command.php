@@ -144,18 +144,14 @@ final class Command extends SqlCommand
         $preparedQuery = $this->PrepareQueryString();
 
         // выполняем запрос
-        try {
+        if ($this->_params) {
             $stmt = $this->_prepareStatement($preparedQuery);
             mysqli_stmt_execute($stmt);
             $res = mysqli_stmt_get_result($stmt);
-        } catch (MySqlException $e) {
-            if ($e->getCode() == 0) {
-                // нет параметров
-                $res = mysqli_query($this->connection->resource, $preparedQuery);
-            } else {
-                throw $e;
-            }
+        } else {
+            $res = mysqli_query($this->_connection->resource, $preparedQuery);
         }
+        
 
         if (!($res instanceof \mysqli_result)) {
             throw new MySqlException(
