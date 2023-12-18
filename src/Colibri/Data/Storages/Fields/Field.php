@@ -169,7 +169,7 @@ class Field
             case 'formula':
                 return $this->_formula;
             case 'required':
-                return $this->_xfield['params']['required'] ?? $this->_xfield['params'] ?? null;
+                return $this->_xfield['params']['required'] ?? $this->_xfield['required'] ?? null;
             case 'islookup':
                 return $this->_lookup && ($this->_lookup->accessPoint !== null || $this->_lookup->storage !== null);
             case 'isvalues':
