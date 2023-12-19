@@ -102,7 +102,11 @@ class DataTable extends BaseDataTable
         if ($res > 0) {
             foreach ($matches as $match) {
                 if(preg_match('/[\s\":;]/', $match[0]) === 0) {
-                    $value = str_replace($match[0], $storage->GetRealFieldName($match[1]), $value);
+                    $value = str_replace(
+                        $match[0],
+                        $storage->GetRealFieldName($match[1]),
+                        $value
+                    );
                 }
             }
         }
@@ -127,7 +131,7 @@ class DataTable extends BaseDataTable
         ];
         $filter = $filter ? ['('.$filter.')'] : [];
         if(isset($storage?->{'params'}['softdeletes']) && $storage?->{'params'}['softdeletes']) {
-            $filter[] = $storage->name . '_datedeleted is null';
+            $filter[] = $storage->table . '.' . $storage->name . '_datedeleted is null';
         }
         $additionalParams['type'] = $calculateAffected ?
             DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
