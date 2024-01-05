@@ -34,6 +34,6 @@ interface IJob
 
     public function Rollback(): bool;
 
-    public function ToArray(bool $dummy = false): array;
+    public function ToArray(bool $dummy = false, ?\Closure $callback = null): array;
 
 }

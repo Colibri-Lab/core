@@ -122,8 +122,13 @@ class DataTable extends BaseDataTable
         array $params = [],
         bool $calculateAffected = true
     ): ?static {
-        $jsonTables = isset($params['__jsonTables']) ? ' ' . implode(' ', $params['__jsonTables']) : '';
-        unset($params['__jsonTables']);
+        $joinTables = isset($params['__joinTables']) ? ' ' . implode(' ', $params['__joinTables']) : '';
+        unset($params['__joinTables']);
+        $groupBy = isset($params['__groupBy']) ? ' ' . $params['__groupBy'] : '';
+        unset($params['__groupBy']);
+        $selectFields = isset($params['__selectFields']) ? ' ' . $params['__selectFields'] : '';
+        unset($params['__selectFields']);
+
         $additionalParams = [
             'page' => $page,
             'pagesize' => $pagesize,
@@ -137,9 +142,9 @@ class DataTable extends BaseDataTable
             DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
         return self::LoadByQuery(
             $storage,
-            'select * from ' . $storage->table . $jsonTables .
+            'select '. ($selectFields ? $selectFields : '*') .' from ' . $storage->table . $joinTables .
                 (!empty($filter) ? ' where ' . implode(' and ', $filter) : '') .
-                ($order ? ' order by ' . $order : ''),
+                ($groupBy ? ' group by ' . $groupBy : '') . ($order ? ' order by ' . $order : ''),
             $additionalParams
         );
     }

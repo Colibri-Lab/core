@@ -420,9 +420,9 @@ class DataRow extends BaseDataRow
      * @param bool $noPrefix да - возвращать без префиксами
      * @return array
      */
-    public function ToArray(bool $noPrefix = false): array
+    public function ToArray(bool $noPrefix = false, ?\Closure $callback = null): array
     {
-        $ar = parent::ToArray($noPrefix);
+        $ar = parent::ToArray($noPrefix, $callback);
         foreach ($ar as $key => $value) {
             if ($value instanceof FileField) {
                 $ar[$key] = $value->Source();

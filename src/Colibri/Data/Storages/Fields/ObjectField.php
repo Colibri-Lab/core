@@ -309,16 +309,18 @@ class ObjectField extends ExtendedObject
         return $this->ToString();
     }
 
-    public function ToArray(bool $noPrefix = false): array
+    public function ToArray(bool $noPrefix = false, ?\Closure $callback = null): array
     {
         $newArray = [];
         foreach($this as $key => $value) {
-
+            if($callback && !$callback($key, $value)) {
+                continue;
+            }
             if (is_array($value) || $value instanceof ArrayList) {
                 $ret = [];
                 foreach ($value as $index => $v) {
                     if ((is_string($v) || is_object($v)) && method_exists($v, 'ToArray')) {
-                        $ret[$index] = $v->ToArray($noPrefix);
+                        $ret[$index] = $v->ToArray($noPrefix, $callback);
                     } else {
                         $ret[$index] = $v;
                     }
@@ -327,7 +329,7 @@ class ObjectField extends ExtendedObject
             } elseif (is_object($value) && $value instanceof ValueField) {
                 $value = (string) $value;
             } elseif (is_object($value) && method_exists($value, 'ToArray')) {
-                $value = $value->ToArray($noPrefix);
+                $value = $value->ToArray($noPrefix, $callback);
             }
 
             $newArray[$key] = $value;

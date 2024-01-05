@@ -179,10 +179,11 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         $data = VariableHelper::ArrayToObject($data);
 
         $validator = new Validator();
-        
+
         $formats = $validator->parser()->getFilterResolver();
         $isDbDateTime = function (string $value): bool {
-            if (preg_match('/^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])[T|\s]([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)([01][0-9]|2[0-3]):([0-5][0-9]))?$/i', $value, $m)) {
+            if (preg_match('/^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])[T|\s]([01][0-9]|2[0-3]):'.
+                '([0-5][0-9]):([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)([01][0-9]|2[0-3]):([0-5][0-9]))?$/i', $value, $m)) {
                 return checkdate($m[2], $m[3], $m[1]);
             }
             return false;
@@ -203,7 +204,12 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
                     $errorsString[] = $key . ': ' . $value;
                 }
                 $errorsString = implode("\n", $errorsString);
-                $exception = new ValidationException($errorsString, 500, null, ['formatted' => $errors, 'data' => $data, 'schema' => static::JsonSchema]); // 'raw' => $validationError, 
+                $exception = new ValidationException(
+                    $errorsString,
+                    500,
+                    null,
+                    ['formatted' => $errors, 'data' => $data, 'schema' => static::JsonSchema]
+                ); // 'raw' => $validationError,
                 $exception->Log(Logger::Debug);
                 throw $exception;
 
@@ -220,10 +226,13 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @param boolean $noPrefix - удалить префиксы из свойств
      */
-    public function ToArray(bool $noPrefix = false): array
+    public function ToArray(bool $noPrefix = false, ?\Closure $callback = null): array
     {
         $data = array();
         foreach ($this->_data as $key => $value) {
+            if($callback && !$callback($key, $value)) {
+                continue;
+            }
             $value = $this->_typeExchange('get', $key);
             if (is_array($value) || $value instanceof ArrayList) {
                 $ret = [];
@@ -265,7 +274,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
     /**
      * Изменен
-     * @return bool 
+     * @return bool
      */
     public function IsChanged(): bool
     {
@@ -274,7 +283,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
     /**
      * Поле изменено
-     * @return bool 
+     * @return bool
      */
     public function IsPropertyChanged(string $property, bool $dummy = false): bool
     {
@@ -313,7 +322,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
     /**
      * Обновляет исходные данные
-     * @return void 
+     * @return void
      */
     public function UpdateOriginal()
     {
@@ -424,7 +433,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
     /**
      * Возвращает итератор
-     * @return ExtendedObjectIterator 
+     * @return ExtendedObjectIterator
      */
     public function getIterator()
     {
@@ -489,8 +498,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
     {
         return $this->ToArray(true);
     }
-    
-    public static function JsonUnserialize(string $json): static 
+
+    public static function JsonUnserialize(string $json): static
     {
         return new static(json_decode($json));
     }

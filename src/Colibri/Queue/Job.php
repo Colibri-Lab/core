@@ -100,7 +100,7 @@ abstract class Job extends ExtendedObject implements IJob
         return Manager::Create()->UpdateJob($this);
     }
 
-    public function ToArray(bool $dummy = false): array
+    public function ToArray(bool $dummy = false, ?\Closure $callback = null): array
     {
         return [
             'queue' => $this->queue,
