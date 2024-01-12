@@ -324,14 +324,14 @@ class Config implements IteratorAggregate
 
     public function Item(int $index): mixed
     {
-        $keys = array_keys($this->_configData);
+        $keys = array_keys((array)$this->_configData);
         if ($index < count($keys)) {
             return $this->Query($keys[$index]);
         }
         return null;
     }
 
-    public function getIterator()
+    public function getIterator(): ArrayListIterator
     {
         return new ArrayListIterator($this);
     }

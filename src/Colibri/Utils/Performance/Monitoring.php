@@ -141,9 +141,9 @@ class Monitoring
     {
         return DateHelper::ToDbString($this->_aditionalData['time']) . '. ' .
             'Timer «' . $name . '». ' . "\t" .
-            'Time: ' . DateHelper::TimeToString($timer->start) . ' - ' . DateHelper::TimeToString($timer->end) . '. ' . "\t" .
+            'Time: ' . DateHelper::TimeToString((int)$timer->start) . ' - ' . DateHelper::TimeToString((int)$timer->end) . '. ' . "\t" .
             'Delta: ' . $timer->interval . ' ms, ' . "\t" .
-            'Мemory: ' . StringHelper::FormatFileSize($timer->memoryBefore) . ' - ' . StringHelper::FormatFileSize($timer->memoryAfter) . "\t" .
+            'Мemory: ' . StringHelper::FormatFileSize((int)$timer->memoryBefore) . ' - ' . StringHelper::FormatFileSize((int)$timer->memoryAfter) . "\t" .
             'Uri: ' . $this->_aditionalData['uri'] . '.';
     }
 

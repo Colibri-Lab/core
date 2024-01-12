@@ -60,7 +60,7 @@ class DateTimeField extends DateTime implements JsonSerializable
         return (int) $this->diff($now)->format('%y');
     }
 
-    public function format(string $format, ?string $locale = null)
+    public function format(string $format, ?string $locale = null): string
     {
 
         $loc = ($locale ?: static::$defaultLocale);
