@@ -1,6 +1,7 @@
 <?php
 
 namespace Colibri\Queue;
+use Colibri\App;
 use Colibri\Threading\Worker;
 use Colibri\Utils\Logs\FileLogger;
 use Colibri\Utils\Logs\Logger;
@@ -17,7 +18,8 @@ class JobParallelWorker extends Worker
         $queue = $this->_params->queue;
         $id = $this->_params->id;
 
-        $logger = new FileLogger(Logger::Debug, '_cache/log/queue-' . $queue . '.log', true);
+        $cache = App::$config->Query('cache')->GetValue();
+        $logger = new FileLogger(Logger::Debug, $cache . 'log/queue-' . $queue . '.log', true);
         $logger->info($queue . ':' . $id . ': Begin job routine for parallel');
 
         $job = Manager::Create()->GetJobById($id);

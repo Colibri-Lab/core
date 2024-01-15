@@ -307,7 +307,8 @@ class Manager
                 continue;
             }
 
-            $logger = new FileLogger(Logger::Debug, '_cache/log/queue-' . $job->queue . '.log', true);
+            $cache = App::$config->Query('cache')->GetValue();
+            $logger = new FileLogger(Logger::Debug, $cache . 'log/queue-' . $job->queue . '.log', true);
             $logger->info($job->queue . ': Begin job routine');
             
             $logger->info($job->queue . ': ' . $job->id);

@@ -2,10 +2,10 @@
 
 /**
  * Threading
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @package Colibri\Threading
- * 
+ *
  */
 
 namespace Colibri\Threading;
@@ -26,7 +26,6 @@ use Colibri\Utils\Debug;
  */
 abstract class Worker
 {
-
     /**
      * Лимит по времени на выполнение процесса
      *
@@ -84,7 +83,11 @@ abstract class Worker
         $this->_key = $key ? $key : uniqid();
         $this->_id = RandomizationHelper::Integer(0, 999999999);
 
-        $this->_log = new FileLogger(App::$isDev ? Logger::Debug : Logger::Error, App::$webRoot . '_cache/log/worker_log_' . $this->_key . '.log'); // лог файл не режется на куски
+        $cache = App::$config->Query('cache')->GetValue();
+        $this->_log = new FileLogger(
+            App::$isDev ? Logger::Debug : Logger::Error,
+            App::$webRoot . $cache . 'log/worker_log_' . $this->_key . '.log'
+        ); // лог файл не режется на куски
     }
 
     /**

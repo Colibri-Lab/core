@@ -9,6 +9,9 @@ use Colibri\Utils\Logs\Logger;
  * @property ?int $id
  * @property string $queue
  * @property int $attempts
+ * @property string $class
+ * @property string $payload_class
+ * @property int $attempts
  * @property ExtendedObject $payload
  */
 interface IJob  
