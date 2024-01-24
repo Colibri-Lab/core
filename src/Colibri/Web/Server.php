@@ -216,9 +216,19 @@ class Server
         }
 
         $requestMethod = App::$request->server->{'request_method'};
+        $waitForAnswer = ((App::$request->server?->{'http_waitforanswer'} ?? 'true') === 'true');
         $get = App::$request->get;
         $post = App::$request->post;
         $payload = App::$request->GetPayloadCopy();
+
+        if(!$waitForAnswer) {
+            header("Connection: close\r\n");
+            header("Content-Encoding: none\r\n");
+            header("Content-Length: 1");
+            ignore_user_abort(true);
+            echo '1';
+            fastcgi_finish_request();
+        }
 
         $args = (object) [
             'class' => $class,
