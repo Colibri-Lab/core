@@ -25,6 +25,21 @@ class Generator
         'resource'
     ];
 
+    public static $typeToGeneric = [
+        'bool' => 'bool',
+        'int' => 'int',
+        'bigint' => 'int',
+        'float' => 'float',
+        'double' => 'float',
+        'varchar' => 'string',
+        'enum' => 'string|int|float',
+        'json' => [
+            '*' => 'object',
+            'ObjectField' => 'object',
+            'ArrayField' => 'array'
+        ]
+    ];
+
     private static function _convertNames(string $rootNamespace, string $table, string $row): array
     {
 
@@ -261,8 +276,14 @@ class Generator
             $desc = $desc[$langModule->Default()] ?? $desc;
         }
 
+        $generic = self::$typeToGeneric[$field->{'type'}];
+        if(is_array($generic)) {
+            $generic = $generic[$class];
+        }
+
         $properties[] = ' * @property' . ($field->readonly ? '-read' : '') . ' ' .
-            $class . (!$field->required ? '|null' : '') . ' $' . $field->{'name'} . ' ' . $desc;
+            $class . ($generic ? '|' . $generic : '') . (!$field->required ? '|null' : '') .
+            ' $' . $field->{'name'} . ' ' . $desc;
         if ($field->values) {
             foreach ($field->values as $value => $title) {
                 if ($langModule) {
