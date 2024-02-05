@@ -340,15 +340,23 @@ class DataTable extends BaseDataTable
             File::Delete($file);
         }
 
+        $langModule = App::$moduleManager->lang;
+
         $stream = File::Create($file);
         $header = [];
         foreach ($this->_storage->fields as $field) {
-            $header[] = Encoding::Convert($field->name, Encoding::CP1251, Encoding::UTF8);
+            $header[] = $field->name ? Encoding::Convert($field->name, Encoding::CP1251, Encoding::UTF8) : null;
         }
         fputcsv($stream->stream, $header, ';');
         $header = [];
         foreach ($this->_storage->fields as $field) {
-            $header[] = Encoding::Convert($field->desc, Encoding::CP1251, Encoding::UTF8);
+            if($langModule) {
+                $header[] = $field->desc ? $langModule->Translate(
+                    Encoding::Convert($field->desc, Encoding::CP1251, Encoding::UTF8)
+                ) : null;
+            } else {
+                $header[] = $field->desc ? Encoding::Convert($field->desc, Encoding::CP1251, Encoding::UTF8) : null;
+            }
         }
         fputcsv($stream->stream, $header, ';');
 
@@ -357,7 +365,7 @@ class DataTable extends BaseDataTable
             $r = [];
             foreach ($this->_storage->fields as $field) {
                 $val = $ar[$this->_storage->GetRealFieldName($field->name)];
-                $r[] = Encoding::Convert($val, Encoding::CP1251, Encoding::UTF8);
+                $r[] = $val ? Encoding::Convert($val, Encoding::CP1251, Encoding::UTF8) : null;
             }
             fputcsv($stream->stream, $r, ';');
         }
@@ -375,18 +383,23 @@ class DataTable extends BaseDataTable
         if (File::Exists($file)) {
             File::Delete($file);
         }
+        $langModule = App::$moduleManager->lang;
 
         $stream = XmlNode::LoadNode('<table></table>', 'utf-8');
         $header = [];
         foreach ($this->_storage->fields as $field) {
-            $header[$field->name] = $field->desc;
+            if($langModule) {
+                $header[$field->name] = $langModule->Translate($field->desc);
+            } else {
+                $header[$field->name] = $field->desc;
+            }
         }
         $stream->Append(XmlNode::LoadNode(XmlHelper::Encode($header, 'row')));
 
         foreach ($this->getIterator() as $row) {
             $r = [];
             foreach ($this->_storage->fields as $field) {
-                $r[$field->name] = $row->{$field->name};
+                $r[$field->name] = (string)$row->{$field->name};
             }
             $stream->Append(XmlNode::LoadNode(XmlHelper::Encode($r, 'row')));
         }

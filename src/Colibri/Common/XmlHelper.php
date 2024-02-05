@@ -28,7 +28,7 @@ class XmlHelper
      * @return string
      * @testFunction testXmlHelperEncode
      */
-    public static function Encode(XmlSerialized|string $object, string $tag = 'object'): string
+    public static function Encode(XmlSerialized|string|array $object, string $tag = 'object'): string
     {
         if (is_string($object)) {
             return $object;

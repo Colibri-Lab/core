@@ -93,7 +93,7 @@ class ArrayField extends ArrayList
                 $obj[] = $v;
             }
         }
-        return json_encode($obj);
+        return json_encode($obj, JSON_UNESCAPED_UNICODE);
     }
 
     /**
