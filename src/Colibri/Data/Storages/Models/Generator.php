@@ -278,7 +278,7 @@ class Generator
 
         $generic = self::$typeToGeneric[$field->{'type'}];
         if(is_array($generic)) {
-            $generic = $generic[$class];
+            $generic = $generic[$class] ?? null;
         }
 
         $properties[] = ' * @property' . ($field->readonly ? '-read' : '') . ' ' .
