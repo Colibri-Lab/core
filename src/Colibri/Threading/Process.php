@@ -100,7 +100,7 @@ class Process
      * Обработчик запросов, в большинстве случаев php_cli
      * Если у вас на сервере php_cli лежит в другом месте, необходимо изменить эту переменную
      */
-    public const Handler = '/usr/bin/php';
+    private string $_handler = '/usr/bin/php';
 
     /**
      * Выполняет Worker по имени класса в отдельном потоке
@@ -157,6 +157,11 @@ class Process
 
     }
 
+    public function SetHandler(string $handler): void
+    {
+        $this->_handler = $handler;
+    }
+
     public function GetWorkerResults(bool $removeResults = true): ?object
     {
         $workerKey = $this->_workerKey;
@@ -188,7 +193,7 @@ class Process
         } elseif ($prop === 'worker') {
             return $this->_worker;
         } elseif ($prop == 'command') {
-            return 'cd ' . App::$request->server->{'document_root'} . $this->_entry . '/ && ' . Process::Handler . ' index.php ' . App::$request->host . ' / name="'.$this->name.'" key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($this->_params) . '"';
+            return 'cd ' . App::$request->server->{'document_root'} . $this->_entry . '/ && ' . $this->_handler . ' index.php ' . App::$request->host . ' / name="'.$this->name.'" key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($this->_params) . '"';
         } elseif ($prop == 'request') {
             return $this->_entry . '/?name='.$this->name.'&key=' . $this->_worker->key . '&worker=' . $this->_worker->Serialize() . '&params=' . $this->_worker->PrepareParams($this->_params);
         } elseif ($prop == 'params') {
