@@ -27,7 +27,7 @@ use Colibri\Utils\Debug;
  * пример работы:
  *
  * class TestWorker extends Worker { // класс обертка для воркера
- *      public function Run(): never { // описываем функцию, конкретные действия
+ *      public function Run(): void { // описываем функцию, конкретные действия
  *          for($i=0;$i<10;$i++)
  *              $this->_log->debug('Test Worker run ok...', $i, rout($this->_params));
  *      }

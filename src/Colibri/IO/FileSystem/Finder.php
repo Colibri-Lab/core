@@ -2,7 +2,7 @@
 
 /**
  * FileSystem
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
  * @package Colibri\IO\FileSystem
@@ -25,7 +25,6 @@ use Throwable;
  */
 class Finder
 {
-
     /**
      * Конструктор
      */
@@ -50,33 +49,24 @@ class Finder
         $ret = new ArrayList();
 
         try {
-            $directoryIterator = new DirectoryIterator($path);
-            foreach ($directoryIterator as $file) {
-                if (is_dir($file->getPathname())) {
-                    continue;
-                }
-                if (!VariableHelper::IsEmpty($match) && preg_match($match, basename($file)) == 0) {
-                    continue;
-                }
+            if(Directory::Exists($path)) {
 
-                $ret->Add(new File($file->getPathname()));
+                $directoryIterator = new DirectoryIterator($path);
+                foreach ($directoryIterator as $file) {
+                    if (is_dir($file->getPathname())) {
+                        continue;
+                    }
+                    if (!VariableHelper::IsEmpty($match) && preg_match($match, basename($file)) == 0) {
+                        continue;
+                    }
+
+                    $ret->Add(new File($file->getPathname()));
+                }
             }
+
         } catch (Throwable $e) {
-
+            // do nothing
         }
-
-
-        // $files = glob($path . '{,.}[!.,!..]*', GLOB_MARK | GLOB_BRACE);
-        // sort($files, SORT_ASC);
-
-        // foreach ($files as $file) {
-        //     if (filetype($file) != "dir") {
-        //         if (!VariableHelper::IsEmpty($match) && preg_match($match, basename($file)) == 0) {
-        //             continue;
-        //         }
-        //         $ret->Add(new File($file));
-        //     }
-        // }
 
         if ($sortField) {
             $ret->Sort($sortField, $sortType);
@@ -110,7 +100,7 @@ class Finder
                 $ret->Add(new File($file->getPathname()));
             }
         } catch (Throwable $e) {
-
+            // do nothing
         }
 
         if ($sortField) {
@@ -121,7 +111,7 @@ class Finder
 
     /**
      * Найти директории
-     * q 
+     * q
      * @param string $path путь к папке
      * @param string $sortField поле для сортировки
      * @param int $sortType типа сортировки
@@ -132,14 +122,16 @@ class Finder
     {
         $ret = new ArrayList();
         try {
-            $directoryIterator = new DirectoryIterator($path);
-            foreach ($directoryIterator as $file) {
-                if (is_dir($file->getPathname()) && !in_array($file->getFilename(), ['.', '..'])) {
-                    $ret->Add(new File($file->getPathname()));
+            if(Directory::Exists($path)) {
+                $directoryIterator = new DirectoryIterator($path);
+                foreach ($directoryIterator as $file) {
+                    if (is_dir($file->getPathname()) && !in_array($file->getFilename(), ['.', '..'])) {
+                        $ret->Add(new File($file->getPathname()));
+                    }
                 }
             }
         } catch (Throwable $e) {
-
+            // do nothing
         }
 
         if ($sortField) {
@@ -147,18 +139,6 @@ class Finder
         }
 
         return $ret;
-
-
-        // $files = glob($path . '{,.}[!.,!..]*', GLOB_ONLYDIR | GLOB_MARK | GLOB_BRACE);
-        // sort($files, SORT_ASC);
-        // foreach ($files as $file) {
-        //     $ret->Add(new Directory($file . '/'));
-        // }
-
-        // if ($sortField) {
-        //     $ret->Sort($sortField, $sortType);
-        // }
-        // return $ret;
     }
 
     /**
@@ -175,30 +155,33 @@ class Finder
     {
         $ret = new ArrayList();
         try {
-            $directoryIterator = new RecursiveDirectoryIterator($path);
-            $iteratorIterator = new RecursiveIteratorIterator($directoryIterator);
-            $regexIterator = new RegexIterator($iteratorIterator, $match);
+            if(Directory::Exists($path)) {
 
-            $keys = [];
-            foreach ($regexIterator as $file) {
+                $directoryIterator = new RecursiveDirectoryIterator($path);
+                $iteratorIterator = new RecursiveIteratorIterator($directoryIterator);
+                $regexIterator = new RegexIterator($iteratorIterator, $match);
 
-                if (is_file($file)) {
-                    continue;
+                $keys = [];
+                foreach ($regexIterator as $file) {
+
+                    if (is_file($file)) {
+                        continue;
+                    }
+
+                    $lpath = $file->getPathname();
+                    $lpath = preg_replace('/\/\.$/', '/', $lpath);
+                    $lpath = preg_replace('/\/\.\.$/', '/', $lpath);
+                    if (isset($keys[$lpath]) || $path == $lpath) {
+                        continue;
+                    }
+
+                    $keys[$lpath] = $lpath;
+                    $ret->Add(new Directory($lpath));
+
                 }
-
-                $lpath = $file->getPathname();
-                $lpath = preg_replace('/\/\.$/', '/', $lpath);
-                $lpath = preg_replace('/\/\.\.$/', '/', $lpath);
-                if (isset($keys[$lpath]) || $path == $lpath) {
-                    continue;
-                }
-
-                $keys[$lpath] = $lpath;
-                $ret->Add(new Directory($lpath));
-
             }
         } catch (Throwable $e) {
-
+            // do nothing
         }
 
 
@@ -221,14 +204,17 @@ class Finder
 
         $ret = new ArrayList();
         try {
-            $directoryIterator = new DirectoryIterator($path);
-            foreach ($directoryIterator as $file) {
-                if (!in_array($file->getFilename(), ['.', '..'])) {
-                    $ret->Add(new File($file->getPathname()));
+            if(Directory::Exists($path)) {
+
+                $directoryIterator = new DirectoryIterator($path);
+                foreach ($directoryIterator as $file) {
+                    if (!in_array($file->getFilename(), ['.', '..'])) {
+                        $ret->Add(new File($file->getPathname()));
+                    }
                 }
             }
         } catch (Throwable $e) {
-
+            // do nothing
         }
 
         return $ret;

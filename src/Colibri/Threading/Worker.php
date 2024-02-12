@@ -98,7 +98,7 @@ abstract class Worker
     /**
      * @testFunction testWorkerRun
      */
-    abstract public function Run(): never;
+    abstract public function Run(): void;
 
     /**
      * функция Getter для получения данных по потоку
