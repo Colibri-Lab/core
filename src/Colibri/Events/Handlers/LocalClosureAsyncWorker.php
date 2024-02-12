@@ -7,7 +7,7 @@ use Colibri\Utils\Debug;
 
 class LocalClosureAsyncWorker extends Worker
 {
-    public function Run(): void
+    public function Run(): never
     {
 
         $this->_log->debug('Starting...');

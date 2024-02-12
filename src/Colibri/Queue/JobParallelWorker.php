@@ -12,7 +12,7 @@ class JobParallelWorker extends Worker
     /**
      * @suppress PHP0420
      */
-    public function Run(): void
+    public function Run(): never
     {
         
         $queue = $this->_params->queue;
