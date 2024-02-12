@@ -124,6 +124,8 @@ class Field
             }
             if (isset($value['type']) && $value['type'] === 'number') {
                 $value['value'] = (float) $value['value'];
+            } elseif (isset($value['type']) && $value['type'] === 'text') {
+                $value['value'] = (string) $value['value'];
             }
             $this->_values[$value['value']] = isset($value['title']) ? $value['title'] : $value['value'];
         }
@@ -182,12 +184,12 @@ class Field
                 return isset($this->_xfield['values']) ? $this->_xfield['values'] : null;
             case 'param':
                 if(in_array($this->_xfield['type'], [
-                    'varchar', 
-                    'char', 
-                    'text', 
-                    'mediumtext', 
-                    'longtext', 
-                    'date', 
+                    'varchar',
+                    'char',
+                    'text',
+                    'mediumtext',
+                    'longtext',
+                    'date',
                     'datetime'
                 ])) {
                     return 'string';
