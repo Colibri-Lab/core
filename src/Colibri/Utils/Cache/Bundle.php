@@ -308,10 +308,10 @@ class Bundle
                 $content = str_replace('url("/', 'url("' . $base . '/', $content);
 
 
-                $paths = App::$config->Query('mobile.bundler.paths')->AsObject();
+                $paths = App::$config->Query('mobile.bundler.paths')->ToArray();
                 foreach ($paths as $settings) {
-                    if (in_array($ext, (array) $settings->types)) {
-                        File::Write($exportPath . $settings->path, $content, true, '777');
+                    if (in_array($ext, (array) $settings['types'])) {
+                        File::Write($exportPath . $settings['path'], $content, true, '777');
                         break;
                     }
                 }
