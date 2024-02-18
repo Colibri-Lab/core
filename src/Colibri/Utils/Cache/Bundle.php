@@ -26,7 +26,6 @@ use Colibri\Utils\Config\ConfigException;
  */
 class Bundle
 {
-
     /**
      * Компиляция скриптов и стилей
      *
@@ -225,8 +224,13 @@ class Bundle
      * @return string
      * @testFunction testBundleAutomate
      */
-    public static function Automate(string $domain, string $name, string $ext, array $ar, ?string $useDomainsInUrls = null): string
-    {
+    public static function Automate(
+        string $domain,
+        string $name,
+        string $ext,
+        array $ar,
+        ?string $useDomainsInUrls = null
+    ): string {
 
         $name = $domain . '.' . $name;
 
@@ -239,7 +243,8 @@ class Bundle
                         continue;
                     }
                     $lastModified = max(
-                        $lastModified, self::LastModified(
+                        $lastModified,
+                        self::LastModified(
                             isset($settings['name']) ? $settings['name'] : '',
                             isset($settings['exts']) ? $settings['exts'] : [$ext],
                             $settings['path'],
@@ -291,12 +296,12 @@ class Bundle
 
         File::Write($jpweb, $content, true, '777');
 
-        self::Export($domain, $ext, $content);
+        self::Export($domain, $ext, $name, $content);
 
         return str_replace(App::$webRoot, '/', $jpweb . '?' . $recacheKey);
     }
 
-    public static function Export(string $domain, string $ext, string $content)
+    public static function Export(string $domain, string $ext, string $name, string $content)
     {
         try {
 
@@ -311,7 +316,22 @@ class Bundle
                 $paths = App::$config->Query('mobile.bundler.paths')->ToArray();
                 foreach ($paths as $settings) {
                     if (in_array($ext, (array) $settings['types'])) {
-                        File::Write($exportPath . $settings['path'], $content, true, '777');
+                        $bundle = $name;
+                        if($settings['convert']) {
+                            $res = preg_match_all(
+                                '/'.$settings['convert']['from'].'/',
+                                $name,
+                                $matches,
+                                PREG_SET_ORDER
+                            );
+                            if($res > 0) {
+                                $bundle = $settings['convert']['to'];
+                                foreach($matches as $index => $match) {
+                                    $bundle = str_replace('$' . ($index + 1), $match[1], $bundle);
+                                }
+                            }
+                        }
+                        File::Write($exportPath . $settings['path'] . $bundle, $content, true, '777');
                         break;
                     }
                 }
