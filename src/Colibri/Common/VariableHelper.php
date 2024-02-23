@@ -710,4 +710,13 @@ class VariableHelper
         return $ret;
     }
 
+    public static function ConvertToAssotiative($array, $fieldKey, $fieldValue = null): array
+    {
+        $ret = [];
+        foreach($array as $v) {
+            $ret[$v[$fieldKey]] = $fieldValue ? $v[$fieldValue] : $v;
+        }
+        return $ret;
+    }
+
 }
