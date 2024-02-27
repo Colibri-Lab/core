@@ -226,7 +226,7 @@ class DataAccessPoint
                 $return = new QueryInfo($cmd->type, 0, 0, 'Unknown command type: ' . $commandParams->type, $cmd->query);
             }
 
-        } catch (DataAccessPointsException $e) {
+        } catch(\Throwable $e) {
             $return = new QueryInfo($cmd->type, 0, 0, $e->getMessage(), $cmd->query);
         }
 
