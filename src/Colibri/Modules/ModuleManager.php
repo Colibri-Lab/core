@@ -228,7 +228,8 @@ class ModuleManager
                 $templates[] = PhpTemplate::Create($tname);
 
             } catch (\Throwable $e) {
-                App::$log->debug('Запрошен шаблон модуля, который не существует: ' . $tname);
+                // do nothing
+                // App::$log->debug('Запрошен шаблон модуля, который не существует: ' . $tname)
             }
         }
         return $templates;
