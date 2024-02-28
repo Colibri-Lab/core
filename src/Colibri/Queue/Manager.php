@@ -4,6 +4,7 @@ namespace Colibri\Queue;
 
 use Colibri\App;
 use Colibri\Common\DateHelper;
+use Colibri\Common\StringHelper;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Threading\Process;
 use Colibri\Utils\ExtendedObject;
@@ -70,6 +71,7 @@ class Manager
                         `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
                         `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP,
                         `datereserved` timestamp NULL,
+                        `reservation_key` varchar(32) NULL,
                         `queue` varchar(255) NULL,
                         `class` varchar(512) NULL,
                         `payload_class` varchar(512) NULL,
@@ -80,6 +82,7 @@ class Manager
                         INDEX `'.$this->_storages['list'].'_datecreated`(`datecreated`),
                         INDEX `'.$this->_storages['list'].'_datemodified`(`datemodified`),
                         INDEX `'.$this->_storages['list'].'_datereserved`(`datereserved`),
+                        INDEX `'.$this->_storages['list'].'_reservation_key`(`reservation_key`),
                         INDEX `'.$this->_storages['list'].'_queue`(`queue`),
                         INDEX `'.$this->_storages['list'].'_class`(`class`)
                     );
@@ -250,21 +253,21 @@ class Manager
     public function GetNextJob(array $queue): ?IJob
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+
+        // сначала бронируем и потом уже забираем
+        $reservation_key = md5(microtime(true));
+        $accessPoint->Update($this->_storages['list'], [
+            'datereserved' => DateHelper::ToDbString(time()),
+            'reservation_key' => $reservation_key
+        ], 'datereserved is null and queue in (\''.implode('\',\'', $queue).'\')');
         $reader = $accessPoint->Query(
-            'select
-                *
-            from
-                '.$this->_storages['list'].'
-            where
-                datereserved is null and
-                queue in (\''.implode('\',\'', $queue).'\')
-            order by id
-            limit 1'
+            'select * from '.$this->_storages['list'].' where reservation_key=\''.$reservation_key.'\' limit 1'
         );
         $data = $reader->Read();
         if(!$data) {
             return null;
         }
+
         $class = $data->class;
         $payloadClass = $data->payload_class ?? 'ExtendedObject';
         $data->payload = new $payloadClass(json_decode($data->payload));
@@ -296,7 +299,7 @@ class Manager
     /**
      * @suppress PHP0420
      */
-    public function ProcessJobs(string $queue): void
+    public function ProcessJobs(string $queue): never
     {
 
         while(true) {
@@ -312,7 +315,6 @@ class Manager
             $logger->info($job->queue . ': Begin job routine');
             
             $logger->info($job->queue . ': ' . $job->id);
-            $job->Begin();
 
             if($job->IsParallel()) {
 
