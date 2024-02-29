@@ -2,12 +2,12 @@
 
 /**
  * Строковые функции
- * 
+ *
  * @author Ваган Григорян <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
  * @package Colibri\Common
  * @version 1.0.0
- * 
+ *
  */
 
 namespace Colibri\Common;
@@ -21,10 +21,9 @@ use Throwable;
 
 class StringHelper
 {
-
     /**
      * В прописные
-     * 
+     *
      * @param string $s
      * @return string
      * @testFunction testStringHelperToLower
@@ -49,7 +48,7 @@ class StringHelper
     /**
      * Проверяет не состоит ли текст только из заглавных букв
      * @param string $s строка
-     * @return bool 
+     * @return bool
      * @testFunction testStringHelperIsUpper
      */
     public static function IsUpper(string $s): bool
@@ -63,7 +62,7 @@ class StringHelper
     /**
      * Проверяет не состоит ли текст только из прописных букв
      * @param string $s строка
-     * @return bool 
+     * @return bool
      * @testFunction testStringHelperIsLower
      */
     public static function IsLower(string $s): bool
@@ -309,9 +308,9 @@ class StringHelper
     /**
      * Добавляет или удаляет часть параметров в queryString
      * @param string $url URL
-     * @param mixed $params 
-     * @param bool $encode 
-     * @return string 
+     * @param mixed $params
+     * @param bool $encode
+     * @return string
      * @testFunction testStringHelperAddToQueryString
      */
     public static function AddToQueryString(string $url, string|array |object $params, bool $encode = true): string
@@ -440,9 +439,9 @@ class StringHelper
     /**
      * Форматирует число в виде строки
      * @param int|float $secuence число, которое нужно форматировать
-     * @param array $labels слова определяющие 
+     * @param array $labels слова определяющие
      * @param bool $viewnumber показать число перед словом
-     * @return string 
+     * @return string
      * @testFunction testStringHelperFormatSequence
      */
     public static function FormatSequence(float $secuence, array $labels = array("год", "года", "лет"), bool $viewnumber = false): string
@@ -478,8 +477,8 @@ class StringHelper
                     case 0:
                         return $s . $labels[2];
                     default: {
-                            break;
-                        }
+                        break;
+                    }
                 }
             } else {
                 switch (intval($sIntervalLastChar)) {
@@ -497,8 +496,8 @@ class StringHelper
                     case 0:
                         return $s . $labels[2];
                     default: {
-                            break;
-                        }
+                        break;
+                    }
                 }
             }
         }
@@ -611,16 +610,36 @@ class StringHelper
 
     /**
      * Создает новый GUID
-     * @return string 
+     * @return string
      * @testFunction testStringHelperGUID
      */
-    public static function GUID(): string
+    public static function GUID(bool $showSeparator = true): string
     {
         if (function_exists('com_create_guid') === true) {
-            return trim(com_create_guid(), '{}');
+            $return = trim(com_create_guid(), '{}');
+            if(!$showSeparator) {
+                $return = str_replace('-', '', $return);
+            }
+            return $return;
         }
 
-        return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+        $separator = '-';
+        if(!$showSeparator) {
+            $separator = '';
+        }
+
+        return sprintf(
+            '%04X%04X'.$separator.'%04X'.$separator.'%04X'.$separator.'%04X'.
+                $separator.'%04X%04X%04X',
+            mt_rand(0, 65535),
+            mt_rand(0, 65535),
+            mt_rand(0, 65535),
+            mt_rand(16384, 20479),
+            mt_rand(32768, 49151),
+            mt_rand(0, 65535),
+            mt_rand(0, 65535),
+            mt_rand(0, 65535)
+        );
     }
 
     /**
@@ -690,7 +709,7 @@ class StringHelper
 
     /**
      * Возвращает распаршенный url
-     * @param string $url 
+     * @param string $url
      * @return ExtendedObject
      */
     public static function ParseAsUrl(string $url): ExtendedObject
@@ -880,7 +899,10 @@ class StringHelper
                             strtolower(StringHelper::Transliterate(trim($text, "\n\r ")))
                         )
                     )
-                ), 0, 200));
+                ),
+                0,
+                200
+            ));
         } else {
             $hid = iconv('cp1251', 'UTF-8', preg_replace('/\-+/', '-', substr(
                 preg_replace(
@@ -895,7 +917,10 @@ class StringHelper
                             strtolower(trim(iconv('UTF-8', 'cp1251', $text), "\n\r "))
                         )
                     )
-                ), 0, 200)));
+                ),
+                0,
+                200
+            )));
         }
 
         return trim($hid, '-');
@@ -966,8 +991,9 @@ class StringHelper
         return $return;
     }
 
-    public static function Trim($string, $trim_chars = '\s') {
-        return preg_replace('/^['.$trim_chars.']*(?U)(.*)['.$trim_chars.']*$/u', '\\1',$string);
+    public static function Trim($string, $trim_chars = '\s')
+    {
+        return preg_replace('/^['.$trim_chars.']*(?U)(.*)['.$trim_chars.']*$/u', '\\1', $string);
     }
 
 }

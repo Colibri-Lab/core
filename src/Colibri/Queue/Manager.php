@@ -255,7 +255,7 @@ class Manager
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
 
         // сначала бронируем и потом уже забираем
-        $reservation_key = md5(microtime(true));
+        $reservation_key = StringHelper::GUID(false);
         $accessPoint->Update($this->_storages['list'], [
             'datereserved' => DateHelper::ToDbString(time()),
             'reservation_key' => $reservation_key
