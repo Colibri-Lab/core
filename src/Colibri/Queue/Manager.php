@@ -6,6 +6,7 @@ use Colibri\App;
 use Colibri\Common\DateHelper;
 use Colibri\Common\StringHelper;
 use Colibri\Data\DataAccessPoint;
+use Colibri\Data\SqlClient\Command;
 use Colibri\Threading\Process;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\FileLogger;
@@ -256,13 +257,23 @@ class Manager
 
         // сначала бронируем и потом уже забираем
         $reservation_key = StringHelper::GUID(false);
-        $accessPoint->Update($this->_storages['list'], [
-            'datereserved' => DateHelper::ToDbString(time()),
-            'reservation_key' => $reservation_key
-        ], 'datereserved is null and queue in (\''.implode('\',\'', $queue).'\')');
+        $accessPoint->Query('
+            update jobs
+            inner join (
+                select id
+                from jobs 
+                where datereserved is null and queue in (\''.implode('\',\'', $queue).'\')
+                order by id asc
+                limit 1
+            ) j2 on jobs.id=j2.id
+            set `datereserved`=\''.DateHelper::ToDbString(time()).'\',`reservation_key`=\''.$reservation_key.'\'',
+            ['type' => DataAccessPoint::QueryTypeNonInfo]
+        );
+        
         $reader = $accessPoint->Query(
             'select * from '.$this->_storages['list'].' where reservation_key=\''.$reservation_key.'\' limit 1'
         );
+        
         $data = $reader->Read();
         if(!$data) {
             return null;
