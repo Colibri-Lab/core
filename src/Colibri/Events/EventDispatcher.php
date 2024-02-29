@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Colibri\Events;
 
 use Colibri\Collections\ArrayList;
@@ -15,7 +14,6 @@ use Colibri\Events\Handlers\LocalClosure;
  */
 class EventDispatcher
 {
-
     /**
      * Синглтон
      *
@@ -74,7 +72,9 @@ class EventDispatcher
         // если не передали listener
         // или если передали обьект и listener не строка
         // то выходим
-        if (!is_string($ename) || empty($ename) || empty($listener) || (!is_object($object) && !is_string($listener) && !is_callable($listener))) {
+        if (
+            !is_string($ename) || empty($ename) || empty($listener) ||
+            (!is_object($object) && !is_string($listener) && !is_callable($listener))) {
             return false;
         }
 
@@ -84,7 +84,7 @@ class EventDispatcher
             } else {
                 $listener = new LocalClosure($listener);
             }
-        } 
+        }
 
         $e = $this->_events->$ename;
         if (is_null($e)) {
@@ -126,7 +126,7 @@ class EventDispatcher
             } else {
                 $listener = new LocalClosure($listener);
             }
-        } 
+        }
 
         return $e->Delete($listener);
     }
@@ -151,7 +151,7 @@ class EventDispatcher
 
         foreach ($e as $iclosure) {
             /** @var IClosure */
-            if( !($iclosure instanceof IClosure) ) {
+            if(!($iclosure instanceof IClosure)) {
                 continue;
             }
 
@@ -167,7 +167,7 @@ class EventDispatcher
                     break;
                 }
             }
-            
+
         }
 
         return $args;
@@ -207,7 +207,7 @@ class EventDispatcher
      * Возвращает список обработчиков события
      * @testFunction testEventDispatcherRegisteredListeners
      */
-    public function RegisteredListeners(string $ename = ""): ? ArrayList
+    public function RegisteredListeners(string $ename = ""): ?ArrayList
     {
         if ($this->_events->Count() == 0) {
             return null;

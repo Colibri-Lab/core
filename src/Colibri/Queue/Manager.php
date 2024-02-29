@@ -7,6 +7,7 @@ use Colibri\Common\DateHelper;
 use Colibri\Common\StringHelper;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\SqlClient\Command;
+use Colibri\Events\TEventDispatcher;
 use Colibri\Threading\Process;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\FileLogger;
@@ -14,6 +15,9 @@ use Colibri\Utils\Logs\Logger;
 
 class Manager
 {
+
+    use TEventDispatcher;
+
     private array $_config = [];
     private string $_driver = '';
     private array $_storages = [];
@@ -154,6 +158,9 @@ class Manager
 
         $res = $accessPoint->Insert($this->_storages['list'], $job->ToArray());
         if($res->insertid !== -1) {
+
+            $this->DispatchEvent('JobAdded', ['id' => $res->insertid]);
+
             $this->id = $res->insertid;
             return true;
         }
@@ -173,6 +180,8 @@ class Manager
 
         $res = $accessPoint->Update($this->_storages['list'], $job->ToArray(), 'id='.$job->id);
         if(!$res->error) {
+            $this->DispatchEvent('JobUpdated', ['id' => $job->id]);
+
             return true;
         }
         return false;
@@ -188,6 +197,7 @@ class Manager
 
         $res = $accessPoint->Delete($this->_storages['list'], 'id='.$job->id);
         if(!$res->error) {
+            $this->DispatchEvent('JobDeleted', ['id' => $job->id]);
             return true;
         }
         return false;
@@ -204,6 +214,8 @@ class Manager
         if(!$this->_storages['error']) {
             return true;
         }
+
+        $this->DispatchEvent('JobFailed', ['id' => $job->id]);
 
         $res = $accessPoint->Insert($this->_storages['error'], [
             'queue' => $job->queue,
@@ -236,6 +248,8 @@ class Manager
         if(!$this->_storages['success']) {
             return true;
         }
+
+        $this->DispatchEvent('JobSuccesed', ['id' => $job->id]);
 
         $res = $accessPoint->Insert($this->_storages['success'], [
             'queue' => $job->queue,
@@ -327,6 +341,8 @@ class Manager
             
             $logger->info($job->queue . ': ' . $job->id);
 
+            $this->DispatchEvent('JobStarted', ['id' => $job->id]);
+            
             if($job->IsParallel()) {
 
                 $worker = new JobParallelWorker();
@@ -343,6 +359,55 @@ class Manager
             }
 
         }
+    }
+
+    public function Dashboard(): array
+    {
+
+        $ret = [
+            'active' => [],
+            'errors' => [],
+            'success' => []
+        ];
+
+        $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $reader = $accessPoint->Query(
+            'select
+                *
+            from
+                '.$this->_storages['list'].'
+            order by id
+            limit 10
+        ');
+        while($d = $reader->Read()) {
+            $ret['active'][] = $d;
+        }
+
+        $reader = $accessPoint->Query(
+            'select
+                *
+            from
+                '.$this->_storages['success'].'
+            order by id desc
+            limit 10
+        ');
+        while($d = $reader->Read()) {
+            $ret['success'][] = $d;
+        }
+        
+        $reader = $accessPoint->Query(
+            'select
+                *
+            from
+                '.$this->_storages['error'].'
+            order by id desc
+            limit 10
+        ');
+        while($d = $reader->Read()) {
+            $ret['errors'][] = $d;
+        }
+
+        return $ret;
     }
 
 
