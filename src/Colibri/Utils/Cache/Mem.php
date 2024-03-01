@@ -21,7 +21,7 @@ class Mem
      *
      * @testFunction testMemCreate
      */
-    public static function Create(string $host, int $port): ?\Memcache
+    public static function Create(string $host, int $port): ?\Memcached
     {
 
         if (!\class_exists('Memcache')) {
@@ -29,8 +29,10 @@ class Mem
         }
 
         if (!Mem::$instance) {
-            Mem::$instance = new \Memcache();
-            Mem::$instance->connect($host, $port);
+            Mem::$instance = new \Memcached();
+            Mem::$instance->addServer($host, $port);
+            // Mem::$instance->connect($host, $port);
+            
         }
         return Mem::$instance;
     }
@@ -79,15 +81,15 @@ class Mem
      * @return boolean
      * @testFunction testMemWrite
      */
-    static function Write(string $name, mixed $value, int $livetime = 600): bool
+    public static function Write(string $name, mixed $value, int $livetime = 600): bool
     {
         if (!Mem::$instance) {
             return false;
         }
         if (!Mem::Exists($name)) {
-            return Mem::$instance->add($name, $value, false, $livetime);
+            return Mem::$instance->add($name, $value, $livetime);
         } else {
-            return Mem::$instance->set($name, $value, false, $livetime);
+            return Mem::$instance->set($name, $value, $livetime);
         }
 
     }
@@ -101,13 +103,13 @@ class Mem
      * @return boolean
      * @testFunction testMemZWrite
      */
-    static function ZWrite(string $name, mixed $value, int $livetime = 600): bool
+    public static function ZWrite(string $name, mixed $value, int $livetime = 600): bool
     {
         if (!Mem::$instance) {
             return false;
         }
         // MEMCACHE_COMPRESSED = 2
-        return Mem::$instance->add($name, $value, 2, $livetime);
+        return Mem::$instance->add($name, $value, $livetime);
     }
 
     /**
@@ -117,7 +119,7 @@ class Mem
      * @return mixed | boolean
      * @testFunction testMemDelete
      */
-    static function Delete(string $name): bool
+    public static function Delete(string $name): bool
     {
         if (!Mem::$instance) {
             return false;
@@ -132,7 +134,7 @@ class Mem
      * @return mixed
      * @testFunction testMemRead
      */
-    static function Read(string $name): mixed
+    public static function Read(string $name): mixed
     {
         if (!Mem::$instance) {
             return false;
@@ -142,4 +144,25 @@ class Mem
         }
         return Mem::$instance->get($name);
     }
+
+    public static function List(?string $filter = null): array
+    {
+        if (!Mem::$instance) {
+            return [];
+        }
+        
+        $return = Mem::$instance->getAllKeys();
+        if(!$filter) {
+            return $return;
+        }
+
+        $ret = [];
+        foreach($return as $item) {
+            if(preg_match('/'.$filter.'/', $item)) {
+                $ret[] = $item;
+            }
+        }
+        return $ret;
+    }
+
 }
