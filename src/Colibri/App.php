@@ -2,13 +2,13 @@
 
 /**
  * Основной класс приложения
- * 
+ *
  * @author Ваган Григорян <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
  * @package App
  * @version 1.0.0
- * 
- * 
+ *
+ *
  */
 
 namespace Colibri;
@@ -32,7 +32,6 @@ use Colibri\Utils\Config\ConfigException;
 use Colibri\Web\Router;
 use Colibri\IO\FileSystem\Directory;
 
-
 /**
  * Класс приложения
  */
@@ -42,34 +41,34 @@ final class App
     use TEventDispatcher;
 
     /** Режим приложения на локальном компьютере */
-    const ModeLocal = 'local';
+    public const ModeLocal = 'local';
     /** Режим приложения в разработке */
-    const ModeDevelopment = 'dev';
+    public const ModeDevelopment = 'dev';
     /** Режим приложения в тестировании */
-    const ModeTest = 'test';
+    public const ModeTest = 'test';
     /** Режим приложения в релизе */
-    const ModeRelease = 'prod';
+    public const ModeRelease = 'prod';
 
     /**
      * Синглтон
      *
      * @var App
      */
-    public static ? App $instance = null;
+    public static ?App $instance = null;
 
     /**
      * Обьект запроса
      *
      * @var Request
      */
-    public static ? Request $request = null;
+    public static ?Request $request = null;
 
     /**
      * Обьект ответа
      *
      * @var Response
      */
-    public static ? Response $response = null;
+    public static ?Response $response = null;
 
     /**
      * Корень приложения
@@ -92,6 +91,12 @@ final class App
     public static string $vendorRoot = '';
 
     /**
+     * Режим
+     * @var string
+     */
+    public static string $mode = 'local';
+
+    /**
      * Режим разработки
      * @var boolean
      */
@@ -108,46 +113,46 @@ final class App
      *
      * @var Config
      */
-    public static ? Config $config = null;
+    public static ?Config $config = null;
 
     /**
      * Диспатчер событий
      *
      * @var EventDispatcher
      */
-    public static ? EventDispatcher $eventDispatcher = null;
+    public static ?EventDispatcher $eventDispatcher = null;
 
     /**
      * Менеджер модулей
      *
      * @var ModuleManager
      */
-    public static ? ModuleManager $moduleManager = null;
+    public static ?ModuleManager $moduleManager = null;
 
     /**
      * Доступ к данным DAL
      *
      * @var DataAccessPoints
      */
-    public static ? DataAccessPoints $dataAccessPoints = null;
+    public static ?DataAccessPoints $dataAccessPoints = null;
 
     /**
      * Лог девайс
      * @var Logger
      */
-    public static ? Logger $log = null;
+    public static ?Logger $log = null;
 
     /**
      * Менеджер процессов
      * @var Manager
      */
-    public static ? Manager $threadingManager = null;
+    public static ?Manager $threadingManager = null;
 
     /**
      * Мониторинг
      * @var Monitoring
      */
-    public static ? Monitoring $monitoring = null;
+    public static ?Monitoring $monitoring = null;
 
     /**
      * Ключ домена
@@ -157,7 +162,7 @@ final class App
     /**
      * Раутер
      */
-    public static ? Router $router = null;
+    public static ?Router $router = null;
 
     /**
      * Закрываем конструктор
@@ -235,10 +240,10 @@ final class App
         }
 
 
-        $mode = self::$config->Query('mode')->GetValue();
-        if ($mode == App::ModeDevelopment || $mode == App::ModeLocal) {
+        self::$mode = self::$config->Query('mode')->GetValue();
+        if (self::$mode == App::ModeDevelopment || self::$mode == App::ModeLocal) {
             self::$isDev = true;
-            if ($mode === App::ModeLocal) {
+            if (self::$mode === App::ModeLocal) {
                 self::$isLocal = true;
             }
         }
@@ -263,6 +268,7 @@ final class App
             }
 
         } catch (ConfigException $e) {
+            // do nothing
         }
 
         /**
@@ -281,7 +287,10 @@ final class App
 
         // создание всяких утилитных классов
         // без привязки к приложению, просто создаем утилиту
-        Mem::Create(self::$config->Query('memcache.host', 'localhost')->GetValue(), self::$config->Query('memcache.port', '11211')->GetValue());
+        Mem::Create(self::$config->Query(
+            'memcache.host',
+            'localhost'
+        )->GetValue(), self::$config->Query('memcache.port', '11211')->GetValue());
 
         // создание DAL
         if (!self::$dataAccessPoints) {
