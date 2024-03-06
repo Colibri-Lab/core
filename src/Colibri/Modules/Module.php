@@ -7,6 +7,7 @@ use Colibri\Common\StringHelper;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Config\Config;
 use Colibri\Events\TEventDispatcher;
+use Colibri\Utils\Config\ConfigItemsList;
 use Colibri\Utils\Debug;
 
 /**
@@ -121,7 +122,7 @@ class Module
      *
      * @return Config
      */
-    public function Config(?string $item = null, mixed $default = null): Config
+    public function Config(?string $item = null, mixed $default = null): Config|ConfigItemsList
     {
         return $item ? $this->_config->Query('config.' . $item, $default) : $this->_config;
     }
