@@ -144,6 +144,16 @@ class Manager
 
         $logger->debug('All complete successfuly');
 
+        $logger->debug('Creating module seeds');
+        
+        foreach(App::$moduleManager->list as $module) {
+            if(method_exists($module, 'Seeders')) {
+                $module->Seeders();
+            }
+        }
+
+        $logger->debug('Seeders successful');
+
         return true;
 
     }
