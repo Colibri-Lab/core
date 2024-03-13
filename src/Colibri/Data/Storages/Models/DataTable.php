@@ -483,7 +483,7 @@ class DataTable extends BaseDataTable
             if($res !== true) {
                 $hasErrors = true;
                 if($logger) {
-                    $logger->emergency($res->error . ' query: ' . $res->query);
+                    $logger->emergency(Debug::ROut($res));
                 }
             }
         }
