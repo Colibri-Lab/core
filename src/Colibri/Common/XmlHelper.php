@@ -23,7 +23,7 @@ class XmlHelper
     /**
      * Обькет в xml
      *
-     * @param XmlSerialized|string $object
+     * @param XmlSerialized|string|object|array $object
      * @param string $tag
      * @return string
      * @testFunction testXmlHelperEncode
@@ -40,7 +40,7 @@ class XmlHelper
             if (is_object($value) || is_array($value)) {
                 $ret[] = XmlHelper::Encode($value, $key);
             } else {
-                $ret[] = '<' . $key . '>' . $value . '</' . $key . '>';
+                $ret[] = '<' . $key . '><![CDATA[' . $value . ']]></' . $key . '>';
             }
         }
         $ret[] = '</' . $tag . '>';
