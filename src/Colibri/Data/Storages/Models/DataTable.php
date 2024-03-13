@@ -437,24 +437,32 @@ class DataTable extends BaseDataTable
      * @param int $firstrow номер строки, с которой начинаются данные
      * @return void
      */
-    public function ImportCSV(string $file, int $firstrow = 1): void
+    public function ImportCSV(string $file, int $firstrow = 1, ?Logger $logger = null): bool
     {
         $stream = File::Open($file);
 
         $header = fgetcsv($stream->stream, 0, ';');
-        $dataTable = DataTable::Create($this->_storage->accessPoint);
-        $dataTable->Load('select * from ' . $this->_storage->name . ' where false');
+        $this->Load('select * from ' . $this->_storage->name . ' where false');
+        $hasErrors = false;
         while ($row = fgetcsv($stream->stream, 0, ';')) {
             if ($firstrow-- > 1) {
                 continue;
             }
 
-            $datarow = $dataTable->CreateEmptyRow();
+            $datarow = $this->CreateEmptyRow();
             foreach ($row as $index => $v) {
                 $datarow->{$header[$index]} = Encoding::Convert($row[$index], Encoding::UTF8, Encoding::CP1251);
             }
-            $dataTable->SaveRow($datarow);
+            $res = $this->SaveRow($datarow);
+            if($res !== true) {
+                $hasErrors = true;
+                if($logger) {
+                    $logger->emergency(Debug::ROut($res));
+                }
+            }
+
         }
+        return $hasErrors;
     }
 
     /**
@@ -467,19 +475,18 @@ class DataTable extends BaseDataTable
     {
         $xml = XmlNode::Load($file, true);
         $rows = $xml->Query('//row');
-        $dataTable = DataTable::Create($this->_storage->accessPoint);
-        $dataTable->Load('select * from ' . $this->_storage->name . ' where false');
+        $this->Load('select * from ' . $this->_storage->name . ' where false');
         $hasErrors = false;
         foreach ($rows as $row) {
             if ($firstrow-- > 1) {
                 continue;
             }
-            $row = XmlHelper::Decode($row->xml);
-            $datarow = $dataTable->CreateEmptyRow();
+            $row = XmlHelper::ToObject($row->xml);
+            $datarow = $this->CreateEmptyRow();
             foreach ($row as $k => $v) {
                 $datarow->$k = $row->$k;
             }
-            $res = $dataTable->SaveRow($datarow);
+            $res = $this->SaveRow($datarow);
             if($res !== true) {
                 $hasErrors = true;
                 if($logger) {
