@@ -23,6 +23,7 @@ use Colibri\Common\Encoding;
 use Colibri\Common\XmlHelper;
 use Colibri\Data\Storages\Storages;
 use Colibri\Utils\Debug;
+use Colibri\Utils\Logs\Logger;
 use Colibri\Xml\XmlNode;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Models\DataModelException;
@@ -462,12 +463,13 @@ class DataTable extends BaseDataTable
      * @param int $firstrow номер строки, с которой начинаются данные
      * @return void
      */
-    public function ImportXML(string $file, int $firstrow = 1): void
+    public function ImportXML(string $file, int $firstrow = 1, ?Logger $logger = null): bool
     {
         $xml = XmlNode::Load($file, true);
         $rows = $xml->Query('//row');
         $dataTable = DataTable::Create($this->_storage->accessPoint);
         $dataTable->Load('select * from ' . $this->_storage->name . ' where false');
+        $hasErrors = false;
         foreach ($rows as $row) {
             if ($firstrow-- > 1) {
                 continue;
@@ -477,8 +479,15 @@ class DataTable extends BaseDataTable
             foreach ($row as $k => $v) {
                 $datarow->$k = $row->$k;
             }
-            $dataTable->SaveRow($datarow);
+            $res = $dataTable->SaveRow($datarow);
+            if($res !== true) {
+                $hasErrors = true;
+                if($logger) {
+                    $logger->emergency($res->error . ' query: ' . $res->query);
+                }
+            }
         }
+        return $hasErrors;
     }
 
     protected static function _loadFromFileXML(
