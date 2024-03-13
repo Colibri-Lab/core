@@ -412,6 +412,15 @@ class Storages
 
             }
 
+                
+            $logger->debug('Creating module seeds');
+            foreach(App::$moduleManager->list as $module) {
+                if(method_exists($module, 'Seeders')) {
+                    $module->Seeders($logger);
+                }
+            }
+            $logger->debug('Seeders successful');
+
         } catch (DataAccessPointsException $e) {
             if ($isDev) {
                 $logger->emergency('Returned with exception: ' . $e->getMessage());
