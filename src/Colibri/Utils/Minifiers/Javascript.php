@@ -62,6 +62,7 @@ class Javascript
 
         $content = '_c_ = () => {};' . $content;
         $content = preg_replace('/console\.log/s', '_c_', $content);
+        $content = preg_replace('/console\.trace/s', '_c_', $content);
         $content = preg_replace('/console\.dir/s', '_c_', $content);
         $content = preg_replace('/console\.error/s', '_c_', $content);
 
