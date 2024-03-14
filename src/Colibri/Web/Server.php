@@ -300,7 +300,7 @@ class Server
 
             try {
                 $obj = new $class($type);
-                $result = (object) $obj->$method($get, $post, $payload);
+                $result = (object) $obj->Invoke($method, $get, $post, $payload);
             } catch (\Throwable $e) {
 
                 $errorResult = [

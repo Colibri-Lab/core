@@ -11,6 +11,7 @@
 namespace Colibri\Web;
 
 use Colibri\Common\StringHelper;
+use Colibri\Utils\Cache\Mem;
 
 /**
  * Абстрактный класс для обработки Web запросов
@@ -71,6 +72,9 @@ class Controller
 {
     protected ?string $_type = null;
 
+    protected bool $_cache = false;
+    protected int $_lifetime = 600;
+
     public function __construct(?string $type = null)
     {
         $this->_type = $type;
@@ -93,7 +97,8 @@ class Controller
         mixed $result = null,
         string $charset = 'utf-8',
         array $headers = [],
-        array $cookies = []
+        array $cookies = [],
+        bool $forceNoCache = false
     ): object {
         $res = (object) [];
         $res->code = $code;
@@ -102,6 +107,7 @@ class Controller
         $res->charset = $charset;
         $res->headers = $headers;
         $res->cookies = $cookies;
+        $res->forceNoCache = $forceNoCache;
         return $res;
     }
 
@@ -144,4 +150,34 @@ class Controller
 
         return '/' . StringHelper::AddToQueryString($url, $params, true);
     }
+
+    public function __get($prop): mixed
+    {
+        return match($prop) {
+            'cache' => $this->_cache,
+            'lifetime' => $this->_lifetime
+        };
+    }
+
+    public function Invoke(string $method, RequestCollection $get, RequestCollection $post, PayloadCopy $payload)
+    {
+        if($this->_cache) {
+            $cacheName = 'controller-' .
+                str_replace('\\', '_', strtolower(static::class . '_' . $method)) . '-' .
+                md5(json_encode($get->ToArray()) . json_encode($post->ToArray()) . json_encode($payload->ToArray()));
+            if(Mem::Exists($cacheName)) {
+                $return = Mem::Read($cacheName);
+            } else {
+                $return = $this->$method($get, $post, $payload);
+                if(!$return->forceNoCache) {
+                    Mem::Write($cacheName, $return, $this->_lifetime);
+                }
+            }
+        } else {
+            $return = $this->$method($get, $post, $payload);
+        }
+
+        return $return;
+    }
+
 }
