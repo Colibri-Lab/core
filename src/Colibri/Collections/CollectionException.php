@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Исключения коллекции
- * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * Collection exceptions.
+ *
+ * @author Vaհan Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Collections
  * @version 1.0.0
- * 
  */
 
 namespace Colibri\Collections;
@@ -15,7 +14,7 @@ namespace Colibri\Collections;
 use Colibri\AppException;
 
 /**
- * Исключения коллекции
+ * Exception class for collection-related errors.
  */
 class CollectionException extends AppException
 {

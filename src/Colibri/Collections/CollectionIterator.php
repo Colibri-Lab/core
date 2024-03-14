@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Итератор для коллекции, чтобы можно было использовать в foreach
+ * Represents an iterator for a collection.
+ * This class implements the \Iterator interface, allowing iteration over a collection.
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Collections
  * @version 1.0.0
  *
@@ -13,8 +14,8 @@
 namespace Colibri\Collections;
 
 /**
- * Итератор для коллекции, чтобы можно было использовать в foreach
- * @testFunction testCollectionIterator
+ * Represents an iterator for a collection.
+ * This class implements the \Iterator interface, allowing iteration over a collection.
  */
 class CollectionIterator implements \Iterator
 {

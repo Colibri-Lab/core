@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Интерфейс для списков
+ * Interface for lists
  * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author VaHan Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Collections
  * @version 1.0.0
  * 
@@ -13,74 +13,82 @@
 namespace Colibri\Collections;
 
 /**
- * Интерфейс списка
+ * Interface for lists
  */
 interface IArrayList
 {
     /**
-     * Возвращает знаение по индексу
+     * Retrieves an item from the collection at the specified index.
      *
-     * @param integer $index
-     * @return mixed
+     * @param int $index The index of the item to retrieve.
+     * @return mixed The item at the specified index.
      */
     public function Item(int $index): mixed;
 
     /**
-     * Добавляет значение в ArrayList
-     * @param mixed $value
-     * @return mixed
+     * Adds an item to the collection.
+     *
+     * @param mixed $value The item to add.
+     * @return mixed The updated collection after adding the item.
      */
     public function Add(mixed $value): mixed;
+    
     /**
-     * Добавляет список значений в массив
+     * Appends one or many items to the end of list.
      *
-     * @param mixed $values
-     * @return mixed
+     * @param mixed $nodes The node(s) to append.
+     * @return void
      */
     public function Append(mixed $values): void;
 
     /**
-     * Удаляет значение из ArrayList-а
+     * Deletes an item from the collection.
      *
-     * @param mixed $value
-     * @return boolean
+     * @param mixed $value The item to delete.
+     * @return bool True if the item was successfully deleted, false otherwise.
      */
     public function Delete(mixed $value): bool;
 
     /**
-     * Удаляет значение из ArrayList-а по индексу
+     * Deletes an item from the collection at the specified index.
      *
-     * @param int $index
-     * @return array
+     * @param int $index The index of the item to delete.
+     * @return array The updated collection after removing the item.
      */
     public function DeleteAt(int $index): array;
 
     /**
-     * Превращает в строку
-     * @param string $splitter
-     * @return string
+     * Converts the object to a string representation.
+     *
+     * @param string $splitter The delimiter to use when joining elements.
+     * @return string The string representation of the object.
      */
     public function ToString(string $splitter = ','): string;
+
     /**
-     * Возвращает массив из значений
+     * Returns an array of values.
      *
      * @return array
      */
     public function ToArray(): array;
+
     /**
-     * Возвращает количество записей в массиве
+     * Returns the number of records in the array.
      *
      * @return int
      */
     public function Count(): int;
+
     /**
-     * Возвращает первый пункт в списке
+     * Returns the first item in the list.
      * @return mixed 
      */
     public function First(): mixed;
+
     /**
-     * Возвращает последний пункт в списке
+     * Returns the last item in the list.
      * @return mixed 
      */
     public function Last(): mixed;
+    
 }

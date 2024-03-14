@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Список
+ * Simple array list
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Collections
  * @version 1.0.0
  *
@@ -18,12 +18,14 @@ use JsonSerializable;
 use Colibri\Utils\Debug;
 
 /**
- * Базовый класс списка, реализует стандартный функционал
- * @testFunction testArrayList
+ * Base class for array lists
  */
 class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, ArrayAccess, Countable
 {
 
+    /**
+     * JSON schema
+     */
     public const JsonSchema = [
         'type' => 'array',
         'items' => [
@@ -37,16 +39,15 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     ];
 
     /**
-     * Данные
+     * Data
      *
      * @var mixed
      */
     protected $data = null;
 
     /**
-     * Конструктор
-     * Создаем ArrayList из массива или объекта или из другого ArrayList-а
-     * @testFunction testArrayList
+     * Constructor
+     * Creates an array list from array|object or else
      */
     public function __construct(mixed $data = array())
     {
@@ -62,9 +63,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Получить иттератор
-     * @testFunction testArrayListGetIterator
-     * 
+     * Gets an interator     * 
      */
     public function getIterator(): ArrayListIterator
     {
@@ -72,8 +71,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Проверка наличия значения в списке
-     * @testFunction testArrayListContains
+     * Check when item contains in internal array
      */
     public function Contains(mixed $item): bool
     {
@@ -81,7 +79,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Возвращает индекс по значению
+     * Returns index by item
      * @testFunction testArrayListIndexOf
      */
     public function IndexOf(mixed $item): int
@@ -90,8 +88,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Возвращает значение по идексу
-     * @testFunction testArrayListItem
+     * Returns item by index
      */
     public function Item(int $index): mixed
     {
@@ -102,7 +99,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Добавляет значение с список
+     * Adds item to array list
      * @testFunction testArrayListAdd
      */
     public function Add(mixed $value): mixed
@@ -112,8 +109,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Устанавливает значение по указанному индексу
-     * @testFunction testArrayListSet
+     * Sets an item to specified place in array list
      */
     public function Set(int $index, mixed $value): mixed
     {
@@ -122,8 +118,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Добавляет значения
-     * @testFunction testArrayListAppend
+     * Appends an items to array list
      */
     public function Append(mixed $values): void
     {
@@ -135,8 +130,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Внедряет значение в список после индекса
-     * @testFunction testArrayListInsertAt
+     * Inserts an item to specified index
      */
     public function InsertAt(mixed $value, int $toIndex): void
     {
@@ -144,8 +138,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Удаляет значение
-     * @testFunction testArrayListDelete
+     * Deletes an item
      */
     public function Delete(mixed $value): bool
     {
@@ -158,8 +151,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Удаляет значение по индексу
-     * @testFunction testArrayListDeleteAt
+     * Deletes an item by index
      */
     public function DeleteAt(int $index): array
     {
@@ -167,8 +159,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Очищает список
-     * @testFunction testArrayListClear
+     * Clears an array list
      */
     public function Clear(): void
     {
@@ -176,8 +167,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * В строку
-     * @testFunction testArrayListToString4
+     * Returns string representation of array list
      */
     public function ToString(string $splitter = ','): string
     {
@@ -185,8 +175,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Возвращает массив
-     * @testFunction testArrayListToArray
+     * Returns internal array
      */
     public function ToArray(): array
     {
@@ -194,8 +183,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Сортирует данные в массиве
-     * @testFunction testArrayListSort
+     * Sorts an array using sort function
      */
     public function SortByClosure(\Closure $closure): self
     {
@@ -207,8 +195,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
     
     /**
-     * Сортирует данные в массиве
-     * @testFunction testArrayListSort
+     * Sorts an array list by using internal object field by key
      */
     public function Sort(string $k = null, int $sorttype = SORT_ASC): void
     {
@@ -238,8 +225,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Возвращает количество записей в массиве
-     * @testFunction testArrayListCount
+     * Returns internal array count
      */
     public function Count(): int
     {
@@ -247,8 +233,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Возвращает первый пункт в списке
-     * @testFunction testArrayListFirst
+     * Returns first item of array list
      */
     public function First(): mixed
     {
@@ -256,19 +241,24 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Возвращает последний пункт в списке
-     * @testFunction testArrayListLast
+     * Returns last item of array list
      */
     public function Last(): mixed
     {
         return $this->Item($this->Count() - 1);
     }
 
+    /**
+     * Return internal array for json conversion
+     */
     public function jsonSerialize(): array
     {
         return $this->ToArray();
     }
 
+    /**
+     * Filters an array list by closure
+     */
     public function Filter(\Closure $closure): ArrayList
     {
         $newList = new ArrayList();
@@ -280,6 +270,9 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
         return $newList;
     }
 
+    /**
+     * Finds an item by closure
+     */
     public function Find(\Closure $closure): mixed
     {
 
@@ -291,6 +284,9 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
         return $filtered[0];
     }
 
+    /**
+     * Executes an closure for every item and returns new array list
+     */
     public function Map(\Closure $closure): ArrayList
     {
         $newList = new ArrayList();
@@ -301,11 +297,10 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Устанавливает значение по индексу
+     * Sets an item by index (used for ArrayAccess)
      * @param int $offset
      * @param mixed $value
      * @return void
-     * @testFunction testDataTableOffsetSet
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -317,7 +312,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Проверяет есть ли данные по индексу
+     * Checks if offset exists in array list (used for ArrayAccess)
      * @param int $offset
      * @return bool
      */
@@ -327,10 +322,9 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * удаляет данные по индексу
+     * Deletes an item from array list by index (used for ArrayAccess)
      * @param int $offset
      * @return void
-     * @testFunction testDataTableOffsetUnset
      */
     public function offsetUnset(mixed $offset): void
     {
@@ -342,7 +336,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      *
      * @param int $offset
      * @return mixed
-     * @testFunction testDataTableOffsetGet
+     * @testFunction testDataTableOffsetGet (used for ArrayAccess)
      */
     public function offsetGet(mixed $offset): mixed
     {

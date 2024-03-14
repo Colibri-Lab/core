@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Итератор списка
+ * Array list iterator
  * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Collections
  * @version 1.0.0
  * 
@@ -15,24 +15,23 @@ namespace Colibri\Collections;
 use IteratorAggregate;
 
 /**
- * Итератор списка
- * @testFunction testArrayListIterator
+ * Array list iterator
  */
 class ArrayListIterator implements \Iterator
 {
 
     /**
-     * Данные итератора
+     * Iterator data
      */
     private ?IteratorAggregate $_class = null;
 
     /**
-     * Текущая позиция
+     * Current position
      */
     private int $_current = 0;
 
     /**
-     * Создает итератор для ArrayList-а
+     * Constructor
      */
     public function __construct(IteratorAggregate $class = null)
     {
@@ -40,8 +39,7 @@ class ArrayListIterator implements \Iterator
     }
 
     /**
-     * Перескакивает на первое значение и возвращает позицию
-     * @testFunction testArrayListIteratorRewind
+     * Rewinds an iterator to the first item
      */
     public function rewind(): mixed
     {
@@ -50,8 +48,7 @@ class ArrayListIterator implements \Iterator
     }
 
     /**
-     * Возвращает текущую позицию
-     * @testFunction testArrayListIteratorCurrent
+     * Returns item on current position
      * @suppress PHP0418
      */
     public function current(): mixed
@@ -64,8 +61,7 @@ class ArrayListIterator implements \Iterator
     }
 
     /**
-     * Возвращает ключ текущей позиции
-     * @testFunction testArrayListIteratorKey
+     * Returns key (index) on current position
      */
     public function key(): int
     {
@@ -73,9 +69,8 @@ class ArrayListIterator implements \Iterator
     }
 
     /**
-     * Переходит дальше и возвращает значение
+     * Returns next item and moves internal position
      * @suppress PHP0418
-     * @testFunction testArrayListIteratorNext
      */
     public function next(): mixed
     {
@@ -88,9 +83,8 @@ class ArrayListIterator implements \Iterator
     }
 
     /**
-     * Проверяет валидна ли текущая позиция
+     * Check if the current position is valid
      * @suppress PHP0418
-     * @testFunction testArrayListIteratorValid
      */
     public function valid(): bool
     {
