@@ -344,7 +344,13 @@ class Request
                 curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
             }
         } elseif ($this->method == Type::Get) {
-            curl_setopt($handle, CURLOPT_HTTPGET, true);
+            if (!VariableHelper::IsNull($this->postData)) {
+                curl_setopt($handle, CURLOPT_CUSTOMREQUEST, 'GET');
+                $data = $this->_joinPostData();
+                curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
+            } else {
+                curl_setopt($handle, CURLOPT_HTTPGET, true);
+            }
         } else {
             curl_setopt($handle, CURLOPT_CUSTOMREQUEST, StringHelper::ToUpper($this->method));
             if (!VariableHelper::IsNull($this->postData)) {
