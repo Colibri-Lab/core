@@ -1308,42 +1308,42 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Common\\TimeZoneHelper",
             "name": "TimeZoneHelper",
-            "summary": "\u0412\u0440\u0435\u043C\u0435\u043D\u043D\u0430\u044F\u0020\u0437\u043E\u043D\u0430",
+            "summary": "TimeZone\u0020helper",
             "url": "classes/Colibri-Common-TimeZoneHelper.html"
         },                {
             "fqsen": "\\Colibri\\Common\\TimeZoneHelper\u003A\u003ASet\u0028\u0029",
             "name": "Set",
-            "summary": "\u0423\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C\u0020\u0437\u043E\u043D\u0443\u0020\u0433\u043B\u043E\u0431\u0430\u043B\u044C\u043D\u043E",
+            "summary": "Set\u0020timezone\u0020globaly",
             "url": "classes/Colibri-Common-TimeZoneHelper.html#method_Set"
         },                {
             "fqsen": "\\Colibri\\Common\\TimeZoneHelper\u003A\u003AMonth\u0028\u0029",
             "name": "Month",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u0020\u043C\u0435\u0441\u044F\u0446\u0430\u0020\u0432\u0020\u0442\u0435\u043A\u0443\u0449\u0435\u0439\u0020\u0437\u043E\u043D\u0435\u0020\u0028\u043B\u043E\u043A\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u0438\u0029",
+            "summary": "Returns\u0020month\u0020name\u0020by\u0020month\u0020number",
             "url": "classes/Colibri-Common-TimeZoneHelper.html#method_Month"
         },                {
             "fqsen": "\\Colibri\\Common\\TimeZoneHelper\u003A\u003AMonth2\u0028\u0029",
             "name": "Month2",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u0020\u043C\u0435\u0441\u044F\u0446\u0430\u0020\u0432\u0020\u0442\u0435\u043A\u0443\u0449\u0435\u0439\u0020\u043B\u043E\u043A\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u0438\u0020\u0432\u0020\u0440\u043E\u0434\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u043C\u0020\u043F\u0430\u0434\u0435\u0436\u0435",
+            "summary": "Returns\u0020the\u0020name\u0020of\u0020the\u0020month\u0020in\u0020the\u0020current\u0020localization\u0020in\u0020the\u0020genitive\u0020case.",
             "url": "classes/Colibri-Common-TimeZoneHelper.html#method_Month2"
         },                {
             "fqsen": "\\Colibri\\Common\\TimeZoneHelper\u003A\u003AWeekday\u0028\u0029",
             "name": "Weekday",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u0020\u043D\u0435\u0434\u0435\u043B\u0438\u0020\u0432\u0020\u0442\u0435\u043A\u0443\u0449\u0435\u0439\u0020\u043B\u043E\u043A\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u0438",
+            "summary": "Returns\u0020the\u0020name\u0020of\u0020the\u0020week\u0020in\u0020the\u0020current\u0020localization",
             "url": "classes/Colibri-Common-TimeZoneHelper.html#method_Weekday"
         },                {
             "fqsen": "\\Colibri\\Common\\TimeZoneHelper\u003A\u003AFTimeU\u0028\u0029",
             "name": "FTimeU",
-            "summary": "\u0424\u043E\u0440\u043C\u0430\u0442\u0438\u0440\u0443\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u0441\u0020\u0443\u0447\u0435\u0442\u043E\u043C\u0020\u0437\u043E\u043D\u044B",
+            "summary": "Formats\u0020a\u0020string\u0020based\u0020on\u0020the\u0020zone",
             "url": "classes/Colibri-Common-TimeZoneHelper.html#method_FTimeU"
         },                {
             "fqsen": "\\Colibri\\Common\\TimeZoneHelper\u003A\u003A\u0024zone",
             "name": "zone",
-            "summary": "\u0417\u043E\u043D\u0430\u0020\u043F\u043E\u0020\u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E",
+            "summary": "TimeZone\u0020by\u0020default",
             "url": "classes/Colibri-Common-TimeZoneHelper.html#property_zone"
         },                {
             "fqsen": "\\Colibri\\Common\\TimeZoneHelper\u003A\u003A\u0024texts",
             "name": "texts",
-            "summary": "\u0421\u0442\u0440\u043E\u043A\u0438",
+            "summary": "Strings",
             "url": "classes/Colibri-Common-TimeZoneHelper.html#property_texts"
         },                {
             "fqsen": "\\Colibri\\Common\\ValidationHelper",
