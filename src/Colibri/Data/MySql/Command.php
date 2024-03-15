@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Драйвер для MySql
+ * Driver for MySql database
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
  * @version 1.0.0
  *
@@ -15,23 +15,22 @@ namespace Colibri\Data\MySql;
 use Colibri\Data\SqlClient\Command as SqlCommand;
 use Colibri\Data\MySql\Exception as MySqlException;
 use Colibri\Data\SqlClient\IDataReader;
-use Colibri\Utils\Debug;
 use mysqli_stmt;
 
 /**
- * Класс для выполнения команд в точку доступа
+ * Represents a final database command, extending SqlCommand.
  *
- * @inheritDoc
- *
- * @testFunction testCommand
+ * This class provides functionality for executing SQL commands and preparing statements with parameters.
+ * It inherits properties and methods from the SqlCommand class.
  */
 final class Command extends SqlCommand
 {
     /**
-     * Подготавливает запрос с параметрами
-     * @param string $query
-     * @return mysqli_stmt
-     * @testFunction testCommand_prepareStatement
+     * Prepares a statement with parameters.
+     *
+     * @param string $query The query with placeholders for parameters.
+     * @return mysqli_stmt The prepared statement.
+     * @throws MySqlException If no parameters are provided or if there's an issue with the query.
      */
     private function _prepareStatement(string $query): mysqli_stmt
     {
@@ -103,11 +102,11 @@ final class Command extends SqlCommand
     }
 
     /**
-     * Выполняет запрос и возвращает IDataReader
+     * Executes the command and returns a data reader.
      *
-     * @param boolean $info выполнить ли запрос на получение переменной affected
-     * @return IDataReader
-     * @testFunction testCommandExecuteReader
+     * @param bool $info Whether to execute a query to obtain the affected variable. Default is true.
+     * @return IDataReader The data reader.
+     * @throws MySqlException If there's an issue executing the query.
      */
     public function ExecuteReader(bool $info = true): IDataReader
     {
@@ -165,10 +164,11 @@ final class Command extends SqlCommand
     }
 
     /**
-     * Выполняет запрос и возвращает QueryInfo
+     * Executes the command and returns query information.
      *
-     * @return QueryInfo
-     * @testFunction testCommandExecuteNonQuery
+     * @param string|null $dummy (Unused parameter) Dummy parameter for compatibility. Default is null.
+     * @return QueryInfo The query information.
+     * @throws MySqlException If there's an issue executing the query.
      */
     public function ExecuteNonQuery(?string $dummy = null): QueryInfo
     {
@@ -197,10 +197,9 @@ final class Command extends SqlCommand
     }
 
     /**
-     * Подготавливает строку, добавляет постраничку и все, что необходимо для конкретного драйвера
+     * Prepares the query string with pagination and other necessary adjustments.
      *
-     * @return string
-     * @testFunction testCommandPrepareQueryString
+     * @return string The prepared query string.
      */
     public function PrepareQueryString(): string
     {

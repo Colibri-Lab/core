@@ -221,8 +221,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-SqlClient.html">SqlClient</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils.html">Utils</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils-Config.html">Config</a></li>
                             </ul>
         </div>
     
@@ -237,30 +237,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/DataField.php"><a href="files/src-colibri-data-sqlclient-datafield.html"><abbr title="src/Colibri/Data/SqlClient/DataField.php">DataField.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Описание поля данных в запросе</p>
+            <p class="phpdocumentor-summary">Represents a data field in a database table.</p>
 
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-SqlClient-DataField.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataField</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
 
 
@@ -289,84 +273,84 @@
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Имя базы данных</dd>
+<dd>The name of the database containing the field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_decimals">$decimals</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Число знаков после запятой (для числовых полей)</dd>
+<dd>The number of decimals for the field (if applicable).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_def">$def</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Зарезервировано для значения по умолчанию, на данный момент всегда &quot;&quot;</dd>
+<dd>The default value of the field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_escaped">$escaped</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Имя таблицы, имя поля в формате необходимом для работы с базой данных</dd>
+<dd>The escaped name of the field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_flags">$flags</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>Целое число, представляющее битовые флаги для поля.</dd>
+<dd>The flags associated with the field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_length">$length</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Ширина поля, как она задана при определении таблицы.</dd>
+<dd>The length of the field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_maxLength">$maxLength</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Максимальная ширина поля результирующего набора.</dd>
+<dd>The maximum length of the field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_name">$name</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Имя столбца</dd>
+<dd>The name of the field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_originalName">$originalName</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Исходное имя столбца, если у него есть псевдоним</dd>
+<dd>The original name of the field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_originalTable">$originalTable</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Исходное имя таблицы, если есть псевдоним</dd>
+<dd>The original table name of the field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_table">$table</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Имя таблицы, которой принадлежит столбец (если не вычислено)</dd>
+<dd>The name of the table containing the field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-SqlClient-DataField.html#property_type">$type</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Тип данных поля</dd>
+<dd>The data type of the field.</dd>
 
     </dl>
 
@@ -400,11 +384,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/DataField.php"><a href="files/src-colibri-data-sqlclient-datafield.html"><abbr title="src/Colibri/Data/SqlClient/DataField.php">DataField.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Имя базы данных</p>
+        <p class="phpdocumentor-summary">The name of the database containing the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -438,7 +422,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Число знаков после запятой (для числовых полей)</p>
+        <p class="phpdocumentor-summary">The number of decimals for the field (if applicable).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -472,7 +456,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Зарезервировано для значения по умолчанию, на данный момент всегда &quot;&quot;</p>
+        <p class="phpdocumentor-summary">The default value of the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -506,7 +490,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Имя таблицы, имя поля в формате необходимом для работы с базой данных</p>
+        <p class="phpdocumentor-summary">The escaped name of the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -540,7 +524,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Целое число, представляющее битовые флаги для поля.</p>
+        <p class="phpdocumentor-summary">The flags associated with the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -574,7 +558,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Ширина поля, как она задана при определении таблицы.</p>
+        <p class="phpdocumentor-summary">The length of the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -608,7 +592,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Максимальная ширина поля результирующего набора.</p>
+        <p class="phpdocumentor-summary">The maximum length of the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -638,11 +622,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/DataField.php"><a href="files/src-colibri-data-sqlclient-datafield.html"><abbr title="src/Colibri/Data/SqlClient/DataField.php">DataField.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Имя столбца</p>
+        <p class="phpdocumentor-summary">The name of the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -672,11 +656,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/DataField.php"><a href="files/src-colibri-data-sqlclient-datafield.html"><abbr title="src/Colibri/Data/SqlClient/DataField.php">DataField.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Исходное имя столбца, если у него есть псевдоним</p>
+        <p class="phpdocumentor-summary">The original name of the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -710,7 +694,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Исходное имя таблицы, если есть псевдоним</p>
+        <p class="phpdocumentor-summary">The original table name of the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -744,7 +728,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Имя таблицы, которой принадлежит столбец (если не вычислено)</p>
+        <p class="phpdocumentor-summary">The name of the table containing the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -778,7 +762,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Тип данных поля</p>
+        <p class="phpdocumentor-summary">The data type of the field.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>

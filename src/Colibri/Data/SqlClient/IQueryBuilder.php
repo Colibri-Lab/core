@@ -1,99 +1,113 @@
 <?php
 
 /**
- * Интерфейсы для драйверов к базе данных
+ * Interface for database drivers
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
  * @version 1.0.0
  *
  */
-
 namespace Colibri\Data\SqlClient;
 
 /**
- * Интерфейс который должны реализовать все классы создателей запросов в точках доступа
+ * Interface for building SQL queries.
  */
 interface IQueryBuilder
 {
     /**
-     * Создать запрос ввода данных
+     * Creates an SQL INSERT query.
      *
-     * @param string $table
-     * @param array|object $data
-     * @param string $returning
-     * @return string
+     * @param string $table The name of the table to insert data into.
+     * @param array|object $data The data to insert into the table.
+     * @param string $returning (optional) The returning clause for the query. Default is an empty string.
+     * @return string The generated INSERT query.
      */
-    public function CreateInsert(string $table, array |object $data, string $returning = ''): string;
+    public function CreateInsert(string $table, array|object $data, string $returning = ''): string;
 
     /**
-     * Создать запрос ввода/обновления данных
+     * Creates an SQL REPLACE query.
      *
-     * @param string $table
-     * @param array|object $data
-     * @param string $returning
-     * @return string
+     * @param string $table The name of the table to replace data in.
+     * @param array|object $data The data to replace in the table.
+     * @param string $returning (optional) The returning clause for the query. Default is an empty string.
+     * @return string The generated REPLACE query.
      */
-    public function CreateReplace(string $table, array |object $data, string $returning = ''): string;
+    public function CreateReplace(string $table, array|object $data, string $returning = ''): string;
 
     /**
-     * Создать запрос ввода данных или обновления в случае дублирования данных в индексных полях
+     * Creates an SQL INSERT OR UPDATE query.
      *
-     * @param string $table
-     * @param array|object $data
-     * @param array $exceptFields
-     * @param string $returning
-     * @return string
+     * @param string $table The name of the table.
+     * @param array|object $data The data to insert or update.
+     * @param array $exceptFields (optional) Fields to be excluded from the update operation. Default is an empty array.
+     * @param string $returning (optional) The returning clause for the query. Default is an empty string.
+     * @return string The generated INSERT OR UPDATE query.
      */
-    public function CreateInsertOrUpdate(string $table, array |object $data, array $exceptFields = array(), string $returning = '');
+    public function CreateInsertOrUpdate(string $table, array|object $data, array $exceptFields = [], string $returning = ''): string;
 
     /**
-     * Создать запрос ввода данных пачкой
+     * Creates an SQL batch INSERT query.
      *
-     * @param string $table
-     * @param array|object $data
-     * @return string
+     * @param string $table The name of the table to insert data into.
+     * @param array|object $data The data to insert into the table.
+     * @return string The generated batch INSERT query.
      */
-    public function CreateBatchInsert(string $table, array |object $data);
+    public function CreateBatchInsert(string $table, array|object $data): string;
 
     /**
-     * Создать запрос на обновление данных
+     * Creates an SQL UPDATE query.
      *
-     * @param string $table
-     * @param string $condition
-     * @param array|object $data
-     * @return string
+     * @param string $table The name of the table to update.
+     * @param string $condition The condition for the update operation.
+     * @param array|object $data The data to update.
+     * @return string The generated UPDATE query.
      */
-    public function CreateUpdate(string $table, string $condition, array |object $data): string;
+    public function CreateUpdate(string $table, string $condition, array|object $data): string;
 
     /**
-     * Создать запрос на удаление данных
+     * Creates an SQL DELETE query.
      *
-     * @param string $table
-     * @param string $condition
-     * @return string
+     * @param string $table The name of the table to delete from.
+     * @param string $condition The condition for the delete operation.
+     * @return string The generated DELETE query.
      */
     public function CreateDelete(string $table, string $condition): string;
 
     /**
-     * Создать запрос на получение списка таблиц
+     * Creates an SQL SHOW TABLES query.
      *
-     * @return string
+     * @return string The generated SHOW TABLES query.
      */
     public function CreateShowTables(): string;
 
     /**
-     * Создать запрос на получение списка полей в таблице
+     * Creates an SQL SHOW FIELD query.
      *
-     * @param string $table
-     * @return string
+     * @param string $table The name of the table.
+     * @return string The generated SHOW FIELD query.
      */
     public function CreateShowField(string $table): string;
 
-    
+    /**
+     * Creates an SQL BEGIN transaction query.
+     *
+     * @return string The generated BEGIN transaction query.
+     */
     public function CreateBegin(): string;
-    public function CreateCommit(): string;
-    public function CreateRollback(): string;
 
+    /**
+     * Creates an SQL COMMIT transaction query.
+     *
+     * @return string The generated COMMIT transaction query.
+     */
+    public function CreateCommit(): string;
+
+    /**
+     * Creates an SQL ROLLBACK transaction query.
+     *
+     * @return string The generated ROLLBACK transaction query.
+     */
+    public function CreateRollback(): string;
 }

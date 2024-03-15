@@ -1,46 +1,55 @@
 <?php
 
+
 /**
- * Драйвер для MySql
+ * Driver for MySql database
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
  * @version 1.0.0
  *
  */
-
 namespace Colibri\Data\MySql;
 
 use Colibri\Data\SqlClient\IConnection;
 use Colibri\Data\MySql\Exception as MySqlException;
 
 /**
- * Класс подключения к базе данных MySql
+ * Class for connecting to the MySQL database.
  *
- * @property-read resource $resource
- * @property-read resource $raw
- * @property-read resource $connection
- * @property-read bool $isAlive
+ * This class provides methods for establishing and managing connections to a MySQL database.
  *
- * @testFunction testConnection
+ * @property-read resource $resource The MySQL connection resource.
+ * @property-read resource $raw The raw MySQL connection resource.
+ * @property-read resource $connection Alias for $resource.
+ * @property-read bool $isAlive Indicates whether the connection to the MySQL server is alive.
+ *
+ * @testFunction testConnection A unit test for the connection functionality.
  */
 final class Connection implements IConnection
 {
+    /**
+     * @var object|null Connection information object containing host, port, user, password, and database.
+     */
     private $_connectioninfo = null;
 
-    /** @var \mysqli */
+    /**
+     * @var \mysqli|null The MySQL connection resource.
+     */
     private $_resource = null;
 
     /**
-     * Создает обьект
+     * Connection constructor.
      *
-     * @param string $host
-     * @param string $port
-     * @param string $user
-     * @param string $password
-     * @param bool $persistent
-     * @param string $database
+     * Initializes a new Connection object with the provided connection information.
+     *
+     * @param string $host The hostname or IP address of the MySQL server.
+     * @param string $port The port number of the MySQL server.
+     * @param string $user The MySQL username.
+     * @param string $password The MySQL password.
+     * @param bool $persistent Whether to use a persistent connection (true) or not (false).
+     * @param string|null $database (Optional) The name of the default database to connect to.
      */
     public function __construct(string $host, string $port, string $user, string $password, bool $persistent = false, string $database = null)
     {
@@ -55,10 +64,12 @@ final class Connection implements IConnection
     }
 
     /**
-     * Открывает подключения
+     * Opens a connection to the MySQL database server.
      *
-     * @return bool
-     * @testFunction testConnectionOpen
+     * @return bool Returns true if the connection was successful; otherwise, false.
+     *
+     * @throws MySqlException If an error occurs while establishing the connection.
+     *
      */
     public function Open(): bool
     {
@@ -103,10 +114,12 @@ final class Connection implements IConnection
     }
 
     /**
-     * Переорктывает подключение
+     * Reopens the MySQL database connection.
      *
-     * @return bool
-     * @testFunction testConnectionReopen
+     * This method is an alias for Open().
+     *
+     * @return bool Returns true if the connection was successfully reopened; otherwise, false.
+     *
      */
     public function Reopen(): bool
     {
@@ -114,10 +127,10 @@ final class Connection implements IConnection
     }
 
     /**
-     * Закрывает подключение
+     * Closes the MySQL database connection.
      *
      * @return void
-     * @testFunction testConnectionClose
+     *
      */
     public function Close(): void
     {
@@ -127,11 +140,13 @@ final class Connection implements IConnection
     }
 
     /**
-     * Геттер
+     * Magic getter method.
      *
-     * @param string $property
-     * @return mixed
-     * @testFunction testConnection__get
+     * Allows access to read-only properties such as $resource, $raw, $connection, and $isAlive.
+     *
+     * @param string $property The name of the property to retrieve.
+     * @return mixed Returns the value of the requested property, or null if the property does not exist.
+     *
      */
     public function __get(string $property): mixed
     {

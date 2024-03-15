@@ -281,7 +281,7 @@
 
     </h4>
     <dl class="phpdocumentor-table-of-contents">
-                    <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html"><abbr title="\Colibri\Data\SqlClient\IQueryBuilder">IQueryBuilder</abbr></a></dt><dd>Интерфейс который должны реализовать все классы создателей запросов в точках доступа</dd>    </dl>
+                    <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html"><abbr title="\Colibri\Data\SqlClient\IQueryBuilder">IQueryBuilder</abbr></a></dt><dd>Interface for building SQL queries.</dd>    </dl>
 
 
 
@@ -307,12 +307,14 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Creates an SQL BEGIN transaction query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateCommit">CreateCommit()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Creates an SQL COMMIT transaction query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateDelete">CreateDelete()</a>
@@ -347,6 +349,7 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Creates an SQL ROLLBACK transaction query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateShowField">CreateShowField()</a>
@@ -471,7 +474,8 @@
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates an SQL BEGIN transaction query.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">CreateBegin</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;readonly&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -495,6 +499,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated BEGIN transaction query.</p>
+</section>
+
             </section>
 
 </article>
@@ -516,7 +524,8 @@
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates an SQL COMMIT transaction query.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">CreateCommit</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -530,6 +539,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated COMMIT transaction query.</p>
+</section>
+
             </section>
 
 </article>
@@ -855,7 +868,8 @@
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates an SQL ROLLBACK transaction query.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">CreateRollback</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -869,6 +883,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated ROLLBACK transaction query.</p>
+</section>
+
             </section>
 
 </article>

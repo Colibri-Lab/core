@@ -1,103 +1,103 @@
 <?php
 
 /**
- * SqlClient
+ * Interface for database drivers
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Data\SqlClient
- * 
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Utils\Config
+ * @version 1.0.0
+ *
  */
-
 namespace Colibri\Data\SqlClient;
 
 /**
- * Описание поля данных в запросе
- * @testFunction testDataField
+ * Represents a data field in a database table.
  */
 class DataField
 {
-
     /**
-     * Имя базы данных
+     * The name of the database containing the field.
      *
      * @var string
      */
     public string $db;
 
     /**
-     * Имя столбца
+     * The name of the field.
      *
      * @var string
      */
     public string $name;
 
     /**
-     * Исходное имя столбца, если у него есть псевдоним
-     * 
+     * The original name of the field.
+     *
      * @var string
      */
     public string $originalName;
 
     /**
-     * Имя таблицы, которой принадлежит столбец (если не вычислено)
+     * The name of the table containing the field.
+     *
+     * @var string
      */
     public string $table;
 
     /**
-     * Исходное имя таблицы, если есть псевдоним
+     * The original table name of the field.
      *
      * @var string
      */
     public string $originalTable;
 
     /**
-     * Имя таблицы, имя поля в формате необходимом для работы с базой данных
-     * 
+     * The escaped name of the field.
+     *
      * @var string
      */
     public string $escaped;
 
     /**
-     * Зарезервировано для значения по умолчанию, на данный момент всегда ""
+     * The default value of the field.
      *
      * @var string
      */
     public string $def;
 
     /**
-     * Максимальная ширина поля результирующего набора.
+     * The maximum length of the field.
      *
      * @var int
      */
     public int $maxLength;
 
     /**
-     * Ширина поля, как она задана при определении таблицы.
+     * The length of the field.
      *
      * @var int
      */
     public int $length;
 
     /**
-     * Целое число, представляющее битовые флаги для поля.
+     * The flags associated with the field.
      *
      * @var array
      */
     public array $flags;
 
     /**
-     * Тип данных поля
+     * The data type of the field.
      *
      * @var string
      */
     public string $type;
 
     /**
-     * Число знаков после запятой (для числовых полей)
+     * The number of decimals for the field (if applicable).
      *
      * @var int
      */
     public int $decimals;
-
+    
 }

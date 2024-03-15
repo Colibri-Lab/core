@@ -228,11 +228,11 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Интерфейс который должны реализовать все классы создателей запросов в точках доступа</p>
+            <p class="phpdocumentor-summary">Interface for building SQL queries.</p>
 
 
 
@@ -265,74 +265,77 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Создать запрос ввода данных пачкой</dd>
+<dd>Creates an SQL batch INSERT query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html#method_CreateBegin">CreateBegin()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Creates an SQL BEGIN transaction query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html#method_CreateCommit">CreateCommit()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Creates an SQL COMMIT transaction query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html#method_CreateDelete">CreateDelete()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Создать запрос на удаление данных</dd>
+<dd>Creates an SQL DELETE query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html#method_CreateInsert">CreateInsert()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Создать запрос ввода данных</dd>
+<dd>Creates an SQL INSERT query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html#method_CreateInsertOrUpdate">CreateInsertOrUpdate()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Создать запрос ввода данных или обновления в случае дублирования данных в индексных полях</dd>
+<dd>Creates an SQL INSERT OR UPDATE query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html#method_CreateReplace">CreateReplace()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Создать запрос ввода/обновления данных</dd>
+<dd>Creates an SQL REPLACE query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html#method_CreateRollback">CreateRollback()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Creates an SQL ROLLBACK transaction query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html#method_CreateShowField">CreateShowField()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Создать запрос на получение списка полей в таблице</dd>
+<dd>Creates an SQL SHOW FIELD query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html#method_CreateShowTables">CreateShowTables()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Создать запрос на получение списка таблиц</dd>
+<dd>Creates an SQL SHOW TABLES query.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IQueryBuilder.html#method_CreateUpdate">CreateUpdate()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Создать запрос на обновление данных</dd>
+<dd>Creates an SQL UPDATE query.</dd>
 
     </dl>
 
@@ -361,11 +364,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создать запрос ввода данных пачкой</p>
+        <p class="phpdocumentor-summary">Creates an SQL batch INSERT query.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -381,14 +384,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the table to insert data into.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The data to insert into the table.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -397,6 +404,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated batch INSERT query.</p>
+</section>
+
             </section>
 
 </article>
@@ -414,11 +425,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates an SQL BEGIN transaction query.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">CreateBegin</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -432,6 +444,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated BEGIN transaction query.</p>
+</section>
+
             </section>
 
 </article>
@@ -449,11 +465,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates an SQL COMMIT transaction query.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">CreateCommit</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -467,6 +484,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated COMMIT transaction query.</p>
+</section>
+
             </section>
 
 </article>
@@ -484,11 +505,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">77</span>
+    <span class="phpdocumentor-element-found-in__line">76</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создать запрос на удаление данных</p>
+        <p class="phpdocumentor-summary">Creates an SQL DELETE query.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -504,14 +525,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the table to delete from.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$condition</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The condition for the delete operation.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -520,6 +545,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated DELETE query.</p>
+</section>
+
             </section>
 
 </article>
@@ -537,11 +566,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создать запрос ввода данных</p>
+        <p class="phpdocumentor-summary">Creates an SQL INSERT query.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -557,21 +586,27 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the table to insert data into.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The data to insert into the table.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$returning</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>(optional) The returning clause for the query. Default is an empty string.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -580,6 +615,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated INSERT query.</p>
+</section>
+
             </section>
 
 </article>
@@ -597,15 +636,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создать запрос ввода данных или обновления в случае дублирования данных в индексных полях</p>
+        <p class="phpdocumentor-summary">Creates an SQL INSERT OR UPDATE query.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">CreateInsertOrUpdate</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$table</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$exceptFields</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">array()</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$returning</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">CreateInsertOrUpdate</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$table</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$exceptFields</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$returning</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -617,28 +656,36 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the table.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The data to insert or update.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$exceptFields</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">array()</span>            </dt>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>(optional) Fields to be excluded from the update operation. Default is an empty array.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$returning</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>(optional) The returning clause for the query. Default is an empty string.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -647,6 +694,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated INSERT OR UPDATE query.</p>
+</section>
+
             </section>
 
 </article>
@@ -664,11 +715,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создать запрос ввода/обновления данных</p>
+        <p class="phpdocumentor-summary">Creates an SQL REPLACE query.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -684,21 +735,27 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the table to replace data in.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The data to replace in the table.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$returning</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>(optional) The returning clause for the query. Default is an empty string.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -707,6 +764,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated REPLACE query.</p>
+</section>
+
             </section>
 
 </article>
@@ -724,11 +785,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates an SQL ROLLBACK transaction query.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">CreateRollback</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -742,6 +804,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated ROLLBACK transaction query.</p>
+</section>
+
             </section>
 
 </article>
@@ -759,11 +825,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">91</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создать запрос на получение списка полей в таблице</p>
+        <p class="phpdocumentor-summary">Creates an SQL SHOW FIELD query.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -779,7 +845,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the table.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -788,6 +856,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated SHOW FIELD query.</p>
+</section>
+
             </section>
 
 </article>
@@ -805,11 +877,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">83</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создать запрос на получение списка таблиц</p>
+        <p class="phpdocumentor-summary">Creates an SQL SHOW TABLES query.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -824,6 +896,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated SHOW TABLES query.</p>
+</section>
+
             </section>
 
 </article>
@@ -841,11 +917,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IQueryBuilder.php"><a href="files/src-colibri-data-sqlclient-iquerybuilder.html"><abbr title="src/Colibri/Data/SqlClient/IQueryBuilder.php">IQueryBuilder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">67</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создать запрос на обновление данных</p>
+        <p class="phpdocumentor-summary">Creates an SQL UPDATE query.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -861,21 +937,27 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the table to update.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$condition</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The condition for the update operation.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The data to update.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -884,6 +966,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The generated UPDATE query.</p>
+</section>
+
             </section>
 
 </article>

@@ -228,11 +228,11 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/IConnection.php"><a href="files/src-colibri-data-sqlclient-iconnection.html"><abbr title="src/Colibri/Data/SqlClient/IConnection.php">IConnection.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Интерфейс который должны обеспечить все классы подключения точек доступа</p>
+            <p class="phpdocumentor-summary">Interface for managing database connections.</p>
 
 
 
@@ -265,21 +265,21 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Закрывает соединение</dd>
+<dd>Closes the connection to the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IConnection.html#method_Open">Open()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Открытие подключения</dd>
+<dd>Opens a connection to the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-SqlClient-IConnection.html#method_Reopen">Reopen()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Переоткрывает закрытое соеднинение</dd>
+<dd>Reopens a connection to the database.</dd>
 
     </dl>
 
@@ -312,7 +312,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Закрывает соединение</p>
+        <p class="phpdocumentor-summary">Closes the connection to the database.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -344,7 +344,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Открытие подключения</p>
+        <p class="phpdocumentor-summary">Opens a connection to the database.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -359,6 +359,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the connection was successfully opened, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -380,7 +384,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Переоткрывает закрытое соеднинение</p>
+        <p class="phpdocumentor-summary">Reopens a connection to the database.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -395,6 +399,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the connection was successfully reopened, false otherwise.</p>
+</section>
+
             </section>
 
 </article>

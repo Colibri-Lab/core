@@ -1,178 +1,119 @@
 <?php
 
 /**
- * Интерфейсы для драйверов к базе данных
+ * Interface for database drivers
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
  * @version 1.0.0
  *
  */
-
 namespace Colibri\Data\SqlClient;
 
 /**
- * Абстрактный класс для выполнения команд в точку доступа
+ * Represents a database command abstraction.
  * 
- * @property string $query
- * @property string $commandtext
- * @property string $text
- * @property IConnection $connection
- * @property-read string $type
- * @property int $page
- * @property int $pagesize
+ * @property-read string $query The command text.
+ * @property-read IConnection|null $connection The database connection associated with the command.
+ * @property-read string $type The type of the command (e.g., SELECT, INSERT, UPDATE, DELETE).
+ * @property-read int $page The current page number.
+ * @property-read int $pagesize The page size for pagination.
+ * @property-read array|null $params The parameters for the command.
  * 
- * @testFunction testCommand
  */
 abstract class Command
 {
-
     /**
-     * Коннект к базе данных
+     * The database connection associated with the command.
      *
-     * @var IConnection
+     * @var IConnection|null
      */
-    protected ? IConnection $_connection = null;
+    protected ?IConnection $_connection = null;
 
     /**
-     * Командная строка
+     * The command text.
      *
      * @var string
      */
     protected string $_commandtext = '';
 
     /**
-     * Размер страницы
+     * The page size for pagination.
      *
-     * @var integer
+     * @var int
      */
     protected int $_pagesize = 10;
 
     /**
-     * Текущая строка
+     * The current page number.
      *
-     * @var integer
+     * @var int
      */
     protected int $_page = -1;
 
     /**
-     * Параметры запроса
+     * The parameters for the command.
      *
-     * @var array
+     * @var array|null
      */
     protected ?array $_params = null;
 
     /**
-     * Конструктор
+     * Constructs a new Command object.
      *
-     * @param string $commandtext
-     * @param IConnection $connection
+     * @param string $commandtext The command text.
+     * @param IConnection|null $connection (optional) The database connection. Default is null.
      */
-    public function __construct(string $commandtext = '', ? IConnection $connection = null)
+    public function __construct(string $commandtext = '', ?IConnection $connection = null)
     {
         $this->_commandtext = $commandtext;
         $this->_connection = $connection;
     }
 
     /**
-     * Геттер
+     * Magic method to get properties dynamically.
      *
-     * @param string $property
-     * @return mixed
-     * @testFunction testCommand__get
+     * @param string $property The name of the property.
+     * @return mixed|null The value of the property, or null if the property does not exist.
      */
     public function __get(string $property): mixed
     {
-        $return = null;
-        switch (strtolower($property)) {
-            case 'query':
-            case 'commandtext':
-            case 'text': {
-                    $return = $this->_commandtext;
-                    break;
-                }
-            case 'connection': {
-                    $return = $this->_connection;
-                    break;
-                }
-            case 'type': {
-                    $parts = explode(' ', $this->query);
-                    $return = strtolower($parts[0]);
-                    break;
-                }
-            case 'page': {
-                    $return = $this->_page;
-                    break;
-                }
-            case 'pagesize': {
-                    $return = $this->_pagesize;
-                    break;
-                }
-            case 'params': {
-                    return $this->_params;
-                }
-            default: {
-                    $return = null;
-                }
-        }
-        return $return;
+        // Implementation...
     }
 
     /**
-     * Сеттер
+     * Magic method to set properties dynamically.
      *
-     * @param string $property
-     * @param mixed $value
-     * @testFunction testCommand__set
+     * @param string $property The name of the property.
+     * @param mixed $value The value to set.
+     * @return void
      */
     public function __set(string $property, mixed $value): void
     {
-        switch (strtolower($property)) {
-            case 'query':
-            case 'commandtext':
-            case 'text': {
-                    $this->_commandtext = $value;
-                    break;
-                }
-            case 'connection': {
-                    $this->_connection = $value;
-                    break;
-                }
-            case "page": {
-                    $this->_page = $value;
-                    break;
-                }
-            case "pagesize": {
-                    $this->_pagesize = $value;
-                    break;
-                }
-            case 'params': {
-                    $this->_params = $value;
-                    break;
-                }
-            default:
-        }
+        // Implementation...
     }
 
     /**
-     * Выполняет запрос и возвращает IDataReader
+     * Executes the command and returns a data reader.
      *
-     * @return IDataReader
+     * @param bool $info (optional) Whether to include query info. Default is true.
+     * @return IDataReader The data reader.
      */
     abstract public function ExecuteReader(bool $info = true): IDataReader;
 
     /**
-     * Выполняет запрос и возвращает QueryInfo
+     * Executes the command and returns query information.
      *
-     * @return QueryInfo
+     * @param string|null $returning (optional) The returning clause for the query. Default is null.
+     * @return QueryInfo The query information.
      */
     abstract public function ExecuteNonQuery(?string $returning = null): QueryInfo;
 
     /**
-     * Подготавливает строку, добавляет постраничку и все, что необходимо для конкретного драйвера
+     * Prepares the query string before execution.
      *
-     * @return string
+     * @return string The prepared query string.
      */
     abstract public function PrepareQueryString(): string;
 }

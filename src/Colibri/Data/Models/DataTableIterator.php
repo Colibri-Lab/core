@@ -13,7 +13,7 @@ namespace Colibri\Data\Models;
 use Colibri\Collections\ArrayListIterator;
 
 /**
- * Итератор для DataTable
+ * DataTable iterator
  * @method DataRow current()
  * @method DataRow next()
  */
