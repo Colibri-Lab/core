@@ -25,7 +25,6 @@ use Colibri\Data\MySql\Exception as MySqlException;
  * @property-read resource $connection Alias for $resource.
  * @property-read bool $isAlive Indicates whether the connection to the MySQL server is alive.
  *
- * @testFunction testConnection A unit test for the connection functionality.
  */
 final class Connection implements IConnection
 {

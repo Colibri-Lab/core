@@ -20,7 +20,6 @@ use Colibri\Data\SqlClient\IQueryBuilder;
  * This class implements the IQueryBuilder interface, providing methods to generate various types of SQL queries
  * compatible with the MySql database.
  *
- * @testFunction testQueryBuilder
  */
 class QueryBuilder implements IQueryBuilder
 {
@@ -31,7 +30,6 @@ class QueryBuilder implements IQueryBuilder
      * @param array|object $data The data to insert.
      * @param string $returning (optional) The returning clause for the query. Default is empty string.
      * @return string The generated INSERT query.
-     * @testFunction testQueryBuilderCreateInsert
      */
     public function CreateInsert(string $table, array |object $data, string $returning = ''): string
     {
@@ -63,7 +61,6 @@ class QueryBuilder implements IQueryBuilder
      * @param array|object $data The data to replace.
      * @param string $returning (optional) The returning clause for the query. Default is empty string.
      * @return string The generated REPLACE INTO query.
-     * @testFunction testQueryBuilderCreateInsert
      */
     public function CreateReplace(string $table, array |object $data, string $returning = ''): string
     {
@@ -96,7 +93,6 @@ class QueryBuilder implements IQueryBuilder
      * @param array $exceptFields (optional) The fields to exclude from the update statement. Default is an empty array.
      * @param string $returning (optional) The returning clause for the query. Default is empty string.
      * @return string The generated INSERT INTO ... ON DUPLICATE KEY UPDATE query.
-     * @testFunction testQueryBuilderCreateInsertOrUpdate
      */
     public function CreateInsertOrUpdate(string $table, array |object $data, array $exceptFields = array(), string $returning = ''): string
     {
@@ -134,7 +130,6 @@ class QueryBuilder implements IQueryBuilder
      * @param string $table The name of the table.
      * @param array|object $data The data to insert in batch.
      * @return string The generated batch INSERT query.
-     * @testFunction testQueryBuilderCreateBatchInsert
      */
     public function CreateBatchInsert(string $table, array |object $data)
     {
@@ -170,7 +165,6 @@ class QueryBuilder implements IQueryBuilder
      * @param string $condition The condition for updating the records.
      * @param array|object $data The data to update.
      * @return string The generated UPDATE query.
-     * @testFunction testQueryBuilderCreateUpdate
      */
     public function CreateUpdate(string $table, string $condition, array |object $data): string
     {
@@ -197,7 +191,6 @@ class QueryBuilder implements IQueryBuilder
      * @param string $table The name of the table.
      * @param string $condition The condition for deleting the records.
      * @return string The generated DELETE query.
-     * @testFunction testQueryBuilderCreateDelete
      */
     public function CreateDelete(string $table, string $condition): string
     {
@@ -211,7 +204,6 @@ class QueryBuilder implements IQueryBuilder
      * Creates a SHOW TABLES query.
      *
      * @return string The generated SHOW TABLES query.
-     * @testFunction testQueryBuilderCreateShowTables
      */
     public function CreateShowTables(): string
     {
@@ -223,7 +215,6 @@ class QueryBuilder implements IQueryBuilder
      *
      * @param string $table The name of the table.
      * @return string The generated SHOW COLUMNS FROM query.
-     * @testFunction testQueryBuilderCreateShowField
      */
     public function CreateShowField(string $table): string
     {

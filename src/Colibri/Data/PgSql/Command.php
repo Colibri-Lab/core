@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Драйвер для MySql
+ * Driver for PostgreSql
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
  * @version 1.0.0
  *
@@ -16,23 +16,23 @@ use Colibri\Data\SqlClient\Command as SqlCommand;
 use Colibri\Data\PgSql\Exception as PgSqlException;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\SqlClient\QueryInfo;
-use Colibri\Utils\Debug;
 use PgSql\Result;
 
 /**
- * Класс для выполнения команд в точку доступа
+ * Class for executing commands at the access point.
+ *
+ * This class extends SqlCommand and provides methods for preparing and executing queries.
  *
  * @inheritDoc
  *
- * @testFunction testCommand
  */
 final class Command extends SqlCommand
 {
     /**
-     * Подготавливает запрос с параметрами
-     * @param string $query
-     * @return mixed
-     * @testFunction testCommand_prepareStatement
+     * Prepares the query with parameters.
+     *
+     * @param string $query The query string with placeholders.
+     * @return string The prepared query string with parameters replaced.
      */
     private function _prepareStatement(string $query): string
     {
@@ -60,11 +60,10 @@ final class Command extends SqlCommand
     }
 
     /**
-     * Выполняет запрос и возвращает IDataReader
+     * Executes a query and returns an IDataReader.
      *
-     * @param boolean $info выполнить ли запрос на получение переменной affected
-     * @return IDataReader
-     * @testFunction testCommandExecuteReader
+     * @param bool $info Whether to execute a query to get the 'affected' variable.
+     * @return IDataReader An instance of IDataReader containing the query results.
      */
     public function ExecuteReader(bool $info = true): IDataReader
     {
@@ -105,10 +104,10 @@ final class Command extends SqlCommand
     }
 
     /**
-     * Выполняет запрос и возвращает QueryInfo
+     * Executes a query and returns a QueryInfo object.
      *
-     * @return QueryInfo
-     * @testFunction testCommandExecuteNonQuery
+     * @param string|null $returning (Optional) The column name to return after executing the query.
+     * @return QueryInfo A QueryInfo object containing information about the executed query.
      */
     public function ExecuteNonQuery(?string $returning = null): QueryInfo
     {
@@ -129,10 +128,9 @@ final class Command extends SqlCommand
     }
 
     /**
-     * Подготавливает строку, добавляет постраничку и все, что необходимо для конкретного драйвера
+     * Prepares the query string by adding pagination and other necessary modifications for the specific driver.
      *
-     * @return string
-     * @testFunction testCommandPrepareQueryString
+     * @return string The prepared query string.
      */
     public function PrepareQueryString(): string
     {

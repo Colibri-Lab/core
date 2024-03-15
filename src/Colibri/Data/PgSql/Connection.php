@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Драйвер для MySql
+ * Driver for PostgreSql
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
  * @version 1.0.0
  *
@@ -14,33 +14,43 @@ namespace Colibri\Data\PgSql;
 
 use Colibri\Data\SqlClient\IConnection;
 use Colibri\Data\PgSql\Exception as PgSqlException;
+use PgSql\Connection as PgSqlConnection;
+
 
 /**
- * Класс подключения к базе данных MySql
+ * Class for connecting to the PostgreSql database.
  *
- * @property-read resource $resource
- * @property-read resource $raw
- * @property-read resource $connection
- * @property-read bool $isAlive
+ * This class provides methods for establishing and managing connections to a PostgreSql database.
  *
- * @testFunction testConnection
+ * @property-read resource $resource The PostgreSql connection resource.
+ * @property-read resource $raw The raw PostgreSql connection resource.
+ * @property-read resource $connection Alias for $resource.
+ * @property-read bool $isAlive Indicates whether the connection to the PostgreSql server is alive.
+ *
  */
 final class Connection implements IConnection
 {
+    /**
+     * @var object|null Connection information object containing host, port, user, password, and database.
+     */
     private $_connectioninfo = null;
 
-    /** @var \mysqli */
+    /**
+     * @var PgSqlConnection|null The PostgreSql connection resource.
+     */
     private $_resource = null;
 
     /**
-     * Создает обьект
+     * Connection constructor.
      *
-     * @param string $host
-     * @param string $port
-     * @param string $user
-     * @param string $password
-     * @param bool $persistent
-     * @param string $database
+     * Initializes a new Connection object with the provided connection information.
+     *
+     * @param string $host The hostname or IP address of the PostgreSql server.
+     * @param string $port The port number of the PostgreSql server.
+     * @param string $user The PostgreSql username.
+     * @param string $password The PostgreSql password.
+     * @param bool $persistent Whether to use a persistent connection (true) or not (false).
+     * @param string|null $database (Optional) The name of the default database to connect to.
      */
     public function __construct(
         string $host,
@@ -61,10 +71,12 @@ final class Connection implements IConnection
     }
 
     /**
-     * Открывает подключения
+     * Opens a connection to the PostgreSql database server.
      *
-     * @return bool
-     * @testFunction testConnectionOpen
+     * @return bool Returns true if the connection was successful; otherwise, false.
+     *
+     * @throws PgSqlException If an error occurs while establishing the connection.
+     *
      */
     public function Open(): bool
     {
@@ -101,7 +113,7 @@ final class Connection implements IConnection
             );
         }
 
-        // if (!empty($this->_connectioninfo->database) && !mysqli_select_db($this->_resource, $this->_connectioninfo->database)) {
+        // if (!empty($this->_connectioninfo->database) && !PostgreSqli_select_db($this->_resource, $this->_connectioninfo->database)) {
         //     throw new PgSqlException(pg_last_error($this->_resource));
         // }
 
@@ -111,10 +123,12 @@ final class Connection implements IConnection
     }
 
     /**
-     * Переорктывает подключение
+     * Reopens the PostgreSql database connection.
      *
-     * @return bool
-     * @testFunction testConnectionReopen
+     * This method is an alias for Open().
+     *
+     * @return bool Returns true if the connection was successfully reopened; otherwise, false.
+     *
      */
     public function Reopen(): bool
     {
@@ -122,10 +136,10 @@ final class Connection implements IConnection
     }
 
     /**
-     * Закрывает подключение
+     * Closes the PostgreSql database connection.
      *
      * @return void
-     * @testFunction testConnectionClose
+     *
      */
     public function Close(): void
     {
@@ -135,11 +149,13 @@ final class Connection implements IConnection
     }
 
     /**
-     * Геттер
+     * Magic getter method.
      *
-     * @param string $property
-     * @return mixed
-     * @testFunction testConnection__get
+     * Allows access to read-only properties such as $resource, $raw, $connection, and $isAlive.
+     *
+     * @param string $property The name of the property to retrieve.
+     * @return mixed Returns the value of the requested property, or null if the property does not exist.
+     *
      */
     public function __get(string $property): mixed
     {
@@ -149,7 +165,7 @@ final class Connection implements IConnection
             case "connection":
                 return $this->_resource;
             case "isAlive":
-                return mysqli_ping($this->_resource);
+                return pg_ping($this->_resource);
             case 'database':
                 return $this->_connectioninfo->database;
             case 'host':

@@ -22,7 +22,6 @@ use Colibri\Data\SqlClient\IDataReader;
  * @property int $affected Number of affected rows.
  * @property-read int $count Number of rows in the result set.
  * 
- * @testFunction testDataReader
  */
 final class DataReader implements IDataReader
 {
@@ -188,7 +187,7 @@ final class DataReader implements IDataReader
         return $this->count;
     }
 
-     /**
+    /**
      * Converts the MySQL field type ID to a readable string.
      *
      * @param string $type_id The MySQL field type ID.
@@ -233,7 +232,7 @@ final class DataReader implements IDataReader
 
         $result = array();
         foreach ($flags as $n => $t) {
-            if ($flags_num& $n) {
+            if ($flags_num & $n) {
                 $result[] = $t;
             }
         }

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Драйвер для MySql
+ * Driver for PostgreSql
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
  * @version 1.0.0
  *
@@ -18,49 +18,49 @@ use Throwable;
 use resource;
 
 /**
- * Класс обеспечивающий работу с результатами запросов
+ * Class responsible for working with query results.
  * 
- * @property-read bool $hasRows
- * @property int $affected
- * @property-read int $count
+ * @property-read bool $hasRows Indicates whether the result set has any rows.
+ * @property int $affected Number of affected rows.
+ * @property-read int $count Number of rows in the result set.
  * 
- * @testFunction testDataReader
  */
 final class DataReader implements IDataReader
 {
     /**
-     * Ресурс запроса
+     * Query result resource.
      *
      * @var mixed
      */
     private mixed $_results = null;
 
     /**
-     * Количество результатов в текущей стрнице запроса
+     * Number of results in the current query page.
      *
      * @var int
      */
     private ?int $_count = null;
 
     /**
-     * Общее количество результатов
-     * Заполнено только тогда когда запрос выполнен с параметром info=true в ExecuteReader
+     * Total number of results.
+     * Filled only when the query is executed with the info parameter set to true in ExecuteReader.
      *
      * @var int
      */
     private ?int $_affected = null;
 
     /**
-     * Строка зарпоса после обработки
+     * Query string after processing.
      * @var string|null
      */
     private ?string $_preparedQuery = null;
 
     /**
-     * Создание обьекта
+     * Creates a new object.
      *
-     * @param mixed $results
-     * @param int $affected
+     * @param mixed $results Query results.
+     * @param int|null $affected Number of affected rows.
+     * @param string|null $preparedQuery Processed query string.
      */
     public function __construct(mixed $results, ?int $affected = null, ?string $preparedQuery = null)
     {
@@ -70,7 +70,7 @@ final class DataReader implements IDataReader
     }
 
     /**
-     * Закрытие ресурса обязательно
+     * Destructor to close the resource.
      */
     public function __destruct()
     {
@@ -78,10 +78,9 @@ final class DataReader implements IDataReader
     }
 
     /**
-     * Закрывает ресурс
+     * Closes the query result resource.
      *
      * @return void
-     * @testFunction testDataReaderClose
      */
     public function Close(): void
     {
@@ -92,10 +91,9 @@ final class DataReader implements IDataReader
     }
 
     /**
-     * Считать следующую строку в запросе
+     * Reads the next row from the query result.
      *
-     * @return object|null
-     * @testFunction testDataReaderRead
+     * @return object|null The next row as an object, or null if no more rows are available.
      */
     public function Read(): ?object
     {
@@ -108,10 +106,9 @@ final class DataReader implements IDataReader
     }
 
     /**
-     * Список полей в запросе
+     * Retrieves the list of fields in the query result.
      *
-     * @return array
-     * @testFunction testDataReaderFields
+     * @return array The list of fields in the query result.
      */
     public function Fields(): array
     {
@@ -148,11 +145,10 @@ final class DataReader implements IDataReader
     }
 
     /**
-     * Геттер
+     * Magic getter method to retrieve properties.
      *
-     * @param string $property
-     * @return mixed
-     * @testFunction testDataReader__get
+     * @param string $property The property name.
+     * @return mixed The value of the property.
      */
     public function __get(string $property): mixed
     {
@@ -180,6 +176,13 @@ final class DataReader implements IDataReader
         return $return;
     }
 
+    /**
+     * Magic setter method.
+     *
+     * @param string $property The property name.
+     * @param mixed $value The value to set.
+     * @return void
+     */
     public function __set(string $property, mixed $value): void
     {
         if (strtolower($property) == 'affected') {
@@ -187,8 +190,9 @@ final class DataReader implements IDataReader
         }
     }
     /**
-     * Возвращает количество
-     * @return int 
+     * Returns the number of rows in the result set.
+     *
+     * @return int The number of rows in the result set.
      */
     public function Count(): int
     {
@@ -196,21 +200,20 @@ final class DataReader implements IDataReader
     }
 
     /**
-     * Конвертация типов
+     * Converts the PostgreSQL field type ID to a readable string.
      *
-     * @param string $type_id
-     * @return string
-     * @testFunction testDataReader_type2txt
+     * @param string $type_id The PostgreSQL field type ID.
+     * @return string|null The readable string representing the field type.
      */
     private function _type2txt(string $type_id): string
     {
         static $types;
 
         if (!isset($types)) {
-            $types = array();
+            self::$types = [];
             $constants = get_defined_constants(true);
-            foreach ($constants['mysqli'] as $c => $n) {
-                if (preg_match('/^MYSQLI_TYPE_(.*)/', $c, $m)) {
+            foreach ($constants['pgsql'] as $c => $n) {
+                if (preg_match('/^PGSQL_(.*)/', $c, $m)) {
                     $types[$n] = $m[1];
                 }
             }
@@ -220,29 +223,28 @@ final class DataReader implements IDataReader
     }
 
     /**
-     * Конвертация флафов
+     * Converts the PostgreSql field flags to a readable string.
      *
-     * @param int $flags_num
-     * @return array
-     * @testFunction testDataReader_flags2txt
+     * @param int $flags_num The PostgreSQL field flags.
+     * @return array An array containing the readable field flags.
      */
     private function _flags2txt(int $flags_num): array
     {
         static $flags;
 
         if (!isset($flags)) {
-            $flags = array();
+            $flags = [];
             $constants = get_defined_constants(true);
-            foreach ($constants['mysqli'] as $c => $n) {
-                if (preg_match('/MYSQLI_(.*)_FLAG$/', $c, $m) && !array_key_exists($n, $flags)) {
+            foreach ($constants['pgsql'] as $c => $n) {
+                if (preg_match('/^PGSQL_(.*)_FLAG$/', $c, $m) && !array_key_exists($n, self::$flags)) {
                     $flags[$n] = $m[1];
                 }
             }
         }
 
-        $result = array();
+        $result = [];
         foreach ($flags as $n => $t) {
-            if ($flags_num& $n) {
+            if ($flags_num & $n) {
                 $result[] = $t;
             }
         }

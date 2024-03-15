@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Драйвер для MySql
+ * Driver for PostgreSql
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
  * @version 1.0.0
  *
@@ -17,19 +17,21 @@ use Colibri\Data\SqlClient\IQueryBuilder;
 use Colibri\Utils\Debug;
 
 /**
- * Класс генератор запросов для драйвераMySql
- * @testFunction testQueryBuilder
+ * Class for generating queries for the PostgreSql driver.
+ *
+ * This class implements the IQueryBuilder interface, providing methods to generate various types of SQL queries
+ * compatible with the PostgreSql database.
+ *
  */
 class QueryBuilder implements IQueryBuilder
 {
     /**
-     * Создает запрос ввода данных
+     * Creates an INSERT query.
      *
-     * @param string $table
-     * @param array|object $data
-     * @param string $returning
-     * @return string
-     * @testFunction testQueryBuilderCreateInsert
+     * @param string $table The name of the table.
+     * @param array|object $data The data to insert.
+     * @param string $returning (optional) The returning clause for the query. Default is empty string.
+     * @return string The generated INSERT query.
      */
     public function CreateInsert(string $table, array |object $data, string $returning = ''): string
     {
@@ -55,13 +57,12 @@ class QueryBuilder implements IQueryBuilder
     }
 
     /**
-     * Создает запрос ввода данных
+     * Creates a REPLACE INTO query.
      *
-     * @param string $table
-     * @param array|object $data
-     * @param string $returning
-     * @return string
-     * @testFunction testQueryBuilderCreateInsert
+     * @param string $table The name of the table.
+     * @param array|object $data The data to replace.
+     * @param string $returning (optional) The returning clause for the query. Default is empty string.
+     * @return string The generated REPLACE INTO query.
      */
     public function CreateReplace(string $table, array |object $data, string $returning = ''): string
     {
@@ -87,14 +88,13 @@ class QueryBuilder implements IQueryBuilder
     }
 
     /**
-     * Создает запрос ввода данных или обновления в случае дублирования данных в индексных полях
+     * Creates an INSERT INTO ... ON DUPLICATE KEY UPDATE query.
      *
-     * @param string $table
-     * @param array|object $data
-     * @param array $exceptFields
-     * @param string $returning
-     * @return string
-     * @testFunction testQueryBuilderCreateInsertOrUpdate
+     * @param string $table The name of the table.
+     * @param array|object $data The data to insert or update.
+     * @param array $exceptFields (optional) The fields to exclude from the update statement. Default is an empty array.
+     * @param string $returning (optional) The returning clause for the query. Default is empty string.
+     * @return string The generated INSERT INTO ... ON DUPLICATE KEY UPDATE query.
      */
     public function CreateInsertOrUpdate(string $table, array |object $data, array $exceptFields = array(), string $returning = ''): string
     {
@@ -127,12 +127,11 @@ class QueryBuilder implements IQueryBuilder
     }
 
     /**
-     * Создает запрос ввода данных пачкой
+     * Creates a batch INSERT query.
      *
-     * @param string $table
-     * @param array|object $data
-     * @return string
-     * @testFunction testQueryBuilderCreateBatchInsert
+     * @param string $table The name of the table.
+     * @param array|object $data The data to insert in batch.
+     * @return string The generated batch INSERT query.
      */
     public function CreateBatchInsert(string $table, array |object $data)
     {
@@ -162,13 +161,12 @@ class QueryBuilder implements IQueryBuilder
     }
 
     /**
-     * Создает запрос на обновление данных
+     * Creates an UPDATE query.
      *
-     * @param string $table
-     * @param string $condition
-     * @param object $data
-     * @return string
-     * @testFunction testQueryBuilderCreateUpdate
+     * @param string $table The name of the table.
+     * @param string $condition The condition for updating the records.
+     * @param array|object $data The data to update.
+     * @return string The generated UPDATE query.
      */
     public function CreateUpdate(string $table, string $condition, array |object $data): string
     {
@@ -188,12 +186,11 @@ class QueryBuilder implements IQueryBuilder
     }
 
     /**
-     * Создает запрос на удаление данных
+     * Creates a DELETE query.
      *
-     * @param string $table
-     * @param string $condition
-     * @return string
-     * @testFunction testQueryBuilderCreateDelete
+     * @param string $table The name of the table.
+     * @param string $condition The condition for deleting the records.
+     * @return string The generated DELETE query.
      */
     public function CreateDelete(string $table, string $condition): string
     {
@@ -204,10 +201,9 @@ class QueryBuilder implements IQueryBuilder
     }
 
     /**
-     * Создает запрос на получение списка таблиц
+     * Creates a SHOW TABLES query.
      *
-     * @return string
-     * @testFunction testQueryBuilderCreateShowTables
+     * @return string The generated SHOW TABLES query.
      */
     public function CreateShowTables(): string
     {
@@ -215,11 +211,10 @@ class QueryBuilder implements IQueryBuilder
     }
 
     /**
-     * Создает запрос на получение списка полей в таблице
+     * Creates a SHOW COLUMNS FROM query for a specific table.
      *
-     * @param string $table
-     * @return string
-     * @testFunction testQueryBuilderCreateShowField
+     * @param string $table The name of the table.
+     * @return string The generated SHOW COLUMNS FROM query.
      */
     public function CreateShowField(string $table, ?string $schema = null): string
     {
@@ -227,16 +222,32 @@ class QueryBuilder implements IQueryBuilder
     }
 
 
+    /**
+     * Creates a BEGIN transaction query.
+     *
+     * @param string|null $type (optional) The type of transaction (e.g., 'readonly', 'readwrite'). Default is null.
+     * @return string The generated BEGIN transaction query.
+     */
     public function CreateBegin(string $type = 'readonly'): string
     {
         return 'begin transaction';
     }
 
+    /**
+     * Creates a COMMIT transaction query.
+     *
+     * @return string The generated COMMIT transaction query.
+     */
     public function CreateCommit(): string
     {
         return 'commit';
     }
 
+    /**
+     * Creates a ROLLBACK transaction query.
+     *
+     * @return string The generated ROLLBACK transaction query.
+     */
     public function CreateRollback(): string
     {
         return 'rollback';
