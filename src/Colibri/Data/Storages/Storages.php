@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Structure
+ * Storages
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2019 ColibriLab
  * @package Colibri\Data\Storages
  */
 
@@ -20,29 +20,35 @@ use Colibri\Utils\Config\ConfigException;
 use Colibri\Utils\Logs\Logger;
 
 /**
- * Storages object
+ * Represents a collection of storage objects.
+ *
+ * This class manages multiple storage objects and provides methods to interact with them collectively.
+ *
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages
  */
 class Storages
 {
-
+    /**
+     * The singleton instance of the Storages class.
+     * @var Storages|null
+     */
     private static $instance;
 
     /**
-     * Array of storage data
+     * Array of storage data.
      * @var array|null
      */
     private ?array $_storages = null;
 
     /**
-     * Types
+     * Types of storages.
      * @var array|null
      */
     private ?array $_types = null;
 
     /**
-     * Constructs an Storages object
+     * Constructs a Storages object.
      */
     public function __construct()
     {
@@ -195,9 +201,11 @@ class Storages
     #region "Checking"
 
     /**
-     * Migrates a database
-     * @param Logger $logger
-     * @param bool $isDev
+     * Migrates storage tables and fields.
+     *
+     * @param Logger $logger  The logger object to log messages.
+     * @param bool   $isDev   Indicates whether the migration is for development purposes (optional, default: false).
+     *
      * @return void
      */
     public function Migrate(Logger $logger, bool $isDev = false)
@@ -224,7 +232,7 @@ class Storages
                 if ($reader->count == 0) {
                     $logger->error($table_name . ': Storage destination not found: creating');
                     $this->_createStorageTable($logger, $dtp, $prefix, $name);
-                } 
+                }
 
                 // проверяем наличие и типы полей, и если отличаются пересоздаем
                 $ofields = array();
@@ -278,7 +286,7 @@ class Storages
 
                     if ($xfield['type'] == 'enum') {
                         $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '(' . implode(',', array_map(function ($v) {
-                            return '\'' . $v['value'] . '\''; 
+                            return '\'' . $v['value'] . '\'';
                         }, $xfield['values'])) . ')' : '';
                     } elseif ($xfield['type'] === 'bool' || $xfield['type'] === 'boolean') {
                         $xfield['type'] = 'tinyint';
@@ -412,7 +420,7 @@ class Storages
 
             }
 
-                
+
             $logger->debug('Creating module seeds');
             foreach(App::$moduleManager->list as $module) {
                 if(method_exists($module, 'Seeders')) {
@@ -432,17 +440,23 @@ class Storages
     }
 
     /**
-     * Creates a storage table
-     * @param Logger $logger
-     * @param DataAccessPoint $accessPoint
-     * @param string $prefix
-     * @param string $table
-     * @param bool $levels
-     * @throws DataAccessPointsException
+     * Creates a new storage table.
+     *
+     * @param Logger            $logger      The logger object to log messages.
+     * @param DataAccessPoint   $accessPoint The data access point object.
+     * @param string            $prefix      The prefix for the storage table.
+     * @param string            $table       The name of the table to be created.
+     * @param bool              $levels      Indicates whether the table supports hierarchical levels (optional, default: false).
+     *
      * @return void
      */
-    private function _createStorageTable(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, bool $levels = false)
-    {
+    private function _createStorageTable(
+        Logger $logger,
+        DataAccessPoint $accessPoint,
+        string $prefix,
+        string $table,
+        bool $levels = false
+    ) {
         $res = $accessPoint->Query('
             create table `' . ($prefix ? $prefix . '_' : '') . $table . '`(
                 `' . $table . '_id` bigint unsigned auto_increment, 
@@ -461,16 +475,23 @@ class Storages
     }
 
     /**
-     * Update a default value
-     * @param string $field
-     * @param string $type
-     * @param bool $required
-     * @param int $length
-     * @param mixed $default
-     * @return array
+     * Updates the default value and length of a storage field.
+     *
+     * @param string $field    The name of the field to be updated.
+     * @param string $type     The new data type of the field.
+     * @param bool   $required Indicates if the field is required.
+     * @param int|null $length The new length of the field if applicable (nullable).
+     * @param mixed  $default  The new default value for the field.
+     *
+     * @return array An array containing the updated default value and length.
      */
-    private function _updateDefaultAndLength(string $field, string $type, bool $required, ?int $length, mixed $default): array
-    {
+    private function _updateDefaultAndLength(
+        string $field,
+        string $type,
+        bool $required,
+        ?int $length,
+        mixed $default
+    ): array {
 
         if (\is_bool($default)) {
             $default = $default ? 'TRUE' : 'FALSE';
@@ -494,22 +515,33 @@ class Storages
     }
 
     /**
-     * Creates a storage field
-     * @param Logger $logger
-     * @param DataAccessPoint $accessPoint
-     * @param string $prefix
-     * @param string $table
-     * @param string $field
-     * @param string $type
-     * @param int $length
-     * @param mixed $default
-     * @param bool $required
-     * @param string $comment
-     * @throws DataAccessPointsException
+     * Creates a new storage field.
+     *
+     * @param Logger            $logger      The logger object to log messages.
+     * @param DataAccessPoint   $accessPoint The data access point object.
+     * @param string            $prefix      The prefix for the storage field.
+     * @param string            $table       The name of the table where the field will be created.
+     * @param string            $field       The name of the field to be created.
+     * @param string            $type        The data type of the field.
+     * @param int|null          $length      The length of the field if applicable (nullable).
+     * @param mixed             $default     The default value for the field.
+     * @param bool|null         $required    Indicates if the field is required (nullable).
+     * @param string|null       $comment     A comment describing the field (nullable).
+     *
      * @return void
      */
-    private function _createStorageField(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, string $field, string $type, ?int $length, mixed $default, ?bool $required, ?string $comment)
-    {
+    private function _createStorageField(
+        Logger $logger,
+        DataAccessPoint $accessPoint,
+        string $prefix,
+        string $table,
+        string $field,
+        string $type,
+        ?int $length,
+        mixed $default,
+        ?bool $required,
+        ?string $comment
+    ) {
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
 
         // ! специфика UUID нужно выключить параметр sql_log_bin
@@ -538,21 +570,31 @@ class Storages
     }
 
     /**
-     * Creates a virtual field
-     * @param Logger $logger
-     * @param DataAccessPoint $accessPoint
-     * @param string $prefix
-     * @param string $table
-     * @param string $field
-     * @param string $type
-     * @param int|null $length
-     * @param string $expression
-     * @param string $comment
-     * @throws DataAccessPointsException
+     * Creates a new virtual storage field.
+     *
+     * @param Logger            $logger      The logger object to log messages.
+     * @param DataAccessPoint   $accessPoint The data access point object.
+     * @param string            $prefix      The prefix for the storage field.
+     * @param string            $table       The name of the table where the field will be created.
+     * @param string            $field       The name of the virtual field to be created.
+     * @param string            $type        The data type of the virtual field.
+     * @param int|null          $length      The length of the virtual field if applicable (nullable).
+     * @param string|null       $expression  The SQL expression defining the virtual field (nullable).
+     * @param string|null       $comment     A comment describing the virtual field (nullable).
+     *
      * @return void
      */
-    private function _createStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, string $field, string $type, ?int $length, ?string $expression, ?string $comment)
-    {
+    private function _createStorageVirtualField(
+        Logger $logger,
+        DataAccessPoint $accessPoint,
+        string $prefix,
+        string $table,
+        string $field,
+        string $type,
+        ?int $length,
+        ?string $expression,
+        ?string $comment
+    ) {
 
         $res = $accessPoint->Query('
             ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
@@ -568,26 +610,38 @@ class Storages
 
 
     /**
-     * Alters a storage field
-     * @param Logger $logger
-     * @param DataAccessPoint $accessPoint
-     * @param string $prefix
-     * @param string $table
-     * @param string $field
-     * @param string $type
-     * @param int|null $length
-     * @param mixed $default
-     * @param bool $required
-     * @param string $comment
-     * @throws DataAccessPointsException
+     * Alters an existing storage field.
+     *
+     * @param Logger            $logger      The logger object to log messages.
+     * @param DataAccessPoint   $accessPoint The data access point object.
+     * @param string            $prefix      The prefix for the storage field.
+     * @param string            $table       The name of the table where the field exists.
+     * @param string            $field       The name of the field to be altered.
+     * @param string            $type        The new data type of the field.
+     * @param int|null          $length      The new length of the field if applicable (nullable).
+     * @param mixed             $default     The new default value for the field.
+     * @param bool              $required    Indicates if the field is required.
+     * @param string|null       $comment     A comment describing the field (nullable).
+     *
      * @return void
      */
-    private function _alterStorageField(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, string $field, string $type, ?int $length, mixed $default, bool $required, ?string $comment)
-    {
+    private function _alterStorageField(
+        Logger $logger,
+        DataAccessPoint $accessPoint,
+        string $prefix,
+        string $table,
+        string $field,
+        string $type,
+        ?int $length,
+        mixed $default,
+        bool $required,
+        ?string $comment
+    ) {
 
         [$required, $length, $default] = $this->_updateDefaultAndLength($field, $type, $required, $length, $default);
 
-        $res = $accessPoint->Query('
+        $res = $accessPoint->Query(
+            '
             ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
             MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
             ' . (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($comment ? 'COMMENT \'' . $comment . '\'' : ''),
@@ -601,23 +655,34 @@ class Storages
     }
 
     /**
-     * Alters a virtual field
-     * @param Logger $logger
-     * @param DataAccessPoint $accessPoint
-     * @param string $prefix
-     * @param string $table
-     * @param array $field
-     * @param string $type
-     * @param int $length
-     * @param string $expression
-     * @param string $comment
-     * @throws DataAccessPointsException
+     * Alters an existing virtual storage field.
+     *
+     * @param Logger            $logger      The logger object to log messages.
+     * @param DataAccessPoint   $accessPoint The data access point object.
+     * @param string            $prefix      The prefix for the storage field.
+     * @param string            $table       The name of the table where the field exists.
+     * @param string            $field       The name of the virtual field to be altered.
+     * @param string            $type        The new data type of the virtual field.
+     * @param int|null          $length      The new length of the virtual field if applicable (nullable).
+     * @param string            $expression  The new SQL expression defining the virtual field.
+     * @param string            $comment     A comment describing the virtual field.
+     *
      * @return void
      */
-    private function _alterStorageVirtualField(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, string $field, string $type, ?int $length, string $expression, string $comment)
-    {
+    private function _alterStorageVirtualField(
+        Logger $logger,
+        DataAccessPoint $accessPoint,
+        string $prefix,
+        string $table,
+        string $field,
+        string $type,
+        ?int $length,
+        string $expression,
+        string $comment
+    ) {
 
-        $res = $accessPoint->Query('
+        $res = $accessPoint->Query(
+            '
             ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
             MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') .
             ' GENERATED ALWAYS AS (' . $expression . ') STORED ' .
@@ -632,20 +697,29 @@ class Storages
     }
 
     /**
-     * Creates a storage table
-     * @param Logger $logger
-     * @param mixed $accessPoint
-     * @param string $prefix
-     * @param string $table
-     * @param string $indexName
-     * @param array $fields
-     * @param string $type
-     * @param string $method
-     * @throws DataAccessPointsException
+     * Creates a new storage index.
+     *
+     * @param Logger            $logger      The logger object to log messages.
+     * @param mixed             $accessPoint The data access point object.
+     * @param string            $prefix      The prefix for the storage index.
+     * @param string            $table       The name of the table where the index will be created.
+     * @param string            $indexName   The name of the index to be created.
+     * @param array             $fields      An array of field names included in the index.
+     * @param string            $type        The type of the index (e.g., 'INDEX', 'UNIQUE', 'FULLTEXT').
+     * @param string|null       $method      The method to be used for creating the index (optional).
+     *
      * @return void
      */
-    private function _createStorageIndex(Logger $logger, $accessPoint, string $prefix, string $table, string $indexName, array $fields, string $type, ?string $method)
-    {
+    private function _createStorageIndex(
+        Logger $logger,
+        $accessPoint,
+        string $prefix,
+        string $table,
+        string $indexName,
+        array $fields,
+        string $type,
+        ?string $method
+    ) {
         if ($type === 'FULLTEXT') {
             $method = '';
         }
@@ -661,20 +735,29 @@ class Storages
     }
 
     /**
-     * Alters the storage table
-     * @param Logger $logger
-     * @param DataAccessPoint $accessPoint
-     * @param string $prefix
-     * @param string $table
-     * @param string $indexName
-     * @param array $fields
-     * @param string $type
-     * @param string $method
-     * @throws DataAccessPointsException
+     * Alters an existing storage index.
+     *
+     * @param Logger            $logger      The logger object to log messages.
+     * @param DataAccessPoint   $accessPoint The data access point object.
+     * @param string            $prefix      The prefix for the storage index.
+     * @param string            $table       The name of the table where the index exists.
+     * @param string            $indexName   The name of the index to be altered.
+     * @param array             $fields      An array of field names included in the index.
+     * @param string            $type        The type of the index (e.g., 'INDEX', 'UNIQUE', 'FULLTEXT').
+     * @param string|null       $method      The method to be used for altering the index (optional).
+     *
      * @return void
      */
-    private function _alterStorageIndex(Logger $logger, DataAccessPoint $accessPoint, string $prefix, string $table, string $indexName, array $fields, string $type, ?string $method)
-    {
+    private function _alterStorageIndex(
+        Logger $logger,
+        DataAccessPoint $accessPoint,
+        string $prefix,
+        string $table,
+        string $indexName,
+        array $fields,
+        string $type,
+        ?string $method
+    ) {
 
         $res = $accessPoint->Query('
             ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
@@ -713,18 +796,28 @@ class Storages
     */
     #endregion
 
+    /**
+     * Checks if a storage with the specified name exists.
+     *
+     * @param string      $name   The name of the storage to check.
+     * @param string|null $module The module to which the storage belongs (optional).
+     *
+     * @return bool True if the storage exists, false otherwise.
+     */
     public function Exists(string $name, ?string $module = null): bool
     {
         return isset($this->_storages[$name]);
     }
 
     /**
-     * Загружает хранилище
+     * Loads the storage with the specified name and optional module.
      *
-     * @param string $name
-     * @return Storage|null
+     * @param string      $name   The name of the storage to load.
+     * @param string|null $module The module to which the storage belongs (optional).
+     *
+     * @return Storage|null The loaded storage object if found, or null if not found.
      */
-    public function Load(string $name, ?string $module = null): ? Storage
+    public function Load(string $name, ?string $module = null): ?Storage
     {
         if (!isset($this->_storages[$name])) {
             return null;
@@ -734,8 +827,9 @@ class Storages
 
 
     /**
-     * Возвращает массив всех хранилищ
-     * @return array<Storage> список хранлищ
+     * Retrieves an array of all storages.
+     *
+     * @return array An array containing all storage objects.
      */
     public function GetStorages(): array
     {
@@ -748,11 +842,13 @@ class Storages
     }
 
     /**
-     * Getter
-     * @param string $prop
-     * @return mixed
+     * Magic method to retrieve the value of inaccessible properties.
+     *
+     * @param string $prop The name of the property to retrieve.
+     *
+     * @return mixed The value of the specified property.
      */
-    public function __get($prop)
+    public function __get(string $prop): mixed
     {
         $prop = strtolower($prop);
         $return = null;
@@ -767,10 +863,10 @@ class Storages
                 $return = $this->_modulePath;
                 break;
             default: {
-                    if ($this->Exists($prop)) {
-                        return $this->Load($prop);
-                    }
+                if ($this->Exists($prop)) {
+                    return $this->Load($prop);
                 }
+            }
         }
         return $return;
     }

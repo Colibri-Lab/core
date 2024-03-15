@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Structure
+ * Storages
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2019 ColibriLab
  * @package Colibri\Data\Storages
  */
-
 namespace Colibri\Data\Storages;
 
 use Colibri\Data\Storages\Models\DataTable;
@@ -17,23 +16,20 @@ use Colibri\AppException;
 use Colibri\Common\StringHelper;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\Storages\Models\DataRow;
-use Colibri\Utils\Debug;
-use Colibri\Xml\XmlNode;
 use Colibri\Modules\Module;
 use Colibri\Utils\Config\Config;
 
 /**
- * Класс Хранилище
+ * Storage class
  *
- * @property-read string $name
- * @property-read string $table
- * @property-read boolean $levels
- * @property-read array $settings
- * @property-read object $fields
- * @property-read DataAccessPoint $accessPoint
- * @property-read string $name
+ * This class represents a storage configuration with properties like name, table, levels, settings, fields, and access point.
  *
- *
+ * @property-read string $name The name of the storage.
+ * @property-read string $table The name of the database table associated with the storage.
+ * @property-read boolean $levels Indicates whether the storage supports levels.
+ * @property-read array $settings The settings array containing various configuration options.
+ * @property-read object $fields The list of fields associated with the storage.
+ * @property-read DataAccessPoint $accessPoint The DataAccessPoint object associated with the storage.
  */
 class Storage
 {
@@ -58,9 +54,10 @@ class Storage
     private $_name;
 
     /**
-     * Конструктор
-     * @param array|object $xstorage данные из настроек хранилища
-     * @return void
+     * Constructs a new Storage object.
+     *
+     * @param array|object $xstorage The data from the storage settings.
+     * @param string|null $name The name of the storage.
      */
     public function __construct(array |object $xstorage, ?string $name = null)
     {
@@ -70,6 +67,12 @@ class Storage
         $this->_init();
     }
 
+    /**
+     * Initializes the storage object.
+     * This method sets up the name, data access point, and loads fields for the storage.
+     *
+     * @return void
+     */
     private function _init()
     {
         if (isset($this->_xstorage['name'])) {
@@ -79,6 +82,17 @@ class Storage
         $this->_loadFields();
     }
 
+    /**
+     * Creates a new instance of the Storage class.
+     *
+     * This method is a factory method used to create a new Storage object.
+     * It allows creating a Storage object with the provided module, name, and data.
+     *
+     * @param Module $module The module instance.
+     * @param string $name The name of the storage.
+     * @param array $data Additional data for configuring the storage.
+     * @return Storage The newly created Storage object.
+     */
     public static function Create(Module $module, string $name = '', array $data = []): self
     {
         $data['file'] = $module->moduleStoragesPath;
@@ -86,9 +100,12 @@ class Storage
     }
 
     /**
-     * Геттер
-     * @param string $prop свойство
-     * @return mixed значение
+     * Getter method.
+     *
+     * Retrieves the value of the specified property.
+     *
+     * @param string $prop The name of the property to retrieve.
+     * @return mixed The value of the specified property.
      */
     public function __get($prop)
     {
@@ -117,6 +134,15 @@ class Storage
         return $return;
     }
 
+    /**
+     * Setter method.
+     *
+     * Sets the value of the specified property.
+     *
+     * @param string $prop The name of the property to set.
+     * @param mixed $value The value to set.
+     * @return void
+     */
     public function __set(string $prop, mixed $value): void
     {
         $this->_xstorage[$prop] = $value;
@@ -125,7 +151,10 @@ class Storage
 
 
     /**
-     * Загружает поля в массив
+     * Loads fields into an array.
+     *
+     * This method initializes the fields of the storage object from the stored configuration.
+     *
      * @return void
      */
     private function _loadFields()
@@ -138,14 +167,23 @@ class Storage
         }
     }
 
+    /**
+     * Updates a field in the storage configuration.
+     *
+     * This method updates the configuration of a specific field in the storage object.
+     *
+     * @param Field $field The field object to update.
+     * @return void
+     */
     public function UpdateField(Field $field)
     {
         $this->_xstorage['fields'][$field->{'name'}] = $field->ToArray();
     }
 
     /**
-     * Возвращает модели репу и модель
-     * @return array
+     * Retrieves the model classes for the storage.
+     *
+     * @return array An array containing the table class and row class.
      */
     public function GetModelClasses()
     {
@@ -183,6 +221,13 @@ class Storage
         return [$tableClass, $rowClass];
     }
 
+    /**
+     * Retrieves the class of a specific field.
+     *
+     * @param Field $field The field object.
+     * @return string The class name of the field.
+     * @throws AppException If the class of the field is unknown.
+     */
     public function GetFieldClass(Field $field)
     {
         $rootNamespace = '';
@@ -210,9 +255,10 @@ class Storage
     }
 
     /**
-     * Возвращает реальное название поля в базе данных
-     * @param string $name название без префикса
-     * @return string название с префиксом
+     * Retrieves the real field name with the table prefix.
+     *
+     * @param string $name The name of the field without the prefix.
+     * @return string The name of the field with the prefix.
      */
     public function GetRealFieldName($name)
     {
@@ -220,9 +266,10 @@ class Storage
     }
 
     /**
-     * Возвращает название поля без префикса таблицы
-     * @param string $name полное наименование поля в базе данных
-     * @return string название без префикса
+     * Retrieves the field name without the table prefix.
+     *
+     * @param string $name The name of the field with the prefix.
+     * @return string The name of the field without the prefix.
      */
     public function GetFieldName($name)
     {
@@ -230,9 +277,10 @@ class Storage
     }
 
     /**
-     * Возвращает поле по пути типа fieldname/fieldname
-     * @param string $path путь
-     * @return Field|null
+     * Retrieves a field object based on the specified path.
+     *
+     * @param string $path The path to the field (e.g., 'fieldname/subfieldname').
+     * @return Field|null The field object, or null if not found.
      */
     public function GetField($path)
     {
@@ -250,14 +298,20 @@ class Storage
     }
 
     /**
-     * Возвращает обьект содержащий данные для отображения записей хранилища по шаблонам
-     * @return object|array
+     * Retrieves templates for displaying records from the storage.
+     *
+     * @return object|array The templates data.
      */
     public function GetTemplates()
     {
         return $this->_xstorage['templates'] ?? [];
     }
 
+    /**
+     * Retrieves the module associated with the storage.
+     *
+     * @return Module|null The module object, or null if not found.
+     */
     public function GetModule(): ?Module
     {
         $module = isset($this->_xstorage['module']) ? $this->_xstorage['module'] : null;
@@ -268,14 +322,22 @@ class Storage
     }
 
     /**
-     * Возвращает настройки хранилища в виде
-     * @return array
+     * Converts the storage settings to an array.
+     *
+     * @param bool $changeLang Whether to change the language or not.
+     * @return array The storage settings as an array.
      */
     public function ToArray($changeLang = true)
     {
         return $this->_xstorage;
     }
 
+    /**
+     * Saves the storage settings to a file.
+     *
+     * @param bool $performValidationBeforeSave Whether to perform validation before saving or not.
+     * @return void
+     */
     public function Save(bool $performValidationBeforeSave = false)
     {
         $file = $this->{'file'};
@@ -325,6 +387,11 @@ class Storage
 
     }
 
+    /**
+     * Deletes the storage settings from the file.
+     *
+     * @return void
+     */
     public function Delete(): void
     {
         $file = $this->{'file'};
@@ -333,6 +400,13 @@ class Storage
         $config->Save();
     }
 
+    /**
+     * Adds a new field to the storage.
+     *
+     * @param string $path The path to the field.
+     * @param array $data The data for the new field.
+     * @return Field The newly created field object.
+     */
     public function AddField($path, $data)
     {
         $path = explode('/', $path);
@@ -352,6 +426,12 @@ class Storage
         return $field;
     }
 
+    /**
+     * Deletes a field from the storage.
+     *
+     * @param string $path The path to the field.
+     * @return void
+     */
     public function DeleteField($path)
     {
         $field = $this->GetField($path);
@@ -367,6 +447,13 @@ class Storage
         }
     }
 
+    /**
+     * Adds an index to the storage.
+     *
+     * @param string $name The name of the index.
+     * @param array $data The index data.
+     * @return void
+     */
     public function AddIndex($name, $data)
     {
         if (!isset($this->_xstorage['indices'])) {
@@ -375,19 +462,34 @@ class Storage
         $this->_xstorage['indices'][$name] = $data;
     }
 
+    /**
+     * Deletes an index from the storage.
+     *
+     * @param string $name The name of the index.
+     * @return void
+     */
     public function DeleteIndex($name)
     {
         if (isset($this->_xstorage['indices'][$name])) {
             unset($this->_xstorage['indices'][$name]);
         }
     }
+
+    /**
+     * Moves a field within the storage.
+     *
+     * @param Field $field The field to move.
+     * @param Field $relative The relative field.
+     * @param string $sibling The sibling position ('before' or 'after').
+     * @return void
+     */
     public function MoveField($field, $relative, $sibling)
     {
 
         // перемещает во внутреннем массиве
         $xfields = $this->_xstorage['fields'];
         if (!isset($xfields[$field->name])) {
-            return false;
+            return;
         }
 
         $newxFields = [];
@@ -411,17 +513,32 @@ class Storage
 
     }
 
+    /**
+     * Retrieves the status of the storage.
+     *
+     * @return object The storage status.
+     */
     public function GetStatus(): object
     {
         $reader = $this->accessPoint->Query('SHOW TABLE STATUS LIKE \''.$this->table.'\'');
         return $reader->Read();
     }
 
+    /**
+     * Disables keys for the storage table.
+     *
+     * @return void
+     */
     public function DisableKeys()
     {
         $this->accessPoint->Query('ALTER TABLE '.$this->table.' DISABLE KEYS');
     }
 
+    /**
+     * Enables keys for the storage table.
+     *
+     * @return void
+     */
     public function EnableKeys()
     {
         $this->accessPoint->Query('ALTER TABLE '.$this->table.' ENABLE KEYS');
