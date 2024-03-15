@@ -1783,212 +1783,212 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataModelException",
             "name": "DataModelException",
-            "summary": "\u0418\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F\u0020\u0434\u043B\u044F\u0020\u043C\u043E\u0434\u0435\u043B\u0435\u0439\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Exception\u0020for\u0020data\u0020models",
             "url": "classes/Colibri-Data-Models-DataModelException.html"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataRow",
             "name": "DataRow",
-            "summary": "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0438\u0435\u0020\u0441\u0442\u0440\u043E\u043A\u0438\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Represents\u0020a\u0020DataRow\u0020in\u0020a\u0020data\u0020table.",
             "url": "classes/Colibri-Data-Models-DataRow.html"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataRow\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-Data-Models-DataRow.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataRow\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Magic\u0020method\u0020to\u0020handle\u0020property\u0020access\u0020via\u0020the\u0020__get\u0028\u0029\u0020syntax.",
             "url": "classes/Colibri-Data-Models-DataRow.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataRow\u003A\u003A__set\u0028\u0029",
             "name": "__set",
-            "summary": "\u0421\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Magic\u0020method\u0020to\u0020handle\u0020property\u0020assignment\u0020via\u0020the\u0020__set\u0028\u0029\u0020syntax.",
             "url": "classes/Colibri-Data-Models-DataRow.html#method___set"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataRow\u003A\u003ACopyToObject\u0028\u0029",
             "name": "CopyToObject",
-            "summary": "\u041A\u043E\u043F\u0438\u0440\u0443\u0435\u0442\u0020\u0432\u0020\u043E\u0431\u044C\u0435\u043A\u0442",
+            "summary": "Copies\u0020data\u0020from\u0020the\u0020current\u0020object\u0020to\u0020an\u0020ExtendedObject.",
             "url": "classes/Colibri-Data-Models-DataRow.html#method_CopyToObject"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataRow\u003A\u003AType\u0028\u0029",
             "name": "Type",
-            "summary": "",
+            "summary": "Retrieves\u0020the\u0020type\u0020of\u0020a\u0020specific\u0020property.",
             "url": "classes/Colibri-Data-Models-DataRow.html#method_Type"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataRow\u003A\u003AIsPropertyChanged\u0028\u0029",
             "name": "IsPropertyChanged",
-            "summary": "\u041F\u043E\u043B\u0435\u0020\u0438\u0437\u043C\u0435\u043D\u0435\u043D\u043E",
+            "summary": "Checks\u0020if\u0020a\u0020specific\u0020property\u0020has\u0020been\u0020changed.",
             "url": "classes/Colibri-Data-Models-DataRow.html#method_IsPropertyChanged"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataRow\u003A\u003A\u0024_table",
             "name": "_table",
-            "summary": "\u0422\u0430\u0431\u043B\u0438\u0446\u0430",
+            "summary": "Data\u0020Table\u0020object",
             "url": "classes/Colibri-Data-Models-DataRow.html#property__table"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable",
             "name": "DataTable",
-            "summary": "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0438\u0435\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u044B\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Represents\u0020a\u0020data\u0020table\u0020providing\u0020functionalities\u0020like\u0020counting,\u0020array\u0020access,\u0020and\u0020iteration.",
             "url": "classes/Colibri-Data-Models-DataTable.html"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-Data-Models-DataTable.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "\u0421\u0442\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\u0020\u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Static\u0020constructor",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AgetIterator\u0028\u0029",
             "name": "getIterator",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0438\u0442\u0435\u0440\u0430\u0442\u043E\u0440",
+            "summary": "Returns\u0020iterator",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_getIterator"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003ALoad\u0028\u0029",
             "name": "Load",
-            "summary": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0438\u0437\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430\u0020\u0438\u043B\u0438\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u044B",
+            "summary": "Executes\u0020a\u0020query\u0020to\u0020load\u0020data\u0020into\u0020the\u0020DataTable.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_Load"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003ACount\u0028\u0029",
             "name": "Count",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E\u0020\u0441\u0442\u0440\u043E\u043A",
+            "summary": "Gets\u0020the\u0020number\u0020of\u0020rows\u0020in\u0020the\u0020DataTable.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_Count"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AAffected\u0028\u0029",
             "name": "Affected",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043E\u0431\u0449\u0435\u0435\u0020\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E\u0020\u0441\u0442\u0440\u043E\u043A",
+            "summary": "Gets\u0020the\u0020number\u0020of\u0020affected\u0020rows\u0020by\u0020the\u0020last\u0020database\u0020operation.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_Affected"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AHasRows\u0028\u0029",
             "name": "HasRows",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043D\u0430\u043B\u0438\u0447\u0438\u0435\u0020\u0441\u0442\u0440\u043E\u043A",
+            "summary": "Checks\u0020if\u0020the\u0020DataTable\u0020has\u0020any\u0020rows.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_HasRows"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AFields\u0028\u0029",
             "name": "Fields",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u043F\u043E\u043B\u0435\u0439",
+            "summary": "Retrieves\u0020the\u0020field\u0020names\u0020of\u0020the\u0020DataTable.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_Fields"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003APoint\u0028\u0029",
             "name": "Point",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0442\u043E\u0447\u043A\u0443\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Retrieves\u0020the\u0020data\u0020access\u0020point\u0020associated\u0020with\u0020the\u0020DataTable.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_Point"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003A_createDataRowObject\u0028\u0029",
             "name": "_createDataRowObject",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0445\u0020\u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0438\u044F\u0020\u0441\u0442\u0440\u043E\u043A\u0438",
+            "summary": "Creates\u0020a\u0020DataRow\u0020object\u0020based\u0020on\u0020the\u0020given\u0020result.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method__createDataRowObject"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003A_read\u0028\u0029",
             "name": "_read",
-            "summary": "\u0421\u0447\u0438\u0442\u044B\u0432\u0430\u0435\u0442\u0020\u0435\u0449\u0435\u0020\u043E\u0434\u043D\u0443\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u0438\u0437\u0020\u0438\u0441\u0442\u043E\u0447\u043D\u0438\u043A\u0430",
+            "summary": "Reads\u0020data\u0020from\u0020a\u0020data\u0020source.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method__read"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003A_readTo\u0028\u0029",
             "name": "_readTo",
-            "summary": "\u0421\u0447\u0438\u0442\u044B\u0432\u0430\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0438\u0020\u0434\u043E\u0020\u0443\u043A\u0430\u0437\u043D\u043D\u043E\u0433\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0430",
+            "summary": "Reads\u0020data\u0020from\u0020a\u0020data\u0020source\u0020up\u0020to\u0020a\u0020specified\u0020index.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method__readTo"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AItem\u0028\u0029",
             "name": "Item",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u043F\u043E\u0020\u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u043C\u0443\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Retrieves\u0020an\u0020item\u0020from\u0020the\u0020data\u0020source\u0020at\u0020the\u0020specified\u0020index.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_Item"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AFirst\u0028\u0029",
             "name": "First",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043F\u0435\u0440\u0432\u0443\u044E\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Retrieves\u0020the\u0020first\u0020item\u0020from\u0020the\u0020data\u0020table.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_First"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003ACacheAll\u0028\u0029",
             "name": "CacheAll",
-            "summary": "\u0421\u043A\u0430\u0447\u0438\u0432\u0430\u0435\u0442\u0020\u0438\u0020\u043A\u044D\u0448\u0438\u0440\u0443\u0435\u0442\u0020\u0432\u0441\u0435",
+            "summary": "Caches\u0020all\u0020data\u0020from\u0020the\u0020data\u0020source.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_CacheAll"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003ACreateEmptyRow\u0028\u0029",
             "name": "CreateEmptyRow",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u043F\u0443\u0441\u0442\u0443\u044E\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Creates\u0020an\u0020empty\u0020row\u0020object\u0020with\u0020optional\u0020initial\u0020data.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_CreateEmptyRow"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003A_getTableEncoding\u0028\u0029",
             "name": "_getTableEncoding",
-            "summary": "\u041F\u043E\u043B\u0443\u0447\u0430\u0435\u043C\u0020\u043A\u043E\u0434\u0438\u0440\u043E\u0432\u043A\u0443\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u044B",
+            "summary": "Retrieves\u0020the\u0020encoding\u0020information\u0020for\u0020a\u0020specified\u0020table.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method__getTableEncoding"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003ASaveRow\u0028\u0029",
             "name": "SaveRow",
-            "summary": "\u0421\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442\u0020\u043F\u0435\u0440\u0435\u0434\u0430\u043D\u043D\u0443\u044E\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u0432\u0020\u0431\u0430\u0437\u0443\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Saves\u0020a\u0020DataRow\u0020to\u0020the\u0020data\u0020source.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_SaveRow"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003ADeleteRow\u0028\u0029",
             "name": "DeleteRow",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Deletes\u0020a\u0020DataRow\u0020from\u0020the\u0020data\u0020source.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_DeleteRow"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003ASet\u0028\u0029",
             "name": "Set",
-            "summary": "\u0423\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u043F\u043E\u0020\u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u043C\u0443\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443\u0020\u0432\u0020\u043A\u044D\u0448",
+            "summary": "Sets\u0020an\u0020data\u0020at\u0020the\u0020specified\u0020index\u0020in\u0020the\u0020data\u0020table\u0020cache.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_Set"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AToArray\u0028\u0029",
             "name": "ToArray",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u0443\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0430",
+            "summary": "Converts\u0020the\u0020data\u0020table\u0020to\u0020an\u0020array.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_ToArray"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003ASaveAllRows\u0028\u0029",
             "name": "SaveAllRows",
-            "summary": "\u0421\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u0443",
+            "summary": "Saves\u0020all\u0020DataRow\u0020objects\u0020in\u0020the\u0020data\u0020table\u0020to\u0020the\u0020data\u0020source.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_SaveAllRows"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003ADeleteAllRows\u0028\u0029",
             "name": "DeleteAllRows",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u0443",
+            "summary": "Deletes\u0020all\u0020rows\u0020from\u0020the\u0020data\u0020source.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_DeleteAllRows"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AClear\u0028\u0029",
             "name": "Clear",
-            "summary": "\u041E\u0447\u0438\u0449\u0430\u0435\u0442\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u0443",
+            "summary": "Clears\u0020the\u0020data\u0020table,\u0020removing\u0020all\u0020elements.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_Clear"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AoffsetSet\u0028\u0029",
             "name": "offsetSet",
-            "summary": "\u0423\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442\u0020\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Sets\u0020a\u0020value\u0020by\u0020index.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_offsetSet"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AoffsetExists\u0028\u0029",
             "name": "offsetExists",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u0435\u0441\u0442\u044C\u0020\u043B\u0438\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Checks\u0020if\u0020data\u0020exists\u0020at\u0020the\u0020specified\u0020index.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_offsetExists"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AoffsetUnset\u0028\u0029",
             "name": "offsetUnset",
-            "summary": "\u0443\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Removes\u0020data\u0020at\u0020the\u0020specified\u0020index.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_offsetUnset"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003AoffsetGet\u0028\u0029",
             "name": "offsetGet",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Retrieves\u0020the\u0020value\u0020at\u0020the\u0020specified\u0020index.",
             "url": "classes/Colibri-Data-Models-DataTable.html#method_offsetGet"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003A\u0024_point",
             "name": "_point",
-            "summary": "\u0422\u043E\u0447\u043A\u0430\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Data\u0020access\u0020point",
             "url": "classes/Colibri-Data-Models-DataTable.html#property__point"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003A\u0024_reader",
             "name": "_reader",
-            "summary": "\u0420\u0438\u0434\u0435\u0440",
+            "summary": "DataReader",
             "url": "classes/Colibri-Data-Models-DataTable.html#property__reader"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003A\u0024_cache",
             "name": "_cache",
-            "summary": "\u041A\u044D\u0448\u0020\u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u043D\u044B\u0445\u0020\u0441\u0442\u0440\u043E\u043A",
+            "summary": "List\u0020of\u0020loaded\u0020rows",
             "url": "classes/Colibri-Data-Models-DataTable.html#property__cache"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTable\u003A\u003A\u0024_returnAs",
             "name": "_returnAs",
-            "summary": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u0020\u043A\u043B\u0430\u0441\u0441\u0430\u0020\u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0438\u044F\u0020\u0441\u0442\u0440\u043E\u043A",
+            "summary": "Rows\u0020class\u0020name",
             "url": "classes/Colibri-Data-Models-DataTable.html#property__returnAs"
         },                {
             "fqsen": "\\Colibri\\Data\\Models\\DataTableIterator",

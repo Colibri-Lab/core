@@ -4,7 +4,7 @@
  * Models
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2019 ColibriLab
  * @package Colibri\Data\Models
  */
 
@@ -23,54 +23,53 @@ use Countable;
 use Colibri\Collections\IArrayList;
 
 /**
- * Представление таблицы данных
+ * Represents a data table providing functionalities like counting, array access, and iteration.
  *
- * @property-read boolean $hasrows
- * @property-read integer $count
- * @property-read integer $affected
- * @property-read integer $loaded
- * @method mixed methodName()
- * @testFunction testDataTable
+ * This class implements Countable, ArrayAccess, and \IteratorAggregate interfaces to provide
+ * various data manipulation capabilities.
  */
 class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 {
     /**
-     * Точка доступа
+     * Data access point
      *
      * @var DataAccessPoint
      */
     protected ?DataAccessPoint $_point = null;
 
     /**
-     * Ридер
+     * DataReader
      *
      * @var IDataReader
      */
     protected ?IDataReader $_reader = null;
 
     /**
-     * Кэш загруженных строк
+     * List of loaded rows
      *
      * @var ArrayList
      */
     protected ?ArrayList $_cache = null;
 
     /**
-     * Название класса представления строк
+     * Rows class name
      *
      * @var string
      */
     protected ?string $_returnAs = null;
 
     /**
-     * Конструктор
+     * Constructor
      *
      * @param DataAccessPoint $point
      * @param IDataReader $reader
      * @param string $returnAs
      */
-    public function __construct(DataAccessPoint $point, IDataReader $reader = null, string $returnAs = 'Colibri\\Data\\Models\\DataRow')
-    {
+    public function __construct(
+        DataAccessPoint $point,
+        IDataReader $reader = null,
+        string $returnAs = 'Colibri\\Data\\Models\\DataRow'
+    ) {
         $this->_point = $point;
         $this->_reader = $reader;
         $this->_cache = new ArrayList();
@@ -78,15 +77,16 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Статический конструктор
+     * Static constructor
      *
      * @param DataAccessPoint|string $point
      * @param string $returnAs
      * @return DataTable
-     * @testFunction testDataTableCreate
      */
-    public static function Create(DataAccessPoint|string $point, string $returnAs = 'Colibri\\Data\\Models\\DataRow'): DataTable
-    {
+    public static function Create(
+        DataAccessPoint|string $point,
+        string $returnAs = 'Colibri\\Data\\Models\\DataRow'
+    ): DataTable {
         if (is_string($point)) {
             $point = App::$dataAccessPoints->Get($point);
         }
@@ -94,10 +94,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Возвращает итератор
+     * Returns iterator 
      *
      * @return DataTableIterator
-     * @testFunction testDataTableGetIterator
      */
     public function getIterator(): DataTableIterator
     {
@@ -105,14 +104,13 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Загружает данные из запроса или таблицы
+     * Executes a query to load data into the DataTable.
      *
-     * @param string $query название таблицы или запрос
-     * @param array $params
-     * @return DataTable
-     * @testFunction testDataTableLoad
+     * @param string $query The SQL query to execute.
+     * @param array $params (optional) An associative array of parameters to bind to the query. Default is an empty array.
+     * @return self
      */
-    public function Load(string $query, array $params = [])
+    public function Load(string $query, array $params = []): self
     {
         $params = (object) $params;
 
@@ -148,10 +146,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Возвращает количество строк
+     * Gets the number of rows in the DataTable.
      *
-     * @return int
-     * @testFunction testDataTableCount
+     * @return int The number of rows in the DataTable.
      */
     public function Count(): int
     {
@@ -159,10 +156,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Возвращает общее количество строк
+     * Gets the number of affected rows by the last database operation.
      *
-     * @return int
-     * @testFunction testDataTableAffected
+     * @return int|null The number of affected rows, or null if not available.
      */
     public function Affected(): ?int
     {
@@ -170,10 +166,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Возвращает наличие строк
+     * Checks if the DataTable has any rows.
      *
-     * @return boolean
-     * @testFunction testDataTableHasRows
+     * @return bool True if the DataTable has rows, false otherwise.
      */
     public function HasRows(): bool
     {
@@ -181,10 +176,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Список полей
+     * Retrieves the field names of the DataTable.
      *
-     * @return array
-     * @testFunction testDataTableFields
+     * @return array An array containing the field names of the DataTable.
      */
     public function Fields(): array
     {
@@ -192,10 +186,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Возвращает точку доступа
+     * Retrieves the data access point associated with the DataTable.
      *
-     * @return DataAccessPoint|null
-     * @testFunction testDataTablePoint
+     * @return DataAccessPoint|null The data access point associated with the DataTable, or null if not set.
      */
     public function Point(): ?DataAccessPoint
     {
@@ -203,11 +196,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Создает обьект данных представления строки
+     * Creates a DataRow object based on the given result.
      *
-     * @param mixed $result
-     * @return mixed
-     * @testFunction testDataTable_createDataRowObject
+     * @param mixed $result The result data to create a DataRow object from.
+     * @return mixed A DataRow object created from the given result, or null if creation fails.
      */
     protected function _createDataRowObject(mixed $result): mixed
     {
@@ -226,10 +218,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Считывает еще одну строку из источника
+     * Reads data from a data source.
      *
-     * @return mixed
-     * @testFunction testDataTable_read
+     * @return mixed The data read from the data source, or null if reading fails.
      */
     protected function _read(): mixed
     {
@@ -239,11 +230,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Считывает строки до указнного индекса
+     * Reads data from a data source up to a specified index.
      *
-     * @param integer $index
-     * @return mixed
-     * @testFunction testDataTable_readTo
+     * @param int $index The index up to which data should be read.
+     * @return mixed The data read from the data source up to the specified index, or null if reading fails.
      */
     protected function _readTo(int $index): mixed
     {
@@ -254,11 +244,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Возвращает строку по выбранному индексу
+     * Retrieves an item from the data source at the specified index.
      *
-     * @param integer $index
-     * @return mixed
-     * @testFunction testDataTableItem
+     * @param int $index The index of the item to retrieve.
+     * @return mixed The item at the specified index, or null if the index is out of range.
      */
     public function Item(int $index): mixed
     {
@@ -270,10 +259,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Возвращает первую строку
+     * Retrieves the first item from the data table.
      *
-     * @return mixed
-     * @testFunction testDataTableFirst
+     * @return mixed The first item from the data table, or null if the collection is empty.
      */
     public function First(): mixed
     {
@@ -281,11 +269,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Скачивает и кэширует все
+     * Caches all data from the data source.
      *
-     * @param boolean $closeReader
-     * @return mixed
-     * @testFunction testDataTableCacheAll
+     * @param bool $closeReader (optional) Whether to close the reader after caching. Default is true.
+     * @return mixed The cached data, or null if caching fails.
      */
     public function CacheAll(bool $closeReader = true): mixed
     {
@@ -297,12 +284,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Создает пустую строку
+     * Creates an empty row object with optional initial data.
      *
-     * @param object|array $data данные строки
-     *
-     * @return mixed
-     * @testFunction testDataTableCreateEmptyRow
+     * @param object|array $data (optional) Initial data to populate the row object. Default is an empty array.
+     * @return mixed The created empty row object, or null if creation fails.
      */
     public function CreateEmptyRow(object|array $data = []): mixed
     {
@@ -310,10 +295,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Получаем кодировку таблицы
-     * @param string $table название таблицы, без схемы
-     * @return object encoding, collation - кодировка и коллейшен
-     * @testFunction testDataTable_getTableEncoding
+     * Retrieves the encoding information for a specified table.
+     *
+     * @param string $table The name of the table to retrieve encoding information for.
+     * @return object An object containing encoding information for the specified table.
      */
     private function _getTableEncoding(string $table): object
     {
@@ -329,12 +314,13 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Сохраняет переданную строку в базу данных
-     * @param DataRow $row строка для сохранения
-     * @param string|null $idField поле для автоинкремента, если сложный запрос
-     * @return QueryInfo|bool
-     * @throws DataModelException
-     * @testFunction testDataTableSaveRow
+     * Saves a DataRow to the data source.
+     *
+     * @param DataRow $row The DataRow object to be saved.
+     * @param string|null $idField (optional) The name of the field representing the primary key. Default is null.
+     * @param bool|null $convert (optional) Whether to convert data before saving. Default is true.
+     * @return QueryInfo|bool A QueryInfo object containing information about the executed query, 
+     *                        or boolean true if successful, false otherwise.
      */
     public function SaveRow(DataRow $row, ?string $idField = null, ?bool $convert = true): QueryInfo|bool
     {
@@ -426,10 +412,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Удаляет строку
-     * @param DataRow $row строка
-     * @return QueryInfo
-     * @testFunction testDataTableDeleteRow
+     * Deletes a DataRow from the data source.
+     *
+     * @param DataRow $row The DataRow object to be deleted.
+     * @return QueryInfo A QueryInfo object containing information about the executed delete query.
      */
     public function DeleteRow(DataRow $row): QueryInfo
     {
@@ -464,12 +450,11 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Устанавливает строку по выбранному индексу в кэш
+     * Sets an data at the specified index in the data table cache.
      *
-     * @param integer $index
-     * @param ExtendedObject $data
+     * @param int $index The index at which to set the data.
+     * @param ExtendedObject $data The data to set.
      * @return void
-     * @testFunction testDataTableSet
      */
     public function Set(int $index, ExtendedObject $data): void
     {
@@ -477,11 +462,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Возвращает таблицу в виде массива
+     * Converts the data table to an array.
      *
-     * @param boolean $noPrefix
-     * @return array
-     * @testFunction testDataTableToArray
+     * @param bool $noPrefix (optional) Whether to exclude the prefix from keys. Default is false.
+     * @return array An array representation of the collection.
      */
     public function ToArray(bool $noPrefix = false): array
     {
@@ -493,10 +477,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Сохраняет таблицу
+     * Saves all DataRow objects in the data table to the data source.
      *
      * @return void
-     * @testFunction testDataTableSaveAllRows
      */
     public function SaveAllRows(): void
     {
@@ -506,10 +489,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Удаляет таблицу
+     * Deletes all rows from the data source.
      *
      * @return void
-     * @testFunction testDataTableDeleteAllRows
      */
     public function DeleteAllRows(): void
     {
@@ -519,9 +501,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Очищает таблицу
+     * Clears the data table, removing all elements.
+     *
      * @return void
-     * @testFunction testDataTableClear
      */
     public function Clear(): void
     {
@@ -540,11 +522,10 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Устанавливает значение по индексу
-     * @param int $offset
-     * @param DataRow $value
+     * Sets a value by index.
+     * @param int $offset The index to set the value.
+     * @param DataRow $value The value to set.
      * @return void
-     * @testFunction testDataTableOffsetSet
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -556,9 +537,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Проверяет есть ли данные по индексу
-     * @param int $offset
-     * @return bool
+     * Checks if data exists at the specified index.
+     * @param int $offset The index to check for data.
+     * @return bool True if data exists at the index, false otherwise.
      */
     public function offsetExists(mixed $offset): bool
     {
@@ -566,10 +547,9 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * удаляет данные по индексу
-     * @param int $offset
+     * Removes data at the specified index.
+     * @param int $offset The index of the data to remove.
      * @return void
-     * @testFunction testDataTableOffsetUnset
      */
     public function offsetUnset(mixed $offset): void
     {
@@ -577,14 +557,13 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Возвращает значение по индексу
-     *
-     * @param int $offset
-     * @return DataRow
-     * @testFunction testDataTableOffsetGet
+     * Retrieves the value at the specified index.
+     * @param int $offset The index of the value to retrieve.
+     * @return DataRow The value at the specified index.
      */
     public function offsetGet(mixed $offset): mixed
     {
         return $this->Item($offset);
     }
+    
 }

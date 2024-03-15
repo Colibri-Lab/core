@@ -289,57 +289,33 @@
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/Colibri-Data-Models-DataTable.html#property_affected">$affected</a>
-    <span>
-                        &nbsp;: int            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/Colibri-Data-Models-DataTable.html#property_count">$count</a>
-    <span>
-                        &nbsp;: int            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/Colibri-Data-Models-DataTable.html#property_hasrows">$hasrows</a>
-    <span>
-                        &nbsp;: bool            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/Colibri-Data-Models-DataTable.html#property_loaded">$loaded</a>
-    <span>
-                        &nbsp;: int            </span>
-</dt>
-
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Data-Models-DataTable.html#property__cache">$_cache</a>
     <span>
                         &nbsp;: <a href="classes/Colibri-Collections-ArrayList.html"><abbr title="\Colibri\Collections\ArrayList">ArrayList</abbr></a>            </span>
 </dt>
-<dd>Кэш загруженных строк</dd>
+<dd>List of loaded rows</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Data-Models-DataTable.html#property__point">$_point</a>
     <span>
                         &nbsp;: <a href="classes/Colibri-Data-DataAccessPoint.html"><abbr title="\Colibri\Data\DataAccessPoint">DataAccessPoint</abbr></a>            </span>
 </dt>
-<dd>Точка доступа</dd>
+<dd>Data access point</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Data-Models-DataTable.html#property__reader">$_reader</a>
     <span>
                         &nbsp;: <a href="classes/Colibri-Data-SqlClient-IDataReader.html"><abbr title="\Colibri\Data\SqlClient\IDataReader">IDataReader</abbr></a>            </span>
 </dt>
-<dd>Ридер</dd>
+<dd>DataReader</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Data-Models-DataTable.html#property__returnAs">$_returnAs</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Название класса представления строк</dd>
+<dd>Rows class name</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#property__returnAsExtended">$_returnAsExtended</a>
@@ -372,58 +348,58 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_Affected">Affected()</a>
     <span>
-                                &nbsp;: int    </span>
+                                &nbsp;: int|null    </span>
 </dt>
-<dd>Возвращает общее количество строк</dd>
+<dd>Gets the number of affected rows by the last database operation.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_CacheAll">CacheAll()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Скачивает и кэширует все</dd>
+<dd>Caches all data from the data source.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_Clear">Clear()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Очищает таблицу</dd>
+<dd>Clears the data table, removing all elements.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_Count">Count()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd>Возвращает количество строк</dd>
+<dd>Gets the number of rows in the DataTable.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_Create">Create()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-Models-DataTable.html"><abbr title="\Colibri\Data\Models\DataTable">DataTable</abbr></a>    </span>
 </dt>
-<dd>Статический конструктор</dd>
+<dd>Static constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_CreateEmptyRow">CreateEmptyRow()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Создает пустую строку</dd>
+<dd>Creates an empty row object with optional initial data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_DeleteAllRows">DeleteAllRows()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Удаляет таблицу</dd>
+<dd>Deletes all rows from the data source.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_DeleteRow">DeleteRow()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a>    </span>
 </dt>
-<dd>Удаляет строку</dd>
+<dd>Deletes a DataRow from the data source.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_ExportCSV">ExportCSV()</a>
@@ -451,14 +427,14 @@
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Список полей</dd>
+<dd>Retrieves the field names of the DataTable.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_First">First()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Возвращает первую строку</dd>
+<dd>Retrieves the first item from the data table.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_getIterator">getIterator()</a>
@@ -472,7 +448,7 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Возвращает наличие строк</dd>
+<dd>Checks if the DataTable has any rows.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_ImportCSV">ImportCSV()</a>
@@ -493,14 +469,14 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Возвращает строку по выбранному индексу</dd>
+<dd>Retrieves an item from the data source at the specified index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_Load">Load()</a>
     <span>
-                                &nbsp;: <a href="classes/Colibri-Data-Models-DataTable.html"><abbr title="\Colibri\Data\Models\DataTable">DataTable</abbr></a>    </span>
+                                &nbsp;: self    </span>
 </dt>
-<dd>Загружает данные из запроса или таблицы</dd>
+<dd>Executes a query to load data into the DataTable.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_LoadByQuery">LoadByQuery()</a>
@@ -509,52 +485,46 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Colibri-Data-Models-DataTable.html#method_methodName">methodName()</a>
-    <span>
-                                &nbsp;: mixed    </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_offsetExists">offsetExists()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Проверяет есть ли данные по индексу</dd>
+<dd>Checks if data exists at the specified index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_offsetGet">offsetGet()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-Models-DataRow.html"><abbr title="\Colibri\Data\Models\DataRow">DataRow</abbr></a>    </span>
 </dt>
-<dd>Возвращает значение по индексу</dd>
+<dd>Retrieves the value at the specified index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_offsetSet">offsetSet()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Устанавливает значение по индексу</dd>
+<dd>Sets a value by index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_offsetUnset">offsetUnset()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>удаляет данные по индексу</dd>
+<dd>Removes data at the specified index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_Point">Point()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-DataAccessPoint.html"><abbr title="\Colibri\Data\DataAccessPoint">DataAccessPoint</abbr></a>|null    </span>
 </dt>
-<dd>Возвращает точку доступа</dd>
+<dd>Retrieves the data access point associated with the DataTable.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataTable.html#method_SaveAllRows">SaveAllRows()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Сохраняет таблицу</dd>
+<dd>Saves all DataRow objects in the data table to the data source.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_SaveRow">SaveRow()</a>
@@ -568,7 +538,7 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Устанавливает строку по выбранному индексу в кэш</dd>
+<dd>Sets an data at the specified index in the data table cache.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_Storage">Storage()</a>
@@ -582,7 +552,7 @@
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Возвращает таблицу в виде массива</dd>
+<dd>Converts the data table to an array.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__createDataRowObject">_createDataRowObject()</a>
@@ -608,14 +578,14 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Считывает еще одну строку из источника</dd>
+<dd>Reads data from a data source.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/Colibri-Data-Models-DataTable.html#method__readTo">_readTo()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Считывает строки до указнного индекса</dd>
+<dd>Reads data from a data source up to a specified index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_DeleteByFilter">DeleteByFilter()</a>
@@ -634,7 +604,7 @@
     <span>
                                 &nbsp;: object    </span>
 </dt>
-<dd>Получаем кодировку таблицы</dd>
+<dd>Retrieves the encoding information for a specified table.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__replaceFields">_replaceFields()</a>
@@ -660,138 +630,6 @@
         class="
             phpdocumentor-element
             -property
-            -public
-                                                -read-only        "
->
-    <h4 class="phpdocumentor-element__name" id="property_affected">
-        $affected
-        <a href="classes/Colibri-Data-Models-DataTable.html#property_affected" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                        <small class="phpdocumentor-element__modifier">read-only</small>        </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">0</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int</span>
-    <span class="phpdocumentor-signature__name">$affected</span>
-    </code>
-
-    
-    
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-                                                -read-only        "
->
-    <h4 class="phpdocumentor-element__name" id="property_count">
-        $count
-        <a href="classes/Colibri-Data-Models-DataTable.html#property_count" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                        <small class="phpdocumentor-element__modifier">read-only</small>        </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">0</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int</span>
-    <span class="phpdocumentor-signature__name">$count</span>
-    </code>
-
-    
-    
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-                                                -read-only        "
->
-    <h4 class="phpdocumentor-element__name" id="property_hasrows">
-        $hasrows
-        <a href="classes/Colibri-Data-Models-DataTable.html#property_hasrows" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                        <small class="phpdocumentor-element__modifier">read-only</small>        </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">0</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">bool</span>
-    <span class="phpdocumentor-signature__name">$hasrows</span>
-    </code>
-
-    
-    
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-                                                -read-only        "
->
-    <h4 class="phpdocumentor-element__name" id="property_loaded">
-        $loaded
-        <a href="classes/Colibri-Data-Models-DataTable.html#property_loaded" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                        <small class="phpdocumentor-element__modifier">read-only</small>        </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">0</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">int</span>
-    <span class="phpdocumentor-signature__name">$loaded</span>
-    </code>
-
-    
-    
-    
-
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
             -protected
                                                         "
 >
@@ -805,11 +643,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Кэш загруженных строк</p>
+        <p class="phpdocumentor-summary">List of loaded rows</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -839,11 +677,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Точка доступа</p>
+        <p class="phpdocumentor-summary">Data access point</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -873,11 +711,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Ридер</p>
+        <p class="phpdocumentor-summary">DataReader</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -907,11 +745,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">63</span>
+    <span class="phpdocumentor-element-found-in__line">59</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Название класса представления строк</p>
+        <p class="phpdocumentor-summary">Rows class name</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -1084,41 +922,29 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">163</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает общее количество строк</p>
+        <p class="phpdocumentor-summary">Gets the number of affected rows by the last database operation.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">Affected</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">Affected</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_Affected#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableAffected</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">int</span>
+        <span class="phpdocumentor-signature__response_type">int|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The number of affected rows, or null if not available.</p>
+</section>
+
             </section>
 
 </article>
@@ -1136,11 +962,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">290</span>
+    <span class="phpdocumentor-element-found-in__line">277</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Скачивает и кэширует все</p>
+        <p class="phpdocumentor-summary">Caches all data from the data source.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1156,29 +982,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>(optional) Whether to close the reader after caching. Default is true.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_CacheAll#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableCacheAll</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The cached data, or null if caching fails.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1194,11 +1014,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">526</span>
+    <span class="phpdocumentor-element-found-in__line">508</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Очищает таблицу</p>
+        <p class="phpdocumentor-summary">Clears the data table, removing all elements.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1209,22 +1029,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_Clear#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableClear</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1242,11 +1046,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">153</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает количество строк</p>
+        <p class="phpdocumentor-summary">Gets the number of rows in the DataTable.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1257,26 +1061,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_Count#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableCount</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The number of rows in the DataTable.</p>
+</section>
+
             </section>
 
 </article>
@@ -1294,11 +1086,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">86</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Статический конструктор</p>
+        <p class="phpdocumentor-summary">Static constructor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1326,22 +1118,6 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_Create#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableCreate</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1363,11 +1139,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">307</span>
+    <span class="phpdocumentor-element-found-in__line">292</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создает пустую строку</p>
+        <p class="phpdocumentor-summary">Creates an empty row object with optional initial data.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1383,31 +1159,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">object|array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>данные строки</p>
+                    <section class="phpdocumentor-description"><p>(optional) Initial data to populate the row object. Default is an empty array.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_CreateEmptyRow#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableCreateEmptyRow</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The created empty row object, or null if creation fails.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1423,11 +1191,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">514</span>
+    <span class="phpdocumentor-element-found-in__line">496</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Удаляет таблицу</p>
+        <p class="phpdocumentor-summary">Deletes all rows from the data source.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1438,22 +1206,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_DeleteAllRows#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableDeleteAllRows</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1471,11 +1223,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">434</span>
+    <span class="phpdocumentor-element-found-in__line">420</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Удаляет строку</p>
+        <p class="phpdocumentor-summary">Deletes a DataRow from the data source.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1491,33 +1243,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Models-DataRow.html"><abbr title="\Colibri\Data\Models\DataRow">DataRow</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>строка</p>
+                    <section class="phpdocumentor-description"><p>The DataRow object to be deleted.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_DeleteRow#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableDeleteRow</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>A QueryInfo object containing information about the executed delete query.</p>
+</section>
+
             </section>
 
 </article>
@@ -1667,11 +1407,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
+    <span class="phpdocumentor-element-found-in__line">183</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Список полей</p>
+        <p class="phpdocumentor-summary">Retrieves the field names of the DataTable.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1682,26 +1422,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_Fields#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableFields</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An array containing the field names of the DataTable.</p>
+</section>
+
             </section>
 
 </article>
@@ -1719,11 +1447,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">278</span>
+    <span class="phpdocumentor-element-found-in__line">266</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает первую строку</p>
+        <p class="phpdocumentor-summary">Retrieves the first item from the data table.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1734,24 +1462,16 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_First#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableFirst</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The first item from the data table, or null if the collection is empty.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1807,11 +1527,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">178</span>
+    <span class="phpdocumentor-element-found-in__line">173</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает наличие строк</p>
+        <p class="phpdocumentor-summary">Checks if the DataTable has any rows.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1822,26 +1542,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_HasRows#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableHasRows</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the DataTable has rows, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -1979,11 +1687,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">263</span>
+    <span class="phpdocumentor-element-found-in__line">252</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает строку по выбранному индексу</p>
+        <p class="phpdocumentor-summary">Retrieves an item from the data source at the specified index.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1999,29 +1707,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The index of the item to retrieve.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_Item#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableItem</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The item at the specified index, or null if the index is out of range.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -2037,15 +1739,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">115</span>
+    <span class="phpdocumentor-element-found-in__line">113</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Загружает данные из запроса или таблицы</p>
+        <p class="phpdocumentor-summary">Executes a query to load data into the DataTable.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">Load</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$query</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-Models-DataTable.html"><abbr title="\Colibri\Data\Models\DataTable">DataTable</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">Load</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$query</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$params</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2057,7 +1759,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>название таблицы или запрос</p>
+                    <section class="phpdocumentor-description"><p>The SQL query to execute.</p>
 </section>
 
             </dd>
@@ -2066,31 +1768,17 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>(optional) An associative array of parameters to bind to the query. Default is an empty array.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_Load#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableLoad</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-Models-DataTable.html"><abbr title="\Colibri\Data\Models\DataTable">DataTable</abbr></a></span>
+        <span class="phpdocumentor-signature__response_type">self</span>
             </section>
 
 </article>
@@ -2159,37 +1847,6 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_methodName">
-        methodName()
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_methodName" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">0</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">methodName</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-    
-    
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method_offsetExists">
         offsetExists()
         <a href="classes/Colibri-Data-Models-DataTable.html#method_offsetExists" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2198,11 +1855,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">563</span>
+    <span class="phpdocumentor-element-found-in__line">544</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Проверяет есть ли данные по индексу</p>
+        <p class="phpdocumentor-summary">Checks if data exists at the specified index.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2218,7 +1875,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The index to check for data.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -2227,6 +1886,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if data exists at the index, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -2244,11 +1907,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">586</span>
+    <span class="phpdocumentor-element-found-in__line">564</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает значение по индексу</p>
+        <p class="phpdocumentor-summary">Retrieves the value at the specified index.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2264,31 +1927,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The index of the value to retrieve.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_offsetGet#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableOffsetGet</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-Models-DataRow.html"><abbr title="\Colibri\Data\Models\DataRow">DataRow</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value at the specified index.</p>
+</section>
+
             </section>
 
 </article>
@@ -2306,11 +1959,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">549</span>
+    <span class="phpdocumentor-element-found-in__line">530</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Устанавливает значение по индексу</p>
+        <p class="phpdocumentor-summary">Sets a value by index.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2326,34 +1979,22 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The index to set the value.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Models-DataRow.html"><abbr title="\Colibri\Data\Models\DataRow">DataRow</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The value to set.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_offsetSet#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableOffsetSet</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -2371,11 +2012,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">574</span>
+    <span class="phpdocumentor-element-found-in__line">554</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">удаляет данные по индексу</p>
+        <p class="phpdocumentor-summary">Removes data at the specified index.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2391,27 +2032,13 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The index of the data to remove.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_offsetUnset#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableOffsetUnset</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -2429,11 +2056,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">200</span>
+    <span class="phpdocumentor-element-found-in__line">193</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает точку доступа</p>
+        <p class="phpdocumentor-summary">Retrieves the data access point associated with the DataTable.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2444,26 +2071,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_Point#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTablePoint</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-DataAccessPoint.html"><abbr title="\Colibri\Data\DataAccessPoint">DataAccessPoint</abbr></a>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The data access point associated with the DataTable, or null if not set.</p>
+</section>
+
             </section>
 
 </article>
@@ -2481,11 +2096,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">501</span>
+    <span class="phpdocumentor-element-found-in__line">484</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Сохраняет таблицу</p>
+        <p class="phpdocumentor-summary">Saves all DataRow objects in the data table to the data source.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2496,22 +2111,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_SaveAllRows#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableSaveAllRows</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -2567,7 +2166,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>(optional) Whether to convert data before saving. Default is true.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -2608,11 +2209,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">474</span>
+    <span class="phpdocumentor-element-found-in__line">459</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Устанавливает строку по выбранному индексу в кэш</p>
+        <p class="phpdocumentor-summary">Sets an data at the specified index in the data table cache.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2628,34 +2229,22 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The index at which to set the data.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The data to set.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_Set#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableSet</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -2709,11 +2298,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">486</span>
+    <span class="phpdocumentor-element-found-in__line">470</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает таблицу в виде массива</p>
+        <p class="phpdocumentor-summary">Converts the data table to an array.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2729,31 +2318,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>(optional) Whether to exclude the prefix from keys. Default is false.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method_ToArray#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTableToArray</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An array representation of the collection.</p>
+</section>
+
             </section>
 
 </article>
@@ -2973,11 +2552,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">234</span>
+    <span class="phpdocumentor-element-found-in__line">225</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Считывает еще одну строку из источника</p>
+        <p class="phpdocumentor-summary">Reads data from a data source.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -2988,24 +2567,16 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method__read#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTable_read</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The data read from the data source, or null if reading fails.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3021,11 +2592,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">248</span>
+    <span class="phpdocumentor-element-found-in__line">238</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Считывает строки до указнного индекса</p>
+        <p class="phpdocumentor-summary">Reads data from a data source up to a specified index.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -3041,29 +2612,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The index up to which data should be read.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method__readTo#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTable_readTo</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The data read from the data source up to the specified index, or null if reading fails.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -3190,11 +2755,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">318</span>
+    <span class="phpdocumentor-element-found-in__line">303</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Получаем кодировку таблицы</p>
+        <p class="phpdocumentor-summary">Retrieves the encoding information for a specified table.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -3210,35 +2775,19 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>название таблицы, без схемы</p>
+                    <section class="phpdocumentor-description"><p>The name of the table to retrieve encoding information for.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataTable.html#method__getTableEncoding#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataTable_getTableEncoding</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">object</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>encoding, collation - кодировка и коллейшен</p>
+                <section class="phpdocumentor-description"><p>An object containing encoding information for the specified table.</p>
 </section>
 
             </section>
@@ -3409,10 +2958,6 @@
                             <li class="phpdocumentor-on-this-page-section__title">Properties</li>
                 <li>
                     <ul class="phpdocumentor-list -clean">
-                                                    <li><a href="classes/Colibri-Data-Models-DataTable.html#property_affected">$affected<a href="classes/Colibri-Data-Storages-Models-DataTable.html"></li>
-                                                    <li><a href="classes/Colibri-Data-Models-DataTable.html#property_count">$count<a href="classes/Colibri-Data-Storages-Models-DataTable.html"></li>
-                                                    <li><a href="classes/Colibri-Data-Models-DataTable.html#property_hasrows">$hasrows<a href="classes/Colibri-Data-Storages-Models-DataTable.html"></li>
-                                                    <li><a href="classes/Colibri-Data-Models-DataTable.html#property_loaded">$loaded<a href="classes/Colibri-Data-Storages-Models-DataTable.html"></li>
                                                     <li><a href="classes/Colibri-Data-Models-DataTable.html#property__cache">$_cache<a href="classes/Colibri-Data-Storages-Models-DataTable.html"></li>
                                                     <li><a href="classes/Colibri-Data-Models-DataTable.html#property__point">$_point<a href="classes/Colibri-Data-Storages-Models-DataTable.html"></li>
                                                     <li><a href="classes/Colibri-Data-Models-DataTable.html#property__reader">$_reader<a href="classes/Colibri-Data-Storages-Models-DataTable.html"></li>
@@ -3446,7 +2991,6 @@
                                             <li><a href="classes/Colibri-Data-Models-DataTable.html#method_Item">Item()</a></li>
                                             <li><a href="classes/Colibri-Data-Models-DataTable.html#method_Load">Load()</a></li>
                                             <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_LoadByQuery">LoadByQuery()</a></li>
-                                            <li><a href="classes/Colibri-Data-Models-DataTable.html#method_methodName">methodName()</a></li>
                                             <li><a href="classes/Colibri-Data-Models-DataTable.html#method_offsetExists">offsetExists()</a></li>
                                             <li><a href="classes/Colibri-Data-Models-DataTable.html#method_offsetGet">offsetGet()</a></li>
                                             <li><a href="classes/Colibri-Data-Models-DataTable.html#method_offsetSet">offsetSet()</a></li>

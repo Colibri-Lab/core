@@ -391,7 +391,7 @@
     <span>
                         &nbsp;: <a href="classes/Colibri-Data-Models-DataTable.html"><abbr title="\Colibri\Data\Models\DataTable">DataTable</abbr></a>            </span>
 </dt>
-<dd>Таблица</dd>
+<dd>Data Table object</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Utils-ExtendedObject.html#property__validationResult">$_validationResult</a>
@@ -473,7 +473,7 @@
     <span>
                                 &nbsp;: <a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a>    </span>
 </dt>
-<dd>Копирует в обьект</dd>
+<dd>Copies data from the current object to an ExtendedObject.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_Count">Count()</a>
@@ -656,6 +656,7 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Retrieves the type of a specific property.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_UpdateOriginal">UpdateOriginal()</a>
@@ -1191,11 +1192,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataRow.php"><a href="files/src-colibri-data-models-datarow.html"><abbr title="src/Colibri/Data/Models/DataRow.php">DataRow.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Таблица</p>
+        <p class="phpdocumentor-summary">Data Table object</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -1651,11 +1652,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataRow.php"><a href="files/src-colibri-data-models-datarow.html"><abbr title="src/Colibri/Data/Models/DataRow.php">DataRow.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">110</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Копирует в обьект</p>
+        <p class="phpdocumentor-summary">Copies data from the current object to an ExtendedObject.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1663,29 +1664,21 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
-    
-    
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-Models-DataRow.html#method_CopyToObject#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataRowCopyToObject</p>
+        <section class="phpdocumentor-description"><p>This method copies relevant data from the current instance to a new instance
+of the ExtendedObject class. It allows you to create a similar object with
+additional functionality provided by ExtendedObject.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+    
+    
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>A new instance of ExtendedObject with copied data.</p>
+</section>
+
             </section>
 
 </article>
@@ -2129,14 +2122,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the property to check for changes.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$convertData</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>(optional) Whether to convert data before comparison. Default is false.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -2865,18 +2862,22 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataRow.php"><a href="files/src-colibri-data-models-datarow.html"><abbr title="src/Colibri/Data/Models/DataRow.php">DataRow.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">101</span>
+    <span class="phpdocumentor-element-found-in__line">125</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Retrieves the type of a specific property.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Type</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method returns the data type associated with the given property name.
+It allows you to determine the expected type of a property within the class.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2884,7 +2885,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the property.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -2893,6 +2896,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The data type (e.g., 'string', 'int', 'bool', etc.) of the property.</p>
+</section>
+
             </section>
 
 </article>
