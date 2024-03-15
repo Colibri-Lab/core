@@ -13,14 +13,14 @@ namespace Colibri\Data\SqlClient;
 
 /**
  * Represents a database command abstraction.
- * 
+ *
  * @property-read string $query The command text.
  * @property-read IConnection|null $connection The database connection associated with the command.
  * @property-read string $type The type of the command (e.g., SELECT, INSERT, UPDATE, DELETE).
  * @property-read int $page The current page number.
  * @property-read int $pagesize The page size for pagination.
  * @property-read array|null $params The parameters for the command.
- * 
+ *
  */
 abstract class Command
 {
@@ -79,7 +79,39 @@ abstract class Command
      */
     public function __get(string $property): mixed
     {
-        // Implementation...
+        $return = null;
+        switch (strtolower($property)) {
+            case 'query':
+            case 'commandtext':
+            case 'text': {
+                    $return = $this->_commandtext;
+                    break;
+                }
+            case 'connection': {
+                    $return = $this->_connection;
+                    break;
+                }
+            case 'type': {
+                    $parts = explode(' ', $this->query);
+                    $return = strtolower($parts[0]);
+                    break;
+                }
+            case 'page': {
+                    $return = $this->_page;
+                    break;
+                }
+            case 'pagesize': {
+                    $return = $this->_pagesize;
+                    break;
+                }
+            case 'params': {
+                    return $this->_params;
+                }
+            default: {
+                    $return = null;
+                }
+        }
+        return $return;
     }
 
     /**
@@ -91,7 +123,31 @@ abstract class Command
      */
     public function __set(string $property, mixed $value): void
     {
-        // Implementation...
+        switch (strtolower($property)) {
+            case 'query':
+            case 'commandtext':
+            case 'text': {
+                    $this->_commandtext = $value;
+                    break;
+                }
+            case 'connection': {
+                    $this->_connection = $value;
+                    break;
+                }
+            case "page": {
+                    $this->_page = $value;
+                    break;
+                }
+            case "pagesize": {
+                    $this->_pagesize = $value;
+                    break;
+                }
+            case 'params': {
+                    $this->_params = $value;
+                    break;
+                }
+            default:
+        }
     }
 
     /**

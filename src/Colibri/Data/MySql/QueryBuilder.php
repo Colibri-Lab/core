@@ -121,7 +121,8 @@ class QueryBuilder implements IQueryBuilder
             }
         }
 
-        return "insert into " . $table . $fields . ' values ' . $values . ' on duplicate key update ' . substr($updateStatement, 1);
+        return "insert into " . $table . $fields . ' values ' . $values .
+            ' on duplicate key update ' . substr($updateStatement, 1);
     }
 
     /**
@@ -131,7 +132,7 @@ class QueryBuilder implements IQueryBuilder
      * @param array|object $data The data to insert in batch.
      * @return string The generated batch INSERT query.
      */
-    public function CreateBatchInsert(string $table, array |object $data)
+    public function CreateBatchInsert(string $table, array |object $data): string
     {
         $keys = array_keys((array) $data[0]);
         $fields = '(`' . implode("`, `", $keys) . '`)';
