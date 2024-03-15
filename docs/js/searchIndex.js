@@ -2208,57 +2208,57 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Command",
             "name": "Command",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0434\u043B\u044F\u0020\u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u044F\u0020\u043A\u043E\u043C\u0430\u043D\u0434\u0020\u0432\u0020\u0442\u043E\u0447\u043A\u0443\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Class\u0020for\u0020executing\u0020commands\u0020at\u0020the\u0020access\u0020point.",
             "url": "classes/Colibri-Data-PgSql-Command.html"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Command\u003A\u003A_prepareStatement\u0028\u0029",
             "name": "_prepareStatement",
-            "summary": "\u041F\u043E\u0434\u0433\u043E\u0442\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0441\u0020\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u0430\u043C\u0438",
+            "summary": "Prepares\u0020the\u0020query\u0020with\u0020parameters.",
             "url": "classes/Colibri-Data-PgSql-Command.html#method__prepareStatement"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Command\u003A\u003AExecuteReader\u0028\u0029",
             "name": "ExecuteReader",
-            "summary": "\u0412\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0438\u0020\u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020IDataReader",
+            "summary": "Executes\u0020a\u0020query\u0020and\u0020returns\u0020an\u0020IDataReader.",
             "url": "classes/Colibri-Data-PgSql-Command.html#method_ExecuteReader"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Command\u003A\u003AExecuteNonQuery\u0028\u0029",
             "name": "ExecuteNonQuery",
-            "summary": "\u0412\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0438\u0020\u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020QueryInfo",
+            "summary": "Executes\u0020a\u0020query\u0020and\u0020returns\u0020a\u0020QueryInfo\u0020object.",
             "url": "classes/Colibri-Data-PgSql-Command.html#method_ExecuteNonQuery"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Command\u003A\u003APrepareQueryString\u0028\u0029",
             "name": "PrepareQueryString",
-            "summary": "\u041F\u043E\u0434\u0433\u043E\u0442\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443,\u0020\u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442\u0020\u043F\u043E\u0441\u0442\u0440\u0430\u043D\u0438\u0447\u043A\u0443\u0020\u0438\u0020\u0432\u0441\u0435,\u0020\u0447\u0442\u043E\u0020\u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0020\u0434\u043B\u044F\u0020\u043A\u043E\u043D\u043A\u0440\u0435\u0442\u043D\u043E\u0433\u043E\u0020\u0434\u0440\u0430\u0439\u0432\u0435\u0440\u0430",
+            "summary": "Prepares\u0020the\u0020query\u0020string\u0020by\u0020adding\u0020pagination\u0020and\u0020other\u0020necessary\u0020modifications\u0020for\u0020the\u0020specific\u0020driver.",
             "url": "classes/Colibri-Data-PgSql-Command.html#method_PrepareQueryString"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Connection",
             "name": "Connection",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F\u0020\u043A\u0020\u0431\u0430\u0437\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0445\u0020MySql",
+            "summary": "Class\u0020for\u0020connecting\u0020to\u0020the\u0020PostgreSql\u0020database.",
             "url": "classes/Colibri-Data-PgSql-Connection.html"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Connection\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442",
+            "summary": "Connection\u0020constructor.",
             "url": "classes/Colibri-Data-PgSql-Connection.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Connection\u003A\u003AOpen\u0028\u0029",
             "name": "Open",
-            "summary": "\u041E\u0442\u043A\u0440\u044B\u0432\u0430\u0435\u0442\u0020\u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F",
+            "summary": "Opens\u0020a\u0020connection\u0020to\u0020the\u0020PostgreSql\u0020database\u0020server.",
             "url": "classes/Colibri-Data-PgSql-Connection.html#method_Open"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Connection\u003A\u003AReopen\u0028\u0029",
             "name": "Reopen",
-            "summary": "\u041F\u0435\u0440\u0435\u043E\u0440\u043A\u0442\u044B\u0432\u0430\u0435\u0442\u0020\u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435",
+            "summary": "Reopens\u0020the\u0020PostgreSql\u0020database\u0020connection.",
             "url": "classes/Colibri-Data-PgSql-Connection.html#method_Reopen"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Connection\u003A\u003AClose\u0028\u0029",
             "name": "Close",
-            "summary": "\u0417\u0430\u043A\u0440\u044B\u0432\u0430\u0435\u0442\u0020\u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435",
+            "summary": "Closes\u0020the\u0020PostgreSql\u0020database\u0020connection.",
             "url": "classes/Colibri-Data-PgSql-Connection.html#method_Close"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Connection\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Magic\u0020getter\u0020method.",
             "url": "classes/Colibri-Data-PgSql-Connection.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Connection\u003A\u003A\u0024_connectioninfo",
@@ -2273,147 +2273,147 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader",
             "name": "DataReader",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0438\u0432\u0430\u044E\u0449\u0438\u0439\u0020\u0440\u0430\u0431\u043E\u0442\u0443\u0020\u0441\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0430\u043C\u0438\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u043E\u0432",
+            "summary": "Class\u0020responsible\u0020for\u0020working\u0020with\u0020query\u0020results.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430",
+            "summary": "Creates\u0020a\u0020new\u0020object.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003A__destruct\u0028\u0029",
             "name": "__destruct",
-            "summary": "\u0417\u0430\u043A\u0440\u044B\u0442\u0438\u0435\u0020\u0440\u0435\u0441\u0443\u0440\u0441\u0430\u0020\u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E",
+            "summary": "Destructor\u0020to\u0020close\u0020the\u0020resource.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#method___destruct"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003AClose\u0028\u0029",
             "name": "Close",
-            "summary": "\u0417\u0430\u043A\u0440\u044B\u0432\u0430\u0435\u0442\u0020\u0440\u0435\u0441\u0443\u0440\u0441",
+            "summary": "Closes\u0020the\u0020query\u0020result\u0020resource.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#method_Close"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003ARead\u0028\u0029",
             "name": "Read",
-            "summary": "\u0421\u0447\u0438\u0442\u0430\u0442\u044C\u0020\u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0443\u044E\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u0432\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0435",
+            "summary": "Reads\u0020the\u0020next\u0020row\u0020from\u0020the\u0020query\u0020result.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#method_Read"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003AFields\u0028\u0029",
             "name": "Fields",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u043F\u043E\u043B\u0435\u0439\u0020\u0432\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0435",
+            "summary": "Retrieves\u0020the\u0020list\u0020of\u0020fields\u0020in\u0020the\u0020query\u0020result.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#method_Fields"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Magic\u0020getter\u0020method\u0020to\u0020retrieve\u0020properties.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003A__set\u0028\u0029",
             "name": "__set",
-            "summary": "",
+            "summary": "Magic\u0020setter\u0020method.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#method___set"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003ACount\u0028\u0029",
             "name": "Count",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E",
+            "summary": "Returns\u0020the\u0020number\u0020of\u0020rows\u0020in\u0020the\u0020result\u0020set.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#method_Count"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003A_type2txt\u0028\u0029",
             "name": "_type2txt",
-            "summary": "\u041A\u043E\u043D\u0432\u0435\u0440\u0442\u0430\u0446\u0438\u044F\u0020\u0442\u0438\u043F\u043E\u0432",
+            "summary": "Converts\u0020the\u0020PostgreSQL\u0020field\u0020type\u0020ID\u0020to\u0020a\u0020readable\u0020string.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#method__type2txt"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003A_flags2txt\u0028\u0029",
             "name": "_flags2txt",
-            "summary": "\u041A\u043E\u043D\u0432\u0435\u0440\u0442\u0430\u0446\u0438\u044F\u0020\u0444\u043B\u0430\u0444\u043E\u0432",
+            "summary": "Converts\u0020the\u0020PostgreSql\u0020field\u0020flags\u0020to\u0020a\u0020readable\u0020string.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#method__flags2txt"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003A\u0024_results",
             "name": "_results",
-            "summary": "\u0420\u0435\u0441\u0443\u0440\u0441\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430",
+            "summary": "Query\u0020result\u0020resource.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#property__results"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003A\u0024_count",
             "name": "_count",
-            "summary": "\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432\u0020\u0432\u0020\u0442\u0435\u043A\u0443\u0449\u0435\u0439\u0020\u0441\u0442\u0440\u043D\u0438\u0446\u0435\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430",
+            "summary": "Number\u0020of\u0020results\u0020in\u0020the\u0020current\u0020query\u0020page.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#property__count"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003A\u0024_affected",
             "name": "_affected",
-            "summary": "\u041E\u0431\u0449\u0435\u0435\u0020\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432\n\u0417\u0430\u043F\u043E\u043B\u043D\u0435\u043D\u043E\u0020\u0442\u043E\u043B\u044C\u043A\u043E\u0020\u0442\u043E\u0433\u0434\u0430\u0020\u043A\u043E\u0433\u0434\u0430\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0020\u0441\u0020\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043E\u043C\u0020info\u003Dtrue\u0020\u0432\u0020ExecuteReader",
+            "summary": "Total\u0020number\u0020of\u0020results.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#property__affected"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\DataReader\u003A\u003A\u0024_preparedQuery",
             "name": "_preparedQuery",
-            "summary": "\u0421\u0442\u0440\u043E\u043A\u0430\u0020\u0437\u0430\u0440\u043F\u043E\u0441\u0430\u0020\u043F\u043E\u0441\u043B\u0435\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0438",
+            "summary": "Query\u0020string\u0020after\u0020processing.",
             "url": "classes/Colibri-Data-PgSql-DataReader.html#property__preparedQuery"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\Exception",
             "name": "Exception",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0438\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F\u0020\u0434\u043B\u044F\u0020\u0434\u0440\u0430\u0439\u0432\u0435\u0440\u0430\u0020MySql",
+            "summary": "Exception\u0020class\u0020for\u0020using\u0020in\u0020PostgreSql\u0020driver",
             "url": "classes/Colibri-Data-PgSql-Exception.html"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder",
             "name": "QueryBuilder",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0433\u0435\u043D\u0435\u0440\u0430\u0442\u043E\u0440\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u043E\u0432\u0020\u0434\u043B\u044F\u0020\u0434\u0440\u0430\u0439\u0432\u0435\u0440\u0430MySql",
+            "summary": "Class\u0020for\u0020generating\u0020queries\u0020for\u0020the\u0020PostgreSql\u0020driver.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateInsert\u0028\u0029",
             "name": "CreateInsert",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0432\u0432\u043E\u0434\u0430\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Creates\u0020an\u0020INSERT\u0020query.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateInsert"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateReplace\u0028\u0029",
             "name": "CreateReplace",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0432\u0432\u043E\u0434\u0430\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Creates\u0020a\u0020REPLACE\u0020INTO\u0020query.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateReplace"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateInsertOrUpdate\u0028\u0029",
             "name": "CreateInsertOrUpdate",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0432\u0432\u043E\u0434\u0430\u0020\u0434\u0430\u043D\u043D\u044B\u0445\u0020\u0438\u043B\u0438\u0020\u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F\u0020\u0432\u0020\u0441\u043B\u0443\u0447\u0430\u0435\u0020\u0434\u0443\u0431\u043B\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F\u0020\u0434\u0430\u043D\u043D\u044B\u0445\u0020\u0432\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u043D\u044B\u0445\u0020\u043F\u043E\u043B\u044F\u0445",
+            "summary": "Creates\u0020an\u0020INSERT\u0020INTO\u0020...\u0020ON\u0020DUPLICATE\u0020KEY\u0020UPDATE\u0020query.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateInsertOrUpdate"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateBatchInsert\u0028\u0029",
             "name": "CreateBatchInsert",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0432\u0432\u043E\u0434\u0430\u0020\u0434\u0430\u043D\u043D\u044B\u0445\u0020\u043F\u0430\u0447\u043A\u043E\u0439",
+            "summary": "Creates\u0020a\u0020batch\u0020INSERT\u0020query.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateBatchInsert"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateUpdate\u0028\u0029",
             "name": "CreateUpdate",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u043D\u0430\u0020\u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Creates\u0020an\u0020UPDATE\u0020query.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateUpdate"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateDelete\u0028\u0029",
             "name": "CreateDelete",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u043D\u0430\u0020\u0443\u0434\u0430\u043B\u0435\u043D\u0438\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Creates\u0020a\u0020DELETE\u0020query.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateDelete"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateShowTables\u0028\u0029",
             "name": "CreateShowTables",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u043D\u0430\u0020\u043F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u0435\u0020\u0441\u043F\u0438\u0441\u043A\u0430\u0020\u0442\u0430\u0431\u043B\u0438\u0446",
+            "summary": "Creates\u0020a\u0020SHOW\u0020TABLES\u0020query.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateShowTables"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateShowField\u0028\u0029",
             "name": "CreateShowField",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u043D\u0430\u0020\u043F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u0435\u0020\u0441\u043F\u0438\u0441\u043A\u0430\u0020\u043F\u043E\u043B\u0435\u0439\u0020\u0432\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u0435",
+            "summary": "Creates\u0020a\u0020SHOW\u0020COLUMNS\u0020FROM\u0020query\u0020for\u0020a\u0020specific\u0020table.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateShowField"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateBegin\u0028\u0029",
             "name": "CreateBegin",
-            "summary": "Creates\u0020an\u0020SQL\u0020BEGIN\u0020transaction\u0020query.",
+            "summary": "Creates\u0020a\u0020BEGIN\u0020transaction\u0020query.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateBegin"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateCommit\u0028\u0029",
             "name": "CreateCommit",
-            "summary": "Creates\u0020an\u0020SQL\u0020COMMIT\u0020transaction\u0020query.",
+            "summary": "Creates\u0020a\u0020COMMIT\u0020transaction\u0020query.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateCommit"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryBuilder\u003A\u003ACreateRollback\u0028\u0029",
             "name": "CreateRollback",
-            "summary": "Creates\u0020an\u0020SQL\u0020ROLLBACK\u0020transaction\u0020query.",
+            "summary": "Creates\u0020a\u0020ROLLBACK\u0020transaction\u0020query.",
             "url": "classes/Colibri-Data-PgSql-QueryBuilder.html#method_CreateRollback"
         },                {
             "fqsen": "\\Colibri\\Data\\PgSql\\QueryInfo",
             "name": "QueryInfo",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0434\u043B\u044F\u0020\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u0432\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430,\u0020\u0435\u0441\u043B\u0438\u0020\u043D\u0435\u0020\u0442\u0440\u0435\u0431\u0443\u0435\u0442\u0441\u044F\u0020\u043F\u043E\u043B\u0443\u0447\u0435\u043D\u0438\u0435\u0020\u0442\u0430\u0431\u043B\u0438\u0447\u043D\u044B\u0445\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Represents\u0020query\u0020information.",
             "url": "classes/Colibri-Data-PgSql-QueryInfo.html"
         },                {
             "fqsen": "\\Colibri\\Data\\SqlClient\\Command",

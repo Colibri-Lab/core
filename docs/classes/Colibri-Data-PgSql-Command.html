@@ -246,8 +246,10 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс для выполнения команд в точку доступа</p>
+            <p class="phpdocumentor-summary">Class for executing commands at the access point.</p>
 
+    <section class="phpdocumentor-description"><p>This class extends SqlCommand and provides methods for preparing and executing queries.</p>
+</section>
 
 
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
@@ -262,15 +264,6 @@
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
                                              
-                                    </dd>
-                                                <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testCommand</p>
-</section>
-
                                     </dd>
                                             </dl>
 
@@ -401,28 +394,28 @@
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a>    </span>
 </dt>
-<dd>Выполняет запрос и возвращает QueryInfo</dd>
+<dd>Executes a query and returns a QueryInfo object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-PgSql-Command.html#method_ExecuteReader">ExecuteReader()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-SqlClient-IDataReader.html"><abbr title="\Colibri\Data\SqlClient\IDataReader">IDataReader</abbr></a>    </span>
 </dt>
-<dd>Выполняет запрос и возвращает IDataReader</dd>
+<dd>Executes a query and returns an IDataReader.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-PgSql-Command.html#method_PrepareQueryString">PrepareQueryString()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Подготавливает строку, добавляет постраничку и все, что необходимо для конкретного драйвера</dd>
+<dd>Prepares the query string by adding pagination and other necessary modifications for the specific driver.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Data-PgSql-Command.html#method__prepareStatement">_prepareStatement()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: string    </span>
 </dt>
-<dd>Подготавливает запрос с параметрами</dd>
+<dd>Prepares the query with parameters.</dd>
 
     </dl>
 
@@ -945,7 +938,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/SqlClient/Command.php"><a href="files/src-colibri-data-sqlclient-command.html"><abbr title="src/Colibri/Data/SqlClient/Command.php">Command.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
@@ -998,11 +991,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/PgSql/Command.php"><a href="files/src-colibri-data-pgsql-command.html"><abbr title="src/Colibri/Data/PgSql/Command.php">Command.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">113</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Выполняет запрос и возвращает QueryInfo</p>
+        <p class="phpdocumentor-summary">Executes a query and returns a QueryInfo object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1018,33 +1011,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>(optional) The returning clause for the query. Default is null.</p>
+                    <section class="phpdocumentor-description"><p>(Optional) The column name to return after executing the query.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-PgSql-Command.html#method_ExecuteNonQuery#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testCommandExecuteNonQuery</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>A QueryInfo object containing information about the executed query.</p>
+</section>
+
             </section>
 
 </article>
@@ -1062,11 +1043,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/PgSql/Command.php"><a href="files/src-colibri-data-pgsql-command.html"><abbr title="src/Colibri/Data/PgSql/Command.php">Command.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Выполняет запрос и возвращает IDataReader</p>
+        <p class="phpdocumentor-summary">Executes a query and returns an IDataReader.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1082,33 +1063,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>выполнить ли запрос на получение переменной affected</p>
+                    <section class="phpdocumentor-description"><p>Whether to execute a query to get the 'affected' variable.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-PgSql-Command.html#method_ExecuteReader#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testCommandExecuteReader</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-SqlClient-IDataReader.html"><abbr title="\Colibri\Data\SqlClient\IDataReader">IDataReader</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An instance of IDataReader containing the query results.</p>
+</section>
+
             </section>
 
 </article>
@@ -1126,11 +1095,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/PgSql/Command.php"><a href="files/src-colibri-data-pgsql-command.html"><abbr title="src/Colibri/Data/PgSql/Command.php">Command.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">135</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Подготавливает строку, добавляет постраничку и все, что необходимо для конкретного драйвера</p>
+        <p class="phpdocumentor-summary">Prepares the query string by adding pagination and other necessary modifications for the specific driver.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1141,26 +1110,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-PgSql-Command.html#method_PrepareQueryString#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testCommandPrepareQueryString</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The prepared query string.</p>
+</section>
+
             </section>
 
 </article>
@@ -1182,11 +1139,11 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Подготавливает запрос с параметрами</p>
+        <p class="phpdocumentor-summary">Prepares the query with parameters.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">_prepareStatement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$query</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">_prepareStatement</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$query</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1198,29 +1155,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The query string with placeholders.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-PgSql-Command.html#method__prepareStatement#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testCommand_prepareStatement</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The prepared query string with parameters replaced.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
             </section>
 
