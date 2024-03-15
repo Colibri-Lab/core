@@ -152,10 +152,6 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Helpers.html" class="">Helpers</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-Utils.html" class="">Utils</a>
                 
             </li>
@@ -239,11 +235,11 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Common/XmlHelper.php"><a href="files/src-colibri-common-xmlhelper.html"><abbr title="src/Colibri/Common/XmlHelper.php">XmlHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Обьект в xml и обратно</p>
+            <p class="phpdocumentor-summary">Convert object to xml and back</p>
 
 
 
@@ -276,20 +272,21 @@
     <span>
                                 &nbsp;: <a href="classes/Colibri-Xml-XmlNode.html"><abbr title="\Colibri\Xml\XmlNode">XmlNode</abbr></a>    </span>
 </dt>
-<dd>Строка в xml</dd>
+<dd>Decodes an XML string into an XmlNode object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Common-XmlHelper.html#method_Encode">Encode()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Обькет в xml</dd>
+<dd>Encodes an object, string, or array into a string representation.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Common-XmlHelper.html#method_ToObject">ToObject()</a>
     <span>
                                 &nbsp;: object|string    </span>
 </dt>
+<dd>Converts an XML string or XmlNode object into an object or string representation.</dd>
 
     </dl>
 
@@ -320,11 +317,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Common/XmlHelper.php"><a href="files/src-colibri-common-xmlhelper.html"><abbr title="src/Colibri/Common/XmlHelper.php">XmlHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">65</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Строка в xml</p>
+        <p class="phpdocumentor-summary">Decodes an XML string into an XmlNode object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -332,7 +329,11 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This function takes an XML string and constructs an XmlNode object representing
+the parsed XML structure. The resulting object can be used to navigate and
+manipulate the XML data.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -340,31 +341,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The XML string to be decoded.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Common-XmlHelper.html#method_Decode#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testXmlHelperDecode</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Xml-XmlNode.html"><abbr title="\Colibri\Xml\XmlNode">XmlNode</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An object representing the parsed XML structure.</p>
+</section>
+
             </section>
 
 </article>
@@ -382,58 +373,54 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Common/XmlHelper.php"><a href="files/src-colibri-common-xmlhelper.html"><abbr title="src/Colibri/Common/XmlHelper.php">XmlHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Обькет в xml</p>
+        <p class="phpdocumentor-summary">Encodes an object, string, or array into a string representation.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Encode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Xml-Serialization-XmlSerialized.html"><abbr title="\Colibri\Xml\Serialization\XmlSerialized">XmlSerialized</abbr></a>|string|object|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$object</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tag</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;object&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Encode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Xml-Serialization-XmlSerialized.html"><abbr title="\Colibri\Xml\Serialization\XmlSerialized">XmlSerialized</abbr></a>|string|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$object</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$tag</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;object&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This function takes an input value (which can be an object, string, or array) and
+converts it into a string representation. The resulting string format may be related
+to XML serialization, as indicated by the optional <code class="prettyprint">$tag</code> parameter.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$object</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Xml-Serialization-XmlSerialized.html"><abbr title="\Colibri\Xml\Serialization\XmlSerialized">XmlSerialized</abbr></a>|string|object|array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Xml-Serialization-XmlSerialized.html"><abbr title="\Colibri\Xml\Serialization\XmlSerialized">XmlSerialized</abbr></a>|string|array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The input value to be encoded.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$tag</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;object&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The optional tag name (default: 'object') for the encoded data.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Common-XmlHelper.html#method_Encode#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testXmlHelperEncode</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The encoded string representation.</p>
+</section>
+
             </section>
 
 </article>
@@ -451,18 +438,24 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Common/XmlHelper.php"><a href="files/src-colibri-common-xmlhelper.html"><abbr title="src/Colibri/Common/XmlHelper.php">XmlHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Converts an XML string or XmlNode object into an object or string representation.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">ToObject</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|<a href="classes/Colibri-Xml-XmlNode.html"><abbr title="\Colibri\Xml\XmlNode">XmlNode</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xml</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object|string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This function takes either an XML string or an XmlNode object and constructs an
+object or string representation based on the input type. If an XmlNode object is
+provided, it is converted to an object. If an XML string is provided, it is returned
+as a string.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -470,7 +463,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string|<a href="classes/Colibri-Xml-XmlNode.html"><abbr title="\Colibri\Xml\XmlNode">XmlNode</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The XML string or XmlNode object to be converted.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -479,6 +474,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">object|string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The resulting object or string representation.</p>
+</section>
+
             </section>
 
 </article>

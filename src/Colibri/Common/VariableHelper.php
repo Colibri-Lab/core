@@ -1,28 +1,27 @@
 <?php
 
 /**
- * Helpers
+ * Common
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Helpers
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Common
  */
-
 namespace Colibri\Common;
 
 use Colibri\App;
 
 /**
- * Обертки на всякие разные функции PHP
+ * Helper class for work with variables
  */
 class VariableHelper
 {
+
     /**
-     * Проверить пустое ли значение в переменной
+     * Checks if a variable is empty.
      *
-     * @param mixed $var
-     * @return boolean
-     * @testFunction testVariableHelperIsEmpty
+     * @param mixed $var The variable to check.
+     * @return bool True if the variable is empty, false otherwise.
      */
     public static function IsEmpty(mixed $var): bool
     {
@@ -34,7 +33,13 @@ class VariableHelper
         return $var === null || $var === "";
     }
 
-    public static function IsObjectFieldsIsEmpty(mixed $object): bool
+    /**
+     * Checks if the fields of an object are empty.
+     *
+     * @param mixed $object The object to check.
+     * @return bool True if all fields are empty, false otherwise.
+     */
+    public static function IsObjectFieldsAreEmpty(mixed $object): bool
     {
         $isEmpty = true;
         if (!is_object($object) && !is_array($object)) {
@@ -42,7 +47,7 @@ class VariableHelper
         }
 
         foreach ((array) $object as $key => $value) {
-            if (!self::IsObjectFieldsIsEmpty($value)) {
+            if (!self::IsObjectFieldsAreEmpty($value)) {
                 $isEmpty = false;
                 break;
             }
@@ -51,11 +56,10 @@ class VariableHelper
     }
 
     /**
-     * Проверка на NULL
+     * Checks if a variable is null.
      *
-     * @param mixed $var
-     * @return boolean
-     * @testFunction testVariableHelperIsNull
+     * @param mixed $var The variable to check.
+     * @return bool True if the variable is null, false otherwise.
      */
     public static function IsNull(mixed $var): bool
     {
@@ -63,11 +67,10 @@ class VariableHelper
     }
 
     /**
-     * Проверить обьект ли в переменной
+     * Checks if a variable is an object.
      *
-     * @param mixed $var
-     * @return boolean
-     * @testFunction testVariableHelperIsObject
+     * @param mixed $var The variable to check.
+     * @return bool True if the variable is an object, false otherwise.
      */
     public static function IsObject(mixed $var): bool
     {
@@ -75,11 +78,10 @@ class VariableHelper
     }
 
     /**
-     * Проверить массив ли в переменной
+     * Checks if a variable is an array.
      *
-     * @param mixed $var
-     * @return boolean
-     * @testFunction testVariableHelperIsArray
+     * @param mixed $var The variable to check.
+     * @return bool True if the variable is an array, false otherwise.
      */
     public static function IsArray(mixed $var): bool
     {
@@ -87,11 +89,10 @@ class VariableHelper
     }
 
     /**
-     * Проверка на true/false
+     * Checks if a variable is a boolean (true or false).
      *
-     * @param mixed $var
-     * @return boolean
-     * @testFunction testVariableHelperIsBool
+     * @param mixed $var The variable to check.
+     * @return bool True if the variable is a boolean, false otherwise.
      */
     public static function IsBool(mixed $var): bool
     {
@@ -99,11 +100,10 @@ class VariableHelper
     }
 
     /**
-     * Проверить не строка ли в переменной
+     * Checks if a variable is a string.
      *
-     * @param mixed $var
-     * @return boolean
-     * @testFunction testVariableHelperIsString
+     * @param mixed $var The variable to check.
+     * @return bool True if the variable is a string, false otherwise.
      */
     public static function IsString(mixed $var): bool
     {
@@ -111,11 +111,10 @@ class VariableHelper
     }
 
     /**
-     * Проверить не число ли в переменной
+     * Checks if a variable is numeric.
      *
-     * @param mixed $var
-     * @return boolean
-     * @testFunction testVariableHelperIsNumeric
+     * @param mixed $var The variable to check.
+     * @return bool True if the variable is numeric, false otherwise.
      */
     public static function IsNumeric(mixed $var): bool
     {
@@ -123,11 +122,10 @@ class VariableHelper
     }
 
     /**
-     * Проверить не дата ли в переменной
+     * Checks if a variable represents a valid date.
      *
-     * @param mixed $var
-     * @return boolean
-     * @testFunction testVariableHelperIsDate
+     * @param mixed $var The variable to check.
+     * @return bool True if the variable represents a valid date, false otherwise.
      */
     public static function IsDate(mixed $var): bool
     {
@@ -143,11 +141,10 @@ class VariableHelper
     }
 
     /**
-     * Проверить не время ли в переменной
+     * Checks if a variable represents a valid time.
      *
-     * @param mixed $value
-     * @return boolean
-     * @testFunction testVariableHelperIsTime
+     * @param mixed $value The variable to check.
+     * @return bool True if the variable represents a valid time, false otherwise.
      */
     public static function IsTime(mixed $value): bool
     {
@@ -162,12 +159,11 @@ class VariableHelper
     }
 
     /**
-     * Изменить регистр значений
+     * Changes the case of array values (keys remain unchanged).
      *
-     * @param array $array
-     * @param int $case
-     * @return array|null
-     * @testFunction testVariableHelperChangeArrayValueCase
+     * @param array $array The input array.
+     * @param int $case The desired case (CASE_LOWER or CASE_UPPER, default is CASE_LOWER).
+     * @return array|null The modified array with value case changed, or null if input is not an array.
      */
     public static function ChangeArrayValueCase(array $array, int $case = CASE_LOWER): ?array
     {
@@ -181,12 +177,11 @@ class VariableHelper
     }
 
     /**
-     * Изменить регистр ключей
+     * Changes the case of array keys.
      *
-     * @param array $array
-     * @param int $case
-     * @return array|null
-     * @testFunction testVariableHelperChangeArrayKeyCase
+     * @param array $array The input array.
+     * @param int $case The desired case (CASE_LOWER or CASE_UPPER, default is CASE_LOWER).
+     * @return array|null The modified array with keys in the specified case, or null if input is not an array.
      */
     public static function ChangeArrayKeyCase(array $array, int $case = CASE_LOWER): ?array
     {
@@ -209,11 +204,10 @@ class VariableHelper
     }
 
     /**
-     * Превратить обьект в массив рекурсивно
+     * Converts an object or an array to an associative array.
      *
-     * @param object|array $object
-     * @return array
-     * @testFunction testVariableHelperObjectToArray
+     * @param object|array $object The object or array to convert.
+     * @return array An associative array representation of the input.
      */
     public static function ObjectToArray(object|array $object): array
     {
@@ -232,11 +226,11 @@ class VariableHelper
     }
 
     /**
-     * Превратить массив в обьект рекурсивно
+     * Converts an array to an object.
      *
-     * @param array|object|string $array
-     * @return object|array|string
-     * @testFunction testVariableHelperArrayToObject
+     * @param array $array The input array to be converted.
+     *
+     * @return mixed The resulting object.
      */
     public static function ArrayToObject(mixed $array): mixed
     {
@@ -265,11 +259,16 @@ class VariableHelper
     }
 
     /**
-     * Проверяет ассоциативный ли массив
+     * Checks if an array is associative.
      *
-     * @param array $array
-     * @return boolean
-     * @testFunction testVariableHelperIsAssociativeArray
+     * An associative array is one where the keys are strings or non-sequential integers.
+     * For example:
+     *   - ['name' => 'John', 'age' => 30] is associative.
+     *   - [0 => 'apple', 1 => 'banana'] is not associative.
+     *
+     * @param array $array The input array to check.
+     *
+     * @return bool Returns true if the array is associative, false otherwise.
      */
     public static function IsAssociativeArray(array $array): bool
     {
@@ -287,12 +286,19 @@ class VariableHelper
     }
 
     /**
-     * Собирает массив в дерево
-     * @param array $array
-     * @param int $parent
-     * @param string $parentName
-     * @param string $childrenName
-     * @return array
+     * Converts a flat array to a tree structure.
+     *
+     * This function takes an input array and organizes it into a hierarchical tree.
+     * Each element in the array represents a node, and the tree is formed based on
+     * parent-child relationships defined by specific keys.
+     *
+     * @param array $array The flat input array to be transformed into a tree.
+     * @param int $parent The default parent ID (usually 0 for the root).
+     * @param string $parentName The key representing the parent ID in the array (default: 'parent').
+     * @param string $childrenName The key to store child nodes (default: 'children').
+     * @param string $keyName The key representing the unique identifier (default: 'id').
+     *
+     * @return array The resulting tree structure.
      */
     public static function ArrayToTree(
         array $array,
@@ -315,6 +321,18 @@ class VariableHelper
         });
     }
 
+    /**
+     * Converts a nested array or object to a flat associative array.
+     *
+     * This function recursively traverses the input array or object and flattens it into
+     * a one-dimensional associative array. Each key in the resulting array represents a
+     * path to the original nested value.
+     *
+     * @param array|object $var The input array or object to be flattened.
+     * @param string $prefix An optional prefix to prepend to each flattened key.
+     *
+     * @return array The resulting flat associative array.
+     */
     public static function ToPlane(array|object $var, string $prefix = ''): array
     {
         $ret = [];
@@ -329,6 +347,18 @@ class VariableHelper
         return $ret;
     }
 
+    /**
+     * Converts a nested array or object to a JSON-like structure with filters.
+     *
+     * This function recursively traverses the input array or object and constructs a
+     * filtered representation suitable for JSON serialization. Filters can be applied
+     * based on specific criteria.
+     *
+     * @param array|object $var The input array or object to be transformed.
+     * @param string $prefix An optional prefix to prepend to each filter key.
+     *
+     * @return array The resulting JSON-like structure with filters.
+     */
     public static function ToJsonFilters(array|object $var, string $prefix = ''): array
     {
 
@@ -356,11 +386,14 @@ class VariableHelper
     }
 
     /**
-     * Превратить текст в 16-ричное представление
+     * Converts binary data to a hexadecimal string.
      *
-     * @param string $data
-     * @return string
-     * @testFunction testVariableHelperBin2Hex
+     * This function takes a binary string as input and returns its hexadecimal representation.
+     * Each byte in the input string corresponds to two hexadecimal characters in the output.
+     *
+     * @param string $data The binary data to be converted.
+     *
+     * @return string The hexadecimal representation of the input data.
      */
     public static function Bin2Hex(string $data): string
     {
@@ -371,11 +404,14 @@ class VariableHelper
     }
 
     /**
-     * Из 16-ричного в обычный текст
+     * Converts a hexadecimal string to its binary representation.
      *
-     * @param string $data
-     * @return string
-     * @testFunction testVariableHelperHex2Bin
+     * This function takes a hexadecimal string as input and returns its binary equivalent.
+     * Each pair of hexadecimal characters corresponds to one byte in the output.
+     *
+     * @param string $data The hexadecimal string to be converted.
+     *
+     * @return string The binary representation of the input hexadecimal data.
      */
     public static function Hex2Bin(string $data): string
     {
@@ -392,11 +428,14 @@ class VariableHelper
     }
 
     /**
-     * Проверить сериализованный ли это обьект
+     * Checks if a string represents serialized data.
      *
-     * @param string $v
-     * @return boolean
-     * @testFunction testVariableHelperIsSerialized
+     * This function determines whether the input string is a valid serialized representation.
+     * It checks if the string can be successfully unserialized using PHP's `unserialize` function.
+     *
+     * @param string $v The input string to check.
+     *
+     * @return bool Returns true if the string is serialized, false otherwise.
      */
     public static function isSerialized(string $v): bool
     {
@@ -420,11 +459,15 @@ class VariableHelper
     }
 
     /**
-     * Сериализовать в строку
+     * Serializes an object or value into a string representation.
      *
-     * @param mixed $obj
-     * @return string
-     * @testFunction testVariableHelperSerialize
+     * This function converts the given object or value into a storable string format.
+     * Serialization is useful for saving data to files, databases, or transmitting it
+     * across different systems.
+     *
+     * @param mixed $obj The object or value to be serialized.
+     *
+     * @return string The serialized representation of the input.
      */
     public static function Serialize(mixed $obj): string
     {
@@ -432,11 +475,16 @@ class VariableHelper
     }
 
     /**
-     * Десериализовать из строки
+     * Unserializes a string representation into a PHP value.
      *
-     * @param string $string
-     * @return mixed
-     * @testFunction testVariableHelperUnserialize
+     * This function takes a serialized string and converts it back into its original
+     * PHP data structure. It reconstructs objects, arrays, and other complex types.
+     *
+     * @param string $string The serialized string to be unserialized.
+     *
+     * @return mixed The unserialized PHP value (bool, int, float, string, array, or object).
+     *
+     * @throws Throwable If unserialization fails due to invalid input or other errors.
      */
     public static function Unserialize(string $string): mixed
     {
@@ -447,13 +495,19 @@ class VariableHelper
     }
 
     /**
-     * Копирует 2 обьекта/массива в один, с заменой существующий значений
-     * Аналог jQuery.extend
+     * Extends or merges two objects or arrays.
      *
-     * @param mixed $o1
-     * @param mixed $o2
-     * @return mixed
-     * @testFunction testVariableHelperExtend
+     * This function combines the properties of two input objects or arrays into a single result.
+     * By default, non-empty values from the second object/array overwrite corresponding values
+     * in the first object/array. You can choose to merge recursively and handle empty values
+     * differently using optional parameters.
+     *
+     * @param mixed $o1 The first object or array to be extended.
+     * @param mixed $o2 The second object or array containing additional properties.
+     * @param bool $recursive Whether to merge recursively (default: false).
+     * @param bool $emptyAsUnset Whether to treat empty values as unset (default: false).
+     *
+     * @return mixed The extended or merged result.
      */
     public static function Extend(mixed $o1, mixed $o2, bool $recursive = false, bool $emptyAsUnset = false): mixed
     {
@@ -481,12 +535,15 @@ class VariableHelper
     }
 
     /**
-     * Проверяет если d=null то возвращает def
+     * Coalesces two values, returning the first non-null value.
      *
-     * @param mixed $d
-     * @param mixed $def
-     * @return mixed
-     * @testFunction testVariableHelperCoalesce
+     * This function takes two input values and returns the first non-null value.
+     * If both values are null, it returns the default value provided as the second argument.
+     *
+     * @param mixed $d The primary value to check.
+     * @param mixed $def The default value to use if $d is null.
+     *
+     * @return mixed The first non-null value or the default value.
      */
     public static function Coalesce(mixed $d, mixed $def): mixed
     {
@@ -497,15 +554,18 @@ class VariableHelper
     }
 
     /**
-     * Собирает массив/обьект в строку
+     * Converts an object or value to a formatted string representation.
      *
-     * @param mixed $object
-     * @param string $spl1
-     * @param string $spl2
-     * @param boolean $quote
-     * @param string $keyPrefix
-     * @return string
-     * @testFunction testVariableHelperToString
+     * This function takes an input object or value and constructs a string representation
+     * using specified separators and formatting options.
+     *
+     * @param mixed $object The object or value to be converted.
+     * @param string $spl1 The primary separator (default: ' ').
+     * @param string $spl2 The secondary separator (default: '=').
+     * @param bool $quote Whether to enclose values in quotes (default: true).
+     * @param string $keyPrefix An optional prefix for keys (default: '').
+     *
+     * @return string The formatted string representation.
      */
     public static function ToString(
         mixed $object,
@@ -538,9 +598,14 @@ class VariableHelper
     }
 
     /**
-     * Возвращает обьект из вывода var_dump
-     * @param string $string
-     * @testFunction testVariableHelperFromPhpArrayOutput
+     * Converts a string containing PHP array data into an actual array.
+     *
+     * This function parses the input string and constructs an associative array based on
+     * the PHP array syntax found in the string.
+     *
+     * @param string $string The input string containing PHP array data.
+     *
+     * @return array The resulting associative array.
      */
     public static function FromPhpArrayOutput(string $string): array
     {
@@ -563,10 +628,13 @@ class VariableHelper
     }
 
     /**
-     * Выполняет сумирование всех элементов массива
-     * @param array $array массив чисел
-     * @return float результат
-     * @testFunction testVariableHelperSum
+     * Calculates the sum of values in an array.
+     *
+     * This function takes an input array and computes the sum of its numeric values.
+     *
+     * @param array $array The input array containing numeric values.
+     *
+     * @return float The total sum of the array values.
      */
     public static function Sum(array $array): float
     {
@@ -576,6 +644,18 @@ class VariableHelper
         return \array_sum($array);
     }
 
+    /**
+     * Checks if two values are similar.
+     *
+     * This function compares the actual value with the expected value and returns true
+     * if they are considered similar. The definition of similarity depends on the context
+     * and specific use case.
+     *
+     * @param mixed $actual The actual value to compare.
+     * @param mixed $expected The expected value for comparison.
+     *
+     * @return bool Returns true if the values are similar, false otherwise.
+     */
     public static function IsSimilar(mixed $actual, mixed $expected): bool
     {
         try {
@@ -602,6 +682,16 @@ class VariableHelper
         }
     }
 
+    /**
+     * Converts a mixed value to an array.
+     *
+     * This function takes a mixed input (which can be an object, scalar, or other type)
+     * and converts it into an array representation.
+     *
+     * @param mixed $object The input value to be converted.
+     *
+     * @return array The resulting array representation.
+     */
     public static function MixedToArray(mixed $object): mixed
     {
         $typeName = gettype($object);
@@ -641,6 +731,18 @@ class VariableHelper
 
     }
 
+    /**
+     * Applies a closure to each element of an input value.
+     *
+     * This function takes an input value (which can be an object, array, or other type)
+     * and applies the provided closure to each element. The result is an array or modified
+     * value based on the closure's transformation.
+     *
+     * @param mixed $object The input value to be mapped.
+     * @param \Closure|null $closure The closure to apply to each element (optional).
+     *
+     * @return mixed The result of applying the closure to each element.
+     */
     public static function Map(mixed $object, ?\Closure $closure): mixed
     {
         if(!$closure) {
@@ -661,6 +763,16 @@ class VariableHelper
 
     }
 
+    /**
+     * Converts a callable to its string representation.
+     *
+     * This function takes a callable (such as a closure or function) and returns its
+     * string representation. The resulting string can be used to identify the callable.
+     *
+     * @param mixed $callable The callable to be converted.
+     *
+     * @return string The string representation of the callable.
+     */
     public static function CallableToString(mixed $callable): string
     {
         $refl = new \ReflectionFunction($callable); // get reflection object
@@ -688,6 +800,18 @@ class VariableHelper
         return implode($dlim, $list);
     }
 
+    /**
+     * Filters an array to keep only unique elements based on a specified property.
+     *
+     * This function takes an input array and removes duplicate elements based on the
+     * value of a specific property (field). The resulting array contains only unique
+     * elements with distinct property values.
+     *
+     * @param array $array The input array to filter.
+     * @param string $field The name of the property to use for uniqueness comparison.
+     *
+     * @return array The filtered array with unique elements based on the specified property.
+     */
     public static function UniqueByProperty(array $array, string $field): array
     {
         $keyMap = [];
@@ -701,6 +825,18 @@ class VariableHelper
         return $newArray;
     }
 
+    /**
+     * Splits an array into parts of a specified length.
+     *
+     * This function divides the input array into smaller arrays (parts) with a maximum
+     * length determined by the second argument. If the array length is not evenly divisible
+     * by the specified part length, the last part may be shorter.
+     *
+     * @param array $array The input array to split.
+     * @param int $partlength The desired length of each part.
+     *
+     * @return array An array of smaller arrays (parts).
+     */
     public static function SplitArrayToParts($array, $partlength): array
     {
         $ret = [];
@@ -710,6 +846,19 @@ class VariableHelper
         return $ret;
     }
 
+    /**
+     * Converts a non-associative array into an associative array using specified keys and values.
+     *
+     * This function takes a non-associative input array and constructs an associative array
+     * where each element is keyed by a specific field (property). Optionally, you can provide
+     * a separate field for the associated values.
+     *
+     * @param array $array The input non-associative array.
+     * @param mixed $fieldKey The field to use as keys for the associative array.
+     * @param mixed|null $fieldValue The field to use as values (optional; defaults to null).
+     *
+     * @return array The resulting associative array.
+     */
     public static function ConvertToAssotiative($array, $fieldKey, $fieldValue = null): array
     {
         $ret = [];

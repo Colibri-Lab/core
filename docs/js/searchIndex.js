@@ -1348,247 +1348,247 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Common\\ValidationHelper",
             "name": "ValidationHelper",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0432\u0430\u043B\u0438\u0434\u0430\u0446\u0438\u0438",
+            "summary": "Validate\u0020data",
             "url": "classes/Colibri-Common-ValidationHelper.html"
         },                {
             "fqsen": "\\Colibri\\Common\\ValidationHelper\u003A\u003AValidateBik\u0028\u0029",
             "name": "ValidateBik",
-            "summary": "",
+            "summary": "Validates\u0020a\u0020Bank\u0020Identifier\u0020Code\u0020\u0028BIK\u0029.",
             "url": "classes/Colibri-Common-ValidationHelper.html#method_ValidateBik"
         },                {
             "fqsen": "\\Colibri\\Common\\ValidationHelper\u003A\u003AValidateInn\u0028\u0029",
             "name": "ValidateInn",
-            "summary": "",
+            "summary": "Validates\u0020an\u0020Individual\u0020Taxpayer\u0020Identification\u0020Number\u0020\u0028INN\u0029.",
             "url": "classes/Colibri-Common-ValidationHelper.html#method_ValidateInn"
         },                {
             "fqsen": "\\Colibri\\Common\\ValidationHelper\u003A\u003AValidateKpp\u0028\u0029",
             "name": "ValidateKpp",
-            "summary": "",
+            "summary": "Validates\u0020a\u0020KPP\u0020\u0028Tax\u0020Registration\u0020Reason\u0020Code\u0029\u0020in\u0020Russia.",
             "url": "classes/Colibri-Common-ValidationHelper.html#method_ValidateKpp"
         },                {
             "fqsen": "\\Colibri\\Common\\ValidationHelper\u003A\u003AValidateKs\u0028\u0029",
             "name": "ValidateKs",
-            "summary": "",
+            "summary": "Validates\u0020a\u0020Control\u0020Account\u0020Number\u0020\u0028KS\u0029\u0020using\u0020the\u0020specified\u0020Bank\u0020Identifier\u0020Code\u0020\u0028BIK\u0029.",
             "url": "classes/Colibri-Common-ValidationHelper.html#method_ValidateKs"
         },                {
             "fqsen": "\\Colibri\\Common\\ValidationHelper\u003A\u003AValidateOgrn\u0028\u0029",
             "name": "ValidateOgrn",
-            "summary": "",
+            "summary": "Validates\u0020an\u0020OGRN\u0020\u0028Primary\u0020State\u0020Registration\u0020Number\u0029\u0020in\u0020Russia.",
             "url": "classes/Colibri-Common-ValidationHelper.html#method_ValidateOgrn"
         },                {
             "fqsen": "\\Colibri\\Common\\ValidationHelper\u003A\u003AValidateOgrnip\u0028\u0029",
             "name": "ValidateOgrnip",
-            "summary": "",
+            "summary": "Validates\u0020an\u0020Individual\u0020Entrepreneur\u0020State\u0020Registration\u0020Number\u0020\u0028OGRNIP\u0029\u0020in\u0020Russia.",
             "url": "classes/Colibri-Common-ValidationHelper.html#method_ValidateOgrnip"
         },                {
             "fqsen": "\\Colibri\\Common\\ValidationHelper\u003A\u003AValidateRs\u0028\u0029",
             "name": "ValidateRs",
-            "summary": "",
+            "summary": "Validates\u0020a\u0020Bank\u0020Account\u0020Number\u0020\u0028RS\u0029\u0020using\u0020the\u0020specified\u0020Bank\u0020Identifier\u0020Code\u0020\u0028BIK\u0029.",
             "url": "classes/Colibri-Common-ValidationHelper.html#method_ValidateRs"
         },                {
             "fqsen": "\\Colibri\\Common\\ValidationHelper\u003A\u003AValidateSnils\u0028\u0029",
             "name": "ValidateSnils",
-            "summary": "",
+            "summary": "Validates\u0020a\u0020Social\u0020Security\u0020Number\u0020\u0028SNILS\u0029\u0020in\u0020Russia.",
             "url": "classes/Colibri-Common-ValidationHelper.html#method_ValidateSnils"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper",
             "name": "VariableHelper",
-            "summary": "\u041E\u0431\u0435\u0440\u0442\u043A\u0438\u0020\u043D\u0430\u0020\u0432\u0441\u044F\u043A\u0438\u0435\u0020\u0440\u0430\u0437\u043D\u044B\u0435\u0020\u0444\u0443\u043D\u043A\u0446\u0438\u0438\u0020PHP",
+            "summary": "Helper\u0020class\u0020for\u0020work\u0020with\u0020variables",
             "url": "classes/Colibri-Common-VariableHelper.html"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsEmpty\u0028\u0029",
             "name": "IsEmpty",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C\u0020\u043F\u0443\u0441\u0442\u043E\u0435\u0020\u043B\u0438\u0020\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435\u0020\u0432\u0020\u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0439",
+            "summary": "Checks\u0020if\u0020a\u0020variable\u0020is\u0020empty.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsEmpty"
         },                {
-            "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsObjectFieldsIsEmpty\u0028\u0029",
-            "name": "IsObjectFieldsIsEmpty",
-            "summary": "",
-            "url": "classes/Colibri-Common-VariableHelper.html#method_IsObjectFieldsIsEmpty"
+            "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsObjectFieldsAreEmpty\u0028\u0029",
+            "name": "IsObjectFieldsAreEmpty",
+            "summary": "Checks\u0020if\u0020the\u0020fields\u0020of\u0020an\u0020object\u0020are\u0020empty.",
+            "url": "classes/Colibri-Common-VariableHelper.html#method_IsObjectFieldsAreEmpty"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsNull\u0028\u0029",
             "name": "IsNull",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430\u0020\u043D\u0430\u0020NULL",
+            "summary": "Checks\u0020if\u0020a\u0020variable\u0020is\u0020null.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsNull"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsObject\u0028\u0029",
             "name": "IsObject",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u043B\u0438\u0020\u0432\u0020\u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0439",
+            "summary": "Checks\u0020if\u0020a\u0020variable\u0020is\u0020an\u0020object.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsObject"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsArray\u0028\u0029",
             "name": "IsArray",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0020\u043B\u0438\u0020\u0432\u0020\u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0439",
+            "summary": "Checks\u0020if\u0020a\u0020variable\u0020is\u0020an\u0020array.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsArray"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsBool\u0028\u0029",
             "name": "IsBool",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u043A\u0430\u0020\u043D\u0430\u0020true\/false",
+            "summary": "Checks\u0020if\u0020a\u0020variable\u0020is\u0020a\u0020boolean\u0020\u0028true\u0020or\u0020false\u0029.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsBool"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsString\u0028\u0029",
             "name": "IsString",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C\u0020\u043D\u0435\u0020\u0441\u0442\u0440\u043E\u043A\u0430\u0020\u043B\u0438\u0020\u0432\u0020\u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0439",
+            "summary": "Checks\u0020if\u0020a\u0020variable\u0020is\u0020a\u0020string.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsString"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsNumeric\u0028\u0029",
             "name": "IsNumeric",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C\u0020\u043D\u0435\u0020\u0447\u0438\u0441\u043B\u043E\u0020\u043B\u0438\u0020\u0432\u0020\u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0439",
+            "summary": "Checks\u0020if\u0020a\u0020variable\u0020is\u0020numeric.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsNumeric"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsDate\u0028\u0029",
             "name": "IsDate",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C\u0020\u043D\u0435\u0020\u0434\u0430\u0442\u0430\u0020\u043B\u0438\u0020\u0432\u0020\u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0439",
+            "summary": "Checks\u0020if\u0020a\u0020variable\u0020represents\u0020a\u0020valid\u0020date.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsDate"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsTime\u0028\u0029",
             "name": "IsTime",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C\u0020\u043D\u0435\u0020\u0432\u0440\u0435\u043C\u044F\u0020\u043B\u0438\u0020\u0432\u0020\u043F\u0435\u0440\u0435\u043C\u0435\u043D\u043D\u043E\u0439",
+            "summary": "Checks\u0020if\u0020a\u0020variable\u0020represents\u0020a\u0020valid\u0020time.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsTime"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AChangeArrayValueCase\u0028\u0029",
             "name": "ChangeArrayValueCase",
-            "summary": "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C\u0020\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0020\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0439",
+            "summary": "Changes\u0020the\u0020case\u0020of\u0020array\u0020values\u0020\u0028keys\u0020remain\u0020unchanged\u0029.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_ChangeArrayValueCase"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AChangeArrayKeyCase\u0028\u0029",
             "name": "ChangeArrayKeyCase",
-            "summary": "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C\u0020\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0020\u043A\u043B\u044E\u0447\u0435\u0439",
+            "summary": "Changes\u0020the\u0020case\u0020of\u0020array\u0020keys.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_ChangeArrayKeyCase"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AObjectToArray\u0028\u0029",
             "name": "ObjectToArray",
-            "summary": "\u041F\u0440\u0435\u0432\u0440\u0430\u0442\u0438\u0442\u044C\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u0432\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0020\u0440\u0435\u043A\u0443\u0440\u0441\u0438\u0432\u043D\u043E",
+            "summary": "Converts\u0020an\u0020object\u0020or\u0020an\u0020array\u0020to\u0020an\u0020associative\u0020array.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_ObjectToArray"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AArrayToObject\u0028\u0029",
             "name": "ArrayToObject",
-            "summary": "\u041F\u0440\u0435\u0432\u0440\u0430\u0442\u0438\u0442\u044C\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0020\u0432\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u0440\u0435\u043A\u0443\u0440\u0441\u0438\u0432\u043D\u043E",
+            "summary": "Converts\u0020an\u0020array\u0020to\u0020an\u0020object.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_ArrayToObject"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsAssociativeArray\u0028\u0029",
             "name": "IsAssociativeArray",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u0430\u0441\u0441\u043E\u0446\u0438\u0430\u0442\u0438\u0432\u043D\u044B\u0439\u0020\u043B\u0438\u0020\u043C\u0430\u0441\u0441\u0438\u0432",
+            "summary": "Checks\u0020if\u0020an\u0020array\u0020is\u0020associative.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsAssociativeArray"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AArrayToTree\u0028\u0029",
             "name": "ArrayToTree",
-            "summary": "\u0421\u043E\u0431\u0438\u0440\u0430\u0435\u0442\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0020\u0432\u0020\u0434\u0435\u0440\u0435\u0432\u043E",
+            "summary": "Converts\u0020a\u0020flat\u0020array\u0020to\u0020a\u0020tree\u0020structure.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_ArrayToTree"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AToPlane\u0028\u0029",
             "name": "ToPlane",
-            "summary": "",
+            "summary": "Converts\u0020a\u0020nested\u0020array\u0020or\u0020object\u0020to\u0020a\u0020flat\u0020associative\u0020array.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_ToPlane"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AToJsonFilters\u0028\u0029",
             "name": "ToJsonFilters",
-            "summary": "",
+            "summary": "Converts\u0020a\u0020nested\u0020array\u0020or\u0020object\u0020to\u0020a\u0020JSON\u002Dlike\u0020structure\u0020with\u0020filters.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_ToJsonFilters"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003ABin2Hex\u0028\u0029",
             "name": "Bin2Hex",
-            "summary": "\u041F\u0440\u0435\u0432\u0440\u0430\u0442\u0438\u0442\u044C\u0020\u0442\u0435\u043A\u0441\u0442\u0020\u0432\u002016\u002D\u0440\u0438\u0447\u043D\u043E\u0435\u0020\u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0438\u0435",
+            "summary": "Converts\u0020binary\u0020data\u0020to\u0020a\u0020hexadecimal\u0020string.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_Bin2Hex"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AHex2Bin\u0028\u0029",
             "name": "Hex2Bin",
-            "summary": "\u0418\u0437\u002016\u002D\u0440\u0438\u0447\u043D\u043E\u0433\u043E\u0020\u0432\u0020\u043E\u0431\u044B\u0447\u043D\u044B\u0439\u0020\u0442\u0435\u043A\u0441\u0442",
+            "summary": "Converts\u0020a\u0020hexadecimal\u0020string\u0020to\u0020its\u0020binary\u0020representation.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_Hex2Bin"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AisSerialized\u0028\u0029",
             "name": "isSerialized",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u044C\u0020\u0441\u0435\u0440\u0438\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u044B\u0439\u0020\u043B\u0438\u0020\u044D\u0442\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442",
+            "summary": "Checks\u0020if\u0020a\u0020string\u0020represents\u0020serialized\u0020data.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_isSerialized"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003ASerialize\u0028\u0029",
             "name": "Serialize",
-            "summary": "\u0421\u0435\u0440\u0438\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u0442\u044C\u0020\u0432\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Serializes\u0020an\u0020object\u0020or\u0020value\u0020into\u0020a\u0020string\u0020representation.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_Serialize"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AUnserialize\u0028\u0029",
             "name": "Unserialize",
-            "summary": "\u0414\u0435\u0441\u0435\u0440\u0438\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u0442\u044C\u0020\u0438\u0437\u0020\u0441\u0442\u0440\u043E\u043A\u0438",
+            "summary": "Unserializes\u0020a\u0020string\u0020representation\u0020into\u0020a\u0020PHP\u0020value.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_Unserialize"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AExtend\u0028\u0029",
             "name": "Extend",
-            "summary": "\u041A\u043E\u043F\u0438\u0440\u0443\u0435\u0442\u00202\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430\/\u043C\u0430\u0441\u0441\u0438\u0432\u0430\u0020\u0432\u0020\u043E\u0434\u0438\u043D,\u0020\u0441\u0020\u0437\u0430\u043C\u0435\u043D\u043E\u0439\u0020\u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0438\u0439\u0020\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0439\n\u0410\u043D\u0430\u043B\u043E\u0433\u0020jQuery.extend",
+            "summary": "Extends\u0020or\u0020merges\u0020two\u0020objects\u0020or\u0020arrays.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_Extend"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003ACoalesce\u0028\u0029",
             "name": "Coalesce",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u0435\u0441\u043B\u0438\u0020d\u003Dnull\u0020\u0442\u043E\u0020\u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020def",
+            "summary": "Coalesces\u0020two\u0020values,\u0020returning\u0020the\u0020first\u0020non\u002Dnull\u0020value.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_Coalesce"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AToString\u0028\u0029",
             "name": "ToString",
-            "summary": "\u0421\u043E\u0431\u0438\u0440\u0430\u0435\u0442\u0020\u043C\u0430\u0441\u0441\u0438\u0432\/\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u0432\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Converts\u0020an\u0020object\u0020or\u0020value\u0020to\u0020a\u0020formatted\u0020string\u0020representation.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_ToString"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AFromPhpArrayOutput\u0028\u0029",
             "name": "FromPhpArrayOutput",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u0438\u0437\u0020\u0432\u044B\u0432\u043E\u0434\u0430\u0020var_dump",
+            "summary": "Converts\u0020a\u0020string\u0020containing\u0020PHP\u0020array\u0020data\u0020into\u0020an\u0020actual\u0020array.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_FromPhpArrayOutput"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003ASum\u0028\u0029",
             "name": "Sum",
-            "summary": "\u0412\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442\u0020\u0441\u0443\u043C\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435\u0020\u0432\u0441\u0435\u0445\u0020\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u043E\u0432\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0430",
+            "summary": "Calculates\u0020the\u0020sum\u0020of\u0020values\u0020in\u0020an\u0020array.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_Sum"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AIsSimilar\u0028\u0029",
             "name": "IsSimilar",
-            "summary": "",
+            "summary": "Checks\u0020if\u0020two\u0020values\u0020are\u0020similar.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_IsSimilar"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AMixedToArray\u0028\u0029",
             "name": "MixedToArray",
-            "summary": "",
+            "summary": "Converts\u0020a\u0020mixed\u0020value\u0020to\u0020an\u0020array.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_MixedToArray"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AMap\u0028\u0029",
             "name": "Map",
-            "summary": "",
+            "summary": "Applies\u0020a\u0020closure\u0020to\u0020each\u0020element\u0020of\u0020an\u0020input\u0020value.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_Map"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003ACallableToString\u0028\u0029",
             "name": "CallableToString",
-            "summary": "",
+            "summary": "Converts\u0020a\u0020callable\u0020to\u0020its\u0020string\u0020representation.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_CallableToString"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AUniqueByProperty\u0028\u0029",
             "name": "UniqueByProperty",
-            "summary": "",
+            "summary": "Filters\u0020an\u0020array\u0020to\u0020keep\u0020only\u0020unique\u0020elements\u0020based\u0020on\u0020a\u0020specified\u0020property.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_UniqueByProperty"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003ASplitArrayToParts\u0028\u0029",
             "name": "SplitArrayToParts",
-            "summary": "",
+            "summary": "Splits\u0020an\u0020array\u0020into\u0020parts\u0020of\u0020a\u0020specified\u0020length.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_SplitArrayToParts"
         },                {
             "fqsen": "\\Colibri\\Common\\VariableHelper\u003A\u003AConvertToAssotiative\u0028\u0029",
             "name": "ConvertToAssotiative",
-            "summary": "",
+            "summary": "Converts\u0020a\u0020non\u002Dassociative\u0020array\u0020into\u0020an\u0020associative\u0020array\u0020using\u0020specified\u0020keys\u0020and\u0020values.",
             "url": "classes/Colibri-Common-VariableHelper.html#method_ConvertToAssotiative"
         },                {
             "fqsen": "\\Colibri\\Common\\XmlHelper",
             "name": "XmlHelper",
-            "summary": "\u041E\u0431\u044C\u0435\u043A\u0442\u0020\u0432\u0020xml\u0020\u0438\u0020\u043E\u0431\u0440\u0430\u0442\u043D\u043E",
+            "summary": "Convert\u0020object\u0020to\u0020xml\u0020and\u0020back",
             "url": "classes/Colibri-Common-XmlHelper.html"
         },                {
             "fqsen": "\\Colibri\\Common\\XmlHelper\u003A\u003AEncode\u0028\u0029",
             "name": "Encode",
-            "summary": "\u041E\u0431\u044C\u043A\u0435\u0442\u0020\u0432\u0020xml",
+            "summary": "Encodes\u0020an\u0020object,\u0020string,\u0020or\u0020array\u0020into\u0020a\u0020string\u0020representation.",
             "url": "classes/Colibri-Common-XmlHelper.html#method_Encode"
         },                {
             "fqsen": "\\Colibri\\Common\\XmlHelper\u003A\u003ADecode\u0028\u0029",
             "name": "Decode",
-            "summary": "\u0421\u0442\u0440\u043E\u043A\u0430\u0020\u0432\u0020xml",
+            "summary": "Decodes\u0020an\u0020XML\u0020string\u0020into\u0020an\u0020XmlNode\u0020object.",
             "url": "classes/Colibri-Common-XmlHelper.html#method_Decode"
         },                {
             "fqsen": "\\Colibri\\Common\\XmlHelper\u003A\u003AToObject\u0028\u0029",
             "name": "ToObject",
-            "summary": "",
+            "summary": "Converts\u0020an\u0020XML\u0020string\u0020or\u0020XmlNode\u0020object\u0020into\u0020an\u0020object\u0020or\u0020string\u0020representation.",
             "url": "classes/Colibri-Common-XmlHelper.html#method_ToObject"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint",
