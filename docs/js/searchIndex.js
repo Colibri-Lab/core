@@ -1083,37 +1083,37 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Common\\SmtpHelper",
             "name": "SmtpHelper",
-            "summary": "",
+            "summary": "Smtp\u0020helper",
             "url": "classes/Colibri-Common-SmtpHelper.html"
         },                {
             "fqsen": "\\Colibri\\Common\\SmtpHelper\u003A\u003ASend\u0028\u0029",
             "name": "Send",
-            "summary": "",
+            "summary": "Sends\u0020an\u0020email\u0020with\u0020the\u0020specified\u0020configuration\u0020and\u0020parameters.",
             "url": "classes/Colibri-Common-SmtpHelper.html#method_Send"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper",
             "name": "StringHelper",
-            "summary": "",
+            "summary": "String\u0020helper",
             "url": "classes/Colibri-Common-StringHelper.html"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AToLower\u0028\u0029",
             "name": "ToLower",
-            "summary": "\u0412\u0020\u043F\u0440\u043E\u043F\u0438\u0441\u043D\u044B\u0435",
+            "summary": "Converts\u0020a\u0020given\u0020string\u0020to\u0020lowercase.",
             "url": "classes/Colibri-Common-StringHelper.html#method_ToLower"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AToUpper\u0028\u0029",
             "name": "ToUpper",
-            "summary": "\u0412\u0020\u0437\u0430\u0433\u043B\u0430\u0432\u043D\u044B\u0435",
+            "summary": "Converts\u0020a\u0020given\u0020string\u0020to\u0020uppercase.",
             "url": "classes/Colibri-Common-StringHelper.html#method_ToUpper"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AIsUpper\u0028\u0029",
             "name": "IsUpper",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u043D\u0435\u0020\u0441\u043E\u0441\u0442\u043E\u0438\u0442\u0020\u043B\u0438\u0020\u0442\u0435\u043A\u0441\u0442\u0020\u0442\u043E\u043B\u044C\u043A\u043E\u0020\u0438\u0437\u0020\u0437\u0430\u0433\u043B\u0430\u0432\u043D\u044B\u0445\u0020\u0431\u0443\u043A\u0432",
+            "summary": "Checks\u0020whether\u0020a\u0020given\u0020string\u0020consists\u0020entirely\u0020of\u0020uppercase\u0020letters.",
             "url": "classes/Colibri-Common-StringHelper.html#method_IsUpper"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AIsLower\u0028\u0029",
             "name": "IsLower",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u043D\u0435\u0020\u0441\u043E\u0441\u0442\u043E\u0438\u0442\u0020\u043B\u0438\u0020\u0442\u0435\u043A\u0441\u0442\u0020\u0442\u043E\u043B\u044C\u043A\u043E\u0020\u0438\u0437\u0020\u043F\u0440\u043E\u043F\u0438\u0441\u043D\u044B\u0445\u0020\u0431\u0443\u043A\u0432",
+            "summary": "Checks\u0020whether\u0020a\u0020given\u0020string\u0020consists\u0020entirely\u0020of\u0020lowercase\u0020letters.",
             "url": "classes/Colibri-Common-StringHelper.html#method_IsLower"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AIsJsonString\u0028\u0029",
@@ -1123,187 +1123,187 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AToUpperFirst\u0028\u0029",
             "name": "ToUpperFirst",
-            "summary": "\u041F\u0435\u0440\u0432\u0430\u044F\u0020\u0437\u0430\u0433\u043B\u0430\u0432\u043D\u0430\u044F\u0020\u043E\u0441\u0442\u0430\u043B\u0432\u043D\u044B\u0435\u0020\u043F\u0440\u043E\u043F\u0438\u0441\u043D\u044B\u0435",
+            "summary": "Converts\u0020the\u0020first\u0020character\u0020of\u0020a\u0020given\u0020string\u0020to\u0020uppercase.",
             "url": "classes/Colibri-Common-StringHelper.html#method_ToUpperFirst"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AReplace\u0028\u0029",
             "name": "Replace",
-            "summary": "",
+            "summary": "Replaces\u0020occurrences\u0020of\u0020a\u0020search\u0020string\u0020or\u0020an\u0020array\u0020of\u0020search\u0020strings\u0020with\u0020a\u0020replacement\u0020string\nin\u0020the\u0020given\u0020subject\u0020string\u0020or\u0020array.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Replace"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AToCamelCaseAttr\u0028\u0029",
             "name": "ToCamelCaseAttr",
-            "summary": "\u041F\u0440\u0435\u0432\u0440\u0430\u0442\u0438\u0442\u044C\u0020\u0441\u0442\u0440\u043E\u043A\u0438\u0020\u0438\u0437\u0020\u043F\u0440\u043E\u043F\u0438\u0441\u043D\u044B\u0445\u0020\u0441\u0020\u0442\u0438\u0440\u0435\u0020\u0432\u0020\u043A\u044D\u043C\u0435\u043B\u043A\u0435\u0439\u0441",
+            "summary": "Converts\u0020a\u0020string\u0020to\u0020camelCase\u0020attribute\u0020format.",
             "url": "classes/Colibri-Common-StringHelper.html#method_ToCamelCaseAttr"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AFromCamelCaseAttr\u0028\u0029",
             "name": "FromCamelCaseAttr",
-            "summary": "\u0418\u0437\u0020\u043A\u044D\u043C\u0435\u043B\u0020\u043A\u0435\u0439\u0441\u0430\u0020\u0432\u0020\u043F\u0440\u043E\u043F\u0438\u0441\u043D\u044B\u0435\u0020\u0441\u0020\u0442\u0438\u0440\u0435\u0448\u043A\u0430\u043C\u0438,\u0020\u0434\u043B\u044F\u0020\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u044F\u0020\u0432\u0020\u043A\u0430\u0447\u0435\u0441\u0442\u0432\u0435\u0020\u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0439\u0020\u0430\u0442\u0442\u0440\u0438\u0431\u0443\u0442\u043E\u0432",
+            "summary": "Converts\u0020a\u0020camelCase\u0020attribute\u0020string\u0020to\u0020a\u0020hyphen\u002Dseparated\u0020format.",
             "url": "classes/Colibri-Common-StringHelper.html#method_FromCamelCaseAttr"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AToCamelCaseVar\u0028\u0029",
             "name": "ToCamelCaseVar",
-            "summary": "\u0418\u0437\u0020under_score\u0020\u0432\u0020camelcase",
+            "summary": "Converts\u0020a\u0020string\u0020to\u0020camel\u0020case\u0020from\u0020underscore_case\u0020string",
             "url": "classes/Colibri-Common-StringHelper.html#method_ToCamelCaseVar"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AFromCamelCaseVar\u0028\u0029",
             "name": "FromCamelCaseVar",
-            "summary": "\u0418\u0437\u0020CamelCase\u0020\u0432\u0020under_score",
+            "summary": "Converts\u0020a\u0020camel\u002Dcased\u0020string\u0020to\u0020a\u0020regular\u0020variable\u0020name.",
             "url": "classes/Colibri-Common-StringHelper.html#method_FromCamelCaseVar"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AIsEmail\u0028\u0029",
             "name": "IsEmail",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u043D\u0430\u0020\u0432\u0430\u043B\u0438\u0434\u043D\u043E\u0441\u0442\u044C\u0020\u044D\u043B\u0435\u043A\u0442\u0440\u043E\u043D\u043D\u043E\u0433\u043E\u0020\u0430\u0434\u0440\u0435\u0441\u0430",
+            "summary": "Checks\u0020if\u0020a\u0020string\u0020represents\u0020a\u0020valid\u0020email\u0020address.",
             "url": "classes/Colibri-Common-StringHelper.html#method_IsEmail"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AIsUrl\u0028\u0029",
             "name": "IsUrl",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u043D\u0430\u0020\u0432\u0430\u043B\u0438\u0434\u043D\u043E\u0441\u0442\u044C\u0020URL\u0020\u0430\u0434\u0440\u0435\u0441\u0430",
+            "summary": "Checks\u0020if\u0020a\u0020string\u0020represents\u0020a\u0020valid\u0020URL.",
             "url": "classes/Colibri-Common-StringHelper.html#method_IsUrl"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AEndsWith\u0028\u0029",
             "name": "EndsWith",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u043D\u0435\u0020\u0437\u0430\u043A\u0430\u043D\u0447\u0438\u0432\u0430\u0435\u0442\u0441\u044F\u0020\u043B\u0438\u0020\u0441\u0442\u0440\u043E\u043A\u0430\u0020\u043D\u0430\u0020\u0437\u0430\u0434\u0430\u043D\u043D\u0443\u044E",
+            "summary": "Checks\u0020if\u0020a\u0020string\u0020ends\u0020with\u0020a\u0020specified\u0020suffix.",
             "url": "classes/Colibri-Common-StringHelper.html#method_EndsWith"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AStartsWith\u0028\u0029",
             "name": "StartsWith",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u043D\u0435\u0020\u043D\u0430\u043B\u0438\u043D\u0430\u0435\u0442\u0441\u044F\u0020\u043B\u0438\u0020\u0441\u0442\u0440\u043E\u043A\u0430\u0020\u043D\u0430\u0020\u0437\u0430\u0434\u0430\u043D\u043D\u0443\u044E",
+            "summary": "Checks\u0020if\u0020a\u0020string\u0020starts\u0020with\u0020a\u0020specified\u0020prefix.",
             "url": "classes/Colibri-Common-StringHelper.html#method_StartsWith"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AUrlToNamespace\u0028\u0029",
             "name": "UrlToNamespace",
-            "summary": "\u041F\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020url\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020hyphen\u002Dtext\u0020\u0432\u0020CamelCase\u0020Namespace",
+            "summary": "Converts\u0020a\u0020URL\u0020to\u0020a\u0020corresponding\u0020namespace.",
             "url": "classes/Colibri-Common-StringHelper.html#method_UrlToNamespace"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AAddToQueryString\u0028\u0029",
             "name": "AddToQueryString",
-            "summary": "\u0414\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442\u0020\u0438\u043B\u0438\u0020\u0443\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0447\u0430\u0441\u0442\u044C\u0020\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043E\u0432\u0020\u0432\u0020queryString",
+            "summary": "Adds\u0020query\u0020parameters\u0020to\u0020a\u0020URL.",
             "url": "classes/Colibri-Common-StringHelper.html#method_AddToQueryString"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003ARandomize\u0028\u0029",
             "name": "Randomize",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043F\u0440\u043E\u0438\u0437\u0432\u043E\u043B\u044C\u043D\u0443\u044E\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u0437\u0430\u0434\u0430\u043D\u043D\u043E\u0439\u0020\u0434\u043B\u0438\u043D\u044B",
+            "summary": "Generates\u0020a\u0020random\u0020string\u0020of\u0020a\u0020specified\u0020length.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Randomize"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003APrepareAttribute\u0028\u0029",
             "name": "PrepareAttribute",
-            "summary": "\u041F\u043E\u0434\u0433\u0430\u0442\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442\u0020\u0442\u0435\u043A\u0441\u0442\u0020\u0434\u043B\u044F\u0020\u0432\u043B\u043E\u0436\u0435\u043D\u0438\u044F\u0020\u0432\u0020html\u0020\u0430\u0442\u0442\u0440\u0438\u0431\u0443\u0442",
+            "summary": "Prepares\u0020an\u0020attribute\u0020string\u0020for\u0020use\u0020in\u0020HTML\u0020or\u0020other\u0020contexts.",
             "url": "classes/Colibri-Common-StringHelper.html#method_PrepareAttribute"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AUnescape\u0028\u0029",
             "name": "Unescape",
-            "summary": "Unescape\u002D\u0438\u0434\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Unescapes\u0020special\u0020characters\u0020in\u0020a\u0020string.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Unescape"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AStripHTML\u0028\u0029",
             "name": "StripHTML",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0440\u0430\u0437\u043C\u0435\u0442\u043A\u0443\u0020\u0438\u0437\u0020\u0441\u0442\u0440\u043E\u043A\u0438",
+            "summary": "Strips\u0020HTML\u0020tags\u0020from\u0020a\u0020given\u0020string.",
             "url": "classes/Colibri-Common-StringHelper.html#method_StripHTML"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003ASubstring\u0028\u0029",
             "name": "Substring",
-            "summary": "\u0412\u044B\u0440\u0435\u0437\u0430\u0435\u0442\u0020\u043A\u0443\u0441\u043E\u043A\u0020\u0438\u0437\u0020\u0441\u0442\u0440\u043E\u043A\u0438",
+            "summary": "Extracts\u0020a\u0020substring\u0020from\u0020a\u0020given\u0020string.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Substring"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003ALength\u0028\u0029",
             "name": "Length",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u043B\u0438\u043D\u0443\u0020\u0441\u0442\u0440\u043E\u043A\u0438",
+            "summary": "Calculates\u0020the\u0020length\u0020\u0028number\u0020of\u0020characters\u0029\u0020of\u0020a\u0020given\u0020string.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Length"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AFormatSequence\u0028\u0029",
             "name": "FormatSequence",
-            "summary": "\u0424\u043E\u0440\u043C\u0430\u0442\u0438\u0440\u0443\u0435\u0442\u0020\u0447\u0438\u0441\u043B\u043E\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u0441\u0442\u0440\u043E\u043A\u0438",
+            "summary": "Formats\u0020a\u0020sequence\u0020value\u0020with\u0020appropriate\u0020labels\u0020\u0028e.g.,\u0020years,\u0020months,\u0020etc.\u0029.",
             "url": "classes/Colibri-Common-StringHelper.html#method_FormatSequence"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AFormatFileSize\u0028\u0029",
             "name": "FormatFileSize",
-            "summary": "\u0420\u0430\u0437\u043C\u0435\u0440\u0020\u0444\u0430\u0439\u043B\u0430\u0020\u0442\u0435\u043A\u0441\u0442\u043E\u043C",
+            "summary": "Formats\u0020a\u0020file\u0020size\u0020value\u0020into\u0020a\u0020human\u002Dreadable\u0020string.",
             "url": "classes/Colibri-Common-StringHelper.html#method_FormatFileSize"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003ATrimLength\u0028\u0029",
             "name": "TrimLength",
-            "summary": "\u0414\u0435\u043B\u0438\u0442\u0020\u043F\u043E\u0020\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u0443\u0020\u0431\u0443\u043A\u0432\u0020\u0438\u0020\u0434\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442\u0020.",
+            "summary": "Trims\u0020a\u0020string\u0020to\u0020a\u0020specified\u0020length\u0020and\u0020adds\u0020an\u0020ellipsis\u0020if\u0020needed.",
             "url": "classes/Colibri-Common-StringHelper.html#method_TrimLength"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AWords\u0028\u0029",
             "name": "Words",
-            "summary": "\u0412\u044B\u0440\u0435\u0437\u0430\u0435\u0442\u0020\u043D\u0443\u0436\u043D\u043E\u0435\u0020\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E\u0020\u0441\u043B\u043E\u0432\u0020\u0438\u0437\u0020\u0442\u0435\u043A\u0441\u0442\u0430",
+            "summary": "Retrieves\u0020the\u0020first\u0020N\u0020words\u0020from\u0020a\u0020given\u0020text.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Words"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AUniqueWords\u0028\u0029",
             "name": "UniqueWords",
-            "summary": "",
+            "summary": "Retrieves\u0020an\u0020array\u0020of\u0020unique\u0020words\u0020from\u0020a\u0020given\u0020string.",
             "url": "classes/Colibri-Common-StringHelper.html#method_UniqueWords"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AExpand\u0028\u0029",
             "name": "Expand",
-            "summary": "\u0414\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442\u0020\u043F\u0435\u0440\u0435\u0434\u0020\u0442\u0435\u043A\u0441\u0442\u043E\u043C\u0020\u043D\u0443\u0436\u043D\u043E\u0435\u0020\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E\u0020\u0443\u043A\u0430\u0437\u0430\u043D\u043D\u044B\u0445\u0020\u0431\u0443\u043A\u0432\n\u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440\u0020\u0435\u0441\u043B\u0438\u0020\u0432\u044B\u0437\u0432\u0440\u0430\u0442\u044C\u0020StringHelper\u003A\u003AExpand\u0028\u00271\u0027,\u00204,\u0020\u00270\u0027\u0029\u0020\u002D\u0020\u043F\u043E\u043B\u0443\u0447\u0438\u043C\u00200001",
+            "summary": "Expands\u0020a\u0020string\u0020by\u0020repeating\u0020a\u0020character\u0020to\u0020a\u0020specified\u0020length.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Expand"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AGUID\u0028\u0029",
             "name": "GUID",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u043D\u043E\u0432\u044B\u0439\u0020GUID",
+            "summary": "Generates\u0020a\u0020globally\u0020unique\u0020identifier\u0020\u0028GUID\u0029.",
             "url": "classes/Colibri-Common-StringHelper.html#method_GUID"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AExplode\u0028\u0029",
             "name": "Explode",
-            "summary": "\u0414\u0435\u043B\u0438\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u043D\u0430\u0020\u043A\u0443\u0441\u043A\u0438\u0020\u043F\u043E\u0020\u0440\u0430\u0437\u0434\u0435\u043B\u0438\u0442\u0435\u043B\u044F\u043C",
+            "summary": "Splits\u0020a\u0020string\u0020or\u0020array\u0020into\u0020an\u0020array\u0020of\u0020substrings\u0020using\u0020specified\u0020delimiters.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Explode"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AImplode\u0028\u0029",
             "name": "Implode",
-            "summary": "\u0421\u043E\u0435\u0434\u0438\u043D\u044F\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u0438\u0020\u0440\u0430\u0437\u0434\u0435\u043B\u0438\u0442\u0435\u043B\u044C",
+            "summary": "Joins\u0020array\u0020elements\u0020into\u0020a\u0020single\u0020string\u0020using\u0020a\u0020specified\u0020delimiter.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Implode"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AImplodeWithKeys\u0028\u0029",
             "name": "ImplodeWithKeys",
-            "summary": "",
+            "summary": "Joins\u0020array\u0020keys\u0020and\u0020values\u0020into\u0020a\u0020single\u0020string\u0020using\u0020specified\u0020delimiters.",
             "url": "classes/Colibri-Common-StringHelper.html#method_ImplodeWithKeys"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AParseAsUrl\u0028\u0029",
             "name": "ParseAsUrl",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0440\u0430\u0441\u043F\u0430\u0440\u0448\u0435\u043D\u043D\u044B\u0439\u0020url",
+            "summary": "Parses\u0020a\u0020string\u0020as\u0020a\u0020URL\u0020and\u0020returns\u0020an\u0020ExtendedObject\u0020with\u0020relevant\u0020components.",
             "url": "classes/Colibri-Common-StringHelper.html#method_ParseAsUrl"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003ATransliterate\u0028\u0029",
             "name": "Transliterate",
-            "summary": "",
+            "summary": "Transliterates\u0020a\u0020string\u0020to\u0020a\u0020different\u0020character\u0020encoding\u0020or\u0020script.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Transliterate"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003ATransliterateBack\u0028\u0029",
             "name": "TransliterateBack",
-            "summary": "",
+            "summary": "Transliterates\u0020a\u0020string\u0020back\u0020to\u0020its\u0020original\u0020form\u0020from\u0020a\u0020different\u0020character\u0020encoding\u0020or\u0020script.",
             "url": "classes/Colibri-Common-StringHelper.html#method_TransliterateBack"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003ACreateHID\u0028\u0029",
             "name": "CreateHID",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020human\u002Dreadable\u0020identifier\u0020\u0028HID\u0029\u0020from\u0020a\u0020given\u0020text.",
             "url": "classes/Colibri-Common-StringHelper.html#method_CreateHID"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AAddNoIndex\u0028\u0029",
             "name": "AddNoIndex",
-            "summary": "",
+            "summary": "Adds\u0020a\u0020\u0022noindex\u0022\u0020directive\u0020to\u0020the\u0020given\u0020text.",
             "url": "classes/Colibri-Common-StringHelper.html#method_AddNoIndex"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AStripHtmlAndBody\u0028\u0029",
             "name": "StripHtmlAndBody",
-            "summary": "",
+            "summary": "Removes\u0020the\u0020\u003Chtml\u003E\u0020and\u0020\u003Cbody\u003E\u0020tags\u0020from\u0020the\u0020given\u0020HTML\u0020string.",
             "url": "classes/Colibri-Common-StringHelper.html#method_StripHtmlAndBody"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003ARemoveEmoji\u0028\u0029",
             "name": "RemoveEmoji",
-            "summary": "",
+            "summary": "Removes\u0020emojis\u0020from\u0020the\u0020given\u0020text.",
             "url": "classes/Colibri-Common-StringHelper.html#method_RemoveEmoji"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003AToObject\u0028\u0029",
             "name": "ToObject",
-            "summary": "",
+            "summary": "Converts\u0020a\u0020string\u0020into\u0020an\u0020ExtendedObject\u0020using\u0020specified\u0020splitters.",
             "url": "classes/Colibri-Common-StringHelper.html#method_ToObject"
         },                {
             "fqsen": "\\Colibri\\Common\\StringHelper\u003A\u003ATrim\u0028\u0029",
             "name": "Trim",
-            "summary": "",
+            "summary": "Trims\u0020specified\u0020characters\u0020from\u0020the\u0020beginning\u0020and\u0020end\u0020of\u0020a\u0020string.",
             "url": "classes/Colibri-Common-StringHelper.html#method_Trim"
         },                {
             "fqsen": "\\Colibri\\Common\\TimeZoneHelper",

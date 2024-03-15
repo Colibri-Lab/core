@@ -1,14 +1,42 @@
 <?php
 
+/**
+ * Common
+ *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Common
+ */
+
 namespace Colibri\Common;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use Colibri\AppException;
 
+/**
+ * Smtp helper
+ */
 class SmtpHelper
 {
-    public static function Send(array $configArray, string $address, string $subject, string $body, array $attachments = []): void
-    {
+    
+    /**
+     * Sends an email with the specified configuration and parameters.
+     *
+     * @param array $configArray An array containing email configuration settings.
+     * @param string $address The recipient email address.
+     * @param string $subject The email subject.
+     * @param string $body The email body content.
+     * @param array $attachments An optional array of file attachments (default is an empty array).
+     *
+     * @return void
+     */
+    public static function Send(
+        array $configArray,
+        string $address,
+        string $subject,
+        string $body,
+        array $attachments = []
+    ): void {
 
         $smtpEnabled = $configArray['enabled'];
         if (!$smtpEnabled) {
@@ -29,7 +57,7 @@ class SmtpHelper
         $mailer->Host = $smtpHost;
         $mailer->Port = $smtpPort;
         $mailer->SMTPSecure = $smtpSecure;
-        
+
         $mailer->SMTPAutoTLS = false;
         if($smtpUser) {
             $mailer->SMTPAuth = true;

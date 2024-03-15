@@ -1,28 +1,27 @@
 <?php
 
 /**
- * Helpers
+ * Common
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
-
 namespace Colibri\Common;
 
 /**
- * Временная зона
+ * TimeZone helper
  */
 class TimeZoneHelper
 {
 
     /**
-     * Зона по умолчанию
+     * TimeZone by default
      */
     public static string $zone = 'ru';
 
     /**
-     * Строки
+     * Strings
      */
     public static array $texts = array(
         'ru' => array(
@@ -38,11 +37,10 @@ class TimeZoneHelper
     );
 
     /**
-     * Установить зону глобально
+     * Set timezone globaly
      *
      * @param string $zone
      * @return bool
-     * @testFunction testTimeZoneHelperSet
      */
     public static function Set(string $zone): bool
     {
@@ -54,11 +52,10 @@ class TimeZoneHelper
     }
 
     /**
-     * Возвращает название месяца в текущей зоне (локализации)
+     * Returns month name by month number
      *
      * @param integer $month
      * @return string
-     * @testFunction testTimeZoneHelperMonth
      */
     public static function Month(int $month): ?string
     {
@@ -66,11 +63,10 @@ class TimeZoneHelper
     }
 
     /**
-     * Возвращает название месяца в текущей локализации в родительном падеже
+     * Returns the name of the month in the current localization in the genitive case.
      *
      * @param integer $month
      * @return string
-     * @testFunction testTimeZoneHelperMonth2
      */
     public static function Month2(int $month): ?string
     {
@@ -78,11 +74,10 @@ class TimeZoneHelper
     }
 
     /**
-     * Возвращает название недели в текущей локализации
+     * Returns the name of the week in the current localization
      *
      * @param integer $weekday
      * @return string
-     * @testFunction testTimeZoneHelperWeekday
      */
     public static function Weekday(int $weekday): ?string
     {
@@ -90,12 +85,11 @@ class TimeZoneHelper
     }
 
     /**
-     * Форматирует строку с учетом зоны
+     * Formats a string based on the zone
      *
      * @param string $format
      * @param float $microtime
      * @return string
-     * @testFunction testTimeZoneHelperFTimeU
      */
     public static function FTimeU(string $format, float $microtime): string
     {
@@ -110,4 +104,5 @@ class TimeZoneHelper
         $format = preg_replace('/(f)/', $decimal, $format);
         return date($format, (int)$microtime);
     }
+    
 }
