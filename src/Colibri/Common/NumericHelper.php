@@ -1,27 +1,26 @@
 <?php
 
 /**
- * Helpers
+ * Common
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
 
 namespace Colibri\Common;
 
 /**
- * Утилиты для работы с числами
+ * Utility class for work with numbers
  */
 class NumericHelper
 {
-
     /**
-     * В денежном виде
+     * Converts a numeric value to a formatted money string.
      *
-     * @param number $number
-     * @return string
-     * @testFunction testNumericHelperToMoney
+     * @param float $number The numeric value to convert.
+     *
+     * @return string The money representation of the input value.
      */
     public static function ToMoney(float $number): string
     {
@@ -30,14 +29,23 @@ class NumericHelper
 
 
     /**
-     * В денежном виде
+     * Formats a numeric value as a string with customizable decimal and thousands separators.
      *
-     * @param number $number
-     * @return string
-     * @testFunction testNumericHelperFormat
+     * @param float $number The numeric value to format.
+     * @param string $decPoint The decimal point character (optional, default is '.').
+     * @param int $deccount The number of decimal places (optional, default is 2).
+     * @param bool $removeLeadingZeroes Whether to remove leading zeroes (optional, default is false).
+     * @param string $thousandsSep The thousands separator (optional, default is '').
+     *
+     * @return string The formatted numeric value as a string.
      */
-    public static function Format(float $number, string $decPoint = '.', int $deccount = 2, bool $removeLeadingZeroes = false, string $thousandsSep = ''): string
-    {
+    public static function Format(
+        float $number,
+        string $decPoint = '.',
+        int $deccount = 2,
+        bool $removeLeadingZeroes = false,
+        string $thousandsSep = ''
+    ): string {
 
         $zeroLeading = StringHelper::Expand('0', $deccount, '0');
         $removeLeading = $removeLeadingZeroes ? $decPoint . $zeroLeading : '';
@@ -54,11 +62,6 @@ class NumericHelper
     }
 
     /**
-     * Проставить пробелы тысячами
-     *
-     * @param number $price
-     * @return string
-     * @testFunction testNumericHelperHumanize
      * @deprecated
      */
     public static function Humanize(float $price): string
@@ -67,9 +70,14 @@ class NumericHelper
     }
 
     /**
-     * Исправляет число
+     * Normalizes a given input (string or other data) and returns a floating-point value.
+     *
+     * @param mixed $string The input data to be normalized.
+     *
+     * @return float The normalized value as a floating-point number.
      */
-    public static function Normalize(mixed $string): float {
+    public static function Normalize(mixed $string): float
+    {
 
         if(!is_string($string)) {
             return $string;
@@ -81,5 +89,5 @@ class NumericHelper
         return (float)$string;
 
     }
-    
+
 }

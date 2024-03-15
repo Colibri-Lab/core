@@ -1,26 +1,25 @@
 <?php
 
 /**
- * Helpers
+ * Common
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Helpers
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Common
  */
 
 namespace Colibri\Common;
 
 /**
- * Всякие разные виды рандомизации
+ * Randomization helper
  */
 class RandomizationHelper
 {
 
     /**
-     * Вернуть новый SEED
+     * Generates a random seed value.
      *
-     * @return integer
-     * @testFunction testRandomizationHelperSeed
+     * @return int A randomly generated seed.
      */
     public static function Seed(): int
     {
@@ -29,12 +28,12 @@ class RandomizationHelper
     }
 
     /**
-     * Рандомное значение между макс и мин
+     * Generates a random integer within the specified range.
      *
-     * @param integer $min
-     * @param integer $max
-     * @return integer
-     * @testFunction testRandomizationHelperInteger
+     * @param int $min The minimum value (inclusive).
+     * @param int $max The maximum value (inclusive).
+     *
+     * @return int A randomly generated integer between $min and $max.
      */
     public static function Integer(int $min, int $max): int
     {
@@ -42,20 +41,20 @@ class RandomizationHelper
     }
 
     /**
-     * Указанное количество рандомных символов
+     * Returns a randomly generated string of mixed characters with the specified length.
      *
-     * @param integer $l
-     * @return string
-     * @testFunction testRandomizationHelperMixed
+     * @param int $length The desired length of the random string.
+     *
+     * @return string The randomly generated mixed string.
      */
-    public static function Mixed(int $l): string
+    public static function Mixed(int $length): string
     {
         $j = 0;
         $tmp = "";
         $c = array();
         $i = 0;
 
-        for ($j = 1; $j <= $l; $j++) {
+        for ($j = 1; $j <= $length; $j++) {
             $i = (int) RandomizationHelper::Integer(0, 2.999999);
             $c[0] = chr((int) RandomizationHelper::Integer(ord("A"), ord("Z")));
             $c[1] = chr((int) RandomizationHelper::Integer(ord("a"), ord("z")));
@@ -67,20 +66,21 @@ class RandomizationHelper
     }
 
     /**
-     * Указанное количество произвольных цифр
+     * Generates a random string of the specified length, consisting of numeric digits.
      *
-     * @param integer $l
-     * @return string
+     * @param int $length The desired length of the random string.
+     *
+     * @return string The randomly generated string containing numeric digits.
      * @testFunction testRandomizationHelperNumeric
      */
-    public static function Numeric(int $l): string
+    public static function Numeric(int $length): string
     {
         $j = 0;
         $tmp = "";
         $c = array();
         $i = 0;
 
-        for ($j = 1; $j <= $l; $j++) {
+        for ($j = 1; $j <= $length; $j++) {
             $i = (int) RandomizationHelper::Integer(0, 2.999999);
             $c[0] = chr((int) RandomizationHelper::Integer(ord("0"), ord("9")));
             $c[1] = chr((int) RandomizationHelper::Integer(ord("0"), ord("9")));
@@ -92,18 +92,18 @@ class RandomizationHelper
     }
 
     /**
-     * Указанное количество рандомных символов - без цифр
+     * Generates a random string of characters with the specified length.
      *
-     * @param integer $l
-     * @return string
-     * @testFunction testRandomizationHelperCharacter
+     * @param int $length The desired length of the random string.
+     *
+     * @return string The randomly generated string of characters.
      */
-    public static function Character(int $l): string
+    public static function Character(int $length): string
     {
         $tmp = "";
         $c = array();
 
-        for ($i = 0; $i < $l; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $j = (int) rand(0, 1);
             $c[0] = chr((int) RandomizationHelper::Integer(ord("A"), ord("Z")));
             $c[1] = chr((int) RandomizationHelper::Integer(ord("a"), ord("z")));
@@ -112,4 +112,5 @@ class RandomizationHelper
 
         return $tmp;
     }
+    
 }

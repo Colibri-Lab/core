@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Обьект в html и обратно
+ * Common
  * 
  * @author Ваган Григорян <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
@@ -15,20 +15,20 @@ namespace Colibri\Common;
 use Colibri\Xml\XmlNode;
 
 /**
- * Обьект в html и обратно
+ * Represents a utility class for working with HTML string
  */
 class HtmlHelper
 {
 
     /**
-     * Обькет в xml
+     * Encodes an array or object to a HTML string representation.
      *
-     * @param mixed $object
-     * @param string $tag
-     * @return string
-     * @testFunction testHtmlHelperEncode
+     * @param array|object $object The input data (array or object) to be encoded.
+     * @param string $tag The tag to use for the encoded data (optional, default is 'object').
+     *
+     * @return string The encoded data as a string.
      */
-    public static function Encode(array |object $object, string $tag = 'object'): string
+    public static function Encode(array|object $object, string $tag = 'object'): string
     {
         if (is_string($object)) {
             return $object;
@@ -47,11 +47,11 @@ class HtmlHelper
     }
 
     /**
-     * Строка в xml
+     * Decodes an XML string and returns an XmlNode object.
      *
-     * @param string $xmlString
-     * @return XmlNode
-     * @testFunction testHtmlHelperDecode
+     * @param string $xmlString The XML string to be decoded.
+     *
+     * @return XmlNode The parsed XML data as an XmlNode object.
      */
     public function Decode(string $xmlString): XmlNode
     {

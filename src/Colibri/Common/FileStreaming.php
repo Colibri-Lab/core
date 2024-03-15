@@ -4,7 +4,7 @@
  * Common
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
 namespace Colibri\Common;
@@ -13,16 +13,17 @@ use Colibri\App;
 use Colibri\IO\FileSystem\File;
 
 /**
- * Утилиты для работы с файлами
+ * Represents a class for handling file streaming operations.
  */
 class FileStreaming
 {
 
     /**
-     * Вернуть данные в файле в виде base64-encoded
+     * Converts a file to its Base64-encoded representation.
      *
-     * @param string $file
-     * @return string
+     * @param string $file The path to the file to be converted.
+     *
+     * @return string The Base64-encoded content of the file.
      */
     public static function ToBase64(string $file): string
     {
@@ -34,10 +35,11 @@ class FileStreaming
     }
 
     /**
-     * Вернуть данные в файле в виде строки
+     * Converts the content of a file to a text representation.
      *
-     * @param string $file
-     * @return string
+     * @param string $file The path to the file.
+     *
+     * @return string The text content of the file.
      */
     public static function AsText(string $file): string
     {
@@ -45,11 +47,12 @@ class FileStreaming
     }
 
     /**
-     * Вернуть тэг изображения
+     * Converts the content of a file to a tag representation.
      *
-     * @param string $file
-     * @param boolean $background
-     * @return string
+     * @param string $file The path to the file.
+     * @param bool $background Whether the tag should have a background (optional, default is false).
+     *
+     * @return string The tag representation.
      */
     public static function AsTag(string $file, bool $background = false): string
     {

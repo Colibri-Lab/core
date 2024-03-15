@@ -4,10 +4,9 @@
  * Helpers
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
-
 namespace Colibri\Common;
 
 use Colibri\Utils\Debug;
@@ -16,45 +15,76 @@ use DateTimeZone;
 use Colibri\Data\Storages\Fields\DateTimeField;
 
 /**
- * Класс обертка над датой
- * @testFunction testDateHelper
+ * Helper class for working with dates.
  */
 class DateHelper
 {
     private const NBSP = '&nbsp;';
+    
     private const DATEFORMAT = 'Y-m-d 00:00:00';
 
-    /** Количество секунд в году */
+    /** Seconds in year */
     public const YEAR = 31556926;
-    /** Количество секунд в месяце */
+    
+    /** Seconds in month */
     public const MONTH = 2629744;
-    /** Количество секунд в неделю */
+    
+    /** Seconds in week */
     public const WEEK = 604800;
-    /** Количество секунд в дне */
+    
+    /** Seconds in day */
     public const DAY = 86400;
-    /** Количество секунд в час */
+    
+    /** Seconds in hour */
     public const HOUR = 3600;
-    /** Количество секунд в минуту */
+
+    /** Seconds in minute */
     public const MINUTE = 60;
 
-    public static function Create(int $year, int $month, int $day)
+    /**
+     * Creates a date object based on the provided year, month, and day.
+     * 
+     * ```
+     * DateHelper::Create(2024,1,1) returns 1704067200
+     * ```
+     *
+     * @param int $year The year (e.g., 2024).
+     * @param int $month The month (1 to 12).
+     * @param int $day The day of the month (1 to 31).
+     * @return int 
+     */
+    public static function Create(int $year, int $month, int $day): bool|int
     {
         return mktime(0, 0, 0, $month, $day, $year);
     }
 
-    public static function LastDayOfMonth(int|null $date): bool|int
+    /**
+     * Calculates the last day of the month for the given date.
+     * 
+     * ```
+     * DateHelper::LastDayOfMonth(1704067200) returns 31
+     * DateHelper::LastDayOfMonth() returns last day of current month, if january = 31, february = 28 or 29
+     * ```
+     *
+     * @param int|null $date The date (as an integer timestamp) or null for the current date.
+     * @return bool|int The last day of the month (as an integer day of the month), or false if invalid input.
+     */
+    public static function LastDayOfMonth(?int $date = null): bool|int
     {
         return strtotime('last day of this month', $date);
     }
 
     /**
-     * Вывести в формате RFC
+     * Generates an RFC 2822 formatted date string based on the provided timestamp.
+     * 
+     * ```
+     * DateHelper::RFC() today returns Fri, 15 Mar 2024 03:57:55 +0000
+     * ```
      *
-     * @param integer $time
-     * @return string
-     * @testFunction testDateHelperRFC
+     * @param float|null $time The timestamp (as a float) or null for the current time.
+     * @return string The RFC 2822 formatted date string.
      */
-    public static function RFC(float $time = null): string
+    public static function RFC(?float $time = null): string
     {
         $tz = date('Z');
         $tzs = ($tz < 0) ? '-' : '+';
@@ -64,12 +94,15 @@ class DateHelper
     }
 
     /**
-     * Вернуть в формате для базы данных
+     * Converts a timestamp or date string to a database-friendly formatted string.
+     * 
+     * ```
+     * DateHelper::ToDbString(1704067200) returns 2024-01-01 00:00:00
+     * ```
      *
-     * @param int $time
-     * @param string $format
-     * @return string
-     * @testFunction testDateHelperToDbString
+     * @param float|string|null $time The timestamp (as a float), date string, or null for the current time.
+     * @param string|null $format The desired format (default is 'Y-m-d H:i:s').
+     * @return string The formatted date string suitable for database storage.
      */
     public static function ToDbString(float|string|null $time = null, ?string $format = 'Y-m-d H:i:s'): string
     {
@@ -82,12 +115,15 @@ class DateHelper
     }
 
     /**
-     * Вернуть дату в читабельном виде
+     * Converts a timestamp to a human-readable date string.
+     * 
+     * ```
+     * DateHelper::ToHumanDate() returns today 15 марта 2024
+     * ```
      *
-     * @param int $time
-     * @param boolean $showTime
-     * @return string
-     * @testFunction testDateHelperToHumanDate
+     * @param float|null $time The timestamp (as a float) or null for the current time.
+     * @param bool $showTime Whether to include the time portion in the output (default is false).
+     * @return string The human-readable date string.
      */
     public static function ToHumanDate(?float $time = null, ?bool $showTime = false): string
     {
@@ -100,12 +136,29 @@ class DateHelper
             ($showTime ? ' ' . date('H', $time) . ':' . date('i', $time) : '');
     }
 
-
+    /**
+     * Converts a timestamp or date string to a human-readable quarter representation.
+     * 
+     * ```
+     * DateHelper::ToQuarter() returns today 1 квартал 2024
+     * DateHelper::ToQuarter(null, '', true) returns today 1
+     * DateHelper::ToQuarter('2024-08-01') returns today 3 квартал 2024
+     * ```
+     *
+     * @param float|string|null $time The timestamp (as a float), date string, or null for the current time.
+     * @param string $quarterName The name to use for the quarter (e.g., 'quarter' or 'Q').
+     * @param bool $numberOnly Whether to include only the quarter number (default is false).
+     * @return string The human-readable quarter representation (e.g., 'Q1 2024' or '1st quarter 2024').
+     */
     public static function ToQuarter(
-        $time,
-        $quarterName = 'квартал',
-        $numberOnly = false
-    ) {
+        int|string|null $time = null,
+        string $quarterName = 'квартал',
+        bool $numberOnly = false
+    ): string {
+
+        if($time === null) {
+            $time = time();
+        }
 
         if(is_string($time)) {
             $time = strtotime($time);
@@ -122,11 +175,14 @@ class DateHelper
     }
 
     /**
-     * Строка в цифру
+     * Converts a date string to a Unix timestamp.
+     * 
+     * ```
+     * DateHelper::ToUnixTime('2024-01-01') returns 1704067200
+     * ```
      *
-     * @param string $datestring
-     * @return integer|null
-     * @testFunction testDateHelperToUnixTime
+     * @param string $datestring The date string to convert.
+     * @return int|null The Unix timestamp corresponding to the date string, or null if invalid input.
      */
     public static function ToUnixTime(string $datestring): int|null
     {
@@ -134,11 +190,14 @@ class DateHelper
     }
 
     /**
-     * Количество лет между датами
+     * Calculates the age based on the provided timestamp.
+     * 
+     * ```
+     * DateHelper::Age(1704067200) returns 2 месяца назад
+     * ```
      *
-     * @param integer $time
-     * @return string
-     * @testFunction testDateHelperAge
+     * @param int $time The timestamp (as an integer) representing the date.
+     * @return string The age in years as a string (e.g., "30 years old").
      */
     public static function Age(int $time): string
     {
@@ -171,13 +230,17 @@ class DateHelper
     }
 
     /**
-     * Количество лет между датами (зачем это ? не знаю)
+     * Calculates the age in years based on the provided timestamp or date string.
+     * 
+     * ```
+     * DateHelper::AgeYears(1704067200) returns 0     
+     * DateHelper::AgeYears(1602062200) returns 3   
+     * ```
      *
-     * @param integer $time
-     * @return integer|false
-     * @testFunction testDateHelperAgeYears
+     * @param int|string $time The timestamp (as an integer) or date string.
+     * @return string The age in years as a string (e.g., "30 years old").
      */
-    public static function AgeYears(int|string $time): string
+    public static function AgeYears(int|string $time): int
     {
 
         if (VariableHelper::IsString($time)) {
@@ -198,14 +261,18 @@ class DateHelper
             $age--;
         }
 
-        return $age;
+        return (int)$age;
     }
 
     /**
-     * Количество секунд в время HH:MM:SS
+     * Converts a numeric timestamp to a human-readable time string formated as HH:MM:SS
+     * 
+     * ```
+     * DateHelper::TimeToString(1602062200) returns 57:16:40
+     * ```
      *
-     * @param integer $number
-     * @testFunction testDateHelperTimeToString
+     * @param int $number The timestamp (as an integer).
+     * @return string|null The formatted time string (e.g., "12:30:10"), or null if invalid input.
      */
     public static function TimeToString(int $number): ?string
     {
@@ -249,12 +316,15 @@ class DateHelper
     }
 
     /**
-     * Рассчитывает разницу в полных годах в полных месяцах и полных днях между датами
+     * Calculates the difference between two timestamps.
+     * 
+     * ```
+     * DateHelper::Diff(1602062200, 1704067200) returns (object)["years" => 3,"months" => 2,"days" => 25]
+     * ```
      *
-     * @param integer $time1 дата начала отсчета
-     * @param integer $time2 дата окончания отсчета
-     * @return object
-     * @testFunction testDateHelperDiff
+     * @param int $time1 The first timestamp.
+     * @param int $time2 The second timestamp.
+     * @return object An object representing the time difference (e.g., days, hours, minutes).
      */
     public static function Diff(int $time1, int $time2): object
     {
@@ -310,7 +380,17 @@ class DateHelper
     }
 
     /**
-     * Рассчитывает разницу в полных годах в полных месяцах и полных днях между датами
+     * Calculates the difference between two timestamps in terms of full tokens (years, months, and days).
+     * 
+     * ```
+     * DateHelper::DiffFullTokens(1602062200, 1704067200) returns "3 года 2 месяца25 дней"
+     * ```
+     *
+     * @param int $time1 The first timestamp.
+     * @param int $time2 The second timestamp.
+     * @param string $splitter The delimiter to use between tokens (default is a space).
+     * @param array $tokens An array of token names for years, months, and days (e.g., [['год', 'года', 'лет'], ...]).
+     * @return string The formatted difference string (e.g., "2 года 3 месяца 15 дней").
      */
     public static function DiffFullTokens(
         $time1,
@@ -343,6 +423,18 @@ class DateHelper
 
     }
 
+    /**
+     * Converts a date string in the format "DD.MM.YYYY" to a correctly formatted string.
+     * 
+     * ```
+     * DateHelper::FromDDMMYYYY('01.01.2024') returns 2024-01-01
+     * ```
+     *
+     * @param string $dateString The date string in "DD.MM.YYYY" format.
+     * @param string $delimiter The delimiter used in the input date string (default is '.').
+     * @param string $format The desired output format (default is 'Y-m-d H:i:s').
+     * @return string The formatted date string.
+     */
     public static function FromDDMMYYYY(string $dateString, string $delimiter = '.', $format = 'Y-m-d H:i:s'): string
     {
         if (strstr($dateString, ' ') !== false) {
@@ -355,6 +447,12 @@ class DateHelper
         return self::ToDbString($time, $format);
     }
 
+    /**
+     * Converts a JavaScript-style date string to a `DateTimeField` object.
+     *
+     * @param string $date The JavaScript-style date string (e.g., "2024-03-15T12:30:45").
+     * @return DateTimeField A `DateTimeField` object representing the parsed date and time.
+     */
     public static function FromJSDate(string $date): DateTimeField
     {
         $date = explode('-', $date);
@@ -366,6 +464,16 @@ class DateHelper
         return $dt;
     }
 
+    /**
+     * Calculates the number of days in the month for the given DateTime object.
+     * 
+     * ```
+     * DateHelper::DaysInMonth(new DateTime('now')) today returns 31
+     * ```
+     *
+     * @param DateTime $dt The DateTime object representing the desired month.
+     * @return int The number of days in the month (28 to 31).
+     */
     public static function DaysInMonth(DateTime $dt): int
     {
         return cal_days_in_month(CAL_GREGORIAN, $dt->format('M'), $dt->format('yyyy'));

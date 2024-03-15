@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Helpers
+ * Common
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
 
@@ -13,7 +13,7 @@ use Colibri\App;
 use Colibri\IO\FileSystem\File;
 
 /**
- * Mime типы
+ * Mime types.
  *
  * @property-read string $data
  * @property-read bool $isCapable
@@ -29,14 +29,14 @@ use Colibri\IO\FileSystem\File;
 class MimeType
 {
     /**
-     * Список MIME типов
+     * List of MIME types.
      *
      * @var array
      */
     protected static array $mime_types = [];
 
-    /**
-     * Список типов, совместимых с браузерами
+     /**
+     * List of types compatible with browsers.
      *
      * @var array
      */
@@ -54,16 +54,16 @@ class MimeType
     );
 
     /**
-     * Тип файла
+     * File type.
      *
      * @var string
      */
     private string $_type;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param string $type тип файла
+     * @param string $type The file type.
      */
     public function __construct(string $type)
     {
@@ -117,7 +117,8 @@ class MimeType
     }
 
     /**
-     * @testFunction testMimeTypeGetPropertyData
+     * Returns mimetype by given file type
+     * @return string
      */
     protected function getPropertyData(): ?string
     {
@@ -125,7 +126,8 @@ class MimeType
     }
 
     /**
-     * @testFunction testMimeTypeGetPropertyIsCapable
+     * Returns if type is compatible with browsers
+     * @return bool
      */
     protected function getPropertyIsCapable(): bool
     {
@@ -133,7 +135,8 @@ class MimeType
     }
 
     /**
-     * @testFunction testMimeTypeGetPropertyIsValid
+     * Returns if the file type is valid 
+     * @return bool
      */
     protected function getPropertyIsValid(): bool
     {
@@ -141,7 +144,8 @@ class MimeType
     }
 
     /**
-     * @testFunction testMimeTypeGetPropertyIsImage
+     * Returns if the file type is image file type
+     * @return bool
      */
     protected function getPropertyIsImage(): bool
     {
@@ -149,7 +153,8 @@ class MimeType
     }
 
     /**
-     * @testFunction testMimeTypeGetPropertyIsAudio
+     * Returns if the file type is audio file type
+     * @return bool
      */
     protected function getPropertyIsAudio(): bool
     {
@@ -157,7 +162,8 @@ class MimeType
     }
 
     /**
-     * @testFunction testMimeTypeGetPropertyIsVideo
+     * Returns if the file type is videofile type
+     * @return bool
      */
     protected function getPropertyIsVideo(): bool
     {
@@ -165,7 +171,8 @@ class MimeType
     }
 
     /**
-     * @testFunction testMimeTypeGetPropertyIsViewable
+     * Returns if the file type is viewable
+     * @return bool
      */
     protected function getPropertyIsViewable(): bool
     {
@@ -173,7 +180,8 @@ class MimeType
     }
 
     /**
-     * @testFunction testMimeTypeGetPropertyIsFlashVideo
+     * Returns if the file type is the flash video object
+     * @return bool
      */
     protected function getPropertyIsFlashVideo(): bool
     {
@@ -181,7 +189,8 @@ class MimeType
     }
 
     /**
-     * @testFunction testMimeTypeGetPropertyIsFlash
+     * Returns if the file type is the flash object
+     * @return bool
      */
     protected function getPropertyIsFlash(): bool
     {
@@ -189,7 +198,8 @@ class MimeType
     }
 
     /**
-     * @testFunction testMimeTypeGetPropertyType
+     * Returns if the file type in this object
+     * @return bool
      */
     protected function getPropertyType(): string
     {
@@ -197,8 +207,6 @@ class MimeType
     }
 
     /**
-     * Геттер
-     *
      * @param string $field
      * @return mixed
      */
@@ -252,11 +260,10 @@ class MimeType
     }
 
     /**
-     * Статический конструктор
+     * Creates an MimeType object for given file name
      *
      * @param string $filename
      * @return MimeType
-     * @testFunction testMimeTypeCreate
      */
     public static function Create(string $filename): MimeType
     {
@@ -265,11 +272,10 @@ class MimeType
     }
 
     /**
-     * Возвращает тип файла по Mime типu
+     * Returns file type by mimetype given
      *
      * @param string $mimetype
      * @return string
-     * @testFunction testMimeTypeGetType
      */
     public static function GetType(string $mimetype): ?string
     {
@@ -281,6 +287,9 @@ class MimeType
         return null;
     }
 
+    /**
+     * Returns file type by given file name
+     */
     public static function GetTypeFromFileName(string $filename): ?string
     {
         $filename = explode('.', $filename);

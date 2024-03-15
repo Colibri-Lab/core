@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Минификация JS
+ * Common
  * 
  * @author Ваган Григорян <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
@@ -12,15 +12,18 @@
 
 namespace Colibri\Common;
 
+/**
+ * Shrink helper for javascript
+ */
 class Javascript
 {
 
     /**
-     * Удаляет из javascript-а все, что не есть код
-     * главное помнить, что после каждой } внутри скоупа должно стоять ;, ну и после каждой строки тоже.
-     * @param string $input
-     * @return string
-     * @testFunction testJavascriptShrink
+     * Shrinks a given input javascript string.
+     *
+     * @param string $input The input string to be shrunk.
+     *
+     * @return string The shrunk version of the input string.
      */
     public static function Shrink(string $input): string
     {
@@ -62,4 +65,5 @@ class Javascript
             return $result;
         }, "$input\n");
     }
+    
 }

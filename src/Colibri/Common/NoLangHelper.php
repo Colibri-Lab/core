@@ -1,20 +1,27 @@
 <?php
 
 /**
- * Helpers
+ * Common
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
 
 namespace Colibri\Common;
 
-use Colibri\Utils\Debug;
-
+/**
+ * Utility class that helps convert language #{} presentations in string, object or arrays 
+ */
 class NoLangHelper
 {
 
+    /**
+     * Parses string and converts containing #{} parts to its default
+     * 
+     * @param string $value
+     * @return string
+     */
     public static function ParseString(string $value): string
     {
         $res = preg_match_all('/#\{(.*?)\}/i', $value, $matches, PREG_SET_ORDER);
@@ -30,7 +37,13 @@ class NoLangHelper
         return $value;
     }
 
-    public static function ParseArray(array |object $array): array
+    /**
+     * Parses array or object and converts containing #{} parts to its default
+     * 
+     * @param array|object $value
+     * @return array
+     */
+    public static function ParseArray(array|object $array): array
     {
         $ret = [];
         foreach ($array as $key => $value) {
@@ -54,4 +67,5 @@ class NoLangHelper
         }
         return $ret;
     }
+
 }
