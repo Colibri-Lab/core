@@ -77,7 +77,7 @@ abstract class Command
      * @param string $property The name of the property.
      * @return mixed|null The value of the property, or null if the property does not exist.
      */
-    public function __get(string $property): mixed
+    public function __get(string $property)
     {
         $return = null;
         switch (strtolower($property)) {
@@ -105,7 +105,8 @@ abstract class Command
                     break;
                 }
             case 'params': {
-                    return $this->_params;
+                    $return = $this->_params;
+                    break;
                 }
             default: {
                     $return = null;
