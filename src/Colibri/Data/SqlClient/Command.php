@@ -77,7 +77,7 @@ abstract class Command
      * @param string $property The name of the property.
      * @return mixed|null The value of the property, or null if the property does not exist.
      */
-    public function __get(string $property)
+    public function __get(string $property): mixed|null
     {
         $return = null;
         switch (strtolower($property)) {
