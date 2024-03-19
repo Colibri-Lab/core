@@ -1,14 +1,12 @@
 <?php
 
 /**
- * Доступ к базе данных
- *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Utils\Config
- * @version 1.0.0
- *
- */
+* Data
+*
+* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+* @copyright 2019 ColibriLab
+* @package Colibri\Data\Storages
+*/
 
 namespace Colibri\Data;
 
@@ -20,127 +18,131 @@ use Colibri\Utils\Debug;
 use DateTime;
 
 /**
- * Точка доступа
+ * Access Point
  *
- * <code>
+ * ```
+ * Example
  *
- *      $accessPoint = App::$dataAccessPoints->Get('main');
+ * $accessPoint = App::$dataAccessPoints->Get('main');
  *
- *      # Получение данных по запросу
+ * # Retrieving data by query
  *
- *      class Queries {
- *          const TestSelectQuery = '
- *                 select *
- *                 from test
- *                 where id=[[id:integer]] and text=[[text:string]] and dbl=[[dbl::double]]';
- *      }
- *      $reader = $accessPoint->Query(
- *                  Queries::TestSelectQuery, [
- *                      'page' => 1, 'pagesize' => 10, 'params' => [
- *                          'id' => 1, 'text' => 'adfadf', 'dbl' => 1.1
- *                      ]
- *                  ]);
- *      while($result = $reader->Read()) {
- *          print_r($result); // обьект
- *      }
+ * class Queries {
+ *     const TestSelectQuery = '
+ *            select *
+ *            from test
+ *            where id=[[id:integer]] and text=[[text:string]] and dbl=[[dbl::double]]';
+ * }
+ * $reader = $accessPoint->Query(
+ *             Queries::TestSelectQuery, [
+ *                 'page' => 1, 'pagesize' => 10, 'params' => [
+ *                     'id' => 1, 'text' => 'adfadf', 'dbl' => 1.1
+ *                 ]
+ *             ]);
+ * while($result = $reader->Read()) {
+ *     print_r($result); // object
+ * }
  *
- *      # или без параметров
+ * # or without parameters
  *
- *      $reader = $accessPoint->Query('
- *          select *
- *          from test
- *          where id=\'2\' and text=\'adfasdfasdf\' and dbl=\'1.1\'', ['page' => 1, 'pagesize' => 10]);
- *      while($result = $reader->Read()) {
- *          print_r($result); // обьект
- *      }
+ * $reader = $accessPoint->Query('
+ *     select *
+ *     from test
+ *     where id=\'2\' and text=\'adfasdfasdf\' and dbl=\'1.1\'', ['page' => 1, 'pagesize' => 10]);
+ * while($result = $reader->Read()) {
+ *     print_r($result); // object
+ * }
  *
- *      $accessPoint->Query('BEGIN');
+ * $accessPoint->Query('BEGIN');
  *
- *      # если необходимо выполнить запрос insert, update или delete
- *      $nonQueryInfo = $accessPoint->Query('
- *          delete from test where id=1', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+ * # If you need to execute an insert, update, or delete query
+ * $nonQueryInfo = $accessPoint->Query('
+ *     delete from test where id=1', ['type' => DataAccessPoint::QueryTypeNonInfo]);
  *
- *      # если необходимо выполнить запрос с большим количеством данных, например для запросов с автоподкачкой
- *      $reader = $accessPoint->Query('
- *          select * from test', ['page' => 1, 'pagesize' => 100, 'type' => DataAccessPoint::QueryTypeBigData]);
+ * # If you need to execute a query with a large amount of data, for example, for queries with auto-fetching
+ * $reader = $accessPoint->Query('
+ *     select * from test', ['page' => 1, 'pagesize' => 100, 'type' => DataAccessPoint::QueryTypeBigData]);
  *
- *      # ввод данных
- *      $nonQueryInfo = $accessPoint->Insert('test', [
- *          'text' => 'адфасдфасдфасдф', 'dbl' => 1.1], 'id'); # только для postgresql
- *      # возвращается класс QueryInfo, для postgres необходимо
- *          передать дополнительный параметр returning - название поля, которое нужно вернуть
+ * # Input data
+ * $nonQueryInfo = $accessPoint->Insert('test', [
+ *     'text' => 'адфасдфасдфасдф', 'dbl' => 1.1], 'id'); # only for postgresql
+ * # It returns a QueryInfo class, for postgres, an additional parameter returning is required -
+ *     the name of the field to return
  *
- *      # обновление данных
- *      $returnsBool = $accessPoint->Update('test', ['text' => 'adfasdfasdf', 'dbl' => 1.2], 'id=1');
- *      # возвращает true если обновление прошло успешно
+ * # Data update
+ * $returnsBool = $accessPoint->Update('test', ['text' => 'adfasdfasdf', 'dbl' => 1.2], 'id=1');
+ * # Returns true if the update was successful
  *
- *      # ввод с обновлением данных, если есть дубликат по identity полю или sequence для postgresql
- *      $nonQueryInfo = $accessPoint->InsertOrUpdate('test', [
- *          'id' => 1, 'text' => 'adfadsfads', 'dbl' => 1.1], ['id', 'text'], 'id');
- *      # поле returning нужно только для postgresql
- *      # возвращается класс QueryInfo, для postgres необходимо передать
- *          дополнительный параметр returning - название поля, которое нужно вернуть
+ * # Input with data update, if there is a duplicate on the identity field or sequence for postgresql
+ * $nonQueryInfo = $accessPoint->InsertOrUpdate('test', [
+ *     'id' => 1, 'text' => 'adfadsfads', 'dbl' => 1.1], ['id', 'text'], 'id');
+ * # The returning field is only needed for postgres
+ * # It returns a QueryInfo class, for postgres, an additional parameter returning is required -
+ *     the name of the field to return
  *
- *      # ввод данны пачкой
- *      $nonQueryInfo = $accessPoint->InsertBatch('test', [ [
- *          'text' => 'adsfasdf', 'dbl' => 1.0], ['text' => 'adsfasdf', 'dbl' => 1.1] ]);
+ * # Batch data input
+ * $nonQueryInfo = $accessPoint->InsertBatch('test', [ [
+ *     'text' => 'adsfasdf', 'dbl' => 1.0], ['text' => 'adsfasdf', 'dbl' => 1.1] ]);
  *
- *      $accessPoint->Query('COMMIT');
+ * $accessPoint->Query('COMMIT');
  *
- *      # удаление данных
- *      $returnsBool = $accessPoint->Delete('test', 'id=1');
- *      # возвращает true если удаление прошло успешно, нужно учесть, что если
- *          не передать параметр condition то будет выполнено truncate table test
+ * # Data deletion
+ * $returnsBool = $accessPoint->Delete('test', 'id=1');
+ * # Returns true if the deletion was successful, note that if
+ *     you do not pass the condition parameter, the table test will be truncated
  *
- *      # получение списка таблиц
- *      $tablesReader = $accessPoint->Tables();
- *      # возвращает IDataReader
+ * # Getting a list of tables
+ * $tablesReader = $accessPoint->Tables();
+ * # Returns an IDataReader
  *
- * </code>
+ * ```
  *
  * @property-read string $name
  * @property-read IConnection $connection
  * @property-read object $point
  *
- * @testFunction testDataAccessPoint
  */
 class DataAccessPoint
 {
-    /** Выполнить запрос и вернуть Reader */
+    /** Execute the query and return a Reader */
     public const QueryTypeReader = 'reader';
-    /** Выполнить запрос и вернуть Reader, но без подсчета общего количества строк */
+
+    /** Execute the query and return a Reader, but without counting the total number of rows. */
     public const QueryTypeBigData = 'bigdata';
-    /** Выполнить запрос, который не подразумевает чтения данных */
+
+    /** Execute a query that does not involve reading data. */
     public const QueryTypeNonInfo = 'noninfo';
 
+    /** Readonly transation */
     public const TransationReadonly = 'readonly';
+
+    /** ReadWrite transaction */
     public const TransationReadWrite = 'readwrite';
 
     /**
-     * Информация о подключении
+     * Connection properties
      *
      * @var object
      */
     private object $_accessPointData;
 
     /**
-     * Подключение
+     * Connection object
      *
      * @var IConnection
      */
     private IConnection $_connection;
 
     /**
-     * Конструктор
+     * Constructor
      *
-     * @param object $accessPointData
+     * @param object $accessPointData The access point data object.
      */
     public function __construct($accessPointData)
     {
 
         $this->_accessPointData = $accessPointData;
 
-        // получаем название класса Connection-а, должен быть классом интерфейса IDataConnection
         $connectionClassObject = $this->_accessPointData->driver->connection;
 
         $this->_connection = new $connectionClassObject(
@@ -155,9 +157,9 @@ class DataAccessPoint
     }
 
     /**
-     * Геттер
+     * Magic get method
      *
-     * @param string $property
+     * @param string $property property connection,point or table name
      * @return mixed
      */
     public function __get($property)
@@ -172,24 +174,23 @@ class DataAccessPoint
     }
 
     /**
-     * Выполняет запрос в точку доступа
+     * Executes a query in the access point.
      *
-     * ! Внимание
-     * ! Для выполнения зарпоса с параметрами необходимо сделать следующее:
-     * ! 1. параметры передаются в двойных квадратных скобках [[param:type]] где type=integer|double|string|blob
-     * ! 2. параметры передаются в ассоциативном массиве, либо в виде object
-     * ! например: select * from test where id=[[id:integer]] and stringfield like [[likeparam:string]]
-     * ! реальный запрос будет следующий с параметрами ['id' => '1', 'likeparam' => '%brbrbr%']:
+     * ! Attention
+     * ! To execute a query with parameters, do the following:
+     * ! 1. Parameters are passed in double square brackets [[param:type]], where type can be integer, double, string, or blob.
+     * ! 2. Parameters are passed in an associative array or as an object.
+     * ! For example: select * from test where id=[[id:integer]] and stringfield like [[likeparam:string]]
+     * ! The actual query with parameters ['id' => '1', 'likeparam' => '%brbrbr%'] will be:
      * ! select * from test where id=1 and stringfield like '%brbrbr%'
-     * ! запросы можно засунуть в коллекцию и выполнять с разными параметрами
+     * ! Queries can be put into a collection and executed with different parameters.
      *
-     * @param string $query
+     * @param string $query The query string.
      * @param object|array $commandParams [
      *                          page, pagesize, params, type = bigdata|noninfo|reader (default reader),
      *                          returning = ''
      *                     ]
-     * @return IDataReader|QueryInfo|null
-     * @testFunction testDataAccessPointQuery
+     * @return IDataReader|QueryInfo|null Returns an IDataReader object, a QueryInfo object, or null.
      */
     public function Query($query, $commandParams = []): IDataReader|QueryInfo
     {
@@ -208,7 +209,6 @@ class DataAccessPoint
             $cmd->params = (array) $commandParams->params;
         }
 
-        // если не передали type то выставляем в bigquery чтобы лишнего не запрашивать
         if (!isset($commandParams->type)) {
             $commandParams->type = self::QueryTypeBigData;
         }
@@ -258,15 +258,12 @@ class DataAccessPoint
     }
 
     /**
-     * Вводит новую строку
+     * Inserts a new row.
      *
-     * @param string $table название таблицы
-     * @param array $row вводимая строка
-     * @param string $returning название поля, значение которого
-     *               необходимо вернуть (в случае с MySql можн
-     *               опустить, будет возвращено значения поля identity)
+     * @param string $table The name of the table.
+     * @param array $row The row to be inserted.
+     * @param string $returning The name of the field whose value needs to be returned. (For MySQL, this can be omitted, and the value of the identity field will be returned.)
      * @return QueryInfo
-     * @testFunction testDataAccessPointInsert
      */
     public function Insert(string $table, array $row = [], string $returning = '', ?array $params = null): QueryInfo
     {
@@ -280,18 +277,15 @@ class DataAccessPoint
     }
 
     /**
-     * Вводит новую строку или обновляет старую, если совпали индексные поля
-     * Отличный способ не задумываться над тем есть ли строка в базе данных или нет
-     * Работает медленнее чем обычный ввод данных, поэтому использовать с осмотрительностью
+     * Inserts a new row or updates an existing one if index fields match.
+     * A great way to avoid worrying about whether a row exists in the database or not.
+     * Works slower than regular data insertion, so use with caution.
      *
-     * @param string $table таблица
-     * @param array $row вводимая строка
-     * @param array $exceptFields какие поля исключить из обновления в случае, если строка по идексным полям существует
-     * @param string $returning название название поля, значение которого
-     *              необходимо вернуть (в случае с MySql можно опустить,
-     *              будет возвращено значения поля identity)
+     * @param string $table The table.
+     * @param array $row The row to be inserted.
+     * @param array $exceptFields Which fields to exclude from updating if the row exists based on index fields.
+     * @param string $returning The name of the field whose value needs to be returned. (For MySQL, this can be omitted, and the value of the identity field will be returned.)
      * @return QueryInfo
-     * @testFunction testDataAccessPointInsertOrUpdate
      */
     public function InsertOrUpdate(
         string $table,
@@ -309,12 +303,11 @@ class DataAccessPoint
     }
 
     /**
-     * Вводит кного строк разом
+     * Inserts multiple rows at once.
      *
-     * @param string $table таблица
-     * @param array $rows вводимые строки
+     * @param string $table The table.
+     * @param array $rows The rows to be inserted.
      * @return QueryInfo
-     * @testFunction testDataAccessPointInsertBatch
      */
     public function InsertBatch(string $table, array $rows = []): QueryInfo
     {
@@ -324,13 +317,12 @@ class DataAccessPoint
     }
 
     /**
-     * Обновляет строку
+     * Updates a row.
      *
-     * @param string $table таблица
-     * @param array $row обновляемая строка
-     * @param string $condition условие обновления
+     * @param string $table The table.
+     * @param array $row The row to be updated.
+     * @param string $condition The update condition.
      * @return QueryInfo|null
-     * @testFunction testDataAccessPointUpdate
      */
     public function Update(string $table, array $row, string $condition, ?array $params = null): QueryInfo
     {
@@ -344,12 +336,11 @@ class DataAccessPoint
     }
 
     /**
-     * Удалет строку по критериям
+     * Deletes a row based on criteria.
      *
-     * @param string $table таблица
-     * @param string $condition условие
+     * @param string $table The table.
+     * @param string $condition The condition.
      * @return QueryInfo
-     * @testFunction testDataAccessPointDelete
      */
     public function Delete(string $table, string $condition = ''): QueryInfo
     {
@@ -359,11 +350,10 @@ class DataAccessPoint
     }
 
     /**
-     * Возвращает список таблиц в базе данных
+     * Returns a list of tables in the database.
      *
-     * @return IDataReader|null
-     * @testFunction testDataAccessPointTables
-     */
+     * @return IDataReader|null Returns an IDataReader object or null.
+     */    
     public function Tables(): IDataReader|QueryInfo
     {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
@@ -372,9 +362,8 @@ class DataAccessPoint
     }
 
     /**
-     * Создает транзакцию
+     * Starts a transaction.
      * @return void
-     * @testFunction testDataAccessPointBegin
      */
     public function Begin(?string $type = null): QueryInfo
     {
@@ -384,9 +373,8 @@ class DataAccessPoint
     }
 
     /**
-     * Коммитит транзакцию
+     * Commits the transaction.
      * @return void
-     * @testFunction testDataAccessPointCommit
      */
     public function Commit(): QueryInfo
     {
@@ -396,9 +384,8 @@ class DataAccessPoint
     }
 
     /**
-     * Отменяет транзакцию
+     * Rolls back the transaction.
      * @return void
-     * @testFunction testDataAccessPointRollback
      */
     public function Rollback(): QueryInfo
     {

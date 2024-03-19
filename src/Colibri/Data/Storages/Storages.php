@@ -798,6 +798,13 @@ class Storages
 
     /**
      * Checks if a storage with the specified name exists.
+     * 
+     * ```
+     * If you need to check existance of storage
+     * 
+     * if(Storages::Create()->Exists('langs', 'lang')) { ... }
+     * 
+     * ```
      *
      * @param string      $name   The name of the storage to check.
      * @param string|null $module The module to which the storage belongs (optional).
@@ -811,6 +818,13 @@ class Storages
 
     /**
      * Loads the storage with the specified name and optional module.
+     * 
+     * ```
+     * For example you can get storage structure information for storage "langs" in module "lang"
+     *  
+     * $storage = Storages::Create()->Load('langs', 'lang');
+     * 
+     * ```
      *
      * @param string      $name   The name of the storage to load.
      * @param string|null $module The module to which the storage belongs (optional).

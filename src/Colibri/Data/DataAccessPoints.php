@@ -1,63 +1,54 @@
 <?php
 
 /**
- * Доступ к базе данных
- *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Data
- * @version 1.0.0
- * 
- * Пример: 
- * 
- */
+* Data
+*
+* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+* @copyright 2019 ColibriLab
+* @package Colibri\Data\Storages
+*/
 
 namespace Colibri\Data;
 
 use Colibri\App;
-use Colibri\Collections\ArrayList;
-use Colibri\Collections\ArrayListIterator;
 use Colibri\Common\VariableHelper;
 use Colibri\Utils\Config\ConfigException;
 
 /**
- * Класс фабрика для создания точек доступа
+ * Factory class for creating access points.
+ *
+ * @property-read object $accessPoints The access points.
+ * @property-read array $pool The pool.
  * 
- * @property-read object $accessPoints
- * @property-read array $pool
+ * @method DataAccessPoint[] getIterator() Returns an iterator for DataAccessPoint objects.
+ * @method DataAccessPoint offsetGet(mixed $offset) Returns the DataAccessPoint object at the specified offset.
+ * @method DataAccessPoint offsetExists(mixed $offset) Checks if a DataAccessPoint object exists at the specified offset.
  * 
- * @method DataAccessPoint[] getIterator()
- * @method DataAccessPoint offsetGet(mixed $offset)
- * @method DataAccessPoint offsetExists(mixed $offset)
- * 
- * @testFunction testDataAccessPoints
  */
 class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
 {
 
     /**
-     * Синглтон
-     *
      * @var DataAccessPoints
      */
     public static $instance;
 
     /**
-     * Список точек доступа
+     * The list of access points.
      *
      * @var object
      */
     private $_accessPoints;
 
     /**
-     * Список открытых точек доступа
+     * The list of open access points.
      *
      * @var array
      */
     private array $_accessPointsPool;
 
     /**
-     * Конструктор
+     * Constructor
      */
     public function __construct()
     {
@@ -113,10 +104,10 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
     }
 
     /**
-     * Статический конструктор
+     * Static constructor.
      *
-     * @return DataAccessPoints
-     * @testFunction testDataAccessPointsCreate
+     * @return DataAccessPoints Returns an instance of DataAccessPoints.
+     * @testFunction testDataAccessPointsCreate Used for testing DataAccessPoints creation.
      */
     public static function Create()
     {
@@ -129,11 +120,15 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
     }
 
     /**
-     * Создает точку доступа
+     * Creates an access point.
      *
-     * @param string $name
-     * @return DataAccessPoint
-     * @testFunction testDataAccessPointsGet
+     * @param string $name The name of the access point.
+     * @return DataAccessPoint Returns a DataAccessPoint object.
+     *
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * ```
      */
     public function Get(string $name): DataAccessPoint
     {
