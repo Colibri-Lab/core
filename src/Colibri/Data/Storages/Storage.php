@@ -22,7 +22,7 @@ use Colibri\Utils\Config\Config;
 /**
  * Storage class
  *
- * This class represents a storage configuration with properties like name, table, levels, settings, fields, and access point.
+ * This class represents a storage configuration
  *
  * @property-read string $name The name of the storage.
  * @property-read string $table The name of the database table associated with the storage.
@@ -34,24 +34,28 @@ use Colibri\Utils\Config\Config;
 class Storage
 {
     /**
-     * Данные хранилища
+     * Internal storage data
      * @var array
      */
-    private $_xstorage;
+    private array|object $_xstorage;
 
     /**
-     * Точка доступа
+     * Data access point
      * @var DataAccessPoint|null
      */
-    private $_dataPoint;
+    private ?DataAccessPoint $_dataPoint;
 
     /**
-     * Список полей
+     * Fields list
      * @var object
      */
-    private $_fields;
+    private object $_fields;
 
-    private $_name;
+    /**
+     * Storage Name
+     * @var string
+     */
+    private string $_name;
 
     /**
      * Constructs a new Storage object.
@@ -59,7 +63,7 @@ class Storage
      * @param array|object $xstorage The data from the storage settings.
      * @param string|null $name The name of the storage.
      */
-    public function __construct(array |object $xstorage, ?string $name = null)
+    public function __construct(array|object $xstorage, ?string $name = null)
     {
         $xstorage = (array) $xstorage;
         $this->_xstorage = $xstorage;
@@ -87,6 +91,17 @@ class Storage
      *
      * This method is a factory method used to create a new Storage object.
      * It allows creating a Storage object with the provided module, name, and data.
+     * 
+     * ```
+     * For example
+     * 
+     * $storage = Storage::Create(App::$moduleManager->{'lang'}, 'langs');
+     * 
+     * its equivalent of
+     * 
+     * $storage = Storages::Create()->Load('langs', 'lang');
+     * 
+     * ```
      *
      * @param Module $module The module instance.
      * @param string $name The name of the storage.
@@ -171,7 +186,7 @@ class Storage
      * Updates a field in the storage configuration.
      *
      * This method updates the configuration of a specific field in the storage object.
-     *
+     * 
      * @param Field $field The field object to update.
      * @return void
      */
@@ -277,7 +292,7 @@ class Storage
     }
 
     /**
-     * Retrieves a field object based on the specified path.
+     * Retrieves a field object based on the specified path like field1/field2/field3 if field1 and field2 is of type json
      *
      * @param string $path The path to the field (e.g., 'fieldname/subfieldname').
      * @return Field|null The field object, or null if not found.
@@ -335,7 +350,7 @@ class Storage
     /**
      * Saves the storage settings to a file.
      *
-     * @param bool $performValidationBeforeSave Whether to perform validation before saving or not.
+     * @param bool $performValidationBeforeSave this parameter is dummy
      * @return void
      */
     public function Save(bool $performValidationBeforeSave = false)
@@ -388,7 +403,7 @@ class Storage
     }
 
     /**
-     * Deletes the storage settings from the file.
+     * Deletes the storage settings from config of module or application.
      *
      * @return void
      */
@@ -526,7 +541,8 @@ class Storage
 
     /**
      * Disables keys for the storage table.
-     *
+     * 
+     * @deprecated
      * @return void
      */
     public function DisableKeys()
@@ -537,6 +553,7 @@ class Storage
     /**
      * Enables keys for the storage table.
      *
+     * @deprecated
      * @return void
      */
     public function EnableKeys()
