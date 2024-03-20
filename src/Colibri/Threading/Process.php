@@ -232,7 +232,7 @@ class Process
             App::$log->debug($command);
             App::$log->debug($request);
         }
-        $cmd = $command . ' > ' . App::$webRoot . '/_cache/log/process.log & echo $!';
+        $cmd = $command . ' > /dev/null & echo $!';
         $pid = shell_exec($cmd);
         $this->_pid = trim($pid, "\n\r\t ");
     }
