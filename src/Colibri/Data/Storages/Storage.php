@@ -55,7 +55,7 @@ class Storage
      * Storage Name
      * @var string
      */
-    private string $_name;
+    private ?string $_name;
 
     /**
      * Constructs a new Storage object.
