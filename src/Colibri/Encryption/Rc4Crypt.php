@@ -1,30 +1,27 @@
 <?php
 
 /**
- * Шифрование методом RC4 
- * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Common
- * @version 1.0.0
- * 
- */
+* Encryption
+*
+* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+* @copyright 2019 ColibriLab
+* @package Colibri\Data\Storages
+*/
 
 namespace Colibri\Encryption;
 
 /**
- * Шифрование методом RC4 
- * @testFunction testRc4Crypt
+ * RC4 encryption.
  */
 class Rc4Crypt
 {
 
     /**
-     * Зашифровать
+     * Encrypts data using RC4 algorithm.
      *
-     * @param string $pwd
-     * @param string $data
-     * @return string
+     * @param string $pwd The encryption key.
+     * @param string $data The data to encrypt.
+     * @return string The encrypted data.
      */
     static function Encrypt(string $pwd, string $data): string
     {
@@ -61,12 +58,11 @@ class Rc4Crypt
     }
 
     /**
-     * Расшифровать
+     * Decrypts data using RC4 algorithm.
      *
-     * @param string $pwd
-     * @param string $data
-     * @return string
-     * @testFunction testRc4CryptDecrypt
+     * @param string $pwd The encryption key.
+     * @param string $data The data to decrypt.
+     * @return string The decrypted data.
      */
     static function Decrypt(string $pwd, string $data): string
     {

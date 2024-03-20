@@ -152,15 +152,15 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-Data.html" class="">Data</a>
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Events.html" class="">Events</a>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
                 
             </li>
                     <li>
@@ -221,6 +221,7 @@
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -238,30 +239,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс фабрика для создания точек доступа</p>
+            <p class="phpdocumentor-summary">Factory class for creating access points.</p>
 
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoints.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPoints</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
 
 
@@ -303,7 +288,6 @@
     <span>
                         &nbsp;: <a href="classes/Colibri-Data-DataAccessPoints.html"><abbr title="\Colibri\Data\DataAccessPoints">DataAccessPoints</abbr></a>            </span>
 </dt>
-<dd>Синглтон</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-DataAccessPoints.html#property_pool">$pool</a>
@@ -316,14 +300,14 @@
     <span>
                         &nbsp;: object            </span>
 </dt>
-<dd>Список точек доступа</dd>
+<dd>The list of access points.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Data-DataAccessPoints.html#property__accessPointsPool">$_accessPointsPool</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>Список открытых точек доступа</dd>
+<dd>The list of open access points.</dd>
 
     </dl>
 
@@ -338,7 +322,7 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoints.html#method___get">__get()</a>
@@ -358,14 +342,14 @@
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-DataAccessPoints.html"><abbr title="\Colibri\Data\DataAccessPoints">DataAccessPoints</abbr></a>    </span>
 </dt>
-<dd>Статический конструктор</dd>
+<dd>Static constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoints.html#method_Get">Get()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-DataAccessPoint.html"><abbr title="\Colibri\Data\DataAccessPoint">DataAccessPoint</abbr></a>    </span>
 </dt>
-<dd>Создает точку доступа</dd>
+<dd>Creates an access point.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoints.html#method_getIterator">getIterator()</a>
@@ -473,7 +457,9 @@
     <span class="phpdocumentor-signature__name">$accessPoints</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The access points.</p>
+</section>
+
     
     
 
@@ -495,12 +481,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">43</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Синглтон</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Data-DataAccessPoints.html"><abbr title="\Colibri\Data\DataAccessPoints">DataAccessPoints</abbr></a></span>
@@ -540,7 +525,9 @@
     <span class="phpdocumentor-signature__name">$pool</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The pool.</p>
+</section>
+
     
     
 
@@ -562,11 +549,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Список точек доступа</p>
+        <p class="phpdocumentor-summary">The list of access points.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -596,11 +583,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Список открытых точек доступа</p>
+        <p class="phpdocumentor-summary">The list of open access points.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -635,11 +622,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -667,7 +654,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">205</span>
+    <span class="phpdocumentor-element-found-in__line">200</span>
 
     </aside>
 
@@ -709,7 +696,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">272</span>
+    <span class="phpdocumentor-element-found-in__line">267</span>
 
     </aside>
 
@@ -744,11 +731,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">121</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Статический конструктор</p>
+        <p class="phpdocumentor-summary">Static constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -770,7 +757,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointsCreate</p>
+                                                 <section class="phpdocumentor-description"><p>testDataAccessPointsCreate Used for testing DataAccessPoints creation.</p>
 </section>
 
                                     </dd>
@@ -779,6 +766,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-DataAccessPoints.html"><abbr title="\Colibri\Data\DataAccessPoints">DataAccessPoints</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Returns an instance of DataAccessPoints.</p>
+</section>
+
             </section>
 
 </article>
@@ -796,11 +787,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">138</span>
+    <span class="phpdocumentor-element-found-in__line">133</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создает точку доступа</p>
+        <p class="phpdocumentor-summary">Creates an access point.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -816,7 +807,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the access point.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -828,11 +821,12 @@
     </h5>
     <dl class="phpdocumentor-tag-list">
                                     <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
+                    <span class="phpdocumentor-tag__name">example</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointsGet</p>
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">$accessPoint = App::$dataAccessPoints-&gt;Get('main');
+</code></pre>
 </section>
 
                                     </dd>
@@ -841,6 +835,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-DataAccessPoint.html"><abbr title="\Colibri\Data\DataAccessPoint">DataAccessPoint</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Returns a DataAccessPoint object.</p>
+</section>
+
             </section>
 
 </article>
@@ -869,7 +867,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Returns an iterator for DataAccessPoint objects.</p>
+</section>
+
     
     
 
@@ -893,7 +893,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">267</span>
+    <span class="phpdocumentor-element-found-in__line">262</span>
 
     </aside>
 
@@ -928,7 +928,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+    <span class="phpdocumentor-element-found-in__line">188</span>
 
     </aside>
 
@@ -973,7 +973,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">187</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
@@ -1029,7 +1029,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Checks if a DataAccessPoint object exists at the specified offset.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1063,7 +1065,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">235</span>
+    <span class="phpdocumentor-element-found-in__line">230</span>
 
     </aside>
 
@@ -1120,7 +1122,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Returns the DataAccessPoint object at the specified offset.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1154,7 +1158,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">259</span>
+    <span class="phpdocumentor-element-found-in__line">254</span>
 
     </aside>
 
@@ -1200,7 +1204,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">225</span>
+    <span class="phpdocumentor-element-found-in__line">220</span>
 
     </aside>
 
@@ -1249,7 +1253,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoints.php"><a href="files/src-colibri-data-dataaccesspoints.html"><abbr title="src/Colibri/Data/DataAccessPoints.php">DataAccessPoints.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">248</span>
+    <span class="phpdocumentor-element-found-in__line">243</span>
 
     </aside>
 

@@ -101,6 +101,7 @@ class Storage
      * 
      * $storage = Storages::Create()->Load('langs', 'lang');
      * 
+     * @example
      * ```
      *
      * @param Module $module The module instance.

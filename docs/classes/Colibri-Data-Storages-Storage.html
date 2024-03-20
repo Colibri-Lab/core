@@ -152,15 +152,15 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-Data.html" class="">Data</a>
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Events.html" class="">Events</a>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
                 
             </li>
                     <li>
@@ -237,12 +237,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс Хранилище</p>
+            <p class="phpdocumentor-summary">Storage class</p>
 
+    <section class="phpdocumentor-description"><p>This class represents a storage configuration</p>
+</section>
 
 
 
@@ -293,12 +295,6 @@
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/Colibri-Data-Storages-Storage.html#property_name">$name</a>
-    <span>
-                        &nbsp;: string            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#property_settings">$settings</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
@@ -315,27 +311,28 @@
     <span>
                         &nbsp;: <a href="classes/Colibri-Data-DataAccessPoint.html"><abbr title="\Colibri\Data\DataAccessPoint">DataAccessPoint</abbr></a>|null            </span>
 </dt>
-<dd>Точка доступа</dd>
+<dd>Data access point</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Data-Storages-Storage.html#property__fields">$_fields</a>
     <span>
                         &nbsp;: object            </span>
 </dt>
-<dd>Список полей</dd>
+<dd>Fields list</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Data-Storages-Storage.html#property__name">$_name</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: string            </span>
 </dt>
+<dd>Storage Name</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Data-Storages-Storage.html#property__xstorage">$_xstorage</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>Данные хранилища</dd>
+<dd>Internal storage data</dd>
 
     </dl>
 
@@ -348,161 +345,177 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method___construct">__construct()</a>
     <span>
-                                &nbsp;: void    </span>
+                                &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructs a new Storage object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Геттер</dd>
+<dd>Getter method.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method___set">__set()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
+<dd>Setter method.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_AddField">AddField()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: <a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a>    </span>
 </dt>
+<dd>Adds a new field to the storage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_AddIndex">AddIndex()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Adds an index to the storage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_Create">Create()</a>
     <span>
-                                &nbsp;: self    </span>
+                                &nbsp;: <a href="classes/Colibri-Data-Storages-Storage.html"><abbr title="\Colibri\Data\Storages\Storage">Storage</abbr></a>    </span>
 </dt>
+<dd>Creates a new instance of the Storage class.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_Delete">Delete()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
+<dd>Deletes the storage settings from config of module or application.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_DeleteField">DeleteField()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Deletes a field from the storage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_DeleteIndex">DeleteIndex()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Deletes an index from the storage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_DisableKeys">DisableKeys()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Disables keys for the storage table.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_EnableKeys">EnableKeys()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Enables keys for the storage table.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_GetField">GetField()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a>|null    </span>
 </dt>
-<dd>Возвращает поле по пути типа fieldname/fieldname</dd>
+<dd>Retrieves a field object based on the specified path like field1/field2/field3 if field1 and field2 is of type json</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_GetFieldClass">GetFieldClass()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: string    </span>
 </dt>
+<dd>Retrieves the class of a specific field.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_GetFieldName">GetFieldName()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Возвращает название поля без префикса таблицы</dd>
+<dd>Retrieves the field name without the table prefix.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_GetModelClasses">GetModelClasses()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Возвращает модели репу и модель</dd>
+<dd>Retrieves the model classes for the storage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_GetModule">GetModule()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Modules-Module.html"><abbr title="\Colibri\Modules\Module">Module</abbr></a>|null    </span>
 </dt>
+<dd>Retrieves the module associated with the storage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_GetRealFieldName">GetRealFieldName()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Возвращает реальное название поля в базе данных</dd>
+<dd>Retrieves the real field name with the table prefix.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_GetStatus">GetStatus()</a>
     <span>
                                 &nbsp;: object    </span>
 </dt>
+<dd>Retrieves the status of the storage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_GetTemplates">GetTemplates()</a>
     <span>
                                 &nbsp;: object|array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Возвращает обьект содержащий данные для отображения записей хранилища по шаблонам</dd>
+<dd>Retrieves templates for displaying records from the storage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_MoveField">MoveField()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Moves a field within the storage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_Save">Save()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Saves the storage settings to a file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_ToArray">ToArray()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Возвращает настройки хранилища в виде</dd>
+<dd>Converts the storage settings to an array.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Storage.html#method_UpdateField">UpdateField()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Updates a field in the storage configuration.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Data-Storages-Storage.html#method__init">_init()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
+<dd>Initializes the storage object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Data-Storages-Storage.html#method__loadFields">_loadFields()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Загружает поля в массив</dd>
+<dd>Loads fields into an array.</dd>
 
     </dl>
 
@@ -546,7 +559,9 @@
     <span class="phpdocumentor-signature__name">$accessPoint</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The DataAccessPoint object associated with the storage.</p>
+</section>
+
     
     
 
@@ -579,7 +594,9 @@
     <span class="phpdocumentor-signature__name">$fields</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The list of fields associated with the storage.</p>
+</section>
+
     
     
 
@@ -612,7 +629,9 @@
     <span class="phpdocumentor-signature__name">$levels</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates whether the storage supports levels.</p>
+</section>
+
     
     
 
@@ -645,40 +664,9 @@
     <span class="phpdocumentor-signature__name">$name</span>
     </code>
 
-    
-    
-    
+        <section class="phpdocumentor-description"><p>The name of the storage.</p>
+</section>
 
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-                                                -read-only        "
->
-    <h4 class="phpdocumentor-element__name" id="property_name">
-        $name
-        <a href="classes/Colibri-Data-Storages-Storage.html#property_name" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                        <small class="phpdocumentor-element__modifier">read-only</small>        </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">0</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string</span>
-    <span class="phpdocumentor-signature__name">$name</span>
-    </code>
-
-    
     
     
 
@@ -711,7 +699,9 @@
     <span class="phpdocumentor-signature__name">$settings</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The settings array containing various configuration options.</p>
+</section>
+
     
     
 
@@ -744,7 +734,9 @@
     <span class="phpdocumentor-signature__name">$table</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The name of the database table associated with the storage.</p>
+</section>
+
     
     
 
@@ -766,11 +758,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Точка доступа</p>
+        <p class="phpdocumentor-summary">Data access point</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -800,11 +792,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Список полей</p>
+        <p class="phpdocumentor-summary">Fields list</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -838,10 +830,11 @@
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Storage Name</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$_name</span>
     </code>
 
@@ -867,11 +860,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Данные хранилища</p>
+        <p class="phpdocumentor-summary">Internal storage data</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -906,15 +899,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">65</span>
+    <span class="phpdocumentor-element-found-in__line">66</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructs a new Storage object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xstorage</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$xstorage</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -926,7 +919,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>данные из настроек хранилища</p>
+                    <section class="phpdocumentor-description"><p>The data from the storage settings.</p>
 </section>
 
             </dd>
@@ -935,7 +928,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the storage.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -957,11 +952,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">93</span>
+    <span class="phpdocumentor-element-found-in__line">126</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Геттер</p>
+        <p class="phpdocumentor-summary">Getter method.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -969,7 +964,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Retrieves the value of the specified property.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -977,7 +974,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>свойство</p>
+                    <section class="phpdocumentor-description"><p>The name of the property to retrieve.</p>
 </section>
 
             </dd>
@@ -989,7 +986,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">mixed</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>значение</p>
+                <section class="phpdocumentor-description"><p>The value of the specified property.</p>
 </section>
 
             </section>
@@ -1009,18 +1006,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">120</span>
+    <span class="phpdocumentor-element-found-in__line">162</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Setter method.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">__set</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$prop</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Sets the value of the specified property.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1028,14 +1028,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the property to set.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The value to set.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1057,14 +1061,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">336</span>
+    <span class="phpdocumentor-element-found-in__line">426</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Adds a new field to the storage.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">AddField</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">AddField</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a></span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1073,23 +1078,35 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$path</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The path to the field.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The data for the new field.</p>
+</section>
+
             </dd>
             </dl>
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The newly created field object.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1105,14 +1122,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">370</span>
+    <span class="phpdocumentor-element-found-in__line">473</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Adds an index to the storage.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">AddIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">AddIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1121,17 +1139,21 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the index.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The index data.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1153,18 +1175,30 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates a new instance of the Storage class.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Modules-Module.html"><abbr title="\Colibri\Modules\Module">Module</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$module</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Modules-Module.html"><abbr title="\Colibri\Modules\Module">Module</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$module</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-Storages-Storage.html"><abbr title="\Colibri\Data\Storages\Storage">Storage</abbr></a></span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method is a factory method used to create a new Storage object.
+It allows creating a Storage object with the provided module, name, and data.</p>
+<pre class="prettyprint"><code class="prettyprint">For example
+
+$storage = Storage::Create(App::$moduleManager-&gt;{'lang'}, 'langs');
+
+its equivalent of
+
+$storage = Storages::Create()-&gt;Load('langs', 'lang');
+</code></pre>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1172,29 +1206,55 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Modules-Module.html"><abbr title="\Colibri\Modules\Module">Module</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The module instance.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$name</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the storage.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Additional data for configuring the storage.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Data-Storages-Storage.html#method_Create#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">example</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                                 <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint"></code></pre>
+</section>
+
+                                    </dd>
+                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">self</span>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-Storages-Storage.html"><abbr title="\Colibri\Data\Storages\Storage">Storage</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The newly created Storage object.</p>
+</section>
+
             </section>
 
 </article>
@@ -1212,11 +1272,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">328</span>
+    <span class="phpdocumentor-element-found-in__line">411</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Deletes the storage settings from config of module or application.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -1243,14 +1304,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">355</span>
+    <span class="phpdocumentor-element-found-in__line">451</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Deletes a field from the storage.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">DeleteField</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">DeleteField</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1259,10 +1321,12 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$path</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The path to the field.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1284,14 +1348,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">378</span>
+    <span class="phpdocumentor-element-found-in__line">487</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Deletes an index from the storage.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">DeleteIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">DeleteIndex</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1300,10 +1365,12 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the index.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1315,7 +1382,7 @@
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+            -deprecated                                            "
 >
     <h4 class="phpdocumentor-element__name" id="method_DisableKeys">
         DisableKeys()
@@ -1325,20 +1392,35 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">420</span>
+    <span class="phpdocumentor-element-found-in__line">549</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <p class="phpdocumentor-summary">Disables keys for the storage table.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">DisableKeys</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">DisableKeys</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Data-Storages-Storage.html#method_DisableKeys#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">deprecated</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                             
+                                    </dd>
+                                            </dl>
 
     
 </article>
@@ -1346,7 +1428,7 @@
         class="phpdocumentor-element
             -method
             -public
-                                                        "
+            -deprecated                                            "
 >
     <h4 class="phpdocumentor-element__name" id="method_EnableKeys">
         EnableKeys()
@@ -1356,20 +1438,35 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">425</span>
+    <span class="phpdocumentor-element-found-in__line">560</span>
 
     </aside>
 
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
+        <p class="phpdocumentor-summary">Enables keys for the storage table.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature -deprecated">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">EnableKeys</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">EnableKeys</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Data-Storages-Storage.html#method_EnableKeys#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">deprecated</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                                
+                                             
+                                    </dd>
+                                            </dl>
 
     
 </article>
@@ -1387,11 +1484,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">237</span>
+    <span class="phpdocumentor-element-found-in__line">301</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает поле по пути типа fieldname/fieldname</p>
+        <p class="phpdocumentor-summary">Retrieves a field object based on the specified path like field1/field2/field3 if field1 and field2 is of type json</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1407,7 +1504,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>путь</p>
+                    <section class="phpdocumentor-description"><p>The path to the field (e.g., 'fieldname/subfieldname').</p>
 </section>
 
             </dd>
@@ -1418,6 +1515,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The field object, or null if not found.</p>
+</section>
+
             </section>
 
 </article>
@@ -1435,14 +1536,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">186</span>
+    <span class="phpdocumentor-element-found-in__line">247</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Retrieves the class of a specific field.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">GetFieldClass</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$field</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">GetFieldClass</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$field</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1454,13 +1556,40 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The field object.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Data-Storages-Storage.html#method_GetFieldClass#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Colibri-AppException.html"><abbr title="\Colibri\AppException">AppException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the class of the field is unknown.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The class name of the field.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1476,11 +1605,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">227</span>
+    <span class="phpdocumentor-element-found-in__line">290</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает название поля без префикса таблицы</p>
+        <p class="phpdocumentor-summary">Retrieves the field name without the table prefix.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1496,7 +1625,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>полное наименование поля в базе данных</p>
+                    <section class="phpdocumentor-description"><p>The name of the field with the prefix.</p>
 </section>
 
             </dd>
@@ -1508,7 +1637,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>название без префикса</p>
+                <section class="phpdocumentor-description"><p>The name of the field without the prefix.</p>
 </section>
 
             </section>
@@ -1528,11 +1657,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+    <span class="phpdocumentor-element-found-in__line">204</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает модели репу и модель</p>
+        <p class="phpdocumentor-summary">Retrieves the model classes for the storage.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1547,6 +1676,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An array containing the table class and row class.</p>
+</section>
+
             </section>
 
 </article>
@@ -1564,11 +1697,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
+    <span class="phpdocumentor-element-found-in__line">331</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Retrieves the module associated with the storage.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">GetModule</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Modules-Module.html"><abbr title="\Colibri\Modules\Module">Module</abbr></a>|null</span></code>
@@ -1582,6 +1716,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Modules-Module.html"><abbr title="\Colibri\Modules\Module">Module</abbr></a>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The module object, or null if not found.</p>
+</section>
+
             </section>
 
 </article>
@@ -1599,11 +1737,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">217</span>
+    <span class="phpdocumentor-element-found-in__line">279</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает реальное название поля в базе данных</p>
+        <p class="phpdocumentor-summary">Retrieves the real field name with the table prefix.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1619,7 +1757,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>название без префикса</p>
+                    <section class="phpdocumentor-description"><p>The name of the field without the prefix.</p>
 </section>
 
             </dd>
@@ -1631,7 +1769,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>название с префиксом</p>
+                <section class="phpdocumentor-description"><p>The name of the field with the prefix.</p>
 </section>
 
             </section>
@@ -1651,11 +1789,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">414</span>
+    <span class="phpdocumentor-element-found-in__line">537</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Retrieves the status of the storage.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">GetStatus</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
@@ -1669,6 +1808,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">object</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The storage status.</p>
+</section>
+
             </section>
 
 </article>
@@ -1686,11 +1829,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">256</span>
+    <span class="phpdocumentor-element-found-in__line">321</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает обьект содержащий данные для отображения записей хранилища по шаблонам</p>
+        <p class="phpdocumentor-summary">Retrieves templates for displaying records from the storage.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1705,6 +1848,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">object|array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The templates data.</p>
+</section>
+
             </section>
 
 </article>
@@ -1722,14 +1869,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">384</span>
+    <span class="phpdocumentor-element-found-in__line">502</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Moves a field within the storage.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">MoveField</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$field</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$relative</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sibling</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">MoveField</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$field</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$relative</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sibling</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1738,24 +1886,30 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$field</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The field to move.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$relative</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The relative field.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$sibling</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The sibling position ('before' or 'after').</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1777,14 +1931,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">279</span>
+    <span class="phpdocumentor-element-found-in__line">357</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Saves the storage settings to a file.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">Save</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$performValidationBeforeSave</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">Save</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$performValidationBeforeSave</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1796,7 +1951,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>this parameter is dummy</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1818,15 +1975,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">274</span>
+    <span class="phpdocumentor-element-found-in__line">346</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает настройки хранилища в виде</p>
+        <p class="phpdocumentor-summary">Converts the storage settings to an array.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">ToArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$changeLang</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">ToArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$changeLang</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1835,10 +1992,12 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$changeLang</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Whether to change the language or not.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1847,6 +2006,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The storage settings as an array.</p>
+</section>
+
             </section>
 
 </article>
@@ -1864,18 +2027,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">141</span>
+    <span class="phpdocumentor-element-found-in__line">194</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Updates a field in the storage configuration.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">UpdateField</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$field</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">UpdateField</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$field</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method updates the configuration of a specific field in the storage object.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1883,7 +2049,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Fields-Field.html"><abbr title="\Colibri\Data\Storages\Fields\Field">Field</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The field object to update.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1905,18 +2073,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Initializes the storage object.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">_init</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">_init</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method sets up the name, data access point, and loads fields for the storage.</p>
+</section>
+
     
     
 
@@ -1936,11 +2107,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Storage.php"><a href="files/src-colibri-data-storages-storage.html"><abbr title="src/Colibri/Data/Storages/Storage.php">Storage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">131</span>
+    <span class="phpdocumentor-element-found-in__line">176</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Загружает поля в массив</p>
+        <p class="phpdocumentor-summary">Loads fields into an array.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1948,7 +2119,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method initializes the fields of the storage object from the stored configuration.</p>
+</section>
+
     
     
 
@@ -2070,7 +2243,6 @@
                                                     <li><a href="classes/Colibri-Data-Storages-Storage.html#property_accessPoint">$accessPoint<a href="classes/Colibri-Data-Storages-Storage.html"></li>
                                                     <li><a href="classes/Colibri-Data-Storages-Storage.html#property_fields">$fields<a href="classes/Colibri-Data-Storages-Storage.html"></li>
                                                     <li><a href="classes/Colibri-Data-Storages-Storage.html#property_levels">$levels<a href="classes/Colibri-Data-Storages-Storage.html"></li>
-                                                    <li><a href="classes/Colibri-Data-Storages-Storage.html#property_name">$name<a href="classes/Colibri-Data-Storages-Storage.html"></li>
                                                     <li><a href="classes/Colibri-Data-Storages-Storage.html#property_name">$name<a href="classes/Colibri-Data-Storages-Storage.html"></li>
                                                     <li><a href="classes/Colibri-Data-Storages-Storage.html#property_settings">$settings<a href="classes/Colibri-Data-Storages-Storage.html"></li>
                                                     <li><a href="classes/Colibri-Data-Storages-Storage.html#property_table">$table<a href="classes/Colibri-Data-Storages-Storage.html"></li>

@@ -152,15 +152,15 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-Data.html" class="">Data</a>
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Events.html" class="">Events</a>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
                 
             </li>
                     <li>
@@ -220,7 +220,9 @@
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -238,11 +240,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/Handlers/LocalClosure.php"><a href="files/src-colibri-events-handlers-localclosure.html"><abbr title="src/Colibri/Events/Handlers/LocalClosure.php">LocalClosure.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">10</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
-        
+            <p class="phpdocumentor-summary">Class LocalClosure</p>
+
+    <section class="phpdocumentor-description"><p>Represents a local closure handler for events.</p>
+</section>
 
 
 
@@ -262,7 +267,7 @@
 
     </h4>
     <dl class="phpdocumentor-table-of-contents">
-                    <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Colibri-Events-Handlers-IClosure.html"><abbr title="\Colibri\Events\Handlers\IClosure">IClosure</abbr></a></dt>    </dl>
+                    <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Colibri-Events-Handlers-IClosure.html"><abbr title="\Colibri\Events\Handlers\IClosure">IClosure</abbr></a></dt><dd>Interface IClosure</dd>    </dl>
 
 
 
@@ -300,30 +305,35 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
+<dd>LocalClosure constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-Handlers-LocalClosure.html#method_AsyncInvoke">AsyncInvoke()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Threading-Process.html"><abbr title="\Colibri\Threading\Process">Process</abbr></a>    </span>
 </dt>
+<dd>Invokes the closure asynchronously.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-Handlers-LocalClosure.html#method_Invoke">Invoke()</a>
     <span>
                                 &nbsp;: bool|null    </span>
 </dt>
+<dd>Invokes the closure synchronously.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-Handlers-LocalClosure.html#method_Serialize">Serialize()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Serializes the closure.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-Handlers-LocalClosure.html#method_Unserialize">Unserialize()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Events-Handlers-LocalClosure.html"><abbr title="\Colibri\Events\Handlers\LocalClosure">LocalClosure</abbr></a>|null    </span>
 </dt>
+<dd>Unserializes a serialized closure.</dd>
 
     </dl>
 
@@ -356,7 +366,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/Handlers/LocalClosure.php"><a href="files/src-colibri-events-handlers-localclosure.html"><abbr title="src/Colibri/Events/Handlers/LocalClosure.php">LocalClosure.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">13</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
@@ -368,7 +378,9 @@
     </code>
 
     
-    
+        <section class="phpdocumentor-description"><p>The callable object or function.</p>
+</section>
+
     
 
 </article>
@@ -389,7 +401,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/Handlers/LocalClosure.php"><a href="files/src-colibri-events-handlers-localclosure.html"><abbr title="src/Colibri/Events/Handlers/LocalClosure.php">LocalClosure.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -401,7 +413,9 @@
     </code>
 
     
-    
+        <section class="phpdocumentor-description"><p>The object associated with the closure.</p>
+</section>
+
     
 
 </article>
@@ -427,11 +441,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/Handlers/LocalClosure.php"><a href="files/src-colibri-events-handlers-localclosure.html"><abbr title="src/Colibri/Events/Handlers/LocalClosure.php">LocalClosure.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">LocalClosure constructor.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$callable</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">object|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$object</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
@@ -446,14 +461,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The callable object or function.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$object</span>
                 : <span class="phpdocumentor-signature__argument__return-type">object|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The object associated with the closure.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -475,11 +494,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/Handlers/LocalClosure.php"><a href="files/src-colibri-events-handlers-localclosure.html"><abbr title="src/Colibri/Events/Handlers/LocalClosure.php">LocalClosure.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">81</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Invokes the closure asynchronously.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">AsyncInvoke</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|<a href="classes/Colibri-Events-Event.html"><abbr title="\Colibri\Events\Event">Event</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$event</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Threading-Process.html"><abbr title="\Colibri\Threading\Process">Process</abbr></a></span></code>
@@ -494,14 +514,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string|<a href="classes/Colibri-Events-Event.html"><abbr title="\Colibri\Events\Event">Event</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The event object or its name.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$args</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Additional arguments to pass to the closure.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -510,6 +534,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Threading-Process.html"><abbr title="\Colibri\Threading\Process">Process</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>A Process object representing the asynchronous execution.</p>
+</section>
+
             </section>
 
 </article>
@@ -527,11 +555,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/Handlers/LocalClosure.php"><a href="files/src-colibri-events-handlers-localclosure.html"><abbr title="src/Colibri/Events/Handlers/LocalClosure.php">LocalClosure.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Invokes the closure synchronously.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Invoke</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|<a href="classes/Colibri-Events-Event.html"><abbr title="\Colibri\Events\Event">Event</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$event</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|null</span></code>
@@ -546,14 +575,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string|<a href="classes/Colibri-Events-Event.html"><abbr title="\Colibri\Events\Event">Event</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The event object or its name.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$args</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Additional arguments to pass to the closure.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -562,6 +595,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the closure was successfully invoked, otherwise false. Null if invocation fails.</p>
+</section>
+
             </section>
 
 </article>
@@ -579,11 +616,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/Handlers/LocalClosure.php"><a href="files/src-colibri-events-handlers-localclosure.html"><abbr title="src/Colibri/Events/Handlers/LocalClosure.php">LocalClosure.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Serializes the closure.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Serialize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -597,6 +635,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The serialized closure.</p>
+</section>
+
             </section>
 
 </article>
@@ -614,11 +656,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/Handlers/LocalClosure.php"><a href="files/src-colibri-events-handlers-localclosure.html"><abbr title="src/Colibri/Events/Handlers/LocalClosure.php">LocalClosure.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+    <span class="phpdocumentor-element-found-in__line">110</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Unserializes a serialized closure.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Unserialize</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$serialized</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Events-Handlers-LocalClosure.html"><abbr title="\Colibri\Events\Handlers\LocalClosure">LocalClosure</abbr></a>|null</span></code>
@@ -633,7 +676,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The serialized closure.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -642,6 +687,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Events-Handlers-LocalClosure.html"><abbr title="\Colibri\Events\Handlers\LocalClosure">LocalClosure</abbr></a>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An instance of LocalClosure, or null if unserialization fails.</p>
+</section>
+
             </section>
 
 </article>

@@ -1,5 +1,13 @@
 <?php
 
+/**
+* Events
+*
+* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+* @copyright 2019 ColibriLab
+* @package Colibri\Data\Storages
+*/
+
 namespace Colibri\Events;
 
 use Colibri\Collections\ArrayList;
@@ -8,33 +16,36 @@ use Colibri\Events\Handlers\IClosure;
 use Colibri\Events\Handlers\LocalClosure;
 
 /**
- * Менеджер событий
- *
- * @testFunction testEventDispatcher
+ * Event manager.
  */
 class EventDispatcher
 {
     /**
-     * Синглтон
+     * Singleton instance.
      *
      * @var EventDispatcher
      */
     public static $instance;
 
     /**
-     * Массив событий
+     * Array of events.
      *
      * @var Collection
      */
     private $_events;
 
+    /**
+     * Constructor.
+     */
     private function __construct()
     {
         $this->_events = new Collection();
     }
 
     /**
-     * Статический конструктор
+     * Static constructor.
+     *
+     * @return EventDispatcher The EventDispatcher instance.
      */
     public static function Create(): self
     {
@@ -45,8 +56,7 @@ class EventDispatcher
     }
 
     /**
-     * Удаляет обьект
-     * @testFunction testEventDispatcherDispose
+     * Disposes the object.
      */
     public function Dispose(): void
     {
@@ -54,8 +64,12 @@ class EventDispatcher
     }
 
     /**
-     * Добавляет обработчик события
-     * @testFunction testEventDispatcherAddEventListener
+     * Adds an event listener.
+     *
+     * @param array|string $ename The event name or an array of event names.
+     * @param mixed $listener The listener function or object.
+     * @param object|null $object The object associated with the listener function.
+     * @return bool True if the listener was added successfully, false otherwise.
      */
     public function AddEventListener(array |string $ename, mixed $listener, ?object $object = null): bool
     {
@@ -69,9 +83,6 @@ class EventDispatcher
 
         }
 
-        // если не передали listener
-        // или если передали обьект и listener не строка
-        // то выходим
         if (
             !is_string($ename) || empty($ename) || empty($listener) ||
             (!is_object($object) && !is_string($listener) && !is_callable($listener))) {
@@ -101,8 +112,12 @@ class EventDispatcher
     }
 
     /**
-     * Удаляет обработчик события
-     * @testFunction testEventDispatcherRemoveEventListener
+     * Removes an event listener.
+     *
+     * @param string $ename The event name.
+     * @param mixed $listener The listener function or object.
+     * @param object|null $object The object associated with the listener function.
+     * @return bool True if the listener was removed successfully, false otherwise.
      */
     public function RemoveEventListener(string $ename, mixed $listener, ?object $object = null): bool
     {
@@ -132,8 +147,12 @@ class EventDispatcher
     }
 
     /**
-     * Поднять событие
-     * @testFunction testEventDispatcherDispatch
+     * Dispatches an event.
+     *
+     * @param string|Event $event The event object or its name.
+     * @param mixed $args The arguments for the event handlers.
+     * @param bool $async Whether to dispatch asynchronously.
+     * @return object|null The result of the event dispatching.
      */
     public function Dispatch(string|Event $event, mixed $args = null, bool $async = false): ?object
     {
@@ -174,8 +193,12 @@ class EventDispatcher
     }
 
     /**
-     * Проверяет наличие обработчика на событие
-     * @testFunction testEventDispatcherHasEventListener
+     * Checks if an event listener exists.
+     *
+     * @param string $ename The event name.
+     * @param mixed $listener The listener function or object.
+     * @param object|null $object The object associated with the listener function.
+     * @return bool True if the event listener exists, false otherwise.
      */
     public function HasEventListener(string $ename, mixed $listener, ?object $object = null): bool
     {
@@ -204,8 +227,10 @@ class EventDispatcher
     }
 
     /**
-     * Возвращает список обработчиков события
-     * @testFunction testEventDispatcherRegisteredListeners
+     * Returns the list of registered event listeners.
+     *
+     * @param string $ename The event name.
+     * @return ArrayList|null The list of registered event listeners.
      */
     public function RegisteredListeners(string $ename = ""): ?ArrayList
     {

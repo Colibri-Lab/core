@@ -152,15 +152,15 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-Data.html" class="">Data</a>
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Events.html" class="">Events</a>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
                 
             </li>
                     <li>
@@ -220,7 +220,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Events.html">Events</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -235,14 +236,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">19</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Контейер для событий
-от этого класс должен быть наследован класс EventsContainer в Colibri\App</p>
+            <p class="phpdocumentor-summary">Container for events.</p>
 
-    <section class="phpdocumentor-description"><p>в ядре используется этот контенйер, в приложении Colibri\App\EventsContainer</p>
+    <section class="phpdocumentor-description"><p>This class should be inherited by the EventsContainer class in Colibri\App.</p>
+<p>This container is used in the core, and in the application Colibri\App\EventsContainer.</p>
 </section>
 
 
@@ -272,156 +273,126 @@
     <span>
         &nbsp;= &#039;app.initializing&#039;                            </span>
 </dt>
-<dd>Начало инициализации
-без параметров</dd>
+<dd>Start of application initialization.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_AppReady">AppReady</a>
     <span>
         &nbsp;= &#039;app.ready&#039;                            </span>
 </dt>
-<dd>Срабатывает после завершения инициализации приложения
-без параметров</dd>
+<dd>Triggered after the application initialization is complete.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_AssetsBlock">AssetsBlock</a>
     <span>
         &nbsp;= &#039;assets.block&#039;                            </span>
 </dt>
-<dd>Компиляция блока assets завершена
-параметры: string $type, string $name, string $content
-используемая часть результата string $content</dd>
+<dd>Completion of block assets compilation.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_AssetsCompiled">AssetsCompiled</a>
     <span>
         &nbsp;= &#039;assets.compiled&#039;                            </span>
 </dt>
-<dd>Компиляция assets завершена
-параметры: string $type, string $name, string $cacheUrl
-результат не используется</dd>
+<dd>Completion of assets compilation.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_AssetsCompiling">AssetsCompiling</a>
     <span>
         &nbsp;= &#039;assets.compiling&#039;                            </span>
 </dt>
-<dd>Начало компиляции Assets
-параметры: string $type, string $name, string[] $blocks
-используемая часть результата string[] $blocks</dd>
+<dd>Start of assets compilation.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_BundleComplete">BundleComplete</a>
     <span>
         &nbsp;= &#039;bundle.complete&#039;                            </span>
 </dt>
-<dd>Завершена компиляция бандла
-параметры: string $content, string[] $exts
-используемая часть результата string $content</dd>
+<dd>Completion of bundle compilation.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_BundleFile">BundleFile</a>
     <span>
         &nbsp;= &#039;bundle.file&#039;                            </span>
 </dt>
-<dd>Завершена компиляция файла в бандле
-параметры: string $content, string $file
-используемая часть результата string $content</dd>
+<dd>Completion of file compilation in the bundle.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_BundleStart">BundleStart</a>
     <span>
         &nbsp;= &#039;bundle.start&#039;                            </span>
 </dt>
-<dd>Начата компиляция бандла
-параметры: string[] $exts
-используемая часть результата string $content</dd>
+<dd>Start of bundle compilation.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_LogWriten">LogWriten</a>
     <span>
         &nbsp;= &#039;logger.writen&#039;                            </span>
 </dt>
-<dd>Когда что то записано в логгер
-параметры: int $type = Logger::*, string $message, mixed $context
-результат не используется</dd>
+<dd>When something is written to the logger.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_ModuleManagerReady">ModuleManagerReady</a>
     <span>
         &nbsp;= &#039;modulemanager.ready&#039;                            </span>
 </dt>
-<dd>Срабатывает после завершения загрузки всех модулей
-без параметров</dd>
+<dd>Triggered after all modules have been loaded.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_RequestReady">RequestReady</a>
     <span>
         &nbsp;= &#039;request.ready&#039;                            </span>
 </dt>
-<dd>Когда готов обьект Request
-без параметров</dd>
+<dd>When the Request object is ready.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_ResponseReady">ResponseReady</a>
     <span>
         &nbsp;= &#039;response.ready&#039;                            </span>
 </dt>
-<dd>Когда готов обьект Response
-без параметров</dd>
+<dd>When the Response object is ready.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_RpcGotRequest">RpcGotRequest</a>
     <span>
         &nbsp;= &#039;rpc.request&#039;                            </span>
 </dt>
-<dd>Получен запрос RPC
-параметры: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload
-результат: boolean $cancel, stdClass $result</dd>
+<dd>Received RPC request.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_RpcRequestError">RpcRequestError</a>
     <span>
         &nbsp;= &#039;rpc.error&#039;                            </span>
 </dt>
-<dd>Получен запрос RPC
-параметры: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload, string $message
-результат: boolean $cancel, stdClass $result</dd>
+<dd>RPC request error.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_RpcRequestProcessed">RpcRequestProcessed</a>
     <span>
         &nbsp;= &#039;rpc.complete&#039;                            </span>
 </dt>
-<dd>Запрос выполнен
-параметры: mixed $object, string $method, stdClass $get, stdClass $post, stdClass $payload
-результат не используется</dd>
+<dd>Request processed.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_SecurityManagerReady">SecurityManagerReady</a>
     <span>
         &nbsp;= &#039;securitymanager.ready&#039;                            </span>
 </dt>
-<dd>Срабатывает после завершения загрузки всех модулей
-без параметров</dd>
+<dd>Triggered after the SecurityManager has been initialized.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_TemplateRendered">TemplateRendered</a>
     <span>
         &nbsp;= &#039;template.rendered&#039;                            </span>
 </dt>
-<dd>Шаблон обработан
-параметры: Template $template, string $content
-результат не используется</dd>
+<dd>Template has been rendered.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Events-EventsContainer.html#constant_TemplateRendering">TemplateRendering</a>
     <span>
         &nbsp;= &#039;template.rendering&#039;                            </span>
 </dt>
-<dd>Шаблон обрабатывается
-параметры: Template $template, ExtendedObject $args
-результат не используется</dd>
+<dd>Template is being rendered.</dd>
 
     </dl>
 
@@ -448,12 +419,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Начало инициализации
-без параметров</p>
+        <p class="phpdocumentor-summary">Start of application initialization.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -463,7 +433,9 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>No parameters.</p>
+</section>
+
     
     
 
@@ -478,12 +450,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Срабатывает после завершения инициализации приложения
-без параметров</p>
+        <p class="phpdocumentor-summary">Triggered after the application initialization is complete.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -493,7 +464,9 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>No parameters.</p>
+</section>
+
     
     
 
@@ -508,13 +481,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">103</span>
+    <span class="phpdocumentor-element-found-in__line">99</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Компиляция блока assets завершена
-параметры: string $type, string $name, string $content
-используемая часть результата string $content</p>
+        <p class="phpdocumentor-summary">Completion of block assets compilation.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -524,7 +495,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: string $type, string $name, string $content
+Used part of the result: string $content</p>
+</section>
+
     
     
 
@@ -539,13 +513,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Компиляция assets завершена
-параметры: string $type, string $name, string $cacheUrl
-результат не используется</p>
+        <p class="phpdocumentor-summary">Completion of assets compilation.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -555,7 +527,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: string $type, string $name, string $cacheUrl
+The result is not used.</p>
+</section>
+
     
     
 
@@ -570,13 +545,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">89</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Начало компиляции Assets
-параметры: string $type, string $name, string[] $blocks
-используемая часть результата string[] $blocks</p>
+        <p class="phpdocumentor-summary">Start of assets compilation.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -586,7 +559,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: string $type, string $name, string[] $blocks
+Used part of the result: string[] $blocks</p>
+</section>
+
     
     
 
@@ -601,13 +577,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">124</span>
+    <span class="phpdocumentor-element-found-in__line">120</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Завершена компиляция бандла
-параметры: string $content, string[] $exts
-используемая часть результата string $content</p>
+        <p class="phpdocumentor-summary">Completion of bundle compilation.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -617,7 +591,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: string $content, string[] $exts
+Used part of the result: string $content</p>
+</section>
+
     
     
 
@@ -632,13 +609,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Завершена компиляция файла в бандле
-параметры: string $content, string $file
-используемая часть результата string $content</p>
+        <p class="phpdocumentor-summary">Completion of file compilation in the bundle.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -648,7 +623,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: string $content, string $file
+Used part of the result: string $content</p>
+</section>
+
     
     
 
@@ -663,13 +641,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">117</span>
+    <span class="phpdocumentor-element-found-in__line">113</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Начата компиляция бандла
-параметры: string[] $exts
-используемая часть результата string $content</p>
+        <p class="phpdocumentor-summary">Start of bundle compilation.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -679,7 +655,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: string[] $exts
+Used part of the result: string $content</p>
+</section>
+
     
     
 
@@ -694,13 +673,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">178</span>
+    <span class="phpdocumentor-element-found-in__line">174</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Когда что то записано в логгер
-параметры: int $type = Logger::*, string $message, mixed $context
-результат не используется</p>
+        <p class="phpdocumentor-summary">When something is written to the logger.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -710,7 +687,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: int $type = Logger::*, string $message, mixed $context
+The result is not used.</p>
+</section>
+
     
     
 
@@ -725,12 +705,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">64</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Срабатывает после завершения загрузки всех модулей
-без параметров</p>
+        <p class="phpdocumentor-summary">Triggered after all modules have been loaded.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -740,7 +719,9 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>No parameters.</p>
+</section>
+
     
     
 
@@ -755,12 +736,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Когда готов обьект Request
-без параметров</p>
+        <p class="phpdocumentor-summary">When the Request object is ready.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -770,7 +750,9 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>No parameters.</p>
+</section>
+
     
     
 
@@ -785,12 +767,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Когда готов обьект Response
-без параметров</p>
+        <p class="phpdocumentor-summary">When the Response object is ready.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -800,7 +781,9 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>No parameters.</p>
+</section>
+
     
     
 
@@ -815,13 +798,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">131</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Получен запрос RPC
-параметры: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload
-результат: boolean $cancel, stdClass $result</p>
+        <p class="phpdocumentor-summary">Received RPC request.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -831,7 +812,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload
+Result: boolean $cancel, stdClass $result</p>
+</section>
+
     
     
 
@@ -846,13 +830,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">149</span>
+    <span class="phpdocumentor-element-found-in__line">145</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Получен запрос RPC
-параметры: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload, string $message
-результат: boolean $cancel, stdClass $result</p>
+        <p class="phpdocumentor-summary">RPC request error.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -862,7 +844,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload, string $message
+Result: boolean $cancel, stdClass $result</p>
+</section>
+
     
     
 
@@ -877,13 +862,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">138</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Запрос выполнен
-параметры: mixed $object, string $method, stdClass $get, stdClass $post, stdClass $payload
-результат не используется</p>
+        <p class="phpdocumentor-summary">Request processed.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -893,7 +876,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: mixed $object, string $method, stdClass $get, stdClass $post, stdClass $payload
+The result is not used.</p>
+</section>
+
     
     
 
@@ -908,12 +894,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Срабатывает после завершения загрузки всех модулей
-без параметров</p>
+        <p class="phpdocumentor-summary">Triggered after the SecurityManager has been initialized.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -923,7 +908,9 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>No parameters.</p>
+</section>
+
     
     
 
@@ -938,13 +925,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">163</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Шаблон обработан
-параметры: Template $template, string $content
-результат не используется</p>
+        <p class="phpdocumentor-summary">Template has been rendered.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -954,7 +939,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: Template $template, string $content
+The result is not used.</p>
+</section>
+
     
     
 
@@ -969,13 +957,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Events/EventsContainer.php"><a href="files/src-colibri-events-eventscontainer.html"><abbr title="src/Colibri/Events/EventsContainer.php">EventsContainer.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">160</span>
+    <span class="phpdocumentor-element-found-in__line">156</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Шаблон обрабатывается
-параметры: Template $template, ExtendedObject $args
-результат не используется</p>
+        <p class="phpdocumentor-summary">Template is being rendered.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -985,7 +971,10 @@
 </code>
 
 
-    
+        <section class="phpdocumentor-description"><p>Parameters: Template $template, ExtendedObject $args
+The result is not used.</p>
+</section>
+
     
     
 

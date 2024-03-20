@@ -176,6 +176,7 @@ class DataAccessPoint
     /**
      * Executes a query in the access point.
      *
+     * ```
      * ! Attention
      * ! To execute a query with parameters, do the following:
      * ! 1. Parameters are passed in double square brackets [[param:type]], where type can be integer, double, string, or blob.
@@ -184,7 +185,8 @@ class DataAccessPoint
      * ! The actual query with parameters ['id' => '1', 'likeparam' => '%brbrbr%'] will be:
      * ! select * from test where id=1 and stringfield like '%brbrbr%'
      * ! Queries can be put into a collection and executed with different parameters.
-     *
+     * ```
+     * 
      * @param string $query The query string.
      * @param object|array $commandParams [
      *                          page, pagesize, params, type = bigdata|noninfo|reader (default reader),

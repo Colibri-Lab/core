@@ -1,50 +1,47 @@
 <?php
 
 /**
- * Класс события
- * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Events
- * @version 1.0.0
- * 
- * 
- */
+* Events
+*
+* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+* @copyright 2019 ColibriLab
+* @package Colibri\Data\Storages
+*/
 
 namespace Colibri\Events;
 
 use InvalidArgumentException;
 
 /**
- * Класс событие
+ * Event class.
  *
- * @property-read string $name
- * @property-read mixed $sender
+ * @property-read string $name The name of the event.
+ * @property-read mixed $sender The sender of the event.
  *
- * @testFunction testEvent
+ * @testFunction testEvent Used for testing Event.
  */
 class Event
 {
 
     /**
-     * Отправитель
+     * The sender of the event.
      *
      * @var mixed
      */
     private $_sender;
 
     /**
-     * Наименование события
+     * The name of the event.
      *
      * @var string
      */
     private $_name;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param mixed $sender
-     * @param string $name
+     * @param mixed $sender The sender of the event.
+     * @param string $name The name of the event.
      * @throws InvalidArgumentException
      */
     public function __construct($sender, $name)
@@ -58,8 +55,9 @@ class Event
     }
 
     /**
-     * Возвращает наименование события
-     * @return string 
+     * Returns the name of the event.
+     *
+     * @return string The name of the event.
      */
     protected function getPropertyName()
     {
@@ -67,8 +65,9 @@ class Event
     }
 
     /**
-     * Возвращает отправителя события
-     * @return mixed 
+     * Returns the sender of the event.
+     *
+     * @return mixed The sender of the event.
      */
     protected function getPropertySender()
     {
@@ -76,25 +75,26 @@ class Event
     }
 
     /**
-     * Getter
-     * @param string $key 
-     * @return mixed 
+     * Getter method.
+     *
+     * @param string $key The key.
+     * @return mixed The value associated with the key.
      */
     public function __get($key)
     {
         $return = null;
         switch (strtolower($key)) {
             case "name": {
-                    $return = $this->getPropertyName();
-                    break;
-                }
+                $return = $this->getPropertyName();
+                break;
+            }
             case "sender": {
-                    $return = $this->getPropertySender();
-                    break;
-                }
+                $return = $this->getPropertySender();
+                break;
+            }
             default: {
-                    $return = null;
-                }
+                $return = null;
+            }
         }
         return $return;
     }

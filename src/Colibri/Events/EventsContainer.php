@@ -1,24 +1,20 @@
 <?php
 
 /**
- * Контейер для событий
- * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Events
- * @version 1.0.0
- * 
- * 
- */
+* Events
+*
+* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+* @copyright 2019 ColibriLab
+* @package Colibri\Data\Storages
+*/
 
 namespace Colibri\Events;
 
 /**
- * Контейер для событий
- * от этого класс должен быть наследован класс EventsContainer в Colibri\App
- * 
- * в ядре используется этот контенйер, в приложении Colibri\App\EventsContainer
- * 
+ * Container for events.
+ * This class should be inherited by the EventsContainer class in Colibri\App.
+ *
+ * This container is used in the core, and in the application Colibri\App\EventsContainer.
  */
 class EventsContainer
 {
@@ -26,14 +22,14 @@ class EventsContainer
     #region Application events
 
     /**
-     * Срабатывает после завершения инициализации приложения
-     * без параметров
+     * Triggered after the application initialization is complete.
+     * No parameters.
      */
     const AppReady = 'app.ready';
 
     /**
-     * Начало инициализации
-     * без параметров
+     * Start of application initialization.
+     * No parameters.
      */
     const AppInitializing = 'app.initializing';
 
@@ -42,8 +38,8 @@ class EventsContainer
     #region Request events
 
     /**
-     * Когда готов обьект Request
-     * без параметров
+     * When the Request object is ready.
+     * No parameters.
      */
     const RequestReady = 'request.ready';
 
@@ -52,8 +48,8 @@ class EventsContainer
     #region Request events
 
     /**
-     * Когда готов обьект Response
-     * без параметров
+     * When the Response object is ready.
+     * No parameters.
      */
     const ResponseReady = 'response.ready';
 
@@ -62,8 +58,8 @@ class EventsContainer
     #region ModuleManager events 
 
     /**
-     * Срабатывает после завершения загрузки всех модулей
-     * без параметров
+     * Triggered after all modules have been loaded.
+     * No parameters.
      */
     const ModuleManagerReady = 'modulemanager.ready';
 
@@ -72,8 +68,8 @@ class EventsContainer
     #region SecurityManager events 
 
     /**
-     * Срабатывает после завершения загрузки всех модулей
-     * без параметров
+     * Triggered after the SecurityManager has been initialized.
+     * No parameters.
      */
     const SecurityManagerReady = 'securitymanager.ready';
 
@@ -82,44 +78,44 @@ class EventsContainer
     #region Assets
 
     /**
-     * Начало компиляции Assets
-     * параметры: string $type, string $name, string[] $blocks
-     * используемая часть результата string[] $blocks
+     * Start of assets compilation.
+     * Parameters: string $type, string $name, string[] $blocks
+     * Used part of the result: string[] $blocks
      */
     const AssetsCompiling = 'assets.compiling';
 
     /**
-     * Компиляция assets завершена
-     * параметры: string $type, string $name, string $cacheUrl
-     * результат не используется
+     * Completion of assets compilation.
+     * Parameters: string $type, string $name, string $cacheUrl
+     * The result is not used.
      */
     const AssetsCompiled = 'assets.compiled';
 
     /**
-     * Компиляция блока assets завершена
-     * параметры: string $type, string $name, string $content
-     * используемая часть результата string $content
+     * Completion of block assets compilation.
+     * Parameters: string $type, string $name, string $content
+     * Used part of the result: string $content
      */
     const AssetsBlock = 'assets.block';
 
     /**
-     * Завершена компиляция файла в бандле
-     * параметры: string $content, string $file
-     * используемая часть результата string $content
+     * Completion of file compilation in the bundle.
+     * Parameters: string $content, string $file
+     * Used part of the result: string $content
      */
     const BundleFile = 'bundle.file';
 
     /**
-     * Начата компиляция бандла
-     * параметры: string[] $exts
-     * используемая часть результата string $content
+     * Start of bundle compilation.
+     * Parameters: string[] $exts
+     * Used part of the result: string $content
      */
     const BundleStart = 'bundle.start';
 
     /**
-     * Завершена компиляция бандла
-     * параметры: string $content, string[] $exts
-     * используемая часть результата string $content
+     * Completion of bundle compilation.
+     * Parameters: string $content, string[] $exts
+     * Used part of the result: string $content
      */
     const BundleComplete = 'bundle.complete';
 
@@ -128,23 +124,23 @@ class EventsContainer
     #region RPC
 
     /**
-     * Получен запрос RPC
-     * параметры: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload
-     * результат: boolean $cancel, stdClass $result
+     * Received RPC request.
+     * Parameters: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload
+     * Result: boolean $cancel, stdClass $result
      */
     const RpcGotRequest = 'rpc.request';
 
     /**
-     * Запрос выполнен
-     * параметры: mixed $object, string $method, stdClass $get, stdClass $post, stdClass $payload
-     * результат не используется
+     * Request processed.
+     * Parameters: mixed $object, string $method, stdClass $get, stdClass $post, stdClass $payload
+     * The result is not used.
      */
     const RpcRequestProcessed = 'rpc.complete';
 
     /**
-     * Получен запрос RPC
-     * параметры: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload, string $message
-     * результат: boolean $cancel, stdClass $result
+     * RPC request error.
+     * Parameters: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload, string $message
+     * Result: boolean $cancel, stdClass $result
      */
     const RpcRequestError = 'rpc.error';
 
@@ -153,16 +149,16 @@ class EventsContainer
     #region Template
 
     /**
-     * Шаблон обрабатывается
-     * параметры: Template $template, ExtendedObject $args
-     * результат не используется
+     * Template is being rendered.
+     * Parameters: Template $template, ExtendedObject $args
+     * The result is not used.
      */
     const TemplateRendering = 'template.rendering';
 
     /**
-     * Шаблон обработан
-     * параметры: Template $template, string $content
-     * результат не используется
+     * Template has been rendered.
+     * Parameters: Template $template, string $content
+     * The result is not used.
      */
     const TemplateRendered = 'template.rendered';
 
@@ -171,12 +167,12 @@ class EventsContainer
     #region Logger
 
     /**
-     * Когда что то записано в логгер
-     * параметры: int $type = Logger::*, string $message, mixed $context
-     * результат не используется
+     * When something is written to the logger.
+     * Parameters: int $type = Logger::*, string $message, mixed $context
+     * The result is not used.
      */
     const LogWriten = 'logger.writen';
 
-#endregion
+    #endregion
 
 }

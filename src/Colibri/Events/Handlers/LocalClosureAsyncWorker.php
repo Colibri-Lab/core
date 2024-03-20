@@ -1,12 +1,27 @@
 <?php
 
+/**
+* Handlers
+*
+* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+* @copyright 2019 ColibriLab
+* @package Colibri\Data\Storages
+*/
 namespace Colibri\Events\Handlers;
 
 use Colibri\Threading\Worker;
-use Colibri\Utils\Debug;
 
+/**
+ * Class LocalClosureAsyncWorker
+ *
+ * Represents a worker for asynchronously invoking local closures.
+ */
 class LocalClosureAsyncWorker extends Worker
 {
+    
+    /**
+     * Runs the asynchronous worker task.
+     */
     public function Run(): void
     {
 

@@ -32,6 +32,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Initializes a collection from an array, stdClass, or ICollection.
      * 
+     * @example
      * ```
      * $collection1 = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * or copy collection 
@@ -58,6 +59,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Checks if the key exists
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Exists('a') returns true
@@ -72,6 +74,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Checks if the specified item exists in the data array.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Contains(1) returns true
@@ -89,6 +92,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Searches for the specified item in the data array and returns its index.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->IndexOf(1) returns 'a'
@@ -110,6 +114,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Retrieves the key at the specified index in the data array.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Key(1) returns 'b'
@@ -136,6 +141,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Retrieves the value associated with the specified key in the data array.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Item('a') returns 1
@@ -156,6 +162,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Retrieves the value at the specified index in the data array.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->ItemAt(1) returns 2
@@ -177,6 +184,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Returns an iterator for traversing the collection data.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * foreach($collection as $key => $value) { ... }
@@ -194,6 +202,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Adds a key-value pair to the collection.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Add('g', 10) collection goes to be ['a' => 1, 'b' => 2, 'c' => 3, 'g' => 10]
@@ -212,6 +221,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Appends data from another source to the collection.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Append(['g' => 10, 'c' => 11]) collection goes to be ['a' => 1, 'b' => 2, 'c' => 3, 'g' => 10, 'c' => 11]
@@ -234,6 +244,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Inserts a key-value pair at the specified index in the data array.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Insert(1, 'g', 10) collection goes to be ['a' => 1, 'g' => 10, 'b' => 2, 'c' => 3]
@@ -258,6 +269,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Removes the key-value pair with the specified key from the collection.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Delete('b') collection goes to be ['a' => 1, 'c' => 3]
@@ -279,6 +291,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Removes the key-value pair at the specified index from the collection.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->DeleteAt(1) collection goes to be ['a' => 1, 'c' => 3]
@@ -313,6 +326,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Clears the collection by removing all key-value pairs.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Clear() collection goes to be []
@@ -328,6 +342,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Converts the collection data to a string representation.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->ToString(['=', '&']) returns 'a=1&b=2&c=3'
@@ -353,6 +368,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Creates a collection from a string representation.
      * 
+     * @example
      * ```
      * $collection = Collection::FromString('a=1&b=2&c=3', ['=','&']);
      * $collection is ['a' => 1, 'b' => 2, 'c' => 3]
@@ -379,6 +395,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Converts the collection data to an array.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->ToArray() returns ['a' => 1, 'b' => 2, 'c' => 3]
@@ -394,6 +411,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Returns the number of elements in the collection.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Count() returns 3
@@ -409,6 +427,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Retrieves the first element from the collection.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->First() returns 1
@@ -424,6 +443,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Retrieves the last element from the collection.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Last() returns 3
@@ -462,6 +482,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Filters the collection data based on the provided closure.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Filter(fn($k,$v) => $k==='a' && $v===1) returns ['a' => 1]
@@ -484,6 +505,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Extracts data from a specified page using the given page size.
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->Extract(1, 2) returns ['a' => 1, 'b' => 2]
@@ -509,6 +531,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Serializes the object to a value that can be natively serialized by json_encode().
      * 
+     * @example
      * ```
      * $collection = new Collection(['a' => 1, 'b' => 2, 'c' => 3]);
      * $collection->jsonSerialize() returns ['a' => 1, 'b' => 2, 'c' => 3]

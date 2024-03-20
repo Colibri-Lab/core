@@ -1,5 +1,13 @@
 <?php
 
+/**
+* Handlers
+*
+* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+* @copyright 2019 ColibriLab
+* @package Colibri\Data\Storages
+*/
+
 namespace Colibri\Events\Handlers;
 use Colibri\App;
 use Colibri\Common\VariableHelper;
@@ -7,19 +15,43 @@ use Colibri\Events\Event;
 use Colibri\Threading\Process;
 
 
+/**
+ * Class LocalClosure
+ *
+ * Represents a local closure handler for events.
+ */
 class LocalClosure implements IClosure
 {
 
+    /**
+     * @var mixed The callable object or function.
+     */
     private mixed $_callable;
 
+    /**
+     * @var object|null The object associated with the closure.
+     */
     private ?object $_object;
 
+    /**
+     * LocalClosure constructor.
+     *
+     * @param mixed $callable The callable object or function.
+     * @param object|null $object The object associated with the closure.
+     */
     public function __construct(mixed $callable, ?object $object = null) 
     {
         $this->_callable = $callable;
         $this->_object = $object;
     }
 
+    /**
+     * Invokes the closure synchronously.
+     *
+     * @param string|Event $event The event object or its name.
+     * @param mixed $args Additional arguments to pass to the closure.
+     * @return bool|null True if the closure was successfully invoked, otherwise false. Null if invocation fails.
+     */
     public function Invoke(string|Event $event, mixed $args): ?bool
     {
         $listener = $this->_callable;
@@ -39,6 +71,13 @@ class LocalClosure implements IClosure
         return $result;
     }
 
+    /**
+     * Invokes the closure asynchronously.
+     *
+     * @param string|Event $event The event object or its name.
+     * @param mixed $args Additional arguments to pass to the closure.
+     * @return Process A Process object representing the asynchronous execution.
+     */
     public function AsyncInvoke(string|Event $event, mixed $args): Process
     {
         $worker = new LocalClosureAsyncWorker(0, 0);
@@ -46,7 +85,12 @@ class LocalClosure implements IClosure
         $process->Run((object) ['event' => $event, 'args' => $args, 'closure' => $this->Serialize()]);
         return $process;
     }
-
+    
+    /**
+     * Serializes the closure.
+     *
+     * @return string The serialized closure.
+     */
     public function Serialize(): string
     {
         $callable = $this->_callable;
@@ -57,6 +101,12 @@ class LocalClosure implements IClosure
         return serialize(['object' => $this->_object, 'callable' => $callable]);
     }
 
+    /**
+     * Unserializes a serialized closure.
+     *
+     * @param string $serialized The serialized closure.
+     * @return LocalClosure|null An instance of LocalClosure, or null if unserialization fails.
+     */
     public static function Unserialize(string $serialized): ?LocalClosure
     {
         $unserialized = unserialize($serialized);

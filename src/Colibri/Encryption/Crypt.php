@@ -1,35 +1,38 @@
 <?php
 
 /**
- * Шифрование
- * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Common
- * @version 1.0.0
- * 
- */
+* Encryption
+*
+* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+* @copyright 2019 ColibriLab
+* @package Colibri\Data\Storages
+*/
+
 
 namespace Colibri\Encryption;
 
 /**
- * Шифрование
- * @testFunction testCrypt
+ * Cryptography utility class.
  */
 class Crypt
 {
-
+    /**
+     * Encryption algorithm: Base64 encoding.
+     */
     const EncryptionAlgBase64 = 'base64';
+
+    /**
+     * Encryption algorithm: Hexadecimal encoding.
+     */
     const EncryptionAlgHex = 'hex';
 
     /**
-     * Зашифровать
+     * Encrypts data.
      *
-     * @param string $key ключ
-     * @param string $data данные
-     * @param string $stringifyMethod метод превращения в строку
-     * @return string
-     * @testFunction testCryptEncrypt
+     * @param string $key The key.
+     * @param string $data The data to encrypt.
+     * @param string $stringifyMethod The method for converting to string.
+     * @return string The encrypted data.
      */
     static function Encrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): string
     {
@@ -43,13 +46,12 @@ class Crypt
     }
 
     /**
-     * Расшифровать
+     * Decrypts data.
      *
-     * @param string $key ключ
-     * @param string $data данные
-     * @param string $stringifyMethod метод превращения в строку
-     * @return string
-     * @testFunction testCryptDecrypt
+     * @param string $key The key.
+     * @param string $data The data to decrypt.
+     * @param string $stringifyMethod The method for converting to string.
+     * @return string The decrypted data.
      */
     static function Decrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): string
     {

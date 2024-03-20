@@ -1593,127 +1593,127 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint",
             "name": "DataAccessPoint",
-            "summary": "\u0422\u043E\u0447\u043A\u0430\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Access\u0020Point",
             "url": "classes/Colibri-Data-DataAccessPoint.html"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Magic\u0020get\u0020method",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003AQuery\u0028\u0029",
             "name": "Query",
-            "summary": "\u0412\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0432\u0020\u0442\u043E\u0447\u043A\u0443\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Executes\u0020a\u0020query\u0020in\u0020the\u0020access\u0020point.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method_Query"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003AInsert\u0028\u0029",
             "name": "Insert",
-            "summary": "\u0412\u0432\u043E\u0434\u0438\u0442\u0020\u043D\u043E\u0432\u0443\u044E\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Inserts\u0020a\u0020new\u0020row.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method_Insert"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003AInsertOrUpdate\u0028\u0029",
             "name": "InsertOrUpdate",
-            "summary": "\u0412\u0432\u043E\u0434\u0438\u0442\u0020\u043D\u043E\u0432\u0443\u044E\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u0438\u043B\u0438\u0020\u043E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u0442\u0020\u0441\u0442\u0430\u0440\u0443\u044E,\u0020\u0435\u0441\u043B\u0438\u0020\u0441\u043E\u0432\u043F\u0430\u043B\u0438\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u043D\u044B\u0435\u0020\u043F\u043E\u043B\u044F\n\u041E\u0442\u043B\u0438\u0447\u043D\u044B\u0439\u0020\u0441\u043F\u043E\u0441\u043E\u0431\u0020\u043D\u0435\u0020\u0437\u0430\u0434\u0443\u043C\u044B\u0432\u0430\u0442\u044C\u0441\u044F\u0020\u043D\u0430\u0434\u0020\u0442\u0435\u043C\u0020\u0435\u0441\u0442\u044C\u0020\u043B\u0438\u0020\u0441\u0442\u0440\u043E\u043A\u0430\u0020\u0432\u0020\u0431\u0430\u0437\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0445\u0020\u0438\u043B\u0438\u0020\u043D\u0435\u0442\n\u0420\u0430\u0431\u043E\u0442\u0430\u0435\u0442\u0020\u043C\u0435\u0434\u043B\u0435\u043D\u043D\u0435\u0435\u0020\u0447\u0435\u043C\u0020\u043E\u0431\u044B\u0447\u043D\u044B\u0439\u0020\u0432\u0432\u043E\u0434\u0020\u0434\u0430\u043D\u043D\u044B\u0445,\u0020\u043F\u043E\u044D\u0442\u043E\u043C\u0443\u0020\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0020\u0441\u0020\u043E\u0441\u043C\u043E\u0442\u0440\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C\u044E",
+            "summary": "Inserts\u0020a\u0020new\u0020row\u0020or\u0020updates\u0020an\u0020existing\u0020one\u0020if\u0020index\u0020fields\u0020match.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method_InsertOrUpdate"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003AInsertBatch\u0028\u0029",
             "name": "InsertBatch",
-            "summary": "\u0412\u0432\u043E\u0434\u0438\u0442\u0020\u043A\u043D\u043E\u0433\u043E\u0020\u0441\u0442\u0440\u043E\u043A\u0020\u0440\u0430\u0437\u043E\u043C",
+            "summary": "Inserts\u0020multiple\u0020rows\u0020at\u0020once.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method_InsertBatch"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003AUpdate\u0028\u0029",
             "name": "Update",
-            "summary": "\u041E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Updates\u0020a\u0020row.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method_Update"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003ADelete\u0028\u0029",
             "name": "Delete",
-            "summary": "\u0423\u0434\u0430\u043B\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020\u043F\u043E\u0020\u043A\u0440\u0438\u0442\u0435\u0440\u0438\u044F\u043C",
+            "summary": "Deletes\u0020a\u0020row\u0020based\u0020on\u0020criteria.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method_Delete"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003ATables\u0028\u0029",
             "name": "Tables",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0441\u043F\u0438\u0441\u043E\u043A\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u0020\u0432\u0020\u0431\u0430\u0437\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Returns\u0020a\u0020list\u0020of\u0020tables\u0020in\u0020the\u0020database.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method_Tables"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003ABegin\u0028\u0029",
             "name": "Begin",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0442\u0440\u0430\u043D\u0437\u0430\u043A\u0446\u0438\u044E",
+            "summary": "Starts\u0020a\u0020transaction.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method_Begin"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003ACommit\u0028\u0029",
             "name": "Commit",
-            "summary": "\u041A\u043E\u043C\u043C\u0438\u0442\u0438\u0442\u0020\u0442\u0440\u0430\u043D\u0437\u0430\u043A\u0446\u0438\u044E",
+            "summary": "Commits\u0020the\u0020transaction.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method_Commit"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003ARollback\u0028\u0029",
             "name": "Rollback",
-            "summary": "\u041E\u0442\u043C\u0435\u043D\u044F\u0435\u0442\u0020\u0442\u0440\u0430\u043D\u0437\u0430\u043A\u0446\u0438\u044E",
+            "summary": "Rolls\u0020back\u0020the\u0020transaction.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#method_Rollback"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003AQueryTypeReader",
             "name": "QueryTypeReader",
-            "summary": "\u0412\u044B\u043F\u043E\u043B\u043D\u0438\u0442\u044C\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0438\u0020\u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0020Reader",
+            "summary": "Execute\u0020the\u0020query\u0020and\u0020return\u0020a\u0020Reader",
             "url": "classes/Colibri-Data-DataAccessPoint.html#constant_QueryTypeReader"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003AQueryTypeBigData",
             "name": "QueryTypeBigData",
-            "summary": "\u0412\u044B\u043F\u043E\u043B\u043D\u0438\u0442\u044C\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020\u0438\u0020\u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0020Reader,\u0020\u043D\u043E\u0020\u0431\u0435\u0437\u0020\u043F\u043E\u0434\u0441\u0447\u0435\u0442\u0430\u0020\u043E\u0431\u0449\u0435\u0433\u043E\u0020\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u0430\u0020\u0441\u0442\u0440\u043E\u043A",
+            "summary": "Execute\u0020the\u0020query\u0020and\u0020return\u0020a\u0020Reader,\u0020but\u0020without\u0020counting\u0020the\u0020total\u0020number\u0020of\u0020rows.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#constant_QueryTypeBigData"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003AQueryTypeNonInfo",
             "name": "QueryTypeNonInfo",
-            "summary": "\u0412\u044B\u043F\u043E\u043B\u043D\u0438\u0442\u044C\u0020\u0437\u0430\u043F\u0440\u043E\u0441,\u0020\u043A\u043E\u0442\u043E\u0440\u044B\u0439\u0020\u043D\u0435\u0020\u043F\u043E\u0434\u0440\u0430\u0437\u0443\u043C\u0435\u0432\u0430\u0435\u0442\u0020\u0447\u0442\u0435\u043D\u0438\u044F\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Execute\u0020a\u0020query\u0020that\u0020does\u0020not\u0020involve\u0020reading\u0020data.",
             "url": "classes/Colibri-Data-DataAccessPoint.html#constant_QueryTypeNonInfo"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003ATransationReadonly",
             "name": "TransationReadonly",
-            "summary": "",
+            "summary": "Readonly\u0020transation",
             "url": "classes/Colibri-Data-DataAccessPoint.html#constant_TransationReadonly"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003ATransationReadWrite",
             "name": "TransationReadWrite",
-            "summary": "",
+            "summary": "ReadWrite\u0020transaction",
             "url": "classes/Colibri-Data-DataAccessPoint.html#constant_TransationReadWrite"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003A\u0024_accessPointData",
             "name": "_accessPointData",
-            "summary": "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F\u0020\u043E\u0020\u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0438",
+            "summary": "Connection\u0020properties",
             "url": "classes/Colibri-Data-DataAccessPoint.html#property__accessPointData"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoint\u003A\u003A\u0024_connection",
             "name": "_connection",
-            "summary": "\u041F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435",
+            "summary": "Connection\u0020object",
             "url": "classes/Colibri-Data-DataAccessPoint.html#property__connection"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPointIterator",
             "name": "DataAccessPointIterator",
-            "summary": "Represents\u0020an\u0020iterator\u0020for\u0020a\u0020collection.",
+            "summary": "Iterator\u0020for\u0020DataAccessPoint\u0020objects.",
             "url": "classes/Colibri-Data-DataAccessPointIterator.html"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoints",
             "name": "DataAccessPoints",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0444\u0430\u0431\u0440\u0438\u043A\u0430\u0020\u0434\u043B\u044F\u0020\u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F\u0020\u0442\u043E\u0447\u0435\u043A\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Factory\u0020class\u0020for\u0020creating\u0020access\u0020points.",
             "url": "classes/Colibri-Data-DataAccessPoints.html"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoints\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-Data-DataAccessPoints.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoints\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "\u0421\u0442\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\u0020\u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Static\u0020constructor.",
             "url": "classes/Colibri-Data-DataAccessPoints.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoints\u003A\u003AGet\u0028\u0029",
             "name": "Get",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0442\u043E\u0447\u043A\u0443\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Creates\u0020an\u0020access\u0020point.",
             "url": "classes/Colibri-Data-DataAccessPoints.html#method_Get"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoints\u003A\u003AKey\u0028\u0029",
@@ -1763,17 +1763,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoints\u003A\u003A\u0024instance",
             "name": "instance",
-            "summary": "\u0421\u0438\u043D\u0433\u043B\u0442\u043E\u043D",
+            "summary": "",
             "url": "classes/Colibri-Data-DataAccessPoints.html#property_instance"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoints\u003A\u003A\u0024_accessPoints",
             "name": "_accessPoints",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u0442\u043E\u0447\u0435\u043A\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "The\u0020list\u0020of\u0020access\u0020points.",
             "url": "classes/Colibri-Data-DataAccessPoints.html#property__accessPoints"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPoints\u003A\u003A\u0024_accessPointsPool",
             "name": "_accessPointsPool",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u043E\u0442\u043A\u0440\u044B\u0442\u044B\u0445\u0020\u0442\u043E\u0447\u0435\u043A\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "The\u0020list\u0020of\u0020open\u0020access\u0020points.",
             "url": "classes/Colibri-Data-DataAccessPoints.html#property__accessPointsPool"
         },                {
             "fqsen": "\\Colibri\\Data\\DataAccessPointsException",
@@ -3488,162 +3488,162 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage",
             "name": "Storage",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0425\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435",
+            "summary": "Storage\u0020class",
             "url": "classes/Colibri-Data-Storages-Storage.html"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructs\u0020a\u0020new\u0020Storage\u0020object.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003A_init\u0028\u0029",
             "name": "_init",
-            "summary": "",
+            "summary": "Initializes\u0020the\u0020storage\u0020object.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method__init"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020instance\u0020of\u0020the\u0020Storage\u0020class.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter\u0020method.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003A__set\u0028\u0029",
             "name": "__set",
-            "summary": "",
+            "summary": "Setter\u0020method.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method___set"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003A_loadFields\u0028\u0029",
             "name": "_loadFields",
-            "summary": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442\u0020\u043F\u043E\u043B\u044F\u0020\u0432\u0020\u043C\u0430\u0441\u0441\u0438\u0432",
+            "summary": "Loads\u0020fields\u0020into\u0020an\u0020array.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method__loadFields"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AUpdateField\u0028\u0029",
             "name": "UpdateField",
-            "summary": "",
+            "summary": "Updates\u0020a\u0020field\u0020in\u0020the\u0020storage\u0020configuration.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_UpdateField"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AGetModelClasses\u0028\u0029",
             "name": "GetModelClasses",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043C\u043E\u0434\u0435\u043B\u0438\u0020\u0440\u0435\u043F\u0443\u0020\u0438\u0020\u043C\u043E\u0434\u0435\u043B\u044C",
+            "summary": "Retrieves\u0020the\u0020model\u0020classes\u0020for\u0020the\u0020storage.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_GetModelClasses"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AGetFieldClass\u0028\u0029",
             "name": "GetFieldClass",
-            "summary": "",
+            "summary": "Retrieves\u0020the\u0020class\u0020of\u0020a\u0020specific\u0020field.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_GetFieldClass"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AGetRealFieldName\u0028\u0029",
             "name": "GetRealFieldName",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0440\u0435\u0430\u043B\u044C\u043D\u043E\u0435\u0020\u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u0020\u043F\u043E\u043B\u044F\u0020\u0432\u0020\u0431\u0430\u0437\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Retrieves\u0020the\u0020real\u0020field\u0020name\u0020with\u0020the\u0020table\u0020prefix.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_GetRealFieldName"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AGetFieldName\u0028\u0029",
             "name": "GetFieldName",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u0020\u043F\u043E\u043B\u044F\u0020\u0431\u0435\u0437\u0020\u043F\u0440\u0435\u0444\u0438\u043A\u0441\u0430\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u044B",
+            "summary": "Retrieves\u0020the\u0020field\u0020name\u0020without\u0020the\u0020table\u0020prefix.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_GetFieldName"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AGetField\u0028\u0029",
             "name": "GetField",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043F\u043E\u043B\u0435\u0020\u043F\u043E\u0020\u043F\u0443\u0442\u0438\u0020\u0442\u0438\u043F\u0430\u0020fieldname\/fieldname",
+            "summary": "Retrieves\u0020a\u0020field\u0020object\u0020based\u0020on\u0020the\u0020specified\u0020path\u0020like\u0020field1\/field2\/field3\u0020if\u0020field1\u0020and\u0020field2\u0020is\u0020of\u0020type\u0020json",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_GetField"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AGetTemplates\u0028\u0029",
             "name": "GetTemplates",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0449\u0438\u0439\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0434\u043B\u044F\u0020\u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F\u0020\u0437\u0430\u043F\u0438\u0441\u0435\u0439\u0020\u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0430\u0020\u043F\u043E\u0020\u0448\u0430\u0431\u043B\u043E\u043D\u0430\u043C",
+            "summary": "Retrieves\u0020templates\u0020for\u0020displaying\u0020records\u0020from\u0020the\u0020storage.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_GetTemplates"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AGetModule\u0028\u0029",
             "name": "GetModule",
-            "summary": "",
+            "summary": "Retrieves\u0020the\u0020module\u0020associated\u0020with\u0020the\u0020storage.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_GetModule"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AToArray\u0028\u0029",
             "name": "ToArray",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438\u0020\u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0430\u0020\u0432\u0020\u0432\u0438\u0434\u0435",
+            "summary": "Converts\u0020the\u0020storage\u0020settings\u0020to\u0020an\u0020array.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_ToArray"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003ASave\u0028\u0029",
             "name": "Save",
-            "summary": "",
+            "summary": "Saves\u0020the\u0020storage\u0020settings\u0020to\u0020a\u0020file.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_Save"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003ADelete\u0028\u0029",
             "name": "Delete",
-            "summary": "",
+            "summary": "Deletes\u0020the\u0020storage\u0020settings\u0020from\u0020config\u0020of\u0020module\u0020or\u0020application.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_Delete"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AAddField\u0028\u0029",
             "name": "AddField",
-            "summary": "",
+            "summary": "Adds\u0020a\u0020new\u0020field\u0020to\u0020the\u0020storage.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_AddField"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003ADeleteField\u0028\u0029",
             "name": "DeleteField",
-            "summary": "",
+            "summary": "Deletes\u0020a\u0020field\u0020from\u0020the\u0020storage.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_DeleteField"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AAddIndex\u0028\u0029",
             "name": "AddIndex",
-            "summary": "",
+            "summary": "Adds\u0020an\u0020index\u0020to\u0020the\u0020storage.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_AddIndex"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003ADeleteIndex\u0028\u0029",
             "name": "DeleteIndex",
-            "summary": "",
+            "summary": "Deletes\u0020an\u0020index\u0020from\u0020the\u0020storage.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_DeleteIndex"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AMoveField\u0028\u0029",
             "name": "MoveField",
-            "summary": "",
+            "summary": "Moves\u0020a\u0020field\u0020within\u0020the\u0020storage.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_MoveField"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AGetStatus\u0028\u0029",
             "name": "GetStatus",
-            "summary": "",
+            "summary": "Retrieves\u0020the\u0020status\u0020of\u0020the\u0020storage.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_GetStatus"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003ADisableKeys\u0028\u0029",
             "name": "DisableKeys",
-            "summary": "",
+            "summary": "Disables\u0020keys\u0020for\u0020the\u0020storage\u0020table.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_DisableKeys"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003AEnableKeys\u0028\u0029",
             "name": "EnableKeys",
-            "summary": "",
+            "summary": "Enables\u0020keys\u0020for\u0020the\u0020storage\u0020table.",
             "url": "classes/Colibri-Data-Storages-Storage.html#method_EnableKeys"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003A\u0024_xstorage",
             "name": "_xstorage",
-            "summary": "\u0414\u0430\u043D\u043D\u044B\u0435\u0020\u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0430",
+            "summary": "Internal\u0020storage\u0020data",
             "url": "classes/Colibri-Data-Storages-Storage.html#property__xstorage"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003A\u0024_dataPoint",
             "name": "_dataPoint",
-            "summary": "\u0422\u043E\u0447\u043A\u0430\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Data\u0020access\u0020point",
             "url": "classes/Colibri-Data-Storages-Storage.html#property__dataPoint"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003A\u0024_fields",
             "name": "_fields",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u043F\u043E\u043B\u0435\u0439",
+            "summary": "Fields\u0020list",
             "url": "classes/Colibri-Data-Storages-Storage.html#property__fields"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storage\u003A\u003A\u0024_name",
             "name": "_name",
-            "summary": "",
+            "summary": "Storage\u0020Name",
             "url": "classes/Colibri-Data-Storages-Storage.html#property__name"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages",
             "name": "Storages",
-            "summary": "Storages\u0020object",
+            "summary": "Represents\u0020a\u0020collection\u0020of\u0020storage\u0020objects.",
             "url": "classes/Colibri-Data-Storages-Storages.html"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Constructs\u0020an\u0020Storages\u0020object",
+            "summary": "Constructs\u0020a\u0020Storages\u0020object.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A_fromShortString\u0028\u0029",
@@ -3663,82 +3663,82 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003AMigrate\u0028\u0029",
             "name": "Migrate",
-            "summary": "Migrates\u0020a\u0020database",
+            "summary": "Migrates\u0020storage\u0020tables\u0020and\u0020fields.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method_Migrate"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A_createStorageTable\u0028\u0029",
             "name": "_createStorageTable",
-            "summary": "Creates\u0020a\u0020storage\u0020table",
+            "summary": "Creates\u0020a\u0020new\u0020storage\u0020table.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method__createStorageTable"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A_updateDefaultAndLength\u0028\u0029",
             "name": "_updateDefaultAndLength",
-            "summary": "Update\u0020a\u0020default\u0020value",
+            "summary": "Updates\u0020the\u0020default\u0020value\u0020and\u0020length\u0020of\u0020a\u0020storage\u0020field.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method__updateDefaultAndLength"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A_createStorageField\u0028\u0029",
             "name": "_createStorageField",
-            "summary": "Creates\u0020a\u0020storage\u0020field",
+            "summary": "Creates\u0020a\u0020new\u0020storage\u0020field.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method__createStorageField"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A_createStorageVirtualField\u0028\u0029",
             "name": "_createStorageVirtualField",
-            "summary": "Creates\u0020a\u0020virtual\u0020field",
+            "summary": "Creates\u0020a\u0020new\u0020virtual\u0020storage\u0020field.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method__createStorageVirtualField"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A_alterStorageField\u0028\u0029",
             "name": "_alterStorageField",
-            "summary": "Alters\u0020a\u0020storage\u0020field",
+            "summary": "Alters\u0020an\u0020existing\u0020storage\u0020field.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method__alterStorageField"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A_alterStorageVirtualField\u0028\u0029",
             "name": "_alterStorageVirtualField",
-            "summary": "Alters\u0020a\u0020virtual\u0020field",
+            "summary": "Alters\u0020an\u0020existing\u0020virtual\u0020storage\u0020field.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method__alterStorageVirtualField"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A_createStorageIndex\u0028\u0029",
             "name": "_createStorageIndex",
-            "summary": "Creates\u0020a\u0020storage\u0020table",
+            "summary": "Creates\u0020a\u0020new\u0020storage\u0020index.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method__createStorageIndex"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A_alterStorageIndex\u0028\u0029",
             "name": "_alterStorageIndex",
-            "summary": "Alters\u0020the\u0020storage\u0020table",
+            "summary": "Alters\u0020an\u0020existing\u0020storage\u0020index.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method__alterStorageIndex"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003AExists\u0028\u0029",
             "name": "Exists",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0442\u0430\u0431\u043B\u0438\u0446\u0443\u0020\u0438\u0437\u0020\u0431\u0430\u0437\u044B\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Checks\u0020if\u0020a\u0020storage\u0020with\u0020the\u0020specified\u0020name\u0020exists.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method_Exists"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003ALoad\u0028\u0029",
             "name": "Load",
-            "summary": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442\u0020\u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u0435",
+            "summary": "Loads\u0020the\u0020storage\u0020with\u0020the\u0020specified\u0020name\u0020and\u0020optional\u0020module.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method_Load"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003AGetStorages\u0028\u0029",
             "name": "GetStorages",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0020\u0432\u0441\u0435\u0445\u0020\u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449",
+            "summary": "Retrieves\u0020an\u0020array\u0020of\u0020all\u0020storages.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method_GetStorages"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "Getter",
+            "summary": "Magic\u0020method\u0020to\u0020retrieve\u0020the\u0020value\u0020of\u0020inaccessible\u0020properties.",
             "url": "classes/Colibri-Data-Storages-Storages.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A\u0024instance",
             "name": "instance",
-            "summary": "",
+            "summary": "The\u0020singleton\u0020instance\u0020of\u0020the\u0020Storages\u0020class.",
             "url": "classes/Colibri-Data-Storages-Storages.html#property_instance"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A\u0024_storages",
             "name": "_storages",
-            "summary": "Array\u0020of\u0020storage\u0020data",
+            "summary": "Array\u0020of\u0020storage\u0020data.",
             "url": "classes/Colibri-Data-Storages-Storages.html#property__storages"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Storages\u003A\u003A\u0024_types",
             "name": "_types",
-            "summary": "Types",
+            "summary": "Types\u0020of\u0020storages.",
             "url": "classes/Colibri-Data-Storages-Storages.html#property__types"
         },                {
             "fqsen": "\\Colibri\\Data\\Trees\\NestedSet",
@@ -3913,282 +3913,282 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Encryption\\Crypt",
             "name": "Crypt",
-            "summary": "\u0428\u0438\u0444\u0440\u043E\u0432\u0430\u043D\u0438\u0435",
+            "summary": "Cryptography\u0020utility\u0020class.",
             "url": "classes/Colibri-Encryption-Crypt.html"
         },                {
             "fqsen": "\\Colibri\\Encryption\\Crypt\u003A\u003AEncrypt\u0028\u0029",
             "name": "Encrypt",
-            "summary": "\u0417\u0430\u0448\u0438\u0444\u0440\u043E\u0432\u0430\u0442\u044C",
+            "summary": "Encrypts\u0020data.",
             "url": "classes/Colibri-Encryption-Crypt.html#method_Encrypt"
         },                {
             "fqsen": "\\Colibri\\Encryption\\Crypt\u003A\u003ADecrypt\u0028\u0029",
             "name": "Decrypt",
-            "summary": "\u0420\u0430\u0441\u0448\u0438\u0444\u0440\u043E\u0432\u0430\u0442\u044C",
+            "summary": "Decrypts\u0020data.",
             "url": "classes/Colibri-Encryption-Crypt.html#method_Decrypt"
         },                {
             "fqsen": "\\Colibri\\Encryption\\Crypt\u003A\u003AEncryptionAlgBase64",
             "name": "EncryptionAlgBase64",
-            "summary": "",
+            "summary": "Encryption\u0020algorithm\u003A\u0020Base64\u0020encoding.",
             "url": "classes/Colibri-Encryption-Crypt.html#constant_EncryptionAlgBase64"
         },                {
             "fqsen": "\\Colibri\\Encryption\\Crypt\u003A\u003AEncryptionAlgHex",
             "name": "EncryptionAlgHex",
-            "summary": "",
+            "summary": "Encryption\u0020algorithm\u003A\u0020Hexadecimal\u0020encoding.",
             "url": "classes/Colibri-Encryption-Crypt.html#constant_EncryptionAlgHex"
         },                {
             "fqsen": "\\Colibri\\Encryption\\Rc4Crypt",
             "name": "Rc4Crypt",
-            "summary": "\u0428\u0438\u0444\u0440\u043E\u0432\u0430\u043D\u0438\u0435\u0020\u043C\u0435\u0442\u043E\u0434\u043E\u043C\u0020RC4",
+            "summary": "RC4\u0020encryption.",
             "url": "classes/Colibri-Encryption-Rc4Crypt.html"
         },                {
             "fqsen": "\\Colibri\\Encryption\\Rc4Crypt\u003A\u003AEncrypt\u0028\u0029",
             "name": "Encrypt",
-            "summary": "\u0417\u0430\u0448\u0438\u0444\u0440\u043E\u0432\u0430\u0442\u044C",
+            "summary": "Encrypts\u0020data\u0020using\u0020RC4\u0020algorithm.",
             "url": "classes/Colibri-Encryption-Rc4Crypt.html#method_Encrypt"
         },                {
             "fqsen": "\\Colibri\\Encryption\\Rc4Crypt\u003A\u003ADecrypt\u0028\u0029",
             "name": "Decrypt",
-            "summary": "\u0420\u0430\u0441\u0448\u0438\u0444\u0440\u043E\u0432\u0430\u0442\u044C",
+            "summary": "Decrypts\u0020data\u0020using\u0020RC4\u0020algorithm.",
             "url": "classes/Colibri-Encryption-Rc4Crypt.html#method_Decrypt"
         },                {
             "fqsen": "\\Colibri\\Events\\Event",
             "name": "Event",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u0435",
+            "summary": "Event\u0020class.",
             "url": "classes/Colibri-Events-Event.html"
         },                {
             "fqsen": "\\Colibri\\Events\\Event\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Events-Event.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Events\\Event\u003A\u003AgetPropertyName\u0028\u0029",
             "name": "getPropertyName",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u044F",
+            "summary": "Returns\u0020the\u0020name\u0020of\u0020the\u0020event.",
             "url": "classes/Colibri-Events-Event.html#method_getPropertyName"
         },                {
             "fqsen": "\\Colibri\\Events\\Event\u003A\u003AgetPropertySender\u0028\u0029",
             "name": "getPropertySender",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u0435\u043B\u044F\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u044F",
+            "summary": "Returns\u0020the\u0020sender\u0020of\u0020the\u0020event.",
             "url": "classes/Colibri-Events-Event.html#method_getPropertySender"
         },                {
             "fqsen": "\\Colibri\\Events\\Event\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "Getter",
+            "summary": "Getter\u0020method.",
             "url": "classes/Colibri-Events-Event.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Events\\Event\u003A\u003A\u0024_sender",
             "name": "_sender",
-            "summary": "\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u0435\u043B\u044C",
+            "summary": "The\u0020sender\u0020of\u0020the\u0020event.",
             "url": "classes/Colibri-Events-Event.html#property__sender"
         },                {
             "fqsen": "\\Colibri\\Events\\Event\u003A\u003A\u0024_name",
             "name": "_name",
-            "summary": "\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u044F",
+            "summary": "The\u0020name\u0020of\u0020the\u0020event.",
             "url": "classes/Colibri-Events-Event.html#property__name"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher",
             "name": "EventDispatcher",
-            "summary": "\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u0439",
+            "summary": "Event\u0020manager.",
             "url": "classes/Colibri-Events-EventDispatcher.html"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Events-EventDispatcher.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "\u0421\u0442\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\u0020\u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Static\u0020constructor.",
             "url": "classes/Colibri-Events-EventDispatcher.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher\u003A\u003ADispose\u0028\u0029",
             "name": "Dispose",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442",
+            "summary": "Disposes\u0020the\u0020object.",
             "url": "classes/Colibri-Events-EventDispatcher.html#method_Dispose"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher\u003A\u003AAddEventListener\u0028\u0029",
             "name": "AddEventListener",
-            "summary": "\u0414\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u044F",
+            "summary": "Adds\u0020an\u0020event\u0020listener.",
             "url": "classes/Colibri-Events-EventDispatcher.html#method_AddEventListener"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher\u003A\u003ARemoveEventListener\u0028\u0029",
             "name": "RemoveEventListener",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u044F",
+            "summary": "Removes\u0020an\u0020event\u0020listener.",
             "url": "classes/Colibri-Events-EventDispatcher.html#method_RemoveEventListener"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher\u003A\u003ADispatch\u0028\u0029",
             "name": "Dispatch",
-            "summary": "\u041F\u043E\u0434\u043D\u044F\u0442\u044C\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u0435",
+            "summary": "Dispatches\u0020an\u0020event.",
             "url": "classes/Colibri-Events-EventDispatcher.html#method_Dispatch"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher\u003A\u003AHasEventListener\u0028\u0029",
             "name": "HasEventListener",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u043D\u0430\u043B\u0438\u0447\u0438\u0435\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u0430\u0020\u043D\u0430\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u0435",
+            "summary": "Checks\u0020if\u0020an\u0020event\u0020listener\u0020exists.",
             "url": "classes/Colibri-Events-EventDispatcher.html#method_HasEventListener"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher\u003A\u003ARegisteredListeners\u0028\u0029",
             "name": "RegisteredListeners",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0441\u043F\u0438\u0441\u043E\u043A\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u043E\u0432\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u044F",
+            "summary": "Returns\u0020the\u0020list\u0020of\u0020registered\u0020event\u0020listeners.",
             "url": "classes/Colibri-Events-EventDispatcher.html#method_RegisteredListeners"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher\u003A\u003A\u0024instance",
             "name": "instance",
-            "summary": "\u0421\u0438\u043D\u0433\u043B\u0442\u043E\u043D",
+            "summary": "Singleton\u0020instance.",
             "url": "classes/Colibri-Events-EventDispatcher.html#property_instance"
         },                {
             "fqsen": "\\Colibri\\Events\\EventDispatcher\u003A\u003A\u0024_events",
             "name": "_events",
-            "summary": "\u041C\u0430\u0441\u0441\u0438\u0432\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u0439",
+            "summary": "Array\u0020of\u0020events.",
             "url": "classes/Colibri-Events-EventDispatcher.html#property__events"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer",
             "name": "EventsContainer",
-            "summary": "\u041A\u043E\u043D\u0442\u0435\u0439\u0435\u0440\u0020\u0434\u043B\u044F\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u0439\n\u043E\u0442\u0020\u044D\u0442\u043E\u0433\u043E\u0020\u043A\u043B\u0430\u0441\u0441\u0020\u0434\u043E\u043B\u0436\u0435\u043D\u0020\u0431\u044B\u0442\u044C\u0020\u043D\u0430\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0020\u043A\u043B\u0430\u0441\u0441\u0020EventsContainer\u0020\u0432\u0020Colibri\\App",
+            "summary": "Container\u0020for\u0020events.",
             "url": "classes/Colibri-Events-EventsContainer.html"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003AAppReady",
             "name": "AppReady",
-            "summary": "\u0421\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0435\u0442\u0020\u043F\u043E\u0441\u043B\u0435\u0020\u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u044F\u0020\u0438\u043D\u0438\u0446\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u0438\u0020\u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u044F\n\u0431\u0435\u0437\u0020\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043E\u0432",
+            "summary": "Triggered\u0020after\u0020the\u0020application\u0020initialization\u0020is\u0020complete.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_AppReady"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003AAppInitializing",
             "name": "AppInitializing",
-            "summary": "\u041D\u0430\u0447\u0430\u043B\u043E\u0020\u0438\u043D\u0438\u0446\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u0438\n\u0431\u0435\u0437\u0020\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043E\u0432",
+            "summary": "Start\u0020of\u0020application\u0020initialization.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_AppInitializing"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ARequestReady",
             "name": "RequestReady",
-            "summary": "\u041A\u043E\u0433\u0434\u0430\u0020\u0433\u043E\u0442\u043E\u0432\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020Request\n\u0431\u0435\u0437\u0020\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043E\u0432",
+            "summary": "When\u0020the\u0020Request\u0020object\u0020is\u0020ready.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_RequestReady"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003AResponseReady",
             "name": "ResponseReady",
-            "summary": "\u041A\u043E\u0433\u0434\u0430\u0020\u0433\u043E\u0442\u043E\u0432\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020Response\n\u0431\u0435\u0437\u0020\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043E\u0432",
+            "summary": "When\u0020the\u0020Response\u0020object\u0020is\u0020ready.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_ResponseReady"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003AModuleManagerReady",
             "name": "ModuleManagerReady",
-            "summary": "\u0421\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0435\u0442\u0020\u043F\u043E\u0441\u043B\u0435\u0020\u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u044F\u0020\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438\u0020\u0432\u0441\u0435\u0445\u0020\u043C\u043E\u0434\u0443\u043B\u0435\u0439\n\u0431\u0435\u0437\u0020\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043E\u0432",
+            "summary": "Triggered\u0020after\u0020all\u0020modules\u0020have\u0020been\u0020loaded.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_ModuleManagerReady"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ASecurityManagerReady",
             "name": "SecurityManagerReady",
-            "summary": "\u0421\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0435\u0442\u0020\u043F\u043E\u0441\u043B\u0435\u0020\u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u044F\u0020\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0438\u0020\u0432\u0441\u0435\u0445\u0020\u043C\u043E\u0434\u0443\u043B\u0435\u0439\n\u0431\u0435\u0437\u0020\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u043E\u0432",
+            "summary": "Triggered\u0020after\u0020the\u0020SecurityManager\u0020has\u0020been\u0020initialized.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_SecurityManagerReady"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003AAssetsCompiling",
             "name": "AssetsCompiling",
-            "summary": "\u041D\u0430\u0447\u0430\u043B\u043E\u0020\u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0446\u0438\u0438\u0020Assets\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020string\u0020\u0024type,\u0020string\u0020\u0024name,\u0020string\u005B\u005D\u0020\u0024blocks\n\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u0430\u044F\u0020\u0447\u0430\u0441\u0442\u044C\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0430\u0020string\u005B\u005D\u0020\u0024blocks",
+            "summary": "Start\u0020of\u0020assets\u0020compilation.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_AssetsCompiling"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003AAssetsCompiled",
             "name": "AssetsCompiled",
-            "summary": "\u041A\u043E\u043C\u043F\u0438\u043B\u044F\u0446\u0438\u044F\u0020assets\u0020\u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020string\u0020\u0024type,\u0020string\u0020\u0024name,\u0020string\u0020\u0024cacheUrl\n\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0020\u043D\u0435\u0020\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F",
+            "summary": "Completion\u0020of\u0020assets\u0020compilation.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_AssetsCompiled"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003AAssetsBlock",
             "name": "AssetsBlock",
-            "summary": "\u041A\u043E\u043C\u043F\u0438\u043B\u044F\u0446\u0438\u044F\u0020\u0431\u043B\u043E\u043A\u0430\u0020assets\u0020\u0437\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020string\u0020\u0024type,\u0020string\u0020\u0024name,\u0020string\u0020\u0024content\n\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u0430\u044F\u0020\u0447\u0430\u0441\u0442\u044C\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0430\u0020string\u0020\u0024content",
+            "summary": "Completion\u0020of\u0020block\u0020assets\u0020compilation.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_AssetsBlock"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ABundleFile",
             "name": "BundleFile",
-            "summary": "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430\u0020\u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0446\u0438\u044F\u0020\u0444\u0430\u0439\u043B\u0430\u0020\u0432\u0020\u0431\u0430\u043D\u0434\u043B\u0435\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020string\u0020\u0024content,\u0020string\u0020\u0024file\n\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u0430\u044F\u0020\u0447\u0430\u0441\u0442\u044C\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0430\u0020string\u0020\u0024content",
+            "summary": "Completion\u0020of\u0020file\u0020compilation\u0020in\u0020the\u0020bundle.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_BundleFile"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ABundleStart",
             "name": "BundleStart",
-            "summary": "\u041D\u0430\u0447\u0430\u0442\u0430\u0020\u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0446\u0438\u044F\u0020\u0431\u0430\u043D\u0434\u043B\u0430\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020string\u005B\u005D\u0020\u0024exts\n\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u0430\u044F\u0020\u0447\u0430\u0441\u0442\u044C\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0430\u0020string\u0020\u0024content",
+            "summary": "Start\u0020of\u0020bundle\u0020compilation.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_BundleStart"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ABundleComplete",
             "name": "BundleComplete",
-            "summary": "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043D\u0430\u0020\u043A\u043E\u043C\u043F\u0438\u043B\u044F\u0446\u0438\u044F\u0020\u0431\u0430\u043D\u0434\u043B\u0430\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020string\u0020\u0024content,\u0020string\u005B\u005D\u0020\u0024exts\n\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u043C\u0430\u044F\u0020\u0447\u0430\u0441\u0442\u044C\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0430\u0020string\u0020\u0024content",
+            "summary": "Completion\u0020of\u0020bundle\u0020compilation.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_BundleComplete"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ARpcGotRequest",
             "name": "RpcGotRequest",
-            "summary": "\u041F\u043E\u043B\u0443\u0447\u0435\u043D\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020RPC\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020string\u0020\u0024class,\u0020string\u0020\u0024method,\u0020stdClass\u0020\u0024get,\u0020stdClass\u0020\u0024post,\u0020stdClass\u0020\u0024payload\n\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u003A\u0020boolean\u0020\u0024cancel,\u0020stdClass\u0020\u0024result",
+            "summary": "Received\u0020RPC\u0020request.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_RpcGotRequest"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ARpcRequestProcessed",
             "name": "RpcRequestProcessed",
-            "summary": "\u0417\u0430\u043F\u0440\u043E\u0441\u0020\u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020mixed\u0020\u0024object,\u0020string\u0020\u0024method,\u0020stdClass\u0020\u0024get,\u0020stdClass\u0020\u0024post,\u0020stdClass\u0020\u0024payload\n\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0020\u043D\u0435\u0020\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F",
+            "summary": "Request\u0020processed.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_RpcRequestProcessed"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ARpcRequestError",
             "name": "RpcRequestError",
-            "summary": "\u041F\u043E\u043B\u0443\u0447\u0435\u043D\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0020RPC\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020string\u0020\u0024class,\u0020string\u0020\u0024method,\u0020stdClass\u0020\u0024get,\u0020stdClass\u0020\u0024post,\u0020stdClass\u0020\u0024payload,\u0020string\u0020\u0024message\n\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u003A\u0020boolean\u0020\u0024cancel,\u0020stdClass\u0020\u0024result",
+            "summary": "RPC\u0020request\u0020error.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_RpcRequestError"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ATemplateRendering",
             "name": "TemplateRendering",
-            "summary": "\u0428\u0430\u0431\u043B\u043E\u043D\u0020\u043E\u0431\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0435\u0442\u0441\u044F\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020Template\u0020\u0024template,\u0020ExtendedObject\u0020\u0024args\n\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0020\u043D\u0435\u0020\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F",
+            "summary": "Template\u0020is\u0020being\u0020rendered.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_TemplateRendering"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ATemplateRendered",
             "name": "TemplateRendered",
-            "summary": "\u0428\u0430\u0431\u043B\u043E\u043D\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0430\u043D\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020Template\u0020\u0024template,\u0020string\u0020\u0024content\n\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0020\u043D\u0435\u0020\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F",
+            "summary": "Template\u0020has\u0020been\u0020rendered.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_TemplateRendered"
         },                {
             "fqsen": "\\Colibri\\Events\\EventsContainer\u003A\u003ALogWriten",
             "name": "LogWriten",
-            "summary": "\u041A\u043E\u0433\u0434\u0430\u0020\u0447\u0442\u043E\u0020\u0442\u043E\u0020\u0437\u0430\u043F\u0438\u0441\u0430\u043D\u043E\u0020\u0432\u0020\u043B\u043E\u0433\u0433\u0435\u0440\n\u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u044B\u003A\u0020int\u0020\u0024type\u0020\u003D\u0020Logger\u003A\u003A\u002A,\u0020string\u0020\u0024message,\u0020mixed\u0020\u0024context\n\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0020\u043D\u0435\u0020\u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F",
+            "summary": "When\u0020something\u0020is\u0020written\u0020to\u0020the\u0020logger.",
             "url": "classes/Colibri-Events-EventsContainer.html#constant_LogWriten"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\IClosure",
             "name": "IClosure",
-            "summary": "",
+            "summary": "Interface\u0020IClosure",
             "url": "classes/Colibri-Events-Handlers-IClosure.html"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\IClosure\u003A\u003AInvoke\u0028\u0029",
             "name": "Invoke",
-            "summary": "",
+            "summary": "Invokes\u0020the\u0020closure\u0020synchronously.",
             "url": "classes/Colibri-Events-Handlers-IClosure.html#method_Invoke"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\IClosure\u003A\u003AAsyncInvoke\u0028\u0029",
             "name": "AsyncInvoke",
-            "summary": "",
+            "summary": "Invokes\u0020the\u0020closure\u0020asynchronously.",
             "url": "classes/Colibri-Events-Handlers-IClosure.html#method_AsyncInvoke"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\IClosure\u003A\u003ASerialize\u0028\u0029",
             "name": "Serialize",
-            "summary": "",
+            "summary": "Serializes\u0020the\u0020closure.",
             "url": "classes/Colibri-Events-Handlers-IClosure.html#method_Serialize"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\IClosure\u003A\u003AUnserialize\u0028\u0029",
             "name": "Unserialize",
-            "summary": "",
+            "summary": "Unserializes\u0020a\u0020serialized\u0020closure.",
             "url": "classes/Colibri-Events-Handlers-IClosure.html#method_Unserialize"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\LocalClosure",
             "name": "LocalClosure",
-            "summary": "",
+            "summary": "Class\u0020LocalClosure",
             "url": "classes/Colibri-Events-Handlers-LocalClosure.html"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\LocalClosure\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "LocalClosure\u0020constructor.",
             "url": "classes/Colibri-Events-Handlers-LocalClosure.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\LocalClosure\u003A\u003AInvoke\u0028\u0029",
             "name": "Invoke",
-            "summary": "",
+            "summary": "Invokes\u0020the\u0020closure\u0020synchronously.",
             "url": "classes/Colibri-Events-Handlers-LocalClosure.html#method_Invoke"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\LocalClosure\u003A\u003AAsyncInvoke\u0028\u0029",
             "name": "AsyncInvoke",
-            "summary": "",
+            "summary": "Invokes\u0020the\u0020closure\u0020asynchronously.",
             "url": "classes/Colibri-Events-Handlers-LocalClosure.html#method_AsyncInvoke"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\LocalClosure\u003A\u003ASerialize\u0028\u0029",
             "name": "Serialize",
-            "summary": "",
+            "summary": "Serializes\u0020the\u0020closure.",
             "url": "classes/Colibri-Events-Handlers-LocalClosure.html#method_Serialize"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\LocalClosure\u003A\u003AUnserialize\u0028\u0029",
             "name": "Unserialize",
-            "summary": "",
+            "summary": "Unserializes\u0020a\u0020serialized\u0020closure.",
             "url": "classes/Colibri-Events-Handlers-LocalClosure.html#method_Unserialize"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\LocalClosure\u003A\u003A\u0024_callable",
@@ -4203,122 +4203,122 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\LocalClosureAsyncWorker",
             "name": "LocalClosureAsyncWorker",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0440\u0430\u0431\u043E\u0442\u044B\u0020\u0432\u0020\u043F\u0440\u043E\u0446\u0435\u0441\u0441\u0430\u043C\u0438,\u0020\u0438\u043C\u0438\u0442\u0438\u0440\u0443\u0435\u0442\u0020\u043F\u043E\u0442\u043E\u043A\n\u0414\u043B\u044F\u0020\u0440\u0430\u0431\u043E\u0442\u044B\u0020\u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0020\u043D\u0430\u043B\u0438\u0447\u0438\u0435\u0020php\u002Dcli,\u0020memcached\u0020\u0438\u0020ramdisk",
+            "summary": "Class\u0020LocalClosureAsyncWorker",
             "url": "classes/Colibri-Events-Handlers-LocalClosureAsyncWorker.html"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\LocalClosureAsyncWorker\u003A\u003ARun\u0028\u0029",
             "name": "Run",
-            "summary": "",
+            "summary": "Runs\u0020the\u0020asynchronous\u0020worker\u0020task.",
             "url": "classes/Colibri-Events-Handlers-LocalClosureAsyncWorker.html#method_Run"
         },                {
             "fqsen": "\\Colibri\\Events\\Handlers\\LocalClosureException",
             "name": "LocalClosureException",
-            "summary": "",
+            "summary": "Class\u0020LocalClosureException",
             "url": "classes/Colibri-Events-Handlers-LocalClosureException.html"
         },                {
             "fqsen": "\\Colibri\\Events\\TEventDispatcher",
             "name": "TEventDispatcher",
-            "summary": "\u0411\u0430\u0437\u043E\u0432\u044B\u0439\u0020\u043A\u043B\u0430\u0441\u0441\u0020\u0022\u0414\u0438\u0441\u043F\u0435\u0442\u0447\u0435\u0440\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u0439\u0022",
+            "summary": "Basic\u0020Event\u0020Dispatcher\u0020trait.",
             "url": "classes/Colibri-Events-TEventDispatcher.html"
         },                {
             "fqsen": "\\Colibri\\Events\\TEventDispatcher\u003A\u003ADispatchEvent\u0028\u0029",
             "name": "DispatchEvent",
-            "summary": "\u041F\u043E\u0434\u043D\u044F\u0442\u044C\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u0435",
+            "summary": "Dispatches\u0020an\u0020event.",
             "url": "classes/Colibri-Events-TEventDispatcher.html#method_DispatchEvent"
         },                {
             "fqsen": "\\Colibri\\Events\\TEventDispatcher\u003A\u003AHandleEvent\u0028\u0029",
             "name": "HandleEvent",
-            "summary": "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u044F",
+            "summary": "Adds\u0020an\u0020event\u0020handler.",
             "url": "classes/Colibri-Events-TEventDispatcher.html#method_HandleEvent"
         },                {
             "fqsen": "\\Colibri\\Events\\TEventDispatcher\u003A\u003ARemoveHandler\u0028\u0029",
             "name": "RemoveHandler",
-            "summary": "\u0423\u0434\u0430\u043B\u0438\u0442\u044C\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u0447\u0438\u043A\u0020\u0441\u043E\u0431\u044B\u0442\u0438\u044F",
+            "summary": "Removes\u0020an\u0020event\u0020handler.",
             "url": "classes/Colibri-Events-TEventDispatcher.html#method_RemoveHandler"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\ApplicationErrorException",
             "name": "ApplicationErrorException",
-            "summary": "",
+            "summary": "Represents\u0020an\u0020exception\u0020that\u0020indicates\u0020an\u0020error\u0020in\u0020the\u0020application\u0020logic.",
             "url": "classes/Colibri-Exceptions-ApplicationErrorException.html"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\ApplicationErrorException\u003A\u003AErrorCode",
             "name": "ErrorCode",
-            "summary": "",
+            "summary": "The\u0020error\u0020code\u0020for\u0020the\u0020application\u0020error.",
             "url": "classes/Colibri-Exceptions-ApplicationErrorException.html#constant_ErrorCode"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\ApplicationErrorException\u003A\u003AValidationError",
             "name": "ValidationError",
-            "summary": "",
+            "summary": "Error\u0020message\u0020for\u0020validation\u0020errors\u0020in\u0020the\u0020application.",
             "url": "classes/Colibri-Exceptions-ApplicationErrorException.html#constant_ValidationError"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\ApplicationErrorException\u003A\u003AApplicationError",
             "name": "ApplicationError",
-            "summary": "",
+            "summary": "General\u0020application\u0020error\u0020message.",
             "url": "classes/Colibri-Exceptions-ApplicationErrorException.html#constant_ApplicationError"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\BadMethodCallException",
             "name": "BadMethodCallException",
-            "summary": "",
+            "summary": "Exception\u0020thrown\u0020if\u0020a\u0020callback\u0020refers\u0020to\u0020an\u0020undefined\u0020method\u0020or\u0020if\u0020some\u0020arguments\u0020are\u0020missing.",
             "url": "classes/Colibri-Exceptions-BadMethodCallException.html"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\BadRequestException",
             "name": "BadRequestException",
-            "summary": "",
+            "summary": "Exception\u0020thrown\u0020to\u0020indicate\u0020that\u0020the\u0020server\u0020cannot\u0020or\u0020will\u0020not\u0020process\u0020the\u0020request\u0020due\u0020to\u0020something\u0020that\u0020is\u0020perceived\u0020to\u0020be\u0020a\u0020client\u0020error.",
             "url": "classes/Colibri-Exceptions-BadRequestException.html"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\BadRequestException\u003A\u003ABadRequestExceptionCode",
             "name": "BadRequestExceptionCode",
-            "summary": "",
+            "summary": "The\u0020HTTP\u0020status\u0020code\u0020for\u0020a\u0020bad\u0020request.",
             "url": "classes/Colibri-Exceptions-BadRequestException.html#constant_BadRequestExceptionCode"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\BadRequestException\u003A\u003ABadRequestExceptionMessage",
             "name": "BadRequestExceptionMessage",
-            "summary": "",
+            "summary": "Message\u0020indicating\u0020a\u0020bad\u0020request.",
             "url": "classes/Colibri-Exceptions-BadRequestException.html#constant_BadRequestExceptionMessage"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\PermissionDeniedException",
             "name": "PermissionDeniedException",
-            "summary": "",
+            "summary": "Exception\u0020thrown\u0020to\u0020indicate\u0020that\u0020the\u0020server\u0020understood\u0020the\u0020request,\u0020but\u0020refuses\u0020to\u0020authorize\u0020it.",
             "url": "classes/Colibri-Exceptions-PermissionDeniedException.html"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\PermissionDeniedException\u003A\u003APermissionDeniedCode",
             "name": "PermissionDeniedCode",
-            "summary": "",
+            "summary": "The\u0020HTTP\u0020status\u0020code\u0020for\u0020permission\u0020denied.",
             "url": "classes/Colibri-Exceptions-PermissionDeniedException.html#constant_PermissionDeniedCode"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\PermissionDeniedException\u003A\u003APermissionDeniedMessage",
             "name": "PermissionDeniedMessage",
-            "summary": "",
+            "summary": "Message\u0020indicating\u0020permission\u0020denied.",
             "url": "classes/Colibri-Exceptions-PermissionDeniedException.html#constant_PermissionDeniedMessage"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\ValidationException",
             "name": "ValidationException",
-            "summary": "",
+            "summary": "Exception\u0020thrown\u0020to\u0020indicate\u0020a\u0020validation\u0020error.",
             "url": "classes/Colibri-Exceptions-ValidationException.html"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\ValidationException\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Constructs\u0020a\u0020ValidationException.",
             "url": "classes/Colibri-Exceptions-ValidationException.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\ValidationException\u003A\u003AgetExceptionData\u0028\u0029",
             "name": "getExceptionData",
-            "summary": "",
+            "summary": "Retrieves\u0020the\u0020additional\u0020data\u0020associated\u0020with\u0020the\u0020exception.",
             "url": "classes/Colibri-Exceptions-ValidationException.html#method_getExceptionData"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\ValidationException\u003A\u003AgetExceptionDataAsArray\u0028\u0029",
             "name": "getExceptionDataAsArray",
-            "summary": "",
+            "summary": "Retrieves\u0020the\u0020additional\u0020data\u0020associated\u0020with\u0020the\u0020exception\u0020as\u0020an\u0020array.",
             "url": "classes/Colibri-Exceptions-ValidationException.html#method_getExceptionDataAsArray"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\ValidationException\u003A\u003ALog\u0028\u0029",
             "name": "Log",
-            "summary": "",
+            "summary": "Logs\u0020the\u0020exception.",
             "url": "classes/Colibri-Exceptions-ValidationException.html#method_Log"
         },                {
             "fqsen": "\\Colibri\\Exceptions\\ValidationException\u003A\u003A\u0024_exceptionData",
             "name": "_exceptionData",
-            "summary": "",
+            "summary": "Additional\u0020data\u0020associated\u0020with\u0020the\u0020exception.",
             "url": "classes/Colibri-Exceptions-ValidationException.html#property__exceptionData"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Font",

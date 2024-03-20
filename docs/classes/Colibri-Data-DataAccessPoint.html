@@ -152,15 +152,15 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-Data.html" class="">Data</a>
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Events.html" class="">Events</a>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
                 
             </li>
                     <li>
@@ -220,8 +220,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils.html">Utils</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils-Config.html">Config</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -236,105 +236,90 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">107</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Точка доступа</p>
+            <p class="phpdocumentor-summary">Access Point</p>
 
-    <section class="phpdocumentor-description"><code class="prettyprint">
-<pre class="prettyprint"><code class="prettyprint"> $accessPoint = App::$dataAccessPoints-&gt;Get('main');
+    <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">Example
 
- # Получение данных по запросу
+$accessPoint = App::$dataAccessPoints-&gt;Get('main');
 
- class Queries {
-     const TestSelectQuery = '
-            select *
-            from test
-            where id=[[id:integer]] and text=[[text:string]] and dbl=[[dbl::double]]';
- }
- $reader = $accessPoint-&gt;Query(
-             Queries::TestSelectQuery, [
-                 'page' =&gt; 1, 'pagesize' =&gt; 10, 'params' =&gt; [
-                     'id' =&gt; 1, 'text' =&gt; 'adfadf', 'dbl' =&gt; 1.1
-                 ]
-             ]);
- while($result = $reader-&gt;Read()) {
-     print_r($result); // обьект
- }
+# Retrieving data by query
 
- # или без параметров
+class Queries {
+    const TestSelectQuery = '
+           select *
+           from test
+           where id=[[id:integer]] and text=[[text:string]] and dbl=[[dbl::double]]';
+}
+$reader = $accessPoint-&gt;Query(
+            Queries::TestSelectQuery, [
+                'page' =&gt; 1, 'pagesize' =&gt; 10, 'params' =&gt; [
+                    'id' =&gt; 1, 'text' =&gt; 'adfadf', 'dbl' =&gt; 1.1
+                ]
+            ]);
+while($result = $reader-&gt;Read()) {
+    print_r($result); // object
+}
 
- $reader = $accessPoint-&gt;Query('
-     select *
-     from test
-     where id=\'2\' and text=\'adfasdfasdf\' and dbl=\'1.1\'', ['page' =&gt; 1, 'pagesize' =&gt; 10]);
- while($result = $reader-&gt;Read()) {
-     print_r($result); // обьект
- }
+# or without parameters
 
- $accessPoint-&gt;Query('BEGIN');
+$reader = $accessPoint-&gt;Query('
+    select *
+    from test
+    where id=\'2\' and text=\'adfasdfasdf\' and dbl=\'1.1\'', ['page' =&gt; 1, 'pagesize' =&gt; 10]);
+while($result = $reader-&gt;Read()) {
+    print_r($result); // object
+}
 
- # если необходимо выполнить запрос insert, update или delete
- $nonQueryInfo = $accessPoint-&gt;Query('
-     delete from test where id=1', ['type' =&gt; DataAccessPoint::QueryTypeNonInfo]);
+$accessPoint-&gt;Query('BEGIN');
 
- # если необходимо выполнить запрос с большим количеством данных, например для запросов с автоподкачкой
- $reader = $accessPoint-&gt;Query('
-     select * from test', ['page' =&gt; 1, 'pagesize' =&gt; 100, 'type' =&gt; DataAccessPoint::QueryTypeBigData]);
+# If you need to execute an insert, update, or delete query
+$nonQueryInfo = $accessPoint-&gt;Query('
+    delete from test where id=1', ['type' =&gt; DataAccessPoint::QueryTypeNonInfo]);
 
- # ввод данных
- $nonQueryInfo = $accessPoint-&gt;Insert('test', [
-     'text' =&gt; 'адфасдфасдфасдф', 'dbl' =&gt; 1.1], 'id'); # только для postgresql
- # возвращается класс QueryInfo, для postgres необходимо
-     передать дополнительный параметр returning - название поля, которое нужно вернуть
+# If you need to execute a query with a large amount of data, for example, for queries with auto-fetching
+$reader = $accessPoint-&gt;Query('
+    select * from test', ['page' =&gt; 1, 'pagesize' =&gt; 100, 'type' =&gt; DataAccessPoint::QueryTypeBigData]);
 
- # обновление данных
- $returnsBool = $accessPoint-&gt;Update('test', ['text' =&gt; 'adfasdfasdf', 'dbl' =&gt; 1.2], 'id=1');
- # возвращает true если обновление прошло успешно
+# Input data
+$nonQueryInfo = $accessPoint-&gt;Insert('test', [
+    'text' =&gt; 'адфасдфасдфасдф', 'dbl' =&gt; 1.1], 'id'); # only for postgresql
+# It returns a QueryInfo class, for postgres, an additional parameter returning is required -
+    the name of the field to return
 
- # ввод с обновлением данных, если есть дубликат по identity полю или sequence для postgresql
- $nonQueryInfo = $accessPoint-&gt;InsertOrUpdate('test', [
-     'id' =&gt; 1, 'text' =&gt; 'adfadsfads', 'dbl' =&gt; 1.1], ['id', 'text'], 'id');
- # поле returning нужно только для postgresql
- # возвращается класс QueryInfo, для postgres необходимо передать
-     дополнительный параметр returning - название поля, которое нужно вернуть
+# Data update
+$returnsBool = $accessPoint-&gt;Update('test', ['text' =&gt; 'adfasdfasdf', 'dbl' =&gt; 1.2], 'id=1');
+# Returns true if the update was successful
 
- # ввод данны пачкой
- $nonQueryInfo = $accessPoint-&gt;InsertBatch('test', [ [
-     'text' =&gt; 'adsfasdf', 'dbl' =&gt; 1.0], ['text' =&gt; 'adsfasdf', 'dbl' =&gt; 1.1] ]);
+# Input with data update, if there is a duplicate on the identity field or sequence for postgresql
+$nonQueryInfo = $accessPoint-&gt;InsertOrUpdate('test', [
+    'id' =&gt; 1, 'text' =&gt; 'adfadsfads', 'dbl' =&gt; 1.1], ['id', 'text'], 'id');
+# The returning field is only needed for postgres
+# It returns a QueryInfo class, for postgres, an additional parameter returning is required -
+    the name of the field to return
 
- $accessPoint-&gt;Query('COMMIT');
+# Batch data input
+$nonQueryInfo = $accessPoint-&gt;InsertBatch('test', [ [
+    'text' =&gt; 'adsfasdf', 'dbl' =&gt; 1.0], ['text' =&gt; 'adsfasdf', 'dbl' =&gt; 1.1] ]);
 
- # удаление данных
- $returnsBool = $accessPoint-&gt;Delete('test', 'id=1');
- # возвращает true если удаление прошло успешно, нужно учесть, что если
-     не передать параметр condition то будет выполнено truncate table test
+$accessPoint-&gt;Query('COMMIT');
 
- # получение списка таблиц
- $tablesReader = $accessPoint-&gt;Tables();
- # возвращает IDataReader
+# Data deletion
+$returnsBool = $accessPoint-&gt;Delete('test', 'id=1');
+# Returns true if the deletion was successful, note that if
+    you do not pass the condition parameter, the table test will be truncated
+
+# Getting a list of tables
+$tablesReader = $accessPoint-&gt;Tables();
+# Returns an IDataReader
+
 </code></pre>
-</code>
 </section>
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPoint</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
 
 
@@ -361,33 +346,35 @@
     <span>
         &nbsp;= &#039;bigdata&#039;                            </span>
 </dt>
-<dd>Выполнить запрос и вернуть Reader, но без подсчета общего количества строк</dd>
+<dd>Execute the query and return a Reader, but without counting the total number of rows.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#constant_QueryTypeNonInfo">QueryTypeNonInfo</a>
     <span>
         &nbsp;= &#039;noninfo&#039;                            </span>
 </dt>
-<dd>Выполнить запрос, который не подразумевает чтения данных</dd>
+<dd>Execute a query that does not involve reading data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#constant_QueryTypeReader">QueryTypeReader</a>
     <span>
         &nbsp;= &#039;reader&#039;                            </span>
 </dt>
-<dd>Выполнить запрос и вернуть Reader</dd>
+<dd>Execute the query and return a Reader</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#constant_TransationReadonly">TransationReadonly</a>
     <span>
         &nbsp;= &#039;readonly&#039;                            </span>
 </dt>
+<dd>Readonly transation</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#constant_TransationReadWrite">TransationReadWrite</a>
     <span>
         &nbsp;= &#039;readwrite&#039;                            </span>
 </dt>
+<dd>ReadWrite transaction</dd>
 
     </dl>
 
@@ -421,14 +408,14 @@
     <span>
                         &nbsp;: object            </span>
 </dt>
-<dd>Информация о подключении</dd>
+<dd>Connection properties</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Data-DataAccessPoint.html#property__connection">$_connection</a>
     <span>
                         &nbsp;: <a href="classes/Colibri-Data-SqlClient-IConnection.html"><abbr title="\Colibri\Data\SqlClient\IConnection">IConnection</abbr></a>            </span>
 </dt>
-<dd>Подключение</dd>
+<dd>Connection object</dd>
 
     </dl>
 
@@ -443,86 +430,84 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Геттер</dd>
+<dd>Magic get method</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method_Begin">Begin()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Создает транзакцию</dd>
+<dd>Starts a transaction.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method_Commit">Commit()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Коммитит транзакцию</dd>
+<dd>Commits the transaction.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method_Delete">Delete()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a>    </span>
 </dt>
-<dd>Удалет строку по критериям</dd>
+<dd>Deletes a row based on criteria.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method_Insert">Insert()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a>    </span>
 </dt>
-<dd>Вводит новую строку</dd>
+<dd>Inserts a new row.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method_InsertBatch">InsertBatch()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a>    </span>
 </dt>
-<dd>Вводит кного строк разом</dd>
+<dd>Inserts multiple rows at once.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method_InsertOrUpdate">InsertOrUpdate()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a>    </span>
 </dt>
-<dd>Вводит новую строку или обновляет старую, если совпали индексные поля
-Отличный способ не задумываться над тем есть ли строка в базе данных или нет
-Работает медленнее чем обычный ввод данных, поэтому использовать с осмотрительностью</dd>
+<dd>Inserts a new row or updates an existing one if index fields match.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method_Query">Query()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-SqlClient-IDataReader.html"><abbr title="\Colibri\Data\SqlClient\IDataReader">IDataReader</abbr></a>|<a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a>|null    </span>
 </dt>
-<dd>Выполняет запрос в точку доступа</dd>
+<dd>Executes a query in the access point.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method_Rollback">Rollback()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Отменяет транзакцию</dd>
+<dd>Rolls back the transaction.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method_Tables">Tables()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-SqlClient-IDataReader.html"><abbr title="\Colibri\Data\SqlClient\IDataReader">IDataReader</abbr></a>|null    </span>
 </dt>
-<dd>Возвращает список таблиц в базе данных</dd>
+<dd>Returns a list of tables in the database.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-DataAccessPoint.html#method_Update">Update()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a>|null    </span>
 </dt>
-<dd>Обновляет строку</dd>
+<dd>Updates a row.</dd>
 
     </dl>
 
@@ -546,11 +531,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">112</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Выполнить запрос и вернуть Reader, но без подсчета общего количества строк</p>
+        <p class="phpdocumentor-summary">Execute the query and return a Reader, but without counting the total number of rows.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -579,7 +564,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Выполнить запрос, который не подразумевает чтения данных</p>
+        <p class="phpdocumentor-summary">Execute a query that does not involve reading data.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -604,11 +589,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Выполнить запрос и вернуть Reader</p>
+        <p class="phpdocumentor-summary">Execute the query and return a Reader</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -633,11 +618,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">117</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Readonly transation</p>
+
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
@@ -661,11 +647,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">117</span>
+    <span class="phpdocumentor-element-found-in__line">120</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">ReadWrite transaction</p>
+
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">mixed</span>
@@ -804,11 +791,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">124</span>
+    <span class="phpdocumentor-element-found-in__line">127</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Информация о подключении</p>
+        <p class="phpdocumentor-summary">Connection properties</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -838,11 +825,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">131</span>
+    <span class="phpdocumentor-element-found-in__line">134</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Подключение</p>
+        <p class="phpdocumentor-summary">Connection object</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -877,11 +864,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">138</span>
+    <span class="phpdocumentor-element-found-in__line">141</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -897,7 +884,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The access point data object.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -919,11 +908,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">163</span>
+    <span class="phpdocumentor-element-found-in__line">165</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Геттер</p>
+        <p class="phpdocumentor-summary">Magic get method</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -939,7 +928,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>property connection,point or table name</p>
+</section>
+
             </dd>
             </dl>
 
@@ -961,11 +952,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">379</span>
+    <span class="phpdocumentor-element-found-in__line">370</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создает транзакцию</p>
+        <p class="phpdocumentor-summary">Starts a transaction.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -986,22 +977,6 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#method_Begin#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointBegin</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1019,11 +994,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">391</span>
+    <span class="phpdocumentor-element-found-in__line">381</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Коммитит транзакцию</p>
+        <p class="phpdocumentor-summary">Commits the transaction.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1034,22 +1009,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#method_Commit#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointCommit</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1067,11 +1026,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">354</span>
+    <span class="phpdocumentor-element-found-in__line">347</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Удалет строку по критериям</p>
+        <p class="phpdocumentor-summary">Deletes a row based on criteria.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1087,7 +1046,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>таблица</p>
+                    <section class="phpdocumentor-description"><p>The table.</p>
 </section>
 
             </dd>
@@ -1096,29 +1055,13 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>условие</p>
+                    <section class="phpdocumentor-description"><p>The condition.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#method_Delete#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointDelete</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1140,11 +1083,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">270</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Вводит новую строку</p>
+        <p class="phpdocumentor-summary">Inserts a new row.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1160,7 +1103,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>название таблицы</p>
+                    <section class="phpdocumentor-description"><p>The name of the table.</p>
 </section>
 
             </dd>
@@ -1169,7 +1112,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>вводимая строка</p>
+                    <section class="phpdocumentor-description"><p>The row to be inserted.</p>
 </section>
 
             </dd>
@@ -1178,9 +1121,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>название поля, значение которого
-необходимо вернуть (в случае с MySql можн
-опустить, будет возвращено значения поля identity)</p>
+                    <section class="phpdocumentor-description"><p>The name of the field whose value needs to be returned. (For MySQL, this can be omitted, and the value of the identity field will be returned.)</p>
 </section>
 
             </dd>
@@ -1194,22 +1135,6 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#method_Insert#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointInsert</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1231,11 +1156,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">319</span>
+    <span class="phpdocumentor-element-found-in__line">314</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Вводит кного строк разом</p>
+        <p class="phpdocumentor-summary">Inserts multiple rows at once.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1251,7 +1176,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>таблица</p>
+                    <section class="phpdocumentor-description"><p>The table.</p>
 </section>
 
             </dd>
@@ -1260,29 +1185,13 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>вводимые строки</p>
+                    <section class="phpdocumentor-description"><p>The rows to be inserted.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#method_InsertBatch#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointInsertBatch</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1304,13 +1213,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">296</span>
+    <span class="phpdocumentor-element-found-in__line">292</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Вводит новую строку или обновляет старую, если совпали индексные поля
-Отличный способ не задумываться над тем есть ли строка в базе данных или нет
-Работает медленнее чем обычный ввод данных, поэтому использовать с осмотрительностью</p>
+        <p class="phpdocumentor-summary">Inserts a new row or updates an existing one if index fields match.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1318,7 +1225,10 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>A great way to avoid worrying about whether a row exists in the database or not.
+Works slower than regular data insertion, so use with caution.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1326,7 +1236,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>таблица</p>
+                    <section class="phpdocumentor-description"><p>The table.</p>
 </section>
 
             </dd>
@@ -1335,7 +1245,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>вводимая строка</p>
+                    <section class="phpdocumentor-description"><p>The row to be inserted.</p>
 </section>
 
             </dd>
@@ -1344,7 +1254,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>какие поля исключить из обновления в случае, если строка по идексным полям существует</p>
+                    <section class="phpdocumentor-description"><p>Which fields to exclude from updating if the row exists based on index fields.</p>
 </section>
 
             </dd>
@@ -1353,31 +1263,13 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>название название поля, значение которого
-необходимо вернуть (в случае с MySql можно опустить,
-будет возвращено значения поля identity)</p>
+                    <section class="phpdocumentor-description"><p>The name of the field whose value needs to be returned. (For MySQL, this can be omitted, and the value of the identity field will be returned.)</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#method_InsertOrUpdate#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointInsertOrUpdate</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1399,11 +1291,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">194</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Выполняет запрос в точку доступа</p>
+        <p class="phpdocumentor-summary">Executes a query in the access point.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1411,14 +1303,15 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-        <section class="phpdocumentor-description"><p>! Внимание
-! Для выполнения зарпоса с параметрами необходимо сделать следующее:
-! 1. параметры передаются в двойных квадратных скобках [[param:type]] где type=integer|double|string|blob
-! 2. параметры передаются в ассоциативном массиве, либо в виде object
-! например: select * from test where id=[[id:integer]] and stringfield like [[likeparam:string]]
-! реальный запрос будет следующий с параметрами ['id' =&gt; '1', 'likeparam' =&gt; '%brbrbr%']:
+        <section class="phpdocumentor-description"><pre class="prettyprint"><code class="prettyprint">! Attention
+! To execute a query with parameters, do the following:
+! 1. Parameters are passed in double square brackets [[param:type]], where type can be integer, double, string, or blob.
+! 2. Parameters are passed in an associative array or as an object.
+! For example: select * from test where id=[[id:integer]] and stringfield like [[likeparam:string]]
+! The actual query with parameters ['id' =&gt; '1', 'likeparam' =&gt; '%brbrbr%'] will be:
 ! select * from test where id=1 and stringfield like '%brbrbr%'
-! запросы можно засунуть в коллекцию и выполнять с разными параметрами</p>
+! Queries can be put into a collection and executed with different parameters.
+</code></pre>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1428,7 +1321,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The query string.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$commandParams</span>
@@ -1445,26 +1340,14 @@ returning = ''
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#method_Query#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointQuery</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-SqlClient-IDataReader.html"><abbr title="\Colibri\Data\SqlClient\IDataReader">IDataReader</abbr></a>|<a href="classes/Colibri-Data-SqlClient-QueryInfo.html"><abbr title="\Colibri\Data\SqlClient\QueryInfo">QueryInfo</abbr></a>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Returns an IDataReader object, a QueryInfo object, or null.</p>
+</section>
+
             </section>
 
 </article>
@@ -1482,11 +1365,11 @@ returning = ''
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">403</span>
+    <span class="phpdocumentor-element-found-in__line">392</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Отменяет транзакцию</p>
+        <p class="phpdocumentor-summary">Rolls back the transaction.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1497,22 +1380,6 @@ returning = ''
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#method_Rollback#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointRollback</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1530,11 +1397,11 @@ returning = ''
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">367</span>
+    <span class="phpdocumentor-element-found-in__line">359</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает список таблиц в базе данных</p>
+        <p class="phpdocumentor-summary">Returns a list of tables in the database.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1545,26 +1412,14 @@ returning = ''
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#method_Tables#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointTables</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Data-SqlClient-IDataReader.html"><abbr title="\Colibri\Data\SqlClient\IDataReader">IDataReader</abbr></a>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Returns an IDataReader object or null.</p>
+</section>
+
             </section>
 
 </article>
@@ -1582,11 +1437,11 @@ returning = ''
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/DataAccessPoint.php"><a href="files/src-colibri-data-dataaccesspoint.html"><abbr title="src/Colibri/Data/DataAccessPoint.php">DataAccessPoint.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">335</span>
+    <span class="phpdocumentor-element-found-in__line">329</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Обновляет строку</p>
+        <p class="phpdocumentor-summary">Updates a row.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1602,7 +1457,7 @@ returning = ''
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>таблица</p>
+                    <section class="phpdocumentor-description"><p>The table.</p>
 </section>
 
             </dd>
@@ -1611,7 +1466,7 @@ returning = ''
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>обновляемая строка</p>
+                    <section class="phpdocumentor-description"><p>The row to be updated.</p>
 </section>
 
             </dd>
@@ -1620,7 +1475,7 @@ returning = ''
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>условие обновления</p>
+                    <section class="phpdocumentor-description"><p>The update condition.</p>
 </section>
 
             </dd>
@@ -1634,22 +1489,6 @@ returning = ''
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Data-DataAccessPoint.html#method_Update#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testDataAccessPointUpdate</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
