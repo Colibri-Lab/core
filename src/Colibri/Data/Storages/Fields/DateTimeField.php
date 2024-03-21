@@ -2,6 +2,7 @@
 
 namespace Colibri\Data\Storages\Fields;
 
+use Colibri\App;
 use Colibri\Utils\Debug;
 use DateTime;
 use JsonSerializable;
@@ -22,7 +23,7 @@ class DateTimeField extends DateTime implements JsonSerializable
 
     public function __construct(mixed $data, ? Storage $storage = null, ? Field $field = null)
     {
-        parent::__construct($data);
+        parent::__construct($data, new DateTimeZone(App::$systemTimezone));
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 namespace Colibri\Queue;
+
 use Colibri\Common\DateHelper;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\Logger;
@@ -14,9 +15,8 @@ use Colibri\Utils\Logs\Logger;
  * @property int $attempts
  * @property ExtendedObject $payload
  */
-interface IJob  
+interface IJob
 {
-
     public function Handle(Logger $logger): bool;
 
     public function IsLastAttempt(): bool;

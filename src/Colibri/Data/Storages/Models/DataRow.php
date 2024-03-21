@@ -10,6 +10,7 @@
 
 namespace Colibri\Data\Storages\Models;
 
+use Colibri\Common\DateHelper;
 use Colibri\Data\Storages\Fields\FileField;
 use Colibri\Data\Storages\Storage;
 use Colibri\Data\Models\DataModelException;
@@ -508,7 +509,16 @@ class DataRow extends BaseDataRow
 
     public function Delete(): QueryInfo
     {
-        return $this->table->DeleteRow($this);
+        $params = (object)$this->_storage?->{'params'};
+        if($params?->{'softdeletes'} === true) {
+            return $this->_storage->accessPoint->Update(
+                $this->_storage->table,
+                [$this->_storage->name . '_datedeleted' => DateHelper::ToDbString()],
+                $this->_storage->name . '_id=' . $this->id
+            );
+        } else {
+            return $this->table->DeleteRow($this);
+        }
     }
 
 }

@@ -7,6 +7,7 @@ use Colibri\Common\DateHelper;
 use Colibri\Common\StringHelper;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\SqlClient\Command;
+use Colibri\Data\Storages\Fields\DateTimeField;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Threading\Process;
 use Colibri\Utils\ExtendedObject;
@@ -15,7 +16,6 @@ use Colibri\Utils\Logs\Logger;
 
 class Manager
 {
-
     use TEventDispatcher;
 
     private array $_config = [];
@@ -75,6 +75,7 @@ class Manager
                         `id` bigint NOT NULL AUTO_INCREMENT,
                         `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
                         `datemodified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP,
+                        `datestart` timestamp NULL,
                         `datereserved` timestamp NULL,
                         `reservation_key` varchar(32) NULL,
                         `queue` varchar(255) NULL,
@@ -87,6 +88,7 @@ class Manager
                         INDEX `'.$this->_storages['list'].'_datecreated`(`datecreated`),
                         INDEX `'.$this->_storages['list'].'_datemodified`(`datemodified`),
                         INDEX `'.$this->_storages['list'].'_datereserved`(`datereserved`),
+                        INDEX `'.$this->_storages['list'].'_datestart`(`datestart`),
                         INDEX `'.$this->_storages['list'].'_reservation_key`(`reservation_key`),
                         INDEX `'.$this->_storages['list'].'_queue`(`queue`),
                         INDEX `'.$this->_storages['list'].'_class`(`class`)
@@ -148,7 +150,7 @@ class Manager
 
     }
 
-    public function AddJob(IJob $job): bool
+    public function AddJob(IJob $job, ?string $startDate = null): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
 
@@ -156,7 +158,14 @@ class Manager
             throw new Exception('Job allready exists, please use Update method');
         }
 
-        $res = $accessPoint->Insert($this->_storages['list'], $job->ToArray());
+        if(!$startDate) {
+            $startDate = (string)(new DateTimeField('now'));
+        }
+
+        $jobArray = $job->ToArray();
+        $jobArray['datestart'] = $startDate;
+
+        $res = $accessPoint->Insert($this->_storages['list'], $jobArray);
         if($res->insertid !== -1) {
 
             $this->DispatchEvent('JobAdded', ['id' => $res->insertid]);
@@ -169,7 +178,7 @@ class Manager
         return false;
     }
 
-    public function UpdateJob(IJob $job): bool
+    public function UpdateJob(IJob $job, ?string $startDate = null): bool
     {
 
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -178,7 +187,12 @@ class Manager
             throw new Exception('Job does not exists, please use Add method');
         }
 
-        $res = $accessPoint->Update($this->_storages['list'], $job->ToArray(), 'id='.$job->id);
+        $jobArray = $job->ToArray();
+        if($startDate) {
+            $jobArray['datestart'] = $startDate;
+        }
+
+        $res = $accessPoint->Update($this->_storages['list'], $jobArray, 'id='.$job->id);
         if(!$res->error) {
             $this->DispatchEvent('JobUpdated', ['id' => $job->id]);
 
@@ -271,23 +285,25 @@ class Manager
 
         // сначала бронируем и потом уже забираем
         $reservation_key = StringHelper::GUID(false);
-        $accessPoint->Query('
+        $accessPoint->Query(
+            '
             update jobs
             inner join (
                 select id
-                from jobs 
-                where datereserved is null and queue in (\''.implode('\',\'', $queue).'\')
+                from jobs
+                where datereserved is null and queue in (\''.implode('\',\'', $queue).'\') and
+                    datestart<=\''.(string)(new DateTimeField('now')).'\'
                 order by id asc
                 limit 1
             ) j2 on jobs.id=j2.id
-            set `datereserved`=\''.DateHelper::ToDbString(time()).'\',`reservation_key`=\''.$reservation_key.'\'',
+            set `datereserved`=\''.(string)(new DateTimeField('now')).'\',`reservation_key`=\''.$reservation_key.'\'',
             ['type' => DataAccessPoint::QueryTypeNonInfo]
         );
-        
+
         $reader = $accessPoint->Query(
             'select * from '.$this->_storages['list'].' where reservation_key=\''.$reservation_key.'\' limit 1'
         );
-        
+
         $data = $reader->Read();
         if(!$data) {
             return null;
@@ -297,7 +313,7 @@ class Manager
         $payloadClass = $data->payload_class ?? 'ExtendedObject';
         $data->payload = new $payloadClass(json_decode($data->payload));
         return new $class($data);
-        
+
     }
 
     public function GetJobById(int $id): ?IJob
@@ -310,7 +326,8 @@ class Manager
                 '.$this->_storages['list'].'
             where
                 id=\''.$id.'\'
-        ');
+        '
+        );
         $data = $reader->Read();
         if(!$data) {
             return null;
@@ -338,11 +355,11 @@ class Manager
             $cache = App::$config->Query('cache')->GetValue();
             $logger = new FileLogger(Logger::Debug, $cache . 'log/queue-' . $job->queue . '.log', true);
             $logger->info($job->queue . ': Begin job routine');
-            
+
             $logger->info($job->queue . ': ' . $job->id);
 
             $this->DispatchEvent('JobStarted', ['id' => $job->id]);
-            
+
             if($job->IsParallel()) {
 
                 $worker = new JobParallelWorker();
@@ -378,7 +395,8 @@ class Manager
                 '.$this->_storages['list'].'
             order by id
             limit 10
-        ');
+        '
+        );
         while($d = $reader->Read()) {
             $ret['active'][] = $d;
         }
@@ -390,11 +408,12 @@ class Manager
                 '.$this->_storages['success'].'
             order by id desc
             limit 10
-        ');
+        '
+        );
         while($d = $reader->Read()) {
             $ret['success'][] = $d;
         }
-        
+
         $reader = $accessPoint->Query(
             'select
                 *
@@ -402,7 +421,8 @@ class Manager
                 '.$this->_storages['error'].'
             order by id desc
             limit 10
-        ');
+        '
+        );
         while($d = $reader->Read()) {
             $ret['errors'][] = $d;
         }

@@ -6,12 +6,13 @@ use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\Logger;
 
 /**
- * @property ?int $id
- * @property string $queue
- * @property int $attempts
- * @property string $class
+ * @property ExtendedObject $payload
  * @property string $payload_class
+ * @property string $class
  * @property int $attempts
+ * @property string $queue
+ * @property bool $parallel
+ * @property ?int $id
  * @property ExtendedObject $payload
  */
 
@@ -45,14 +46,14 @@ abstract class Job extends ExtendedObject implements IJob
         return ($this->parallel ?: false);
     }
 
-    public function Add(): bool
+    public function Add(?string $startDate = null): bool
     {
-        return Manager::Create()->AddJob($this);
+        return Manager::Create()->AddJob($this, $startDate);
     }
 
-    public function Update(): bool
+    public function Update(?string $startDate = null): bool
     {
-        return Manager::Create()->UpdateJob($this);
+        return Manager::Create()->UpdateJob($this, $startDate);
     }
 
     public function Delete(): bool

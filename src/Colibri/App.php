@@ -164,6 +164,8 @@ final class App
      */
     public static ?Router $router = null;
 
+    public static string $systemTimezone = 'UTC';
+
     /**
      * Закрываем конструктор
      */
@@ -334,6 +336,10 @@ final class App
         self::$monitoring->EndTimer('threads');
 
         self::$monitoring->EndTimer('app');
+
+        // try to get system timezone
+        self::$systemTimezone = trim(shell_exec('cat /etc/timezone'), "\r\t\n ");
+        date_default_timezone_set(self::$systemTimezone);
 
         $this->DispatchEvent(EventsContainer::AppReady);
     }

@@ -44,6 +44,8 @@ class DataTable extends BaseDataTable
 
     protected string $_returnAsExtended;
 
+    protected static $fullSelection = false;
+
     /**
      * Конструктор
      * @param DataAccessPoint $point точка доступа
@@ -136,7 +138,8 @@ class DataTable extends BaseDataTable
             'params' => $params
         ];
         $filter = $filter ? ['('.$filter.')'] : [];
-        if(isset($storage?->{'params'}['softdeletes']) && $storage?->{'params'}['softdeletes']) {
+        if(!self::$fullSelection &&
+            (isset($storage?->{'params'}['softdeletes']) && $storage?->{'params'}['softdeletes'])) {
             $filter[] = $storage->table . '.' . $storage->name . '_datedeleted is null';
         }
         $additionalParams['type'] = $calculateAffected ?
@@ -545,6 +548,11 @@ class DataTable extends BaseDataTable
 
         return true;
 
+    }
+
+    public static function SetFullSelect(bool $value)
+    {
+        static::$fullSelection = $value;
     }
 
 }
