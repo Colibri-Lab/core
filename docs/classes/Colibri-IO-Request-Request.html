@@ -164,10 +164,6 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-IO.html" class="">IO</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-Rpc.html" class="">Rpc</a>
                 
             </li>
@@ -217,8 +213,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-IO.html">IO</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-IO-Request.html">Request</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -237,26 +233,10 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс запроса</p>
+            <p class="phpdocumentor-summary">Class for handling web requests.</p>
 
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-IO-Request-Request.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testRequest</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
 
 
@@ -283,14 +263,14 @@
     <span>
         &nbsp;= &#039;---------------------------&#039;                            </span>
 </dt>
-<dd>Разделитель</dd>
+<dd>Separator</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-IO-Request-Request.html#constant_BoundaryEnd">BoundaryEnd</a>
     <span>
         &nbsp;= &#039;--&#039;                            </span>
 </dt>
-<dd>Окончание</dd>
+<dd>Ending</dd>
 
     </dl>
 
@@ -306,110 +286,112 @@
     <span>
                         &nbsp;: bool            </span>
 </dt>
-<dd>Индикатор ассинхронности</dd>
+<dd>Asynchronous indicator</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_boundary">$boundary</a>
     <span>
-                        &nbsp;: string            </span>
+                        &nbsp;: string|null            </span>
 </dt>
-<dd>Разделитель</dd>
+<dd>Separator</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_contentType">$contentType</a>
     <span>
                         &nbsp;: string|null            </span>
 </dt>
+<dd>Content Type</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_cookieFile">$cookieFile</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Файл куки</dd>
+<dd>Cookie file</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_cookies">$cookies</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>Куки</dd>
+<dd>Cookies</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_credentials">$credentials</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-IO-Request-Credentials.html"><abbr title="\Colibri\IO\Request\Credentials">Credentials</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-IO-Request-Credentials.html"><abbr title="\Colibri\IO\Request\Credentials">Credentials</abbr></a>|null            </span>
 </dt>
-<dd>Логины и пароли</dd>
+<dd>Logins and passwords</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_encryption">$encryption</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Шифрование</dd>
+<dd>Encryption</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_headers">$headers</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;|null            </span>
 </dt>
-<dd>Заголовки</dd>
+<dd>Headers</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_method">$method</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Метод</dd>
+<dd>Method</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_postData">$postData</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-IO-Request-Data.html"><abbr title="\Colibri\IO\Request\Data">Data</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-IO-Request-Data.html"><abbr title="\Colibri\IO\Request\Data">Data</abbr></a>|string|null            </span>
 </dt>
-<dd>Данные</dd>
+<dd>Data</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_referer">$referer</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Реферер</dd>
+<dd>Referer</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_sshSecurityLevel">$sshSecurityLevel</a>
     <span>
                         &nbsp;: int|null            </span>
 </dt>
+<dd>SSH security level</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_sslVerify">$sslVerify</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
-<dd>Проверять сертификат</dd>
+<dd>Check SSL certificate</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_target">$target</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Адрес</dd>
+<dd>Target address</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_timeout">$timeout</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Таймаут запроса</dd>
+<dd>Request timeout</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_timeout_ms">$timeout_ms</a>
     <span>
                         &nbsp;: int|null            </span>
 </dt>
-<dd>Таймаут в миллисекундах</dd>
+<dd>Timeout in milliseconds</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-IO-Request-Request.html#property_useragent">$useragent</a>
@@ -431,47 +413,49 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-Request-Request.html#method_Execute">Execute()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-IO-Request-Result.html"><abbr title="\Colibri\IO\Request\Result">Result</abbr></a>    </span>
 </dt>
-<dd>Выполняет запрос</dd>
+<dd>Executes the request.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-Request-Request.html#method_Get">Get()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-IO-Request-Result.html"><abbr title="\Colibri\IO\Request\Result">Result</abbr></a>    </span>
 </dt>
+<dd>Sends a GET request.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-IO-Request-Request.html#method___checkWebRequest">__checkWebRequest()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Checks if the curl module loaded</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-IO-Request-Request.html#method__createMultipartRequestBody">_createMultipartRequestBody()</a>
     <span>
                                 &nbsp;: string|array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Создает данные запроса типа Multipart/Formdata</dd>
+<dd>Creates request data of type Multipart/Formdata.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-IO-Request-Request.html#method__joinPostData">_joinPostData()</a>
     <span>
                                 &nbsp;: string|array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Собирает пост</dd>
+<dd>Constructs the POST data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-IO-Request-Request.html#method__parseBody">_parseBody()</a>
     <span>
                                 &nbsp;: array&lt;string|int, string|array&lt;string|int, mixed&gt;&gt;    </span>
 </dt>
-<dd>Обрабатывает полученный из curl результат и вырезает заголовки</dd>
+<dd>Processes the result received from cURL and extracts headers.</dd>
 
     </dl>
 
@@ -499,7 +483,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Разделитель</p>
+        <p class="phpdocumentor-summary">Separator</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -528,7 +512,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Окончание</p>
+        <p class="phpdocumentor-summary">Ending</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -569,11 +553,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">86</span>
+    <span class="phpdocumentor-element-found-in__line">93</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Индикатор ассинхронности</p>
+        <p class="phpdocumentor-summary">Asynchronous indicator</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -603,15 +587,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Разделитель</p>
+        <p class="phpdocumentor-summary">Separator</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$boundary</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
@@ -637,11 +621,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">124</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Content Type</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">string|null</span>
@@ -670,11 +655,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Файл куки</p>
+        <p class="phpdocumentor-summary">Cookie file</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -704,11 +689,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Куки</p>
+        <p class="phpdocumentor-summary">Cookies</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -742,11 +727,11 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Логины и пароли</p>
+        <p class="phpdocumentor-summary">Logins and passwords</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/Colibri-IO-Request-Credentials.html"><abbr title="\Colibri\IO\Request\Credentials">Credentials</abbr></a></span>
+        <span class="phpdocumentor-signature__type"><a href="classes/Colibri-IO-Request-Credentials.html"><abbr title="\Colibri\IO\Request\Credentials">Credentials</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$credentials</span>
     </code>
 
@@ -772,11 +757,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">65</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Шифрование</p>
+        <p class="phpdocumentor-summary">Encryption</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -806,11 +791,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Заголовки</p>
+        <p class="phpdocumentor-summary">Headers</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -840,11 +825,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Метод</p>
+        <p class="phpdocumentor-summary">Method</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -874,22 +859,20 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Данные</p>
+        <p class="phpdocumentor-summary">Data</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/Colibri-IO-Request-Data.html"><abbr title="\Colibri\IO\Request\Data">Data</abbr></a></span>
+        <span class="phpdocumentor-signature__type"><a href="classes/Colibri-IO-Request-Data.html"><abbr title="\Colibri\IO\Request\Data">Data</abbr></a>|string|null</span>
     <span class="phpdocumentor-signature__name">$postData</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-        <section class="phpdocumentor-description"><p>| string | null</p>
-</section>
-
+    
     
 
 </article>
@@ -910,11 +893,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+    <span class="phpdocumentor-element-found-in__line">114</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Реферер</p>
+        <p class="phpdocumentor-summary">Referer</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -944,11 +927,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">126</span>
+    <span class="phpdocumentor-element-found-in__line">149</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">SSH security level</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
         <span class="phpdocumentor-signature__type">int|null</span>
@@ -977,11 +961,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">122</span>
+    <span class="phpdocumentor-element-found-in__line">135</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Проверять сертификат</p>
+        <p class="phpdocumentor-summary">Check SSL certificate</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1015,7 +999,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Адрес</p>
+        <p class="phpdocumentor-summary">Target address</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1045,11 +1029,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">79</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Таймаут запроса</p>
+        <p class="phpdocumentor-summary">Request timeout</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1079,11 +1063,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">86</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Таймаут в миллисекундах</p>
+        <p class="phpdocumentor-summary">Timeout in milliseconds</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1113,7 +1097,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 
     </aside>
 
@@ -1152,15 +1136,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">149</span>
+    <span class="phpdocumentor-element-found-in__line">170</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$target</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">Type::Get</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$encryption</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">Encryption::UrlEncoded</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-IO-Request-Data.html"><abbr title="\Colibri\IO\Request\Data">Data</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$postData</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$boundary</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$target</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$method</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">Type::Get</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$encryption</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">Encryption::UrlEncoded</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-IO-Request-Data.html"><abbr title="\Colibri\IO\Request\Data">Data</abbr></a>|string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$postData</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$boundary</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1190,7 +1174,7 @@
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$postData</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-IO-Request-Data.html"><abbr title="\Colibri\IO\Request\Data">Data</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-IO-Request-Data.html"><abbr title="\Colibri\IO\Request\Data">Data</abbr></a>|string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -1205,6 +1189,21 @@
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-IO-Request-Request.html#method___construct#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Colibri-IO-Request-Exception.html"><abbr title="\Colibri\IO\Request\Exception">Exception</abbr></a></span>
+                                                            
+                                             
+                                    </dd>
+                                            </dl>
 
     
 </article>
@@ -1222,11 +1221,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">273</span>
+    <span class="phpdocumentor-element-found-in__line">292</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Выполняет запрос</p>
+        <p class="phpdocumentor-summary">Executes the request.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1242,31 +1241,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The data to be posted</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-IO-Request-Request.html#method_Execute#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testRequestExecute</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-IO-Request-Result.html"><abbr title="\Colibri\IO\Request\Result">Result</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The result of the request</p>
+</section>
+
             </section>
 
 </article>
@@ -1284,11 +1273,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">399</span>
+    <span class="phpdocumentor-element-found-in__line">427</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Sends a GET request.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$target</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$timeout</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sslVerify</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">true</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$headers</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-IO-Request-Result.html"><abbr title="\Colibri\IO\Request\Result">Result</abbr></a></span></code>
@@ -1303,28 +1293,36 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The target URL</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$timeout</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The timeout for the request (default is 0)</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$sslVerify</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Whether to verify SSL certificates (default is true)</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$headers</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Additional headers to be included in the request (default is an empty array)</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1333,6 +1331,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-IO-Request-Result.html"><abbr title="\Colibri\IO\Request\Result">Result</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The result of the request</p>
+</section>
+
             </section>
 
 </article>
@@ -1350,11 +1352,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">155</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Checks if the curl module loaded</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">__checkWebRequest</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -1364,22 +1367,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-IO-Request-Request.html#method___checkWebRequest#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testRequest__checkWebRequest</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1401,11 +1388,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">182</span>
+    <span class="phpdocumentor-element-found-in__line">202</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создает данные запроса типа Multipart/Formdata</p>
+        <p class="phpdocumentor-summary">Creates request data of type Multipart/Formdata.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1421,7 +1408,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>разделитель</p>
+                    <section class="phpdocumentor-description"><p>The boundary delimiter.</p>
 </section>
 
             </dd>
@@ -1430,29 +1417,13 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>данные</p>
+                    <section class="phpdocumentor-description"><p>The data.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-IO-Request-Request.html#method__createMultipartRequestBody#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testRequest_createMultipartRequestBody</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1474,11 +1445,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">213</span>
+    <span class="phpdocumentor-element-found-in__line">232</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Собирает пост</p>
+        <p class="phpdocumentor-summary">Constructs the POST data.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1489,22 +1460,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-IO-Request-Request.html#method__joinPostData#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testRequest_joinPostData</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -1526,11 +1481,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/Request/Request.php"><a href="files/src-colibri-io-request-request.html"><abbr title="src/Colibri/IO/Request/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">243</span>
+    <span class="phpdocumentor-element-found-in__line">263</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Обрабатывает полученный из curl результат и вырезает заголовки</p>
+        <p class="phpdocumentor-summary">Processes the result received from cURL and extracts headers.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1546,7 +1501,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>тело результата вместе с заголовками</p>
+                    <section class="phpdocumentor-description"><p>The result body along with headers</p>
 </section>
 
             </dd>
@@ -1555,7 +1510,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>размер заголовков</p>
+                    <section class="phpdocumentor-description"><p>The size of the headers</p>
 </section>
 
             </dd>
@@ -1566,6 +1521,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, string|array&lt;string|int, mixed&gt;&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An array containing the body and headers</p>
+</section>
+
             </section>
 
 </article>

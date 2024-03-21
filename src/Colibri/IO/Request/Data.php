@@ -4,8 +4,8 @@
  * Request
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\Request
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\Request;
@@ -16,19 +16,20 @@ use Colibri\Utils\Debug;
 use Colibri\Web\RequestedFile;
 
 /**
- * Данные запроса
- * @extends ArrayList<DataItem> 
- * @testFunction testData
+ * Request data.
+ *
+ * @extends ArrayList<DataItem>
  */
 class Data extends ArrayList
 {
 
     /**
-     * Создать данные из массива
+     * Create data from an array.
      *
-     * @param mixed $array
-     * @return Data
-     * @testFunction testDataFromArray
+     * @param mixed $array The array from which to create data.
+     * @param string|null $keyBefore Optional key before data.
+     * @param Data|null &$d Optional Data object reference.
+     * @return Data The created data.
      */
     public static function FromArray(array $array, ?string $keyBefore = null, ? Data &$d = null)
     {

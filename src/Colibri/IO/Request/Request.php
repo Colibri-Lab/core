@@ -4,8 +4,8 @@
  * Request
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\Request
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\Request;
@@ -18,119 +18,139 @@ use Colibri\Common\XmlHelper;
 use Colibri\Utils\Debug;
 
 /**
- * Класс запроса
- * @testFunction testRequest
+ * Class for handling web requests.
+ *
  */
 class Request
 {
 
-    /** Разделитель */
+    /** Separator */
     const Boundary = '---------------------------';
-    /** Окончание */
+    /** Ending */
     const BoundaryEnd = '--';
 
     /**
-     * Логины и пароли
+     * Logins and passwords
      *
-     * @var Credentials
+     * @var Credentials|null
      */
     public ? Credentials $credentials;
 
     /**
-     * Адрес
+     * Target address
      *
      * @var string
      */
     public string $target;
+
     /**
-     * Метод
+     * Method
      *
      * @var string
      */
     public string $method = Type::Get;
+
     /**
-     * Данные
+     * Data
      *
-     * @var Data | string | null
+     * @var Data|string|null
      */
     public mixed $postData = null;
+
     /**
-     * Шифрование
+     * Encryption
      *
      * @var string
      */
     public string $encryption = Encryption::UrlEncoded;
+
     /**
-     * Разделитель
+     * Separator
      *
-     * @var string
+     * @var string|null
      */
     public ?string $boundary = null;
+
     /**
-     * Таймаут запроса
+     * Request timeout
      *
-     * @var integer
+     * @var int
      */
     public int $timeout = 60;
+
     /**
-     * Таймаут в миллисекундах
+     * Timeout in milliseconds
      *
      * @var int|null
      */
     public ?int $timeout_ms = null;
+
     /**
-     * Индикатор ассинхронности
+     * Asynchronous indicator
      *
-     * @var boolean
+     * @var bool
      */
     public bool $async = false;
+
     /**
-     * Куки
+     * Cookies
      *
      * @var array
      */
     public array $cookies = [];
+
     /**
-     * Файл куки
+     * Cookie file
      *
      * @var string
      */
     public string $cookieFile = '';
+
     /**
-     * Реферер
+     * Referer
      *
      * @var string
      */
     public string $referer = '';
+
     /**
-     * Заголовки
+     * Headers
      *
      * @var array|null
      */
     public ?array $headers = null;
+
     /**
      * UserAgent
      *
      * @var string
      */
     public string $useragent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30';
+
     /**
-     * Проверять сертификат
+     * Check SSL certificate
      *
-     * @var boolean
+     * @var bool
      */
     public bool $sslVerify = true;
 
+    /**
+     * Content Type
+     *
+     * @var string|null
+     */
     public ?string $contentType = null;
 
+    /**
+     * SSH security level
+     *
+     * @var int|null
+     */
     public ?int $sshSecurityLevel = null;
 
     /**
      * Checks if the curl module loaded
      *
-     */
-    /**
-     * @testFunction testRequest__checkWebRequest
      */
     private static function __checkWebRequest(): bool
     {
@@ -138,13 +158,14 @@ class Request
     }
 
     /**
-     * Конструктор
+     * Constructor
      *
      * @param string $target
      * @param string $method
      * @param string $encryption
-     * @param Data $postData
+     * @param Data|string|null $postData
      * @param string $boundary
+     * @throws Exception
      */
     public function __construct(
         string $target,
@@ -172,12 +193,11 @@ class Request
     }
 
     /**
-     * Создает данные запроса типа Multipart/Formdata
+     * Creates request data of type Multipart/Formdata.
      *
-     * @param string $boundary разделитель
-     * @param mixed $files данные
+     * @param string $boundary The boundary delimiter.
+     * @param mixed $files The data.
      * @return string|array
-     * @testFunction testRequest_createMultipartRequestBody
      */
     private function _createMultipartRequestBody(string $boundary, mixed $files): string|array
     {
@@ -205,10 +225,9 @@ class Request
     }
 
     /**
-     * Собирает пост
+     * Constructs the POST data.
      *
      * @return string|array
-     * @testFunction testRequest_joinPostData
      */
     private function _joinPostData(): string|array
     {
@@ -235,10 +254,11 @@ class Request
     }
 
     /**
-     * Обрабатывает полученный из curl результат и вырезает заголовки
-     * @param string $body тело результата вместе с заголовками
-     * @param int $header_size размер заголовков
-     * @return (string|array)[] 
+     * Processes the result received from cURL and extracts headers.
+     *
+     * @param string $body The result body along with headers
+     * @param int $header_size The size of the headers
+     * @return (string|array)[] An array containing the body and headers
      */
     private function _parseBody(string $body, int $header_size = 0): array
     {
@@ -264,11 +284,10 @@ class Request
     }
 
     /**
-     * Выполняет запрос
+     * Executes the request.
      *
-     * @param mixed $postData
-     * @return Result
-     * @testFunction testRequestExecute
+     * @param mixed $postData The data to be posted
+     * @return Result The result of the request
      */
     public function Execute(mixed $postData = null): Result
     {
@@ -396,6 +415,15 @@ class Request
 
     }
 
+    /**
+     * Sends a GET request.
+     *
+     * @param string $target The target URL
+     * @param int $timeout The timeout for the request (default is 0)
+     * @param bool $sslVerify Whether to verify SSL certificates (default is true)
+     * @param array $headers Additional headers to be included in the request (default is an empty array)
+     * @return Result The result of the request
+     */
     public static function Get(
         string $target,
         int $timeout = 0,

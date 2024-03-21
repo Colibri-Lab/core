@@ -1,36 +1,43 @@
 <?php
 
 /**
- * FileSystem
+ * FtpFileSystem
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\FtpFileSystem;
 
 use Colibri\Collections\ArrayList;
 use Colibri\Common\VariableHelper;
-use Colibri\Utils\Debug;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use RegexIterator;
-use DirectoryIterator;
 use Throwable;
 
 /**
- * Класс помогающий искать файлы и директории
- * @testFunction testFinder
+ * Class for finding files and directories.
+ *
  */
 class Finder
 {
+    /**
+     * The FTP connection information.
+     *
+     * @var object
+     */
     private object $_connectionInfo;
 
+    /**
+     * The FTP connection.
+     *
+     * @var mixed
+     */
     private mixed $_connection;
 
     /**
-     * Конструктор
+     * Constructor.
+     *
+     * @param object $connectionInfo The FTP connection information.
      */
     public function __construct(object $connectionInfo)
     {
@@ -38,6 +45,9 @@ class Finder
         $this->_connect();
     }
 
+    /**
+     * Destructor.
+     */
     public function __destruct()
     {
         if($this->_connection) {
@@ -45,6 +55,11 @@ class Finder
         }
     }
 
+    /**
+     * Establishes the FTP connection.
+     *
+     * @throws Exception if connection fails.
+     */
     private function _connect()
     {
 
@@ -67,12 +82,24 @@ class Finder
 
     }
 
+    /**
+     * Reconnects to FTP server.
+     *
+     * @return mixed The FTP connection.
+     */
     public function Reconnect(): mixed
     {
         $this->_connect();
         return $this->_connection;
     }
 
+    /**
+     * Lists files and directories via FTP.
+     *
+     * @param string $path The path to list.
+     * @param bool $recursive Whether to list recursively.
+     * @return array An array containing FTP file information.
+     */
     private function _ftpList(string $path, bool $recursive = false): array
     {
         $list = ftp_rawlist($this->_connection, $path, false);
@@ -108,14 +135,13 @@ class Finder
     }
 
     /**
-     * Найти файлы
+     * Lists files and directories in the specified path.
      *
-     * @param string $path путь к папке
-     * @param string $match регулярное выражение
-     * @param string $sortField поле для сориторовки
-     * @param int $sortType тип сортировки
-     * @return ArrayList
-     * @testFunction testFinderFiles
+     * @param string $path The path to search.
+     * @param string $match Regular expression to match file names.
+     * @param string $sortField Field for sorting.
+     * @param int $sortType Sorting type.
+     * @return ArrayList An ArrayList containing found files.
      */
     public function Files(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC)
     {

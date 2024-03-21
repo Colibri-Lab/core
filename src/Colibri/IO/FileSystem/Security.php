@@ -2,10 +2,10 @@
 
 /**
  * FileSystem
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\FileSystem;
@@ -14,39 +14,39 @@ use Colibri\AppException;
 use Colibri\Collections\ICollection;
 
 /**
- * Свойства безопасности файловой системы
- * 
- * @property boolean $denied
- * @property boolean $grant
- * @property boolean $read
- * @property boolean $write
- * @property boolean $delete
- * @property boolean $execute
- * @property string $owner
- * 
- * @testFunction testSecurity
+ * File system security properties.
+ *
+ * @property bool $denied Indicates if access is denied.
+ * @property bool $grant Indicates if access is granted.
+ * @property bool $read Indicates if read access is granted.
+ * @property bool $write Indicates if write access is granted.
+ * @property bool $delete Indicates if delete access is granted.
+ * @property bool $execute Indicates if execute access is granted.
+ * @property string $owner The owner of the file.
+ *
  */
 class Security
 {
 
     /**
-     * Источник
+     * The source (File or Directory).
      *
-     * @var File|Directory
+     * @var File|Directory|null
      */
     protected File|Directory|null $source = null;
+
     /**
-     * Права доступа
+     * Access flags.
      *
      * @var array
      */
     protected array $flags;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param File|Directory $source источник
-     * @param mixed $flags флаги
+     * @param File|Directory|null $source The source.
+     * @param mixed $flags The flags.
      */
     function __construct(File|Directory|null $source, mixed $flags = null)
     {
@@ -65,11 +65,10 @@ class Security
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $property свойство
+     * @param string $property The property.
      * @return mixed
-     * @testFunction testSecurity__get
      */
     function __get(string $property): mixed
     {
@@ -77,10 +76,10 @@ class Security
     }
 
     /**
-     * Сеттер
+     * Setter.
      *
-     * @param string $property свойство
-     * @param mixed $value значение
+     * @param string $property The property.
+     * @param mixed $value The value.
      */
     function __set(string $property, mixed $value): void
     {

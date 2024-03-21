@@ -4,8 +4,8 @@
  * FileSystem
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\FileSystem;
@@ -13,57 +13,57 @@ namespace Colibri\IO\FileSystem;
 use JsonSerializable;
 
 /**
- * Класс для работы с файлами
+ * Class for handling files.
  *
- * @property-read Attributes $attributes
- * @property-read string $filename
- * @property-read string $name
- * @property-read string $extension
- * @property-read Directory $directory
- * @property-read boolean $dotfile
- * @property-read string $path
- * @property-read int $size
- * @property-read boolean $exists
- * @property-read Security $access
- * @property-read string $content
- * @property-read string $binary
- * @property-read string $mimetype
- * @property-read int $attr_created
- * @property-read int $attr_modified
- * @property-read int $attr_lastaccess,
+ * @property-read Attributes $attributes Attributes of the file.
+ * @property-read string $filename Filename.
+ * @property-read string $name Name of the file.
+ * @property-read string $extension Extension of the file.
+ * @property-read Directory $directory Directory containing the file.
+ * @property-read boolean $dotfile Indicates if the file is a dot file.
+ * @property-read string $path Full path of the file.
+ * @property-read int $size Size of the file in bytes.
+ * @property-read boolean $exists Indicates if the file exists.
+ * @property-read Security $access Access rights of the file.
+ * @property-read string $content Content of the file.
+ * @property-read string $binary Binary content of the file.
+ * @property-read string $mimetype Mime type of the file.
+ * @property-read int $attr_created Timestamp of file creation.
+ * @property-read int $attr_modified Timestamp of last modification.
+ * @property-read int $attr_lastaccess Timestamp of last access.
  *
- * @testFunction testFile
  */
 class File extends Node implements JsonSerializable
 {
 
-    /** режим чтение */
+    /** Read mode */
     const MODE_READ = "rb9";
-    /** режим запись */
+    /** Write mode */
     const MODE_WRITE = "wb9";
-    /** режим добавление данных */
+    /** Append mode */
     const MODE_APPEND = "ab9";
-    /** режим создания при записи */
+    /** Create mode for writing */
     const MODE_CREATEWRITE = "wb9";
 
     /**
-     * Данные о пути к файлу
+     * File path information.
      *
      * @var array
      */
     private array $info;
 
     /**
-     * Длина файла в байтах
+     * Size of the file in bytes.
      *
      * @var integer
      */
     private int $_size = 0;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param string $path Путь к файлу
+     * @param string $path The path to the file.
+     * @throws Exception if the provided path is not a file path.
      */
     public function __construct(string $path)
     {
@@ -78,11 +78,10 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $property свойство
+     * @param string $property Property name.
      * @return mixed
-     * @testFunction testFile__get
      */
     public function __get(string $property): mixed
     {
@@ -160,11 +159,10 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Копирует файл
+     * Copies the file to another location.
      *
-     * @param string $path путь, куда скопировать
+     * @param string $path The destination path.
      * @return void
-     * @testFunction testFileCopyTo
      */
     public function CopyTo(string $path): void
     {
@@ -172,11 +170,10 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Переместить файл
+     * Moves the file to another location.
      *
-     * @param string $path путь, куда переместить
+     * @param string $path The destination path.
      * @return void
-     * @testFunction testFileMoveTo
      */
     public function MoveTo(string $path): void
     {
@@ -184,10 +181,9 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Возвращает имя файла
+     * Retrieves the filename.
      *
      * @return string
-     * @testFunction testFileToString
      */
     public function ToString(): string
     {
@@ -195,11 +191,10 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Считывает данные файл
+     * Reads the content of a file.
      *
-     * @param string $path путь к файлу
-     * @return string|null
-     * @testFunction testFileRead
+     * @param string $path The path to the file.
+     * @return string|null The content of the file or null if the file does not exist.
      */
     public static function Read(string $path): ?string
     {
@@ -210,14 +205,14 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Записывает данные в файл
+     * Writes data to a file.
      *
-     * @param string $path пусть к файлу
-     * @param string $content контент, который нужно записать
-     * @param boolean $recursive если true то папки будут созданы по всему пути до достижения $path
-     * @param string $mode режим создания файла и папок, по умолчанию 777
+     * @param string $path The path to the file.
+     * @param string $content The content to be written.
+     * @param boolean $recursive Whether to create directories along the path if they don't exist. Defaults to false.
+     * @param string $mode The mode for creating the file and directories. Defaults to '777'.
      * @return void
-     * @testFunction testFileWrite
+     * @throws \ErrorException if writing to the file fails.
      */
     public static function Write(string $path, string $content, bool $recursive = false, string $mode = '777'): void
     {
@@ -231,14 +226,13 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Записывает данные в файл
+     * Appends data to a file.
      *
-     * @param string $path путь к файлу
-     * @param string $content данные, которые нужно дозаписать
-     * @param boolean $recursive если true то папки будут созданы по всему пути до достижения $path
-     * @param integer $mode режим создания файла и папок, по умолчанию 777
+     * @param string $path The path to the file.
+     * @param string $content The content to be appended.
+     * @param boolean $recursive Whether to create directories along the path if they don't exist. Defaults to false.
+     * @param string $mode The mode for creating the file and directories. Defaults to '777'.
      * @return void
-     * @testFunction testFileAppend
      */
     public static function Append(string $path, string $content, bool $recursive = false, string $mode = '777'): void
     {
@@ -250,11 +244,10 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Возвращает стрим файла
+     * Returns a file stream.
      *
-     * @param string $path путь к файлу
-     * @return FileStream|null
-     * @testFunction testFileOpen
+     * @param string $path The path to the file.
+     * @return FileStream|null Returns FileStream object if file exists, otherwise returns null.
      */
     public static function Open(string $path): ? FileStream
     { //ireader
@@ -265,11 +258,10 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Проверяет наличие файла
+     * Checks if a file exists.
      *
-     * @param string $path путь к файлу
-     * @return boolean
-     * @testFunction testFileExists
+     * @param string $path The path to the file.
+     * @return bool Returns true if the file exists, false otherwise.
      */
     public static function Exists(string $path): bool
     {
@@ -278,11 +270,10 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Проверяет пустой ли файл
+     * Checks if a file is empty.
      *
-     * @param string $path путь к файлу
-     * @return boolean
-     * @testFunction testFileIsEmpty
+     * @param string $path The path to the file.
+     * @return bool Returns true if the file is empty or doesn't exist, false otherwise.
      */
     public static function IsEmpty(string $path): bool
     {
@@ -295,13 +286,12 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Создает файл и возвращает стрим
+     * Creates a file and returns its stream.
      *
-     * @param string $path путь к файлу
-     * @param boolean $recursive если true то папки будут созданы по всему пути до достижения $path
-     * @param string $mode режим создания файла и папок, по умолчанию 777
-     * @return FileStream
-     * @testFunction testFileCreate
+     * @param string $path The path to the file.
+     * @param bool $recursive If true, creates directories along the path if they don't exist.
+     * @param string $mode The mode for creating the file and directories, default is '777'.
+     * @return FileStream Returns FileStream object for the created file.
      */
     public static function Create(string $path, bool $recursive = true, string $mode = '777'): FileStream
     {
@@ -317,11 +307,10 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Удаляет файл
+     * Deletes a file.
      *
-     * @param string $path путь к файлу
-     * @return boolean
-     * @testFunction testFileDelete
+     * @param string $path The path to the file.
+     * @return bool Returns true if the file was successfully deleted, false otherwise.
      */
     public static function Delete(string $path): bool
     {
@@ -333,12 +322,11 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Копирует файла
+     * Copies a file.
      *
-     * @param string $from какой файл
-     * @param string $to куда скопировать
+     * @param string $from The source file path.
+     * @param string $to The destination file path.
      * @return void
-     * @testFunction testFileCopy
      */
     public static function Copy(string $from, string $to): void
     {
@@ -350,12 +338,11 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Переносит файл
+     * Moves a file.
      *
-     * @param string $from какой файл
-     * @param string $to куда перенести
+     * @param string $from The source file path.
+     * @param string $to The destination file path.
      * @return void
-     * @testFunction testFileMove
      */
     public static function Move(string $from, string $to): void
     {
@@ -367,11 +354,10 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Проверяет не директория ли
+     * Checks if the given path is a directory.
      *
-     * @param string $path путь к файлу или директории
-     * @return boolean
-     * @testFunction testFileIsDirectory
+     * @param string $path The path to check.
+     * @return bool Returns true if the path is a directory, false otherwise.
      */
     public static function IsDirectory(string $path): bool
     {
@@ -379,10 +365,9 @@ class File extends Node implements JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде массива
+     * Returns file data as an array.
      *
-     * @return array
-     * @testFunction testFileToArray
+     * @return array Returns an array containing file data.
      */
     public function ToArray(): array
     {
@@ -399,6 +384,11 @@ class File extends Node implements JsonSerializable
         );
     }
 
+    /**
+     * Implements the JsonSerializable interface.
+     *
+     * @return array Returns the array representation of the object.
+     */
     public function jsonSerialize(): array
     {
         return $this->ToArray();

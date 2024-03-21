@@ -4708,127 +4708,127 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File",
             "name": "File",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0434\u043B\u044F\u0020\u0440\u0430\u0431\u043E\u0442\u044B\u0020\u0441\u0020\u0444\u0430\u0439\u043B\u0430\u043C\u0438",
+            "summary": "Class\u0020for\u0020handling\u0020files.",
             "url": "classes/Colibri-IO-FileSystem-File.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method___get"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003ACopyTo\u0028\u0029",
             "name": "CopyTo",
-            "summary": "\u041A\u043E\u043F\u0438\u0440\u0443\u0435\u0442\u0020\u0444\u0430\u0439\u043B",
+            "summary": "Copies\u0020the\u0020file\u0020to\u0020another\u0020location.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_CopyTo"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AMoveTo\u0028\u0029",
             "name": "MoveTo",
-            "summary": "\u041F\u0435\u0440\u0435\u043C\u0435\u0441\u0442\u0438\u0442\u044C\u0020\u0444\u0430\u0439\u043B",
+            "summary": "Moves\u0020the\u0020file\u0020to\u0020another\u0020location.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_MoveTo"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AToString\u0028\u0029",
             "name": "ToString",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0438\u043C\u044F\u0020\u0444\u0430\u0439\u043B\u0430",
+            "summary": "Retrieves\u0020the\u0020filename.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_ToString"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003ARead\u0028\u0029",
             "name": "Read",
-            "summary": "\u0421\u0447\u0438\u0442\u044B\u0432\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0444\u0430\u0439\u043B",
+            "summary": "Reads\u0020the\u0020content\u0020of\u0020a\u0020file.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_Read"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AWrite\u0028\u0029",
             "name": "Write",
-            "summary": "\u0417\u0430\u043F\u0438\u0441\u044B\u0432\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0444\u0430\u0439\u043B",
+            "summary": "Writes\u0020data\u0020to\u0020a\u0020file.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_Write"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AAppend\u0028\u0029",
             "name": "Append",
-            "summary": "\u0417\u0430\u043F\u0438\u0441\u044B\u0432\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0444\u0430\u0439\u043B",
+            "summary": "Appends\u0020data\u0020to\u0020a\u0020file.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_Append"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AOpen\u0028\u0029",
             "name": "Open",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0441\u0442\u0440\u0438\u043C\u0020\u0444\u0430\u0439\u043B\u0430",
+            "summary": "Returns\u0020a\u0020file\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_Open"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AExists\u0028\u0029",
             "name": "Exists",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u043D\u0430\u043B\u0438\u0447\u0438\u0435\u0020\u0444\u0430\u0439\u043B\u0430",
+            "summary": "Checks\u0020if\u0020a\u0020file\u0020exists.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_Exists"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AIsEmpty\u0028\u0029",
             "name": "IsEmpty",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u043F\u0443\u0441\u0442\u043E\u0439\u0020\u043B\u0438\u0020\u0444\u0430\u0439\u043B",
+            "summary": "Checks\u0020if\u0020a\u0020file\u0020is\u0020empty.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_IsEmpty"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0444\u0430\u0439\u043B\u0020\u0438\u0020\u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0441\u0442\u0440\u0438\u043C",
+            "summary": "Creates\u0020a\u0020file\u0020and\u0020returns\u0020its\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003ADelete\u0028\u0029",
             "name": "Delete",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0444\u0430\u0439\u043B",
+            "summary": "Deletes\u0020a\u0020file.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_Delete"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003ACopy\u0028\u0029",
             "name": "Copy",
-            "summary": "\u041A\u043E\u043F\u0438\u0440\u0443\u0435\u0442\u0020\u0444\u0430\u0439\u043B\u0430",
+            "summary": "Copies\u0020a\u0020file.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_Copy"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AMove\u0028\u0029",
             "name": "Move",
-            "summary": "\u041F\u0435\u0440\u0435\u043D\u043E\u0441\u0438\u0442\u0020\u0444\u0430\u0439\u043B",
+            "summary": "Moves\u0020a\u0020file.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_Move"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AIsDirectory\u0028\u0029",
             "name": "IsDirectory",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u043D\u0435\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u044F\u0020\u043B\u0438",
+            "summary": "Checks\u0020if\u0020the\u0020given\u0020path\u0020is\u0020a\u0020directory.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_IsDirectory"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AToArray\u0028\u0029",
             "name": "ToArray",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0430",
+            "summary": "Returns\u0020file\u0020data\u0020as\u0020an\u0020array.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_ToArray"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "",
+            "summary": "Implements\u0020the\u0020JsonSerializable\u0020interface.",
             "url": "classes/Colibri-IO-FileSystem-File.html#method_jsonSerialize"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AMODE_READ",
             "name": "MODE_READ",
-            "summary": "\u0440\u0435\u0436\u0438\u043C\u0020\u0447\u0442\u0435\u043D\u0438\u0435",
+            "summary": "Read\u0020mode",
             "url": "classes/Colibri-IO-FileSystem-File.html#constant_MODE_READ"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AMODE_WRITE",
             "name": "MODE_WRITE",
-            "summary": "\u0440\u0435\u0436\u0438\u043C\u0020\u0437\u0430\u043F\u0438\u0441\u044C",
+            "summary": "Write\u0020mode",
             "url": "classes/Colibri-IO-FileSystem-File.html#constant_MODE_WRITE"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AMODE_APPEND",
             "name": "MODE_APPEND",
-            "summary": "\u0440\u0435\u0436\u0438\u043C\u0020\u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Append\u0020mode",
             "url": "classes/Colibri-IO-FileSystem-File.html#constant_MODE_APPEND"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003AMODE_CREATEWRITE",
             "name": "MODE_CREATEWRITE",
-            "summary": "\u0440\u0435\u0436\u0438\u043C\u0020\u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F\u0020\u043F\u0440\u0438\u0020\u0437\u0430\u043F\u0438\u0441\u0438",
+            "summary": "Create\u0020mode\u0020for\u0020writing",
             "url": "classes/Colibri-IO-FileSystem-File.html#constant_MODE_CREATEWRITE"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003A\u0024info",
             "name": "info",
-            "summary": "\u0414\u0430\u043D\u043D\u044B\u0435\u0020\u043E\u0020\u043F\u0443\u0442\u0438\u0020\u043A\u0020\u0444\u0430\u0439\u043B\u0443",
+            "summary": "File\u0020path\u0020information.",
             "url": "classes/Colibri-IO-FileSystem-File.html#property_info"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File\u003A\u003A\u0024_size",
             "name": "_size",
-            "summary": "\u0414\u043B\u0438\u043D\u0430\u0020\u0444\u0430\u0439\u043B\u0430\u0020\u0432\u0020\u0431\u0430\u0439\u0442\u0430\u0445",
+            "summary": "Size\u0020of\u0020the\u0020file\u0020in\u0020bytes.",
             "url": "classes/Colibri-IO-FileSystem-File.html#property__size"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream",
@@ -4958,427 +4958,427 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Security",
             "name": "Security",
-            "summary": "\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u0430\u0020\u0431\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442\u0438\u0020\u0444\u0430\u0439\u043B\u043E\u0432\u043E\u0439\u0020\u0441\u0438\u0441\u0442\u0435\u043C\u044B",
+            "summary": "File\u0020system\u0020security\u0020properties.",
             "url": "classes/Colibri-IO-FileSystem-Security.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Security\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-IO-FileSystem-Security.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Security\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-IO-FileSystem-Security.html#method___get"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Security\u003A\u003A__set\u0028\u0029",
             "name": "__set",
-            "summary": "\u0421\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Setter.",
             "url": "classes/Colibri-IO-FileSystem-Security.html#method___set"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Security\u003A\u003A\u0024source",
             "name": "source",
-            "summary": "\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A",
+            "summary": "The\u0020source\u0020\u0028File\u0020or\u0020Directory\u0029.",
             "url": "classes/Colibri-IO-FileSystem-Security.html#property_source"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Security\u003A\u003A\u0024flags",
             "name": "flags",
-            "summary": "\u041F\u0440\u0430\u0432\u0430\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Access\u0020flags.",
             "url": "classes/Colibri-IO-FileSystem-Security.html#property_flags"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream",
             "name": "Stream",
-            "summary": "\u0410\u0431\u0441\u0442\u0440\u0430\u043A\u0442\u043D\u044B\u0439\u0020\u043A\u043B\u0430\u0441\u0441\u0020\u0421\u0442\u0440\u0438\u043C\u0438\u043D\u0433\u0430",
+            "summary": "Abstract\u0020streaming\u0020class.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003A__destruct\u0028\u0029",
             "name": "__destruct",
-            "summary": "\u0414\u0435\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Destructor.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method___destruct"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method___get"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003Aseek\u0028\u0029",
             "name": "seek",
-            "summary": "\u041F\u0435\u0440\u0435\u0434\u0432\u0438\u043D\u0443\u0442\u044C\u0020\u043F\u043E\u0437\u0438\u0446\u0438\u044E",
+            "summary": "Move\u0020the\u0020position.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method_seek"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003ARead\u0028\u0029",
             "name": "Read",
-            "summary": "\u0421\u0447\u0438\u0442\u0430\u0442\u044C\u0020\u0438\u0437\u0020\u0441\u0442\u0440\u0438\u043C\u0430",
+            "summary": "Read\u0020from\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method_Read"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003AWrite\u0028\u0029",
             "name": "Write",
-            "summary": "\u0417\u0430\u043F\u0438\u0441\u0430\u0442\u044C\u0020\u0432\u0020\u0441\u0442\u0440\u0438\u043C",
+            "summary": "Write\u0020to\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method_Write"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003AReadLine\u0028\u0029",
             "name": "ReadLine",
-            "summary": "\u0421\u0447\u0438\u0442\u0430\u0442\u044C\u0020\u0438\u0437\u0020\u0441\u0442\u0440\u0438\u043C\u0430\u0020\u043E\u0434\u043D\u0443\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Read\u0020a\u0020line\u0020from\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method_ReadLine"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003AWriteLine\u0028\u0029",
             "name": "WriteLine",
-            "summary": "\u0417\u0430\u043F\u0438\u0441\u0430\u0442\u044C\u0020\u0432\u0020\u0441\u0442\u0440\u0438\u043C\u0020\u043E\u0434\u043D\u0443\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Write\u0020a\u0020line\u0020to\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method_WriteLine"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003Aflush\u0028\u0029",
             "name": "flush",
-            "summary": "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C\u0020\u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F",
+            "summary": "Save\u0020changes.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method_flush"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003Aclose\u0028\u0029",
             "name": "close",
-            "summary": "\u0417\u0430\u043A\u0440\u044B\u0442\u044C\u0020\u0441\u0442\u0440\u0438\u043C",
+            "summary": "Close\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method_close"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003A\u0024_length",
             "name": "_length",
-            "summary": "\u0414\u043B\u0438\u043D\u0430\u0020\u0441\u0442\u0440\u0438\u043C\u0430",
+            "summary": "The\u0020length\u0020of\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#property__length"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003A\u0024_stream",
             "name": "_stream",
-            "summary": "\u0414\u0435\u043A\u0440\u0438\u043F\u0442\u043E\u0440",
+            "summary": "The\u0020stream\u0020descriptor.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#property__stream"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Exception",
             "name": "Exception",
-            "summary": "\u0418\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435\u0020\u0434\u043B\u044F\u0020\u0444\u0430\u0439\u043B\u043E\u0432\u043E\u0439\u0020\u0441\u0438\u0441\u0442\u0435\u043C\u044B",
+            "summary": "Exception\u0020for\u0020file\u0020system\u0020operations.",
             "url": "classes/Colibri-IO-FtpFileSystem-Exception.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File",
             "name": "File",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0434\u043B\u044F\u0020\u0440\u0430\u0431\u043E\u0442\u044B\u0020\u0441\u0020\u0444\u0430\u0439\u043B\u0430\u043C\u0438",
+            "summary": "Class\u0020for\u0020file\u0020operations.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#method___get"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003ADownload\u0028\u0029",
             "name": "Download",
-            "summary": "",
+            "summary": "Download\u0020the\u0020file.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#method_Download"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003AToArray\u0028\u0029",
             "name": "ToArray",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0430",
+            "summary": "Returns\u0020data\u0020as\u0020an\u0020array.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#method_ToArray"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "",
+            "summary": "Implements\u0020the\u0020JsonSerializable\u0020interface.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#method_jsonSerialize"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003AMODE_READ",
             "name": "MODE_READ",
-            "summary": "\u0440\u0435\u0436\u0438\u043C\u0020\u0447\u0442\u0435\u043D\u0438\u0435",
+            "summary": "Read\u0020mode",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#constant_MODE_READ"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003AMODE_WRITE",
             "name": "MODE_WRITE",
-            "summary": "\u0440\u0435\u0436\u0438\u043C\u0020\u0437\u0430\u043F\u0438\u0441\u044C",
+            "summary": "Write\u0020mode",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#constant_MODE_WRITE"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003AMODE_APPEND",
             "name": "MODE_APPEND",
-            "summary": "\u0440\u0435\u0436\u0438\u043C\u0020\u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Append\u0020mode",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#constant_MODE_APPEND"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003AMODE_CREATEWRITE",
             "name": "MODE_CREATEWRITE",
-            "summary": "\u0440\u0435\u0436\u0438\u043C\u0020\u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F\u0020\u043F\u0440\u0438\u0020\u0437\u0430\u043F\u0438\u0441\u0438",
+            "summary": "Create\u0020mode",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#constant_MODE_CREATEWRITE"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003A\u0024info",
             "name": "info",
-            "summary": "\u0414\u0430\u043D\u043D\u044B\u0435\u0020\u043E\u0020\u043F\u0443\u0442\u0438\u0020\u043A\u0020\u0444\u0430\u0439\u043B\u0443",
+            "summary": "File\u0020path\u0020information.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#property_info"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003A\u0024item",
             "name": "item",
-            "summary": "",
+            "summary": "The\u0020file\u0020item.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#property_item"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003A\u0024connection",
             "name": "connection",
-            "summary": "",
+            "summary": "The\u0020FTP\u0020connection.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#property_connection"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003A\u0024_size",
             "name": "_size",
-            "summary": "\u0414\u043B\u0438\u043D\u0430\u0020\u0444\u0430\u0439\u043B\u0430\u0020\u0432\u0020\u0431\u0430\u0439\u0442\u0430\u0445",
+            "summary": "The\u0020size\u0020of\u0020the\u0020file\u0020in\u0020bytes.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#property__size"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003A\u0024cachePath",
             "name": "cachePath",
-            "summary": "",
+            "summary": "The\u0020cache\u0020path\u0020for\u0020downloaded\u0020files.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#property_cachePath"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003A\u0024finder",
             "name": "finder",
-            "summary": "",
+            "summary": "The\u0020file\u0020finder.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#property_finder"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder",
             "name": "Finder",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u043F\u043E\u043C\u043E\u0433\u0430\u044E\u0449\u0438\u0439\u0020\u0438\u0441\u043A\u0430\u0442\u044C\u0020\u0444\u0430\u0439\u043B\u044B\u0020\u0438\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u0438",
+            "summary": "Class\u0020for\u0020finding\u0020files\u0020and\u0020directories.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003A__destruct\u0028\u0029",
             "name": "__destruct",
-            "summary": "",
+            "summary": "Destructor.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html#method___destruct"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003A_connect\u0028\u0029",
             "name": "_connect",
-            "summary": "",
+            "summary": "Establishes\u0020the\u0020FTP\u0020connection.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html#method__connect"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003AReconnect\u0028\u0029",
             "name": "Reconnect",
-            "summary": "",
+            "summary": "Reconnects\u0020to\u0020FTP\u0020server.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html#method_Reconnect"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003A_ftpList\u0028\u0029",
             "name": "_ftpList",
-            "summary": "",
+            "summary": "Lists\u0020files\u0020and\u0020directories\u0020via\u0020FTP.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html#method__ftpList"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003AFiles\u0028\u0029",
             "name": "Files",
-            "summary": "\u041D\u0430\u0439\u0442\u0438\u0020\u0444\u0430\u0439\u043B\u044B",
+            "summary": "Lists\u0020files\u0020and\u0020directories\u0020in\u0020the\u0020specified\u0020path.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html#method_Files"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003A\u0024_connectionInfo",
             "name": "_connectionInfo",
-            "summary": "",
+            "summary": "The\u0020FTP\u0020connection\u0020information.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html#property__connectionInfo"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003A\u0024_connection",
             "name": "_connection",
-            "summary": "",
+            "summary": "The\u0020FTP\u0020connection.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html#property__connection"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Credentials",
             "name": "Credentials",
-            "summary": "\u041F\u043E\u043B\u043D\u043E\u043C\u043E\u0447\u0438\u044F",
+            "summary": "Credentials",
             "url": "classes/Colibri-IO-Request-Credentials.html"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Credentials\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-IO-Request-Credentials.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Credentials\u003A\u003A\u0024login",
             "name": "login",
-            "summary": "\u041B\u043E\u0433\u0438\u043D",
+            "summary": "Login",
             "url": "classes/Colibri-IO-Request-Credentials.html#property_login"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Credentials\u003A\u003A\u0024secret",
             "name": "secret",
-            "summary": "\u041F\u0430\u0440\u043E\u043B\u044C",
+            "summary": "Password",
             "url": "classes/Colibri-IO-Request-Credentials.html#property_secret"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Credentials\u003A\u003A\u0024ssl",
             "name": "ssl",
-            "summary": "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0020SSL",
+            "summary": "Use\u0020SSL",
             "url": "classes/Colibri-IO-Request-Credentials.html#property_ssl"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Data",
             "name": "Data",
-            "summary": "\u0414\u0430\u043D\u043D\u044B\u0435\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430",
+            "summary": "Request\u0020data.",
             "url": "classes/Colibri-IO-Request-Data.html"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Data\u003A\u003AFromArray\u0028\u0029",
             "name": "FromArray",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0442\u044C\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0438\u0437\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0430",
+            "summary": "Create\u0020data\u0020from\u0020an\u0020array.",
             "url": "classes/Colibri-IO-Request-Data.html#method_FromArray"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\DataFile",
             "name": "DataFile",
-            "summary": "\u0424\u0430\u0439\u043B\u0020\u0432\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0435",
+            "summary": "File\u0020in\u0020the\u0020request.",
             "url": "classes/Colibri-IO-Request-DataFile.html"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\DataFile\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-IO-Request-DataFile.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\DataItem",
             "name": "DataItem",
-            "summary": "\u0421\u0442\u0440\u043E\u043A\u0430\u0020\u0434\u0430\u043D\u043D\u044B\u0445\u0020\u0432\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0435",
+            "summary": "Data\u0020string\u0020in\u0020the\u0020request.",
             "url": "classes/Colibri-IO-Request-DataItem.html"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\DataItem\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-IO-Request-DataItem.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Encryption",
             "name": "Encryption",
-            "summary": "\u0422\u0438\u043F\u044B\u0020\u043F\u0435\u0440\u0435\u0434\u0430\u0447\u0438\u0020\u0434\u0430\u043D\u043D\u044B\u0445\u0020\u0444\u043E\u0440\u043C\u044B",
+            "summary": "Types\u0020of\u0020form\u0020data\u0020transmission.",
             "url": "classes/Colibri-IO-Request-Encryption.html"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Encryption\u003A\u003AMultipart",
             "name": "Multipart",
-            "summary": "\u041C\u0443\u043B\u044C\u0442\u0438\u043F\u0430\u0440\u0442",
+            "summary": "Multipart",
             "url": "classes/Colibri-IO-Request-Encryption.html#constant_Multipart"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Encryption\u003A\u003AUrlEncoded",
             "name": "UrlEncoded",
-            "summary": "UrlEncoded",
+            "summary": "URL\u0020Encoded",
             "url": "classes/Colibri-IO-Request-Encryption.html#constant_UrlEncoded"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Encryption\u003A\u003AXmlEncoded",
             "name": "XmlEncoded",
-            "summary": "\u0417\u0430\u043F\u0440\u043E\u0441\u0020\u0441\u0020\u043F\u0435\u0439\u043B\u043E\u0430\u0434\u043E\u043C\u0020XML",
+            "summary": "Request\u0020with\u0020XML\u0020payload",
             "url": "classes/Colibri-IO-Request-Encryption.html#constant_XmlEncoded"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Encryption\u003A\u003AJsonEncoded",
             "name": "JsonEncoded",
-            "summary": "\u0417\u0430\u043F\u0440\u043E\u0441\u0020\u0441\u0020\u043F\u0435\u0439\u043B\u043E\u0430\u0434\u043E\u043C\u0020JSON",
+            "summary": "Request\u0020with\u0020JSON\u0020payload",
             "url": "classes/Colibri-IO-Request-Encryption.html#constant_JsonEncoded"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Exception",
             "name": "Exception",
-            "summary": "\u0418\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435\u0020\u0434\u043B\u044F\u0020\u0432\u0435\u0431\u002D\u0437\u0430\u043F\u0440\u043E\u0441\u043E\u0432",
+            "summary": "Exception\u0020for\u0020web\u0020requests.",
             "url": "classes/Colibri-IO-Request-Exception.html"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request",
             "name": "Request",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430",
+            "summary": "Class\u0020for\u0020handling\u0020web\u0020requests.",
             "url": "classes/Colibri-IO-Request-Request.html"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A__checkWebRequest\u0028\u0029",
             "name": "__checkWebRequest",
-            "summary": "",
+            "summary": "Checks\u0020if\u0020the\u0020curl\u0020module\u0020loaded",
             "url": "classes/Colibri-IO-Request-Request.html#method___checkWebRequest"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-IO-Request-Request.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A_createMultipartRequestBody\u0028\u0029",
             "name": "_createMultipartRequestBody",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430\u0020\u0442\u0438\u043F\u0430\u0020Multipart\/Formdata",
+            "summary": "Creates\u0020request\u0020data\u0020of\u0020type\u0020Multipart\/Formdata.",
             "url": "classes/Colibri-IO-Request-Request.html#method__createMultipartRequestBody"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A_joinPostData\u0028\u0029",
             "name": "_joinPostData",
-            "summary": "\u0421\u043E\u0431\u0438\u0440\u0430\u0435\u0442\u0020\u043F\u043E\u0441\u0442",
+            "summary": "Constructs\u0020the\u0020POST\u0020data.",
             "url": "classes/Colibri-IO-Request-Request.html#method__joinPostData"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A_parseBody\u0028\u0029",
             "name": "_parseBody",
-            "summary": "\u041E\u0431\u0440\u0430\u0431\u0430\u0442\u044B\u0432\u0430\u0435\u0442\u0020\u043F\u043E\u043B\u0443\u0447\u0435\u043D\u043D\u044B\u0439\u0020\u0438\u0437\u0020curl\u0020\u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0020\u0438\u0020\u0432\u044B\u0440\u0435\u0437\u0430\u0435\u0442\u0020\u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0438",
+            "summary": "Processes\u0020the\u0020result\u0020received\u0020from\u0020cURL\u0020and\u0020extracts\u0020headers.",
             "url": "classes/Colibri-IO-Request-Request.html#method__parseBody"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003AExecute\u0028\u0029",
             "name": "Execute",
-            "summary": "\u0412\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441",
+            "summary": "Executes\u0020the\u0020request.",
             "url": "classes/Colibri-IO-Request-Request.html#method_Execute"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003AGet\u0028\u0029",
             "name": "Get",
-            "summary": "",
+            "summary": "Sends\u0020a\u0020GET\u0020request.",
             "url": "classes/Colibri-IO-Request-Request.html#method_Get"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003ABoundary",
             "name": "Boundary",
-            "summary": "\u0420\u0430\u0437\u0434\u0435\u043B\u0438\u0442\u0435\u043B\u044C",
+            "summary": "Separator",
             "url": "classes/Colibri-IO-Request-Request.html#constant_Boundary"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003ABoundaryEnd",
             "name": "BoundaryEnd",
-            "summary": "\u041E\u043A\u043E\u043D\u0447\u0430\u043D\u0438\u0435",
+            "summary": "Ending",
             "url": "classes/Colibri-IO-Request-Request.html#constant_BoundaryEnd"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024credentials",
             "name": "credentials",
-            "summary": "\u041B\u043E\u0433\u0438\u043D\u044B\u0020\u0438\u0020\u043F\u0430\u0440\u043E\u043B\u0438",
+            "summary": "Logins\u0020and\u0020passwords",
             "url": "classes/Colibri-IO-Request-Request.html#property_credentials"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024target",
             "name": "target",
-            "summary": "\u0410\u0434\u0440\u0435\u0441",
+            "summary": "Target\u0020address",
             "url": "classes/Colibri-IO-Request-Request.html#property_target"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024method",
             "name": "method",
-            "summary": "\u041C\u0435\u0442\u043E\u0434",
+            "summary": "Method",
             "url": "classes/Colibri-IO-Request-Request.html#property_method"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024postData",
             "name": "postData",
-            "summary": "\u0414\u0430\u043D\u043D\u044B\u0435",
+            "summary": "Data",
             "url": "classes/Colibri-IO-Request-Request.html#property_postData"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024encryption",
             "name": "encryption",
-            "summary": "\u0428\u0438\u0444\u0440\u043E\u0432\u0430\u043D\u0438\u0435",
+            "summary": "Encryption",
             "url": "classes/Colibri-IO-Request-Request.html#property_encryption"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024boundary",
             "name": "boundary",
-            "summary": "\u0420\u0430\u0437\u0434\u0435\u043B\u0438\u0442\u0435\u043B\u044C",
+            "summary": "Separator",
             "url": "classes/Colibri-IO-Request-Request.html#property_boundary"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024timeout",
             "name": "timeout",
-            "summary": "\u0422\u0430\u0439\u043C\u0430\u0443\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430",
+            "summary": "Request\u0020timeout",
             "url": "classes/Colibri-IO-Request-Request.html#property_timeout"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024timeout_ms",
             "name": "timeout_ms",
-            "summary": "\u0422\u0430\u0439\u043C\u0430\u0443\u0442\u0020\u0432\u0020\u043C\u0438\u043B\u043B\u0438\u0441\u0435\u043A\u0443\u043D\u0434\u0430\u0445",
+            "summary": "Timeout\u0020in\u0020milliseconds",
             "url": "classes/Colibri-IO-Request-Request.html#property_timeout_ms"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024async",
             "name": "async",
-            "summary": "\u0418\u043D\u0434\u0438\u043A\u0430\u0442\u043E\u0440\u0020\u0430\u0441\u0441\u0438\u043D\u0445\u0440\u043E\u043D\u043D\u043E\u0441\u0442\u0438",
+            "summary": "Asynchronous\u0020indicator",
             "url": "classes/Colibri-IO-Request-Request.html#property_async"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024cookies",
             "name": "cookies",
-            "summary": "\u041A\u0443\u043A\u0438",
+            "summary": "Cookies",
             "url": "classes/Colibri-IO-Request-Request.html#property_cookies"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024cookieFile",
             "name": "cookieFile",
-            "summary": "\u0424\u0430\u0439\u043B\u0020\u043A\u0443\u043A\u0438",
+            "summary": "Cookie\u0020file",
             "url": "classes/Colibri-IO-Request-Request.html#property_cookieFile"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024referer",
             "name": "referer",
-            "summary": "\u0420\u0435\u0444\u0435\u0440\u0435\u0440",
+            "summary": "Referer",
             "url": "classes/Colibri-IO-Request-Request.html#property_referer"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024headers",
             "name": "headers",
-            "summary": "\u0417\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u0438",
+            "summary": "Headers",
             "url": "classes/Colibri-IO-Request-Request.html#property_headers"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024useragent",
@@ -5388,82 +5388,82 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024sslVerify",
             "name": "sslVerify",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0442\u044C\u0020\u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0442",
+            "summary": "Check\u0020SSL\u0020certificate",
             "url": "classes/Colibri-IO-Request-Request.html#property_sslVerify"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024contentType",
             "name": "contentType",
-            "summary": "",
+            "summary": "Content\u0020Type",
             "url": "classes/Colibri-IO-Request-Request.html#property_contentType"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Request\u003A\u003A\u0024sshSecurityLevel",
             "name": "sshSecurityLevel",
-            "summary": "",
+            "summary": "SSH\u0020security\u0020level",
             "url": "classes/Colibri-IO-Request-Request.html#property_sshSecurityLevel"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Result",
             "name": "Result",
-            "summary": "\u0420\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430",
+            "summary": "Result\u0020of\u0020a\u0020request.",
             "url": "classes/Colibri-IO-Request-Result.html"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Result\u003A\u003A\u0024status",
             "name": "status",
-            "summary": "\u0421\u0442\u0430\u0442\u0443\u0441\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430",
+            "summary": "Status\u0020of\u0020the\u0020request.",
             "url": "classes/Colibri-IO-Request-Result.html#property_status"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Result\u003A\u003A\u0024data",
             "name": "data",
-            "summary": "\u0414\u0430\u043D\u043D\u044B\u0435",
+            "summary": "Data\u0020of\u0020the\u0020result.",
             "url": "classes/Colibri-IO-Request-Result.html#property_data"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Result\u003A\u003A\u0024error",
             "name": "error",
-            "summary": "\u041E\u0448\u0438\u0431\u043A\u0430",
+            "summary": "Error\u0020message,\u0020if\u0020any.",
             "url": "classes/Colibri-IO-Request-Result.html#property_error"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Result\u003A\u003A\u0024headers",
             "name": "headers",
-            "summary": "\u041C\u0430\u0441\u0441\u0438\u0432\u0020\u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u043E\u0432",
+            "summary": "Array\u0020or\u0020object\u0020containing\u0020headers.",
             "url": "classes/Colibri-IO-Request-Result.html#property_headers"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Result\u003A\u003A\u0024httpheaders",
             "name": "httpheaders",
-            "summary": "\u041C\u0430\u0441\u0441\u0438\u0432\u0020\u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043A\u043E\u0432\u0020HTTP",
+            "summary": "Array\u0020or\u0020object\u0020containing\u0020HTTP\u0020headers.",
             "url": "classes/Colibri-IO-Request-Result.html#property_httpheaders"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Type",
             "name": "Type",
-            "summary": "\u0422\u0438\u043F\u044B\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u043E\u0432",
+            "summary": "Types\u0020of\u0020requests.",
             "url": "classes/Colibri-IO-Request-Type.html"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Type\u003A\u003APost",
             "name": "Post",
-            "summary": "POST\u0020\u0437\u0430\u043F\u0440\u043E\u0441",
+            "summary": "POST\u0020request",
             "url": "classes/Colibri-IO-Request-Type.html#constant_Post"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Type\u003A\u003AGet",
             "name": "Get",
-            "summary": "GET\u0020\u0437\u0430\u043F\u0440\u043E\u0441",
+            "summary": "GET\u0020request",
             "url": "classes/Colibri-IO-Request-Type.html#constant_Get"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Type\u003A\u003AHead",
             "name": "Head",
-            "summary": "HEAD\u0020\u0437\u0430\u043F\u0440\u043E\u0441",
+            "summary": "HEAD\u0020request",
             "url": "classes/Colibri-IO-Request-Type.html#constant_Head"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Type\u003A\u003ADelete",
             "name": "Delete",
-            "summary": "DELETE\u0020\u0437\u0430\u043F\u0440\u043E\u0441",
+            "summary": "DELETE\u0020request",
             "url": "classes/Colibri-IO-Request-Type.html#constant_Delete"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Type\u003A\u003APut",
             "name": "Put",
-            "summary": "PUT\u0020\u0437\u0430\u043F\u0440\u043E\u0441",
+            "summary": "PUT\u0020request",
             "url": "classes/Colibri-IO-Request-Type.html#constant_Put"
         },                {
             "fqsen": "\\Colibri\\IO\\Request\\Type\u003A\u003APatch",
             "name": "Patch",
-            "summary": "PATCH\u0020\u0437\u0430\u043F\u0440\u043E\u0441",
+            "summary": "PATCH\u0020request",
             "url": "classes/Colibri-IO-Request-Type.html#constant_Patch"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module",

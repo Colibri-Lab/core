@@ -4,33 +4,33 @@
  * Request
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\Request
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\Request;
 
 /**
- * Типы запросов
+ * Types of requests.
  */
 class Type
 {
 
-    /** POST запрос */
+    /** POST request */
     const Post = 'post';
 
-    /** GET запрос */
+    /** GET request */
     const Get = 'get';
 
-    /** HEAD запрос */
+    /** HEAD request */
     const Head = 'head';
 
-    /** DELETE запрос */
+    /** DELETE request */
     const Delete = 'delete';
 
-    /** PUT запрос */
+    /** PUT request */
     const Put = 'put';
 
-    /** PATCH запрос */
+    /** PATCH request */
     const Patch = 'patch';
 }

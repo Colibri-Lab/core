@@ -164,10 +164,6 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-IO.html" class="">IO</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-Rpc.html" class="">Rpc</a>
                 
             </li>
@@ -217,8 +213,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-IO.html">IO</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-IO-FileSystem.html">FileSystem</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -239,7 +235,7 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Абстрактный класс Стриминга</p>
+            <p class="phpdocumentor-summary">Abstract streaming class.</p>
 
 
 
@@ -271,14 +267,14 @@
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Длина стрима</dd>
+<dd>The length of the stream.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-IO-FileSystem-Stream.html#property__stream">$_stream</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
-<dd>Декриптор</dd>
+<dd>The stream descriptor.</dd>
 
     </dl>
 
@@ -293,70 +289,70 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Stream.html#method___destruct">__destruct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Деструктор</dd>
+<dd>Destructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Stream.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Геттер</dd>
+<dd>Getter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Stream.html#method_close">close()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Закрыть стрим</dd>
+<dd>Close the stream.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Stream.html#method_flush">flush()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Сохранить изменения</dd>
+<dd>Save changes.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Stream.html#method_Read">Read()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: bool|string    </span>
 </dt>
-<dd>Считать из стрима</dd>
+<dd>Read from the stream.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Stream.html#method_ReadLine">ReadLine()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: bool|string    </span>
 </dt>
-<dd>Считать из стрима одну строку</dd>
+<dd>Read a line from the stream.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Stream.html#method_seek">seek()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Передвинуть позицию</dd>
+<dd>Move the position.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Stream.html#method_Write">Write()</a>
     <span>
-                                &nbsp;: void    </span>
+                                &nbsp;: int|bool    </span>
 </dt>
-<dd>Записать в стрим</dd>
+<dd>Write to the stream.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Stream.html#method_WriteLine">WriteLine()</a>
     <span>
-                                &nbsp;: void    </span>
+                                &nbsp;: bool|int    </span>
 </dt>
-<dd>Записать в стрим одну строку</dd>
+<dd>Write a line to the stream.</dd>
 
     </dl>
 
@@ -393,7 +389,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Длина стрима</p>
+        <p class="phpdocumentor-summary">The length of the stream.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -423,11 +419,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Декриптор</p>
+        <p class="phpdocumentor-summary">The stream descriptor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -462,11 +458,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -494,11 +490,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Деструктор</p>
+        <p class="phpdocumentor-summary">Destructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -526,11 +522,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Геттер</p>
+        <p class="phpdocumentor-summary">Getter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -546,7 +542,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>свойство</p>
+                    <section class="phpdocumentor-description"><p>The property.</p>
 </section>
 
             </dd>
@@ -570,11 +566,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">117</span>
+    <span class="phpdocumentor-element-found-in__line">119</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Закрыть стрим</p>
+        <p class="phpdocumentor-summary">Close the stream.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -602,11 +598,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+    <span class="phpdocumentor-element-found-in__line">112</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Сохранить изменения</p>
+        <p class="phpdocumentor-summary">Save changes.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -634,15 +630,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">79</span>
+    <span class="phpdocumentor-element-found-in__line">81</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Считать из стрима</p>
+        <p class="phpdocumentor-summary">Read from the stream.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__abstract">abstract</span>                <span class="phpdocumentor-signature__name">Read</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$count</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+    <span class="phpdocumentor-signature__abstract">abstract</span>                <span class="phpdocumentor-signature__name">Read</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$count</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -651,19 +647,19 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$offset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>откуда начать считывание</p>
+                    <section class="phpdocumentor-description"><p>Where to start reading from.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$count</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>количество байл которые нужно считать</p>
+                    <section class="phpdocumentor-description"><p>The number of bytes to read.</p>
 </section>
 
             </dd>
@@ -673,7 +669,7 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
+        <span class="phpdocumentor-signature__response_type">bool|string</span>
             </section>
 
 </article>
@@ -691,15 +687,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">95</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Считать из стрима одну строку</p>
+        <p class="phpdocumentor-summary">Read a line from the stream.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__abstract">abstract</span>                <span class="phpdocumentor-signature__name">ReadLine</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+    <span class="phpdocumentor-signature__abstract">abstract</span>                <span class="phpdocumentor-signature__name">ReadLine</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|string</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -709,7 +705,7 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
+        <span class="phpdocumentor-signature__response_type">bool|string</span>
             </section>
 
 </article>
@@ -727,11 +723,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">70</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Передвинуть позицию</p>
+        <p class="phpdocumentor-summary">Move the position.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -747,7 +743,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>куда передвинуть позицию</p>
+                    <section class="phpdocumentor-description"><p>The position to move to.</p>
 </section>
 
             </dd>
@@ -771,15 +767,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Записать в стрим</p>
+        <p class="phpdocumentor-summary">Write to the stream.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__abstract">abstract</span>                <span class="phpdocumentor-signature__name">Write</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$content</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+    <span class="phpdocumentor-signature__abstract">abstract</span>                <span class="phpdocumentor-signature__name">Write</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$content</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -791,16 +787,16 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>контент, которые нужно записать</p>
+                    <section class="phpdocumentor-description"><p>The content to write.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$offset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>место откуда записать</p>
+                    <section class="phpdocumentor-description"><p>Where to write from.</p>
 </section>
 
             </dd>
@@ -808,7 +804,11 @@
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int|bool</span>
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -824,15 +824,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Stream.php"><a href="files/src-colibri-io-filesystem-stream.html"><abbr title="src/Colibri/IO/FileSystem/Stream.php">Stream.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">103</span>
+    <span class="phpdocumentor-element-found-in__line">105</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Записать в стрим одну строку</p>
+        <p class="phpdocumentor-summary">Write a line to the stream.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__abstract">abstract</span>                <span class="phpdocumentor-signature__name">WriteLine</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+    <span class="phpdocumentor-signature__abstract">abstract</span>                <span class="phpdocumentor-signature__name">WriteLine</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|int</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -844,7 +844,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>контент, которые нужно записать</p>
+                    <section class="phpdocumentor-description"><p>The content to write.</p>
 </section>
 
             </dd>
@@ -852,7 +852,11 @@
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|int</span>
+            </section>
+
 </article>
             </section>
 

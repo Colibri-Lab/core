@@ -164,10 +164,6 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-IO.html" class="">IO</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-Rpc.html" class="">Rpc</a>
                 
             </li>
@@ -217,8 +213,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-IO.html">IO</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-IO-FileSystem.html">FileSystem</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -236,30 +232,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс для работы с файлами</p>
+            <p class="phpdocumentor-summary">Class for file operations.</p>
 
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-IO-FtpFileSystem-File.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testFile</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
 
 
@@ -293,28 +273,28 @@
     <span>
         &nbsp;= &quot;ab9&quot;                            </span>
 </dt>
-<dd>режим добавление данных</dd>
+<dd>Append mode</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#constant_MODE_CREATEWRITE">MODE_CREATEWRITE</a>
     <span>
         &nbsp;= &quot;wb9&quot;                            </span>
 </dt>
-<dd>режим создания при записи</dd>
+<dd>Create mode</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#constant_MODE_READ">MODE_READ</a>
     <span>
         &nbsp;= &quot;rb9&quot;                            </span>
 </dt>
-<dd>режим чтение</dd>
+<dd>Read mode</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#constant_MODE_WRITE">MODE_WRITE</a>
     <span>
         &nbsp;= &quot;wb9&quot;                            </span>
 </dt>
-<dd>режим запись</dd>
+<dd>Write mode</dd>
 
     </dl>
 
@@ -408,38 +388,42 @@
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Длина файла в байтах</dd>
+<dd>The size of the file in bytes.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#property_cachePath">$cachePath</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
+<dd>The cache path for downloaded files.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#property_connection">$connection</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
+<dd>The FTP connection.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#property_finder">$finder</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
+<dd>The file finder.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#property_info">$info</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>Данные о пути к файлу</dd>
+<dd>File path information.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#property_item">$item</a>
     <span>
                         &nbsp;: object            </span>
 </dt>
+<dd>The file item.</dd>
 
     </dl>
 
@@ -454,33 +438,35 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Геттер</dd>
+<dd>Getter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#method_Download">Download()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Download the file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#method_jsonSerialize">jsonSerialize()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
+<dd>Implements the JsonSerializable interface.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#method_ToArray">ToArray()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Возвращает данные в виде массива</dd>
+<dd>Returns data as an array.</dd>
 
     </dl>
 
@@ -504,11 +490,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">режим добавление данных</p>
+        <p class="phpdocumentor-summary">Append mode</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -533,11 +519,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">режим создания при записи</p>
+        <p class="phpdocumentor-summary">Create mode</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -562,11 +548,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">режим чтение</p>
+        <p class="phpdocumentor-summary">Read mode</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -591,11 +577,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">режим запись</p>
+        <p class="phpdocumentor-summary">Write mode</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -647,7 +633,9 @@
     <span class="phpdocumentor-signature__name">$access</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The access permissions of the file.</p>
+</section>
+
     
     
 
@@ -680,7 +668,9 @@
     <span class="phpdocumentor-signature__name">$attributes</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The file attributes.</p>
+</section>
+
     
     
 
@@ -713,7 +703,9 @@
     <span class="phpdocumentor-signature__name">$binary</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The binary content of the file.</p>
+</section>
+
     
     
 
@@ -746,7 +738,9 @@
     <span class="phpdocumentor-signature__name">$content</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The content of the file.</p>
+</section>
+
     
     
 
@@ -779,7 +773,9 @@
     <span class="phpdocumentor-signature__name">$directory</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The directory containing the file.</p>
+</section>
+
     
     
 
@@ -812,7 +808,9 @@
     <span class="phpdocumentor-signature__name">$dotfile</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates if the file is a dot file.</p>
+</section>
+
     
     
 
@@ -845,7 +843,9 @@
     <span class="phpdocumentor-signature__name">$exists</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates if the file exists.</p>
+</section>
+
     
     
 
@@ -878,7 +878,9 @@
     <span class="phpdocumentor-signature__name">$extension</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The extension of the file.</p>
+</section>
+
     
     
 
@@ -911,7 +913,9 @@
     <span class="phpdocumentor-signature__name">$filename</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The file name.</p>
+</section>
+
     
     
 
@@ -944,7 +948,9 @@
     <span class="phpdocumentor-signature__name">$mimetype</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The MIME type of the file.</p>
+</section>
+
     
     
 
@@ -977,7 +983,9 @@
     <span class="phpdocumentor-signature__name">$name</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The base name of the file.</p>
+</section>
+
     
     
 
@@ -1010,7 +1018,9 @@
     <span class="phpdocumentor-signature__name">$path</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The full path to the file.</p>
+</section>
+
     
     
 
@@ -1043,7 +1053,9 @@
     <span class="phpdocumentor-signature__name">$size</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The size of the file in bytes.</p>
+</section>
+
     
     
 
@@ -1065,11 +1077,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Длина файла в байтах</p>
+        <p class="phpdocumentor-summary">The size of the file in bytes.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1099,11 +1111,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">66</span>
+    <span class="phpdocumentor-element-found-in__line">80</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">The cache path for downloaded files.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">string</span>
@@ -1132,11 +1145,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">66</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">The FTP connection.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">mixed</span>
@@ -1165,11 +1179,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">The file finder.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">mixed</span>
@@ -1198,11 +1213,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">53</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Данные о пути к файлу</p>
+        <p class="phpdocumentor-summary">File path information.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1232,11 +1247,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">59</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">The file item.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">object</span>
@@ -1270,11 +1286,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">96</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1290,21 +1306,27 @@
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The file item.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$connection</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The FTP connection.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$finder</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The file finder.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1326,11 +1348,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Геттер</p>
+        <p class="phpdocumentor-summary">Getter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1346,29 +1368,13 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>свойство</p>
+                    <section class="phpdocumentor-description"><p>The property.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-IO-FtpFileSystem-File.html#method___get#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testFile__get</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1386,14 +1392,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">148</span>
+    <span class="phpdocumentor-element-found-in__line">174</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Download the file.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">Download</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$localPath</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">Download</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$localPath</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1402,10 +1409,12 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$localPath</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The local path to save the file.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1414,6 +1423,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Returns true on success, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -1431,11 +1444,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">182</span>
+    <span class="phpdocumentor-element-found-in__line">213</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Implements the JsonSerializable interface.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">jsonSerialize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
@@ -1466,11 +1480,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">172</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает данные в виде массива</p>
+        <p class="phpdocumentor-summary">Returns data as an array.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1481,22 +1495,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-IO-FtpFileSystem-File.html#method_ToArray#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testFileToArray</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>

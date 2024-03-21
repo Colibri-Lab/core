@@ -4,40 +4,41 @@
  * FileSystem
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\FileSystem;
 
 /**
- * Абстрактный класс Стриминга
+ * Abstract streaming class.
  */
 abstract class Stream
 {
 
     /**
-     * Длина стрима
+     * The length of the stream.
      *
-     * @var integer
+     * @var int
      */
     protected int $_length = 0;
+
     /**
-     * Декриптор
+     * The stream descriptor.
      *
      * @var mixed
      */
     protected mixed $_stream;
 
     /**
-     * Конструктор
+     * Constructor.
      */
     public function __construct()
     {
     }
 
     /**
-     * Деструктор
+     * Destructor.
      */
     public function __destruct()
     {
@@ -48,8 +49,9 @@ abstract class Stream
     }
 
     /**
-     * Геттер
-     * @param string $property свойство 
+     * Getter.
+     *
+     * @param string $property The property.
      * @return mixed
      */
     public function __get(string $property): mixed
@@ -62,57 +64,58 @@ abstract class Stream
     }
 
     /**
-     * Передвинуть позицию
+     * Move the position.
      *
-     * @param integer $offset куда передвинуть позицию
+     * @param int $offset The position to move to.
      * @return void
      */
     abstract public function seek(int $offset = 0): void;
 
     /**
-     * Считать из стрима
+     * Read from the stream.
      *
-     * @param int $offset откуда начать считывание
-     * @param int $count количество байл которые нужно считать
-     * @return string
+     * @param int|null $offset Where to start reading from.
+     * @param int|null $count The number of bytes to read.
+     * @return bool|string
      */
     abstract public function Read(?int $offset = null, ?int $count = null): bool|string;
 
     /**
-     * Записать в стрим
+     * Write to the stream.
      *
-     * @param string $content контент, которые нужно записать
-     * @param int $offset место откуда записать
-     * @return void
+     * @param string $content The content to write.
+     * @param int|null $offset Where to write from.
+     * @return int|bool
      */
     abstract public function Write(string $content, ?int $offset = null): int|bool;
 
     /**
-     * Считать из стрима одну строку
+     * Read a line from the stream.
      *
-     * @return string
+     * @return bool|string
      */
     abstract public function ReadLine(): bool|string;
 
     /**
-     * Записать в стрим одну строку
+     * Write a line to the stream.
      *
-     * @param string $string контент, которые нужно записать
-     * @return void
+     * @param string $string The content to write.
+     * @return bool|int
      */
     abstract public function WriteLine(string $string): bool|int;
 
     /**
-     * Сохранить изменения
+     * Save changes.
      *
      * @return void
      */
     abstract public function flush(): void;
 
     /**
-     * Закрыть стрим
+     * Close the stream.
      *
      * @return void
      */
     abstract public function close(): void;
+    
 }

@@ -4,42 +4,41 @@
  * Request
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\Request
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\Request;
 
 /**
- * Полномочия
- * @testFunction testCredentials
+ * Credentials
  */
 class Credentials
 {
 
     /**
-     * Логин
+     * Login
      *
      * @var string
      */
     public string $login = '';
 
     /**
-     * Пароль
+     * Password
      *
      * @var string
      */
     public string $secret = '';
 
     /**
-     * Использовать SSL
+     * Use SSL
      *
      * @var boolean
      */
     public bool $ssl = false;
 
     /**
-     * Конструктор
+     * Constructor
      *
      * @param string $login
      * @param string $password

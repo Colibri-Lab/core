@@ -4,48 +4,48 @@
  * Request
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\Request
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\Request;
 
 /**
- * Результат запроса
+ * Result of a request.
  */
 class Result
 {
 
     /**
-     * Статус запроса
+     * Status of the request.
      *
      * @var int
      */
     public int $status;
 
     /**
-     * Данные
+     * Data of the result.
      *
      * @var string
      */
     public string $data;
 
     /**
-     * Ошибка
+     * Error message, if any.
      *
      * @var string
      */
     public string $error;
 
     /**
-     * Массив заголовков
+     * Array or object containing headers.
      *
      * @var object|array
      */
     public object|array $headers;
     
     /**
-     * Массив заголовков HTTP
+     * Array or object containing HTTP headers.
      *
      * @var object|array
      */

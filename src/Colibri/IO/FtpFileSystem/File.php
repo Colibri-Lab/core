@@ -1,11 +1,11 @@
 <?php
 
 /**
- * FileSystem
+ * FtpFileSystem
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\FtpFileSystem;
@@ -15,62 +15,83 @@ use JsonSerializable;
 use Colibri\IO\FileSystem\File as BaseFile;
 
 /**
- * Класс для работы с файлами
+ * Class for file operations.
  *
- * @property-read string $attributes
- * @property-read string $filename
- * @property-read string $name
- * @property-read string $extension
- * @property-read mixed $directory
- * @property-read boolean $dotfile
- * @property-read string $path
- * @property-read int $size
- * @property-read boolean $exists
- * @property-read mixed $access
- * @property-read string $content
- * @property-read string $binary
- * @property-read string $mimetype
+ * @property-read string $attributes The file attributes.
+ * @property-read string $filename The file name.
+ * @property-read string $name The base name of the file.
+ * @property-read string $extension The extension of the file.
+ * @property-read mixed $directory The directory containing the file.
+ * @property-read bool $dotfile Indicates if the file is a dot file.
+ * @property-read string $path The full path to the file.
+ * @property-read int $size The size of the file in bytes.
+ * @property-read bool $exists Indicates if the file exists.
+ * @property-read mixed $access The access permissions of the file.
+ * @property-read string $content The content of the file.
+ * @property-read string $binary The binary content of the file.
+ * @property-read string $mimetype The MIME type of the file.
  *
- * @testFunction testFile
  */
 class File implements JsonSerializable
 {
 
-    /** режим чтение */
+    /** Read mode */
     const MODE_READ = "rb9";
-    /** режим запись */
+    /** Write mode */
     const MODE_WRITE = "wb9";
-    /** режим добавление данных */
+    /** Append mode */
     const MODE_APPEND = "ab9";
-    /** режим создания при записи */
+    /** Create mode */
     const MODE_CREATEWRITE = "wb9";
 
     /**
-     * Данные о пути к файлу
+     * File path information.
      *
      * @var array
      */
     private array $info;
 
+    /**
+     * The file item.
+     *
+     * @var object
+     */
     private object $item;
 
+    /**
+     * The FTP connection.
+     *
+     * @var mixed
+     */
     private mixed $connection;
 
     /**
-     * Длина файла в байтах
+     * The size of the file in bytes.
      *
-     * @var integer
+     * @var int
      */
     private int $_size = 0;
 
+    /**
+     * The cache path for downloaded files.
+     *
+     * @var string
+     */
     private string $cachePath;
 
+    /**
+     * The file finder.
+     *
+     * @var mixed
+     */
     private mixed $finder;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param string $path Путь к файлу
+     * @param object $item The file item.
+     * @param mixed $connection The FTP connection.
+     * @param mixed $finder The file finder.
      */
     public function __construct(object $item, mixed $connection, mixed $finder)
     {
@@ -89,11 +110,10 @@ class File implements JsonSerializable
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $property свойство
+     * @param string $property The property.
      * @return mixed
-     * @testFunction testFile__get
      */
     public function __get(string $property): mixed
     {
@@ -145,6 +165,12 @@ class File implements JsonSerializable
         return $return;
     }
 
+    /**
+     * Download the file.
+     *
+     * @param string $localPath The local path to save the file.
+     * @return bool Returns true on success, false otherwise.
+     */
     public function Download($localPath): bool
     {
         try {
@@ -164,10 +190,9 @@ class File implements JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде массива
+     * Returns data as an array.
      *
      * @return array
-     * @testFunction testFileToArray
      */
     public function ToArray(): array
     {
@@ -179,6 +204,12 @@ class File implements JsonSerializable
             'size' => $this->size,
         );
     }
+    
+    /**
+     * Implements the JsonSerializable interface.
+     *
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         return $this->ToArray();

@@ -164,10 +164,6 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-IO.html" class="">IO</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-Rpc.html" class="">Rpc</a>
                 
             </li>
@@ -217,8 +213,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-IO.html">IO</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-IO-FileSystem.html">FileSystem</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -233,30 +229,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Security.php"><a href="files/src-colibri-io-filesystem-security.html"><abbr title="src/Colibri/IO/FileSystem/Security.php">Security.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Свойства безопасности файловой системы</p>
+            <p class="phpdocumentor-summary">File system security properties.</p>
 
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-IO-FileSystem-Security.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testSecurity</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
 
 
@@ -327,14 +307,14 @@
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>Права доступа</dd>
+<dd>Access flags.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-IO-FileSystem-Security.html#property_source">$source</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-IO-FileSystem-File.html"><abbr title="\Colibri\IO\FileSystem\File">File</abbr></a>|<a href="classes/Colibri-IO-FileSystem-Directory.html"><abbr title="\Colibri\IO\FileSystem\Directory">Directory</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-IO-FileSystem-File.html"><abbr title="\Colibri\IO\FileSystem\File">File</abbr></a>|<a href="classes/Colibri-IO-FileSystem-Directory.html"><abbr title="\Colibri\IO\FileSystem\Directory">Directory</abbr></a>|null            </span>
 </dt>
-<dd>Источник</dd>
+<dd>The source (File or Directory).</dd>
 
     </dl>
 
@@ -349,21 +329,21 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Security.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Геттер</dd>
+<dd>Getter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FileSystem-Security.html#method___set">__set()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Сеттер</dd>
+<dd>Setter.</dd>
 
     </dl>
 
@@ -407,7 +387,9 @@
     <span class="phpdocumentor-signature__name">$delete</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates if delete access is granted.</p>
+</section>
+
     
     
 
@@ -440,7 +422,9 @@
     <span class="phpdocumentor-signature__name">$denied</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates if access is denied.</p>
+</section>
+
     
     
 
@@ -473,7 +457,9 @@
     <span class="phpdocumentor-signature__name">$execute</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates if execute access is granted.</p>
+</section>
+
     
     
 
@@ -506,7 +492,9 @@
     <span class="phpdocumentor-signature__name">$grant</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates if access is granted.</p>
+</section>
+
     
     
 
@@ -539,7 +527,9 @@
     <span class="phpdocumentor-signature__name">$owner</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The owner of the file.</p>
+</section>
+
     
     
 
@@ -572,7 +562,9 @@
     <span class="phpdocumentor-signature__name">$read</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates if read access is granted.</p>
+</section>
+
     
     
 
@@ -605,7 +597,9 @@
     <span class="phpdocumentor-signature__name">$write</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates if write access is granted.</p>
+</section>
+
     
     
 
@@ -631,7 +625,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Права доступа</p>
+        <p class="phpdocumentor-summary">Access flags.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -661,15 +655,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Security.php"><a href="files/src-colibri-io-filesystem-security.html"><abbr title="src/Colibri/IO/FileSystem/Security.php">Security.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Источник</p>
+        <p class="phpdocumentor-summary">The source (File or Directory).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/Colibri-IO-FileSystem-File.html"><abbr title="\Colibri\IO\FileSystem\File">File</abbr></a>|<a href="classes/Colibri-IO-FileSystem-Directory.html"><abbr title="\Colibri\IO\FileSystem\Directory">Directory</abbr></a></span>
+        <span class="phpdocumentor-signature__type"><a href="classes/Colibri-IO-FileSystem-File.html"><abbr title="\Colibri\IO\FileSystem\File">File</abbr></a>|<a href="classes/Colibri-IO-FileSystem-Directory.html"><abbr title="\Colibri\IO\FileSystem\Directory">Directory</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$source</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
@@ -704,11 +698,11 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-IO-FileSystem-File.html"><abbr title="\Colibri\IO\FileSystem\File">File</abbr></a>|<a href="classes/Colibri-IO-FileSystem-Directory.html"><abbr title="\Colibri\IO\FileSystem\Directory">Directory</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$source</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-IO-FileSystem-File.html"><abbr title="\Colibri\IO\FileSystem\File">File</abbr></a>|<a href="classes/Colibri-IO-FileSystem-Directory.html"><abbr title="\Colibri\IO\FileSystem\Directory">Directory</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$source</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -717,10 +711,10 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$source</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-IO-FileSystem-File.html"><abbr title="\Colibri\IO\FileSystem\File">File</abbr></a>|<a href="classes/Colibri-IO-FileSystem-Directory.html"><abbr title="\Colibri\IO\FileSystem\Directory">Directory</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-IO-FileSystem-File.html"><abbr title="\Colibri\IO\FileSystem\File">File</abbr></a>|<a href="classes/Colibri-IO-FileSystem-Directory.html"><abbr title="\Colibri\IO\FileSystem\Directory">Directory</abbr></a>|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>источник</p>
+                    <section class="phpdocumentor-description"><p>The source.</p>
 </section>
 
             </dd>
@@ -729,7 +723,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>флаги</p>
+                    <section class="phpdocumentor-description"><p>The flags.</p>
 </section>
 
             </dd>
@@ -753,11 +747,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Security.php"><a href="files/src-colibri-io-filesystem-security.html"><abbr title="src/Colibri/IO/FileSystem/Security.php">Security.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">74</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Геттер</p>
+        <p class="phpdocumentor-summary">Getter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -773,29 +767,13 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>свойство</p>
+                    <section class="phpdocumentor-description"><p>The property.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-IO-FileSystem-Security.html#method___get#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testSecurity__get</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -813,11 +791,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FileSystem/Security.php"><a href="files/src-colibri-io-filesystem-security.html"><abbr title="src/Colibri/IO/FileSystem/Security.php">Security.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">85</span>
+    <span class="phpdocumentor-element-found-in__line">84</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Сеттер</p>
+        <p class="phpdocumentor-summary">Setter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -833,7 +811,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>свойство</p>
+                    <section class="phpdocumentor-description"><p>The property.</p>
 </section>
 
             </dd>
@@ -842,7 +820,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>значение</p>
+                    <section class="phpdocumentor-description"><p>The value.</p>
 </section>
 
             </dd>

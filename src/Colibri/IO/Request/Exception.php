@@ -4,8 +4,8 @@
  * Request
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\Request
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\Request;
@@ -13,7 +13,7 @@ namespace Colibri\IO\Request;
 use Colibri\AppException;
 
 /**
- * Исключение для веб-запросов
+ * Exception for web requests.
  */
 class Exception extends AppException
 {

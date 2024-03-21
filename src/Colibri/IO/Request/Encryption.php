@@ -4,27 +4,27 @@
  * Request
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\Request
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\Request;
 
 /**
- * Типы передачи данных формы
+ * Types of form data transmission.
  */
 class Encryption
 {
 
-    /** Мультипарт */
+    /** Multipart */
     const Multipart = 'multipart/form-data';
 
-    /** UrlEncoded  */
+    /** URL Encoded */
     const UrlEncoded = 'application/x-www-form-urlencoded';
 
-    /** Запрос с пейлоадом XML */
+    /** Request with XML payload */
     const XmlEncoded = 'application/x-www-form-xmlencoded';
 
-    /** Запрос с пейлоадом JSON */
+    /** Request with JSON payload */
     const JsonEncoded = 'application/json';
 }
