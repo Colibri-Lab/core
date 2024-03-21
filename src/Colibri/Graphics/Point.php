@@ -4,35 +4,38 @@
  * Graphics
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Graphics
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 namespace Colibri\Graphics;
 
 /**
- * Класс представляющий точку на экране
+ * Represents a point on the screen.
+ *
+ * This class encapsulates the coordinates of a point on the screen.
  */
 class Point
 {
 
     /**
-     * Позиция X
+     * The X coordinate position.
      *
      * @var int
      */
     public int $x;
+
     /**
-     * Позиция Y
+     * The Y coordinate position.
      *
      * @var int
      */
     public int $y;
 
     /**
-     * Конструктор
+     * Constructs a new Point instance.
      *
-     * @param integer $x
-     * @param integer $y
+     * @param int $x The X coordinate position.
+     * @param int $y The Y coordinate position.
      */
     public function __construct(int $x = 0, int $y = 0)
     {

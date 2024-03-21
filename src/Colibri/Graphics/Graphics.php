@@ -4,9 +4,10 @@
  * Graphics
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Graphics
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
+
 namespace Colibri\Graphics;
 
 use Colibri\IO\FileSystem\File;
@@ -14,55 +15,56 @@ use Colibri\Common\RandomizationHelper;
 use Colibri\Utils\ExtendedObject;
 
 /**
- * Работа с изображениями
- *
- * @property-read bool $isValid
- * @property-read Size $size
- * @property string $type
- * @property-read string $data
- * @property-read int $transparency
- * @property-read string $name
- *
+ * Handles image manipulation.
+ * 
+ * This class provides functionalities for working with images.
+ * 
+ * @property-read bool $isValid Indicates whether the image is valid.
+ * @property-read Size $size The size of the image.
+ * @property string $type The type of the image.
+ * @property-read string $data The image data.
+ * @property-read int $transparency The transparency level of the image.
+ * @property-read string $name The filename where the image is stored.
  */
 class Graphics
 {
     /**
-     * Изображение
+     * The image resource.
      *
      * @var mixed
      */
     private mixed $_img;
 
     /**
-     * Размеры
+     * The size of the image.
      *
-     * @var Size
+     * @var Size|null
      */
-    private ? Size $_size = null;
+    private ?Size $_size = null;
 
     /**
-     * Тип изображения
+     * The type of the image.
      *
      * @var string
      */
     private string $_type;
 
     /**
-     * Файл, где хранится изображение
+     * The filename where the image is stored.
      *
      * @var string
      */
     private string $_file;
 
     /**
-     * История
+     * The history of image operations.
      *
      * @var array
      */
     private array $_history = array();
 
     /**
-     * Конструктор
+     * Constructor.
      */
     public function __construct()
     {
@@ -72,7 +74,7 @@ class Graphics
     }
 
     /**
-     * Деструктор
+     * Destructor.
      */
     public function __destruct()
     {
@@ -82,53 +84,53 @@ class Graphics
     }
 
     /**
-     * Геттер
+     * Magic getter method.
      *
-     * @param string $property
-     * @return mixed
+     * @param string $property The property name.
+     * @return mixed The value of the property.
      */
     public function __get(string $property): mixed
     {
         $return = null;
         switch (strtolower($property)) {
             case 'isvalid': {
-                    $return = !is_null($this->_img);
-                    break;
-                }
+                $return = !is_null($this->_img);
+                break;
+            }
             case 'size': {
-                    $return = $this->_size;
-                    break;
-                }
+                $return = $this->_size;
+                break;
+            }
             case 'type': {
-                    $return = $this->_type;
-                    break;
-                }
+                $return = $this->_type;
+                break;
+            }
             case 'data': {
-                    $return = $this->_getImageData();
-                    break;
-                }
+                $return = $this->_getImageData();
+                break;
+            }
             case 'transparency': {
-                    if (!is_null($this->_img)) {
-                        $return = @\imagecolortransparent($this->_img);
-                    }
-                    break;
+                if (!is_null($this->_img)) {
+                    $return = @\imagecolortransparent($this->_img);
                 }
+                break;
+            }
             case 'name': {
-                    $return = $this->_file;
-                    break;
-                }
+                $return = $this->_file;
+                break;
+            }
             default: {
-                    break;
-                }
+                break;
+            }
         }
         return $return;
     }
 
     /**
-     * Сеттер
+     * Magic setter method.
      *
-     * @param string $property
-     * @param mixed $value
+     * @param string $property The property name.
+     * @param mixed $value The value to set.
      */
     public function __set(string $property, mixed $value): void
     {
@@ -138,9 +140,11 @@ class Graphics
     }
 
     /**
-     * Загружает изображение из строки
+     * Loads an image from binary data.
      *
-     * @param string $data
+     * This method loads an image from the provided binary data.
+     *
+     * @param string $data The binary data representing the image.
      * @return void
      */
     public function LoadFromData(string $data): void
@@ -153,9 +157,11 @@ class Graphics
     }
 
     /**
-     * Загружает изображение из файла
+     * Loads an image from a file.
      *
-     * @param string $file
+     * This method loads an image from the specified file.
+     *
+     * @param string $file The path to the image file.
      * @return void
      */
     public function LoadFromFile(string $file): void
@@ -176,8 +182,8 @@ class Graphics
                 $this->_img = \imagecreatefromjpeg($file);
                 break;
             default: {
-                    break;
-                }
+                break;
+            }
         }
 
         $this->_size = new Size(\imagesx($this->_img), \imagesy($this->_img));
@@ -186,9 +192,11 @@ class Graphics
     }
 
     /**
-     * Создает пустое изображение
+     * Creates an empty image.
      *
-     * @param Size $size
+     * This method creates an empty image with the specified size.
+     *
+     * @param Size $size The size of the empty image.
      * @return void
      */
     public function LoadEmptyImage(Size $size): void
@@ -201,9 +209,11 @@ class Graphics
     }
 
     /**
-     * Меняет размер изображения
+     * Resizes the image.
      *
-     * @param Size $size
+     * This method resizes the image to the specified size.
+     *
+     * @param Size $size The new size of the image.
      * @return void
      */
     public function Resize(Size $size): void
@@ -221,9 +231,11 @@ class Graphics
     }
 
     /**
-     * Переворачивает изображение
+     * Rotates the image.
      *
-     * @param integer $degree
+     * This method rotates the image clockwise by the specified degree.
+     *
+     * @param int $degree The degree by which to rotate the image. Default is 90.
      * @return void
      */
     public function Rotate(int $degree = 90): void
@@ -234,13 +246,15 @@ class Graphics
     }
 
     /**
-     * Вырезает кусок изображения
+     * Crops the image.
      *
-     * @param Size $size
-     * @param Point $start
+     * This method crops the image to the specified size, starting from the optional start point.
+     *
+     * @param Size $size The size of the cropped area.
+     * @param Point|null $start The starting point for cropping. If null, (0,0) is assumed. 
      * @return void
      */
-    public function Crop(Size $size, ? Point $start = null): void
+    public function Crop(Size $size, ?Point $start = null): void
     {
         if ($this->isValid) {
             if (is_null($start)) {
@@ -271,84 +285,88 @@ class Graphics
     }
 
     /**
-     * Применяет фильтр
+     * Applies a filter to the image.
      *
-     * @param integer $filter
-     * @param integer $arg1
-     * @param integer $arg2
-     * @param integer $arg3
-     * @return void
+     * This method applies the specified filter to the image with optional arguments.
+     *
+     * @param int $filter The filter to apply.
+     * @param int $arg1 The first optional argument for the filter.
+     * @param int $arg2 The second optional argument for the filter.
+     * @param int $arg3 The third optional argument for the filter.
+     * @return bool|null Returns true on success, false on failure, or null if the filter is not supported.
      */
     public function ApplyFilter(int $filter, int $arg1 = 0, int $arg2 = 0, int $arg3 = 0): ?bool
     {
         $return = null;
         switch ($filter) {
             case IMG_FILTER_NEGATE: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'negate');
-                    $return = \imagefilter($this->_img, $filter);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'negate');
+                $return = \imagefilter($this->_img, $filter);
+                break;
+            }
             case IMG_FILTER_GRAYSCALE: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'grayscale');
-                    $return = \imagefilter($this->_img, $filter);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'grayscale');
+                $return = \imagefilter($this->_img, $filter);
+                break;
+            }
             case IMG_FILTER_BRIGHTNESS: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'brightness-' . $arg1);
-                    $return = \imagefilter($this->_img, $filter, $arg1);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'brightness-' . $arg1);
+                $return = \imagefilter($this->_img, $filter, $arg1);
+                break;
+            }
             case IMG_FILTER_CONTRAST: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'contrast-' . $arg1);
-                    $return = \imagefilter($this->_img, $filter, $arg1);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'contrast-' . $arg1);
+                $return = \imagefilter($this->_img, $filter, $arg1);
+                break;
+            }
             case IMG_FILTER_COLORIZE: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'colorize-' . $arg1 . 'x' . $arg2 . 'x' . $arg3);
-                    $return = \imagefilter($this->_img, $filter, $arg1, $arg2, $arg3);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'colorize-' . $arg1 . 'x' . $arg2 . 'x' . $arg3);
+                $return = \imagefilter($this->_img, $filter, $arg1, $arg2, $arg3);
+                break;
+            }
             case IMG_FILTER_EDGEDETECT: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'edgedetect');
-                    $return = \imagefilter($this->_img, $filter);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'edgedetect');
+                $return = \imagefilter($this->_img, $filter);
+                break;
+            }
             case IMG_FILTER_EMBOSS: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'emboss');
-                    $return = \imagefilter($this->_img, $filter);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'emboss');
+                $return = \imagefilter($this->_img, $filter);
+                break;
+            }
             case IMG_FILTER_GAUSSIAN_BLUR: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'gausian-blur');
-                    $return = \imagefilter($this->_img, $filter);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'gausian-blur');
+                $return = \imagefilter($this->_img, $filter);
+                break;
+            }
             case IMG_FILTER_SELECTIVE_BLUR: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'blur');
-                    $return = \imagefilter($this->_img, $filter);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'blur');
+                $return = \imagefilter($this->_img, $filter);
+                break;
+            }
             case IMG_FILTER_MEAN_REMOVAL: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'mean-removal');
-                    $return = \imagefilter($this->_img, $filter);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'mean-removal');
+                $return = \imagefilter($this->_img, $filter);
+                break;
+            }
             case IMG_FILTER_SMOOTH: {
-                    $this->_history[] = array('operation' => 'filter', 'postfix' => 'smooth-' . $arg1);
-                    $return = \imagefilter($this->_img, $filter, $arg1);
-                    break;
-                }
+                $this->_history[] = array('operation' => 'filter', 'postfix' => 'smooth-' . $arg1);
+                $return = \imagefilter($this->_img, $filter, $arg1);
+                break;
+            }
             default: {
-                    break;
-                }
+                break;
+            }
         }
         return $return;
     }
 
     /**
-     * Сохраняет в файл
+     * Saves the image to a file.
      *
-     * @param string $file
+     * This method saves the image to the specified file.
+     *
+     * @param string $file The path to save the image file.
      * @return void
      */
     public function Save(string $file): void
@@ -372,7 +390,9 @@ class Graphics
     }
 
     /**
-     * Устанавливает алфа канал
+     * Sets the alpha channel for the image.
+     *
+     * This method ensures that the alpha channel is properly set for the image.
      *
      * @return void
      */
@@ -384,9 +404,11 @@ class Graphics
     }
 
     /**
-     * Возвращает данные изображения
+     * Retrieves the binary data of the image.
      *
-     * @return string
+     * This method retrieves the binary data of the image.
+     *
+     * @return string The binary data of the image.
      */
     private function _getImageData(): string
     {
@@ -413,10 +435,12 @@ class Graphics
     }
 
     /**
-     * Возвращает информацию об изображении
+     * Retrieves information about an image file.
      *
-     * @param string $path
-     * @return ExtendedObject
+     * This method retrieves information about the image file located at the specified path.
+     *
+     * @param string $path The path to the image file.
+     * @return ExtendedObject An object containing information about the image.
      */
     public static function Info(string $path): ExtendedObject
     {
@@ -429,10 +453,12 @@ class Graphics
     }
 
     /**
-     * Статический конструктор
+     * Creates a Graphics object from data.
      *
-     * @param string $data
-     * @return Graphics
+     * This method creates a Graphics object from the provided data.
+     *
+     * @param string $data The data to create the Graphics object from.
+     * @return Graphics A Graphics object initialized with the provided data.
      */
     public static function Create(string $data): Graphics
     {

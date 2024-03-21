@@ -4,41 +4,43 @@
  * Graphics
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Graphics
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
+
 namespace Colibri\Graphics;
 
 /**
- * Класс представляющий размер
- * 
- * @property-read string $style вернуть текст для аттрибута style
- * @property-read string $attributes вернуть текст в виде аттрибутов
- * @property-read string $params вернуть в виде параметров к запросу
- * @property-read bool $isNull пустой ли
- * 
+ * Represents a size.
+ *
+ * This class encapsulates width and height dimensions.
+ *
+ * @property-read string $style Get text for the style attribute.
+ * @property-read string $attributes Get text as attributes.
+ * @property-read string $params Get text as query parameters.
+ * @property-read bool $isNull Check if the size is null.
  */
 class Size
 {
-
     /**
-     * Ширина
+     * The width.
      *
      * @var int
      */
     public int $width;
+
     /**
-     * Высота
+     * The height.
      *
      * @var int
      */
     public int $height;
 
     /**
-     * Конструктор
+     * Constructs a new Size instance.
      *
-     * @param integer $width
-     * @param integer $height
+     * @param int $width The width.
+     * @param int $height The height.
      */
     public function __construct(int $width = 0, int $height = 0)
     {
@@ -47,43 +49,43 @@ class Size
     }
 
     /**
-     * Геттер
+     * Magic getter method.
      *
-     * @param string $nm
-     * @return mixed
+     * @param string $nm The property name.
+     * @return mixed The value of the property.
      */
     public function __get(string $nm): mixed
     {
         $return = null;
         switch ($nm) {
             case "style": {
-                    $return = ($this->width != 0 ? "width:" . intval($this->width) . "px;" : "") . ($this->height != 0 ? "height:" . intval($this->height) . "px;" : "");
-                    break;
-                }
+                $return = ($this->width != 0 ? "width:" . intval($this->width) . "px;" : "") . ($this->height != 0 ? "height:" . intval($this->height) . "px;" : "");
+                break;
+            }
             case "attributes": {
-                    $return = ($this->width != 0 ? " width=\"" . intval($this->width) . "\"" : "") . ($this->height != 0 ? " height=\"" . intval($this->height) . "\"" : "");
-                    break;
-                }
+                $return = ($this->width != 0 ? " width=\"" . intval($this->width) . "\"" : "") . ($this->height != 0 ? " height=\"" . intval($this->height) . "\"" : "");
+                break;
+            }
             case "params": {
-                    $return = ($this->width != 0 ? "&w=" . intval($this->width) : "") . ($this->height != 0 ? "&h=" . intval($this->height) : "");
-                    break;
-                }
+                $return = ($this->width != 0 ? "&w=" . intval($this->width) : "") . ($this->height != 0 ? "&h=" . intval($this->height) : "");
+                break;
+            }
             case "isNull": {
-                    $return = ($this->width == 0 && $this->height == 0);
-                    break;
-                }
+                $return = ($this->width == 0 && $this->height == 0);
+                break;
+            }
             default: {
-                    break;
-                }
+                break;
+            }
         }
         return $return;
     }
 
     /**
-     * Трансформировать размер
+     * Transforms the size.
      *
-     * @param Size $size
-     * @return Size
+     * @param Size $size The target size.
+     * @return Size The transformed size.
      */
     public function TransformTo(Size $size): Size
     {
@@ -113,10 +115,10 @@ class Size
     }
 
     /**
-     * Трансформирует размер так, чтобы реальный размер покрывал область изменяемого
+     * Transforms the size to fill a given area.
      *
-     * @param Size $size
-     * @return Size
+     * @param Size $size The target size.
+     * @return Size The transformed size.
      */
     public function TransformToFill(Size $size): Size
     {
@@ -145,10 +147,10 @@ class Size
     }
 
     /**
-     * Раздвигает размер
+     * Expands the size.
      *
-     * @param int $w
-     * @param int $h
+     * @param int $w The width increment.
+     * @param int $h The height increment.
      * @return void
      */
     public function Expand(int $w, int $h): void

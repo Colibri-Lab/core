@@ -4,58 +4,67 @@
  * FileSystem
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\FileSystem;
 
 /**
- * Класс для работы с директориями
+ * Class for working with directories.
  *
- * @property-read Attributes $attributes
- * @property-read array $pathArray
- * @property-read string $name
- * @property-read string $path
- * @property-read boolean $dotfile
- * @property-read int $size
- * @property-read int $current
- * @property-read Directory $parent
- * @property-read Security $access
- * @property-write boolean $created
- * @property-write boolean $midified
- * @property-write boolean $readonly
- * @property-write boolean $hidden
+ * Represents a class for handling directories.
  *
- * @testFunction testDirectory
+ * @property-read Attributes $attributes The attributes of the directory.
+ * @property-read array $pathArray The array representation of the directory path.
+ * @property-read string $name The name of the directory.
+ * @property-read string $path The path of the directory.
+ * @property-read boolean $dotfile Indicates if the directory is a dot file.
+ * @property-read int $size The size of the directory.
+ * @property-read int $current The current directory.
+ * @property-read Directory $parent The parent directory.
+ * @property-read Security $access The security access of the directory.
+ * @property-write boolean $created Indicates if the directory was created.
+ * @property-write boolean $midified Indicates if the directory was modified.
+ * @property-write boolean $readonly Indicates if the directory is read-only.
+ * @property-write boolean $hidden Indicates if the directory is hidden.
+ *
  */
 class Directory extends Node
 {
     /**
-     * Путь к папке
+     * Path to the folder.
+     *
+     * Represents the path to the folder.
      *
      * @var string
      */
     private string $path;
 
     /**
-     * Родительская директория
+     * Parent directory.
+     *
+     * Represents the parent directory.
      *
      * @var Directory
      */
     private ? Directory $_parent = null;
 
     /**
-     * Путь в виде массива  
+     * Path represented as an array.
      *
-     * @var array
+     * Represents the path of the folder as an array.
+     *
+     * @var array|null
      */
     private ?array $_pathArray = null;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param string $path
+     * Initializes a new instance of the Directory class.
+     *
+     * @param string $path The path to the directory.
      */
     public function __construct(string $path)
     {
@@ -63,11 +72,12 @@ class Directory extends Node
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $property свойство
-     * @return mixed
-     * @testFunction testDirectory__get
+     * Retrieves the value of a property.
+     *
+     * @param string $property The property to retrieve.
+     * @return mixed The value of the property.
      */
     public function __get(string $property): mixed
     {
@@ -121,11 +131,10 @@ class Directory extends Node
     }
 
     /**
-     * Копирует директорию
+     * Copies the directory.
      *
-     * @param string $path путь куда скопировать директорию
+     * @param string $path The path where the directory will be copied.
      * @return void
-     * @testFunction testDirectoryCopyTo
      */
     public function CopyTo(string $path): void
     {
@@ -133,11 +142,10 @@ class Directory extends Node
     }
 
     /**
-     * Перемещает директорию
+     * Moves the directory.
      *
-     * @param string $path путь куда переместить директорию
+     * @param string $path The path where to move the directory.
      * @return void
-     * @testFunction testDirectoryMoveTo
      */
     public function MoveTo(string $path): void
     {
@@ -145,10 +153,9 @@ class Directory extends Node
     }
 
     /**
-     * Возвращает наименование директории
+     * Returns the name of the directory.
      *
      * @return string
-     * @testFunction testDirectoryToString
      */
     public function ToString(): string
     {
@@ -156,11 +163,10 @@ class Directory extends Node
     }
 
     /**
-     * Проверяет директория ли
+     * Checks if it is a directory.
      *
      * @param string $path
      * @return boolean
-     * @testFunction testDirectoryIsDir
      */
     public static function IsDir(string $path): bool
     {
@@ -172,10 +178,10 @@ class Directory extends Node
     }
 
     /**
-     * Возвращает реальный путь
-     * @param mixed $path относительный путь
-     * @return string|string 
-     * @testFunction testDirectoryRealPath
+     * Returns the real path.
+     *
+     * @param mixed $path The relative path.
+     * @return string|bool The real path or false if the path does not exist.
      */
     public static function RealPath(mixed $path): bool|string
     {
@@ -183,11 +189,10 @@ class Directory extends Node
     }
 
     /**
-     * Проверяет есть ли директория на диске
+     * Checks if the directory exists on the disk.
      *
-     * @param string $path путь к директории
+     * @param string $path The path to the directory.
      * @return boolean
-     * @testFunction testDirectoryExists
      */
     public static function Exists(string $path): bool
     {
@@ -201,7 +206,6 @@ class Directory extends Node
      * @param boolean $recursive если true то директории будут созданы по всему пути до достижения указанной директории
      * @param string $mode режим создания по умолчанию 777
      * @return Directory
-     * @testFunction testDirectoryCreate
      */
     public static function Create(string $path, bool $recursive = true, string $mode = '777'): Directory
     {
@@ -214,11 +218,10 @@ class Directory extends Node
     }
 
     /**
-     * Удаляет директорию с диска
+     * Deletes the directory from the disk.
      *
-     * @param string $path путь к директории
+     * @param string $path The path to the directory.
      * @return void
-     * @testFunction testDirectoryDelete
      */
     public static function Delete(string $path): void
     {
@@ -242,12 +245,11 @@ class Directory extends Node
     }
 
     /**
-     * Копирует директорию
+     * Copies the directory.
      *
-     * @param string $from какую директорию скопировать
-     * @param string $to куда скопировать
+     * @param string $from The directory to copy from.
+     * @param string $to The destination directory.
      * @return void
-     * @testFunction testDirectoryCopy
      */
     public static function Copy(string $from, string $to): void
     {
@@ -273,12 +275,11 @@ class Directory extends Node
     }
 
     /**
-     * Перемещает директорию
+     * Moves the directory.
      *
-     * @param string $from какую директорию переместить
-     * @param string $to куда переместить
+     * @param string $from The directory to move.
+     * @param string $to The destination directory.
      * @return void
-     * @testFunction testDirectoryMove
      */
     public static function Move(string $from, string $to): void
     {
@@ -293,11 +294,10 @@ class Directory extends Node
     }
 
     /**
-     * Возвращает обьект содержащий данные о директории
+     * Retrieves information about a directory path.
      *
-     * @param string $filename
-     * @return array
-     * @testFunction testDirectoryPathInfo
+     * @param string $filename The directory path.
+     * @return array An array containing information about the directory.
      */
     public static function PathInfo(string $filename): array
     {
@@ -311,10 +311,9 @@ class Directory extends Node
     }
 
     /**
-     * Возвращает массив из данных
+     * Converts the directory object to an array.
      *
-     * @return array
-     * @testFunction testDirectoryToArray
+     * @return array An array representation of the directory object.
      */
     public function ToArray(): array
     {

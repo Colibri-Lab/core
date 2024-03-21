@@ -4,42 +4,44 @@
  * Graphics
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Graphics
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 namespace Colibri\Graphics;
 
 /**
- * Класс для работы с прямоугольными областями на экране
+ * Represents rectangular areas on the screen.
+ *
+ * This class facilitates operations involving rectangular areas on the screen.
  */
 class Quadro
 {
 
     /**
-     * Нижний левый угол
+     * The bottom-left corner.
      *
-     * @var Point
+     * @var Point|null
      */
     public ? Point $lowerleft = null;
 
     /**
-     * Нижний правый угол
+     * The bottom-right corner.
      *
-     * @var Point
+     * @var Point|null
      */
     public ? Point $lowerright = null;
 
     /**
-     * Верхний левый угол
+     * The top-left corner.
      *
-     * @var Point
+     * @var Point|null
      */
     public ? Point $upperleft = null;
 
     /**
-     * Верхний правый угол
+     * The top-right corner.
      *
-     * @var Point
+     * @var Point|null
      */
     public ? Point $upperright = null;
 

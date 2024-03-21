@@ -4,31 +4,30 @@
  * FileSystem
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\FileSystem;
 
 /**
- * Работа с стримом файла
- * @testFunction testFileStream
+ * Class for working with file streams.
  */
 class FileStream extends Stream
 {
 
     /**
-     * Виртуальный файл
+     * Indicates if the file is virtual.
      *
-     * @var boolean
+     * @var bool
      */
     protected bool $_virtual;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param string $source
-     * @param boolean $virtual
+     * @param string $source The file source.
+     * @param bool $virtual Indicates if the file is virtual.
      */
     public function __construct(string $source, bool $virtual = false)
     {
@@ -42,11 +41,10 @@ class FileStream extends Stream
     }
 
     /**
-     * Передвинуть позицию
+     * Moves the position within the stream.
      *
-     * @param integer $offset куда передвинуть позицию
+     * @param int $offset The offset to move the position.
      * @return void
-     * @testFunction testFileStreamSeek
      */
     public function Seek(int $offset = 0): void
     {
@@ -58,12 +56,11 @@ class FileStream extends Stream
     }
 
     /**
-     * Считать из стрима
+     * Reads from the stream.
      *
-     * @param int $offset откуда начать считывание
-     * @param int $count количество байл которые нужно считать
-     * @return string|bool
-     * @testFunction testFileStreamRead
+     * @param int|null $offset The offset from where to start reading.
+     * @param int|null $count The number of bytes to read.
+     * @return string|bool The content read from the stream.
      */
     public function Read(?int $offset = 0, ?int $count = 0): bool|string
     {
@@ -72,12 +69,11 @@ class FileStream extends Stream
     }
 
     /**
-     * Записать в стрим
+     * Writes to the stream.
      *
-     * @param string $buffer контент, которые нужно записать
-     * @param int $offset место откуда записать
-     * @return bool|int
-     * @testFunction testFileStreamWrite
+     * @param string $buffer The content to write.
+     * @param int|null $offset The position from where to write.
+     * @return bool|int The number of bytes written or false on failure.
      */
     public function Write(string $buffer, ?int $offset = 0): bool|int
     {
@@ -86,10 +82,9 @@ class FileStream extends Stream
     }
 
     /**
-     * Сохранить изменения
+     * Flushes the stream.
      *
      * @return void
-     * @testFunction testFileStreamFlush
      */
     public function Flush(): void
     {
@@ -97,10 +92,9 @@ class FileStream extends Stream
     }
 
     /**
-     * Закрыть стрим
+     * Closes the stream.
      *
      * @return void
-     * @testFunction testFileStreamClose
      */
     public function Close(): void
     {
@@ -110,11 +104,10 @@ class FileStream extends Stream
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $property свойство
-     * @return mixed
-     * @testFunction testFileStream__get
+     * @param string $property The property name.
+     * @return mixed|null The value of the property.
      */
     public function __get(string $property): mixed
     {
@@ -124,11 +117,22 @@ class FileStream extends Stream
         return null;
     }
 
+    /**
+     * Reads a line from the stream.
+     *
+     * @return bool|string The line read from the stream.
+     */
     public function ReadLine(): bool|string
     {
         return \fgets($this->_stream);
     }
 
+    /**
+     * Writes a line to the stream.
+     *
+     * @param mixed $string The string to write.
+     * @return bool|int The number of bytes written or false on failure.
+     */
     public function WriteLine($string): bool|int
     {
         return \fputs($this->_stream, $string);

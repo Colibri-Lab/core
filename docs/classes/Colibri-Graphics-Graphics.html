@@ -164,10 +164,6 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Graphics.html" class="">Graphics</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-IO.html" class="">IO</a>
                 
             </li>
@@ -220,7 +216,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Graphics.html">Graphics</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -235,12 +232,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Работа с изображениями</p>
+            <p class="phpdocumentor-summary">Handles image manipulation.</p>
 
+    <section class="phpdocumentor-description"><p>This class provides functionalities for working with images.</p>
+</section>
 
 
 
@@ -307,35 +306,35 @@
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Файл, где хранится изображение</dd>
+<dd>The filename where the image is stored.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Graphics-Graphics.html#property__history">$_history</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>История</dd>
+<dd>The history of image operations.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Graphics-Graphics.html#property__img">$_img</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
-<dd>Изображение</dd>
+<dd>The image resource.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Graphics-Graphics.html#property__size">$_size</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a>|null            </span>
 </dt>
-<dd>Размеры</dd>
+<dd>The size of the image.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Graphics-Graphics.html#property__type">$_type</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Тип изображения</dd>
+<dd>The type of the image.</dd>
 
     </dl>
 
@@ -350,112 +349,112 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method___destruct">__destruct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Деструктор</dd>
+<dd>Destructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Геттер</dd>
+<dd>Magic getter method.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method___set">__set()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Сеттер</dd>
+<dd>Magic setter method.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method_ApplyFilter">ApplyFilter()</a>
     <span>
-                                &nbsp;: void    </span>
+                                &nbsp;: bool|null    </span>
 </dt>
-<dd>Применяет фильтр</dd>
+<dd>Applies a filter to the image.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method_Create">Create()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Graphics-Graphics.html"><abbr title="\Colibri\Graphics\Graphics">Graphics</abbr></a>    </span>
 </dt>
-<dd>Статический конструктор</dd>
+<dd>Creates a Graphics object from data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method_Crop">Crop()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Вырезает кусок изображения</dd>
+<dd>Crops the image.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method_Info">Info()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a>    </span>
 </dt>
-<dd>Возвращает информацию об изображении</dd>
+<dd>Retrieves information about an image file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method_LoadEmptyImage">LoadEmptyImage()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Создает пустое изображение</dd>
+<dd>Creates an empty image.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method_LoadFromData">LoadFromData()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Загружает изображение из строки</dd>
+<dd>Loads an image from binary data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method_LoadFromFile">LoadFromFile()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Загружает изображение из файла</dd>
+<dd>Loads an image from a file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method_Resize">Resize()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Меняет размер изображения</dd>
+<dd>Resizes the image.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method_Rotate">Rotate()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Переворачивает изображение</dd>
+<dd>Rotates the image.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Graphics.html#method_Save">Save()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Сохраняет в файл</dd>
+<dd>Saves the image to a file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Graphics-Graphics.html#method__getImageData">_getImageData()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Возвращает данные изображения</dd>
+<dd>Retrieves the binary data of the image.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Graphics-Graphics.html#method__safeAlpha">_safeAlpha()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Устанавливает алфа канал</dd>
+<dd>Sets the alpha channel for the image.</dd>
 
     </dl>
 
@@ -499,7 +498,9 @@
     <span class="phpdocumentor-signature__name">$data</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The image data.</p>
+</section>
+
     
     
 
@@ -532,7 +533,9 @@
     <span class="phpdocumentor-signature__name">$isValid</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates whether the image is valid.</p>
+</section>
+
     
     
 
@@ -565,7 +568,9 @@
     <span class="phpdocumentor-signature__name">$name</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The filename where the image is stored.</p>
+</section>
+
     
     
 
@@ -598,7 +603,9 @@
     <span class="phpdocumentor-signature__name">$size</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The size of the image.</p>
+</section>
+
     
     
 
@@ -631,7 +638,9 @@
     <span class="phpdocumentor-signature__name">$transparency</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The transparency level of the image.</p>
+</section>
+
     
     
 
@@ -664,7 +673,9 @@
     <span class="phpdocumentor-signature__name">$type</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The type of the image.</p>
+</section>
+
     
     
 
@@ -686,11 +697,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Файл, где хранится изображение</p>
+        <p class="phpdocumentor-summary">The filename where the image is stored.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -720,11 +731,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">64</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">История</p>
+        <p class="phpdocumentor-summary">The history of image operations.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -754,11 +765,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Изображение</p>
+        <p class="phpdocumentor-summary">The image resource.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -788,15 +799,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Размеры</p>
+        <p class="phpdocumentor-summary">The size of the image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a></span>
+        <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$_size</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
@@ -822,11 +833,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">50</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Тип изображения</p>
+        <p class="phpdocumentor-summary">The type of the image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -861,11 +872,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">67</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -893,11 +904,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">77</span>
+    <span class="phpdocumentor-element-found-in__line">79</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Деструктор</p>
+        <p class="phpdocumentor-summary">Destructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -925,11 +936,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">90</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Геттер</p>
+        <p class="phpdocumentor-summary">Magic getter method.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -945,13 +956,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The property name.</p>
+</section>
+
             </dd>
             </dl>
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value of the property.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -967,11 +988,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">133</span>
+    <span class="phpdocumentor-element-found-in__line">135</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Сеттер</p>
+        <p class="phpdocumentor-summary">Magic setter method.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -987,14 +1008,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The property name.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The value to set.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1016,19 +1041,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">282</span>
+    <span class="phpdocumentor-element-found-in__line">298</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Применяет фильтр</p>
+        <p class="phpdocumentor-summary">Applies a filter to the image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">ApplyFilter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$arg1</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$arg2</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$arg3</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">ApplyFilter</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filter</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$arg1</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$arg2</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$arg3</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method applies the specified filter to the image with optional arguments.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1036,34 +1063,50 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The filter to apply.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$arg1</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The first optional argument for the filter.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$arg2</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The second optional argument for the filter.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$arg3</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The third optional argument for the filter.</p>
+</section>
+
             </dd>
             </dl>
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Returns true on success, false on failure, or null if the filter is not supported.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1079,11 +1122,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">437</span>
+    <span class="phpdocumentor-element-found-in__line">463</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Статический конструктор</p>
+        <p class="phpdocumentor-summary">Creates a Graphics object from data.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1091,7 +1134,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method creates a Graphics object from the provided data.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1099,7 +1144,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The data to create the Graphics object from.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1108,6 +1155,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Graphics-Graphics.html"><abbr title="\Colibri\Graphics\Graphics">Graphics</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>A Graphics object initialized with the provided data.</p>
+</section>
+
             </section>
 
 </article>
@@ -1125,19 +1176,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">243</span>
+    <span class="phpdocumentor-element-found-in__line">257</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Вырезает кусок изображения</p>
+        <p class="phpdocumentor-summary">Crops the image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">Crop</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$size</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Point.html"><abbr title="\Colibri\Graphics\Point">Point</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">Crop</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$size</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Point.html"><abbr title="\Colibri\Graphics\Point">Point</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method crops the image to the specified size, starting from the optional start point.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1145,14 +1198,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The size of the cropped area.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$start</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Point.html"><abbr title="\Colibri\Graphics\Point">Point</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Point.html"><abbr title="\Colibri\Graphics\Point">Point</abbr></a>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The starting point for cropping. If null, (0,0) is assumed.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1174,11 +1231,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">421</span>
+    <span class="phpdocumentor-element-found-in__line">445</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает информацию об изображении</p>
+        <p class="phpdocumentor-summary">Retrieves information about an image file.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1186,7 +1243,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method retrieves information about the image file located at the specified path.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1194,7 +1253,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The path to the image file.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1203,6 +1264,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An object containing information about the image.</p>
+</section>
+
             </section>
 
 </article>
@@ -1220,11 +1285,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">194</span>
+    <span class="phpdocumentor-element-found-in__line">202</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создает пустое изображение</p>
+        <p class="phpdocumentor-summary">Creates an empty image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1232,7 +1297,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method creates an empty image with the specified size.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1240,7 +1307,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The size of the empty image.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1262,11 +1331,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">150</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Загружает изображение из строки</p>
+        <p class="phpdocumentor-summary">Loads an image from binary data.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1274,7 +1343,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method loads an image from the provided binary data.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1282,7 +1353,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The binary data representing the image.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1304,11 +1377,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">161</span>
+    <span class="phpdocumentor-element-found-in__line">167</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Загружает изображение из файла</p>
+        <p class="phpdocumentor-summary">Loads an image from a file.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1316,7 +1389,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method loads an image from the specified file.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1324,7 +1399,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The path to the image file.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1346,11 +1423,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">209</span>
+    <span class="phpdocumentor-element-found-in__line">219</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Меняет размер изображения</p>
+        <p class="phpdocumentor-summary">Resizes the image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1358,7 +1435,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method resizes the image to the specified size.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1366,7 +1445,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The new size of the image.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1388,11 +1469,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">229</span>
+    <span class="phpdocumentor-element-found-in__line">241</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Переворачивает изображение</p>
+        <p class="phpdocumentor-summary">Rotates the image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1400,7 +1481,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method rotates the image clockwise by the specified degree.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1408,7 +1491,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">90</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The degree by which to rotate the image. Default is 90.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1430,11 +1515,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">354</span>
+    <span class="phpdocumentor-element-found-in__line">372</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Сохраняет в файл</p>
+        <p class="phpdocumentor-summary">Saves the image to a file.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1442,7 +1527,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method saves the image to the specified file.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1450,7 +1537,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The path to save the image file.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1472,11 +1561,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">391</span>
+    <span class="phpdocumentor-element-found-in__line">413</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает данные изображения</p>
+        <p class="phpdocumentor-summary">Retrieves the binary data of the image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1484,13 +1573,19 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method retrieves the binary data of the image.</p>
+</section>
+
     
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The binary data of the image.</p>
+</section>
+
             </section>
 
 </article>
@@ -1508,11 +1603,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Graphics.php"><a href="files/src-colibri-graphics-graphics.html"><abbr title="src/Colibri/Graphics/Graphics.php">Graphics.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">379</span>
+    <span class="phpdocumentor-element-found-in__line">399</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Устанавливает алфа канал</p>
+        <p class="phpdocumentor-summary">Sets the alpha channel for the image.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1520,7 +1615,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method ensures that the alpha channel is properly set for the image.</p>
+</section>
+
     
     
 

@@ -4,16 +4,17 @@
  * FileSystem
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
+
 
 namespace Colibri\IO\FileSystem;
 
 use Colibri\AppException;
 
 /**
- * Исключение для файловой системы
+ * Exception class for the file system.
  */
 class Exception extends AppException
 {

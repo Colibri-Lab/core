@@ -4,42 +4,43 @@
  * FileSystem
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\FileSystem;
 
 /**
- * Аттрибуты файловой системы
+ * File system attributes.
  *
- * @property int $created дата создания файла
- * @property int $modified дата последней модификации
- * @property int $lastaccess дата последнего доступа
- * @property int $readonly только для чтения
- * @property int $hidden скрытый
+ * Represents attributes of the file system.
  *
+ * @property int $created The creation date of the file.
+ * @property int $modified The last modification date of the file.
+ * @property int $lastaccess The last access date of the file.
+ * @property int $readonly Indicates if the file is read-only.
+ * @property int $hidden Indicates if the file is hidden.
  */
 class Attributes
 {
     /**
-     * Файл
+     * The source file or directory.
      *
-     * @var File
+     * @var File|Directory|null
      */
     protected File|Directory|null $source = null;
 
     /**
-     * Список атрибутов
+     * The list of attributes.
      *
      * @var array
      */
     protected array $attributes = array();
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param File $source
+     * @param File|Directory $source The source file or directory.
      */
     public function __construct(File|Directory $source)
     {
@@ -47,9 +48,9 @@ class Attributes
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $property свойство
+     * @param string $property The property name.
      * @return mixed
      */
     public function __get(string $property): mixed
@@ -89,10 +90,10 @@ class Attributes
     }
 
     /**
-     * Сеттер
+     * Setter.
      *
-     * @param string $property свойство
-     * @param mixed $value значение
+     * @param string $property The property name.
+     * @param mixed $value The property value.
      */
     public function __set(string $property, mixed $value): void
     {
@@ -102,10 +103,10 @@ class Attributes
     }
 
     /**
-     * Обновляет значение по ключу
-     * 
-     * @param string $property свойство
-     * @param mixed $value значение
+     * Updates the value of the attribute.
+     *
+     * @param string $property The property name.
+     * @param mixed $value The new value.
      */
     private function update(string $property, mixed $value): void
     {

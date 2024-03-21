@@ -164,10 +164,6 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Graphics.html" class="">Graphics</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-IO.html" class="">IO</a>
                 
             </li>
@@ -220,7 +216,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Graphics.html">Graphics</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -235,12 +232,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Size.php"><a href="files/src-colibri-graphics-size.html"><abbr title="src/Colibri/Graphics/Size.php">Size.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс представляющий размер</p>
+            <p class="phpdocumentor-summary">Represents a size.</p>
 
+    <section class="phpdocumentor-description"><p>This class encapsulates width and height dimensions.</p>
+</section>
 
 
 
@@ -277,7 +276,7 @@
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Высота</dd>
+<dd>The height.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Graphics-Size.html#property_isNull">$isNull</a>
@@ -302,7 +301,7 @@
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Ширина</dd>
+<dd>The width.</dd>
 
     </dl>
 
@@ -317,35 +316,35 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructs a new Size instance.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Size.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Геттер</dd>
+<dd>Magic getter method.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Size.html#method_Expand">Expand()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Раздвигает размер</dd>
+<dd>Expands the size.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Size.html#method_TransformTo">TransformTo()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a>    </span>
 </dt>
-<dd>Трансформировать размер</dd>
+<dd>Transforms the size.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Size.html#method_TransformToFill">TransformToFill()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a>    </span>
 </dt>
-<dd>Трансформирует размер так, чтобы реальный размер покрывал область изменяемого</dd>
+<dd>Transforms the size to fill a given area.</dd>
 
     </dl>
 
@@ -389,7 +388,7 @@
     <span class="phpdocumentor-signature__name">$attributes</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>вернуть текст в виде аттрибутов</p>
+        <section class="phpdocumentor-description"><p>Get text as attributes.</p>
 </section>
 
     
@@ -413,11 +412,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Size.php"><a href="files/src-colibri-graphics-size.html"><abbr title="src/Colibri/Graphics/Size.php">Size.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Высота</p>
+        <p class="phpdocumentor-summary">The height.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -458,7 +457,7 @@
     <span class="phpdocumentor-signature__name">$isNull</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>пустой ли</p>
+        <section class="phpdocumentor-description"><p>Check if the size is null.</p>
 </section>
 
     
@@ -493,7 +492,7 @@
     <span class="phpdocumentor-signature__name">$params</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>вернуть в виде параметров к запросу</p>
+        <section class="phpdocumentor-description"><p>Get text as query parameters.</p>
 </section>
 
     
@@ -528,7 +527,7 @@
     <span class="phpdocumentor-signature__name">$style</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>вернуть текст для аттрибута style</p>
+        <section class="phpdocumentor-description"><p>Get text for the style attribute.</p>
 </section>
 
     
@@ -552,11 +551,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Size.php"><a href="files/src-colibri-graphics-size.html"><abbr title="src/Colibri/Graphics/Size.php">Size.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Ширина</p>
+        <p class="phpdocumentor-summary">The width.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -591,11 +590,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Size.php"><a href="files/src-colibri-graphics-size.html"><abbr title="src/Colibri/Graphics/Size.php">Size.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">43</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructs a new Size instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -611,14 +610,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The width.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$height</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The height.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -640,11 +643,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Size.php"><a href="files/src-colibri-graphics-size.html"><abbr title="src/Colibri/Graphics/Size.php">Size.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">57</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Геттер</p>
+        <p class="phpdocumentor-summary">Magic getter method.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -660,13 +663,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The property name.</p>
+</section>
+
             </dd>
             </dl>
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value of the property.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -682,11 +695,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Size.php"><a href="files/src-colibri-graphics-size.html"><abbr title="src/Colibri/Graphics/Size.php">Size.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">154</span>
+    <span class="phpdocumentor-element-found-in__line">156</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Раздвигает размер</p>
+        <p class="phpdocumentor-summary">Expands the size.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -702,14 +715,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The width increment.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$h</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The height increment.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -731,11 +748,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Size.php"><a href="files/src-colibri-graphics-size.html"><abbr title="src/Colibri/Graphics/Size.php">Size.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">88</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Трансформировать размер</p>
+        <p class="phpdocumentor-summary">Transforms the size.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -751,7 +768,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The target size.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -760,6 +779,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The transformed size.</p>
+</section>
+
             </section>
 
 </article>
@@ -777,11 +800,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Size.php"><a href="files/src-colibri-graphics-size.html"><abbr title="src/Colibri/Graphics/Size.php">Size.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">121</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Трансформирует размер так, чтобы реальный размер покрывал область изменяемого</p>
+        <p class="phpdocumentor-summary">Transforms the size to fill a given area.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -797,7 +820,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The target size.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -806,6 +831,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The transformed size.</p>
+</section>
+
             </section>
 
 </article>

@@ -141,6 +141,11 @@ Search.appendIndex(
             "summary": "\u0420\u0430\u0443\u0442\u0435\u0440",
             "url": "classes/Colibri-App.html#property_router"
         },                {
+            "fqsen": "\\Colibri\\App\u003A\u003A\u0024systemTimezone",
+            "name": "systemTimezone",
+            "summary": "",
+            "url": "classes/Colibri-App.html#property_systemTimezone"
+        },                {
             "fqsen": "\\Colibri\\AppException",
             "name": "AppException",
             "summary": "",
@@ -3426,6 +3431,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Colibri-Data-Storages-Models-DataTable.html#method__loadFromFileXML"
         },                {
+            "fqsen": "\\Colibri\\Data\\Storages\\Models\\DataTable\u003A\u003ASetFullSelect\u0028\u0029",
+            "name": "SetFullSelect",
+            "summary": "",
+            "url": "classes/Colibri-Data-Storages-Models-DataTable.html#method_SetFullSelect"
+        },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Models\\DataTable\u003A\u003A\u0024_storage",
             "name": "_storage",
             "summary": "\u0425\u0440\u0430\u043D\u0438\u043B\u0438\u0448\u0435",
@@ -3435,6 +3445,11 @@ Search.appendIndex(
             "name": "_returnAsExtended",
             "summary": "",
             "url": "classes/Colibri-Data-Storages-Models-DataTable.html#property__returnAsExtended"
+        },                {
+            "fqsen": "\\Colibri\\Data\\Storages\\Models\\DataTable\u003A\u003A\u0024fullSelection",
+            "name": "fullSelection",
+            "summary": "",
+            "url": "classes/Colibri-Data-Storages-Models-DataTable.html#property_fullSelection"
         },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Models\\Generator",
             "name": "Generator",
@@ -4323,322 +4338,322 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Graphics\\Font",
             "name": "Font",
-            "summary": "\u0428\u0440\u0438\u0444\u0442",
+            "summary": "Represents\u0020a\u0020font.",
             "url": "classes/Colibri-Graphics-Font.html"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Font\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructs\u0020a\u0020new\u0020Font\u0020instance.",
             "url": "classes/Colibri-Graphics-Font.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Font\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Magic\u0020getter\u0020method.",
             "url": "classes/Colibri-Graphics-Font.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Font\u003A\u003AMeasureText\u0028\u0029",
             "name": "MeasureText",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0440\u0430\u0437\u043C\u0435\u0440\u0020\u043E\u0431\u043B\u0430\u0441\u0442\u0438\u0020\u0432\u044B\u0432\u043E\u0434\u0430\u0020\u0442\u0435\u043A\u0441\u0442\u0430",
+            "summary": "Measures\u0020the\u0020size\u0020of\u0020the\u0020text\u0020area.",
             "url": "classes/Colibri-Graphics-Font.html#method_MeasureText"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Font\u003A\u003AInscribeText\u0028\u0029",
             "name": "InscribeText",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0440\u0430\u0437\u043C\u0435\u0440\u0020\u043E\u0431\u043B\u0430\u0441\u0442\u0438\u0020\u0432\u044B\u0432\u043E\u0434\u0430\u0020\u0442\u0435\u043A\u0441\u0442\u0430",
+            "summary": "Inscribes\u0020text\u0020within\u0020a\u0020given\u0020area.",
             "url": "classes/Colibri-Graphics-Font.html#method_InscribeText"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Font\u003A\u003A\u0024_file",
             "name": "_file",
-            "summary": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u0020\u0448\u0440\u0438\u0444\u0442\u0430",
+            "summary": "The\u0020font\u0020name.",
             "url": "classes/Colibri-Graphics-Font.html#property__file"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Font\u003A\u003A\u0024_path",
             "name": "_path",
-            "summary": "\u041F\u0443\u0442\u044C\u0020\u043A\u0020\u0444\u0430\u0439\u043B\u0443",
+            "summary": "The\u0020file\u0020path.",
             "url": "classes/Colibri-Graphics-Font.html#property__path"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Font\u003A\u003A\u0024_angle",
             "name": "_angle",
-            "summary": "\u0423\u0433\u043E\u043B\u0020\u043D\u0430\u043A\u043B\u043E\u043D\u0430",
+            "summary": "The\u0020tilt\u0020angle.",
             "url": "classes/Colibri-Graphics-Font.html#property__angle"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Font\u003A\u003A\u0024_fontSize",
             "name": "_fontSize",
-            "summary": "\u0420\u0430\u0437\u043C\u0435\u0440",
+            "summary": "The\u0020font\u0020size.",
             "url": "classes/Colibri-Graphics-Font.html#property__fontSize"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics",
             "name": "Graphics",
-            "summary": "\u0420\u0430\u0431\u043E\u0442\u0430\u0020\u0441\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F\u043C\u0438",
+            "summary": "Handles\u0020image\u0020manipulation.",
             "url": "classes/Colibri-Graphics-Graphics.html"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Graphics-Graphics.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A__destruct\u0028\u0029",
             "name": "__destruct",
-            "summary": "\u0414\u0435\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Destructor.",
             "url": "classes/Colibri-Graphics-Graphics.html#method___destruct"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Magic\u0020getter\u0020method.",
             "url": "classes/Colibri-Graphics-Graphics.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A__set\u0028\u0029",
             "name": "__set",
-            "summary": "\u0421\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Magic\u0020setter\u0020method.",
             "url": "classes/Colibri-Graphics-Graphics.html#method___set"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003ALoadFromData\u0028\u0029",
             "name": "LoadFromData",
-            "summary": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435\u0020\u0438\u0437\u0020\u0441\u0442\u0440\u043E\u043A\u0438",
+            "summary": "Loads\u0020an\u0020image\u0020from\u0020binary\u0020data.",
             "url": "classes/Colibri-Graphics-Graphics.html#method_LoadFromData"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003ALoadFromFile\u0028\u0029",
             "name": "LoadFromFile",
-            "summary": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435\u0020\u0438\u0437\u0020\u0444\u0430\u0439\u043B\u0430",
+            "summary": "Loads\u0020an\u0020image\u0020from\u0020a\u0020file.",
             "url": "classes/Colibri-Graphics-Graphics.html#method_LoadFromFile"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003ALoadEmptyImage\u0028\u0029",
             "name": "LoadEmptyImage",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u043F\u0443\u0441\u0442\u043E\u0435\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435",
+            "summary": "Creates\u0020an\u0020empty\u0020image.",
             "url": "classes/Colibri-Graphics-Graphics.html#method_LoadEmptyImage"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003AResize\u0028\u0029",
             "name": "Resize",
-            "summary": "\u041C\u0435\u043D\u044F\u0435\u0442\u0020\u0440\u0430\u0437\u043C\u0435\u0440\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F",
+            "summary": "Resizes\u0020the\u0020image.",
             "url": "classes/Colibri-Graphics-Graphics.html#method_Resize"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003ARotate\u0028\u0029",
             "name": "Rotate",
-            "summary": "\u041F\u0435\u0440\u0435\u0432\u043E\u0440\u0430\u0447\u0438\u0432\u0430\u0435\u0442\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435",
+            "summary": "Rotates\u0020the\u0020image.",
             "url": "classes/Colibri-Graphics-Graphics.html#method_Rotate"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003ACrop\u0028\u0029",
             "name": "Crop",
-            "summary": "\u0412\u044B\u0440\u0435\u0437\u0430\u0435\u0442\u0020\u043A\u0443\u0441\u043E\u043A\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F",
+            "summary": "Crops\u0020the\u0020image.",
             "url": "classes/Colibri-Graphics-Graphics.html#method_Crop"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003AApplyFilter\u0028\u0029",
             "name": "ApplyFilter",
-            "summary": "\u041F\u0440\u0438\u043C\u0435\u043D\u044F\u0435\u0442\u0020\u0444\u0438\u043B\u044C\u0442\u0440",
+            "summary": "Applies\u0020a\u0020filter\u0020to\u0020the\u0020image.",
             "url": "classes/Colibri-Graphics-Graphics.html#method_ApplyFilter"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003ASave\u0028\u0029",
             "name": "Save",
-            "summary": "\u0421\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442\u0020\u0432\u0020\u0444\u0430\u0439\u043B",
+            "summary": "Saves\u0020the\u0020image\u0020to\u0020a\u0020file.",
             "url": "classes/Colibri-Graphics-Graphics.html#method_Save"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A_safeAlpha\u0028\u0029",
             "name": "_safeAlpha",
-            "summary": "\u0423\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442\u0020\u0430\u043B\u0444\u0430\u0020\u043A\u0430\u043D\u0430\u043B",
+            "summary": "Sets\u0020the\u0020alpha\u0020channel\u0020for\u0020the\u0020image.",
             "url": "classes/Colibri-Graphics-Graphics.html#method__safeAlpha"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A_getImageData\u0028\u0029",
             "name": "_getImageData",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F",
+            "summary": "Retrieves\u0020the\u0020binary\u0020data\u0020of\u0020the\u0020image.",
             "url": "classes/Colibri-Graphics-Graphics.html#method__getImageData"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003AInfo\u0028\u0029",
             "name": "Info",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E\u0020\u043E\u0431\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0438",
+            "summary": "Retrieves\u0020information\u0020about\u0020an\u0020image\u0020file.",
             "url": "classes/Colibri-Graphics-Graphics.html#method_Info"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "\u0421\u0442\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\u0020\u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Creates\u0020a\u0020Graphics\u0020object\u0020from\u0020data.",
             "url": "classes/Colibri-Graphics-Graphics.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A\u0024_img",
             "name": "_img",
-            "summary": "\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435",
+            "summary": "The\u0020image\u0020resource.",
             "url": "classes/Colibri-Graphics-Graphics.html#property__img"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A\u0024_size",
             "name": "_size",
-            "summary": "\u0420\u0430\u0437\u043C\u0435\u0440\u044B",
+            "summary": "The\u0020size\u0020of\u0020the\u0020image.",
             "url": "classes/Colibri-Graphics-Graphics.html#property__size"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A\u0024_type",
             "name": "_type",
-            "summary": "\u0422\u0438\u043F\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F",
+            "summary": "The\u0020type\u0020of\u0020the\u0020image.",
             "url": "classes/Colibri-Graphics-Graphics.html#property__type"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A\u0024_file",
             "name": "_file",
-            "summary": "\u0424\u0430\u0439\u043B,\u0020\u0433\u0434\u0435\u0020\u0445\u0440\u0430\u043D\u0438\u0442\u0441\u044F\u0020\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435",
+            "summary": "The\u0020filename\u0020where\u0020the\u0020image\u0020is\u0020stored.",
             "url": "classes/Colibri-Graphics-Graphics.html#property__file"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Graphics\u003A\u003A\u0024_history",
             "name": "_history",
-            "summary": "\u0418\u0441\u0442\u043E\u0440\u0438\u044F",
+            "summary": "The\u0020history\u0020of\u0020image\u0020operations.",
             "url": "classes/Colibri-Graphics-Graphics.html#property__history"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Point",
             "name": "Point",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u044F\u044E\u0449\u0438\u0439\u0020\u0442\u043E\u0447\u043A\u0443\u0020\u043D\u0430\u0020\u044D\u043A\u0440\u0430\u043D\u0435",
+            "summary": "Represents\u0020a\u0020point\u0020on\u0020the\u0020screen.",
             "url": "classes/Colibri-Graphics-Point.html"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Point\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructs\u0020a\u0020new\u0020Point\u0020instance.",
             "url": "classes/Colibri-Graphics-Point.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Point\u003A\u003A\u0024x",
             "name": "x",
-            "summary": "\u041F\u043E\u0437\u0438\u0446\u0438\u044F\u0020X",
+            "summary": "The\u0020X\u0020coordinate\u0020position.",
             "url": "classes/Colibri-Graphics-Point.html#property_x"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Point\u003A\u003A\u0024y",
             "name": "y",
-            "summary": "\u041F\u043E\u0437\u0438\u0446\u0438\u044F\u0020Y",
+            "summary": "The\u0020Y\u0020coordinate\u0020position.",
             "url": "classes/Colibri-Graphics-Point.html#property_y"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Quadro",
             "name": "Quadro",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0434\u043B\u044F\u0020\u0440\u0430\u0431\u043E\u0442\u044B\u0020\u0441\u0020\u043F\u0440\u044F\u043C\u043E\u0443\u0433\u043E\u043B\u044C\u043D\u044B\u043C\u0438\u0020\u043E\u0431\u043B\u0430\u0441\u0442\u044F\u043C\u0438\u0020\u043D\u0430\u0020\u044D\u043A\u0440\u0430\u043D\u0435",
+            "summary": "Represents\u0020rectangular\u0020areas\u0020on\u0020the\u0020screen.",
             "url": "classes/Colibri-Graphics-Quadro.html"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Quadro\u003A\u003A\u0024lowerleft",
             "name": "lowerleft",
-            "summary": "\u041D\u0438\u0436\u043D\u0438\u0439\u0020\u043B\u0435\u0432\u044B\u0439\u0020\u0443\u0433\u043E\u043B",
+            "summary": "The\u0020bottom\u002Dleft\u0020corner.",
             "url": "classes/Colibri-Graphics-Quadro.html#property_lowerleft"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Quadro\u003A\u003A\u0024lowerright",
             "name": "lowerright",
-            "summary": "\u041D\u0438\u0436\u043D\u0438\u0439\u0020\u043F\u0440\u0430\u0432\u044B\u0439\u0020\u0443\u0433\u043E\u043B",
+            "summary": "The\u0020bottom\u002Dright\u0020corner.",
             "url": "classes/Colibri-Graphics-Quadro.html#property_lowerright"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Quadro\u003A\u003A\u0024upperleft",
             "name": "upperleft",
-            "summary": "\u0412\u0435\u0440\u0445\u043D\u0438\u0439\u0020\u043B\u0435\u0432\u044B\u0439\u0020\u0443\u0433\u043E\u043B",
+            "summary": "The\u0020top\u002Dleft\u0020corner.",
             "url": "classes/Colibri-Graphics-Quadro.html#property_upperleft"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Quadro\u003A\u003A\u0024upperright",
             "name": "upperright",
-            "summary": "\u0412\u0435\u0440\u0445\u043D\u0438\u0439\u0020\u043F\u0440\u0430\u0432\u044B\u0439\u0020\u0443\u0433\u043E\u043B",
+            "summary": "The\u0020top\u002Dright\u0020corner.",
             "url": "classes/Colibri-Graphics-Quadro.html#property_upperright"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Size",
             "name": "Size",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u044F\u044E\u0449\u0438\u0439\u0020\u0440\u0430\u0437\u043C\u0435\u0440",
+            "summary": "Represents\u0020a\u0020size.",
             "url": "classes/Colibri-Graphics-Size.html"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Size\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructs\u0020a\u0020new\u0020Size\u0020instance.",
             "url": "classes/Colibri-Graphics-Size.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Size\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Magic\u0020getter\u0020method.",
             "url": "classes/Colibri-Graphics-Size.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Size\u003A\u003ATransformTo\u0028\u0029",
             "name": "TransformTo",
-            "summary": "\u0422\u0440\u0430\u043D\u0441\u0444\u043E\u0440\u043C\u0438\u0440\u043E\u0432\u0430\u0442\u044C\u0020\u0440\u0430\u0437\u043C\u0435\u0440",
+            "summary": "Transforms\u0020the\u0020size.",
             "url": "classes/Colibri-Graphics-Size.html#method_TransformTo"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Size\u003A\u003ATransformToFill\u0028\u0029",
             "name": "TransformToFill",
-            "summary": "\u0422\u0440\u0430\u043D\u0441\u0444\u043E\u0440\u043C\u0438\u0440\u0443\u0435\u0442\u0020\u0440\u0430\u0437\u043C\u0435\u0440\u0020\u0442\u0430\u043A,\u0020\u0447\u0442\u043E\u0431\u044B\u0020\u0440\u0435\u0430\u043B\u044C\u043D\u044B\u0439\u0020\u0440\u0430\u0437\u043C\u0435\u0440\u0020\u043F\u043E\u043A\u0440\u044B\u0432\u0430\u043B\u0020\u043E\u0431\u043B\u0430\u0441\u0442\u044C\u0020\u0438\u0437\u043C\u0435\u043D\u044F\u0435\u043C\u043E\u0433\u043E",
+            "summary": "Transforms\u0020the\u0020size\u0020to\u0020fill\u0020a\u0020given\u0020area.",
             "url": "classes/Colibri-Graphics-Size.html#method_TransformToFill"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Size\u003A\u003AExpand\u0028\u0029",
             "name": "Expand",
-            "summary": "\u0420\u0430\u0437\u0434\u0432\u0438\u0433\u0430\u0435\u0442\u0020\u0440\u0430\u0437\u043C\u0435\u0440",
+            "summary": "Expands\u0020the\u0020size.",
             "url": "classes/Colibri-Graphics-Size.html#method_Expand"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Size\u003A\u003A\u0024width",
             "name": "width",
-            "summary": "\u0428\u0438\u0440\u0438\u043D\u0430",
+            "summary": "The\u0020width.",
             "url": "classes/Colibri-Graphics-Size.html#property_width"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Size\u003A\u003A\u0024height",
             "name": "height",
-            "summary": "\u0412\u044B\u0441\u043E\u0442\u0430",
+            "summary": "The\u0020height.",
             "url": "classes/Colibri-Graphics-Size.html#property_height"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Attributes",
             "name": "Attributes",
-            "summary": "\u0410\u0442\u0442\u0440\u0438\u0431\u0443\u0442\u044B\u0020\u0444\u0430\u0439\u043B\u043E\u0432\u043E\u0439\u0020\u0441\u0438\u0441\u0442\u0435\u043C\u044B",
+            "summary": "File\u0020system\u0020attributes.",
             "url": "classes/Colibri-IO-FileSystem-Attributes.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Attributes\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-IO-FileSystem-Attributes.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Attributes\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-IO-FileSystem-Attributes.html#method___get"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Attributes\u003A\u003A__set\u0028\u0029",
             "name": "__set",
-            "summary": "\u0421\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Setter.",
             "url": "classes/Colibri-IO-FileSystem-Attributes.html#method___set"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Attributes\u003A\u003Aupdate\u0028\u0029",
             "name": "update",
-            "summary": "\u041E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u0442\u0020\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435\u0020\u043F\u043E\u0020\u043A\u043B\u044E\u0447\u0443",
+            "summary": "Updates\u0020the\u0020value\u0020of\u0020the\u0020attribute.",
             "url": "classes/Colibri-IO-FileSystem-Attributes.html#method_update"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Attributes\u003A\u003A\u0024source",
             "name": "source",
-            "summary": "\u0424\u0430\u0439\u043B",
+            "summary": "The\u0020source\u0020file\u0020or\u0020directory.",
             "url": "classes/Colibri-IO-FileSystem-Attributes.html#property_source"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Attributes\u003A\u003A\u0024attributes",
             "name": "attributes",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u043E\u0432",
+            "summary": "The\u0020list\u0020of\u0020attributes.",
             "url": "classes/Colibri-IO-FileSystem-Attributes.html#property_attributes"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory",
             "name": "Directory",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0434\u043B\u044F\u0020\u0440\u0430\u0431\u043E\u0442\u044B\u0020\u0441\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u044F\u043C\u0438",
+            "summary": "Class\u0020for\u0020working\u0020with\u0020directories.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method___get"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003ACopyTo\u0028\u0029",
             "name": "CopyTo",
-            "summary": "\u041A\u043E\u043F\u0438\u0440\u0443\u0435\u0442\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u044E",
+            "summary": "Copies\u0020the\u0020directory.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_CopyTo"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003AMoveTo\u0028\u0029",
             "name": "MoveTo",
-            "summary": "\u041F\u0435\u0440\u0435\u043C\u0435\u0449\u0430\u0435\u0442\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u044E",
+            "summary": "Moves\u0020the\u0020directory.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_MoveTo"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003AToString\u0028\u0029",
             "name": "ToString",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u0438",
+            "summary": "Returns\u0020the\u0020name\u0020of\u0020the\u0020directory.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_ToString"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003AIsDir\u0028\u0029",
             "name": "IsDir",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u044F\u0020\u043B\u0438",
+            "summary": "Checks\u0020if\u0020it\u0020is\u0020a\u0020directory.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_IsDir"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003ARealPath\u0028\u0029",
             "name": "RealPath",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0440\u0435\u0430\u043B\u044C\u043D\u044B\u0439\u0020\u043F\u0443\u0442\u044C",
+            "summary": "Returns\u0020the\u0020real\u0020path.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_RealPath"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003AExists\u0028\u0029",
             "name": "Exists",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u0435\u0441\u0442\u044C\u0020\u043B\u0438\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u044F\u0020\u043D\u0430\u0020\u0434\u0438\u0441\u043A\u0435",
+            "summary": "Checks\u0020if\u0020the\u0020directory\u0020exists\u0020on\u0020the\u0020disk.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_Exists"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003ACreate\u0028\u0029",
@@ -4648,47 +4663,47 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003ADelete\u0028\u0029",
             "name": "Delete",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u044E\u0020\u0441\u0020\u0434\u0438\u0441\u043A\u0430",
+            "summary": "Deletes\u0020the\u0020directory\u0020from\u0020the\u0020disk.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_Delete"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003ACopy\u0028\u0029",
             "name": "Copy",
-            "summary": "\u041A\u043E\u043F\u0438\u0440\u0443\u0435\u0442\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u044E",
+            "summary": "Copies\u0020the\u0020directory.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_Copy"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003AMove\u0028\u0029",
             "name": "Move",
-            "summary": "\u041F\u0435\u0440\u0435\u043C\u0435\u0449\u0430\u0435\u0442\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u044E",
+            "summary": "Moves\u0020the\u0020directory.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_Move"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003APathInfo\u0028\u0029",
             "name": "PathInfo",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0449\u0438\u0439\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u043E\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u0438",
+            "summary": "Retrieves\u0020information\u0020about\u0020a\u0020directory\u0020path.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_PathInfo"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003AToArray\u0028\u0029",
             "name": "ToArray",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0020\u0438\u0437\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "Converts\u0020the\u0020directory\u0020object\u0020to\u0020an\u0020array.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#method_ToArray"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003A\u0024path",
             "name": "path",
-            "summary": "\u041F\u0443\u0442\u044C\u0020\u043A\u0020\u043F\u0430\u043F\u043A\u0435",
+            "summary": "Path\u0020to\u0020the\u0020folder.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#property_path"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003A\u0024_parent",
             "name": "_parent",
-            "summary": "\u0420\u043E\u0434\u0438\u0442\u0435\u043B\u044C\u0441\u043A\u0430\u044F\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u044F",
+            "summary": "Parent\u0020directory.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#property__parent"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Directory\u003A\u003A\u0024_pathArray",
             "name": "_pathArray",
-            "summary": "\u041F\u0443\u0442\u044C\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043C\u0430\u0441\u0441\u0438\u0432\u0430",
+            "summary": "Path\u0020represented\u0020as\u0020an\u0020array.",
             "url": "classes/Colibri-IO-FileSystem-Directory.html#property__pathArray"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Exception",
             "name": "Exception",
-            "summary": "\u0418\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435\u0020\u0434\u043B\u044F\u0020\u0444\u0430\u0439\u043B\u043E\u0432\u043E\u0439\u0020\u0441\u0438\u0441\u0442\u0435\u043C\u044B",
+            "summary": "Exception\u0020class\u0020for\u0020the\u0020file\u0020system.",
             "url": "classes/Colibri-IO-FileSystem-Exception.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\File",
@@ -4818,127 +4833,127 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream",
             "name": "FileStream",
-            "summary": "\u0420\u0430\u0431\u043E\u0442\u0430\u0020\u0441\u0020\u0441\u0442\u0440\u0438\u043C\u043E\u043C\u0020\u0444\u0430\u0439\u043B\u0430",
+            "summary": "Class\u0020for\u0020working\u0020with\u0020file\u0020streams.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream\u003A\u003ASeek\u0028\u0029",
             "name": "Seek",
-            "summary": "\u041F\u0435\u0440\u0435\u0434\u0432\u0438\u043D\u0443\u0442\u044C\u0020\u043F\u043E\u0437\u0438\u0446\u0438\u044E",
+            "summary": "Moves\u0020the\u0020position\u0020within\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html#method_Seek"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream\u003A\u003ARead\u0028\u0029",
             "name": "Read",
-            "summary": "\u0421\u0447\u0438\u0442\u0430\u0442\u044C\u0020\u0438\u0437\u0020\u0441\u0442\u0440\u0438\u043C\u0430",
+            "summary": "Reads\u0020from\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html#method_Read"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream\u003A\u003AWrite\u0028\u0029",
             "name": "Write",
-            "summary": "\u0417\u0430\u043F\u0438\u0441\u0430\u0442\u044C\u0020\u0432\u0020\u0441\u0442\u0440\u0438\u043C",
+            "summary": "Writes\u0020to\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html#method_Write"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream\u003A\u003AFlush\u0028\u0029",
             "name": "Flush",
-            "summary": "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C\u0020\u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F",
+            "summary": "Flushes\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html#method_Flush"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream\u003A\u003AClose\u0028\u0029",
             "name": "Close",
-            "summary": "\u0417\u0430\u043A\u0440\u044B\u0442\u044C\u0020\u0441\u0442\u0440\u0438\u043C",
+            "summary": "Closes\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html#method_Close"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html#method___get"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream\u003A\u003AReadLine\u0028\u0029",
             "name": "ReadLine",
-            "summary": "\u0421\u0447\u0438\u0442\u0430\u0442\u044C\u0020\u0438\u0437\u0020\u0441\u0442\u0440\u0438\u043C\u0430\u0020\u043E\u0434\u043D\u0443\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Reads\u0020a\u0020line\u0020from\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html#method_ReadLine"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream\u003A\u003AWriteLine\u0028\u0029",
             "name": "WriteLine",
-            "summary": "\u0417\u0430\u043F\u0438\u0441\u0430\u0442\u044C\u0020\u0432\u0020\u0441\u0442\u0440\u0438\u043C\u0020\u043E\u0434\u043D\u0443\u0020\u0441\u0442\u0440\u043E\u043A\u0443",
+            "summary": "Writes\u0020a\u0020line\u0020to\u0020the\u0020stream.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html#method_WriteLine"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\FileStream\u003A\u003A\u0024_virtual",
             "name": "_virtual",
-            "summary": "\u0412\u0438\u0440\u0442\u0443\u0430\u043B\u044C\u043D\u044B\u0439\u0020\u0444\u0430\u0439\u043B",
+            "summary": "Indicates\u0020if\u0020the\u0020file\u0020is\u0020virtual.",
             "url": "classes/Colibri-IO-FileSystem-FileStream.html#property__virtual"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Finder",
             "name": "Finder",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u043F\u043E\u043C\u043E\u0433\u0430\u044E\u0449\u0438\u0439\u0020\u0438\u0441\u043A\u0430\u0442\u044C\u0020\u0444\u0430\u0439\u043B\u044B\u0020\u0438\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u0438",
+            "summary": "Class\u0020helping\u0020to\u0020find\u0020files\u0020and\u0020directories.",
             "url": "classes/Colibri-IO-FileSystem-Finder.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Finder\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-IO-FileSystem-Finder.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Finder\u003A\u003AFiles\u0028\u0029",
             "name": "Files",
-            "summary": "\u041D\u0430\u0439\u0442\u0438\u0020\u0444\u0430\u0439\u043B\u044B",
+            "summary": "Find\u0020files.",
             "url": "classes/Colibri-IO-FileSystem-Finder.html#method_Files"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Finder\u003A\u003AFilesRecursive\u0028\u0029",
             "name": "FilesRecursive",
-            "summary": "\u041D\u0430\u0439\u0442\u0438\u0020\u0444\u0430\u0439\u043B\u044B\u0020\u0440\u0435\u043A\u0443\u0440\u0441\u0438\u0432\u043D\u043E",
+            "summary": "Find\u0020files\u0020recursively.",
             "url": "classes/Colibri-IO-FileSystem-Finder.html#method_FilesRecursive"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Finder\u003A\u003ADirectories\u0028\u0029",
             "name": "Directories",
-            "summary": "\u041D\u0430\u0439\u0442\u0438\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u0438\nq",
+            "summary": "Find\u0020directories.",
             "url": "classes/Colibri-IO-FileSystem-Finder.html#method_Directories"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Finder\u003A\u003ADirectoriesRecursive\u0028\u0029",
             "name": "DirectoriesRecursive",
-            "summary": "\u041D\u0430\u0439\u0442\u0438\u0020\u0444\u0430\u0439\u043B\u044B\u0020\u0440\u0435\u043A\u0443\u0440\u0441\u0438\u0432\u043D\u043E",
+            "summary": "Find\u0020directories\u0020recursively.",
             "url": "classes/Colibri-IO-FileSystem-Finder.html#method_DirectoriesRecursive"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Finder\u003A\u003AChildren\u0028\u0029",
             "name": "Children",
-            "summary": "\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0020\u043F\u0430\u043F\u043A\u0438\u0020\u0432\u0020\u0434\u0438\u0440\u0435\u043A\u0442\u043E\u0440\u0438\u0438",
+            "summary": "Return\u0020children\u0020folders\u0020in\u0020a\u0020directory.",
             "url": "classes/Colibri-IO-FileSystem-Finder.html#method_Children"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Node",
             "name": "Node",
-            "summary": "\u0411\u0430\u0437\u043E\u0432\u044B\u0439\u0020\u043A\u043B\u0430\u0441\u0441\u0020\u0434\u043B\u044F\u0020File\u0020\u0438\u0020Directory",
+            "summary": "Base\u0020class\u0020for\u0020File\u0020and\u0020Directory.",
             "url": "classes/Colibri-IO-FileSystem-Node.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Node\u003A\u003A__set\u0028\u0029",
             "name": "__set",
-            "summary": "\u0421\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Setter",
             "url": "classes/Colibri-IO-FileSystem-Node.html#method___set"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Node\u003A\u003AgetAttributesObject\u0028\u0029",
             "name": "getAttributesObject",
-            "summary": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u043E\u0431\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u0430\u0445",
+            "summary": "Load\u0020attribute\u0020data.",
             "url": "classes/Colibri-IO-FileSystem-Node.html#method_getAttributesObject"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Node\u003A\u003AgetSecurityObject\u0028\u0029",
             "name": "getSecurityObject",
-            "summary": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u043E\u0020\u043F\u0440\u0430\u0432\u0430\u0445\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Load\u0020access\u0020rights\u0020data.",
             "url": "classes/Colibri-IO-FileSystem-Node.html#method_getSecurityObject"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Node\u003A\u003ALink\u0028\u0029",
             "name": "Link",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020symbolic\u0020link.",
             "url": "classes/Colibri-IO-FileSystem-Node.html#method_Link"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Node\u003A\u003A\u0024attributes",
             "name": "attributes",
-            "summary": "\u0410\u0442\u0440\u0438\u0431\u0443\u0442\u044B",
+            "summary": "Attributes",
             "url": "classes/Colibri-IO-FileSystem-Node.html#property_attributes"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Node\u003A\u003A\u0024access",
             "name": "access",
-            "summary": "\u041F\u0440\u0430\u0432\u0430\u0020\u0434\u043E\u0441\u0442\u0443\u043F\u0430",
+            "summary": "Access\u0020rights",
             "url": "classes/Colibri-IO-FileSystem-Node.html#property_access"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Security",
@@ -7035,6 +7050,21 @@ Search.appendIndex(
             "name": "_aditionalData",
             "summary": "\u0414\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0435",
             "url": "classes/Colibri-Utils-Performance-Monitoring.html#property__aditionalData"
+        },                {
+            "fqsen": "\\Colibri\\Utils\\Singleton",
+            "name": "Singleton",
+            "summary": "",
+            "url": "classes/Colibri-Utils-Singleton.html"
+        },                {
+            "fqsen": "\\Colibri\\Utils\\Singleton\u003A\u003ACreate\u0028\u0029",
+            "name": "Create",
+            "summary": "",
+            "url": "classes/Colibri-Utils-Singleton.html#method_Create"
+        },                {
+            "fqsen": "\\Colibri\\Utils\\Singleton\u003A\u003A\u0024instance",
+            "name": "instance",
+            "summary": "",
+            "url": "classes/Colibri-Utils-Singleton.html#property_instance"
         },                {
             "fqsen": "\\Colibri\\Web\\Controller",
             "name": "Controller",

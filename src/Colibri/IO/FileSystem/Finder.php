@@ -4,8 +4,8 @@
  * FileSystem
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
 
 namespace Colibri\IO\FileSystem;
@@ -20,13 +20,12 @@ use DirectoryIterator;
 use Throwable;
 
 /**
- * Класс помогающий искать файлы и директории
- * @testFunction testFinder
+ * Class helping to find files and directories.
  */
 class Finder
 {
     /**
-     * Конструктор
+     * Constructor
      */
     public function __construct()
     {
@@ -34,14 +33,13 @@ class Finder
     }
 
     /**
-     * Найти файлы
+     * Find files.
      *
-     * @param string $path путь к папке
-     * @param string $match регулярное выражение
-     * @param string $sortField поле для сориторовки
-     * @param int $sortType тип сортировки
+     * @param string $path Path to the folder
+     * @param string $match Regular expression
+     * @param string $sortField Field for sorting
+     * @param int $sortType Sorting type
      * @return ArrayList
-     * @testFunction testFinderFiles
      */
     public function Files(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC)
     {
@@ -76,14 +74,13 @@ class Finder
     }
 
     /**
-     * Найти файлы рекурсивно
+     * Find files recursively.
      *
-     * @param string $path путь к папке
-     * @param string $match регулярное выражение
-     * @param string $sortField поле для сориторовки
-     * @param int $sortType тип сортировки
+     * @param string $path Path to the folder
+     * @param string $match Regular expression
+     * @param string $sortField Field for sorting
+     * @param int $sortType Sorting type
      * @return ArrayList
-     * @testFunction testFinderFiles
      */
     public function FilesRecursive(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC): ArrayList
     {
@@ -110,13 +107,12 @@ class Finder
     }
 
     /**
-     * Найти директории
-     * q
-     * @param string $path путь к папке
-     * @param string $sortField поле для сортировки
-     * @param int $sortType типа сортировки
+     * Find directories.
+     *
+     * @param string $path Path to the folder
+     * @param string $sortField Field for sorting
+     * @param int $sortType Sorting type
      * @return ArrayList
-     * @testFunction testFinderDirectories
      */
     public function Directories(string $path, string $sortField = '', int $sortType = SORT_ASC): ArrayList
     {
@@ -142,14 +138,13 @@ class Finder
     }
 
     /**
-     * Найти файлы рекурсивно
+     * Find directories recursively.
      *
-     * @param string $path путь к папке
-     * @param string $match регулярное выражение
-     * @param string $sortField поле для сориторовки
-     * @param int $sortType тип сортировки
+     * @param string $path Path to the folder
+     * @param string $match Regular expression
+     * @param string $sortField Field for sorting
+     * @param int $sortType Sorting type
      * @return ArrayList
-     * @testFunction testFinderFiles
      */
     public function DirectoriesRecursive(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC): ArrayList
     {
@@ -193,11 +188,10 @@ class Finder
     }
 
     /**
-     * Вернуть папки в директории
+     * Return children folders in a directory.
      *
-     * @param string $path путь к директории
+     * @param string $path Path to the directory
      * @return ArrayList
-     * @testFunction testFinderChildren
      */
     public function Children(string $path): ArrayList
     {

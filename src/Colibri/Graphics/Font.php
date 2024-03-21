@@ -1,59 +1,63 @@
 <?php
 
 /**
-* Graphics
-*
-* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
-* @copyright 2019 ColibriLab
-* @package Colibri\Data\Storages
-*/
+ * Graphics
+ *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
+ */
 namespace Colibri\Graphics;
 
 /**
- * Шрифт
+ * Represents a font.
  *
- * @property-read string $file название файла шрифта
- * @property-read string $path путь к шрифтам
- * @property-read int $angle угол
- * @property-read string $src полный путь к шрифту
- * @property-read int $size размер/кегль
+ * This class provides properties and methods for handling fonts.
  *
+ * @property-read string $file The name of the font file.
+ * @property-read string $path The path to the fonts.
+ * @property-read int $angle The angle of the font.
+ * @property-read string $src The full path to the font.
+ * @property-read int $size The font size.
  */
 class Font
 {
 
     /**
-     * Название шрифта
+     * The font name.
      *
      * @var string
      */
     private string $_file;
+
     /**
-     * Путь к файлу
+     * The file path.
      *
      * @var string
      */
     private string $_path;
+
     /**
-     * Угол наклона
+     * The tilt angle.
      *
      * @var int
      */
     private int $_angle;
+
     /**
-     * Размер
+     * The font size.
      *
      * @var int
      */
     private int $_fontSize;
 
     /**
-     * Конструктор
+     * Constructs a new Font instance.
      *
-     * @param string $fontFile
-     * @param string $path
-     * @param integer $fontSize
-     * @param integer $angle
+     * @param string $fontFile The font file name.
+     * @param string $path The path to the font files.
+     * @param int $fontSize The font size.
+     * @param int $angle The angle of the font.
      */
     public function __construct(string $fontFile, string $path = '', int $fontSize = 0, int $angle = 0)
     {
@@ -75,10 +79,10 @@ class Font
     }
 
     /**
-     * Геттер
+     * Magic getter method.
      *
-     * @param string $prop
-     * @return mixed
+     * @param string $prop The property name.
+     * @return mixed The value of the property.
      */
     public function __get(string $prop): mixed
     {
@@ -112,8 +116,10 @@ class Font
     }
 
     /**
-     * Возвращает размер области вывода текста
-     * @param string $text
+     * Measures the size of the text area.
+     *
+     * @param string $text The text to measure.
+     * @return Quadro The size of the text area.
      */
     public function MeasureText(string $text): Quadro
     {
@@ -136,10 +142,12 @@ class Font
     }
 
     /**
-     * Возвращает размер области вывода текста
-     * @param string $text
-     * @param Point $startAt
-     * @param Size $size
+     * Inscribes text within a given area.
+     *
+     * @param string $text The text to inscribe.
+     * @param Point $startAt The starting point for the text.
+     * @param Size $size The size of the area.
+     * @return void
      */
     public function InscribeText(string $text, Point &$startAt, Size &$size)
     {

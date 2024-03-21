@@ -4,39 +4,38 @@
  * FileSystem
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\IO\FileSystem
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Data\Storages
  */
+
 
 namespace Colibri\IO\FileSystem;
 
 /**
- * Базовый класс для File и Directory
- * @testFunction testNode
+ * Base class for File and Directory.
  */
 class Node
 {
 
     /**
-     * Атрибуты
+     * Attributes
      *
      * @var Attributes
      */
     protected ? Attributes $attributes = null;
 
     /**
-     * Права доступа
+     * Access rights
      *
      * @var Security
      */
     protected ? Security $access = null;
 
     /**
-     * Сеттер
+     * Setter
      *
-     * @param string $property свойство
-     * @param mixed $value значение
-     * @testFunction testNode__set
+     * @param string $property Property
+     * @param mixed $value Value
      */
     public function __set(string $property, mixed $value): void
     {
@@ -60,10 +59,9 @@ class Node
     }
 
     /**
-     * Загружает данные об атрибутах
+     * Load attribute data.
      *
      * @return Attributes
-     * @testFunction testNodeGetAttributesObject
      */
     protected function getAttributesObject(): Attributes
     {
@@ -74,10 +72,9 @@ class Node
     }
 
     /**
-     * Загружает данные о правах доступа
+     * Load access rights data.
      *
      * @return Security
-     * @testFunction testNodeGetSecurityObject
      */
     protected function getSecurityObject(): Security
     {
@@ -87,6 +84,14 @@ class Node
         return $this->access;
     }
 
+    /**
+     * Creates a symbolic link.
+     *
+     * @param string $sourcePath The path to the source file or directory.
+     * @param string $destPath The path to the destination where the link will be created.
+     * @param bool $recursive Whether to create parent directories if they don't exist. Defaults to true.
+     * @param string $mode The mode for the parent directory if it needs to be created. Defaults to '777'.
+     */
     public static function Link(string $sourcePath, string $destPath, bool $recursive = true, string $mode = '777')
     {
         if(!file_exists($destPath) && file_exists($sourcePath)) {

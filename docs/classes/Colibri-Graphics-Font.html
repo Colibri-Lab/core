@@ -164,10 +164,6 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Graphics.html" class="">Graphics</a>
-                
-            </li>
-                    <li>
                 <a href="packages/Colibri-IO.html" class="">IO</a>
                 
             </li>
@@ -220,7 +216,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Graphics.html">Graphics</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
                             </ul>
         </div>
     
@@ -235,12 +232,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Font.php"><a href="files/src-colibri-graphics-font.html"><abbr title="src/Colibri/Graphics/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Шрифт</p>
+            <p class="phpdocumentor-summary">Represents a font.</p>
 
+    <section class="phpdocumentor-description"><p>This class provides properties and methods for handling fonts.</p>
+</section>
 
 
 
@@ -301,28 +300,28 @@
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Угол наклона</dd>
+<dd>The tilt angle.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Graphics-Font.html#property__file">$_file</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Название шрифта</dd>
+<dd>The font name.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Graphics-Font.html#property__fontSize">$_fontSize</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Размер</dd>
+<dd>The font size.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Graphics-Font.html#property__path">$_path</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Путь к файлу</dd>
+<dd>The file path.</dd>
 
     </dl>
 
@@ -337,28 +336,28 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructs a new Font instance.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Font.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Геттер</dd>
+<dd>Magic getter method.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Font.html#method_InscribeText">InscribeText()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Возвращает размер области вывода текста</dd>
+<dd>Inscribes text within a given area.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Graphics-Font.html#method_MeasureText">MeasureText()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Graphics-Quadro.html"><abbr title="\Colibri\Graphics\Quadro">Quadro</abbr></a>    </span>
 </dt>
-<dd>Возвращает размер области вывода текста</dd>
+<dd>Measures the size of the text area.</dd>
 
     </dl>
 
@@ -402,7 +401,7 @@
     <span class="phpdocumentor-signature__name">$angle</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>угол</p>
+        <section class="phpdocumentor-description"><p>The angle of the font.</p>
 </section>
 
     
@@ -437,7 +436,7 @@
     <span class="phpdocumentor-signature__name">$file</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>название файла шрифта</p>
+        <section class="phpdocumentor-description"><p>The name of the font file.</p>
 </section>
 
     
@@ -472,7 +471,7 @@
     <span class="phpdocumentor-signature__name">$path</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>путь к шрифтам</p>
+        <section class="phpdocumentor-description"><p>The path to the fonts.</p>
 </section>
 
     
@@ -507,7 +506,7 @@
     <span class="phpdocumentor-signature__name">$size</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>размер/кегль</p>
+        <section class="phpdocumentor-description"><p>The font size.</p>
 </section>
 
     
@@ -542,7 +541,7 @@
     <span class="phpdocumentor-signature__name">$src</span>
     </code>
 
-        <section class="phpdocumentor-description"><p>полный путь к шрифту</p>
+        <section class="phpdocumentor-description"><p>The full path to the font.</p>
 </section>
 
     
@@ -566,11 +565,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Font.php"><a href="files/src-colibri-graphics-font.html"><abbr title="src/Colibri/Graphics/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Угол наклона</p>
+        <p class="phpdocumentor-summary">The tilt angle.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -600,11 +599,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Font.php"><a href="files/src-colibri-graphics-font.html"><abbr title="src/Colibri/Graphics/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Название шрифта</p>
+        <p class="phpdocumentor-summary">The font name.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -634,11 +633,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Font.php"><a href="files/src-colibri-graphics-font.html"><abbr title="src/Colibri/Graphics/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Размер</p>
+        <p class="phpdocumentor-summary">The font size.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -668,11 +667,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Font.php"><a href="files/src-colibri-graphics-font.html"><abbr title="src/Colibri/Graphics/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Путь к файлу</p>
+        <p class="phpdocumentor-summary">The file path.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -707,11 +706,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Font.php"><a href="files/src-colibri-graphics-font.html"><abbr title="src/Colibri/Graphics/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">58</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructs a new Font instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -727,28 +726,36 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The font file name.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$path</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The path to the font files.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$fontSize</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The font size.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$angle</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The angle of the font.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -770,11 +777,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Font.php"><a href="files/src-colibri-graphics-font.html"><abbr title="src/Colibri/Graphics/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">87</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Геттер</p>
+        <p class="phpdocumentor-summary">Magic getter method.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -790,13 +797,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The property name.</p>
+</section>
+
             </dd>
             </dl>
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value of the property.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -812,15 +829,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Font.php"><a href="files/src-colibri-graphics-font.html"><abbr title="src/Colibri/Graphics/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">144</span>
+    <span class="phpdocumentor-element-found-in__line">152</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает размер области вывода текста</p>
+        <p class="phpdocumentor-summary">Inscribes text within a given area.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">InscribeText</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$text</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Point.html"><abbr title="\Colibri\Graphics\Point">Point</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$startAt</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$size</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">InscribeText</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$text</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Point.html"><abbr title="\Colibri\Graphics\Point">Point</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$startAt</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$size</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -832,21 +849,27 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The text to inscribe.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$startAt</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Point.html"><abbr title="\Colibri\Graphics\Point">Point</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The starting point for the text.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$size</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Graphics-Size.html"><abbr title="\Colibri\Graphics\Size">Size</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The size of the area.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -868,11 +891,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Graphics/Font.php"><a href="files/src-colibri-graphics-font.html"><abbr title="src/Colibri/Graphics/Font.php">Font.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает размер области вывода текста</p>
+        <p class="phpdocumentor-summary">Measures the size of the text area.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -888,7 +911,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The text to measure.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -897,6 +922,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Graphics-Quadro.html"><abbr title="\Colibri\Graphics\Quadro">Quadro</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The size of the text area.</p>
+</section>
+
             </section>
 
 </article>
