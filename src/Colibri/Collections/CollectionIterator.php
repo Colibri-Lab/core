@@ -1,14 +1,11 @@
 <?php
 
 /**
- * Represents an iterator for a collection.
- * This class implements the \Iterator interface, allowing iteration over a collection.
+ * Collections
  *
  * @author Vahan Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
  * @package Colibri\Collections
- * @version 1.0.0
- *
  */
 
 namespace Colibri\Collections;
@@ -45,9 +42,8 @@ class CollectionIterator implements \Iterator
     /**
      * Перескопить на первую запись
      *
-     * @testFunction testCollectionIteratorRewind
      */
-    public function rewind(): mixed
+    public function rewind()
     {
         $this->_current = 0;
         return $this->_class->Key($this->_current);
@@ -56,9 +52,8 @@ class CollectionIterator implements \Iterator
     /**
      * Вернуть текущее значение
      *
-     * @testFunction testCollectionIteratorCurrent
      */
-    public function current(): mixed
+    public function current()
     {
         if ($this->valid()) {
             return $this->_class->ItemAt($this->_current);
@@ -70,9 +65,8 @@ class CollectionIterator implements \Iterator
     /**
      * Вернуть ключ текущего положения
      *
-     * @testFunction testCollectionIteratorKey
      */
-    public function key(): mixed
+    public function key()
     {
         return $this->_class->Key($this->_current);
     }
@@ -80,9 +74,8 @@ class CollectionIterator implements \Iterator
     /**
      * Вернуть следующее значение
      *
-     * @testFunction testCollectionIteratorNext
      */
-    public function next(): mixed
+    public function next()
     {
         $this->_current++;
         if ($this->valid()) {
@@ -95,7 +88,6 @@ class CollectionIterator implements \Iterator
     /**
      * Проверка валидности итератора, т.е. валидно ли текущее значение
      *
-     * @testFunction testCollectionIteratorValid
      */
     public function valid(): bool
     {

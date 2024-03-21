@@ -1,13 +1,11 @@
 <?php
 
 /**
- * Driver for PostgreSql
+ * PgSql
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Utils\Config
- * @version 1.0.0
- *
+ * @package Colibri\Data\PgSql
  */
 
 namespace Colibri\Data\PgSql;

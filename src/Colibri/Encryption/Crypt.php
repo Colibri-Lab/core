@@ -1,13 +1,12 @@
 <?php
 
 /**
-* Encryption
-*
-* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
-* @copyright 2019 ColibriLab
-* @package Colibri\Data\Storages
-*/
-
+ * Encryption
+ *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Encryption
+ */
 
 namespace Colibri\Encryption;
 

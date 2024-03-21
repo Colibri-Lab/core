@@ -1,13 +1,11 @@
 <?php
 
 /**
- * Array list iterator
- * 
+ * Collections
+ *
  * @author Vahan Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
  * @package Colibri\Collections
- * @version 1.0.0
- * 
  */
 
 namespace Colibri\Collections;
@@ -41,7 +39,7 @@ class ArrayListIterator implements \Iterator
     /**
      * Rewinds an iterator to the first item
      */
-    public function rewind(): mixed
+    public function rewind()
     {
         $this->_current = 0;
         return $this->_current;
@@ -51,7 +49,7 @@ class ArrayListIterator implements \Iterator
      * Returns item on current position
      * @suppress PHP0418
      */
-    public function current(): mixed
+    public function current()
     {
         if ($this->valid() && method_exists($this->_class, 'Item')) {
             return $this->_class->Item($this->_current);
@@ -72,7 +70,7 @@ class ArrayListIterator implements \Iterator
      * Returns next item and moves internal position
      * @suppress PHP0418
      */
-    public function next(): mixed
+    public function next()
     {
         $this->_current++;
         if ($this->valid()) {

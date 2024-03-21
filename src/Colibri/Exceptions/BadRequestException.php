@@ -1,12 +1,12 @@
 <?php
 
 /**
-* Exceptions
-*
-* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
-* @copyright 2019 ColibriLab
-* @package Colibri\Data\Storages
-*/
+ * Exceptions
+ *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Exceptions
+ */
 namespace Colibri\Exceptions;
 
 /**

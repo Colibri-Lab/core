@@ -1,12 +1,13 @@
 <?php
 
 /**
-* Data
-*
-* @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
-* @copyright 2019 ColibriLab
-* @package Colibri\Data\Storages
-*/
+ * Data
+ *
+ * @author Ваган Григорян <vahan.grigoryan@gmail.com>
+ * @copyright 2019 Colibri
+ * @package Colibri\Data
+ */
+
 
 namespace Colibri\Data;
 

@@ -1,13 +1,11 @@
 <?php
 
 /**
- * Interface for associative arrays
- * 
- * @author VaHan Grigoryan <vahan.grigoryan@gmail.com>
+ * Collections
+ *
+ * @author Vahan Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
  * @package Colibri\Collections
- * @version 1.0.0
- * 
  */
 
 namespace Colibri\Collections;

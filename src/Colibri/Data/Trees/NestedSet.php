@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Storages
+ * Trees
  *
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 ColibriLab
- * @package Colibri\Data\Storages
+ * @author Ваган Григорян <vahan.grigoryan@gmail.com>
+ * @copyright 2019 Colibri
+ * @package Colibri\Data\Trees
  */
 
 namespace Colibri\Data\Trees;
