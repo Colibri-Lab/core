@@ -162,9 +162,11 @@ class Controller
     public function Invoke(string $method, RequestCollection $get, RequestCollection $post, PayloadCopy $payload)
     {
         if($this->_cache) {
+            $md5 = md5(App::$request->host);
             $cacheName = 'controller-' .
                 str_replace('\\', '_', strtolower(static::class . '_' . $method)) . '-' .
-                md5(json_encode($get->ToArray()) . json_encode($post->ToArray()) . json_encode($payload->ToArray()));
+                md5(json_encode($get->ToArray()) . json_encode($post->ToArray()) . json_encode($payload->ToArray()) . '-' .
+                $md5);
             if(Mem::Exists($cacheName)) {
                 $return = Mem::Read($cacheName);
             } else {
