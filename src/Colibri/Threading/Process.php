@@ -4,9 +4,8 @@
  * Threading
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2020 ColibriLab
+ * @copyright 2019 ColibriLab
  * @package Colibri\Threading
- *
  */
 
 namespace Colibri\Threading;
@@ -47,7 +46,6 @@ use Colibri\Utils\Debug;
  *
  *
  *
- * @testFunction testProcess
  *
  * @property-read int $pid
  * @property-read string $name
@@ -124,7 +122,6 @@ class Process
      * @param Worker $worker
      * @param bool $debug отобразить команду запуска воркера
      * @return Process
-     * @testFunction testProcessCreate
      */
     public static function Create(Worker $worker, bool $debug = false, string $entry = ''): Process
     {
@@ -216,7 +213,6 @@ class Process
      *
      * @param object $params параметры для передачи в процесс
      * @return void
-     * @testFunction testProcessRun
      */
     public function Run(?object $params = null): void
     {
@@ -241,7 +237,6 @@ class Process
      * Проверяет запущен ли Worker
      *
      * @return boolean true если запущен, false если нет
-     * @testFunction testProcessIsRunning
      */
     public function IsRunning(): bool
     {
@@ -256,7 +251,6 @@ class Process
      * Останавливает Worker
      *
      * @return bool true если удалось остановить, false если нет
-     * @testFunction testProcessStop
      */
     public function Stop(): bool
     {
@@ -273,7 +267,6 @@ class Process
      *
      * @param integer $pid PID процесса
      * @return boolean
-     * @testFunction testProcessIsProcessRunning
      */
     public static function IsProcessRunning(int $pid): bool
     {
@@ -286,7 +279,6 @@ class Process
      *
      * @param integer $pid PID процесса
      * @return boolean
-     * @testFunction testProcessStopProcess
      */
     public static function StopProcess(int $pid): bool
     {

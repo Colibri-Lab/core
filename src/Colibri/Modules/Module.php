@@ -11,60 +11,66 @@
 namespace Colibri\Modules;
 
 use Colibri\App;
-use Colibri\Common\StringHelper;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Config\Config;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Utils\Config\ConfigItemsList;
-use Colibri\Utils\Debug;
 
 /**
- * Модуль
- * базовый класс
+ * Module
+ * Base class representing a module.
  *
- * @property-read string $modulePath
- * @property-read string $moduleNamepsace
- * @property-read string $moduleConfigPath
- * @property-read string $moduleStoragesPath
- * @property self $instance
+ * @property-read string $modulePath The path of the module.
+ * @property-read string $moduleNamespace The namespace of the module.
+ * @property-read string $moduleConfigPath The file path of the module's configuration.
+ * @property-read string $moduleStoragesPath The file path of the module's storage configurations.
+ * @property self $instance An instance of the Module class.
  */
 class Module
 {
-    // подключаем trait событийной модели
+    // Include event dispatcher trait.
     use TEventDispatcher;
 
     /**
-     * Обьект настроек
+     * Config object.
      *
      * @var Config
      */
     protected $_config;
 
     /**
-     * Местоположение модуля
+     * Location of the module.
      *
      * @var string
      */
     protected string $_modulePath;
 
     /**
-     * Namespace модуля
+     * Namespace of the module.
      *
      * @var string
      */
     protected string $_moduleNamespace;
 
-
     /**
-     * Файл конфигурации модуля
+     * File path of the module configuration.
+     *
+     * @var string
      */
     protected string $_moduleConfigFile = '';
 
     /**
-     * Файл конфигурации хранилищь в модуле
+     * File path of the module's storage configurations.
+     *
+     * @var string
      */
     protected string $_moduleStoragesConfigPath = '';
 
+    /**
+     * Constructor.
+     *
+     * @param mixed $config The configuration for the module.
+     */
     protected function __construct(mixed $config)
     {
 
@@ -112,9 +118,9 @@ class Module
     }
 
     /**
-     * Статический конструктор
+     * Static constructor to create an instance of the Module class.
      *
-     * @param mixed $config
+     * @param mixed $config The configuration for the module.
      * @return mixed
      */
     public static function Create(mixed $config): self
@@ -126,15 +132,23 @@ class Module
     }
 
     /**
-     * Возвращает обьект кофигурации
+     * Returns the configuration object.
      *
-     * @return Config
+     * @param string|null $item The item to retrieve from the configuration.
+     * @param mixed $default The default value if the item is not found.
+     * @return Config|ConfigItemsList
      */
     public function Config(?string $item = null, mixed $default = null): Config|ConfigItemsList
     {
         return $item ? $this->_config->Query('config.' . $item, $default) : $this->_config;
     }
 
+    /**
+     * Magic method to retrieve module properties.
+     *
+     * @param string $prop The property name.
+     * @return mixed
+     */
     public function __get(string $prop): mixed
     {
         $return = null;
@@ -152,7 +166,7 @@ class Module
     }
 
     /**
-     * Инициализация, вызывается после создания обьекта модуля
+     * Initializes the module after object creation.
      *
      * @return void
      */
@@ -161,7 +175,7 @@ class Module
     }
 
     /**
-     * Установка, вызывается менеджером при установке
+     * Installs the module.
      *
      * @return void
      */
@@ -170,7 +184,7 @@ class Module
     }
 
     /**
-     * Удаление, вызывается менеджером при удалении модуля
+     * Uninstalls the module.
      *
      * @return void
      */
@@ -179,7 +193,7 @@ class Module
     }
 
     /**
-     * Удаление обьекта модуля
+     * Disposes of the module object.
      *
      * @return void
      */
@@ -188,7 +202,7 @@ class Module
     }
 
     /**
-     * Список прав модуля, стандартный набор
+     * Retrieves the list of permissions for the module.
      *
      * @return array
      */
@@ -197,6 +211,12 @@ class Module
         return [];
     }
 
+    /**
+     * Retrieves paths from the module configuration.
+     *
+     * @param array|null $extendArray Additional array to extend the result.
+     * @return array
+     */
     public function GetPathsFromModuleConfig(?array $extendArray = null): array
     {
         $paths = [];

@@ -1,26 +1,51 @@
 <?php
 
+/**
+ * Queue
+ *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Queue
+ */
+
 namespace Colibri\Queue;
 use Colibri\Common\DateHelper;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\Logger;
 
 /**
- * @property ExtendedObject $payload
- * @property string $payload_class
- * @property string $class
- * @property int $attempts
- * @property string $queue
- * @property bool $parallel
- * @property ?int $id
- * @property ExtendedObject $payload
+ * Abstract class representing a job.
+ *
+ * Represents a job to be executed.
+ *
+ * @property ExtendedObject $payload The payload object associated with the job.
+ * @property string $payload_class The class name of the payload associated with the job.
+ * @property string $class The class name of the job.
+ * @property int $attempts The number of attempts made to execute the job.
+ * @property string $queue The queue in which the job resides.
+ * @property bool $parallel Indicates if the job can be executed in parallel.
+ * @property ?int $id The ID of the job.
  */
-
 abstract class Job extends ExtendedObject implements IJob
 {
 
+    /**
+     * Maximum number of attempts for executing the job.
+     *
+     * @var int
+     */
     protected static $maxAttempts = 5;
 
+    /**
+     * Creates a new job instance.
+     *
+     * @param ExtendedObject $payload The payload object associated with the job.
+     * @param string $queue The queue in which the job resides.
+     * @param int $attempts The number of attempts made to execute the job.
+     * @param bool $parallel Indicates if the job can be executed in parallel.
+     * @param ?int $id The ID of the job.
+     * @return static The created job instance.
+     */
     public static function Create(ExtendedObject $payload, string $queue = 'default', int $attempts = 0, bool $parallel = false, ?int $id = null): static
     {
         $job = new static();
@@ -34,33 +59,71 @@ abstract class Job extends ExtendedObject implements IJob
         return $job;
     }
 
+    /**
+     * Handles the job.
+     *
+     * @param Logger $logger The logger instance to use for logging.
+     * @return bool True if the job is handled successfully, false otherwise.
+     */
     public abstract function Handle(Logger $logger): bool;
 
+    /**
+     * Checks if the current attempt is the last attempt.
+     *
+     * @return bool True if the current attempt is the last attempt, false otherwise.
+     */
     public function IsLastAttempt(): bool
     {
         return ($this->attempts ?: 0) > static::$maxAttempts;
     }
     
+    /**
+     * Checks if the job can be executed in parallel.
+     *
+     * @return bool True if the job can be executed in parallel, false otherwise.
+     */
     public function IsParallel(): bool
     {
         return ($this->parallel ?: false);
     }
 
+    /**
+     * Adds the job.
+     *
+     * @param string|null $startDate The start date of the job.
+     * @return bool True if the job is successfully added, false otherwise.
+     */
     public function Add(?string $startDate = null): bool
     {
         return Manager::Create()->AddJob($this, $startDate);
     }
 
+    /**
+     * Updates the job.
+     *
+     * @param string|null $startDate The start date of the job.
+     * @return bool True if the job is successfully updated, false otherwise.
+     */
     public function Update(?string $startDate = null): bool
     {
         return Manager::Create()->UpdateJob($this, $startDate);
     }
 
+    /**
+     * Deletes the job.
+     *
+     * @return bool True if the job is successfully deleted, false otherwise.
+     */
     public function Delete(): bool
     {
         return Manager::Create()->DeleteJob($this);
     }
 
+    /**
+     * Begins a transaction.
+     *
+     * @return bool True if the transaction is successfully begun, false otherwise.
+     */
     public function Begin(): bool
     {
         $this->attempts ++;
@@ -68,6 +131,12 @@ abstract class Job extends ExtendedObject implements IJob
         return Manager::Create()->UpdateJob($this);
     }
 
+    /**
+     * Commits a transaction.
+     *
+     * @param array|object $result The result of the transaction.
+     * @return bool True if the transaction is successfully committed, false otherwise.
+     */
     public function Commit(array|object $result): bool
     {
         /** @var Manager */
@@ -81,6 +150,13 @@ abstract class Job extends ExtendedObject implements IJob
         return true;
     }
 
+    /**
+     * Marks the job as failed.
+     *
+     * @param \Throwable $exception The exception that caused the failure.
+     * @param bool $isLastAttempt Indicates if the failure is occurring on the last attempt.
+     * @return bool True if the job is marked as failed, false otherwise.
+     */
     public function Fail(\Throwable $exception, bool $isLastAttempt = false): bool
     {
         /** @var Manager */
@@ -94,6 +170,11 @@ abstract class Job extends ExtendedObject implements IJob
         return true;
     }
 
+    /**
+     * Rolls back a transaction.
+     *
+     * @return bool True if the transaction is successfully rolled back, false otherwise.
+     */
     public function Rollback(): bool
     {
         $this->attempts += 1;
@@ -101,6 +182,13 @@ abstract class Job extends ExtendedObject implements IJob
         return Manager::Create()->UpdateJob($this);
     }
 
+    /**
+     * Converts the job to an array.
+     *
+     * @param bool $dummy Indicates if dummy data should be included in the array.
+     * @param \Closure|null $callback An optional callback function to manipulate the array.
+     * @return array The array representation of the job.
+     */
     public function ToArray(bool $dummy = false, ?\Closure $callback = null): array
     {
         return [

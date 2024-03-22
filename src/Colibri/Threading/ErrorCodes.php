@@ -2,30 +2,31 @@
 
 /**
  * Threading
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2020 ColibriLab
+ * @copyright 2019 ColibriLab
  * @package Colibri\Threading
- * 
  */
 
 namespace Colibri\Threading;
 
 /**
- * Список ошибок
+ * Represents a list of error codes.
  */
 class ErrorCodes
 {
-    /** Неизвестная свойство */
+    /**
+     * Error code for unknown property.
+     */
     const UnknownProperty = 1;
 
     /**
-     * Возвращает текстовое представление ошибки по коду
+     * Returns the textual representation of an error based on its code.
      *
-     * @param int $code
-     * @return string
+     * @param int $code The error code.
+     * @return string|null The textual representation of the error.
      */
-    public static function ToString(int $code): string
+    public static function ToString(int $code): ?string
     {
         if ($code == ErrorCodes::UnknownProperty) {
             return 'Unknown property';

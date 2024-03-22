@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Modules
+ *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Modules
+ */
+
 namespace Colibri\Modules;
 
 use Colibri\App;
@@ -13,50 +21,56 @@ use Colibri\Utils\Config\ConfigException;
 use Colibri\Web\Templates\PhpTemplate;
 
 /**
- * Менеджер модулей
+ * Module Manager
  *
- * @property-read Config $settings
- * @property-read Collection $list
+ * Manages modules within the application.
  *
- * @testFunction testModuleManager
+ * @property-read Config $settings Configuration settings for the module manager.
+ * @property-read Collection $list List of modules.
+ *
+ * @testFunction testModuleManager Test function for Module Manager.
  */
 class ModuleManager
 {
 
-    // подключаем функционал событийной модели
+    // Includes functionality of event dispatcher.
     use TEventDispatcher;
 
     /**
-     * Синглтон
+     * Singleton instance.
      *
      * @var ModuleManager
      */
     public static $instance;
 
     /**
-     * Настройки
+     * Settings object.
      *
      * @var object
      */
     private $_settings;
 
     /**
-     * Список модулей
+     * List of modules.
      *
      * @var Collection
      */
     private $_list;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->_list = new Collection();
     }
 
     /**
-     * Статический конструктор
+     * Static constructor for creating a singleton instance.
      *
-     * @return ModuleManager
-     * @testFunction testModuleManagerCreate
+     * @return ModuleManager The created instance of ModuleManager.
+     *
+     * @testFunction testModuleManagerCreate Test function for creating Module Manager instance.
      */
     public static function Create(): self
     {
@@ -67,10 +81,11 @@ class ModuleManager
     }
 
     /**
-     * Инициализация менеджера
+     * Initializes the module manager.
      *
      * @return void
-     * @testFunction testModuleManagerInitialize
+     *
+     * @testFunction testModuleManagerInitialize Test function for initializing Module Manager.
      */
     public function Initialize(): void
     {
@@ -111,11 +126,12 @@ class ModuleManager
     }
 
     /**
-     * Инициализирит модуль
+     * Initializes a module.
      *
-     * @param Config $configNode
-     * @return Module|null
-     * @testFunction testModuleManagerInitModule
+     * @param Config $configNode Configuration node for the module.
+     * @return Module|null The initialized module instance, or null if initialization fails.
+     *
+     * @testFunction testModuleManagerInitModule Test function for initializing a module.
      */
     public function InitModule(Config $configNode): ? Module
     {
@@ -136,8 +152,13 @@ class ModuleManager
     }
 
     /**
+     * Magic method to handle property retrieval.
+     *
+     * @param string $property The name of the property to retrieve.
+     * @return mixed The value of the property.
+     *
      * @magic
-     * @testFunction testModuleManager__get
+     * @testFunction testModuleManager__get Test function for handling property retrieval.
      */
     public function __get(string $property): mixed
     {
@@ -152,17 +173,24 @@ class ModuleManager
         }
     }
 
+    /**
+     * Retrieves a module by name.
+     *
+     * @param string $moduleName The name of the module.
+     * @return mixed The module corresponding to the provided name.
+     */
     public function Get(string $moduleName): mixed
     {
         return $this->_list->$moduleName;
     }
 
     /**
-     * Получает конфигурацию модуля
+     * Gets the configuration of a module.
      *
-     * @param string $name
-     * @return Config
-     * @testFunction testModuleManagerConfig
+     * @param string $name The name of the module.
+     * @return Config The configuration of the module.
+     *
+     * @testFunction testModuleManagerConfig Test function for getting module configuration.
      */
     public function Config(string $name): Config
     {
@@ -170,9 +198,9 @@ class ModuleManager
     }
 
     /**
-     * Список прав модуля, стандартный набор
+     * Retrieves the permissions of all modules.
      *
-     * @return array
+     * @return array The permissions of all modules.
      */
     public function GetPermissions(): array
     {
@@ -186,10 +214,11 @@ class ModuleManager
     }
 
     /**
-     * Возвращает список реальных путей к модулям дополняя их нужной строкой
-     * @param string $extend строка, которую нужно дополнить в конце, например .Bundle/
-     * @param array|null $extendArray дополнить массив нужными элементами
-     * @return string[]
+     * Retrieves paths of modules.
+     *
+     * @param string $extend String to append to each path.
+     * @param array|null $extendArray Additional elements to append to each path.
+     * @return string[] Paths of modules.
      */
     public function GetPaths(string $extend = '/', ?array $extendArray = null): array
     {
@@ -204,6 +233,12 @@ class ModuleManager
         return $paths;
     }
 
+    /**
+     * Retrieves paths of modules from module configurations.
+     *
+     * @param array|null $extendArray Additional elements to append to each path.
+     * @return string[] Paths of modules.
+     */
     public function GetPathsFromModuleConfig(?array $extendArray = null): array
     {
         $paths = [];
@@ -214,10 +249,10 @@ class ModuleManager
     }
 
     /**
-     * Возвращает список шаблонов, которые нужно запустить
-     * @param string $extend строка, которую нужно дополнить в конце, например .Bundle/
-     * @param array|null $extendArray дополнить массив нужными элементами
-     * @return string[]
+     * Retrieves templates of modules.
+     *
+     * @param string $templateName The name of the template.
+     * @return string[] Templates of modules.
      */
     public function GetTemplates(string $templateName = 'index'): array
     {
@@ -229,7 +264,6 @@ class ModuleManager
 
             } catch (\Throwable $e) {
                 // do nothing
-                // App::$log->debug('Запрошен шаблон модуля, который не существует: ' . $tname)
             }
         }
         return $templates;

@@ -2,11 +2,10 @@
 
 /**
  * Threading
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2020 ColibriLab
+ * @copyright 2019 ColibriLab
  * @package Colibri\Threading
- * 
  */
 
 namespace Colibri\Threading;
@@ -14,15 +13,15 @@ namespace Colibri\Threading;
 use Colibri\AppException;
 
 /**
- * Исключение для процессов и потоков
+ * Exception for processes and threads.
  */
 class Exception extends AppException
 {
     /**
-     * Создает исключение
+     * Constructs an exception.
      *
-     * @param int $code код ошибки ErrorCodes
-     * @param string $message дополнительный текст ошибки
+     * @param int $code The error code from ErrorCodes.
+     * @param string $message Additional error message text.
      */
     public function __construct(int $code, string $message)
     {

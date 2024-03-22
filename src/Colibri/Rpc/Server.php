@@ -1,31 +1,23 @@
 <?php
 
 /**
- * Класс сервера RPC
+ * Rpc
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Rpc
- * @version 1.0.0
- *
+ * @deprecated
  */
 
 namespace Colibri\Rpc;
 
 use Colibri\Web\Server as WebServer;
 
-/**
- * Класс запросщик, вызывается в сервисе /.rpc/index.php
- * @testFunction testServer
- */
 class Server extends WebServer
 {
 
     const NotRpcQuery = 'This is not a Rpc query';
 
-    /**
-     * @testFunction testServerRun
-     */
     public function Run(string $cmd, string $default = ''): void
     {
         if (strstr($cmd, '.rpc') === false) {

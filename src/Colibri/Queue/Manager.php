@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Queue
+ *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Queue
+ */
+
 namespace Colibri\Queue;
 
 use Colibri\App;
@@ -14,16 +22,42 @@ use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\FileLogger;
 use Colibri\Utils\Logs\Logger;
 
+/**
+ * Class Manager
+ * Manages the job queue.
+ */
 class Manager
 {
     use TEventDispatcher;
 
+    /**
+     * Array containing configuration settings.
+     *
+     * @var array
+     */
     private array $_config = [];
+
+    /**
+     * The driver used for accessing the queue.
+     *
+     * @var string
+     */
     private string $_driver = '';
+
+    /**
+     * Array containing storage settings.
+     *
+     * @var array
+     */
     private array $_storages = [];
 
     public static ?self $instance = null;
 
+    /**
+     * Creates an instance of the Manager class.
+     *
+     * @return self
+     */
     public static function Create(): self
     {
         if (!self::$instance) {
@@ -32,6 +66,9 @@ class Manager
         return self::$instance;
     }
 
+    /**
+     * Constructor for the Manager class.
+     */
     public function __construct()
     {
         $this->_config = App::$config->Query('queue', [])->AsArray();
@@ -39,6 +76,13 @@ class Manager
         $this->_storages = $this->_config['storages'] ?? null;
     }
 
+    /**
+     * Migrates the job queue.
+     *
+     * @param Logger $logger The logger instance.
+     * @return bool True if migration was successful, false otherwise.
+     * @throws Exception When tables cannot be created.
+     */
     public function Migrate(Logger $logger): bool
     {
 
@@ -150,6 +194,14 @@ class Manager
 
     }
 
+    /**
+     * Adds a job to the queue.
+     *
+     * @param IJob $job The job to add.
+     * @param string|null $startDate The start date of the job.
+     * @return bool True if the job is added successfully, false otherwise.
+     * @throws Exception If the job already exists.
+     */
     public function AddJob(IJob $job, ?string $startDate = null): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -178,6 +230,14 @@ class Manager
         return false;
     }
 
+    /**
+     * Updates a job in the queue.
+     *
+     * @param IJob $job The job to update.
+     * @param string|null $startDate The start date of the job.
+     * @return bool True if the job is updated successfully, false otherwise.
+     * @throws Exception If the job does not exist.
+     */
     public function UpdateJob(IJob $job, ?string $startDate = null): bool
     {
 
@@ -201,6 +261,13 @@ class Manager
         return false;
     }
 
+    /**
+     * Deletes a job from the queue.
+     *
+     * @param IJob $job The job to delete.
+     * @return bool True if the job is deleted successfully, false otherwise.
+     * @throws Exception If the job does not exist.
+     */
     public function DeleteJob(IJob $job): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -217,6 +284,14 @@ class Manager
         return false;
     }
 
+    /**
+     * Marks a job as failed in the queue.
+     *
+     * @param IJob $job The job that failed.
+     * @param \Throwable $e The exception that caused the job to fail.
+     * @return bool True if the job is marked as failed successfully, false otherwise.
+     * @throws Exception If the job does not exist.
+     */
     public function FailJob(IJob $job, \Throwable $e): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -251,6 +326,14 @@ class Manager
 
     }
 
+    /**
+     * Marks a job as successfully completed in the queue.
+     *
+     * @param IJob $job The job that was successfully completed.
+     * @param array|object $result The result of the job execution.
+     * @return bool True if the job is marked as successfully completed, false otherwise.
+     * @throws Exception If the job does not exist.
+     */
     public function SuccessJob(IJob $job, array|object $result): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -279,6 +362,12 @@ class Manager
 
     }
 
+    /**
+     * Retrieves the next job from the specified queue.
+     *
+     * @param array $queue The queue from which to retrieve the next job.
+     * @return IJob|null The next job if available, or null if no jobs are available in the queue.
+     */
     public function GetNextJob(array $queue): ?IJob
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -316,6 +405,12 @@ class Manager
 
     }
 
+    /**
+     * Retrieves a job from the queue by its ID.
+     *
+     * @param int $id The ID of the job to retrieve.
+     * @return IJob|null The job if found, or null if no job with the specified ID exists.
+     */
     public function GetJobById(int $id): ?IJob
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -339,6 +434,10 @@ class Manager
     }
 
     /**
+     * Processes jobs from the specified queue indefinitely.
+     *
+     * @param string $queue The queue to process jobs from.
+     * @return never This method never returns.
      * @suppress PHP0420
      */
     public function ProcessJobs(string $queue): never
@@ -378,6 +477,11 @@ class Manager
         }
     }
 
+    /**
+     * Retrieves dashboard data including active, error, and success jobs.
+     *
+     * @return array An array containing dashboard data.
+     */
     public function Dashboard(): array
     {
 

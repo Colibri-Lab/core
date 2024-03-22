@@ -2,11 +2,10 @@
 
 /**
  * Threading
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2020 ColibriLab
+ * @copyright 2019 ColibriLab
  * @package Colibri\Threading
- * 
  */
 
 namespace Colibri\Threading;
@@ -14,20 +13,21 @@ namespace Colibri\Threading;
 use Colibri\App;
 
 /**
- * Singleton для обработки и создания процессов
- * @testFunction testManager
+ * Singleton for handling and creating processes.
+ *
  */
 class Manager
 {
 
     /**
-     * Синглтон
+     * Singleton instance.
+     *
      * @var Manager
      */
     public static $instance;
 
     /**
-     * Конструктор, запускает обработку воркера, если задан
+     * Constructor, initiates worker processing if specified.
      */
     public function __construct()
     {
@@ -35,10 +35,9 @@ class Manager
     }
 
     /**
-     * Статическая функция создания Singleton
+     * Static function to create Singleton.
      *
      * @return self
-     * @testFunction testManagerCreate
      */
     public static function Create(): self
     {
@@ -48,12 +47,10 @@ class Manager
         return self::$instance;
     }
 
-
     /**
-     * Запускает обработку воркера
+     * Initiates worker processing.
      *
      * @return void
-     * @testFunction testManager_processWorkers
      */
     private function _processWorkers(): void
     {
@@ -66,12 +63,11 @@ class Manager
     }
 
     /**
-     * Создает процесс для заданного воркера
+     * Creates a process for the specified worker.
      *
-     * @param Worker $worker воркер, который нужно запустить
-     * @param bool $debug отобразить команду запуска воркера
-     * @return Process созданный процесс
-     * @testFunction testManagerCreateProcess
+     * @param Worker $worker The worker to be executed.
+     * @param bool $debug Indicates whether to display the worker's execution command.
+     * @return Process The created process.
      */
     public function CreateProcess(Worker $worker, bool $debug = false): Process
     {

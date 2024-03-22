@@ -1,15 +1,28 @@
 <?php
 
+/**
+ * Queue
+ *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Queue
+ */
+
 namespace Colibri\Queue;
 use Colibri\App;
 use Colibri\Threading\Worker;
 use Colibri\Utils\Logs\FileLogger;
 use Colibri\Utils\Logs\Logger;
 
+/**
+ * Worker class for parallel job execution.
+ */
 class JobParallelWorker extends Worker
 {
     
     /**
+     * Runs the job routine.
+     *
      * @suppress PHP0420
      */
     public function Run(): void
