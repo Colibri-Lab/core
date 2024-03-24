@@ -30,19 +30,25 @@ class XmlHelper
      *
      * @return string The encoded string representation.
      */
-    public static function Encode(XmlSerialized|string|array $object, string $tag = 'object'): string
+    public static function Encode(string|array|object $object, string $tag = 'object'): string
     {
         if (is_string($object)) {
             return $object;
         }
 
         $ret = ['<' . $tag . '>'];
-        foreach ($object as $key => $value) {
-            $key = StringHelper::ToCamelCaseAttr($key);
-            if (is_object($value) || is_array($value)) {
-                $ret[] = XmlHelper::Encode($value, $key);
-            } else {
-                $ret[] = '<' . $key . '><![CDATA[' . $value . ']]></' . $key . '>';
+        if(!VariableHelper::IsAssociativeArray($object)) {
+            foreach($object as $value) {
+                $ret[] = XmlHelper::Encode($value, $tag . 'Item');
+            }
+        } else {
+            foreach ($object as $key => $value) {
+                $key = StringHelper::ToCamelCaseAttr($key);
+                if (is_object($value) || is_array($value)) {
+                    $ret[] = XmlHelper::Encode($value, $key);
+                } else {
+                    $ret[] = '<' . $key . '><![CDATA[' . $value . ']]></' . $key . '>';
+                }
             }
         }
         $ret[] = '</' . $tag . '>';

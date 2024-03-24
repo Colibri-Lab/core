@@ -270,8 +270,12 @@ class VariableHelper
      *
      * @return bool Returns true if the array is associative, false otherwise.
      */
-    public static function IsAssociativeArray(array $array): bool
+    public static function IsAssociativeArray(array|object $array): bool
     {
+        if (is_object($array)) {
+            return true;
+        }
+
         if (!is_array($array)) {
             return false;
         }
@@ -282,6 +286,7 @@ class VariableHelper
                 return true;
             }
         }
+        
         return false;
     }
 
