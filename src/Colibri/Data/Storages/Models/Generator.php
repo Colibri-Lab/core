@@ -31,6 +31,8 @@ class Generator
         'bigint' => 'int',
         'float' => 'float',
         'double' => 'float',
+        'date' => 'string',
+        'datetime' => 'string',
         'varchar' => 'string',
         'enum' => 'string|int|float',
         'json' => [
