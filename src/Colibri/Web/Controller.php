@@ -12,6 +12,7 @@ namespace Colibri\Web;
 
 use Colibri\Common\StringHelper;
 use Colibri\Utils\Cache\Mem;
+use Colibri\App;
 
 /**
  * Абстрактный класс для обработки Web запросов
