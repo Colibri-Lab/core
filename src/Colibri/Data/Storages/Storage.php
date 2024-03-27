@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\Storages
  */
+
 namespace Colibri\Data\Storages;
 
 use Colibri\Data\Storages\Models\DataTable;
@@ -30,6 +31,8 @@ use Colibri\Utils\Config\Config;
  * @property-read array $settings The settings array containing various configuration options.
  * @property-read object $fields The list of fields associated with the storage.
  * @property-read DataAccessPoint $accessPoint The DataAccessPoint object associated with the storage.
+ * @property-read bool $isSoftDelete Indicates whether the rows is not deleted but marked as deleted
+ * @property-read bool $isShowDeletedRows Indicates whether the deleted rows must be shown or not
  */
 class Storage
 {
@@ -91,16 +94,16 @@ class Storage
      *
      * This method is a factory method used to create a new Storage object.
      * It allows creating a Storage object with the provided module, name, and data.
-     * 
+     *
      * ```
      * For example
-     * 
+     *
      * $storage = Storage::Create(App::$moduleManager->{'lang'}, 'langs');
-     * 
+     *
      * its equivalent of
-     * 
+     *
      * $storage = Storages::Create()->Load('langs', 'lang');
-     * 
+     *
      * @example
      * ```
      *
@@ -130,6 +133,14 @@ class Storage
         switch ($prop) {
             default:
                 $return = isset($this->_xstorage[$prop]) ? $this->_xstorage[$prop] : null;
+                break;
+            case 'issoftdelete':
+                $return = !isset($this->_xstorage['params']['softdeletes']) ? false :
+                    (bool)$this->_xstorage['params']['softdeletes'];
+                break;
+            case 'isshowdeletedrows':
+                $return = !isset($this->_xstorage['params']['deletedautoshow']) ? false :
+                    (bool)$this->_xstorage['params']['deletedautoshow'];
                 break;
             case 'settings':
                 $return = $this->_xstorage;
@@ -187,7 +198,7 @@ class Storage
      * Updates a field in the storage configuration.
      *
      * This method updates the configuration of a specific field in the storage object.
-     * 
+     *
      * @param Field $field The field object to update.
      * @return void
      */
@@ -542,7 +553,7 @@ class Storage
 
     /**
      * Disables keys for the storage table.
-     * 
+     *
      * @deprecated
      * @return void
      */

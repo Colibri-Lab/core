@@ -207,6 +207,33 @@ class DataTable extends BaseDataTable
         return false;
     }
 
+    protected static function RestoreByFilter(
+        Storage|string $storage,
+        string $filter
+    ): bool {
+        if (is_string($storage)) {
+            $storage = Storages::Create()->Load($storage);
+        }
+
+        $filter = self::_replaceFields($filter, $storage);
+
+        $params = (object)$storage?->{'params'};
+        if($params?->{'softdeletes'} === true) {
+            $res = $storage->accessPoint->Update(
+                $storage->table,
+                [$storage->name . '_datedeleted' => null],
+                $filter
+            );
+            if (!$res->error) {
+                return true;
+            }
+        } 
+
+
+        App::$log->debug('Error: ' . $res->error . ', query: ' . $res->query);
+        return false;
+    }
+
     protected static function UpdateByFilter(
         Storage|string $storage,
         string $filter,
