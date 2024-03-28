@@ -10,6 +10,7 @@
 
 namespace Colibri\Queue;
 use Colibri\App;
+use Colibri\Common\RandomizationHelper;
 use Colibri\Threading\Worker;
 use Colibri\Utils\Logs\FileLogger;
 use Colibri\Utils\Logs\Logger;
@@ -30,6 +31,8 @@ class JobParallelWorker extends Worker
         
         $queue = $this->_params->queue;
         $id = $this->_params->id;
+
+        sleep(RandomizationHelper::Integer(1, 5));
 
         $cache = App::$config->Query('cache')->GetValue();
         $logger = new FileLogger(Logger::Debug, $cache . 'log/queue-' . $queue . '.log', true);
