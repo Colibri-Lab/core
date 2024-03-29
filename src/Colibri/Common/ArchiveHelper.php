@@ -9,6 +9,8 @@
  */
 namespace Colibri\Common;
 
+use Colibri\App;
+use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 use DateTime;
 use DateTimeZone;
@@ -22,12 +24,26 @@ class ArchiveHelper
 
     public static function Create(string $binary, string $file): string
     {
+        $runtime = App::$appRoot . App::$config->Query('runtime')->GetValue() . '/temp.zip';
         $zip = new \ZipArchive();
-        $zip->open('php://temp/maxmemory:' . strlen($binary), \ZipArchive::CREATE);
+        $zip->open($runtime, \ZipArchive::CREATE);
         $zip->addFromString($file, $binary);
         $zip->close();
-        $handle = fopen('php://temp/maxmemory:' . strlen($binary), 'r+');
-        return stream_get_contents($handle);
+        $return = file_get_contents($runtime);
+        File::Delete($runtime);
+        return $return;
+    }
+    
+    public static function Extract(string $binary): string
+    {
+        $runtime = App::$appRoot . App::$config->Query('runtime')->GetValue() . '/temp.zip';
+        File::Write('temp.zip', $binary);
+        $zip = new \ZipArchive();
+        $zip->open($runtime);
+        $return = $zip->getFromName(0);
+        $zip->close();
+        File::Delete($runtime);
+        return $return;
     }
 
 }
