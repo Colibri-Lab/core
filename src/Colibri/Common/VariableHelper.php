@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
+
 namespace Colibri\Common;
 
 use Colibri\App;
@@ -16,7 +17,6 @@ use Colibri\App;
  */
 class VariableHelper
 {
-
     /**
      * Checks if a variable is empty.
      *
@@ -286,7 +286,7 @@ class VariableHelper
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -511,11 +511,17 @@ class VariableHelper
      * @param mixed $o2 The second object or array containing additional properties.
      * @param bool $recursive Whether to merge recursively (default: false).
      * @param bool $emptyAsUnset Whether to treat empty values as unset (default: false).
+     * @param bool $removeEmptyValues Wheret to remove empty values from first array (default: false)
      *
      * @return mixed The extended or merged result.
      */
-    public static function Extend(mixed $o1, mixed $o2, bool $recursive = false, bool $emptyAsUnset = false): mixed
-    {
+    public static function Extend(
+        mixed $o1,
+        mixed $o2,
+        bool $recursive = false,
+        bool $emptyAsUnset = false,
+        bool $removeEmptyValues = false
+    ): mixed {
 
         if ($recursive && !is_array($o2) && !is_object($o2)) {
             return $o2;
@@ -535,6 +541,15 @@ class VariableHelper
                 $o1[$k] = $v;
             }
         }
+
+        if($removeEmptyValues) {
+            foreach ($o2 as $k => $v) {
+                if($o2[$k] === null) {
+                    unset($o1[$k]);
+                }
+            }
+        }
+
 
         return $o1;
     }
