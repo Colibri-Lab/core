@@ -37,10 +37,14 @@ class ArchiveHelper
     public static function Extract(string $binary): string
     {
         $runtime = App::$appRoot . App::$config->Query('runtime')->GetValue() . '/temp.zip';
-        File::Write('temp.zip', $binary);
+        if (File::Exists($runtime)) {
+            File::Delete($runtime);
+        }
+        File::Create($runtime);
+        File::Write($runtime, $binary);
         $zip = new \ZipArchive();
         $zip->open($runtime);
-        $return = $zip->getFromName(0);
+        $return = $zip->getFromIndex(0);
         $zip->close();
         File::Delete($runtime);
         return $return;
