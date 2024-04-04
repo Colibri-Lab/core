@@ -25,9 +25,12 @@ class ArchiveHelper
     public static function Create(string $binary, string $file): string
     {
         $runtime = App::$appRoot . App::$config->Query('runtime')->GetValue() . '/temp.zip';
+        if(File::Exists($runtime)) {
+            File::Delete($runtime);
+        }
         $zip = new \ZipArchive();
         $zip->open($runtime, \ZipArchive::CREATE);
-        $zip->addFromString($file, $binary);
+        $zip->addFromString($file, $binary, \ZipArchive::FL_OVERWRITE);
         $zip->close();
         $return = file_get_contents($runtime);
         File::Delete($runtime);
