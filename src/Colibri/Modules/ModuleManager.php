@@ -3,11 +3,10 @@
 /**
  * Modules
  *
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 ColibriLab
+ * Represents a manager for modules within the application.
+ *
  * @package Colibri\Modules
  */
-
 namespace Colibri\Modules;
 
 use Colibri\App;
@@ -20,17 +19,15 @@ use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
 use Colibri\Web\Templates\PhpTemplate;
 
+
 /**
- * Modules
+ * Module Manager
  *
  * Manages modules within the application.
  *
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 ColibriLab
- * @package Colibri\Modules
- *
  * @property-read Config $settings Configuration settings for the module manager.
  * @property-read Collection $list List of modules.
+ *
  */
 class ModuleManager
 {
@@ -72,7 +69,6 @@ class ModuleManager
      *
      * @return ModuleManager The created instance of ModuleManager.
      *
-     * @testFunction testModuleManagerCreate Test function for creating Module Manager instance.
      */
     public static function Create(): self
     {
@@ -87,7 +83,6 @@ class ModuleManager
      *
      * @return void
      *
-     * @testFunction testModuleManagerInitialize Test function for initializing Module Manager.
      */
     public function Initialize(): void
     {
@@ -133,7 +128,6 @@ class ModuleManager
      * @param Config $configNode Configuration node for the module.
      * @return Module|null The initialized module instance, or null if initialization fails.
      *
-     * @testFunction testModuleManagerInitModule Test function for initializing a module.
      */
     public function InitModule(Config $configNode): ? Module
     {
@@ -160,7 +154,6 @@ class ModuleManager
      * @return mixed The value of the property.
      *
      * @magic
-     * @testFunction testModuleManager__get Test function for handling property retrieval.
      */
     public function __get(string $property): mixed
     {
@@ -192,7 +185,6 @@ class ModuleManager
      * @param string $name The name of the module.
      * @return Config The configuration of the module.
      *
-     * @testFunction testModuleManagerConfig Test function for getting module configuration.
      */
     public function Config(string $name): Config
     {
