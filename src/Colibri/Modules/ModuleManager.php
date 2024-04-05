@@ -21,14 +21,16 @@ use Colibri\Utils\Config\ConfigException;
 use Colibri\Web\Templates\PhpTemplate;
 
 /**
- * Module Manager
+ * Modules
  *
  * Manages modules within the application.
  *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Modules
+ *
  * @property-read Config $settings Configuration settings for the module manager.
  * @property-read Collection $list List of modules.
- *
- * @testFunction testModuleManager Test function for Module Manager.
  */
 class ModuleManager
 {

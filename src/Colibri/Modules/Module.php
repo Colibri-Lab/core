@@ -3,9 +3,9 @@
 /**
  * Module
  *
- * Represents a base class for modules in the application.
+ * Base class representing a module.
  *
- * @package Your\Package\Namespace
+ * @package Colibri\Modules
  */
 
 namespace Colibri\Modules;
@@ -18,7 +18,8 @@ use Colibri\Utils\Config\ConfigItemsList;
 
 /**
  * Module
- * Base class representing a module.
+ *
+ * Represents a base class for modules in the application.
  *
  * @property-read string $modulePath The path of the module.
  * @property-read string $moduleNamespace The namespace of the module.
@@ -31,7 +32,7 @@ class Module
     // Include event dispatcher trait.
     use TEventDispatcher;
 
-    /**
+     /**
      * Config object.
      *
      * @var Config
@@ -69,7 +70,10 @@ class Module
     /**
      * Constructor.
      *
+     * Initializes a new instance of the Module class.
+     *
      * @param mixed $config The configuration for the module.
+     * @return void
      */
     protected function __construct(mixed $config)
     {
@@ -121,7 +125,7 @@ class Module
      * Static constructor to create an instance of the Module class.
      *
      * @param mixed $config The configuration for the module.
-     * @return mixed
+     * @return self
      */
     public static function Create(mixed $config): self
     {
@@ -146,8 +150,10 @@ class Module
     /**
      * Magic method to retrieve module properties.
      *
+     * Provides read-only access to module properties.
+     *
      * @param string $prop The property name.
-     * @return mixed
+     * @return mixed The value of the accessed property.
      */
     public function __get(string $prop): mixed
     {

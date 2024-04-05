@@ -293,7 +293,6 @@ class MimeType
     public static function GetTypeFromFileName(string $filename): ?string
     {
         $filename = explode('.', $filename);
-        $type = end($filename);
-        return $type;
+        return strtolower(end($filename));
     }
 }

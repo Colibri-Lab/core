@@ -79,7 +79,7 @@ class RequestedFile
         $this->name = $arrFILE["name"];
         $ret = preg_split("/\./i", $this->name);
         if (count($ret) > 1) {
-            $this->ext = $ret[count($ret) - 1];
+            $this->ext = strtolower($ret[count($ret) - 1]);
         }
         $this->mimetype = $arrFILE["type"];
         $this->temporary = $arrFILE["tmp_name"];

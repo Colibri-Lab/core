@@ -7,7 +7,6 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Modules
  */
-
 namespace Colibri\Modules;
 
 use Colibri\AppException;

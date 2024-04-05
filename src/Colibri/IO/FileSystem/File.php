@@ -101,7 +101,7 @@ class File extends Node implements JsonSerializable
                 }
             case 'extension': {
                     if (array_key_exists('extension', $this->info)) {
-                        $return = $this->info['extension'];
+                        $return = strtolower($this->info['extension']);
                     } else {
                         $return = '';
                     }
