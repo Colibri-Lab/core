@@ -1,7 +1,13 @@
 <?php
 
+
 /**
  * Queue
+ *
+ * Manages the job queue.
+ *
+ * This class provides functionality for managing jobs in the queue, including adding, updating, deleting,
+ * and processing jobs, as well as migrating the queue and retrieving dashboard data.
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
@@ -23,7 +29,6 @@ use Colibri\Utils\Logs\FileLogger;
 use Colibri\Utils\Logs\Logger;
 
 /**
- * Class Manager
  * Manages the job queue.
  */
 class Manager
@@ -51,12 +56,17 @@ class Manager
      */
     private array $_storages = [];
 
+    /**
+     * The instance of the Manager class.
+     *
+     * @var Manager|null
+     */
     public static ?self $instance = null;
 
     /**
      * Creates an instance of the Manager class.
      *
-     * @return self
+     * @return self The created instance of the Manager class.
      */
     public static function Create(): self
     {

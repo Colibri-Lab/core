@@ -5488,7 +5488,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Modules\\Module",
             "name": "Module",
-            "summary": "Module\nBase\u0020class\u0020representing\u0020a\u0020module.",
+            "summary": "Module",
             "url": "classes/Colibri-Modules-Module.html"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003A__construct\u0028\u0029",
@@ -5648,12 +5648,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Queue\\Exception",
             "name": "Exception",
-            "summary": "Exception\u0020class\u0020for\u0020queues",
+            "summary": "Queue\u0020Exception",
             "url": "classes/Colibri-Queue-Exception.html"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob",
             "name": "IJob",
-            "summary": "Interface\u0020for\u0020job\u0020objects.",
+            "summary": "Interface\u0020IJob",
             "url": "classes/Colibri-Queue-IJob.html"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003AHandle\u0028\u0029",
@@ -5713,7 +5713,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Queue\\Job",
             "name": "Job",
-            "summary": "Abstract\u0020class\u0020representing\u0020a\u0020job.",
+            "summary": "Abstract\u0020class\u0020Job",
             "url": "classes/Colibri-Queue-Job.html"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003ACreate\u0028\u0029",
@@ -5793,7 +5793,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager",
             "name": "Manager",
-            "summary": "Class\u0020Manager\nManages\u0020the\u0020job\u0020queue.",
+            "summary": "Manages\u0020the\u0020job\u0020queue.",
             "url": "classes/Colibri-Queue-Manager.html"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003ACreate\u0028\u0029",
@@ -5873,7 +5873,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003A\u0024instance",
             "name": "instance",
-            "summary": "",
+            "summary": "The\u0020instance\u0020of\u0020the\u0020Manager\u0020class.",
             "url": "classes/Colibri-Queue-Manager.html#property_instance"
         },                {
             "fqsen": "\\Colibri\\Rpc\\Controller",

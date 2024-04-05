@@ -3,6 +3,8 @@
 /**
  * Queue
  *
+ * Represents an abstract class for jobs in the queue system.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
  * @package Colibri\Queue
@@ -14,7 +16,7 @@ use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\Logger;
 
 /**
- * Abstract class representing a job.
+ * Abstract class Job
  *
  * Represents a job to be executed.
  *

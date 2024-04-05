@@ -3,6 +3,8 @@
 /**
  * Queue
  *
+ * Represents a worker class for parallel job execution.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
  * @package Colibri\Queue

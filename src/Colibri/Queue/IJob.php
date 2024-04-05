@@ -3,6 +3,8 @@
 /**
  * Queue
  *
+ * Represents an interface for job objects in the queue system.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
  * @package Colibri\Queue
@@ -15,7 +17,7 @@ use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\Logger;
 
 /**
- * Interface for job objects.
+ * Interface IJob
  *
  * Represents a job to be executed.
  *
@@ -24,7 +26,6 @@ use Colibri\Utils\Logs\Logger;
  * @property int $attempts The number of attempts made to execute the job.
  * @property string $class The class name of the job.
  * @property string $payload_class The class name of the payload associated with the job.
- * @property int $attempts
  * @property ExtendedObject $payload The payload object associated with the job.
  */
 interface IJob
