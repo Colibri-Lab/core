@@ -156,11 +156,31 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                <a href="packages/Colibri-Encryption.html" class="">Encryption</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Events.html" class="">Events</a>
                 
             </li>
                     <li>
                 <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Graphics.html" class="">Graphics</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-IO.html" class="">IO</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Modules.html" class="">Modules</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Queue.html" class="">Queue</a>
                 
             </li>
                     <li>
@@ -169,6 +189,10 @@
             </li>
                     <li>
                 <a href="packages/Colibri-Threading.html" class="">Threading</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
                 
             </li>
                     <li>
@@ -230,30 +254,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Rpc/Server.php"><a href="files/src-colibri-rpc-server.html"><abbr title="src/Colibri/Rpc/Server.php">Server.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс запросщик, вызывается в сервисе /.rpc/index.php</p>
+            <p class="phpdocumentor-summary">Веб сервер</p>
 
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Rpc-Server.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testServer</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
 
 
@@ -574,7 +582,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Rpc/Server.php"><a href="files/src-colibri-rpc-server.html"><abbr title="src/Colibri/Rpc/Server.php">Server.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">19</span>
 
     </aside>
 
@@ -916,7 +924,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Rpc/Server.php"><a href="files/src-colibri-rpc-server.html"><abbr title="src/Colibri/Rpc/Server.php">Server.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
@@ -928,7 +936,15 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Команда должна быть сформирована следующим образом
+папки, после \App\Controllers превращаются в namespace
+т.е. /buh/test-rpc/test-query.json
+будет превращено в \App\Controllers\Buh\TestRpcController
+а метод будет TestQuery</p>
+<p>т.е. нам нужно получить lowercase url в котором все большие
+буквы заменяются на - и маленькая буква, т.е. test-rpc = TestRpc</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -948,22 +964,6 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Rpc-Server.html#method_Run#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testServerRun</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>

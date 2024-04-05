@@ -156,11 +156,31 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                <a href="packages/Colibri-Encryption.html" class="">Encryption</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Events.html" class="">Events</a>
                 
             </li>
                     <li>
                 <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Graphics.html" class="">Graphics</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-IO.html" class="">IO</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Modules.html" class="">Modules</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Queue.html" class="">Queue</a>
                 
             </li>
                     <li>
@@ -169,6 +189,10 @@
             </li>
                     <li>
                 <a href="packages/Colibri-Threading.html" class="">Threading</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
                 
             </li>
                     <li>
@@ -230,15 +254,20 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Rpc/Controller.php"><a href="files/src-colibri-rpc-controller.html"><abbr title="src/Colibri/Rpc/Controller.php">Controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Абстрактный класс для обработки RPC запросов</p>
+            <p class="phpdocumentor-summary">Абстрактный класс для обработки Web запросов</p>
 
     <section class="phpdocumentor-description"><p>Наследуемся от него и создаем функцию, которую можно будет вызвать
 например:</p>
-<p>class Controller1 extends Rpc\Controller {</p>
+<p>запрос:
+/buh/web/page/method1.html
+/buh/web/page/method1.json
+/buh/web/page/method1.xml</p>
+<p>namespace App\Controllers\Buh\Web</p>
+<p>class PageController extends Colibri\Web\Controller {</p>
 <pre class="prettyprint"><code class="prettyprint"> public function Method1($get, $post, $payload) {
 
      тут пишем что нужно и финишируем функцией Finish
@@ -253,8 +282,26 @@
 
      $code = 200 | 400 и т.д.
      $message = какое либо сообщение
-     $result = peyload ответа
-     return $this-&gt;Finish(int $code, string $message, object $result);
+     $result = peyload ответа, может быть строкой в случае с html/xml
+
+     ! НИКАКОГО ECHO !!!! ЗАПРЕЩЕНО
+
+     пример результата:
+
+     div =&gt; [
+         span =&gt; тестт
+     ]
+
+     xml хелпер создаст:
+
+     &lt;div&gt;&lt;span&gt;тестт&lt;/span&gt;&lt;/div&gt;
+
+     html хелпер создаст:
+
+     &lt;div class=&quot;div&quot;&gt;&lt;div class=&quot;span&quot;&gt;тестт&lt;/div&gt;&lt;/div&gt;
+
+
+     return $this-&gt;Finish(int $code, string $message, mixed $result);
 
  }
 </code></pre>
@@ -262,22 +309,6 @@
 </section>
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Rpc-Controller.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testController</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
 
 
@@ -390,7 +421,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Controller.php"><a href="files/src-colibri-web-controller.html"><abbr title="src/Colibri/Web/Controller.php">Controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">76</span>
 
     </aside>
 
@@ -423,7 +454,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Controller.php"><a href="files/src-colibri-web-controller.html"><abbr title="src/Colibri/Web/Controller.php">Controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">76</span>
+    <span class="phpdocumentor-element-found-in__line">77</span>
 
     </aside>
 
@@ -456,7 +487,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Controller.php"><a href="files/src-colibri-web-controller.html"><abbr title="src/Colibri/Web/Controller.php">Controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">73</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 
     </aside>
 
@@ -494,7 +525,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Controller.php"><a href="files/src-colibri-web-controller.html"><abbr title="src/Colibri/Web/Controller.php">Controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">79</span>
 
     </aside>
 
@@ -535,7 +566,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Controller.php"><a href="files/src-colibri-web-controller.html"><abbr title="src/Colibri/Web/Controller.php">Controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">154</span>
+    <span class="phpdocumentor-element-found-in__line">155</span>
 
     </aside>
 
@@ -576,7 +607,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Controller.php"><a href="files/src-colibri-web-controller.html"><abbr title="src/Colibri/Web/Controller.php">Controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">94</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 
@@ -694,7 +725,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Controller.php"><a href="files/src-colibri-web-controller.html"><abbr title="src/Colibri/Web/Controller.php">Controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
+    <span class="phpdocumentor-element-found-in__line">124</span>
 
     </aside>
 
@@ -776,7 +807,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Controller.php"><a href="files/src-colibri-web-controller.html"><abbr title="src/Colibri/Web/Controller.php">Controller.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">162</span>
+    <span class="phpdocumentor-element-found-in__line">163</span>
 
     </aside>
 

@@ -69,7 +69,7 @@ abstract class Stream
      * @param int $offset The position to move to.
      * @return void
      */
-    abstract public function seek(int $offset = 0): void;
+    abstract public function Seek(int $offset = 0): void;
 
     /**
      * Read from the stream.

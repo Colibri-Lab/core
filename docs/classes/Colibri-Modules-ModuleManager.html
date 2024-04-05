@@ -156,11 +156,31 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                <a href="packages/Colibri-Encryption.html" class="">Encryption</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Events.html" class="">Events</a>
                 
             </li>
                     <li>
                 <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Graphics.html" class="">Graphics</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-IO.html" class="">IO</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Modules.html" class="">Modules</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Queue.html" class="">Queue</a>
                 
             </li>
                     <li>
@@ -169,6 +189,10 @@
             </li>
                     <li>
                 <a href="packages/Colibri-Threading.html" class="">Threading</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
                 
             </li>
                     <li>
@@ -211,7 +235,8 @@
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Modules.html">Modules</a></li>
                             </ul>
         </div>
     
@@ -229,12 +254,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Менеджер модулей</p>
+            <p class="phpdocumentor-summary">Module Manager</p>
 
+    <section class="phpdocumentor-description"><p>Manages modules within the application.</p>
+</section>
 
 
     <h5 class="phpdocumentor-tag-list__heading" id="tags">
@@ -248,7 +275,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>testModuleManager</p>
+                                                 <section class="phpdocumentor-description"><p>testModuleManager Test function for Module Manager.</p>
 </section>
 
                                     </dd>
@@ -281,7 +308,7 @@
     <span>
                         &nbsp;: <a href="classes/Colibri-Modules-ModuleManager.html"><abbr title="\Colibri\Modules\ModuleManager">ModuleManager</abbr></a>            </span>
 </dt>
-<dd>Синглтон</dd>
+<dd>Singleton instance.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Modules-ModuleManager.html#property_list">$list</a>
@@ -300,14 +327,14 @@
     <span>
                         &nbsp;: <a href="classes/Colibri-Collections-Collection.html"><abbr title="\Colibri\Collections\Collection">Collection</abbr></a>            </span>
 </dt>
-<dd>Список модулей</dd>
+<dd>List of modules.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Modules-ModuleManager.html#property__settings">$_settings</a>
     <span>
                         &nbsp;: object            </span>
 </dt>
-<dd>Настройки</dd>
+<dd>Settings object.</dd>
 
     </dl>
 
@@ -322,26 +349,28 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
+<dd>Constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Modules-ModuleManager.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
+<dd>Magic method to handle property retrieval.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Modules-ModuleManager.html#method_Config">Config()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Utils-Config-Config.html"><abbr title="\Colibri\Utils\Config\Config">Config</abbr></a>    </span>
 </dt>
-<dd>Получает конфигурацию модуля</dd>
+<dd>Gets the configuration of a module.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Modules-ModuleManager.html#method_Create">Create()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Modules-ModuleManager.html"><abbr title="\Colibri\Modules\ModuleManager">ModuleManager</abbr></a>    </span>
 </dt>
-<dd>Статический конструктор</dd>
+<dd>Static constructor for creating a singleton instance.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_DispatchEvent">DispatchEvent()</a>
@@ -355,33 +384,35 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
+<dd>Retrieves a module by name.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Modules-ModuleManager.html#method_GetPaths">GetPaths()</a>
     <span>
                                 &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
-<dd>Возвращает список реальных путей к модулям дополняя их нужной строкой</dd>
+<dd>Retrieves paths of modules.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Modules-ModuleManager.html#method_GetPathsFromModuleConfig">GetPathsFromModuleConfig()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
+<dd>Retrieves paths of modules from module configurations.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Modules-ModuleManager.html#method_GetPermissions">GetPermissions()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Список прав модуля, стандартный набор</dd>
+<dd>Retrieves the permissions of all modules.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Modules-ModuleManager.html#method_GetTemplates">GetTemplates()</a>
     <span>
                                 &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
-<dd>Возвращает список шаблонов, которые нужно запустить</dd>
+<dd>Retrieves templates of modules.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_HandleEvent">HandleEvent()</a>
@@ -395,14 +426,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Инициализация менеджера</dd>
+<dd>Initializes the module manager.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Modules-ModuleManager.html#method_InitModule">InitModule()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Modules-Module.html"><abbr title="\Colibri\Modules\Module">Module</abbr></a>|null    </span>
 </dt>
-<dd>Инициализирит модуль</dd>
+<dd>Initializes a module.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_RemoveHandler">RemoveHandler()</a>
@@ -442,11 +473,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Синглтон</p>
+        <p class="phpdocumentor-summary">Singleton instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -487,7 +518,9 @@
     <span class="phpdocumentor-signature__name">$list</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>List of modules.</p>
+</section>
+
     
     
 
@@ -520,7 +553,9 @@
     <span class="phpdocumentor-signature__name">$settings</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Configuration settings for the module manager.</p>
+</section>
+
     
     
 
@@ -542,11 +577,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Список модулей</p>
+        <p class="phpdocumentor-summary">List of modules.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -576,11 +611,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Настройки</p>
+        <p class="phpdocumentor-summary">Settings object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -615,11 +650,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Constructor.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
@@ -646,11 +682,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">142</span>
+    <span class="phpdocumentor-element-found-in__line">163</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Magic method to handle property retrieval.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
@@ -665,7 +702,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the property to retrieve.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -688,13 +727,21 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>testModuleManager__get</p>
+                                                 <section class="phpdocumentor-description"><p>testModuleManager__get Test function for handling property retrieval.</p>
 </section>
 
                                     </dd>
                                             </dl>
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value of the property.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -710,11 +757,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">195</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Получает конфигурацию модуля</p>
+        <p class="phpdocumentor-summary">Gets the configuration of a module.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -730,7 +777,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the module.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -746,7 +795,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>testModuleManagerConfig</p>
+                                                 <section class="phpdocumentor-description"><p>testModuleManagerConfig Test function for getting module configuration.</p>
 </section>
 
                                     </dd>
@@ -755,6 +804,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Utils-Config-Config.html"><abbr title="\Colibri\Utils\Config\Config">Config</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The configuration of the module.</p>
+</section>
+
             </section>
 
 </article>
@@ -772,11 +825,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Статический конструктор</p>
+        <p class="phpdocumentor-summary">Static constructor for creating a singleton instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -798,7 +851,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>testModuleManagerCreate</p>
+                                                 <section class="phpdocumentor-description"><p>testModuleManagerCreate Test function for creating Module Manager instance.</p>
 </section>
 
                                     </dd>
@@ -807,6 +860,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Modules-ModuleManager.html"><abbr title="\Colibri\Modules\ModuleManager">ModuleManager</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The created instance of ModuleManager.</p>
+</section>
+
             </section>
 
 </article>
@@ -894,11 +951,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">182</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Retrieves a module by name.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$moduleName</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
@@ -913,13 +971,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the module.</p>
+</section>
+
             </dd>
             </dl>
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The module corresponding to the provided name.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -935,11 +1003,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">194</span>
+    <span class="phpdocumentor-element-found-in__line">223</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает список реальных путей к модулям дополняя их нужной строкой</p>
+        <p class="phpdocumentor-summary">Retrieves paths of modules.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -955,7 +1023,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;/&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>строка, которую нужно дополнить в конце, например .Bundle/</p>
+                    <section class="phpdocumentor-description"><p>String to append to each path.</p>
 </section>
 
             </dd>
@@ -964,7 +1032,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>дополнить массив нужными элементами</p>
+                    <section class="phpdocumentor-description"><p>Additional elements to append to each path.</p>
 </section>
 
             </dd>
@@ -975,6 +1043,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Paths of modules.</p>
+</section>
+
             </section>
 
 </article>
@@ -992,14 +1064,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">207</span>
+    <span class="phpdocumentor-element-found-in__line">242</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Retrieves paths of modules from module configurations.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">GetPathsFromModuleConfig</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$extendArray</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">GetPathsFromModuleConfig</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$extendArray</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1011,7 +1084,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Additional elements to append to each path.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1019,7 +1094,11 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Paths of modules.</p>
+</section>
+
             </section>
 
 </article>
@@ -1037,11 +1116,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">177</span>
+    <span class="phpdocumentor-element-found-in__line">205</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Список прав модуля, стандартный набор</p>
+        <p class="phpdocumentor-summary">Retrieves the permissions of all modules.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1056,6 +1135,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The permissions of all modules.</p>
+</section>
+
             </section>
 
 </article>
@@ -1073,11 +1156,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">222</span>
+    <span class="phpdocumentor-element-found-in__line">257</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает список шаблонов, которые нужно запустить</p>
+        <p class="phpdocumentor-summary">Retrieves templates of modules.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1093,7 +1176,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;index&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the template.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1102,6 +1187,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Templates of modules.</p>
+</section>
+
             </section>
 
 </article>
@@ -1176,11 +1265,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">75</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Инициализация менеджера</p>
+        <p class="phpdocumentor-summary">Initializes the module manager.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1202,7 +1291,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>testModuleManagerInitialize</p>
+                                                 <section class="phpdocumentor-description"><p>testModuleManagerInitialize Test function for initializing Module Manager.</p>
 </section>
 
                                     </dd>
@@ -1224,11 +1313,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Modules/ModuleManager.php"><a href="files/src-colibri-modules-modulemanager.html"><abbr title="src/Colibri/Modules/ModuleManager.php">ModuleManager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">120</span>
+    <span class="phpdocumentor-element-found-in__line">136</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Инициализирит модуль</p>
+        <p class="phpdocumentor-summary">Initializes a module.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1244,7 +1333,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-Config-Config.html"><abbr title="\Colibri\Utils\Config\Config">Config</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Configuration node for the module.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1260,7 +1351,7 @@
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
                                                                                 
-                                                 <section class="phpdocumentor-description"><p>testModuleManagerInitModule</p>
+                                                 <section class="phpdocumentor-description"><p>testModuleManagerInitModule Test function for initializing a module.</p>
 </section>
 
                                     </dd>
@@ -1269,6 +1360,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Modules-Module.html"><abbr title="\Colibri\Modules\Module">Module</abbr></a>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The initialized module instance, or null if initialization fails.</p>
+</section>
+
             </section>
 
 </article>

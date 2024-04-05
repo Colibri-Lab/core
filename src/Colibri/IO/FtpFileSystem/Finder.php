@@ -3,11 +3,12 @@
 /**
  * FtpFileSystem
  *
+ * Represents a class for finding files and directories via FTP.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
  * @package Colibri\IO\FtpFileSystem
  */
-
 namespace Colibri\IO\FtpFileSystem;
 
 use Colibri\Collections\ArrayList;
@@ -16,7 +17,6 @@ use Throwable;
 
 /**
  * Class for finding files and directories.
- *
  */
 class Finder
 {
@@ -37,6 +37,8 @@ class Finder
     /**
      * Constructor.
      *
+     * Initializes a new instance of the Finder class.
+     *
      * @param object $connectionInfo The FTP connection information.
      */
     public function __construct(object $connectionInfo)
@@ -47,6 +49,8 @@ class Finder
 
     /**
      * Destructor.
+     *
+     * Closes the FTP connection when the object is destroyed.
      */
     public function __destruct()
     {
@@ -83,7 +87,7 @@ class Finder
     }
 
     /**
-     * Reconnects to FTP server.
+     * Reconnects to the FTP server.
      *
      * @return mixed The FTP connection.
      */
@@ -135,7 +139,7 @@ class Finder
     }
 
     /**
-     * Lists files and directories in the specified path.
+     * Lists files in the specified path.
      *
      * @param string $path The path to search.
      * @param string $match Regular expression to match file names.

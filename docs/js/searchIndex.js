@@ -701,6 +701,21 @@ Search.appendIndex(
             "summary": "Prevents\u0020unsetting\u0020item\u0020in\u0020collection",
             "url": "classes/Colibri-Collections-ReadonlyCollection.html#method_offsetUnset"
         },                {
+            "fqsen": "\\Colibri\\Common\\ArchiveHelper",
+            "name": "ArchiveHelper",
+            "summary": "Helper\u0020class\u0020for\u0020working\u0020with\u0020dates.",
+            "url": "classes/Colibri-Common-ArchiveHelper.html"
+        },                {
+            "fqsen": "\\Colibri\\Common\\ArchiveHelper\u003A\u003ACreate\u0028\u0029",
+            "name": "Create",
+            "summary": "",
+            "url": "classes/Colibri-Common-ArchiveHelper.html#method_Create"
+        },                {
+            "fqsen": "\\Colibri\\Common\\ArchiveHelper\u003A\u003AExtract\u0028\u0029",
+            "name": "Extract",
+            "summary": "",
+            "url": "classes/Colibri-Common-ArchiveHelper.html#method_Extract"
+        },                {
             "fqsen": "\\Colibri\\Common\\DateHelper",
             "name": "DateHelper",
             "summary": "Helper\u0020class\u0020for\u0020working\u0020with\u0020dates.",
@@ -3391,6 +3406,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Colibri-Data-Storages-Models-DataTable.html#method_DeleteByFilter"
         },                {
+            "fqsen": "\\Colibri\\Data\\Storages\\Models\\DataTable\u003A\u003ARestoreByFilter\u0028\u0029",
+            "name": "RestoreByFilter",
+            "summary": "",
+            "url": "classes/Colibri-Data-Storages-Models-DataTable.html#method_RestoreByFilter"
+        },                {
             "fqsen": "\\Colibri\\Data\\Storages\\Models\\DataTable\u003A\u003AUpdateByFilter\u0028\u0029",
             "name": "UpdateByFilter",
             "summary": "",
@@ -4511,30 +4531,30 @@ Search.appendIndex(
             "summary": "The\u0020Y\u0020coordinate\u0020position.",
             "url": "classes/Colibri-Graphics-Point.html#property_y"
         },                {
-            "fqsen": "\\Colibri\\Graphics\\Quadro",
-            "name": "Quadro",
+            "fqsen": "\\Colibri\\Graphics\\Rect",
+            "name": "Rect",
             "summary": "Represents\u0020rectangular\u0020areas\u0020on\u0020the\u0020screen.",
-            "url": "classes/Colibri-Graphics-Quadro.html"
+            "url": "classes/Colibri-Graphics-Rect.html"
         },                {
-            "fqsen": "\\Colibri\\Graphics\\Quadro\u003A\u003A\u0024lowerleft",
+            "fqsen": "\\Colibri\\Graphics\\Rect\u003A\u003A\u0024lowerleft",
             "name": "lowerleft",
             "summary": "The\u0020bottom\u002Dleft\u0020corner.",
-            "url": "classes/Colibri-Graphics-Quadro.html#property_lowerleft"
+            "url": "classes/Colibri-Graphics-Rect.html#property_lowerleft"
         },                {
-            "fqsen": "\\Colibri\\Graphics\\Quadro\u003A\u003A\u0024lowerright",
+            "fqsen": "\\Colibri\\Graphics\\Rect\u003A\u003A\u0024lowerright",
             "name": "lowerright",
             "summary": "The\u0020bottom\u002Dright\u0020corner.",
-            "url": "classes/Colibri-Graphics-Quadro.html#property_lowerright"
+            "url": "classes/Colibri-Graphics-Rect.html#property_lowerright"
         },                {
-            "fqsen": "\\Colibri\\Graphics\\Quadro\u003A\u003A\u0024upperleft",
+            "fqsen": "\\Colibri\\Graphics\\Rect\u003A\u003A\u0024upperleft",
             "name": "upperleft",
             "summary": "The\u0020top\u002Dleft\u0020corner.",
-            "url": "classes/Colibri-Graphics-Quadro.html#property_upperleft"
+            "url": "classes/Colibri-Graphics-Rect.html#property_upperleft"
         },                {
-            "fqsen": "\\Colibri\\Graphics\\Quadro\u003A\u003A\u0024upperright",
+            "fqsen": "\\Colibri\\Graphics\\Rect\u003A\u003A\u0024upperright",
             "name": "upperright",
             "summary": "The\u0020top\u002Dright\u0020corner.",
-            "url": "classes/Colibri-Graphics-Quadro.html#property_upperright"
+            "url": "classes/Colibri-Graphics-Rect.html#property_upperright"
         },                {
             "fqsen": "\\Colibri\\Graphics\\Size",
             "name": "Size",
@@ -4968,12 +4988,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Security\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "Getter.",
+            "summary": "Get\u0020flags\u0020by\u0020magic\u0020method",
             "url": "classes/Colibri-IO-FileSystem-Security.html#method___get"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Security\u003A\u003A__set\u0028\u0029",
             "name": "__set",
-            "summary": "Setter.",
+            "summary": "Set\u0020flags\u0020by\u0020magic\u0020method",
             "url": "classes/Colibri-IO-FileSystem-Security.html#method___set"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Security\u003A\u003A\u0024source",
@@ -5006,10 +5026,10 @@ Search.appendIndex(
             "summary": "Getter.",
             "url": "classes/Colibri-IO-FileSystem-Stream.html#method___get"
         },                {
-            "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003Aseek\u0028\u0029",
-            "name": "seek",
+            "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003ASeek\u0028\u0029",
+            "name": "Seek",
             "summary": "Move\u0020the\u0020position.",
-            "url": "classes/Colibri-IO-FileSystem-Stream.html#method_seek"
+            "url": "classes/Colibri-IO-FileSystem-Stream.html#method_Seek"
         },                {
             "fqsen": "\\Colibri\\IO\\FileSystem\\Stream\u003A\u003ARead\u0028\u0029",
             "name": "Read",
@@ -5058,7 +5078,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File",
             "name": "File",
-            "summary": "Class\u0020for\u0020file\u0020operations.",
+            "summary": "Class\u0020for\u0020remote\u0020file\u0020operations.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003A__construct\u0028\u0029",
@@ -5068,7 +5088,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "Getter.",
+            "summary": "Magic\u0020method\u0020for\u0020property\u0020access.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#method___get"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003ADownload\u0028\u0029",
@@ -5078,7 +5098,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003AToArray\u0028\u0029",
             "name": "ToArray",
-            "summary": "Returns\u0020data\u0020as\u0020an\u0020array.",
+            "summary": "Converts\u0020file\u0020data\u0020to\u0020an\u0020array.",
             "url": "classes/Colibri-IO-FtpFileSystem-File.html#method_ToArray"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\File\u003A\u003AjsonSerialize\u0028\u0029",
@@ -5158,7 +5178,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003AReconnect\u0028\u0029",
             "name": "Reconnect",
-            "summary": "Reconnects\u0020to\u0020FTP\u0020server.",
+            "summary": "Reconnects\u0020to\u0020the\u0020FTP\u0020server.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html#method_Reconnect"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003A_ftpList\u0028\u0029",
@@ -5168,7 +5188,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003AFiles\u0028\u0029",
             "name": "Files",
-            "summary": "Lists\u0020files\u0020and\u0020directories\u0020in\u0020the\u0020specified\u0020path.",
+            "summary": "Lists\u0020files\u0020in\u0020the\u0020specified\u0020path.",
             "url": "classes/Colibri-IO-FtpFileSystem-Finder.html#method_Files"
         },                {
             "fqsen": "\\Colibri\\IO\\FtpFileSystem\\Finder\u003A\u003A\u0024_connectionInfo",
@@ -5468,387 +5488,387 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Modules\\Module",
             "name": "Module",
-            "summary": "\u041C\u043E\u0434\u0443\u043B\u044C\n\u0431\u0430\u0437\u043E\u0432\u044B\u0439\u0020\u043A\u043B\u0430\u0441\u0441",
+            "summary": "Module\nBase\u0020class\u0020representing\u0020a\u0020module.",
             "url": "classes/Colibri-Modules-Module.html"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Modules-Module.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "\u0421\u0442\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\u0020\u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Static\u0020constructor\u0020to\u0020create\u0020an\u0020instance\u0020of\u0020the\u0020Module\u0020class.",
             "url": "classes/Colibri-Modules-Module.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003AConfig\u0028\u0029",
             "name": "Config",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u043A\u043E\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u0438",
+            "summary": "Returns\u0020the\u0020configuration\u0020object.",
             "url": "classes/Colibri-Modules-Module.html#method_Config"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "",
+            "summary": "Magic\u0020method\u0020to\u0020retrieve\u0020module\u0020properties.",
             "url": "classes/Colibri-Modules-Module.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003AInitializeModule\u0028\u0029",
             "name": "InitializeModule",
-            "summary": "\u0418\u043D\u0438\u0446\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F,\u0020\u0432\u044B\u0437\u044B\u0432\u0430\u0435\u0442\u0441\u044F\u0020\u043F\u043E\u0441\u043B\u0435\u0020\u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430\u0020\u043C\u043E\u0434\u0443\u043B\u044F",
+            "summary": "Initializes\u0020the\u0020module\u0020after\u0020object\u0020creation.",
             "url": "classes/Colibri-Modules-Module.html#method_InitializeModule"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003AInstall\u0028\u0029",
             "name": "Install",
-            "summary": "\u0423\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0430,\u0020\u0432\u044B\u0437\u044B\u0432\u0430\u0435\u0442\u0441\u044F\u0020\u043C\u0435\u043D\u0435\u0434\u0436\u0435\u0440\u043E\u043C\u0020\u043F\u0440\u0438\u0020\u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0435",
+            "summary": "Installs\u0020the\u0020module.",
             "url": "classes/Colibri-Modules-Module.html#method_Install"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003AUninstall\u0028\u0029",
             "name": "Uninstall",
-            "summary": "\u0423\u0434\u0430\u043B\u0435\u043D\u0438\u0435,\u0020\u0432\u044B\u0437\u044B\u0432\u0430\u0435\u0442\u0441\u044F\u0020\u043C\u0435\u043D\u0435\u0434\u0436\u0435\u0440\u043E\u043C\u0020\u043F\u0440\u0438\u0020\u0443\u0434\u0430\u043B\u0435\u043D\u0438\u0438\u0020\u043C\u043E\u0434\u0443\u043B\u044F",
+            "summary": "Uninstalls\u0020the\u0020module.",
             "url": "classes/Colibri-Modules-Module.html#method_Uninstall"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003ADispose\u0028\u0029",
             "name": "Dispose",
-            "summary": "\u0423\u0434\u0430\u043B\u0435\u043D\u0438\u0435\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430\u0020\u043C\u043E\u0434\u0443\u043B\u044F",
+            "summary": "Disposes\u0020of\u0020the\u0020module\u0020object.",
             "url": "classes/Colibri-Modules-Module.html#method_Dispose"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003AGetPermissions\u0028\u0029",
             "name": "GetPermissions",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u043F\u0440\u0430\u0432\u0020\u043C\u043E\u0434\u0443\u043B\u044F,\u0020\u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043D\u044B\u0439\u0020\u043D\u0430\u0431\u043E\u0440",
+            "summary": "Retrieves\u0020the\u0020list\u0020of\u0020permissions\u0020for\u0020the\u0020module.",
             "url": "classes/Colibri-Modules-Module.html#method_GetPermissions"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003AGetPathsFromModuleConfig\u0028\u0029",
             "name": "GetPathsFromModuleConfig",
-            "summary": "",
+            "summary": "Retrieves\u0020paths\u0020from\u0020the\u0020module\u0020configuration.",
             "url": "classes/Colibri-Modules-Module.html#method_GetPathsFromModuleConfig"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003A\u0024_config",
             "name": "_config",
-            "summary": "\u041E\u0431\u044C\u0435\u043A\u0442\u0020\u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043A",
+            "summary": "Config\u0020object.",
             "url": "classes/Colibri-Modules-Module.html#property__config"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003A\u0024_modulePath",
             "name": "_modulePath",
-            "summary": "\u041C\u0435\u0441\u0442\u043E\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u0438\u0435\u0020\u043C\u043E\u0434\u0443\u043B\u044F",
+            "summary": "Location\u0020of\u0020the\u0020module.",
             "url": "classes/Colibri-Modules-Module.html#property__modulePath"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003A\u0024_moduleNamespace",
             "name": "_moduleNamespace",
-            "summary": "Namespace\u0020\u043C\u043E\u0434\u0443\u043B\u044F",
+            "summary": "Namespace\u0020of\u0020the\u0020module.",
             "url": "classes/Colibri-Modules-Module.html#property__moduleNamespace"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003A\u0024_moduleConfigFile",
             "name": "_moduleConfigFile",
-            "summary": "\u0424\u0430\u0439\u043B\u0020\u043A\u043E\u043D\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u0438\u0020\u043C\u043E\u0434\u0443\u043B\u044F",
+            "summary": "File\u0020path\u0020of\u0020the\u0020module\u0020configuration.",
             "url": "classes/Colibri-Modules-Module.html#property__moduleConfigFile"
         },                {
             "fqsen": "\\Colibri\\Modules\\Module\u003A\u003A\u0024_moduleStoragesConfigPath",
             "name": "_moduleStoragesConfigPath",
-            "summary": "\u0424\u0430\u0439\u043B\u0020\u043A\u043E\u043D\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u0438\u0020\u0445\u0440\u0430\u043D\u0438\u043B\u0438\u0449\u044C\u0020\u0432\u0020\u043C\u043E\u0434\u0443\u043B\u0435",
+            "summary": "File\u0020path\u0020of\u0020the\u0020module\u0027s\u0020storage\u0020configurations.",
             "url": "classes/Colibri-Modules-Module.html#property__moduleStoragesConfigPath"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleException",
             "name": "ModuleException",
-            "summary": "",
+            "summary": "Exception\u0020class\u0020for\u0020module\u002Drelated\u0020errors.",
             "url": "classes/Colibri-Modules-ModuleException.html"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager",
             "name": "ModuleManager",
-            "summary": "\u041C\u0435\u043D\u0435\u0434\u0436\u0435\u0440\u0020\u043C\u043E\u0434\u0443\u043B\u0435\u0439",
+            "summary": "Module\u0020Manager",
             "url": "classes/Colibri-Modules-ModuleManager.html"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "\u0421\u0442\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0439\u0020\u043A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Static\u0020constructor\u0020for\u0020creating\u0020a\u0020singleton\u0020instance.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003AInitialize\u0028\u0029",
             "name": "Initialize",
-            "summary": "\u0418\u043D\u0438\u0446\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u044F\u0020\u043C\u0435\u043D\u0435\u0434\u0436\u0435\u0440\u0430",
+            "summary": "Initializes\u0020the\u0020module\u0020manager.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method_Initialize"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003AInitModule\u0028\u0029",
             "name": "InitModule",
-            "summary": "\u0418\u043D\u0438\u0446\u0438\u0430\u043B\u0438\u0437\u0438\u0440\u0438\u0442\u0020\u043C\u043E\u0434\u0443\u043B\u044C",
+            "summary": "Initializes\u0020a\u0020module.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method_InitModule"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "",
+            "summary": "Magic\u0020method\u0020to\u0020handle\u0020property\u0020retrieval.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003AGet\u0028\u0029",
             "name": "Get",
-            "summary": "",
+            "summary": "Retrieves\u0020a\u0020module\u0020by\u0020name.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method_Get"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003AConfig\u0028\u0029",
             "name": "Config",
-            "summary": "\u041F\u043E\u043B\u0443\u0447\u0430\u0435\u0442\u0020\u043A\u043E\u043D\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u044E\u0020\u043C\u043E\u0434\u0443\u043B\u044F",
+            "summary": "Gets\u0020the\u0020configuration\u0020of\u0020a\u0020module.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method_Config"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003AGetPermissions\u0028\u0029",
             "name": "GetPermissions",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u043F\u0440\u0430\u0432\u0020\u043C\u043E\u0434\u0443\u043B\u044F,\u0020\u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043D\u044B\u0439\u0020\u043D\u0430\u0431\u043E\u0440",
+            "summary": "Retrieves\u0020the\u0020permissions\u0020of\u0020all\u0020modules.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method_GetPermissions"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003AGetPaths\u0028\u0029",
             "name": "GetPaths",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0441\u043F\u0438\u0441\u043E\u043A\u0020\u0440\u0435\u0430\u043B\u044C\u043D\u044B\u0445\u0020\u043F\u0443\u0442\u0435\u0439\u0020\u043A\u0020\u043C\u043E\u0434\u0443\u043B\u044F\u043C\u0020\u0434\u043E\u043F\u043E\u043B\u043D\u044F\u044F\u0020\u0438\u0445\u0020\u043D\u0443\u0436\u043D\u043E\u0439\u0020\u0441\u0442\u0440\u043E\u043A\u043E\u0439",
+            "summary": "Retrieves\u0020paths\u0020of\u0020modules.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method_GetPaths"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003AGetPathsFromModuleConfig\u0028\u0029",
             "name": "GetPathsFromModuleConfig",
-            "summary": "",
+            "summary": "Retrieves\u0020paths\u0020of\u0020modules\u0020from\u0020module\u0020configurations.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method_GetPathsFromModuleConfig"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003AGetTemplates\u0028\u0029",
             "name": "GetTemplates",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0441\u043F\u0438\u0441\u043E\u043A\u0020\u0448\u0430\u0431\u043B\u043E\u043D\u043E\u0432,\u0020\u043A\u043E\u0442\u043E\u0440\u044B\u0435\u0020\u043D\u0443\u0436\u043D\u043E\u0020\u0437\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u044C",
+            "summary": "Retrieves\u0020templates\u0020of\u0020modules.",
             "url": "classes/Colibri-Modules-ModuleManager.html#method_GetTemplates"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003A\u0024instance",
             "name": "instance",
-            "summary": "\u0421\u0438\u043D\u0433\u043B\u0442\u043E\u043D",
+            "summary": "Singleton\u0020instance.",
             "url": "classes/Colibri-Modules-ModuleManager.html#property_instance"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003A\u0024_settings",
             "name": "_settings",
-            "summary": "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438",
+            "summary": "Settings\u0020object.",
             "url": "classes/Colibri-Modules-ModuleManager.html#property__settings"
         },                {
             "fqsen": "\\Colibri\\Modules\\ModuleManager\u003A\u003A\u0024_list",
             "name": "_list",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u043C\u043E\u0434\u0443\u043B\u0435\u0439",
+            "summary": "List\u0020of\u0020modules.",
             "url": "classes/Colibri-Modules-ModuleManager.html#property__list"
         },                {
             "fqsen": "\\Colibri\\Queue\\Exception",
             "name": "Exception",
-            "summary": "",
+            "summary": "Exception\u0020class\u0020for\u0020queues",
             "url": "classes/Colibri-Queue-Exception.html"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob",
             "name": "IJob",
-            "summary": "",
+            "summary": "Interface\u0020for\u0020job\u0020objects.",
             "url": "classes/Colibri-Queue-IJob.html"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003AHandle\u0028\u0029",
             "name": "Handle",
-            "summary": "",
+            "summary": "Handles\u0020the\u0020job.",
             "url": "classes/Colibri-Queue-IJob.html#method_Handle"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003AIsLastAttempt\u0028\u0029",
             "name": "IsLastAttempt",
-            "summary": "",
+            "summary": "Checks\u0020if\u0020the\u0020current\u0020attempt\u0020is\u0020the\u0020last\u0020attempt.",
             "url": "classes/Colibri-Queue-IJob.html#method_IsLastAttempt"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003AIsParallel\u0028\u0029",
             "name": "IsParallel",
-            "summary": "",
+            "summary": "Checks\u0020if\u0020the\u0020job\u0020can\u0020be\u0020executed\u0020in\u0020parallel.",
             "url": "classes/Colibri-Queue-IJob.html#method_IsParallel"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003AAdd\u0028\u0029",
             "name": "Add",
-            "summary": "",
+            "summary": "Adds\u0020the\u0020job.",
             "url": "classes/Colibri-Queue-IJob.html#method_Add"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003AUpdate\u0028\u0029",
             "name": "Update",
-            "summary": "",
+            "summary": "Updates\u0020the\u0020job.",
             "url": "classes/Colibri-Queue-IJob.html#method_Update"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003ADelete\u0028\u0029",
             "name": "Delete",
-            "summary": "",
+            "summary": "Deletes\u0020the\u0020job.",
             "url": "classes/Colibri-Queue-IJob.html#method_Delete"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003ABegin\u0028\u0029",
             "name": "Begin",
-            "summary": "",
+            "summary": "Begins\u0020a\u0020transaction.",
             "url": "classes/Colibri-Queue-IJob.html#method_Begin"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003ACommit\u0028\u0029",
             "name": "Commit",
-            "summary": "",
+            "summary": "Commits\u0020a\u0020transaction.",
             "url": "classes/Colibri-Queue-IJob.html#method_Commit"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003AFail\u0028\u0029",
             "name": "Fail",
-            "summary": "",
+            "summary": "Marks\u0020the\u0020job\u0020as\u0020failed.",
             "url": "classes/Colibri-Queue-IJob.html#method_Fail"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003ARollback\u0028\u0029",
             "name": "Rollback",
-            "summary": "",
+            "summary": "Rolls\u0020back\u0020a\u0020transaction.",
             "url": "classes/Colibri-Queue-IJob.html#method_Rollback"
         },                {
             "fqsen": "\\Colibri\\Queue\\IJob\u003A\u003AToArray\u0028\u0029",
             "name": "ToArray",
-            "summary": "",
+            "summary": "Converts\u0020the\u0020job\u0020to\u0020an\u0020array.",
             "url": "classes/Colibri-Queue-IJob.html#method_ToArray"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job",
             "name": "Job",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u043E\u0431\u044C\u0435\u043A\u0442,\u0020\u0432\u0441\u0435\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u043D\u043E\u043F\u043E\u0434\u043E\u0431\u043D\u044B\u0435\u0020\u043A\u043B\u0430\u0441\u0441\u044B\u0020\u0438\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u044B\u0020\u0431\u0443\u0434\u0443\u0442\u0020\u043D\u0430\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u0442\u044C\u0441\u044F\u0020\u043E\u0442\u0020\u043D\u0435\u0433\u043E",
+            "summary": "Abstract\u0020class\u0020representing\u0020a\u0020job.",
             "url": "classes/Colibri-Queue-Job.html"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020new\u0020job\u0020instance.",
             "url": "classes/Colibri-Queue-Job.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003AHandle\u0028\u0029",
             "name": "Handle",
-            "summary": "",
+            "summary": "Handles\u0020the\u0020job.",
             "url": "classes/Colibri-Queue-Job.html#method_Handle"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003AIsLastAttempt\u0028\u0029",
             "name": "IsLastAttempt",
-            "summary": "",
+            "summary": "Checks\u0020if\u0020the\u0020current\u0020attempt\u0020is\u0020the\u0020last\u0020attempt.",
             "url": "classes/Colibri-Queue-Job.html#method_IsLastAttempt"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003AIsParallel\u0028\u0029",
             "name": "IsParallel",
-            "summary": "",
+            "summary": "Checks\u0020if\u0020the\u0020job\u0020can\u0020be\u0020executed\u0020in\u0020parallel.",
             "url": "classes/Colibri-Queue-Job.html#method_IsParallel"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003AAdd\u0028\u0029",
             "name": "Add",
-            "summary": "",
+            "summary": "Adds\u0020the\u0020job.",
             "url": "classes/Colibri-Queue-Job.html#method_Add"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003AUpdate\u0028\u0029",
             "name": "Update",
-            "summary": "",
+            "summary": "Updates\u0020the\u0020job.",
             "url": "classes/Colibri-Queue-Job.html#method_Update"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003ADelete\u0028\u0029",
             "name": "Delete",
-            "summary": "",
+            "summary": "Deletes\u0020the\u0020job.",
             "url": "classes/Colibri-Queue-Job.html#method_Delete"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003ABegin\u0028\u0029",
             "name": "Begin",
-            "summary": "",
+            "summary": "Begins\u0020a\u0020transaction.",
             "url": "classes/Colibri-Queue-Job.html#method_Begin"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003ACommit\u0028\u0029",
             "name": "Commit",
-            "summary": "",
+            "summary": "Commits\u0020a\u0020transaction.",
             "url": "classes/Colibri-Queue-Job.html#method_Commit"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003AFail\u0028\u0029",
             "name": "Fail",
-            "summary": "",
+            "summary": "Marks\u0020the\u0020job\u0020as\u0020failed.",
             "url": "classes/Colibri-Queue-Job.html#method_Fail"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003ARollback\u0028\u0029",
             "name": "Rollback",
-            "summary": "",
+            "summary": "Rolls\u0020back\u0020a\u0020transaction.",
             "url": "classes/Colibri-Queue-Job.html#method_Rollback"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003AToArray\u0028\u0029",
             "name": "ToArray",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0430\u0441\u0441\u043E\u0446\u0438\u0430\u0442\u0438\u0432\u043D\u044B\u0439\u0020\u043C\u0430\u0441\u0441\u0438\u0432,\u0020\u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0449\u0438\u0439\u0020\u0432\u0441\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0435",
+            "summary": "Converts\u0020the\u0020job\u0020to\u0020an\u0020array.",
             "url": "classes/Colibri-Queue-Job.html#method_ToArray"
         },                {
             "fqsen": "\\Colibri\\Queue\\Job\u003A\u003A\u0024maxAttempts",
             "name": "maxAttempts",
-            "summary": "",
+            "summary": "Maximum\u0020number\u0020of\u0020attempts\u0020for\u0020executing\u0020the\u0020job.",
             "url": "classes/Colibri-Queue-Job.html#property_maxAttempts"
         },                {
             "fqsen": "\\Colibri\\Queue\\JobParallelWorker",
             "name": "JobParallelWorker",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0440\u0430\u0431\u043E\u0442\u044B\u0020\u0432\u0020\u043F\u0440\u043E\u0446\u0435\u0441\u0441\u0430\u043C\u0438,\u0020\u0438\u043C\u0438\u0442\u0438\u0440\u0443\u0435\u0442\u0020\u043F\u043E\u0442\u043E\u043A\n\u0414\u043B\u044F\u0020\u0440\u0430\u0431\u043E\u0442\u044B\u0020\u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E\u0020\u043D\u0430\u043B\u0438\u0447\u0438\u0435\u0020php\u002Dcli,\u0020memcached\u0020\u0438\u0020ramdisk",
+            "summary": "Worker\u0020class\u0020for\u0020parallel\u0020job\u0020execution.",
             "url": "classes/Colibri-Queue-JobParallelWorker.html"
         },                {
             "fqsen": "\\Colibri\\Queue\\JobParallelWorker\u003A\u003ARun\u0028\u0029",
             "name": "Run",
-            "summary": "",
+            "summary": "Runs\u0020the\u0020job\u0020routine.",
             "url": "classes/Colibri-Queue-JobParallelWorker.html#method_Run"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager",
             "name": "Manager",
-            "summary": "",
+            "summary": "Class\u0020Manager\nManages\u0020the\u0020job\u0020queue.",
             "url": "classes/Colibri-Queue-Manager.html"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "",
+            "summary": "Creates\u0020an\u0020instance\u0020of\u0020the\u0020Manager\u0020class.",
             "url": "classes/Colibri-Queue-Manager.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Constructor\u0020for\u0020the\u0020Manager\u0020class.",
             "url": "classes/Colibri-Queue-Manager.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003AMigrate\u0028\u0029",
             "name": "Migrate",
-            "summary": "",
+            "summary": "Migrates\u0020the\u0020job\u0020queue.",
             "url": "classes/Colibri-Queue-Manager.html#method_Migrate"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003AAddJob\u0028\u0029",
             "name": "AddJob",
-            "summary": "",
+            "summary": "Adds\u0020a\u0020job\u0020to\u0020the\u0020queue.",
             "url": "classes/Colibri-Queue-Manager.html#method_AddJob"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003AUpdateJob\u0028\u0029",
             "name": "UpdateJob",
-            "summary": "",
+            "summary": "Updates\u0020a\u0020job\u0020in\u0020the\u0020queue.",
             "url": "classes/Colibri-Queue-Manager.html#method_UpdateJob"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003ADeleteJob\u0028\u0029",
             "name": "DeleteJob",
-            "summary": "",
+            "summary": "Deletes\u0020a\u0020job\u0020from\u0020the\u0020queue.",
             "url": "classes/Colibri-Queue-Manager.html#method_DeleteJob"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003AFailJob\u0028\u0029",
             "name": "FailJob",
-            "summary": "",
+            "summary": "Marks\u0020a\u0020job\u0020as\u0020failed\u0020in\u0020the\u0020queue.",
             "url": "classes/Colibri-Queue-Manager.html#method_FailJob"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003ASuccessJob\u0028\u0029",
             "name": "SuccessJob",
-            "summary": "",
+            "summary": "Marks\u0020a\u0020job\u0020as\u0020successfully\u0020completed\u0020in\u0020the\u0020queue.",
             "url": "classes/Colibri-Queue-Manager.html#method_SuccessJob"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003AGetNextJob\u0028\u0029",
             "name": "GetNextJob",
-            "summary": "",
+            "summary": "Retrieves\u0020the\u0020next\u0020job\u0020from\u0020the\u0020specified\u0020queue.",
             "url": "classes/Colibri-Queue-Manager.html#method_GetNextJob"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003AGetJobById\u0028\u0029",
             "name": "GetJobById",
-            "summary": "",
+            "summary": "Retrieves\u0020a\u0020job\u0020from\u0020the\u0020queue\u0020by\u0020its\u0020ID.",
             "url": "classes/Colibri-Queue-Manager.html#method_GetJobById"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003AProcessJobs\u0028\u0029",
             "name": "ProcessJobs",
-            "summary": "",
+            "summary": "Processes\u0020jobs\u0020from\u0020the\u0020specified\u0020queue\u0020indefinitely.",
             "url": "classes/Colibri-Queue-Manager.html#method_ProcessJobs"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003ADashboard\u0028\u0029",
             "name": "Dashboard",
-            "summary": "",
+            "summary": "Retrieves\u0020dashboard\u0020data\u0020including\u0020active,\u0020error,\u0020and\u0020success\u0020jobs.",
             "url": "classes/Colibri-Queue-Manager.html#method_Dashboard"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003A\u0024_config",
             "name": "_config",
-            "summary": "",
+            "summary": "Array\u0020containing\u0020configuration\u0020settings.",
             "url": "classes/Colibri-Queue-Manager.html#property__config"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003A\u0024_driver",
             "name": "_driver",
-            "summary": "",
+            "summary": "The\u0020driver\u0020used\u0020for\u0020accessing\u0020the\u0020queue.",
             "url": "classes/Colibri-Queue-Manager.html#property__driver"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003A\u0024_storages",
             "name": "_storages",
-            "summary": "",
+            "summary": "Array\u0020containing\u0020storage\u0020settings.",
             "url": "classes/Colibri-Queue-Manager.html#property__storages"
         },                {
             "fqsen": "\\Colibri\\Queue\\Manager\u003A\u003A\u0024instance",
@@ -5858,12 +5878,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Rpc\\Controller",
             "name": "Controller",
-            "summary": "\u0410\u0431\u0441\u0442\u0440\u0430\u043A\u0442\u043D\u044B\u0439\u0020\u043A\u043B\u0430\u0441\u0441\u0020\u0434\u043B\u044F\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0438\u0020RPC\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u043E\u0432",
+            "summary": "\u0410\u0431\u0441\u0442\u0440\u0430\u043A\u0442\u043D\u044B\u0439\u0020\u043A\u043B\u0430\u0441\u0441\u0020\u0434\u043B\u044F\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0438\u0020Web\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u043E\u0432",
             "url": "classes/Colibri-Rpc-Controller.html"
         },                {
             "fqsen": "\\Colibri\\Rpc\\Server",
             "name": "Server",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0449\u0438\u043A,\u0020\u0432\u044B\u0437\u044B\u0432\u0430\u0435\u0442\u0441\u044F\u0020\u0432\u0020\u0441\u0435\u0440\u0432\u0438\u0441\u0435\u0020\/.rpc\/index.php",
+            "summary": "\u0412\u0435\u0431\u0020\u0441\u0435\u0440\u0432\u0435\u0440",
             "url": "classes/Colibri-Rpc-Server.html"
         },                {
             "fqsen": "\\Colibri\\Rpc\\Server\u003A\u003ARun\u0028\u0029",
@@ -5878,57 +5898,57 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Threading\\ErrorCodes",
             "name": "ErrorCodes",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u043E\u0448\u0438\u0431\u043E\u043A",
+            "summary": "Represents\u0020a\u0020list\u0020of\u0020error\u0020codes.",
             "url": "classes/Colibri-Threading-ErrorCodes.html"
         },                {
             "fqsen": "\\Colibri\\Threading\\ErrorCodes\u003A\u003AToString\u0028\u0029",
             "name": "ToString",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0442\u0435\u043A\u0441\u0442\u043E\u0432\u043E\u0435\u0020\u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0438\u0435\u0020\u043E\u0448\u0438\u0431\u043A\u0438\u0020\u043F\u043E\u0020\u043A\u043E\u0434\u0443",
+            "summary": "Returns\u0020the\u0020textual\u0020representation\u0020of\u0020an\u0020error\u0020based\u0020on\u0020its\u0020code.",
             "url": "classes/Colibri-Threading-ErrorCodes.html#method_ToString"
         },                {
             "fqsen": "\\Colibri\\Threading\\ErrorCodes\u003A\u003AUnknownProperty",
             "name": "UnknownProperty",
-            "summary": "\u041D\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043D\u0430\u044F\u0020\u0441\u0432\u043E\u0439\u0441\u0442\u0432\u043E",
+            "summary": "Error\u0020code\u0020for\u0020unknown\u0020property.",
             "url": "classes/Colibri-Threading-ErrorCodes.html#constant_UnknownProperty"
         },                {
             "fqsen": "\\Colibri\\Threading\\Exception",
             "name": "Exception",
-            "summary": "\u0418\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435\u0020\u0434\u043B\u044F\u0020\u043F\u0440\u043E\u0446\u0435\u0441\u0441\u043E\u0432\u0020\u0438\u0020\u043F\u043E\u0442\u043E\u043A\u043E\u0432",
+            "summary": "Exception\u0020for\u0020processes\u0020and\u0020threads.",
             "url": "classes/Colibri-Threading-Exception.html"
         },                {
             "fqsen": "\\Colibri\\Threading\\Exception\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u0438\u0441\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435",
+            "summary": "Constructs\u0020an\u0020exception.",
             "url": "classes/Colibri-Threading-Exception.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Threading\\Manager",
             "name": "Manager",
-            "summary": "Singleton\u0020\u0434\u043B\u044F\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0438\u0020\u0438\u0020\u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F\u0020\u043F\u0440\u043E\u0446\u0435\u0441\u0441\u043E\u0432",
+            "summary": "Singleton\u0020for\u0020handling\u0020and\u0020creating\u0020processes.",
             "url": "classes/Colibri-Threading-Manager.html"
         },                {
             "fqsen": "\\Colibri\\Threading\\Manager\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440,\u0020\u0437\u0430\u043F\u0443\u0441\u043A\u0430\u0435\u0442\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0443\u0020\u0432\u043E\u0440\u043A\u0435\u0440\u0430,\u0020\u0435\u0441\u043B\u0438\u0020\u0437\u0430\u0434\u0430\u043D",
+            "summary": "Constructor,\u0020initiates\u0020worker\u0020processing\u0020if\u0020specified.",
             "url": "classes/Colibri-Threading-Manager.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Threading\\Manager\u003A\u003ACreate\u0028\u0029",
             "name": "Create",
-            "summary": "\u0421\u0442\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F\u0020\u0444\u0443\u043D\u043A\u0446\u0438\u044F\u0020\u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F\u0020Singleton",
+            "summary": "Static\u0020function\u0020to\u0020create\u0020Singleton.",
             "url": "classes/Colibri-Threading-Manager.html#method_Create"
         },                {
             "fqsen": "\\Colibri\\Threading\\Manager\u003A\u003A_processWorkers\u0028\u0029",
             "name": "_processWorkers",
-            "summary": "\u0417\u0430\u043F\u0443\u0441\u043A\u0430\u0435\u0442\u0020\u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0443\u0020\u0432\u043E\u0440\u043A\u0435\u0440\u0430",
+            "summary": "Initiates\u0020worker\u0020processing.",
             "url": "classes/Colibri-Threading-Manager.html#method__processWorkers"
         },                {
             "fqsen": "\\Colibri\\Threading\\Manager\u003A\u003ACreateProcess\u0028\u0029",
             "name": "CreateProcess",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u043F\u0440\u043E\u0446\u0435\u0441\u0441\u0020\u0434\u043B\u044F\u0020\u0437\u0430\u0434\u0430\u043D\u043D\u043E\u0433\u043E\u0020\u0432\u043E\u0440\u043A\u0435\u0440\u0430",
+            "summary": "Creates\u0020a\u0020process\u0020for\u0020the\u0020specified\u0020worker.",
             "url": "classes/Colibri-Threading-Manager.html#method_CreateProcess"
         },                {
             "fqsen": "\\Colibri\\Threading\\Manager\u003A\u003A\u0024instance",
             "name": "instance",
-            "summary": "\u0421\u0438\u043D\u0433\u043B\u0442\u043E\u043D",
+            "summary": "Singleton\u0020instance.",
             "url": "classes/Colibri-Threading-Manager.html#property_instance"
         },                {
             "fqsen": "\\Colibri\\Threading\\Process",

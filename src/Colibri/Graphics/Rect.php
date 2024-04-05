@@ -14,7 +14,7 @@ namespace Colibri\Graphics;
  *
  * This class facilitates operations involving rectangular areas on the screen.
  */
-class Quadro
+class Rect
 {
 
     /**

@@ -119,13 +119,13 @@ class Font
      * Measures the size of the text area.
      *
      * @param string $text The text to measure.
-     * @return Quadro The size of the text area.
+     * @return Rect The size of the text area.
      */
-    public function MeasureText(string $text): Quadro
+    public function MeasureText(string $text): Rect
     {
         $ar = imagettfbbox($this->_fontSize, $this->_angle, $this->_path . "/" . $this->_file, $text);
 
-        $r = new Quadro();
+        $r = new Rect();
         $r->lowerleft->x = $ar[0];
         $r->lowerleft->y = $ar[1];
 

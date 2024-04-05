@@ -156,11 +156,31 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                <a href="packages/Colibri-Encryption.html" class="">Encryption</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Events.html" class="">Events</a>
                 
             </li>
                     <li>
                 <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Graphics.html" class="">Graphics</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-IO.html" class="">IO</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Modules.html" class="">Modules</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Queue.html" class="">Queue</a>
                 
             </li>
                     <li>
@@ -169,6 +189,10 @@
             </li>
                     <li>
                 <a href="packages/Colibri-Threading.html" class="">Threading</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
                 
             </li>
                     <li>
@@ -227,11 +251,11 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/ErrorCodes.php"><a href="files/src-colibri-threading-errorcodes.html"><abbr title="src/Colibri/Threading/ErrorCodes.php">ErrorCodes.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Список ошибок</p>
+            <p class="phpdocumentor-summary">Represents a list of error codes.</p>
 
 
 
@@ -261,7 +285,7 @@
     <span>
         &nbsp;= 1                            </span>
 </dt>
-<dd>Неизвестная свойство</dd>
+<dd>Error code for unknown property.</dd>
 
     </dl>
 
@@ -276,9 +300,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Threading-ErrorCodes.html#method_ToString">ToString()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: string|null    </span>
 </dt>
-<dd>Возвращает текстовое представление ошибки по коду</dd>
+<dd>Returns the textual representation of an error based on its code.</dd>
 
     </dl>
 
@@ -302,11 +326,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/ErrorCodes.php"><a href="files/src-colibri-threading-errorcodes.html"><abbr title="src/Colibri/Threading/ErrorCodes.php">ErrorCodes.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">20</span>
+    <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Неизвестная свойство</p>
+        <p class="phpdocumentor-summary">Error code for unknown property.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -345,15 +369,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/ErrorCodes.php"><a href="files/src-colibri-threading-errorcodes.html"><abbr title="src/Colibri/Threading/ErrorCodes.php">ErrorCodes.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает текстовое представление ошибки по коду</p>
+        <p class="phpdocumentor-summary">Returns the textual representation of an error based on its code.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">ToString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$code</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">ToString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$code</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -365,7 +389,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The error code.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -373,7 +399,11 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
+        <span class="phpdocumentor-signature__response_type">string|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The textual representation of the error.</p>
+</section>
+
             </section>
 
 </article>

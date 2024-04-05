@@ -15,7 +15,9 @@ use JsonSerializable;
 use Colibri\IO\FileSystem\File as BaseFile;
 
 /**
- * Class for file operations.
+ * Class for remote file operations.
+ *
+ * This class provides functionalities to interact with remote files via FTP.
  *
  * @property-read string $attributes The file attributes.
  * @property-read string $filename The file name.
@@ -30,19 +32,17 @@ use Colibri\IO\FileSystem\File as BaseFile;
  * @property-read string $content The content of the file.
  * @property-read string $binary The binary content of the file.
  * @property-read string $mimetype The MIME type of the file.
- *
  */
 class File implements JsonSerializable
 {
-
     /** Read mode */
-    const MODE_READ = "rb9";
+    public const MODE_READ = "rb9";
     /** Write mode */
-    const MODE_WRITE = "wb9";
+    public const MODE_WRITE = "wb9";
     /** Append mode */
-    const MODE_APPEND = "ab9";
+    public const MODE_APPEND = "ab9";
     /** Create mode */
-    const MODE_CREATEWRITE = "wb9";
+    public const MODE_CREATEWRITE = "wb9";
 
     /**
      * File path information.
@@ -89,6 +89,8 @@ class File implements JsonSerializable
     /**
      * Constructor.
      *
+     * Initializes a new instance of the File class.
+     *
      * @param object $item The file item.
      * @param mixed $connection The FTP connection.
      * @param mixed $finder The file finder.
@@ -110,48 +112,50 @@ class File implements JsonSerializable
     }
 
     /**
-     * Getter.
+     * Magic method for property access.
      *
-     * @param string $property The property.
-     * @return mixed
+     * Provides read-only access to various file properties.
+     *
+     * @param string $property The property to access.
+     * @return mixed The value of the accessed property.
      */
     public function __get(string $property): mixed
     {
         $return = null;
         switch (strtolower($property)) {
             case 'filename': {
-                    $return = $this->info['filename'];
-                    break;
-                }
+                $return = $this->info['filename'];
+                break;
+            }
             case 'name': {
-                    $return = $this->info['basename'];
-                    break;
-                }
+                $return = $this->info['basename'];
+                break;
+            }
             case 'extension': {
-                    if (array_key_exists('extension', $this->info)) {
-                        $return = $this->info['extension'];
-                    } else {
-                        $return = '';
-                    }
-                    break;
+                if (array_key_exists('extension', $this->info)) {
+                    $return = $this->info['extension'];
+                } else {
+                    $return = '';
                 }
+                break;
+            }
             case 'dotfile': {
-                    $return = substr($this->name, 0, 1) == '.';
-                    break;
-                }
+                $return = substr($this->name, 0, 1) == '.';
+                break;
+            }
             case 'path': {
-                    $dirname = $this->info['dirname'] instanceof Directory ? $this->info['dirname']->path : $this->info['dirname'];
-                    $return = $dirname . ($dirname ? '/' : '') . $this->info['basename'];
-                    break;
-                }
+                $dirname = $this->info['dirname'] instanceof Directory ? $this->info['dirname']->path : $this->info['dirname'];
+                $return = $dirname . ($dirname ? '/' : '') . $this->info['basename'];
+                break;
+            }
             case 'size': {
-                    $return = $this->item->size;
-                    break;
-                }
+                $return = $this->item->size;
+                break;
+            }
             case 'access': {
-                    $return = $this->item->perm;
-                    break;
-                }
+                $return = $this->item->perm;
+                break;
+            }
             case 'binary':
             case 'content': {
                 if($this->Download($this->cachePath . $this->name)) {
@@ -168,13 +172,15 @@ class File implements JsonSerializable
     /**
      * Download the file.
      *
+     * Downloads the remote file to the specified local path.
+     *
      * @param string $localPath The local path to save the file.
-     * @return bool Returns true on success, false otherwise.
+     * @return bool Returns true if the download is successful, false otherwise.
      */
     public function Download($localPath): bool
     {
         try {
-            
+
             if(!ftp_get($this->connection, $localPath, $this->item->name)) {
                 throw new Exception('Can not download file');
             }
@@ -190,9 +196,11 @@ class File implements JsonSerializable
     }
 
     /**
-     * Returns data as an array.
+     * Converts file data to an array.
      *
-     * @return array
+     * Converts various file properties to an associative array.
+     *
+     * @return array An array representation of the file.
      */
     public function ToArray(): array
     {
@@ -204,11 +212,13 @@ class File implements JsonSerializable
             'size' => $this->size,
         );
     }
-    
+
     /**
      * Implements the JsonSerializable interface.
      *
-     * @return array
+     * Serializes the file object to JSON.
+     *
+     * @return array An array representation of the file for JSON serialization.
      */
     public function jsonSerialize(): array
     {

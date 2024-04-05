@@ -156,11 +156,31 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                <a href="packages/Colibri-Encryption.html" class="">Encryption</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Events.html" class="">Events</a>
                 
             </li>
                     <li>
                 <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Graphics.html" class="">Graphics</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-IO.html" class="">IO</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Modules.html" class="">Modules</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Queue.html" class="">Queue</a>
                 
             </li>
                     <li>
@@ -169,6 +189,10 @@
             </li>
                     <li>
                 <a href="packages/Colibri-Threading.html" class="">Threading</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
                 
             </li>
                     <li>
@@ -214,7 +238,8 @@
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Queue.html">Queue</a></li>
                             </ul>
         </div>
     
@@ -234,12 +259,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс обьект, все обьектноподобные классы и обьекты будут наследоваться от него</p>
+            <p class="phpdocumentor-summary">Abstract class representing a job.</p>
 
+    <section class="phpdocumentor-description"><p>Represents a job to be executed.</p>
+</section>
 
 
 
@@ -259,7 +286,7 @@
 
     </h4>
     <dl class="phpdocumentor-table-of-contents">
-                    <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Colibri-Queue-IJob.html"><abbr title="\Colibri\Queue\IJob">IJob</abbr></a></dt>    </dl>
+                    <dt class="phpdocumentor-table-of-contents__entry -interface"><a href="classes/Colibri-Queue-IJob.html"><abbr title="\Colibri\Queue\IJob">IJob</abbr></a></dt><dd>Interface for job objects.</dd>    </dl>
 
 
 
@@ -308,12 +335,6 @@
     <a href="classes/Colibri-Queue-Job.html#property_parallel">$parallel</a>
     <span>
                         &nbsp;: bool            </span>
-</dt>
-
-            <dt class="phpdocumentor-table-of-contents__entry -property -public">
-    <a href="classes/Colibri-Queue-Job.html#property_payload">$payload</a>
-    <span>
-                        &nbsp;: <a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a>            </span>
 </dt>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
@@ -377,8 +398,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Queue-Job.html#property_maxAttempts">$maxAttempts</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: int            </span>
 </dt>
+<dd>Maximum number of attempts for executing the job.</dd>
 
     </dl>
 
@@ -435,12 +457,14 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Adds the job.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Queue-Job.html#method_Begin">Begin()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Begins a transaction.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_Clear">Clear()</a>
@@ -454,6 +478,7 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Commits a transaction.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_Count">Count()</a>
@@ -466,12 +491,14 @@
     <span>
                                 &nbsp;: static    </span>
 </dt>
+<dd>Creates a new job instance.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Queue-Job.html#method_Delete">Delete()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Deletes the job.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_DispatchEvent">DispatchEvent()</a>
@@ -485,6 +512,7 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Marks the job as failed.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_GetData">GetData()</a>
@@ -511,6 +539,7 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Handles the job.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_HandleEvent">HandleEvent()</a>
@@ -531,12 +560,14 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Checks if the current attempt is the last attempt.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Queue-Job.html#method_IsParallel">IsParallel()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Checks if the job can be executed in parallel.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_IsPropertyChanged">IsPropertyChanged()</a>
@@ -611,6 +642,7 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Rolls back a transaction.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_Schema">Schema()</a>
@@ -630,7 +662,7 @@
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Возвращает ассоциативный массив, содержащий все данные</dd>
+<dd>Converts the job to an array.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_ToJSON">ToJSON()</a>
@@ -644,6 +676,7 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Updates the job.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_UpdateOriginal">UpdateOriginal()</a>
@@ -750,7 +783,9 @@
     <span class="phpdocumentor-signature__name">$attempts</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The number of attempts made to execute the job.</p>
+</section>
+
     
     
 
@@ -783,7 +818,9 @@
     <span class="phpdocumentor-signature__name">$class</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The class name of the job.</p>
+</section>
+
     
     
 
@@ -816,7 +853,9 @@
     <span class="phpdocumentor-signature__name">$id</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The ID of the job.</p>
+</section>
+
     
     
 
@@ -849,7 +888,9 @@
     <span class="phpdocumentor-signature__name">$parallel</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Indicates if the job can be executed in parallel.</p>
+</section>
+
     
     
 
@@ -882,40 +923,9 @@
     <span class="phpdocumentor-signature__name">$payload</span>
     </code>
 
-    
-    
-    
+        <section class="phpdocumentor-description"><p>The payload object associated with the job.</p>
+</section>
 
-</article>
-                    <article
-        class="
-            phpdocumentor-element
-            -property
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="property_payload">
-        $payload
-        <a href="classes/Colibri-Queue-Job.html#property_payload" class="headerlink"><i class="fas fa-link"></i></a>
-
-        <span class="phpdocumentor-element__modifiers">
-                                </span>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">0</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a></span>
-    <span class="phpdocumentor-signature__name">$payload</span>
-    </code>
-
-    
     
     
 
@@ -948,7 +958,9 @@
     <span class="phpdocumentor-signature__name">$payload_class</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The class name of the payload associated with the job.</p>
+</section>
+
     
     
 
@@ -981,7 +993,9 @@
     <span class="phpdocumentor-signature__name">$queue</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The queue in which the job resides.</p>
+</section>
+
     
     
 
@@ -1205,14 +1219,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Maximum number of attempts for executing the job.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">$maxAttempts</span>
      = <span class="phpdocumentor-signature__default-value">5</span></code>
 
@@ -1528,11 +1543,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">96</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Adds the job.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Add</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$startDate</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -1547,7 +1563,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The start date of the job.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1556,6 +1574,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the job is successfully added, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -1573,11 +1595,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">127</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Begins a transaction.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Begin</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -1591,6 +1614,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the transaction is successfully begun, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -1640,11 +1667,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">140</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Commits a transaction.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Commit</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$result</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -1659,7 +1687,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The result of the transaction.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1668,6 +1698,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the transaction is successfully committed, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -1720,11 +1754,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates a new job instance.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$payload</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$queue</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;default&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$attempts</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$parallel</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
@@ -1739,35 +1774,45 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The payload object associated with the job.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$queue</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;default&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The queue in which the job resides.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$attempts</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The number of attempts made to execute the job.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$parallel</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Indicates if the job can be executed in parallel.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The ID of the job.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1776,6 +1821,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">static</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The created job instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1793,11 +1842,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">117</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Deletes the job.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Delete</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -1811,6 +1861,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the job is successfully deleted, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -1898,11 +1952,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">160</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Marks the job as failed.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Fail</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Throwable">Throwable</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$exception</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$isLastAttempt</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -1917,14 +1972,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Throwable">Throwable</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The exception that caused the failure.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$isLastAttempt</span>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Indicates if the failure is occurring on the last attempt.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1933,6 +1992,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the job is marked as failed, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -2061,11 +2124,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Handles the job.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__abstract">abstract</span>                <span class="phpdocumentor-signature__name">Handle</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$logger</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -2080,7 +2144,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The logger instance to use for logging.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -2089,6 +2155,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the job is handled successfully, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -2199,11 +2269,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Checks if the current attempt is the last attempt.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">IsLastAttempt</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -2217,6 +2288,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the current attempt is the last attempt, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -2234,11 +2309,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Checks if the job can be executed in parallel.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">IsParallel</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -2252,6 +2328,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the job can be executed in parallel, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -2706,11 +2786,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">178</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Rolls back a transaction.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Rollback</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -2724,6 +2805,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the transaction is successfully rolled back, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -2839,11 +2924,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+    <span class="phpdocumentor-element-found-in__line">192</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает ассоциативный массив, содержащий все данные</p>
+        <p class="phpdocumentor-summary">Converts the job to an array.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2859,14 +2944,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Indicates if dummy data should be included in the array.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$callback</span>
                 : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Closure">Closure</abbr>|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>An optional callback function to manipulate the array.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -2875,6 +2964,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The array representation of the job.</p>
+</section>
+
             </section>
 
 </article>
@@ -2928,11 +3021,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Job.php"><a href="files/src-colibri-queue-job.html"><abbr title="src/Colibri/Queue/Job.php">Job.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">107</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Updates the job.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Update</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$startDate</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -2947,7 +3041,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The start date of the job.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -2956,6 +3052,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the job is successfully updated, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -3278,7 +3378,6 @@
                                                     <li><a href="classes/Colibri-Queue-Job.html#property_class">$class<a href="classes/Colibri-Queue-Job.html"></li>
                                                     <li><a href="classes/Colibri-Queue-Job.html#property_id">$id<a href="classes/Colibri-Queue-Job.html"></li>
                                                     <li><a href="classes/Colibri-Queue-Job.html#property_parallel">$parallel<a href="classes/Colibri-Queue-Job.html"></li>
-                                                    <li><a href="classes/Colibri-Queue-Job.html#property_payload">$payload<a href="classes/Colibri-Queue-Job.html"></li>
                                                     <li><a href="classes/Colibri-Queue-Job.html#property_payload">$payload<a href="classes/Colibri-Queue-Job.html"></li>
                                                     <li><a href="classes/Colibri-Queue-Job.html#property_payload_class">$payload_class<a href="classes/Colibri-Queue-Job.html"></li>
                                                     <li><a href="classes/Colibri-Queue-Job.html#property_queue">$queue<a href="classes/Colibri-Queue-Job.html"></li>

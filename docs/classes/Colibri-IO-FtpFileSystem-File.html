@@ -156,11 +156,31 @@
                 
             </li>
                     <li>
-                <a href="packages/Colibri-Utils.html" class="">Utils</a>
+                <a href="packages/Colibri-Encryption.html" class="">Encryption</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Events.html" class="">Events</a>
                 
             </li>
                     <li>
                 <a href="packages/Colibri-Exceptions.html" class="">Exceptions</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Graphics.html" class="">Graphics</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-IO.html" class="">IO</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Modules.html" class="">Modules</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Queue.html" class="">Queue</a>
                 
             </li>
                     <li>
@@ -169,6 +189,10 @@
             </li>
                     <li>
                 <a href="packages/Colibri-Threading.html" class="">Threading</a>
+                
+            </li>
+                    <li>
+                <a href="packages/Colibri-Utils.html" class="">Utils</a>
                 
             </li>
                     <li>
@@ -213,8 +237,8 @@
             in package
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data.html">Data</a></li>
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Data-Storages.html">Storages</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-IO.html">IO</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-IO-FtpFileSystem.html">FtpFileSystem</a></li>
                             </ul>
         </div>
     
@@ -232,12 +256,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Class for file operations.</p>
+            <p class="phpdocumentor-summary">Class for remote file operations.</p>
 
+    <section class="phpdocumentor-description"><p>This class provides functionalities to interact with remote files via FTP.</p>
+</section>
 
 
 
@@ -445,7 +471,7 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Getter.</dd>
+<dd>Magic method for property access.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-IO-FtpFileSystem-File.html#method_Download">Download()</a>
@@ -466,7 +492,7 @@
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Returns data as an array.</dd>
+<dd>Converts file data to an array.</dd>
 
     </dl>
 
@@ -1286,7 +1312,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 
     </aside>
 
@@ -1298,7 +1324,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Initializes a new instance of the File class.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1348,11 +1376,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">118</span>
+    <span class="phpdocumentor-element-found-in__line">122</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Getter.</p>
+        <p class="phpdocumentor-summary">Magic method for property access.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1360,7 +1388,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Provides read-only access to various file properties.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1368,7 +1398,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The property.</p>
+                    <section class="phpdocumentor-description"><p>The property to access.</p>
 </section>
 
             </dd>
@@ -1376,7 +1406,15 @@
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value of the accessed property.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1392,7 +1430,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">174</span>
+    <span class="phpdocumentor-element-found-in__line">180</span>
 
     </aside>
 
@@ -1404,7 +1442,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Downloads the remote file to the specified local path.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1424,7 +1464,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>Returns true on success, false otherwise.</p>
+                <section class="phpdocumentor-description"><p>Returns true if the download is successful, false otherwise.</p>
 </section>
 
             </section>
@@ -1444,7 +1484,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">213</span>
+    <span class="phpdocumentor-element-found-in__line">223</span>
 
     </aside>
 
@@ -1456,13 +1496,19 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Serializes the file object to JSON.</p>
+</section>
+
     
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An array representation of the file for JSON serialization.</p>
+</section>
+
             </section>
 
 </article>
@@ -1480,11 +1526,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/IO/FtpFileSystem/File.php"><a href="files/src-colibri-io-ftpfilesystem-file.html"><abbr title="src/Colibri/IO/FtpFileSystem/File.php">File.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">197</span>
+    <span class="phpdocumentor-element-found-in__line">205</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Returns data as an array.</p>
+        <p class="phpdocumentor-summary">Converts file data to an array.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1492,13 +1538,19 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Converts various file properties to an associative array.</p>
+</section>
+
     
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An array representation of the file.</p>
+</section>
+
             </section>
 
 </article>

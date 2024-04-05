@@ -65,9 +65,9 @@ class Security
     }
 
     /**
-     * Getter.
+     * Get flags by magic method
      *
-     * @param string $property The property.
+     * @param string $property The flag
      * @return mixed
      */
     function __get(string $property): mixed
@@ -76,9 +76,9 @@ class Security
     }
 
     /**
-     * Setter.
+     * Set flags by magic method
      *
-     * @param string $property The property.
+     * @param string $property The flag
      * @param mixed $value The value.
      */
     function __set(string $property, mixed $value): void
