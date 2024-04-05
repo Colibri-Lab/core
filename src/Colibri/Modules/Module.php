@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Modules
+ * Module
  *
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 ColibriLab
- * @package Colibri\Modules
+ * Represents a base class for modules in the application.
+ *
+ * @package Your\Package\Namespace
  */
 
 namespace Colibri\Modules;
