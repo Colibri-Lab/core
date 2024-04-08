@@ -387,7 +387,7 @@ class Storages
                     }
                 }
 
-                // TODO: хуйня какая то
+                // ! @deprecated
                 // $xobjects = isset($xstorage['objects']) ? $xstorage['objects'] : [];
                 // foreach ($xobjects as $xobject) {
                 //     if (isset($xobject['json'])) {

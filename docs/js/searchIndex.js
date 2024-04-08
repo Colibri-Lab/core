@@ -6631,6 +6631,26 @@ Search.appendIndex(
             "summary": "Current\u0020position.",
             "url": "classes/Colibri-Utils-ExtendedObjectIterator.html#property__current"
         },                {
+            "fqsen": "\\dd\u0028\u0029",
+            "name": "dd",
+            "summary": "",
+            "url": "namespaces/default.html#function_dd"
+        },                {
+            "fqsen": "\\ddx\u0028\u0029",
+            "name": "ddx",
+            "summary": "",
+            "url": "namespaces/default.html#function_ddx"
+        },                {
+            "fqsen": "\\ddd\u0028\u0029",
+            "name": "ddd",
+            "summary": "",
+            "url": "namespaces/default.html#function_ddd"
+        },                {
+            "fqsen": "\\dddx\u0028\u0029",
+            "name": "dddx",
+            "summary": "",
+            "url": "namespaces/default.html#function_dddx"
+        },                {
             "fqsen": "\\Colibri\\Utils\\Logs\\ConsoleLogger",
             "name": "ConsoleLogger",
             "summary": "Represents\u0020a\u0020logger\u0020for\u0020logging\u0020messages\u0020to\u0020the\u0020console.",
