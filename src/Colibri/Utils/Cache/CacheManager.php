@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Cache Manager
- * 
- * Provides functionality for caching files.
+ * Config
  * 
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 ColibriLab
+ * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Cache
+ * 
  */
 namespace Colibri\Utils\Cache;
 

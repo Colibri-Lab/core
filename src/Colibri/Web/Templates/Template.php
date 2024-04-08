@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Web
- * 
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Web
- * 
- * 
+ * Templates
+ *
+ * This abstract class represents a template for web content generation.
+ *
+ * @package Colibri\Web\Templates
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
  */
 namespace Colibri\Web\Templates;
 
@@ -21,11 +21,10 @@ use Colibri\Utils\Debug;
 use Colibri\Utils\ExtendedObject;
 
 /**
- * Класс шаблона
- * 
- * @property-read string $file
- * @property-read string $path
- * 
+ * Template class
+ *
+ * @property-read string $file The file path of the template.
+ * @property-read string $path The directory path of the template.
  */
 abstract class Template
 {
@@ -35,16 +34,19 @@ abstract class Template
     const Dummy = 'dummy';
 
     /**
-     * Путь к файлу шаблона
+     * The path to the template file.
      *
      * @var string
      */
     protected $_file;
 
     /**
-     * Конструктор
+     * Constructor
      *
-     * @param string $file файл шаблона
+     * Initializes a new instance of the Template class.
+     *
+     * @param mixed $file The template file.
+     * @throws AppException If the template file does not exist.
      */
     public function __construct($file)
     {
@@ -62,9 +64,12 @@ abstract class Template
     }
 
     /**
-     * Статический конструктор
-     * @param mixed $file файл шаблона
-     * @return Template созданный шаблон
+     * Static constructor
+     *
+     * Creates a new instance of the Template class.
+     *
+     * @param mixed $file The template file.
+     * @return Template The created template instance.
      */
     public static function Create($file)
     {
@@ -72,10 +77,13 @@ abstract class Template
     }
 
     /**
-     * Get
+     * Magic getter method
      *
-     * @param string $prop
-     * @return mixed
+     * Retrieves the value of a property.
+     *
+     * @param string $prop The property name.
+     * @return mixed The value of the property.
+     * @throws AppException If the property is unknown.
      */
     public function __get($prop)
     {
@@ -89,40 +97,43 @@ abstract class Template
     }
 
     /**
-     * Вывод шаблона
+     * Renders the template.
      *
-     * @param mixed $args
-     * @return string
+     * @param mixed $args Additional arguments for rendering.
+     * @return string The rendered output.
      */
     abstract public function Render($args = null);
 
     /**
-     * Выполняет код
-     * @param string $code 
-     * @param mixed $args 
-     * @return mixed 
+     * Executes code.
+     *
+     * @param string $code The code to execute.
+     * @param mixed $args The arguments for the code.
+     * @return mixed The result of the code execution.
      */
-    abstract public function RenderCode($code, $args);
+    abstract public function RenderCode(string $code, mixed $args): mixed;
 
     /**
-     * Замена вставок в шаблон
+     * Runs template based on the current template's directory path.
      *
-     * @param string $code код для выполнения
-     * @param mixed $args аргументы для передачи в код
-     * @return string
+     * @param string $file The sub-template file.
+     * @param mixed $args Additional arguments for rendering.
+     * @return string The rendered output.
      */
-    static function Run($code, $args)
+    static function Run(string $code, mixed $args): string
     {
         $dummy = new static (Template::Dummy);
         return $dummy->RenderCode($code, $args);
     }
 
     /**
-     * Запускает шаблон беря за основу путь нахождения текущего шаблона
-     * @param string $file Файл подшаблона
-     * @return string 
+     * Runs code in a dummy template.
+     *
+     * @param string $code The code to execute.
+     * @param mixed $args The arguments for the code.
+     * @return string The rendered output.
      */
-    public function Insert($file, $args = [])
+    public function Insert(string $file, mixed $args = [])
     {
         $currentPathInfo = Directory::PathInfo($this->_file);
         $currentPath = $currentPathInfo['dirname'];

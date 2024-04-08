@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Represents custom javascript minifier
- * 
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2020 ColibriLab
+ * Minifiers
+ *
  * @package Colibri\Utils\Minifiers
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab
  * 
  */
 namespace Colibri\Utils\Minifiers;

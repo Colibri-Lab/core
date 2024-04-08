@@ -1,71 +1,48 @@
 <?php
 
 /**
- * Класс описывающий файл отправленный в запрос
- * Только для чтения
- * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * Web
+ *
+ * This abstract class represents a template for web content generation.
+ *
  * @package Colibri\Web
- * @version 1.0.0
- * 
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
  */
-
 namespace Colibri\Web;
-use Symfony\Component\String\Exception\InvalidArgumentException;
+
+use \InvalidArgumentException;
 
 /**
- * Файл из списка файлов запроса
- * 
- * @property boolean $isValid
- * @property string $binary
- * 
- * @testFunction testRequestedFile
+ * Requested File Class
+ *
+ * Represents a file sent in a request.
+ * Read-only.
+ *
+ * @property boolean $isValid Indicates whether the file is valid.
+ * @property string $binary Binary content of the file.
+ *
  */
 class RequestedFile
 {
 
-    /**
-     * Название файла
-     *
-     * @var string
-     */
+    /** @var string The name of the file. */
     public string $name;
-    /**
-     * Расширение файла
-     *
-     * @var string
-     */
+    /** @var string The extension of the file. */
     public string $ext;
-    /**
-     * Тип файла
-     *
-     * @var string
-     */
+    /** @var string The MIME type of the file. */
     public string $mimetype;
-    /**
-     * Ошибка
-     *
-     * @var string
-     */
+    /** @var string The error message, if any. */
     public string $error;
-    /**
-     * Размер файла в байтах
-     *
-     * @var int
-     */
+    /** @var int The size of the file in bytes. */
     public int $size;
-    /**
-     * Пусть к временному файлу
-     *
-     * @var string
-     */
+    /** @var string The path to the temporary file. */
     public string $temporary;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param array|object $arrFILE
+     * @param array|object $arrFILE The $_FILE array or object.
      */
     function __construct(array |object $arrFILE)
     {
@@ -88,10 +65,10 @@ class RequestedFile
     }
 
     /**
-     * Магический метод
+     * Magic getter method.
      *
-     * @param string $prop
-     * @return mixed
+     * @param string $prop The property name.
+     * @return mixed The value of the property.
      */
     public function __get(string $prop): mixed
     {
@@ -108,7 +85,7 @@ class RequestedFile
     }
 
     /**
-     * Удаление класса
+     * Destructor.
      */
     function __destruct()
     {
@@ -118,11 +95,12 @@ class RequestedFile
     }
 
     /**
-     * Сохраняет временый файл в указанную директорую
+     * Moves the temporary file to the specified directory.
      *
-     * @param string $path
+     * @param string $path The destination path.
+     * @param int $mode The permissions to set for the file (default: 0777).
      * @return void
-     * @testFunction testRequestedFileMoveTo
+     *
      */
     function MoveTo(string $path, int $mode = 0777): void
     {

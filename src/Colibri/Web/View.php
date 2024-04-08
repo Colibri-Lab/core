@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Web
+ *
+ * This abstract class represents a template for web content generation.
+ *
+ * @package Colibri\Web
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
+ */
 namespace Colibri\Web;
 
 use Colibri\Common\VariableHelper;
@@ -7,12 +16,20 @@ use Colibri\Data\Storages\Models\DataRow;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Web\Templates\Template;
 
+/**
+ * Class View
+ *
+ * This class represents a view for rendering data using templates.
+ */
 class View
 {
 
     /**
-     * Конструктор
-     * @return void 
+     * Constructor
+     *
+     * Initializes a new instance of the View class.
+     *
+     * @return void
      */
     public function __construct()
     {
@@ -20,8 +37,11 @@ class View
     }
 
     /**
-     * Статический конструктор
-     * @var View
+     * Static constructor
+     *
+     * Creates a new instance of the View class.
+     *
+     * @return View The created View instance.
      */
     public static function Create(): View
     {
@@ -29,10 +49,11 @@ class View
     }
 
     /**
-     * Отображает даннхые по шаблону
-     * @param Template шаблон
-     * @param ExtendedObject|null $args 
-     * @return string 
+     * Renders data using a template.
+     *
+     * @param Template $template The template to use for rendering.
+     * @param ExtendedObject|null $args Additional arguments for rendering.
+     * @return string The rendered output.
      */
     public function Render(Template $template, ? ExtendedObject $args = null)
     {
@@ -47,11 +68,12 @@ class View
     }
 
     /**
-     * Пробует распечатать модель с использованием нужного шаблона
-     * @param DataRow $model модель (модель хранилища)
-     * @param string $template шаблон (название шаблона в хранилище)
-     * @param mixed $args аргументы
-     * @return string 
+     * Tries to render a model using the specified template.
+     *
+     * @param DataRow $model The model to render.
+     * @param string $template The template name.
+     * @param mixed $args Additional arguments.
+     * @return string The rendered output.
      */
     public function RenderModel(DataRow $model, string $template = 'default', mixed $args = []): string
     {

@@ -2,12 +2,11 @@
 
 /**
  * Utilities
- * 
- * Collection of methods for debugging and outputting information.
- * 
+ *
  * @package Colibri\Utils\Performance
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
+ * 
  */
 namespace Colibri\Utils;
 

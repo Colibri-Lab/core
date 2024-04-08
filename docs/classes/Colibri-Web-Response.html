@@ -128,12 +128,6 @@
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/App.html" class="">App</a>
 </h4>
-    <ul class="phpdocumentor-list">
-                    <li>
-                <a href="packages/App-Modules.html" class="">Modules</a>
-                
-            </li>
-            </ul>
 
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -254,30 +248,16 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Респонс</p>
+            <p class="phpdocumentor-summary">Response Class</p>
 
-
-
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponse</p>
+    <section class="phpdocumentor-description"><p>Represents a class responsible for output.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+
 
 
 
@@ -304,16 +284,16 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Web-Response.html#property_codes">$codes</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>Коды ответов</dd>
+<dd>HTTP response status codes and their descriptions.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Web-Response.html#property_instance">$instance</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>|null            </span>
 </dt>
-<dd>Синглтон</dd>
+<dd>Singleton instance.</dd>
 
     </dl>
 
@@ -328,63 +308,63 @@
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавить cache-control и все остальные приблуды</dd>
+<dd>Set caching options for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_CacheControl">CacheControl()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавить cache-control</dd>
+<dd>Set the Cache-Control header for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_Close">Close()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Выдать ответ с результатом</dd>
+<dd>Echo result and stop</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_ContentDisposition">ContentDisposition()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавить content-disposition</dd>
+<dd>Set the Content-Disposition header for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_ContentLength">ContentLength()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавтить content-length</dd>
+<dd>Set the Content-Length header for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_ContentTransferEncoding">ContentTransferEncoding()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавтиь content-transfer-encoding</dd>
+<dd>Set the Content-Transfer-Encoding header for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_ContentType">ContentType()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавить content-type</dd>
+<dd>Set the Content-Type header for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_Cookie">Cookie()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Выставляет куки</dd>
+<dd>Set a cookie in the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_Create">Create()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Статический конструктор</dd>
+<dd>Static constructor to create a singleton instance.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_DispatchEvent">DispatchEvent()</a>
@@ -398,35 +378,35 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Переадресация на загрузку файла</dd>
+<dd>Complex method to return a file</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_Error404">Error404()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Вернуть ошибку и остановится</dd>
+<dd>Returns error and stops</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_ExpiresAfter">ExpiresAfter()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавить expires</dd>
+<dd>Set the expiration time for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_ExpiresAt">ExpiresAt()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавить expires</dd>
+<dd>Set the expiration time for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_FileTransfer">FileTransfer()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавить хедер Content-Description: File Transfer</dd>
+<dd>Add the Content-Description header to the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_HandleEvent">HandleEvent()</a>
@@ -440,41 +420,42 @@
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавить NoCache</dd>
+<dd>Disable caching for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_Origin">Origin()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
+<dd>Writes origin to response</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_P3P">P3P()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Что то полезное</dd>
+<dd>Set the P3P header for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_Pragma">Pragma()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Добавить pragma</dd>
+<dd>Set the Pragma header for the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_Redirect">Redirect()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Переадресация</dd>
+<dd>Redirect the client to another URL.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_Refresh">Refresh()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Перезагрузить страницу</dd>
+<dd>Refresh the current page.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_RemoveHandler">RemoveHandler()</a>
@@ -486,36 +467,37 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_SaveUTMCookies">SaveUTMCookies()</a>
     <span>
-                                &nbsp;: void    </span>
+                                &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>    </span>
 </dt>
-<dd>Сохраняет UTM в куки</dd>
+<dd>Saves UTM cookie values to cookie</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Response.html#method_Write">Write()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Аналог функции echo</dd>
+<dd>Echo function analogue</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Web-Response.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor (private to enforce singleton pattern).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Web-Response.html#method__addHeader">_addHeader()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Добавить хедер</dd>
+<dd>Add a header to the HTTP response.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Web-Response.html#method__addHeaders">_addHeaders()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
+<dd>Add multiple headers to the HTTP response.</dd>
 
     </dl>
 
@@ -548,15 +530,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">43</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Коды ответов</p>
+        <p class="phpdocumentor-summary">HTTP response status codes and their descriptions.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$codes</span>
      = <span class="phpdocumentor-signature__default-value">[
     100 =&gt; &#039;Continue&#039;,
@@ -697,11 +679,11 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Синглтон</p>
+        <p class="phpdocumentor-summary">Singleton instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$instance</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
@@ -732,11 +714,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">261</span>
+    <span class="phpdocumentor-element-found-in__line">263</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавить cache-control и все остальные приблуды</p>
+        <p class="phpdocumentor-summary">Set caching options for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -752,31 +734,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The number of seconds to cache the response.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_Cache#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseCache</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -794,11 +766,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">377</span>
+    <span class="phpdocumentor-element-found-in__line">374</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавить cache-control</p>
+        <p class="phpdocumentor-summary">Set the Cache-Control header for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -814,31 +786,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The value of the Cache-Control header.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_CacheControl#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseCacheControl</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -856,11 +818,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">435</span>
+    <span class="phpdocumentor-element-found-in__line">438</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Выдать ответ с результатом</p>
+        <p class="phpdocumentor-summary">Echo result and stop</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -876,14 +838,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>status of response</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$content</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>content of response</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$type</span>
@@ -916,22 +882,6 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_Close#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseClose</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -949,11 +899,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">325</span>
+    <span class="phpdocumentor-element-found-in__line">326</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавить content-disposition</p>
+        <p class="phpdocumentor-summary">Set the Content-Disposition header for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -969,38 +919,30 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The type of disposition ('attachment', 'inline').</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$name</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The filename to be sent to the client.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_ContentDisposition#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseContentDisposition</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1018,11 +960,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">364</span>
+    <span class="phpdocumentor-element-found-in__line">362</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавтить content-length</p>
+        <p class="phpdocumentor-summary">Set the Content-Length header for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1038,31 +980,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The length of the content in bytes.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_ContentLength#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseContentLength</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1084,7 +1016,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавтиь content-transfer-encoding</p>
+        <p class="phpdocumentor-summary">Set the Content-Transfer-Encoding header for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1100,31 +1032,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;binary&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The transfer encoding type ('binary', 'base64', etc.).</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_ContentTransferEncoding#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseContentTransferEncoding</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1142,15 +1064,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">221</span>
+    <span class="phpdocumentor-element-found-in__line">226</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавить content-type</p>
+        <p class="phpdocumentor-summary">Set the Content-Type header for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">ContentType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$encoding</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">ContentType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$encoding</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1162,38 +1084,30 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The MIME type of the content.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$encoding</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The character encoding of the content.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_ContentType#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseContentType</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1211,15 +1125,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">394</span>
+    <span class="phpdocumentor-element-found-in__line">392</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Выставляет куки</p>
+        <p class="phpdocumentor-summary">Set a cookie in the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">Cookie</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$expires</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$domain</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$secure</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$httponly</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">Cookie</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$expires</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">0</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$domain</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$secure</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$httponly</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1228,64 +1142,64 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Название cookie</p>
+                    <section class="phpdocumentor-description"><p>The name of the cookie.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Значение cookie</p>
+                    <section class="phpdocumentor-description"><p>The value of the cookie.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$expires</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Количество дней жизни куки</p>
+                    <section class="phpdocumentor-description"><p>The expiration time of the cookie in seconds.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$path</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Путь к директории на сервере, из которой будут доступны cookie</p>
+                    <section class="phpdocumentor-description"><p>The path on the server in which the cookie will be available.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$domain</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>(Под)домен, которому доступны cookie.</p>
+                    <section class="phpdocumentor-description"><p>The domain that the cookie is available to.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$secure</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Указывает на то, что значение cookie должно передаваться от клиента по защищённому соединению HTTPS</p>
+                    <section class="phpdocumentor-description"><p>Indicates if the cookie should only be transmitted over a secure HTTPS connection.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$httponly</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Если задано true, cookie будут доступны только через HTTP-протокол</p>
+                    <section class="phpdocumentor-description"><p>Indicates if the cookie should only be accessible through HTTP protocol.</p>
 </section>
 
             </dd>
@@ -1296,6 +1210,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1313,11 +1231,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">171</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Статический конструктор</p>
+        <p class="phpdocumentor-summary">Static constructor to create a singleton instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1328,26 +1246,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_Create#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseCreate</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The singleton instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1435,11 +1341,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">485</span>
+    <span class="phpdocumentor-element-found-in__line">487</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Переадресация на загрузку файла</p>
+        <p class="phpdocumentor-summary">Complex method to return a file</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1455,34 +1361,22 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>a file name</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$filecontent</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>file content</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_DownloadFile#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseDownloadFile</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1500,11 +1394,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">422</span>
+    <span class="phpdocumentor-element-found-in__line">426</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Вернуть ошибку и остановится</p>
+        <p class="phpdocumentor-summary">Returns error and stops</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1525,22 +1419,6 @@
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_Error404#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseError404</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1558,11 +1436,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">235</span>
+    <span class="phpdocumentor-element-found-in__line">239</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавить expires</p>
+        <p class="phpdocumentor-summary">Set the expiration time for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1578,31 +1456,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The number of seconds until expiration.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_ExpiresAfter#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseExpiresAfter</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1620,11 +1488,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">248</span>
+    <span class="phpdocumentor-element-found-in__line">251</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавить expires</p>
+        <p class="phpdocumentor-summary">Set the expiration time for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1640,31 +1508,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The expiration date as a Unix timestamp.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_ExpiresAt#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseExpiresAt</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1682,11 +1540,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">311</span>
+    <span class="phpdocumentor-element-found-in__line">313</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавить хедер Content-Description: File Transfer</p>
+        <p class="phpdocumentor-summary">Add the Content-Description header to the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1697,26 +1555,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_FileTransfer#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseFileTransfer</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1791,11 +1637,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">206</span>
+    <span class="phpdocumentor-element-found-in__line">212</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавить NoCache</p>
+        <p class="phpdocumentor-summary">Disable caching for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1806,26 +1652,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_NoCache#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseNoCache</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1843,11 +1677,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">512</span>
+    <span class="phpdocumentor-element-found-in__line">516</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Writes origin to response</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Origin</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -1874,11 +1709,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">274</span>
+    <span class="phpdocumentor-element-found-in__line">275</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Что то полезное</p>
+        <p class="phpdocumentor-summary">Set the P3P header for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1889,26 +1724,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_P3P#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseP3P</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1926,11 +1749,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">351</span>
+    <span class="phpdocumentor-element-found-in__line">350</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавить pragma</p>
+        <p class="phpdocumentor-summary">Set the Pragma header for the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1946,31 +1769,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;binary&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Type of pragma header</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_Pragma#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponsePragma</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1988,11 +1801,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">287</span>
+    <span class="phpdocumentor-element-found-in__line">288</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Переадресация</p>
+        <p class="phpdocumentor-summary">Redirect the client to another URL.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2008,38 +1821,30 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The URL to redirect to.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$status</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">301</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The HTTP status code for the redirect.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_Redirect#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseRedirect</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -2057,11 +1862,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">299</span>
+    <span class="phpdocumentor-element-found-in__line">302</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Перезагрузить страницу</p>
+        <p class="phpdocumentor-summary">Refresh the current page.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2076,6 +1881,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Response instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -2150,15 +1959,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">405</span>
+    <span class="phpdocumentor-element-found-in__line">410</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Сохраняет UTM в куки</p>
+        <p class="phpdocumentor-summary">Saves UTM cookie values to cookie</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">SaveUTMCookies</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Web-RequestCollection.html"><abbr title="\Colibri\Web\RequestCollection">RequestCollection</abbr></a>|array&lt;string|int, mixed&gt;|object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$utm</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">SaveUTMCookies</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\IteratorAggregate">IteratorAggregate</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$utm</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -2167,7 +1976,7 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$utm</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Web-RequestCollection.html"><abbr title="\Colibri\Web\RequestCollection">RequestCollection</abbr></a>|array&lt;string|int, mixed&gt;|object</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\IteratorAggregate">IteratorAggregate</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -2176,7 +1985,11 @@
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2192,11 +2005,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">503</span>
+    <span class="phpdocumentor-element-found-in__line">504</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Аналог функции echo</p>
+        <p class="phpdocumentor-summary">Echo function analogue</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2207,22 +2020,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Response.html#method_Write#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testResponseWrite</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -2240,11 +2037,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">161</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor (private to enforce singleton pattern).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -2272,11 +2069,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">186</span>
+    <span class="phpdocumentor-element-found-in__line">187</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Добавить хедер</p>
+        <p class="phpdocumentor-summary">Add a header to the HTTP response.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -2292,14 +2089,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the header.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The value of the header.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -2337,11 +2138,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Response.php"><a href="files/src-colibri-web-response.html"><abbr title="src/Colibri/Web/Response.php">Response.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">191</span>
+    <span class="phpdocumentor-element-found-in__line">198</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Add multiple headers to the HTTP response.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
                     <span class="phpdocumentor-signature__name">_addHeaders</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$headers</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -2356,7 +2158,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>An associative array of headers (name =&gt; value).</p>
+</section>
+
             </dd>
             </dl>
 

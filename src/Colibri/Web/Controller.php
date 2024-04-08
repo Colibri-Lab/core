@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Kласс обработчика Controller
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * Web
+ *
+ * This abstract class represents a template for web content generation.
+ *
  * @package Colibri\Web
- * @version 1.0.0
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
  */
-
 namespace Colibri\Web;
 
 use Colibri\Common\StringHelper;
@@ -15,59 +16,54 @@ use Colibri\Utils\Cache\Mem;
 use Colibri\App;
 
 /**
- * Абстрактный класс для обработки Web запросов
+ * Controller Handler Class
  *
- * Наследуемся от него и создаем функцию, которую можно будет вызвать
- * например:
+ * This abstract class serves as a base for processing web requests.
+ * Inherit from it and create functions that can be called, for example:
  *
- * запрос:
- * /buh/web/page/method1.html
- * /buh/web/page/method1.json
- * /buh/web/page/method1.xml
- *
- * namespace App\Controllers\Buh\Web
- *
+ * @example
+ * ```php
+ * 
  * class PageController extends Colibri\Web\Controller {
  *
- *      public function Method1($get, $post, $payload) {
+ *     public function Method1($get, $post, $payload) {
  *
- *          тут пишем что нужно и финишируем функцией Finish
+ *         Write what is needed here and finish the function with the Finish method.
  *
- *          внимание:
- *          $get, $post, $payload - изменять бессмысленно, так как это копии данных переданных в запросе
+ *         Attention:
+ *         Modifying $get, $post, $payload is meaningless, as they are copies of the data passed in the request.
  *
- *          ЗАПРЕЩАЕТСЯ:
- *          1. выводить что либо с помощью функции echo, print_r, var_dump и т.д.
- *          2. запрашивать другие RPC Handler-ы на том же уровне
- *          3. реализовывать бизнес-логику в классе-обработчике (наследники RpcHandler)
+ *         PROHIBITED:
+ *         1. Output anything using echo, print_r, var_dump, etc.
+ *         2. Requesting other RPC Handlers at the same level.
+ *         3. Implementing business logic in the handler class (inheritors of RpcHandler).
  *
- *          $code = 200 | 400 и т.д.
- *          $message = какое либо сообщение
- *          $result = peyload ответа, может быть строкой в случае с html/xml
+ *         $code = 200 | 400, etc.
+ *         $message = any message
+ *         $result = response payload, can be a string in the case of html/xml
  *
- *          ! НИКАКОГО ECHO !!!! ЗАПРЕЩЕНО
+ *         ! NO ECHO ALLOWED !!!!
  *
- *          пример результата:
+ *         Example of result:
  *
- *          div => [
- *              span => тестт
- *          ]
+ *         div => [
+ *             span => test
+ *         ]
  *
- *          xml хелпер создаст:
+ *         XML helper will create:
  *
- *          <div><span>тестт</span></div>
+ *         <div><span>test</span></div>
  *
- *          html хелпер создаст:
+ *         HTML helper will create:
  *
- *          <div class="div"><div class="span">тестт</div></div>
+ *         <div class="div"><div class="span">test</div></div>
  *
+ *         return $this->Finish(int $code, string $message, mixed $result);
  *
- *          return $this->Finish(int $code, string $message, mixed $result);
- *
- *      }
+ *     }
  *
  * }
- *
+ * ```
  */
 class Controller
 {
@@ -76,21 +72,27 @@ class Controller
     protected bool $_cache = false;
     protected int $_lifetime = 600;
 
+    /**
+     * Constructor.
+     *
+     * @param string|null $type The type of response (e.g., json, xml, html).
+     */
     public function __construct(?string $type = null)
     {
         $this->_type = $type;
     }
 
     /**
-     * Завершает работу обработчика
+     * Finish handler execution.
      *
-     * @param int $code код ошибки
-     * @param string $message сообщение
-     * @param mixed $result дополнительные параметры
-     * @param string $charset кодировка
-     * @param array $headers дополнительные заголовки
-     * @return \stdClass готовый результат
-     * @testFunction testFinish
+     * @param int $code The error code.
+     * @param string $message The message.
+     * @param mixed $result Additional parameters.
+     * @param string $charset The character encoding.
+     * @param array $headers Additional headers.
+     * @param array $cookies Cookies to be set.
+     * @param bool $forceNoCache Whether to force no caching.
+     * @return object The finished result.
      */
     public function Finish(
         int $code,
@@ -113,13 +115,12 @@ class Controller
     }
 
     /**
-     * Создаем ссылку для добавления в url
+     * Generate a URL for entry point addition.
      *
-     * @param string $method название функции в классе контроллера
-     * @param string $type тип возвращаемого значения: json, xml, html
-     * @param array $params GET параметры
-     * @return string
-     * @testFunction testGetEntryPoint
+     * @param string $method The name of the function in the controller class.
+     * @param string $type The type of return value: json, xml, html.
+     * @param array $params GET parameters.
+     * @return string The generated URL.
      */
     public static function GetEntryPoint(string $method = '', string $type = '', array $params = []): string
     {
@@ -152,6 +153,12 @@ class Controller
         return '/' . StringHelper::AddToQueryString($url, $params, true);
     }
 
+    /**
+     * Magic getter method.
+     *
+     * @param string $prop The property name.
+     * @return mixed The value of the property.
+     */
     public function __get($prop): mixed
     {
         return match($prop) {
@@ -160,6 +167,15 @@ class Controller
         };
     }
 
+    /**
+     * Invokes the specified method and handles caching if enabled.
+     *
+     * @param string $method The method to invoke.
+     * @param RequestCollection $get The GET request collection.
+     * @param RequestCollection $post The POST request collection.
+     * @param PayloadCopy $payload The payload copy.
+     * @return mixed The result of the method invocation.
+     */
     public function Invoke(string $method, RequestCollection $get, RequestCollection $post, PayloadCopy $payload)
     {
         if($this->_cache) {

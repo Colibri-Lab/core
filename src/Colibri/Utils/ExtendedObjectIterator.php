@@ -1,10 +1,7 @@
 <?php
 
 /**
- * ExtendedObjectIterator
- *
- * This class represents an iterator for objects.
- * It allows iterating over the properties of an object.
+ * Utilities
  *
  * @package Colibri\Utils\Performance
  * @author Vahan P. Grigoryan

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Web
+ *
+ * @package Colibri\Web
+ * @author K. Tigay
+ * @copyright 2020 ColibriLab 
+ */
 namespace Colibri\Web;
 
 use Colibri\App;
@@ -9,15 +16,22 @@ use Colibri\Utils\Config\Config;
 use Colibri\Common\VariableHelper;
 
 /**
- * Class Route
- * @package App\Modules\ApiEndpoints
- * @author K.Tigay <ktigay@action-media.ru>
+ * Class Router
+ * 
+ * This abstract class represents a template for web content generation.
+ * 
  */
 class Router
 {
 
+    /**
+     * @var array Holds the configuration array for routes.
+     */
     private array $_configArray = [];
 
+    /**
+     * Constructor. Initializes the Router instance.
+     */
     public function __construct()
     {
         $this->_configArray = [];
@@ -49,6 +63,9 @@ class Router
 
     }
 
+    /**
+     * Update the current request URI based on defined routes.
+     */
     public function UpdateRequest()
     {
         $command = $_SERVER['REQUEST_URI'] ?? '';
@@ -96,6 +113,12 @@ class Router
         $_SERVER['REQUEST_URI'] = $command;
     }
 
+    /**
+     * Get the modified URI based on defined routes.
+     *
+     * @param string $command The original URI.
+     * @return string The modified URI.
+     */
     public function Uri(string $command): string
     {
 

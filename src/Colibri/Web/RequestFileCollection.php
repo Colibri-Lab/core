@@ -1,26 +1,33 @@
 <?php
 
 /**
- * Коллекция файлов запроса
- * Только для чтения
- * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * Web
+ *
+ * This abstract class represents a template for web content generation.
+ *
  * @package Colibri\Web
- * @version 1.0.0
- * 
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
  */
-
 namespace Colibri\Web;
 
 /**
- * Коллекция файлов запроса
- * Readonly
- * @testFunction testRequestFileCollection
+ * Request File Collection Class
+ *
+ * Represents a collection of files sent in a request.
+ * Read-only.
+ *
+ *
  */
 class RequestFileCollection extends RequestCollection
 {
 
+    /**
+     * Constructor.
+     *
+     * @param mixed $data The data to initialize the collection.
+     * @param bool $stripSlashes Whether to strip slashes from values (default: true).
+     */
     public function __construct(mixed $data = array(), bool $stripSlashes = true)
     {
         // $data [key => value]
@@ -46,17 +53,23 @@ class RequestFileCollection extends RequestCollection
     }
 
     /**
-     * Чистит или добавляет слэши в значения
+     * Override the method to prevent stripping slashes.
      *
-     * @param string|string[] $obj
-     * @return string|string[]
-     * @testFunction testRequestCollection_stripSlashes
+     * @param mixed $obj The value to process.
+     * @param bool $strip Whether to strip slashes.
+     * @return mixed The processed value.
      */
     protected function _stripSlashes(mixed $obj, bool $strip = false): mixed
     {
         return $obj;
     }
 
+    /**
+     * Retrieves the file at the specified key.
+     *
+     * @param mixed $key The key of the file.
+     * @return mixed|null The requested file or null if not found.
+     */
     public function Item(mixed $key): mixed
     {
         if ($this->Exists($key)) {
@@ -73,6 +86,12 @@ class RequestFileCollection extends RequestCollection
         return null;
     }
 
+    /**
+     * Retrieves the file at the specified index.
+     *
+     * @param int $index The index of the file.
+     * @return mixed|null The requested file or null if not found.
+     */
     public function ItemAt(int $index): mixed
     {
         $key = $this->Key($index);

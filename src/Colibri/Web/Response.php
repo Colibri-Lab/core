@@ -1,15 +1,14 @@
 <?php
 
 /**
- * Класс отвечающий за вывод
- * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * Web
+ *
+ * This abstract class represents a template for web content generation.
+ *
  * @package Colibri\Web
- * @version 1.0.0
- * 
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
  */
-
 namespace Colibri\Web;
 
 use Colibri\Common\Encoding;
@@ -21,26 +20,29 @@ use IteratorAggregate;
 use Colibri\App;
 
 /**
- * Респонс 
- * @testFunction testResponse
+ * Response Class
+ *
+ * Represents a class responsible for output.
+ *
  */
 class Response
 {
-
-    // подключаем функционал событийной модели
+    // Event dispatcher functionality
     use TEventDispatcher;
 
     /**
-     * Синглтон
+     * Singleton instance.
      *
-     * @var Response
+     * @var Response|null
      */
-    static ? Response $instance = null;
+    public static ?Response $instance = null;
 
     /**
-     * Коды ответов
+     * HTTP response status codes and their descriptions.
+     *
+     * @var array
      */
-    static $codes = [
+    public static $codes = [
         100 => 'Continue',
         101 => 'Switching Protocols',
         102 => 'Processing',
@@ -154,7 +156,7 @@ class Response
     ];
 
     /**
-     * Конструктор
+     * Constructor (private to enforce singleton pattern).
      */
     private function __construct()
     {
@@ -162,10 +164,9 @@ class Response
     }
 
     /**
-     * Статический конструктор
+     * Static constructor to create a singleton instance.
      *
-     * @return Response
-     * @testFunction testResponseCreate
+     * @return Response The singleton instance.
      */
     public static function Create(): Response
     {
@@ -176,10 +177,10 @@ class Response
     }
 
     /**
-     * Добавить хедер
+     * Add a header to the HTTP response.
      *
-     * @param string $name
-     * @param string $value
+     * @param string $name The name of the header.
+     * @param string $value The value of the header.
      * @return void
      * @testFunction testResponse_addHeader
      */
@@ -188,6 +189,12 @@ class Response
         header($name . ': ' . $value);
     }
 
+    /**
+     * Add multiple headers to the HTTP response.
+     *
+     * @param array $headers An associative array of headers (name => value).
+     * @return void
+     */
     private function _addHeaders(array $headers): void
     {
         foreach ($headers as $name => $value) {
@@ -198,10 +205,9 @@ class Response
     }
 
     /**
-     * Добавить NoCache
+     * Disable caching for the HTTP response.
      *
-     * @return Response
-     * @testFunction testResponseNoCache
+     * @return Response The Response instance.
      */
     public function NoCache(): Response
     {
@@ -211,12 +217,11 @@ class Response
     }
 
     /**
-     * Добавить content-type
+     * Set the Content-Type header for the HTTP response.
      *
-     * @param string $type
-     * @param string $encoding
-     * @return Response
-     * @testFunction testResponseContentType
+     * @param string $type The MIME type of the content.
+     * @param string|null $encoding The character encoding of the content.
+     * @return Response The Response instance.
      */
     public function ContentType(string $type, ?string $encoding = null): Response
     {
@@ -226,11 +231,10 @@ class Response
     }
 
     /**
-     * Добавить expires
+     * Set the expiration time for the HTTP response.
      *
-     * @param int $seconds
-     * @return Response
-     * @testFunction testResponseExpiresAfter
+     * @param int $seconds The number of seconds until expiration.
+     * @return Response The Response instance.
      */
     public function ExpiresAfter(int $seconds): Response
     {
@@ -239,11 +243,10 @@ class Response
     }
 
     /**
-     * Добавить expires
+     * Set the expiration time for the HTTP response.
      *
-     * @param int $date
-     * @return Response
-     * @testFunction testResponseExpiresAt
+     * @param int $date The expiration date as a Unix timestamp.
+     * @return Response The Response instance.
      */
     public function ExpiresAt(int $date): Response
     {
@@ -252,11 +255,10 @@ class Response
     }
 
     /**
-     * Добавить cache-control и все остальные приблуды
+     * Set caching options for the HTTP response.
      *
-     * @param int $seconds
-     * @return Response
-     * @testFunction testResponseCache
+     * @param int $seconds The number of seconds to cache the response.
+     * @return Response The Response instance.
      */
     public function Cache(int $seconds): Response
     {
@@ -266,10 +268,9 @@ class Response
     }
 
     /**
-     * Что то полезное
+     * Set the P3P header for the HTTP response.
      *
-     * @return Response
-     * @testFunction testResponseP3P
+     * @return Response The Response instance.
      */
     public function P3P(): Response
     {
@@ -278,11 +279,11 @@ class Response
     }
 
     /**
-     * Переадресация
+     * Redirect the client to another URL.
      *
-     * @param string $url
-     * @return Response
-     * @testFunction testResponseRedirect
+     * @param string $url The URL to redirect to.
+     * @param int $status The HTTP status code for the redirect.
+     * @return Response The Response instance.
      */
     public function Redirect(string $url, int $status = 301): Response
     {
@@ -294,7 +295,9 @@ class Response
     }
 
     /**
-     * Перезагрузить страницу
+     * Refresh the current page.
+     *
+     * @return Response The Response instance.
      */
     public function Refresh(): Response
     {
@@ -303,10 +306,9 @@ class Response
     }
 
     /**
-     * Добавить хедер Content-Description: File Transfer
+     * Add the Content-Description header to the HTTP response.
      *
-     * @return Response
-     * @testFunction testResponseFileTransfer
+     * @return Response The Response instance.
      */
     public function FileTransfer(): Response
     {
@@ -315,12 +317,11 @@ class Response
     }
 
     /**
-     * Добавить content-disposition
+     * Set the Content-Disposition header for the HTTP response.
      *
-     * @param string $type
-     * @param string $name
-     * @return Response
-     * @testFunction testResponseContentDisposition
+     * @param string $type The type of disposition ('attachment', 'inline').
+     * @param string $name The filename to be sent to the client.
+     * @return Response The Response instance.
      */
     public function ContentDisposition(string $type, string $name): Response
     {
@@ -329,11 +330,10 @@ class Response
     }
 
     /**
-     * Добавтиь content-transfer-encoding
+     * Set the Content-Transfer-Encoding header for the HTTP response.
      *
-     * @param string $type
-     * @return Response
-     * @testFunction testResponseContentTransferEncoding
+     * @param string $type The transfer encoding type ('binary', 'base64', etc.).
+     * @return Response The Response instance.
      */
     public function ContentTransferEncoding(string $type = 'binary'): Response
     {
@@ -342,11 +342,10 @@ class Response
     }
 
     /**
-     * Добавить pragma
+     * Set the Pragma header for the HTTP response.
      *
-     * @param string $type
-     * @return Response
-     * @testFunction testResponsePragma
+     * @param string $type Type of pragma header
+     * @return Response The Response instance.
      */
     public function Pragma(string $type = 'binary'): Response
     {
@@ -355,11 +354,10 @@ class Response
     }
 
     /**
-     * Добавтить content-length
+     * Set the Content-Length header for the HTTP response.
      *
-     * @param int $length
-     * @return Response
-     * @testFunction testResponseContentLength
+     * @param int $length The length of the content in bytes.
+     * @return Response The Response instance.
      */
     public function ContentLength(int $length): Response
     {
@@ -368,11 +366,10 @@ class Response
     }
 
     /**
-     * Добавить cache-control
+     * Set the Cache-Control header for the HTTP response.
      *
-     * @param string $type
-     * @return Response
-     * @testFunction testResponseCacheControl
+     * @param string $type The value of the Cache-Control header.
+     * @return Response The Response instance.
      */
     public function CacheControl(string $type): Response
     {
@@ -381,26 +378,34 @@ class Response
     }
 
     /**
-     * Выставляет куки
-     * @param mixed $name Название cookie
-     * @param mixed $value Значение cookie
-     * @param int $expires Количество дней жизни куки
-     * @param string $path Путь к директории на сервере, из которой будут доступны cookie
-     * @param string $domain (Под)домен, которому доступны cookie.
-     * @param bool $secure Указывает на то, что значение cookie должно передаваться от клиента по защищённому соединению HTTPS
-     * @param bool $httponly Если задано true, cookie будут доступны только через HTTP-протокол
-     * @return Response 
+     * Set a cookie in the HTTP response.
+     *
+     * @param string $name The name of the cookie.
+     * @param string $value The value of the cookie.
+     * @param int|null $expires The expiration time of the cookie in seconds.
+     * @param string|null $path The path on the server in which the cookie will be available.
+     * @param string|null $domain The domain that the cookie is available to.
+     * @param bool|null $secure Indicates if the cookie should only be transmitted over a secure HTTPS connection.
+     * @param bool|null $httponly Indicates if the cookie should only be accessible through HTTP protocol.
+     * @return Response The Response instance.
      */
-    public function Cookie(string $name, string $value, ?int $expires = 0, ?string $path = '', ?string $domain = '', ?bool $secure = false, ?bool $httponly = false): Response
-    {
+    public function Cookie(
+        string $name,
+        string $value,
+        ?int $expires = 0,
+        ?string $path = '',
+        ?string $domain = '',
+        ?bool $secure = false,
+        ?bool $httponly = false
+    ): Response {
         setcookie($name, $value, time() + $expires * 86400, $path, $domain, $secure, $httponly);
         return $this;
     }
 
     /**
-     * Сохраняет UTM в куки
-     * @param RequestCollection|array|object $utm 
-     * @return void 
+     * Saves UTM cookie values to cookie
+     * @param IteratorAggregate $utm
+     * @return Response
      */
     public function SaveUTMCookies(IteratorAggregate $utm): Response
     {
@@ -413,11 +418,10 @@ class Response
     }
 
     /**
-     * Вернуть ошибку и остановится 
+     * Returns error and stops
      *
      * @param string $content
      * @return void
-     * @testFunction testResponseError404
      */
     public function Error404(string $content = ''): void
     {
@@ -425,12 +429,11 @@ class Response
     }
 
     /**
-     * Выдать ответ с результатом
+     * Echo result and stop
      *
-     * @param int $status
-     * @param string $content
+     * @param int $status status of response
+     * @param string $content content of response
      * @return void
-     * @testFunction testResponseClose
      */
     public function Close(int $status, string $content = '', string $type = 'text/html', string $encoding = 'utf-8', ?array $headers = [], ?array $cookies = []): void
     {
@@ -475,12 +478,11 @@ class Response
     }
 
     /**
-     * Переадресация на загрузку файла
+     * Complex method to return a file
      *
-     * @param string $filename
-     * @param string $filecontent
+     * @param string $filename a file name
+     * @param string $filecontent file content
      * @return void
-     * @testFunction testResponseDownloadFile
      */
     public function DownloadFile(string $filename, string $filecontent): void
     {
@@ -495,10 +497,9 @@ class Response
     }
 
     /**
-     * Аналог функции echo
+     * Echo function analogue
      *
      * @return void
-     * @testFunction testResponseWrite
      */
     public function Write(): void
     {
@@ -509,6 +510,9 @@ class Response
         flush();
     }
 
+    /**
+     * Writes origin to response
+     */
     public function Origin(): void
     {
         $this->_addHeaders([

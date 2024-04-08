@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Configuration File Node
+ * Config
  * 
- * Represents a node in a configuration file.
- * 
- * @author Vagan Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 ColibriLab
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Config
+ * 
  */
 namespace Colibri\Utils\Config;
 

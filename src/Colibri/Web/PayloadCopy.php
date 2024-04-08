@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Web
+ *
+ * This abstract class represents a template for web content generation.
+ *
+ * @package Colibri\Web
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
+ */
 namespace Colibri\Web;
 
 use Colibri\Common\XmlHelper;
@@ -7,17 +16,33 @@ use ArrayAccess;
 use Countable;
 use RuntimeException;
 
+/**
+ * PayloadCopy Class
+ *
+ * This class represents a copy of payload data received in a web request.
+ * It implements the ArrayAccess and Countable interfaces for array-like behavior.
+ */
 class PayloadCopy implements ArrayAccess, Countable
 {
 
     private string $_type;
     private mixed $_payloadData = null;
 
+    /**
+     * Constructor.
+     *
+     * @param string $type The type of payload data (e.g., json, xml).
+     */
     public function __construct($type)
     {
         $this->_type = $type;
     }
 
+    /**
+     * Load the payload data.
+     *
+     * @return void
+     */
     private function _loadPayload(): void
     {
         $payload = file_get_contents('php://input');
@@ -32,6 +57,12 @@ class PayloadCopy implements ArrayAccess, Countable
         }
     }
 
+    /**
+     * Magic getter method.
+     *
+     * @param string $property The property name.
+     * @return mixed The value of the property.
+     */
     public function __get(string $property): mixed
     {
         if (empty($this->_payloadData)) {
@@ -40,13 +71,12 @@ class PayloadCopy implements ArrayAccess, Countable
         return isset($this->_payloadData->$property) ? $this->_payloadData->$property : null;
     }
 
-
     /**
-     * Устанавливает значение по индексу
-     * @param int $offset
-     * @param mixed $value
+     * Set the value at the specified offset.
+     *
+     * @param mixed $offset The offset.
+     * @param mixed $value The value.
      * @return void
-     * @testFunction testDataTableOffsetSet
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -62,9 +92,10 @@ class PayloadCopy implements ArrayAccess, Countable
     }
 
     /**
-     * Проверяет есть ли данные по индексу
-     * @param int $offset
-     * @return bool
+     * Check if data exists at the specified offset.
+     *
+     * @param mixed $offset The offset.
+     * @return bool True if data exists, false otherwise.
      */
     public function offsetExists(mixed $offset): bool
     {
@@ -75,10 +106,10 @@ class PayloadCopy implements ArrayAccess, Countable
     }
 
     /**
-     * удаляет данные по индексу
-     * @param int $offset
+     * Unset data at the specified offset.
+     *
+     * @param mixed $offset The offset.
      * @return void
-     * @testFunction testDataTableOffsetUnset
      */
     public function offsetUnset(mixed $offset): void
     {
@@ -89,11 +120,10 @@ class PayloadCopy implements ArrayAccess, Countable
     }
 
     /**
-     * Возвращает значение по индексу
+     * Get the value at the specified offset.
      *
-     * @param int $offset
-     * @return mixed
-     * @testFunction testDataTableOffsetGet
+     * @param mixed $offset The offset.
+     * @return mixed The value at the specified offset.
      */
     public function offsetGet(mixed $offset): mixed
     {
@@ -104,8 +134,9 @@ class PayloadCopy implements ArrayAccess, Countable
     }
 
     /**
-     * Возвращает количество ключей в массиве
-     * @return int 
+     * Get the number of keys in the array.
+     *
+     * @return int The number of keys in the array.
      */
     public function count(): int
     {
@@ -115,6 +146,11 @@ class PayloadCopy implements ArrayAccess, Countable
         return count(array_keys($this->_payloadData));
     }
 
+    /**
+     * Convert the payload data to an array.
+     *
+     * @return array The payload data as an array.
+     */
     public function ToArray(): array
     {
         if (empty($this->_payloadData)) {

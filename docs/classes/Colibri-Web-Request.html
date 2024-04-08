@@ -128,12 +128,6 @@
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/App.html" class="">App</a>
 </h4>
-    <ul class="phpdocumentor-list">
-                    <li>
-                <a href="packages/App-Modules.html" class="">Modules</a>
-                
-            </li>
-            </ul>
 
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -258,26 +252,12 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс запроса</p>
+            <p class="phpdocumentor-summary">Request Class</p>
 
-
-
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Request.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testRequest</p>
+    <section class="phpdocumentor-description"><p>This class represents a web request and provides access to request parameters such as GET, POST, etc.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+
 
 
 
@@ -304,14 +284,12 @@
     <span>
         &nbsp;= &#039;json&#039;                            </span>
 </dt>
-<dd>Тип запроса JSON</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Web-Request.html#constant_PAYLOAD_TYPE_XML">PAYLOAD_TYPE_XML</a>
     <span>
         &nbsp;= &#039;xml&#039;                            </span>
 </dt>
-<dd>Тип запроса XML</dd>
 
     </dl>
 
@@ -367,9 +345,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Web-Request.html#property_instance">$instance</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Web-Request.html"><abbr title="\Colibri\Web\Request">Request</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Web-Request.html"><abbr title="\Colibri\Web\Request">Request</abbr></a>|null            </span>
 </dt>
-<dd>Singlton</dd>
+<dd>Singleton instance.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Web-Request.html#property_post">$post</a>
@@ -432,14 +410,14 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Магический метод</dd>
+<dd>Magic getter method to access request properties.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Request.html#method_Create">Create()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Request.html"><abbr title="\Colibri\Web\Request">Request</abbr></a>    </span>
 </dt>
-<dd>Статический контруктор</dd>
+<dd>Static constructor to create a new instance of Request.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_DispatchEvent">DispatchEvent()</a>
@@ -453,13 +431,14 @@
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-PayloadCopy.html"><abbr title="\Colibri\Web\PayloadCopy">PayloadCopy</abbr></a>    </span>
 </dt>
-<dd>Возвращает копию RequestPayload в виде обьекта или SimpleXMLElement</dd>
+<dd>Returns a copy of the request payload as a PayloadCopy object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Request.html#method_GetUniqueRequestId">GetUniqueRequestId()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Generates a unique request ID based on request data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_HandleEvent">HandleEvent()</a>
@@ -480,20 +459,21 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Возвращает URI с добавлением или удалением параметров</dd>
+<dd>Returns the URI with added or removed parameters.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Web-Request.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Web-Request.html#method__detectJsonEncodedData">_detectJsonEncodedData()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
+<dd>Detects if the request payload is JSON encoded.</dd>
 
     </dl>
 
@@ -517,22 +497,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Тип запроса JSON</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">PAYLOAD_TYPE_JSON</span>
     = <span class="phpdocumentor-signature__default-value">&#039;json&#039;</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Type of payload: JSON</p>
+</section>
+
     
 
 </article>
@@ -546,22 +527,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Тип запроса XML</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">PAYLOAD_TYPE_XML</span>
     = <span class="phpdocumentor-signature__default-value">&#039;xml&#039;</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Type of payload: XML</p>
+</section>
+
     
 
 </article>
@@ -602,7 +584,9 @@
     <span class="phpdocumentor-signature__name">$address</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The full address of the request.</p>
+</section>
+
     
     
 
@@ -635,7 +619,9 @@
     <span class="phpdocumentor-signature__name">$cookie</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The cookie parameters.</p>
+</section>
+
     
     
 
@@ -668,7 +654,9 @@
     <span class="phpdocumentor-signature__name">$files</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The uploaded files.</p>
+</section>
+
     
     
 
@@ -701,7 +689,9 @@
     <span class="phpdocumentor-signature__name">$get</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The GET parameters.</p>
+</section>
+
     
     
 
@@ -734,7 +724,9 @@
     <span class="phpdocumentor-signature__name">$headers</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The request headers.</p>
+</section>
+
     
     
 
@@ -767,7 +759,9 @@
     <span class="phpdocumentor-signature__name">$host</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The host of the request.</p>
+</section>
+
     
     
 
@@ -800,7 +794,9 @@
     <span class="phpdocumentor-signature__name">$insecure</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>Whether the request is insecure (not using HTTPS).</p>
+</section>
+
     
     
 
@@ -822,15 +818,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">52</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Singlton</p>
+        <p class="phpdocumentor-summary">Singleton instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Web-Request.html"><abbr title="\Colibri\Web\Request">Request</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Web-Request.html"><abbr title="\Colibri\Web\Request">Request</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$instance</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
@@ -867,7 +863,9 @@
     <span class="phpdocumentor-signature__name">$post</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The POST parameters.</p>
+</section>
+
     
     
 
@@ -900,7 +898,9 @@
     <span class="phpdocumentor-signature__name">$remoteip</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The remote IP address.</p>
+</section>
+
     
     
 
@@ -933,7 +933,9 @@
     <span class="phpdocumentor-signature__name">$server</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The server parameters.</p>
+</section>
+
     
     
 
@@ -966,7 +968,9 @@
     <span class="phpdocumentor-signature__name">$session</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The session parameters.</p>
+</section>
+
     
     
 
@@ -999,7 +1003,9 @@
     <span class="phpdocumentor-signature__name">$type</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The type of request (e.g., GET, POST).</p>
+</section>
+
     
     
 
@@ -1032,7 +1038,9 @@
     <span class="phpdocumentor-signature__name">$uri</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The URI of the request.</p>
+</section>
+
     
     
 
@@ -1065,7 +1073,9 @@
     <span class="phpdocumentor-signature__name">$utm</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The UTM parameters.</p>
+</section>
+
     
     
 
@@ -1087,7 +1097,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">59</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
@@ -1125,11 +1135,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">126</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Магический метод</p>
+        <p class="phpdocumentor-summary">Magic getter method to access request properties.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1145,29 +1155,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The property name.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Request.html#method___get#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testRequest__get</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value of the property.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1183,11 +1187,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">87</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Статический контруктор</p>
+        <p class="phpdocumentor-summary">Static constructor to create a new instance of Request.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1198,26 +1202,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Request.html#method_Create#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testRequestCreate</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Request.html"><abbr title="\Colibri\Web\Request">Request</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Request instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1305,11 +1297,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">243</span>
+    <span class="phpdocumentor-element-found-in__line">245</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает копию RequestPayload в виде обьекта или SimpleXMLElement</p>
+        <p class="phpdocumentor-summary">Returns a copy of the request payload as a PayloadCopy object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1325,33 +1317,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">Request::PAYLOAD_TYPE_JSON</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>тип результата</p>
+                    <section class="phpdocumentor-description"><p>The type of result (json, xml).</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Request.html#method_GetPayloadCopy#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testRequestGetPayloadCopy</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-PayloadCopy.html"><abbr title="\Colibri\Web\PayloadCopy">PayloadCopy</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The payload copy.</p>
+</section>
+
             </section>
 
 </article>
@@ -1369,11 +1349,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">248</span>
+    <span class="phpdocumentor-element-found-in__line">255</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Generates a unique request ID based on request data.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">GetUniqueRequestId</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -1387,6 +1368,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The unique request ID.</p>
+</section>
+
             </section>
 
 </article>
@@ -1518,11 +1503,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">103</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает URI с добавлением или удалением параметров</p>
+        <p class="phpdocumentor-summary">Returns the URI with added or removed parameters.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1538,38 +1523,30 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">array()</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Parameters to add.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$remove</span>
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">array()</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Parameters to remove.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Web-Request.html#method_Uri#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testRequestUri</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The modified URI.</p>
+</section>
+
             </section>
 
 </article>
@@ -1587,11 +1564,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">63</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1619,11 +1596,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Request.php"><a href="files/src-colibri-web-request.html"><abbr title="src/Colibri/Web/Request.php">Request.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">70</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Detects if the request payload is JSON encoded.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
                     <span class="phpdocumentor-signature__name">_detectJsonEncodedData</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>

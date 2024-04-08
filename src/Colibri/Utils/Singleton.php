@@ -3,9 +3,6 @@
 /**
  * Utilities
  *
- * This class represents an iterator for objects.
- * It allows iterating over the properties of an object.
- *
  * @package Colibri\Utils\Performance
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab

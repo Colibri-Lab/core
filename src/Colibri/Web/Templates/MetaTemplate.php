@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Web
+ * Templates
  *
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Web
+ * This abstract class represents a template for web content generation.
  *
- *
+ * @package Colibri\Web\Templates
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
  */
 namespace Colibri\Web\Templates;
 
@@ -15,6 +15,12 @@ use Colibri\Events\EventsContainer;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\ExtendedObject;
 
+/**
+ * Class MetaTemplate
+ *
+ * This class represents a meta template for generating dynamic content.
+ *
+ */
 class MetaTemplate extends Template
 {
 
@@ -22,9 +28,11 @@ class MetaTemplate extends Template
     const PHP = 'php';
 
     /**
-     * Конструктор
+     * Constructor
      *
-     * @param string $file файл шаблона
+     * Initializes a new instance of the MetaTemplate class.
+     *
+     * @param string $file The template file.
      */
     public function __construct(string $file)
     {
@@ -32,11 +40,10 @@ class MetaTemplate extends Template
     }
 
     /**
-     * Вывод шаблона
+     * Renders the template.
      *
-     * @param string $mode тип конвертации php/js
-     * @param mixed $args
-     * @return string
+     * @param mixed $args Additional arguments for rendering.
+     * @return string The rendered output.
      */
     public function Render(mixed $args = null): string
     {
@@ -74,9 +81,10 @@ class MetaTemplate extends Template
     }
 
     /**
-     * Конвертирует мета-язык в Javascript
-     * @param string $code
-     * @return string
+     * Converts meta-language to JavaScript.
+     *
+     * @param string $code The meta-language code.
+     * @return string The converted JavaScript code.
      */
     private function _convertToJS(string $code): string
     {
@@ -87,9 +95,10 @@ class MetaTemplate extends Template
     }
 
     /**
-     * Конвертирует мета-язык в Php
-     * @param string $code
-     * @return string
+     * Converts meta-language to PHP.
+     *
+     * @param string $code The meta-language code.
+     * @return string The converted PHP code.
      */
     private function _convertToPhp(string $code): string
     {
@@ -100,13 +109,13 @@ class MetaTemplate extends Template
     }
 
     /**
-     * Замена вставок в шаблон
+     * Renders code in the template.
      *
-     * @param string $code код для выполнения
-     * @param ExtendedObject $args аргументы для передачи в код
-     * @return string
+     * @param string $code The code to render.
+     * @param mixed $args The arguments for the code.
+     * @return mixed The rendered output.
      */
-    public function RenderCode(string $code, mixed $args): string
+    public function RenderCode(string $code, mixed $args): mixed
     {
         return $code;
     }

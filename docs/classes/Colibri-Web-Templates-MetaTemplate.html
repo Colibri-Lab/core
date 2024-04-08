@@ -128,12 +128,6 @@
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/App.html" class="">App</a>
 </h4>
-    <ul class="phpdocumentor-list">
-                    <li>
-                <a href="packages/App-Modules.html" class="">Modules</a>
-                
-            </li>
-            </ul>
 
                                     <h4 class="phpdocumentor-sidebar__root-namespace">
     <a href="packages/Application.html" class="">Application</a>
@@ -241,6 +235,7 @@
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Web.html">Web</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Web-Templates.html">Templates</a></li>
                             </ul>
         </div>
     
@@ -255,12 +250,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/MetaTemplate.php"><a href="files/src-colibri-web-templates-metatemplate.html"><abbr title="src/Colibri/Web/Templates/MetaTemplate.php">MetaTemplate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс шаблона</p>
+            <p class="phpdocumentor-summary">Class MetaTemplate</p>
 
+    <section class="phpdocumentor-description"><p>This class represents a meta template for generating dynamic content.</p>
+</section>
 
 
 
@@ -328,7 +325,7 @@
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Путь к файлу шаблона</dd>
+<dd>The path to the template file.</dd>
 
     </dl>
 
@@ -343,21 +340,21 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Templates-Template.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Get</dd>
+<dd>Magic getter method</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Templates-Template.html#method_Create">Create()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Web-Templates-Template.html"><abbr title="\Colibri\Web\Templates\Template">Template</abbr></a>    </span>
 </dt>
-<dd>Статический конструктор</dd>
+<dd>Static constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_DispatchEvent">DispatchEvent()</a>
@@ -378,7 +375,7 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Запускает шаблон беря за основу путь нахождения текущего шаблона</dd>
+<dd>Runs code in a dummy template.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_RemoveHandler">RemoveHandler()</a>
@@ -392,35 +389,35 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Вывод шаблона</dd>
+<dd>Renders the template.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Templates-MetaTemplate.html#method_RenderCode">RenderCode()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: mixed    </span>
 </dt>
-<dd>Замена вставок в шаблон</dd>
+<dd>Renders code in the template.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Web-Templates-Template.html#method_Run">Run()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Замена вставок в шаблон</dd>
+<dd>Runs template based on the current template&#039;s directory path.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Web-Templates-MetaTemplate.html#method__convertToJS">_convertToJS()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Конвертирует мета-язык в Javascript</dd>
+<dd>Converts meta-language to JavaScript.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Web-Templates-MetaTemplate.html#method__convertToPhp">_convertToPhp()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Конвертирует мета-язык в Php</dd>
+<dd>Converts meta-language to PHP.</dd>
 
     </dl>
 
@@ -444,7 +441,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/Template.php"><a href="files/src-colibri-web-templates-template.html"><abbr title="src/Colibri/Web/Templates/Template.php">Template.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">35</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -472,7 +469,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/MetaTemplate.php"><a href="files/src-colibri-web-templates-metatemplate.html"><abbr title="src/Colibri/Web/Templates/MetaTemplate.php">MetaTemplate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
@@ -500,7 +497,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/MetaTemplate.php"><a href="files/src-colibri-web-templates-metatemplate.html"><abbr title="src/Colibri/Web/Templates/MetaTemplate.php">MetaTemplate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">28</span>
 
     </aside>
 
@@ -555,7 +552,9 @@
     <span class="phpdocumentor-signature__name">$file</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The file path of the template.</p>
+</section>
+
     
     
 
@@ -588,7 +587,9 @@
     <span class="phpdocumentor-signature__name">$path</span>
     </code>
 
-    
+        <section class="phpdocumentor-description"><p>The directory path of the template.</p>
+</section>
+
     
     
 
@@ -610,11 +611,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/Template.php"><a href="files/src-colibri-web-templates-template.html"><abbr title="src/Colibri/Web/Templates/Template.php">Template.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Путь к файлу шаблона</p>
+        <p class="phpdocumentor-summary">The path to the template file.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -649,11 +650,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/MetaTemplate.php"><a href="files/src-colibri-web-templates-metatemplate.html"><abbr title="src/Colibri/Web/Templates/MetaTemplate.php">MetaTemplate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -661,7 +662,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Initializes a new instance of the MetaTemplate class.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -669,7 +672,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>файл шаблона</p>
+                    <section class="phpdocumentor-description"><p>The template file.</p>
 </section>
 
             </dd>
@@ -693,11 +696,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/Template.php"><a href="files/src-colibri-web-templates-template.html"><abbr title="src/Colibri/Web/Templates/Template.php">Template.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Get</p>
+        <p class="phpdocumentor-summary">Magic getter method</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -705,7 +708,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Retrieves the value of a property.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -713,13 +718,40 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The property name.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Web-Templates-Template.html#method___get#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Colibri-AppException.html"><abbr title="\Colibri\AppException">AppException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the property is unknown.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value of the property.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -735,11 +767,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/Template.php"><a href="files/src-colibri-web-templates-template.html"><abbr title="src/Colibri/Web/Templates/Template.php">Template.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Статический конструктор</p>
+        <p class="phpdocumentor-summary">Static constructor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -747,7 +779,9 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Creates a new instance of the Template class.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -755,7 +789,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>файл шаблона</p>
+                    <section class="phpdocumentor-description"><p>The template file.</p>
 </section>
 
             </dd>
@@ -767,7 +801,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Web-Templates-Template.html"><abbr title="\Colibri\Web\Templates\Template">Template</abbr></a></span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>созданный шаблон</p>
+                <section class="phpdocumentor-description"><p>The created template instance.</p>
 </section>
 
             </section>
@@ -914,11 +948,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/Template.php"><a href="files/src-colibri-web-templates-template.html"><abbr title="src/Colibri/Web/Templates/Template.php">Template.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">125</span>
+    <span class="phpdocumentor-element-found-in__line">136</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Запускает шаблон беря за основу путь нахождения текущего шаблона</p>
+        <p class="phpdocumentor-summary">Runs code in a dummy template.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -934,16 +968,16 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Файл подшаблона</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$args</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The arguments for the code.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -952,6 +986,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The rendered output.</p>
+</section>
+
             </section>
 
 </article>
@@ -1026,11 +1064,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/MetaTemplate.php"><a href="files/src-colibri-web-templates-metatemplate.html"><abbr title="src/Colibri/Web/Templates/MetaTemplate.php">MetaTemplate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Вывод шаблона</p>
+        <p class="phpdocumentor-summary">Renders the template.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1046,7 +1084,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Additional arguments for rendering.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1055,6 +1095,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The rendered output.</p>
+</section>
+
             </section>
 
 </article>
@@ -1072,15 +1116,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/MetaTemplate.php"><a href="files/src-colibri-web-templates-metatemplate.html"><abbr title="src/Colibri/Web/Templates/MetaTemplate.php">MetaTemplate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">109</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Замена вставок в шаблон</p>
+        <p class="phpdocumentor-summary">Renders code in the template.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">RenderCode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$code</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">RenderCode</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$code</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -1092,16 +1136,16 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>код для выполнения</p>
+                    <section class="phpdocumentor-description"><p>The code to render.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$args</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-ExtendedObject.html"><abbr title="\Colibri\Utils\ExtendedObject">ExtendedObject</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>аргументы для передачи в код</p>
+                    <section class="phpdocumentor-description"><p>The arguments for the code.</p>
 </section>
 
             </dd>
@@ -1111,7 +1155,11 @@
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The rendered output.</p>
+</section>
+
             </section>
 
 </article>
@@ -1129,11 +1177,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/Template.php"><a href="files/src-colibri-web-templates-template.html"><abbr title="src/Colibri/Web/Templates/Template.php">Template.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">114</span>
+    <span class="phpdocumentor-element-found-in__line">123</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Замена вставок в шаблон</p>
+        <p class="phpdocumentor-summary">Runs template based on the current template&#039;s directory path.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1149,16 +1197,14 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>код для выполнения</p>
-</section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$args</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>аргументы для передачи в код</p>
+                    <section class="phpdocumentor-description"><p>Additional arguments for rendering.</p>
 </section>
 
             </dd>
@@ -1169,6 +1215,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The rendered output.</p>
+</section>
+
             </section>
 
 </article>
@@ -1186,11 +1236,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/MetaTemplate.php"><a href="files/src-colibri-web-templates-metatemplate.html"><abbr title="src/Colibri/Web/Templates/MetaTemplate.php">MetaTemplate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">81</span>
+    <span class="phpdocumentor-element-found-in__line">89</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конвертирует мета-язык в Javascript</p>
+        <p class="phpdocumentor-summary">Converts meta-language to JavaScript.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1206,7 +1256,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The meta-language code.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1215,6 +1267,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The converted JavaScript code.</p>
+</section>
+
             </section>
 
 </article>
@@ -1232,11 +1288,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Web/Templates/MetaTemplate.php"><a href="files/src-colibri-web-templates-metatemplate.html"><abbr title="src/Colibri/Web/Templates/MetaTemplate.php">MetaTemplate.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">94</span>
+    <span class="phpdocumentor-element-found-in__line">103</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конвертирует мета-язык в Php</p>
+        <p class="phpdocumentor-summary">Converts meta-language to PHP.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -1252,7 +1308,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The meta-language code.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1261,6 +1319,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The converted PHP code.</p>
+</section>
+
             </section>
 
 </article>

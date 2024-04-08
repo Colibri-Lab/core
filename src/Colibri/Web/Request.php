@@ -1,15 +1,14 @@
 <?php
 
 /**
- * Класс запроса
- * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * Web
+ *
+ * This abstract class represents a template for web content generation.
+ *
  * @package Colibri\Web
- * @version 1.0.0
- * 
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
  */
-
 namespace Colibri\Web;
 
 use Colibri\Common\XmlHelper;
@@ -18,48 +17,48 @@ use Colibri\Events\EventsContainer;
 use Colibri\Common\VariableHelper;
 
 /**
- * Класс запроса
- * 
- * @property-read RequestCollection $get
- * @property-read RequestCollection $post
- * @property-read RequestFileCollection $files
- * @property-read RequestCollection $session
- * @property-read RequestCollection $server
- * @property-read RequestCollection $cookie
- * @property-read RequestCollection $headers
- * @property-read RequestCollection $utm
- * @property-read string $remoteip
- * @property-read string $uri
- * @property-read string $host
- * @property-read string $address
- * @property-read string $type
- * @property-read bool $insecure
- *  
- * @testFunction testRequest
+ * Request Class
+ *
+ * This class represents a web request and provides access to request parameters such as GET, POST, etc.
+ *
+ * @property-read RequestCollection $get The GET parameters.
+ * @property-read RequestCollection $post The POST parameters.
+ * @property-read RequestFileCollection $files The uploaded files.
+ * @property-read RequestCollection $session The session parameters.
+ * @property-read RequestCollection $server The server parameters.
+ * @property-read RequestCollection $cookie The cookie parameters.
+ * @property-read RequestCollection $headers The request headers.
+ * @property-read RequestCollection $utm The UTM parameters.
+ * @property-read string $remoteip The remote IP address.
+ * @property-read string $uri The URI of the request.
+ * @property-read string $host The host of the request.
+ * @property-read string $address The full address of the request.
+ * @property-read string $type The type of request (e.g., GET, POST).
+ * @property-read bool $insecure Whether the request is insecure (not using HTTPS).
+ *
  */
 class Request
 {
 
-    // подключаем функционал событийной модели
+    // Event dispatcher trait
     use TEventDispatcher;
 
     /**
-     * Singlton
+     * Singleton instance.
      *
-     * @var Request
-     *
+     * @var Request|null
      */
     static ? Request $instance = null;
 
-    /** Тип запроса JSON */
+    /** @var string Type of payload: JSON */
     const PAYLOAD_TYPE_JSON = 'json';
-    /** Тип запроса XML */
+    /** @var string Type of payload: XML */
     const PAYLOAD_TYPE_XML = 'xml';
 
     private bool $_encodedAsJson = false;
 
     /**
-     * Конструктор
+     * Constructor.
      */
     private function __construct()
     {
@@ -67,6 +66,11 @@ class Request
         $this->_detectJsonEncodedData();
     }
 
+    /**
+     * Detects if the request payload is JSON encoded.
+     *
+     * @return void
+     */
     private function _detectJsonEncodedData(): void
     {
         if (isset($_POST['json_encoded_data'])) {
@@ -79,10 +83,9 @@ class Request
     }
 
     /**
-     * Статический контруктор
+     * Static constructor to create a new instance of Request.
      *
-     * @return Request
-     * @testFunction testRequestCreate
+     * @return Request The Request instance.
      */
     public static function Create(): Request
     {
@@ -93,12 +96,12 @@ class Request
     }
 
     /**
-     * Возвращает URI с добавлением или удалением параметров
+     * Returns the URI with added or removed parameters.
      *
-     * @param array $add
-     * @param array $remove
-     * @return string
-     * @testFunction testRequestUri
+     * @param array $add Parameters to add.
+     * @param array $remove Parameters to remove.
+     * @return string The modified URI.
+     *
      */
     public function Uri(array $add = array(), array $remove = array()): string
     {
@@ -117,11 +120,11 @@ class Request
     }
 
     /**
-     * Магический метод
+     * Magic getter method to access request properties.
      *
-     * @param string $prop
-     * @return mixed
-     * @testFunction testRequest__get
+     * @param string $prop The property name.
+     * @return mixed The value of the property.
+     *
      */
     public function __get(string $prop): mixed
     {
@@ -233,18 +236,22 @@ class Request
     }
 
     /**
-     * Возвращает копию RequestPayload в виде обьекта или SimpleXMLElement
-     * 
-     * @param string $type тип результата
-     * @return PayloadCopy
-     * 
-     * @testFunction testRequestGetPayloadCopy
+     * Returns a copy of the request payload as a PayloadCopy object.
+     *
+     * @param string $type The type of result (json, xml).
+     * @return PayloadCopy The payload copy.
+     *
      */
     public function GetPayloadCopy(string $type = Request::PAYLOAD_TYPE_JSON): PayloadCopy
     {
         return new PayloadCopy($type);
     }
 
+    /**
+     * Generates a unique request ID based on request data.
+     *
+     * @return string The unique request ID.
+     */
     public function GetUniqueRequestId(): string
     {
 

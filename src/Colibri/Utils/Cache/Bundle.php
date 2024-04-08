@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Bundle
- *
- * Represents a utility class for creating cache bundles of styles and scripts.
- *
+ * Config
+ * 
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 ColibriLab
+ * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Cache
+ * 
  */
 namespace Colibri\Utils\Cache;
 

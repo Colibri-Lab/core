@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Performance monitor
- * 
- * Class for monitoring performance.
- * 
+ * Performance
+ *
  * @package Colibri\Utils\Performance
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
+ * 
  */
 namespace Colibri\Utils\Performance;
 

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Web
- * 
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Web
- * 
- * 
+ * Templates
+ *
+ * This abstract class represents a template for web content generation.
+ *
+ * @package Colibri\Web\Templates
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
  */
 namespace Colibri\Web\Templates;
 
@@ -24,21 +24,23 @@ class PhpTemplate extends Template
 {
 
     /**
-     * Конструктор
+     * Constructor
      *
-     * @param string $file файл шаблона
+     * Initializes a new instance of the PhpTemplate class.
+     *
+     * @param mixed $file The template file.
      */
     public function __construct($file)
     {
         parent::__construct($file . '.php');
     }
 
-
     /**
-     * Вывод шаблона
+     * Renders the template.
      *
-     * @param mixed $args
-     * @return string
+     * @param mixed $args Additional arguments for rendering.
+     * @return string The rendered output.
+     * @throws AppException If the template file does not exist.
      */
     public function Render($args = null)
     {
@@ -70,13 +72,13 @@ class PhpTemplate extends Template
     }
 
     /**
-     * Замена вставок в шаблон
+     * Renders code in the template.
      *
-     * @param string $code код для выполнения
-     * @param ExtendedObject $args аргументы для передачи в код
-     * @return string
+     * @param string $code The code to render.
+     * @param mixed $args The arguments for the code.
+     * @return mixed The rendered output.
      */
-    public function RenderCode($code, $args)
+    public function RenderCode(string $code, mixed $args): mixed
     {
         return preg_replace_callback('/\{\?\=(.*?)\?\}/', function ($match) use ($args) {
             return eval('return ' . html_entity_decode($match[1]) . ';');

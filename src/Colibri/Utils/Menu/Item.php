@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Represents Menu item in backend
- * 
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2020 ColibriLab
+ * Menu
+ *
  * @package Colibri\Utils\Menu
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab
  * 
  */
 namespace Colibri\Utils\Menu;

@@ -1,15 +1,14 @@
 <?php
 
 /**
- * Веб сервер
+ * Web
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Utils\Config
- * @version 1.0.0
+ * This abstract class represents a template for web content generation.
  *
+ * @package Colibri\Web
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab 
  */
-
 namespace Colibri\Web;
 
 use Colibri\App;
@@ -25,21 +24,20 @@ use Colibri\Common\NoLangHelper;
 use Colibri\Utils\Debug;
 
 /**
- * Веб сервер
- * @testFunction testServer
+ * Web server
  */
 class Server
 {
     use TEventDispatcher;
 
-    /**
-     * Список ошибок
+     /**
+     * List of errors
      */
     public const IncorrectCommandObject = 1;
     public const UnknownMethodInObject = 2;
 
     /**
-     * Список типов
+     * List of types
      */
     public const JSON = 'json';
     public const XML = 'xml';
@@ -49,13 +47,20 @@ class Server
     public const Stream = 'stream';
 
     /**
-     * Конструктор
+     * Constructor
      */
     public function __construct()
     {
         // Do nothing
     }
 
+    /**
+     * Converts data to specified charset recursively.
+     *
+     * @param mixed $data The data to convert.
+     * @param string $charset The charset to convert to.
+     * @return mixed The converted data.
+     */
     private function _convertDataToCharset(mixed $data, string $charset): mixed
     {
         $data = (array) $data;
@@ -72,7 +77,11 @@ class Server
     }
 
     /**
-     * Завершает процесс
+     * Finishes the process and sends response.
+     *
+     * @param string $type The response type.
+     * @param mixed $result The result to send.
+     * @return void
      */
     protected function Finish(string $type, mixed $result)
     {
@@ -119,7 +128,14 @@ class Server
     }
 
     /**
-     * Отправляет ответ об ошибке в виде XML
+     * Sends an error response in XML format.
+     *
+     * @param string $type The response type.
+     * @param string $message The error message.
+     * @param int $code The error code.
+     * @param string $cmd The command.
+     * @param mixed $data Additional data.
+     * @return void
      */
     protected function _responseWithError(
         string $type,
@@ -141,7 +157,10 @@ class Server
     }
 
     /**
-     * Возвращает название класса с окружением
+     * Gets the full controller class name with namespace.
+     *
+     * @param string $class The class name.
+     * @return string The full class name.
      */
     protected function _getControllerFullName(string $class): string
     {
@@ -163,7 +182,10 @@ class Server
     }
 
     /**
-     * Определяет тип, класс и метод по url
+     * Parses command URL to determine type, class, and method.
+     *
+     * @param string $cmd The command URL.
+     * @return array An array containing type, class, and method.
      */
     private function __parseCommand(string $cmd): array
     {
@@ -190,19 +212,14 @@ class Server
     }
 
     /**
-     * Запускает команду
+     * Runs the specified command.
      *
-     * Команда должна быть сформирована следующим образом
-     * папки, после \App\Controllers превращаются в namespace
-     * т.е. /buh/test-rpc/test-query.json
-     * будет превращено в \App\Controllers\Buh\TestRpcController
-     * а метод будет TestQuery
+     * The command should be in the following format:
+     * /namespace[/namespace]/command[.type]
      *
-     * т.е. нам нужно получить lowercase url в котором все большие
-     * буквы заменяются на - и маленькая буква, т.е. test-rpc = TestRpc
-     *
+     * @param string $cmd The command to execute.
+     * @param string $default The default command to execute if the specified command is not found.
      * @return void
-     * @testFunction testServerRun
      */
     public function Run(string $cmd, string $default = ''): void
     {
