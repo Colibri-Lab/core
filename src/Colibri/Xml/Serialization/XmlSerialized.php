@@ -3,18 +3,21 @@
 /**
  * Serialization
  *
+ * This class represents a deserialized object from XML.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml\Serialization
- *
  */
-
 namespace Colibri\Xml\Serialization;
 
 use Colibri\Common\VariableHelper;
 
 /**
- * Представляет собой десериализованный из xml обьект
+ * Serialization
+ *
+ * This class represents a deserialized object from XML.
+ * 
  * @property string $name
  * @property array $attributes - аттрибуты
  * @property mixed $content - данные
@@ -23,33 +26,32 @@ class XmlSerialized implements \JsonSerializable
 {
 
     /**
-     * Название элемента
+     * The name of the element.
      *
      * @var string
      */
     private string $_name;
 
     /**
-     * Список атрибутов
+     * The list of attributes.
      *
      * @var object
      */
     private ?object $_attributes;
 
     /**
-     * Список элементов
+     * The list of elements.
      *
-     * @var object|array
+     * @var object|array|null
      */
     private object|array |null $_content;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param string $name название элемента
-     * @param array $attributes список атрибутов
-     * @param array $content контент
-     * @testFunction testXmlSerialized
+     * @param string|null $name       The name of the element.
+     * @param array|null  $attributes The list of attributes.
+     * @param array|null  $content    The content.
      */
     public function __construct(string $name = null, ?array $attributes = null, ?array $content = null)
     {
@@ -59,11 +61,10 @@ class XmlSerialized implements \JsonSerializable
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $property
-     * @return mixed
-     * @testFunction testXmlSerialized__get
+     * @param string $property The property name.
+     * @return mixed|null The value of the property.
      */
     public function __get(string $property): mixed
     {
@@ -78,11 +79,10 @@ class XmlSerialized implements \JsonSerializable
     }
 
     /**
-     * Сеттер
+     * Setter.
      *
-     * @param string $property
-     * @param mixed $value
-     * @testFunction testXmlSerialized__set
+     * @param string $property The property name.
+     * @param mixed  $value    The value to set.
      */
     public function __set(string $property, mixed $value): void
     {
@@ -101,10 +101,9 @@ class XmlSerialized implements \JsonSerializable
     }
 
     /**
-     * Возвращает обьект для последующей сериализации в json
+     * Returns the object for JSON serialization.
      *
-     * @return object
-     * @testFunction testJsonSerialize
+     * @return object The object representation of XmlSerialized.
      */
     public function jsonSerialize(): object|array
     {
@@ -112,13 +111,10 @@ class XmlSerialized implements \JsonSerializable
     }
 
     /**
-     * Поднимает обьект из json
+     * Unserializes the object from JSON.
      *
-     * @param string $jsonString строка в которую запакован обьект XmlSeralized
-     * @return XmlSerialized|XmlCData|array|null
-     */
-    /**
-     * @testFunction testJsonUnserialize
+     * @param string|array $jsonString The JSON string or array.
+     * @return XmlSerialized|XmlCData|array|null The unserialized object.
      */
     public static function jsonUnserialize(string $jsonString): XmlSerialized|XmlCData|array |null
     {

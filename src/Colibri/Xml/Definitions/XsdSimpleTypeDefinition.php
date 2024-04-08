@@ -8,48 +8,51 @@
  * @package Colibri\Xml\Definitions
  *
  */
-
 namespace Colibri\Xml\Definitions;
 
 use Colibri\Xml\XmlNode;
 
 /**
- * Тип данных
- * 
- * @property-read string $name название типа
- * @property-read string $annotation аннотация типа
- * @property-read object $restrictions ограничения
- * @property-read object $attributes
- * @testFunction testXsdSimpleTypeDefinition
+ * XsdSimpleTypeDefinition
+ *
+ * Represents a simple data type.
+ *
+ * @property-read string $name The name of the type.
+ * @property-read string $annotation The annotation of the type.
+ * @property-read object $restrictions The restrictions of the type.
+ * @property-read object $attributes The attributes of the type.
  */
 class XsdSimpleTypeDefinition implements \JsonSerializable
 {
+    /**
+     * The type node.
+     *
+     * @var XmlNode|null
+     */
+    private ?XmlNode $_node;
 
     /**
-     * Узел типа
+     * The schema.
      *
-     * @var XmlNode
+     * @var XsdSchemaDefinition|null
      */
-    private ? XmlNode $_node;
-
     private ?XsdSchemaDefinition $_schema;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param XmlNode|null $typeNode
+     * @param XmlNode|null $typeNode The XML node representing the type.
      */
-    public function __construct(? XmlNode $typeNode)
+    public function __construct(?XmlNode $typeNode)
     {
         $this->_node = $typeNode;
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $property
+     * @param string $property The name of the property.
      * @return mixed
-     * @testFunction testXsdSimpleTypeDefinition__get
      */
     public function __get(string $property): mixed
     {
@@ -72,31 +75,31 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
             foreach ($restrictions as $restriction) {
                 switch ($restriction->name) {
                     case 'xs:enumeration': {
-                            $ret = [];
-                            foreach ($this->_node->Item('xs:restriction')->Query('./*') as $enum) {
-                                $ret[$enum->attributes->value->value] = $enum->attributes->title ? $enum->attributes->title->value : $enum->attributes->value->value;
-                            }
-                            $returnRestrictions->enumeration = $ret;
-                            break;
+                        $ret = [];
+                        foreach ($this->_node->Item('xs:restriction')->Query('./*') as $enum) {
+                            $ret[$enum->attributes->value->value] = $enum->attributes->title ? $enum->attributes->title->value : $enum->attributes->value->value;
                         }
+                        $returnRestrictions->enumeration = $ret;
+                        break;
+                    }
                     case 'xs:pattern': {
-                            $returnRestrictions->pattern = $restriction->attributes->value->value;
-                            break;
-                        }
+                        $returnRestrictions->pattern = $restriction->attributes->value->value;
+                        break;
+                    }
                     case 'xs:length': {
-                            $returnRestrictions->length = $restriction->attributes->value->value;
-                            break;
-                        }
+                        $returnRestrictions->length = $restriction->attributes->value->value;
+                        break;
+                    }
                     case 'xs:minLength': {
-                            $returnRestrictions->minLength = $restriction->attributes->value->value;
-                            break;
-                        }
+                        $returnRestrictions->minLength = $restriction->attributes->value->value;
+                        break;
+                    }
                     case 'xs:maxLength': {
-                            $returnRestrictions->maxLength = $restriction->attributes->value->value;
-                            break;
-                        }
+                        $returnRestrictions->maxLength = $restriction->attributes->value->value;
+                        break;
+                    }
                     default: {
-                        }
+                    }
                 }
             }
             return $returnRestrictions;
@@ -115,24 +118,32 @@ class XsdSimpleTypeDefinition implements \JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде простого обьекта для упаковки в json
+     * Returns the data as a plain object for JSON serialization.
      *
      * @return object
-     * @testFunction testXsdSimpleTypeDefinitionJsonSerialize
      */
     public function jsonSerialize(): object|array
     {
-        return (object) array('name' => $this->name, 'annotation' => $this->annotation, 'restrictions' => $this->restrictions, 'attributes' => $this->attributes);
+        return (object) array(
+            'name' => $this->name,
+            'annotation' => $this->annotation,
+            'restrictions' => $this->restrictions,
+            'attributes' => $this->attributes
+        );
     }
 
     /**
-     * Возвращает данные в виде простого обьекта
+     * Returns the data as a plain object.
      *
      * @return object
-     * @testFunction testXsdSimpleTypeDefinitionToObject
      */
     public function ToObject(): object
     {
-        return (object) array('name' => $this->name, 'annotation' => $this->annotation, 'restrictions' => $this->restrictions, 'attributes' => $this->attributes);
+        return (object) array(
+            'name' => $this->name,
+            'annotation' => $this->annotation,
+            'restrictions' => $this->restrictions,
+            'attributes' => $this->attributes
+        );
     }
 }

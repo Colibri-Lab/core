@@ -14,34 +14,35 @@ namespace Colibri\Xml\Definitions;
 use Colibri\Xml\XmlNode;
 
 /**
- * Схема
+ * XsdSchemaDefinition
+ *
+ * Represents the schema definition for XML.
  * 
- * @property-read XsdSimpleTypeDefinition[] $types типы в схеме
- * @property-read XsdElementDefinition[] $elements элементы в схеме
- * @testFunction testXsdSchemaDefinition
+ * @property-read XsdSimpleTypeDefinition[] $types The types defined in the schema.
+ * @property-read XsdElementDefinition[] $elements The elements defined in the schema.
  */
 class XsdSchemaDefinition implements \JsonSerializable
 {
 
     /**
-     * Схема
+     * The XML schema node.
      *
      * @var XmlNode
      */
     private ? XmlNode $_schema;
 
     /**
-     * Массив типов
+     * The array of types.
      *
      * @var array
      */
     private array $_types;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param string $fileName название файла
-     * @param boolean $isFile файл или не файл
+     * @param string $fileName The name of the file.
+     * @param bool $isFile Specifies if the input is a file or not.
      */
     public function __construct(string $fileName, bool $isFile = true)
     {
@@ -50,14 +51,11 @@ class XsdSchemaDefinition implements \JsonSerializable
     }
 
     /**
-     * Загружает схему из файла или строки
+     * Loads the schema from a file or string.
      *
-     * @param string $fileName название файла
-     * @param boolean $isFile файл или не файл
-     * @return void
-     */
-    /**
-     * @testFunction testXsdSchemaDefinitionLoad
+     * @param string $fileName The name of the file.
+     * @param bool $isFile Specifies if the input is a file or not.
+     * @return XsdSchemaDefinition
      */
     public static function Load(string $fileName, bool $isFile = true): XsdSchemaDefinition
     {
@@ -65,10 +63,9 @@ class XsdSchemaDefinition implements \JsonSerializable
     }
 
     /**
-     * Загружает все типы в список
+     * Loads all types into the list.
      *
      * @return void
-     * @testFunction testXsdSchemaDefinition_loadComplexTypes
      */
     private function _loadComplexTypes(): void
     {
@@ -87,11 +84,10 @@ class XsdSchemaDefinition implements \JsonSerializable
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $property
+     * @param string $property The name of the property.
      * @return mixed
-     * @testFunction testXsdSchemaDefinition__get
      */
     public function __get(string $property): mixed
     {
@@ -109,10 +105,9 @@ class XsdSchemaDefinition implements \JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде простого обьекта для упаковки в json
+     * Returns the data as a plain object for JSON serialization.
      *
      * @return object
-     * @testFunction testXsdSchemaDefinitionJsonSerialize
      */
     public function jsonSerialize(): object|array
     {
@@ -120,10 +115,9 @@ class XsdSchemaDefinition implements \JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде простого обьекта
+     * Returns the data as a plain object.
      *
      * @return object
-     * @testFunction testXsdSchemaDefinitionToObject
      */
     public function ToObject(): object
     {

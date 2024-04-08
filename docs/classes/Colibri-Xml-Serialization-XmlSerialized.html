@@ -250,12 +250,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Xml/Serialization/XmlSerialized.php"><a href="files/src-colibri-xml-serialization-xmlserialized.html"><abbr title="src/Colibri/Xml/Serialization/XmlSerialized.php">XmlSerialized.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">25</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Представляет собой десериализованный из xml обьект</p>
+            <p class="phpdocumentor-summary">Serialization</p>
 
+    <section class="phpdocumentor-description"><p>This class represents a deserialized object from XML.</p>
+</section>
 
 
 
@@ -311,21 +313,21 @@
     <span>
                         &nbsp;: object            </span>
 </dt>
-<dd>Список атрибутов</dd>
+<dd>The list of attributes.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#property__content">$_content</a>
     <span>
-                        &nbsp;: object|array&lt;string|int, mixed&gt;            </span>
+                        &nbsp;: object|array&lt;string|int, mixed&gt;|null            </span>
 </dt>
-<dd>Список элементов</dd>
+<dd>The list of elements.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#property__name">$_name</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Название элемента</dd>
+<dd>The name of the element.</dd>
 
     </dl>
 
@@ -340,34 +342,35 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#method___get">__get()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: mixed|null    </span>
 </dt>
-<dd>Геттер</dd>
+<dd>Getter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#method___set">__set()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Сеттер</dd>
+<dd>Setter.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#method_jsonSerialize">jsonSerialize()</a>
     <span>
                                 &nbsp;: object    </span>
 </dt>
-<dd>Возвращает обьект для последующей сериализации в json</dd>
+<dd>Returns the object for JSON serialization.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#method_jsonUnserialize">jsonUnserialize()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html"><abbr title="\Colibri\Xml\Serialization\XmlSerialized">XmlSerialized</abbr></a>|<a href="classes/Colibri-Xml-Serialization-XmlCData.html"><abbr title="\Colibri\Xml\Serialization\XmlCData">XmlCData</abbr></a>|array&lt;string|int, mixed&gt;|null    </span>
 </dt>
+<dd>Unserializes the object from JSON.</dd>
 
     </dl>
 
@@ -507,11 +510,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Xml/Serialization/XmlSerialized.php"><a href="files/src-colibri-xml-serialization-xmlserialized.html"><abbr title="src/Colibri/Xml/Serialization/XmlSerialized.php">XmlSerialized.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Список атрибутов</p>
+        <p class="phpdocumentor-summary">The list of attributes.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -541,15 +544,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Xml/Serialization/XmlSerialized.php"><a href="files/src-colibri-xml-serialization-xmlserialized.html"><abbr title="src/Colibri/Xml/Serialization/XmlSerialized.php">XmlSerialized.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Список элементов</p>
+        <p class="phpdocumentor-summary">The list of elements.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">object|array&lt;string|int, mixed&gt;</span>
+        <span class="phpdocumentor-signature__type">object|array&lt;string|int, mixed&gt;|null</span>
     <span class="phpdocumentor-signature__name">$_content</span>
     </code>
 
@@ -575,11 +578,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Xml/Serialization/XmlSerialized.php"><a href="files/src-colibri-xml-serialization-xmlserialized.html"><abbr title="src/Colibri/Xml/Serialization/XmlSerialized.php">XmlSerialized.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Название элемента</p>
+        <p class="phpdocumentor-summary">The name of the element.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -614,15 +617,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Xml/Serialization/XmlSerialized.php"><a href="files/src-colibri-xml-serialization-xmlserialized.html"><abbr title="src/Colibri/Xml/Serialization/XmlSerialized.php">XmlSerialized.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$attributes</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$content</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$attributes</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$content</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -631,50 +634,34 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>название элемента</p>
+                    <section class="phpdocumentor-description"><p>The name of the element.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$attributes</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>список атрибутов</p>
+                    <section class="phpdocumentor-description"><p>The list of attributes.</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$content</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>контент</p>
+                    <section class="phpdocumentor-description"><p>The content.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#method___construct#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testXmlSerialized</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -692,15 +679,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Xml/Serialization/XmlSerialized.php"><a href="files/src-colibri-xml-serialization-xmlserialized.html"><abbr title="src/Colibri/Xml/Serialization/XmlSerialized.php">XmlSerialized.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Геттер</p>
+        <p class="phpdocumentor-summary">Getter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -712,29 +699,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The property name.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#method___get#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testXmlSerialized__get</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value of the property.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -754,7 +735,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Сеттер</p>
+        <p class="phpdocumentor-summary">Setter.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -770,34 +751,22 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The property name.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The value to set.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#method___set#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testXmlSerialized__set</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -815,11 +784,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Xml/Serialization/XmlSerialized.php"><a href="files/src-colibri-xml-serialization-xmlserialized.html"><abbr title="src/Colibri/Xml/Serialization/XmlSerialized.php">XmlSerialized.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">109</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает обьект для последующей сериализации в json</p>
+        <p class="phpdocumentor-summary">Returns the object for JSON serialization.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -830,26 +799,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#method_jsonSerialize#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testJsonSerialize</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">object</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The object representation of XmlSerialized.</p>
+</section>
+
             </section>
 
 </article>
@@ -867,14 +824,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Xml/Serialization/XmlSerialized.php"><a href="files/src-colibri-xml-serialization-xmlserialized.html"><abbr title="src/Colibri/Xml/Serialization/XmlSerialized.php">XmlSerialized.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
+    <span class="phpdocumentor-element-found-in__line">119</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Unserializes the object from JSON.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">jsonUnserialize</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$jsonString</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Xml-Serialization-XmlSerialized.html"><abbr title="\Colibri\Xml\Serialization\XmlSerialized">XmlSerialized</abbr></a>|<a href="classes/Colibri-Xml-Serialization-XmlCData.html"><abbr title="\Colibri\Xml\Serialization\XmlCData">XmlCData</abbr></a>|array&lt;string|int, mixed&gt;|null</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">jsonUnserialize</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$jsonString</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Xml-Serialization-XmlSerialized.html"><abbr title="\Colibri\Xml\Serialization\XmlSerialized">XmlSerialized</abbr></a>|<a href="classes/Colibri-Xml-Serialization-XmlCData.html"><abbr title="\Colibri\Xml\Serialization\XmlCData">XmlCData</abbr></a>|array&lt;string|int, mixed&gt;|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -883,34 +841,24 @@
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$jsonString</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The JSON string or array.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Xml-Serialization-XmlSerialized.html#method_jsonUnserialize#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testJsonUnserialize</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Xml-Serialization-XmlSerialized.html"><abbr title="\Colibri\Xml\Serialization\XmlSerialized">XmlSerialized</abbr></a>|<a href="classes/Colibri-Xml-Serialization-XmlCData.html"><abbr title="\Colibri\Xml\Serialization\XmlCData">XmlCData</abbr></a>|array&lt;string|int, mixed&gt;|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The unserialized object.</p>
+</section>
+
             </section>
 
 </article>

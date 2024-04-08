@@ -3,53 +3,57 @@
 /**
  * Xml
  *
+ * This class represents a query executor for XML documents.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml
  *
  */
-
 namespace Colibri\Xml;
 
 use Colibri\Common\StringHelper;
 use Colibri\Utils\Debug;
 
 /**
- * Список атрибутов
- * @property-read int $count
- * @testFunction testXmlNodeAttributeList
+ * XmlNodeAttributeList
+ *
+ * This class represents a list of attributes associated with a XML node.
+ *
+ * @property-read int $count The count of attributes.
+ *
  * @method XmlAttribute offsetGet(mixed $offset)
  */
 class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAccess
 {
 
     /**
-     * Документ
+     * The document.
      *
      * @var \DOMDocument
      */
     private ?\DOMDocument $_document;
 
     /**
-     * Нода
+     * The node.
      *
      * @var mixed
      */
     private mixed $_node;
 
     /**
-     * Список атрибутов
+     * The list of attributes.
      *
      * @var \DOMNamedNodeMap
      */
     private ?\DOMNamedNodeMap $_data;
 
     /**
-     * Конструктор
+     * Constructor
      *
-     * @param \DOMDocument $document документ
-     * @param \DOMNode $node узел
-     * @param \DOMNamedNodeMap $xmlattributes список атрибутов
+     * @param \DOMDocument $document The document.
+     * @param \DOMNode $node The node.
+     * @param \DOMNamedNodeMap $xmlattributes The list of attributes.
      */
     public function __construct(\DOMDocument $document, \DOMNode $node, \DOMNamedNodeMap $xmlattributes)
     {
@@ -59,10 +63,10 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAcce
     }
 
     /**
-     * Возвращает итератор для обхода методом foreach
+     * Returns an iterator for iteration using foreach.
      *
      * @return XmlNodeListIterator
-     * @testFunction testXmlNodeAttributeListGetIterator
+     *
      */
     public function getIterator(): XmlNodeListIterator
     {
@@ -70,11 +74,12 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAcce
     }
 
     /**
-     * Возвращает атрибут по индексу
+     * Returns the attribute by index.
      *
-     * @param int $index
-     * @return XmlAttribute
-     * @testFunction testXmlNodeAttributeListItem
+     * @param int $index The index.
+     * @return XmlAttribute The attribute.
+     *
+
      */
     public function Item(int $index): XmlAttribute
     {
@@ -82,10 +87,10 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAcce
     }
 
     /**
-     * Возвращает количество атрибутов
+     * Returns the count of attributes.
      *
-     * @return int
-     * @testFunction testXmlNodeAttributeListCount
+     * @return int The count of attributes.
+     *
      */
     public function Count(): int
     {
@@ -93,11 +98,11 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAcce
     }
 
     /**
-     * Геттер
+     * Getter
      *
-     * @param string $property
-     * @return XmlAttribute|null
-     * @testFunction testXmlNodeAttributeList__get
+     * @param string $property The property.
+     * @return XmlAttribute|null The attribute, or null if not found.
+     *
      */
     public function __get(string $property): mixed
     {
@@ -115,12 +120,12 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAcce
     }
 
     /**
-     * Добавляет атрибут
+     * Appends an attribute.
      *
-     * @param string $name название атрибута
-     * @param string $value значение атрибута
+     * @param string $name The name of the attribute.
+     * @param string $value The value of the attribute.
      * @return void
-     * @testFunction testXmlNodeAttributeListAppend
+     *
      */
     public function Append(string $name, string $value): void
     {
@@ -130,11 +135,11 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAcce
     }
 
     /**
-     * Удаляет аттрибут по имени
+     * Removes an attribute by name.
      *
-     * @param string $name название атрибута
+     * @param string $name The name of the attribute.
      * @return void
-     * @testFunction testXmlNodeAttributeListRemove
+     *
      */
     public function Remove(string $name): void
     {
@@ -144,11 +149,12 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAcce
     }
 
     /**
-     * Устанавливает значение по индексу
-     * @param mixed $offset
-     * @param mixed $value
+     * Sets the value by index.
+     *
+     * @param mixed $offset The offset.
+     * @param mixed $value The value.
      * @return void
-     * @testFunction testDataTableOffsetSet
+     *
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -156,9 +162,10 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAcce
     }
 
     /**
-     * Проверяет есть ли данные по индексу
-     * @param int $offset
-     * @return bool
+     * Checks if data exists by index.
+     *
+     * @param int $offset The offset.
+     * @return bool Whether the data exists.
      */
     public function offsetExists(mixed $offset): bool
     {
@@ -166,10 +173,11 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAcce
     }
 
     /**
-     * удаляет данные по индексу
-     * @param string $offset
+     * Unsets data by index.
+     *
+     * @param string $offset The offset.
      * @return void
-     * @testFunction testDataTableOffsetUnset
+     *
      */
     public function offsetUnset(mixed $offset): void
     {
@@ -177,11 +185,11 @@ class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAcce
     }
 
     /**
-     * Возвращает значение по индексу
+     * Retrieves the value by index.
      *
-     * @param int $offset
-     * @return mixed
-     * @testFunction testDataTableOffsetGet
+     * @param int $offset The offset.
+     * @return mixed The value.
+     *
      */
     public function offsetGet(mixed $offset): mixed
     {

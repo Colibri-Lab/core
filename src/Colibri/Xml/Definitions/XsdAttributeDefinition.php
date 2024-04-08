@@ -6,7 +6,6 @@
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml\Definitions
- *
  */
 
 namespace Colibri\Xml\Definitions;
@@ -14,41 +13,42 @@ namespace Colibri\Xml\Definitions;
 use Colibri\Xml\XmlNode;
 
 /**
- * Представление атрибута
- * 
- * @property-read string $annotation аннотация элемента
- * @property-read string $name название элемента
- * @property-read XsdSimpleTypeDefinition|XsdBaseTypeDefinition $type тип элемента
- * @property-read string $use использование
- * @property-read string $default значение по умолчанию
- * @property-read string $group группа
- * @property-read array $autocomplete список значений для интеллисенса
- * @property-read string $generate команда для генерации элемента
- * @property-read string $lookup команда для генерации межобьектных связей
- * @testFunction testXsdAttributeDefinition
+ * XsdAttributeDefinition
+ *
+ * This class represents the definition of an XML attribute.
+ *
+ * @property-read string $annotation The annotation of the attribute element.
+ * @property-read string $name The name of the attribute element.
+ * @property-read XsdSimpleTypeDefinition|XsdBaseTypeDefinition $type The type of the attribute element.
+ * @property-read string $use The usage of the attribute.
+ * @property-read string $default The default value of the attribute.
+ * @property-read string $group The group to which the attribute belongs.
+ * @property-read array $autocomplete The list of values for autocomplete functionality.
+ * @property-read string $generate The command for generating the element.
+ * @property-read string $lookup The command for generating inter-object relationships.
  */
 class XsdAttributeDefinition implements \JsonSerializable
 {
 
     /**
-     * Узел атрибута
+     * The attribute node.
      *
      * @var XmlNode
      */
     private ? XmlNode $_node;
 
     /**
-     * Схема
+     * The schema.
      *
      * @var XsdSchemaDefinition
      */
     private ? XsdSchemaDefinition $_schema;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param XmlNode $attributeNode
-     * @param XsdSchemaDefinition $schema
+     * @param XmlNode             $attributeNode The attribute node.
+     * @param XsdSchemaDefinition $schema        The schema.
      */
     public function __construct(XmlNode $attributeNode, XsdSchemaDefinition $schema)
     {
@@ -57,11 +57,10 @@ class XsdAttributeDefinition implements \JsonSerializable
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $name
-     * @return mixed
-     * @testFunction testXsdAttributeDefinition__get
+     * @param string $name The property name.
+     * @return mixed|null The value of the property.
      */
     public function __get(string $name): mixed
     {
@@ -91,10 +90,9 @@ class XsdAttributeDefinition implements \JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде простого обьекта для упаковки в json
+     * Returns the object for JSON serialization.
      *
-     * @return object
-     * @testFunction testXsdAttributeDefinitionJsonSerialize
+     * @return object The object representation of XsdAttributeDefinition.
      */
     public function jsonSerialize(): object
     {
@@ -102,10 +100,9 @@ class XsdAttributeDefinition implements \JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде простого обьекта
+     * Returns the object as a simple object.
      *
-     * @return object
-     * @testFunction testXsdAttributeDefinitionToObject
+     * @return object The simple object representation of XsdAttributeDefinition.
      */
     public function ToObject(): object
     {

@@ -3,12 +3,13 @@
 /**
  * Xml
  *
+ * This class represents a query executor for XML documents.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml
  *
  */
-
 namespace Colibri\Xml;
 
 use Colibri\AppException;
@@ -21,65 +22,83 @@ use Colibri\Xml\Serialization\XmlSerialized;
 use Exception;
 
 /**
- * Класс работы с XML объектом
+ * Class for interacting with XML objects.
  *
- * @property-read string $type
- * @property string $value
- * @property-read string $name
- * @property-read string $data
- * @property-read string $encoding
- * @property-read XmlNodeAttributeList $attributes
- * @property-read XmlNode $root
- * @property-read XmlNode $parent
- * @property-read XmlNodeList $nodes
- * @property-read XmlNode $firstChild
- * @property-read XmlNodeList $elements
- * @property-read XmlNodeList $children
- * @property-read XmlNodeList $texts
- * @property \DOMDocument $document
- * @property \DOMNode $raw
- * @property-read string $xml
- * @property-read string $innerXml
- * @property-read string $html
- * @property-read string $innerHtml
- * @property-read XmlNode $next
- * @property-read XmlNode $prev
- * @property-write string $cdata
- * @property object $tag
- * @property-read bool $isCData
- * @property-read int $elementsCount количество дочерних элементов
+ * This class provides various properties to access and manipulate XML data and elements.
  *
- * @testFunction testXmlNode
+ * @property-read string $type The type of the XML object.
+ * @property string $value The value of the XML object.
+ * @property-read string $name The name of the XML object.
+ * @property-read string $data The data of the XML object.
+ * @property-read string $encoding The encoding of the XML object.
+ * @property-read XmlNodeAttributeList $attributes The attributes of the XML object.
+ * @property-read XmlNode $root The root node of the XML object.
+ * @property-read XmlNode $parent The parent node of the XML object.
+ * @property-read XmlNodeList $nodes The nodes of the XML object.
+ * @property-read XmlNode $firstChild The first child node of the XML object.
+ * @property-read XmlNodeList $elements The elements of the XML object.
+ * @property-read XmlNodeList $children The children of the XML object.
+ * @property-read XmlNodeList $texts The text nodes of the XML object.
+ * @property \DOMDocument $document The DOMDocument associated with the XML object.
+ * @property \DOMNode $raw The raw DOMNode associated with the XML object.
+ * @property-read string $xml The XML string of the XML object.
+ * @property-read string $innerXml The inner XML string of the XML object.
+ * @property-read string $html The HTML string of the XML object.
+ * @property-read string $innerHtml The inner HTML string of the XML object.
+ * @property-read XmlNode $next The next sibling node of the XML object.
+ * @property-read XmlNode $prev The previous sibling node of the XML object.
+ * @property-write string $cdata The CDATA section of the XML object.
+ * @property object $tag The tag object associated with the XML object.
+ * @property-read bool $isCData Indicates whether the XML object is a CDATA section.
+ * @property-read int $elementsCount The number of child elements of the XML object.
+ *
  */
 class XmlNode
 {
-
-    const XmlStart = '<?xml version="1.0" encoding="%s"?>';
+    /**
+     * XML declaration start string.
+     *
+     * This constant represents the starting string of an XML declaration,
+     * including the version and encoding information.
+     *
+     * @var string
+     */
+    public const XmlStart = '<?xml version="1.0" encoding="%s"?>';
 
     /**
-     * Raw обьект документа
+     * The raw document object.
      *
-     * @var \DOMDocument
+     * This property holds the raw \DOMDocument object.
+     *
+     * @var \DOMDocument|null
      */
     private ?\DOMDocument $_document;
 
     /**
-     * Raw обьект элемента
+     * The raw element object.
      *
-     * @var \DOMNode
+     * This property holds the raw \DOMNode object representing an element.
+     *
+     * @var \DOMNode|null
      */
     private ?\DOMNode $_node;
 
     /**
-     * Дополнительные данные
+     * Additional data.
+     *
+     * This property holds additional data associated with the XML object.
+     *
+     * @var object|null
      */
     private ?object $_tag;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param \DOMNode $node Узел
-     * @param \DOMDocument $dom Документ
+     * Initializes a new instance of the XmlNode class.
+     *
+     * @param \DOMNode      $node The node.
+     * @param \DOMDocument|null $dom The document.
      */
     public function __construct(\DOMNode $node, ?\DOMDocument $dom = null)
     {
@@ -89,12 +108,15 @@ class XmlNode
     }
 
     /**
-     * Создает обьект XmlNode из строки или файла
+     * Creates an XmlNode object from a string or a file.
      *
-     * @param string $xmlFile Файл или строка xml
-     * @param boolean $isFile Файл/Строка
-     * @return XmlNode
-     * @testFunction testXmlNodeLoad
+     * This method creates an XmlNode object either from a string containing XML data
+     * or from an XML file.
+     *
+     * @param string  $xmlFile The XML file path or XML string.
+     * @param bool    $isFile  Indicates whether the provided argument is a file path or a string.
+     * @return XmlNode The created XmlNode object.
+     *
      */
     public static function Load(string $xmlFile, bool $isFile = true): XmlNode
     {
@@ -127,12 +149,14 @@ class XmlNode
     }
 
     /**
-     *  Создает XmlNode из неполного документа
+     * Creates an XmlNode from an incomplete document.
      *
-     * @param string $xmlString Строка xml
-     * @param string $encoding Кодировка строки
-     * @return XmlNode
-     * @testFunction testXmlNodeLoadNode
+     * This method creates an XmlNode object from a string containing partial XML data.
+     *
+     * @param string $xmlString The XML string.
+     * @param string $encoding The encoding of the string (default: utf-8).
+     * @return XmlNode The created XmlNode object.
+     *
      */
     public static function LoadNode(string $xmlString, string $encoding = 'utf-8'): XmlNode
     {
@@ -148,19 +172,24 @@ class XmlNode
         } catch (\Throwable $e) {
             throw new AppException(
                 'Error in xml data ' . (
-                    (strstr($xmlString, '<' . '?xml') === false ?
+                    (
+                        strstr($xmlString, '<' . '?xml') === false ?
                     str_replace('%s', $encoding, self::XmlStart) : ''
-                ) . $xmlString) . ': ' . $e->getMessage());
+                    ) . $xmlString
+                ) . ': ' . $e->getMessage()
+            );
         }
     }
 
     /**
-     *  Создает XMLHtmlNode из неполного документа
+     * Creates an XMLHtmlNode from an incomplete document.
      *
-     * @param string $xmlString Строка html
-     * @param string $encoding Кодировка строки
-     * @return XmlNode
-     * @testFunction testXmlNodeLoadHtmlNode
+     * This method creates an XMLHtmlNode object from a string containing partial HTML data.
+     *
+     * @param string $xmlString The HTML string.
+     * @param string $encoding The encoding of the string (default: utf-8).
+     * @return XmlNode The created XMLHtmlNode object.
+     *
      */
     public static function LoadHtmlNode(string $xmlString, string $encoding = 'utf-8'): XmlNode
     {
@@ -175,22 +204,25 @@ class XmlNode
             return new XmlNode($dom->documentElement->firstChild->firstChild, $dom);
         } catch (\Throwable $e) {
             throw new AppException('Error in xml data ' . (
-                (strstr($xmlString, '<' . '?xml') === false ?
+                (
+                    strstr($xmlString, '<' . '?xml') === false ?
                 str_replace('%s', $encoding, self::XmlStart) : ''
-                ) . $xmlString) . ': ' . $e->getMessage());
+                ) . $xmlString
+            ) . ': ' . $e->getMessage());
         }
     }
 
     /**
-     * Создает обьект XmlNode из строки или файла html
+     * Creates an XmlNode object from an HTML string or file.
      *
-     * @param string $htmlFile Файл или строка html для загрузки
-     * @param boolean $isFile Файл/Не файл
-     * @param string $encoding кодировка файла или строки
-     * @return XmlNode
-     */
-    /**
-     * @testFunction testXmlNodeLoadHTML
+     * This method creates an XmlNode object either from a string containing HTML data
+     * or from an HTML file.
+     *
+     * @param string  $htmlFile The HTML file path or HTML string for loading.
+     * @param bool    $isFile   Indicates whether the provided argument is a file path or not.
+     * @param string  $encoding The encoding of the file or string (default: utf-8).
+     * @return XmlNode The created XmlNode object.
+     *
      */
     public static function LoadHTML(string $htmlFile, bool $isFile = true, string $encoding = 'utf-8'): XmlNode
     {
@@ -221,11 +253,14 @@ class XmlNode
     }
 
     /**
-     * Сохраняет в файл или возвращает строку XML хранящуюся в обьекте
+     * Saves the XML stored in the object to a file or returns it as a string.
      *
-     * @param string $filename Путь к файлу для сохранения, если не указано то вернется строка xml
-     * @return string|null
-     * @testFunction testXmlNodeSave
+     * This method either saves the XML stored in the object to a specified file
+     * or returns it as a string if no filename is provided.
+     *
+     * @param string $filename The path to the file for saving. If not specified, the XML string will be returned.
+     * @return string|null The XML string if $filename is empty, otherwise null.
+     *
      */
     public function Save(string $filename = ""): ?string
     {
@@ -241,6 +276,16 @@ class XmlNode
         }
     }
 
+    /**
+     * Exports the XML data with a specified document tag.
+     *
+     * This method exports the XML data with the specified document tag by creating a new XML node
+     * with the provided tag and appending the current XML node to it. The method returns a new instance
+     * of the XmlNode class representing the exported XML.
+     *
+     * @param string $documentTag The document tag to use for exporting.
+     * @return self A new instance of the XmlNode class representing the exported XML.
+     */
     public function Export(string $documentTag): self
     {
         $xml = XmlNode::LoadNode('<'.$documentTag.'></'.$documentTag.'>', 'utf-8');
@@ -249,11 +294,14 @@ class XmlNode
     }
 
     /**
-     * Сохраняет в файл или возвращает строку HTML хранящуюся в обьекте
+     * Saves the HTML stored in the object to a file or returns it as a string.
      *
-     * @param string $filename Путь к файлу для сохранения, если не указано то вернется строка html
-     * @return string|null
-     * @testFunction testXmlNodeSaveHTML
+     * This method either saves the HTML stored in the object to a specified file
+     * or returns it as a string if no filename is provided.
+     *
+     * @param string $filename The path to the file for saving. If not specified, the HTML string will be returned.
+     * @return string|null The HTML string if $filename is empty, otherwise null.
+     *
      */
     public function SaveHTML(string $filename = ""): ?string
     {
@@ -266,11 +314,14 @@ class XmlNode
     }
 
     /**
-     * Getter
+     * Getter method.
      *
-     * @param string $property запрашиваемое свойство
-     * @return mixed
-     * @testFunction testXmlNode__get
+     * This method is called when attempting to access inaccessible properties of the object.
+     * It returns the value of the requested property.
+     *
+     * @param string $property The requested property.
+     * @return mixed The value of the requested property.
+     *
      */
     public function __get(string $property): mixed
     {
@@ -382,9 +433,12 @@ class XmlNode
     }
 
     /**
-     * Возвращает путь исходя из запроса
-     * @param string $query - запрос к каждому паренту для возвращения данных
-     * @return string
+     * Returns the path based on the query.
+     *
+     * This method returns the path by querying each parent for data.
+     *
+     * @param string $query The query to each parent for returning data.
+     * @return string The path determined by the query.
      */
     public function Path(string $query): string
     {
@@ -402,12 +456,15 @@ class XmlNode
     }
 
     /**
-     * Setter
+     * Setter method.
      *
-     * @param string $property сохраняемое свойство
-     * @param mixed $value значение свойства
+     * This method is called when attempting to set inaccessible properties of the object.
+     * It sets the value of the specified property.
+     *
+     * @param string $property The property to be set.
+     * @param mixed $value The value to be assigned to the property.
      * @return void
-     * @testFunction testXmlNode__set
+     *
      */
     public function __set(string $property, mixed $value): void
     {
@@ -439,11 +496,13 @@ class XmlNode
     }
 
     /**
-     * Возвращает обьект XmlNode соответстующий дочернему обьекту с именем $name
+     * Returns an XmlNode object corresponding to the child object with the name $name.
      *
-     * @param string $name название дочернего узла
-     * @return XmlNode|null
-     * @testFunction testXmlNodeItem
+     * This method returns an XmlNode object that corresponds to the child node with the specified $name.
+     *
+     * @param string $name The name of the child node.
+     * @return XmlNode|null An XmlNode object corresponding to the specified child node, or null if not found.
+     *
      */
     public function Item(string $name): ?XmlNode
     {
@@ -456,11 +515,13 @@ class XmlNode
     }
 
     /**
-     * Возвращает XmlNodeList с названием тэга $name
+     * Returns an XmlNodeList with the tag name $name.
      *
-     * @param string $name название дочерних узлов
-     * @return XmlNodeList
-     * @testFunction testXmlNodeItems
+     * This method returns an XmlNodeList containing all child nodes with the specified tag name.
+     *
+     * @param string $name The tag name of the child nodes.
+     * @return XmlNodeList An XmlNodeList containing child nodes with the specified tag name.
+     *
      */
     public function Items(string $name): XmlNodeList
     {
@@ -468,11 +529,13 @@ class XmlNode
     }
 
     /**
-     * Проверяет является ли текущий узел дочерним к указанному
+     * Checks if the current node is a child of the specified node.
      *
-     * @param XmlNode $node узел для проверки
-     * @return boolean
-     * @testFunction testXmlNodeIsChildOf
+     * This method checks if the current node is a child of the specified node.
+     *
+     * @param XmlNode $node The node to check against.
+     * @return bool True if the current node is a child of the specified node, false otherwise.
+     *
      */
     public function IsChildOf(XmlNode $node): bool
     {
@@ -487,11 +550,13 @@ class XmlNode
     }
 
     /**
-     * Добавляет заданные узлы/узел в конец
+     * Adds the specified nodes/node to the end.
      *
-     * @param mixed $nodes узлы для добавки
+     * This method adds the specified nodes or node to the end of the current node.
+     *
+     * @param mixed $nodes The nodes or node to append.
      * @return void
-     * @testFunction testXmlNodeAppend
+     *
      */
     public function Append(mixed $nodes): void
     {
@@ -558,12 +623,14 @@ class XmlNode
     }
 
     /**
-     * Добавляет заданные узлы/узел в перед узлом $relation
+     * Adds the specified nodes/node before the $relation node.
      *
-     * @param mixed $nodes узлу для добавки
-     * @param XmlNode $relation перед каким узлом добавить
+     * This method adds the specified nodes or node before the specified $relation node.
+     *
+     * @param mixed $nodes The nodes or node to insert.
+     * @param XmlNode $relation The node before which to insert.
      * @return void
-     * @testFunction testXmlNodeInsert
+     *
      */
     public function Insert(mixed $nodes, XmlNode $relation): void
     {
@@ -581,10 +648,12 @@ class XmlNode
     }
 
     /**
-     * Удаляет текущий узел
+     * Removes the current node.
+     *
+     * This method removes the current node from its parent node.
      *
      * @return void
-     * @testFunction testXmlNodeRemove
+     *
      */
     public function Remove(): void
     {
@@ -594,11 +663,13 @@ class XmlNode
     }
 
     /**
-     * Заменяет текущий узел на заданный
+     * Replaces the current node with the specified node.
      *
-     * @param XmlNode $node узел для замены
+     * This method replaces the current node with the specified node.
+     *
+     * @param XmlNode $node The node to replace with.
      * @return void
-     * @testFunction testXmlNodeReplaceTo
+     *
      */
     public function ReplaceTo(XmlNode $node): void
     {
@@ -609,46 +680,68 @@ class XmlNode
     }
 
     /**
-     * Возвращает элементы с атрибутом @name содержащим указанное имя
+     * Returns elements with an attribute @name containing the specified name.
      *
-     * @param string $name наименование атрибута
-     * @return XmlNamedNodeList список узлов
-     * @testFunction testXmlNodeGetElementsByName
+     * This method returns elements with an attribute @name containing the specified name.
+     *
+     * @param string $name The name of the attribute.
+     * @return XmlNamedNodeList The list of nodes.
+     *
      */
     public function getElementsByName(string $name): XmlNamedNodeList
     {
         return $this->Query('./child::*[@name="' . $name . '"]', true);
     }
 
-    public function CreateTextNode($string)
+    /**
+     * Creates a text node with the specified content.
+     *
+     * This method creates a text node with the specified content.
+     *
+     * @param mixed $string The content of the text node.
+     * @return XmlNode The created text node.
+     */
+    public function CreateTextNode($string): XmlNode
     {
         return new XmlNode($this->_document->createTextNode($string), $this->_document);
     }
 
     /**
-     * Выполняет XPath запрос
+     * Executes an XPath query.
      *
-     * @param string $query строка XPath
-     * @param bool $returnAsNamedMap вернуть в виде именованого обьекта, в такон обьекте не может быть 2 тэгов с одним именем
-     * @return XmlNodeList|XmlNamedNodeList
-     * @testFunction testXmlNodeQuery
+     * This method executes the specified XPath query and returns the result as either
+     * an XmlNodeList or an XmlNamedNodeList.
+     *
+     * @param string $query The XPath query string.
+     * @param bool $returnAsNamedMap Whether to return the result as a named map.
+     * @param array $namespaces An array of namespace prefixes and URIs.
+     * @return XmlNodeList|XmlNamedNodeList The result of the XPath query.
+     *
      */
-    public function Query(string $query, bool $returnAsNamedMap = false, array $namespaces = []): XmlNodeList|XmlNamedNodeList
-    {
+    public function Query(
+        string $query,
+        bool $returnAsNamedMap = false,
+        array $namespaces = []
+    ): XmlNodeList|XmlNamedNodeList {
         $xq = new XmlQuery($this, $returnAsNamedMap, $namespaces);
         return $xq->Query($query);
     }
 
     /**
-     * Превращает текущий узел и его дочерние в обьект XmlSerialized
+     * Converts the current node and its children into an XmlSerialized object.
      *
-     * @param array $exclude массив названий атрибутов и узлов, которые нужно исключить
-     * @param int|null $levels количество вложений, которые нужно выгрузить
-     * @return XmlSerialized|XmlCData|string|null
-     * @testFunction testXmlNodeToObject
+     * This method converts the current node and its children into an XmlSerialized object,
+     * optionally excluding specified attributes and nodes and limiting the number of levels to be included.
+     *
+     * @param array $exclude An array of attribute and node names to exclude.
+     * @param int|null $levels The number of levels to include.
+     * @return XmlSerialized|XmlCData|string|null The converted XmlSerialized object, XmlCData, string, or null.
+     *
      */
-    public function ToObject(array $exclude = array(), ?int $levels = null): XmlSerialized|XmlCData|string|null
-    {
+    public function ToObject(
+        array $exclude = [],
+        ?int $levels = null
+    ): XmlSerialized|XmlCData|string|null {
 
         if ($exclude == null) {
             $exclude = [];
@@ -662,8 +755,8 @@ class XmlNode
             }
         }
 
-        $attributes = array();
-        $content = array();
+        $attributes = [];
+        $content = [];
 
         foreach ($this->attributes as $attr) {
             $excluded = false;
@@ -733,15 +826,20 @@ class XmlNode
     }
 
     /**
-     * Восстанавливает узел из обьекта XmlSerialized
+     * Restores a node from an XmlSerialized object.
      *
-     * @param XmlSerialized $xmlSerializedObject обьект для восстановления
-     * @param mixed|null $elementDefinition описание элементов, на которые нужно ориентироваться
-     * @return XmlNode
-     * @testFunction testXmlNodeFromObject
+     * This method restores a node from the specified XmlSerialized object,
+     * optionally using the provided element definition for orientation.
+     *
+     * @param XmlSerialized $xmlSerializedObject The object to restore from.
+     * @param mixed|null $elementDefinition The definition of elements to orient towards.
+     * @return XmlNode The restored XmlNode object.
+     *
      */
-    public static function FromObject(XmlSerialized $xmlSerializedObject, mixed $elementDefinition = null): XmlNode
-    {
+    public static function FromObject(
+        XmlSerialized $xmlSerializedObject,
+        mixed $elementDefinition = null
+    ): XmlNode {
 
         $xml = XmlNode::LoadNode('<' . $xmlSerializedObject->name . ' />', 'utf-8');
         foreach ($xmlSerializedObject->attributes as $name => $value) {

@@ -2,38 +2,41 @@
 
 /**
  * Xml
- * 
+ *
+ * This class represents a query executor for XML documents.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2020 ColibriLab
  * @package Colibri\Xml
- * 
+ *
  */
-
 namespace Colibri\Xml;
 
 /**
- * Класс для работы с атрибутами
- * 
- * @property string $value значение атрибута
- * @property-read string $name название атрибута
- * @property-read string $type тип атрибута
- * @property-read \DOMNode $raw узел
- * @testFunction testXmlAttribute
+ * XmlAttribute
+ *
+ * This class represents an XML attribute.
+ *
+ * @property string $value The value of the attribute.
+ * @property-read string $name The name of the attribute.
+ * @property-read string $type The type of the attribute.
+ * @property-read \DOMNode $raw The raw node.
+ *
  */
 class XmlAttribute
 {
 
     /**
-     * Обьект содержающий DOMNode атрибута
+     * The object containing the DOMNode of the attribute.
      *
      * @var mixed
      */
     private mixed $_data;
 
     /**
-     * Конструктор
+     * Constructor
      *
-     * @param \DOMNode $data raw узел для инициализации врапера
+     * @param \DOMNode $data The raw node for initializing the wrapper.
      */
     public function __construct(\DOMNode $data)
     {
@@ -43,9 +46,9 @@ class XmlAttribute
     /**
      * Getter
      *
-     * @param string $property название свойства
+     * @param string $property The name of the property.
      * @return mixed
-     * @testFunction testXmlAttribute__get
+     *
      */
     public function __get(string $property): mixed
     {
@@ -67,10 +70,10 @@ class XmlAttribute
     /**
      * Setter
      *
-     * @param string $property название свойства
-     * @param string $value значение свойства
+     * @param string $property The name of the property.
+     * @param string $value The value of the property.
      * @return void
-     * @testFunction testXmlAttribute__set
+     *
      */
     public function __set(string $property, mixed $value): void
     {
@@ -80,10 +83,10 @@ class XmlAttribute
     }
 
     /**
-     * Удаляет атрибут
+     * Removes the attribute.
      *
      * @return void
-     * @testFunction testXmlAttributeRemove
+     *
      */
     public function Remove(): void
     {

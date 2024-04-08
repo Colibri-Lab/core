@@ -3,47 +3,57 @@
 /**
  * Xml
  *
+ * This class represents a query executor for XML documents.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml
  *
  */
-
 namespace Colibri\Xml;
 
 use DOMXPath;
 
 /**
- * Класс запросчик к документу
- * @testFunction testXmlQuery
+ * XmlQuery
+ *
+ * This class represents a query executor for XML documents.
+ *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2020 ColibriLab
+ * @package Colibri\Xml
+ *
  */
 class XmlQuery
 {
 
     /**
-     * Узел конекст
+     * The context node for the query.
      *
      * @var XmlNode
      */
     private ? XmlNode $_contextNode;
+
     /**
-     * Элемент управления запросами
+     * The XPath operator.
      *
      * @var DOMXPath
      */
     private ? DOMXPath $_operator;
+
     /**
-     * Вернуть в виде именованной коллекции, или в виде простого списка
+     * Indicates whether to return results as a named map or a simple list.
      *
      * @var bool
      */
     private bool $_returnAsNamedMap;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param XmlNode $node контекстный узел
-     * @param boolean $returnAsNamedMap вернуть в виде именованной коллекции
+     * @param XmlNode $node The context node.
+     * @param bool $returnAsNamedMap Whether to return as a named map.
+     * @param array $namespaces Optional array of namespace prefixes and URIs.
      */
     public function __construct(XmlNode $node, bool $returnAsNamedMap = false, array $namespaces = [])
     {
@@ -58,11 +68,10 @@ class XmlQuery
     }
 
     /**
-     * Выполняет запрос
+     * Executes the XPath query.
      *
-     * @param string $xpathQuery строка запроса
-     * @return XmlNodeList|XmlNamedNodeList список узлов
-     * @testFunction testXmlQueryQuery
+     * @param string $xpathQuery The XPath query string.
+     * @return XmlNodeList|XmlNamedNodeList The result node list.
      */
     public function Query(string $xpathQuery): XmlNodeList|XmlNamedNodeList
     {

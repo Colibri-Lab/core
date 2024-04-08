@@ -7753,262 +7753,262 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdAttributeDefinition",
             "name": "XsdAttributeDefinition",
-            "summary": "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0438\u0435\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u0430",
+            "summary": "XsdAttributeDefinition",
             "url": "classes/Colibri-Xml-Definitions-XsdAttributeDefinition.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdAttributeDefinition\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Xml-Definitions-XsdAttributeDefinition.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdAttributeDefinition\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-Xml-Definitions-XsdAttributeDefinition.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdAttributeDefinition\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430\u0020\u0434\u043B\u044F\u0020\u0443\u043F\u0430\u043A\u043E\u0432\u043A\u0438\u0020\u0432\u0020json",
+            "summary": "Returns\u0020the\u0020object\u0020for\u0020JSON\u0020serialization.",
             "url": "classes/Colibri-Xml-Definitions-XsdAttributeDefinition.html#method_jsonSerialize"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdAttributeDefinition\u003A\u003AToObject\u0028\u0029",
             "name": "ToObject",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430",
+            "summary": "Returns\u0020the\u0020object\u0020as\u0020a\u0020simple\u0020object.",
             "url": "classes/Colibri-Xml-Definitions-XsdAttributeDefinition.html#method_ToObject"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdAttributeDefinition\u003A\u003A\u0024_node",
             "name": "_node",
-            "summary": "\u0423\u0437\u0435\u043B\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u0430",
+            "summary": "The\u0020attribute\u0020node.",
             "url": "classes/Colibri-Xml-Definitions-XsdAttributeDefinition.html#property__node"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdAttributeDefinition\u003A\u003A\u0024_schema",
             "name": "_schema",
-            "summary": "\u0421\u0445\u0435\u043C\u0430",
+            "summary": "The\u0020schema.",
             "url": "classes/Colibri-Xml-Definitions-XsdAttributeDefinition.html#property__schema"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdBaseTypeDefinition",
             "name": "XsdBaseTypeDefinition",
-            "summary": "\u041E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u0442\u0438\u043F\u0430",
+            "summary": "XsdBaseTypeDefinition",
             "url": "classes/Colibri-Xml-Definitions-XsdBaseTypeDefinition.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdBaseTypeDefinition\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Xml-Definitions-XsdBaseTypeDefinition.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdBaseTypeDefinition\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-Xml-Definitions-XsdBaseTypeDefinition.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdBaseTypeDefinition\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430\u0020\u0434\u043B\u044F\u0020\u0443\u043F\u0430\u043A\u043E\u0432\u043A\u0438\u0020\u0432\u0020json",
+            "summary": "Returns\u0020the\u0020data\u0020as\u0020a\u0020plain\u0020object\u0020for\u0020JSON\u0020serialization.",
             "url": "classes/Colibri-Xml-Definitions-XsdBaseTypeDefinition.html#method_jsonSerialize"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdBaseTypeDefinition\u003A\u003AToObject\u0028\u0029",
             "name": "ToObject",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430",
+            "summary": "Returns\u0020the\u0020data\u0020as\u0020a\u0020plain\u0020object.",
             "url": "classes/Colibri-Xml-Definitions-XsdBaseTypeDefinition.html#method_ToObject"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdBaseTypeDefinition\u003A\u003A\u0024_base",
             "name": "_base",
-            "summary": "\u0411\u0430\u0437\u043E\u0432\u044B\u0439\u0020\u0442\u0438\u043F",
+            "summary": "The\u0020base\u0020type.",
             "url": "classes/Colibri-Xml-Definitions-XsdBaseTypeDefinition.html#property__base"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdElementDefinition",
             "name": "XsdElementDefinition",
-            "summary": "\u041E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u0435\u0020\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430",
+            "summary": "XsdElementDefinition",
             "url": "classes/Colibri-Xml-Definitions-XsdElementDefinition.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdElementDefinition\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Xml-Definitions-XsdElementDefinition.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdElementDefinition\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-Xml-Definitions-XsdElementDefinition.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdElementDefinition\u003A\u003ACreateObject\u0028\u0029",
             "name": "CreateObject",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020XmlSerialized\u0020\u043F\u043E\u0020\u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0435\u043D\u0438\u044E",
+            "summary": "Creates\u0020an\u0020XmlSerialized\u0020object\u0020based\u0020on\u0020the\u0020element\u0020definition.",
             "url": "classes/Colibri-Xml-Definitions-XsdElementDefinition.html#method_CreateObject"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdElementDefinition\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430\u0020\u0434\u043B\u044F\u0020\u0443\u043F\u0430\u043A\u043E\u0432\u043A\u0438\u0020\u0432\u0020json",
+            "summary": "Returns\u0020the\u0020data\u0020as\u0020a\u0020plain\u0020object\u0020for\u0020JSON\u0020serialization.",
             "url": "classes/Colibri-Xml-Definitions-XsdElementDefinition.html#method_jsonSerialize"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdElementDefinition\u003A\u003AToObject\u0028\u0029",
             "name": "ToObject",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430",
+            "summary": "Returns\u0020the\u0020data\u0020as\u0020a\u0020plain\u0020object.",
             "url": "classes/Colibri-Xml-Definitions-XsdElementDefinition.html#method_ToObject"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdElementDefinition\u003A\u003A\u0024_node",
             "name": "_node",
-            "summary": "\u0423\u0437\u0435\u043B",
+            "summary": "The\u0020XML\u0020node.",
             "url": "classes/Colibri-Xml-Definitions-XsdElementDefinition.html#property__node"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdElementDefinition\u003A\u003A\u0024_schema",
             "name": "_schema",
-            "summary": "\u0421\u0445\u0435\u043C\u0430",
+            "summary": "The\u0020schema\u0020definition.",
             "url": "classes/Colibri-Xml-Definitions-XsdElementDefinition.html#property__schema"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSchemaDefinition",
             "name": "XsdSchemaDefinition",
-            "summary": "\u0421\u0445\u0435\u043C\u0430",
+            "summary": "XsdSchemaDefinition",
             "url": "classes/Colibri-Xml-Definitions-XsdSchemaDefinition.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSchemaDefinition\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Xml-Definitions-XsdSchemaDefinition.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSchemaDefinition\u003A\u003ALoad\u0028\u0029",
             "name": "Load",
-            "summary": "",
+            "summary": "Loads\u0020the\u0020schema\u0020from\u0020a\u0020file\u0020or\u0020string.",
             "url": "classes/Colibri-Xml-Definitions-XsdSchemaDefinition.html#method_Load"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSchemaDefinition\u003A\u003A_loadComplexTypes\u0028\u0029",
             "name": "_loadComplexTypes",
-            "summary": "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u0442\u0020\u0432\u0441\u0435\u0020\u0442\u0438\u043F\u044B\u0020\u0432\u0020\u0441\u043F\u0438\u0441\u043E\u043A",
+            "summary": "Loads\u0020all\u0020types\u0020into\u0020the\u0020list.",
             "url": "classes/Colibri-Xml-Definitions-XsdSchemaDefinition.html#method__loadComplexTypes"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSchemaDefinition\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-Xml-Definitions-XsdSchemaDefinition.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSchemaDefinition\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430\u0020\u0434\u043B\u044F\u0020\u0443\u043F\u0430\u043A\u043E\u0432\u043A\u0438\u0020\u0432\u0020json",
+            "summary": "Returns\u0020the\u0020data\u0020as\u0020a\u0020plain\u0020object\u0020for\u0020JSON\u0020serialization.",
             "url": "classes/Colibri-Xml-Definitions-XsdSchemaDefinition.html#method_jsonSerialize"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSchemaDefinition\u003A\u003AToObject\u0028\u0029",
             "name": "ToObject",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430",
+            "summary": "Returns\u0020the\u0020data\u0020as\u0020a\u0020plain\u0020object.",
             "url": "classes/Colibri-Xml-Definitions-XsdSchemaDefinition.html#method_ToObject"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSchemaDefinition\u003A\u003A\u0024_schema",
             "name": "_schema",
-            "summary": "\u0421\u0445\u0435\u043C\u0430",
+            "summary": "The\u0020XML\u0020schema\u0020node.",
             "url": "classes/Colibri-Xml-Definitions-XsdSchemaDefinition.html#property__schema"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSchemaDefinition\u003A\u003A\u0024_types",
             "name": "_types",
-            "summary": "\u041C\u0430\u0441\u0441\u0438\u0432\u0020\u0442\u0438\u043F\u043E\u0432",
+            "summary": "The\u0020array\u0020of\u0020types.",
             "url": "classes/Colibri-Xml-Definitions-XsdSchemaDefinition.html#property__types"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSimpleTypeDefinition",
             "name": "XsdSimpleTypeDefinition",
-            "summary": "\u0422\u0438\u043F\u0020\u0434\u0430\u043D\u043D\u044B\u0445",
+            "summary": "XsdSimpleTypeDefinition",
             "url": "classes/Colibri-Xml-Definitions-XsdSimpleTypeDefinition.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSimpleTypeDefinition\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Xml-Definitions-XsdSimpleTypeDefinition.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSimpleTypeDefinition\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-Xml-Definitions-XsdSimpleTypeDefinition.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSimpleTypeDefinition\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430\u0020\u0434\u043B\u044F\u0020\u0443\u043F\u0430\u043A\u043E\u0432\u043A\u0438\u0020\u0432\u0020json",
+            "summary": "Returns\u0020the\u0020data\u0020as\u0020a\u0020plain\u0020object\u0020for\u0020JSON\u0020serialization.",
             "url": "classes/Colibri-Xml-Definitions-XsdSimpleTypeDefinition.html#method_jsonSerialize"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSimpleTypeDefinition\u003A\u003AToObject\u0028\u0029",
             "name": "ToObject",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430",
+            "summary": "Returns\u0020the\u0020data\u0020as\u0020a\u0020plain\u0020object.",
             "url": "classes/Colibri-Xml-Definitions-XsdSimpleTypeDefinition.html#method_ToObject"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSimpleTypeDefinition\u003A\u003A\u0024_node",
             "name": "_node",
-            "summary": "\u0423\u0437\u0435\u043B\u0020\u0442\u0438\u043F\u0430",
+            "summary": "The\u0020type\u0020node.",
             "url": "classes/Colibri-Xml-Definitions-XsdSimpleTypeDefinition.html#property__node"
         },                {
             "fqsen": "\\Colibri\\Xml\\Definitions\\XsdSimpleTypeDefinition\u003A\u003A\u0024_schema",
             "name": "_schema",
-            "summary": "",
+            "summary": "The\u0020schema.",
             "url": "classes/Colibri-Xml-Definitions-XsdSimpleTypeDefinition.html#property__schema"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlCData",
             "name": "XmlCData",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u043F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u0438\u0435\u0020\u0434\u043B\u044F\u0020\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430\u0020CDATA",
+            "summary": "XmlCData",
             "url": "classes/Colibri-Xml-Serialization-XmlCData.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlCData\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Xml-Serialization-XmlCData.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlCData\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430\u0020\u0434\u043B\u044F\u0020\u0443\u043F\u0430\u043A\u043E\u0432\u043A\u0438\u0020\u0432\u0020json",
+            "summary": "Returns\u0020the\u0020data\u0020as\u0020a\u0020simple\u0020object\u0020for\u0020JSON\u0020serialization.",
             "url": "classes/Colibri-Xml-Serialization-XmlCData.html#method_jsonSerialize"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlCData\u003A\u003A\u0024value",
             "name": "value",
-            "summary": "\u0417\u043D\u0430\u0447\u0435\u043D\u0438\u0435",
+            "summary": "The\u0020value\u0020of\u0020the\u0020CDATA\u0020element.",
             "url": "classes/Colibri-Xml-Serialization-XmlCData.html#property_value"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlSerialized",
             "name": "XmlSerialized",
-            "summary": "\u041F\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u0442\u0020\u0441\u043E\u0431\u043E\u0439\u0020\u0434\u0435\u0441\u0435\u0440\u0438\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u044B\u0439\u0020\u0438\u0437\u0020xml\u0020\u043E\u0431\u044C\u0435\u043A\u0442",
+            "summary": "Serialization",
             "url": "classes/Colibri-Xml-Serialization-XmlSerialized.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlSerialized\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Xml-Serialization-XmlSerialized.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlSerialized\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter.",
             "url": "classes/Colibri-Xml-Serialization-XmlSerialized.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlSerialized\u003A\u003A__set\u0028\u0029",
             "name": "__set",
-            "summary": "\u0421\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Setter.",
             "url": "classes/Colibri-Xml-Serialization-XmlSerialized.html#method___set"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlSerialized\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u0434\u043B\u044F\u0020\u043F\u043E\u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u0439\u0020\u0441\u0435\u0440\u0438\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u0438\u0020\u0432\u0020json",
+            "summary": "Returns\u0020the\u0020object\u0020for\u0020JSON\u0020serialization.",
             "url": "classes/Colibri-Xml-Serialization-XmlSerialized.html#method_jsonSerialize"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlSerialized\u003A\u003AjsonUnserialize\u0028\u0029",
             "name": "jsonUnserialize",
-            "summary": "",
+            "summary": "Unserializes\u0020the\u0020object\u0020from\u0020JSON.",
             "url": "classes/Colibri-Xml-Serialization-XmlSerialized.html#method_jsonUnserialize"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlSerialized\u003A\u003A\u0024_name",
             "name": "_name",
-            "summary": "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u0020\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430",
+            "summary": "The\u0020name\u0020of\u0020the\u0020element.",
             "url": "classes/Colibri-Xml-Serialization-XmlSerialized.html#property__name"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlSerialized\u003A\u003A\u0024_attributes",
             "name": "_attributes",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u043E\u0432",
+            "summary": "The\u0020list\u0020of\u0020attributes.",
             "url": "classes/Colibri-Xml-Serialization-XmlSerialized.html#property__attributes"
         },                {
             "fqsen": "\\Colibri\\Xml\\Serialization\\XmlSerialized\u003A\u003A\u0024_content",
             "name": "_content",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u043E\u0432",
+            "summary": "The\u0020list\u0020of\u0020elements.",
             "url": "classes/Colibri-Xml-Serialization-XmlSerialized.html#property__content"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlAttribute",
             "name": "XmlAttribute",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0434\u043B\u044F\u0020\u0440\u0430\u0431\u043E\u0442\u044B\u0020\u0441\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u0430\u043C\u0438",
+            "summary": "XmlAttribute",
             "url": "classes/Colibri-Xml-XmlAttribute.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlAttribute\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-Xml-XmlAttribute.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlAttribute\u003A\u003A__get\u0028\u0029",
@@ -8023,362 +8023,362 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlAttribute\u003A\u003ARemove\u0028\u0029",
             "name": "Remove",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442",
+            "summary": "Removes\u0020the\u0020attribute.",
             "url": "classes/Colibri-Xml-XmlAttribute.html#method_Remove"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlAttribute\u003A\u003A\u0024_data",
             "name": "_data",
-            "summary": "\u041E\u0431\u044C\u0435\u043A\u0442\u0020\u0441\u043E\u0434\u0435\u0440\u0436\u0430\u044E\u0449\u0438\u0439\u0020DOMNode\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u0430",
+            "summary": "The\u0020object\u0020containing\u0020the\u0020DOMNode\u0020of\u0020the\u0020attribute.",
             "url": "classes/Colibri-Xml-XmlAttribute.html#property__data"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNamedNodeList",
             "name": "XmlNamedNodeList",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u0443\u0437\u043B\u043E\u0432",
+            "summary": "XmlNamedNodeList",
             "url": "classes/Colibri-Xml-XmlNamedNodeList.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNamedNodeList\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-Xml-XmlNamedNodeList.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNamedNodeList\u003A\u003AgetIterator\u0028\u0029",
             "name": "getIterator",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0438\u0442\u0435\u0440\u0430\u0442\u043E\u0440\u0020\u0434\u043B\u044F\u0020\u043E\u0431\u0445\u043E\u0434\u0430\u0020\u043C\u0435\u0442\u043E\u0434\u043E\u043C\u0020foreach",
+            "summary": "Returns\u0020an\u0020iterator\u0020for\u0020iteration\u0020using\u0020foreach.",
             "url": "classes/Colibri-Xml-XmlNamedNodeList.html#method_getIterator"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNamedNodeList\u003A\u003AItem\u0028\u0029",
             "name": "Item",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0430\u0449\u0435\u0442\u0020\u0443\u0437\u0435\u043B\u0020\u043F\u043E\u0020\u043A\u043B\u044E\u0447\u0443",
+            "summary": "Returns\u0020the\u0020node\u0020by\u0020key.",
             "url": "classes/Colibri-Xml-XmlNamedNodeList.html#method_Item"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNamedNodeList\u003A\u003AItemAt\u0028\u0029",
             "name": "ItemAt",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0443\u0437\u0435\u043B\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Returns\u0020the\u0020node\u0020by\u0020index.",
             "url": "classes/Colibri-Xml-XmlNamedNodeList.html#method_ItemAt"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNamedNodeList\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter",
             "url": "classes/Colibri-Xml-XmlNamedNodeList.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNamedNodeList\u003A\u003A\u0024_document",
             "name": "_document",
-            "summary": "\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442",
+            "summary": "The\u0020document.",
             "url": "classes/Colibri-Xml-XmlNamedNodeList.html#property__document"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNamedNodeListIterator",
             "name": "XmlNamedNodeListIterator",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0438\u0442\u0435\u0440\u0430\u0442\u043E\u0440\u0430\u0020\u0434\u043B\u044F\u0020XmlNodeList",
+            "summary": "XmlNamedNodeListIterator",
             "url": "classes/Colibri-Xml-XmlNamedNodeListIterator.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode",
             "name": "XmlNode",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0440\u0430\u0431\u043E\u0442\u044B\u0020\u0441\u0020XML\u0020\u043E\u0431\u044A\u0435\u043A\u0442\u043E\u043C",
+            "summary": "Class\u0020for\u0020interacting\u0020with\u0020XML\u0020objects.",
             "url": "classes/Colibri-Xml-XmlNode.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Xml-XmlNode.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003ALoad\u0028\u0029",
             "name": "Load",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020XmlNode\u0020\u0438\u0437\u0020\u0441\u0442\u0440\u043E\u043A\u0438\u0020\u0438\u043B\u0438\u0020\u0444\u0430\u0439\u043B\u0430",
+            "summary": "Creates\u0020an\u0020XmlNode\u0020object\u0020from\u0020a\u0020string\u0020or\u0020a\u0020file.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_Load"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003ALoadNode\u0028\u0029",
             "name": "LoadNode",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020XmlNode\u0020\u0438\u0437\u0020\u043D\u0435\u043F\u043E\u043B\u043D\u043E\u0433\u043E\u0020\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430",
+            "summary": "Creates\u0020an\u0020XmlNode\u0020from\u0020an\u0020incomplete\u0020document.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_LoadNode"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003ALoadHtmlNode\u0028\u0029",
             "name": "LoadHtmlNode",
-            "summary": "\u0421\u043E\u0437\u0434\u0430\u0435\u0442\u0020XMLHtmlNode\u0020\u0438\u0437\u0020\u043D\u0435\u043F\u043E\u043B\u043D\u043E\u0433\u043E\u0020\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430",
+            "summary": "Creates\u0020an\u0020XMLHtmlNode\u0020from\u0020an\u0020incomplete\u0020document.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_LoadHtmlNode"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003ALoadHTML\u0028\u0029",
             "name": "LoadHTML",
-            "summary": "",
+            "summary": "Creates\u0020an\u0020XmlNode\u0020object\u0020from\u0020an\u0020HTML\u0020string\u0020or\u0020file.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_LoadHTML"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003ASave\u0028\u0029",
             "name": "Save",
-            "summary": "\u0421\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442\u0020\u0432\u0020\u0444\u0430\u0439\u043B\u0020\u0438\u043B\u0438\u0020\u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020XML\u0020\u0445\u0440\u0430\u043D\u044F\u0449\u0443\u044E\u0441\u044F\u0020\u0432\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0435",
+            "summary": "Saves\u0020the\u0020XML\u0020stored\u0020in\u0020the\u0020object\u0020to\u0020a\u0020file\u0020or\u0020returns\u0020it\u0020as\u0020a\u0020string.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_Save"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AExport\u0028\u0029",
             "name": "Export",
-            "summary": "",
+            "summary": "Exports\u0020the\u0020XML\u0020data\u0020with\u0020a\u0020specified\u0020document\u0020tag.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_Export"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003ASaveHTML\u0028\u0029",
             "name": "SaveHTML",
-            "summary": "\u0421\u043E\u0445\u0440\u0430\u043D\u044F\u0435\u0442\u0020\u0432\u0020\u0444\u0430\u0439\u043B\u0020\u0438\u043B\u0438\u0020\u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0441\u0442\u0440\u043E\u043A\u0443\u0020HTML\u0020\u0445\u0440\u0430\u043D\u044F\u0449\u0443\u044E\u0441\u044F\u0020\u0432\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0435",
+            "summary": "Saves\u0020the\u0020HTML\u0020stored\u0020in\u0020the\u0020object\u0020to\u0020a\u0020file\u0020or\u0020returns\u0020it\u0020as\u0020a\u0020string.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_SaveHTML"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "Getter",
+            "summary": "Getter\u0020method.",
             "url": "classes/Colibri-Xml-XmlNode.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003APath\u0028\u0029",
             "name": "Path",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043F\u0443\u0442\u044C\u0020\u0438\u0441\u0445\u043E\u0434\u044F\u0020\u0438\u0437\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430",
+            "summary": "Returns\u0020the\u0020path\u0020based\u0020on\u0020the\u0020query.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_Path"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003A__set\u0028\u0029",
             "name": "__set",
-            "summary": "Setter",
+            "summary": "Setter\u0020method.",
             "url": "classes/Colibri-Xml-XmlNode.html#method___set"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AItem\u0028\u0029",
             "name": "Item",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020XmlNode\u0020\u0441\u043E\u043E\u0442\u0432\u0435\u0442\u0441\u0442\u0443\u044E\u0449\u0438\u0439\u0020\u0434\u043E\u0447\u0435\u0440\u043D\u0435\u043C\u0443\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0443\u0020\u0441\u0020\u0438\u043C\u0435\u043D\u0435\u043C\u0020\u0024name",
+            "summary": "Returns\u0020an\u0020XmlNode\u0020object\u0020corresponding\u0020to\u0020the\u0020child\u0020object\u0020with\u0020the\u0020name\u0020\u0024name.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_Item"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AItems\u0028\u0029",
             "name": "Items",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020XmlNodeList\u0020\u0441\u0020\u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435\u043C\u0020\u0442\u044D\u0433\u0430\u0020\u0024name",
+            "summary": "Returns\u0020an\u0020XmlNodeList\u0020with\u0020the\u0020tag\u0020name\u0020\u0024name.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_Items"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AIsChildOf\u0028\u0029",
             "name": "IsChildOf",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u044F\u0432\u043B\u044F\u0435\u0442\u0441\u044F\u0020\u043B\u0438\u0020\u0442\u0435\u043A\u0443\u0449\u0438\u0439\u0020\u0443\u0437\u0435\u043B\u0020\u0434\u043E\u0447\u0435\u0440\u043D\u0438\u043C\u0020\u043A\u0020\u0443\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u043C\u0443",
+            "summary": "Checks\u0020if\u0020the\u0020current\u0020node\u0020is\u0020a\u0020child\u0020of\u0020the\u0020specified\u0020node.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_IsChildOf"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AAppend\u0028\u0029",
             "name": "Append",
-            "summary": "\u0414\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442\u0020\u0437\u0430\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0443\u0437\u043B\u044B\/\u0443\u0437\u0435\u043B\u0020\u0432\u0020\u043A\u043E\u043D\u0435\u0446",
+            "summary": "Adds\u0020the\u0020specified\u0020nodes\/node\u0020to\u0020the\u0020end.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_Append"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AInsert\u0028\u0029",
             "name": "Insert",
-            "summary": "\u0414\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442\u0020\u0437\u0430\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u0443\u0437\u043B\u044B\/\u0443\u0437\u0435\u043B\u0020\u0432\u0020\u043F\u0435\u0440\u0435\u0434\u0020\u0443\u0437\u043B\u043E\u043C\u0020\u0024relation",
+            "summary": "Adds\u0020the\u0020specified\u0020nodes\/node\u0020before\u0020the\u0020\u0024relation\u0020node.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_Insert"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003ARemove\u0028\u0029",
             "name": "Remove",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0442\u0435\u043A\u0443\u0449\u0438\u0439\u0020\u0443\u0437\u0435\u043B",
+            "summary": "Removes\u0020the\u0020current\u0020node.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_Remove"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AReplaceTo\u0028\u0029",
             "name": "ReplaceTo",
-            "summary": "\u0417\u0430\u043C\u0435\u043D\u044F\u0435\u0442\u0020\u0442\u0435\u043A\u0443\u0449\u0438\u0439\u0020\u0443\u0437\u0435\u043B\u0020\u043D\u0430\u0020\u0437\u0430\u0434\u0430\u043D\u043D\u044B\u0439",
+            "summary": "Replaces\u0020the\u0020current\u0020node\u0020with\u0020the\u0020specified\u0020node.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_ReplaceTo"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AgetElementsByName\u0028\u0029",
             "name": "getElementsByName",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B\u0020\u0441\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u043E\u043C\u0020\u0040name\u0020\u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0449\u0438\u043C\u0020\u0443\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u0435\u0020\u0438\u043C\u044F",
+            "summary": "Returns\u0020elements\u0020with\u0020an\u0020attribute\u0020\u0040name\u0020containing\u0020the\u0020specified\u0020name.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_getElementsByName"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003ACreateTextNode\u0028\u0029",
             "name": "CreateTextNode",
-            "summary": "",
+            "summary": "Creates\u0020a\u0020text\u0020node\u0020with\u0020the\u0020specified\u0020content.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_CreateTextNode"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AQuery\u0028\u0029",
             "name": "Query",
-            "summary": "\u0412\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442\u0020XPath\u0020\u0437\u0430\u043F\u0440\u043E\u0441",
+            "summary": "Executes\u0020an\u0020XPath\u0020query.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_Query"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AToObject\u0028\u0029",
             "name": "ToObject",
-            "summary": "\u041F\u0440\u0435\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0442\u0435\u043A\u0443\u0449\u0438\u0439\u0020\u0443\u0437\u0435\u043B\u0020\u0438\u0020\u0435\u0433\u043E\u0020\u0434\u043E\u0447\u0435\u0440\u043D\u0438\u0435\u0020\u0432\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020XmlSerialized",
+            "summary": "Converts\u0020the\u0020current\u0020node\u0020and\u0020its\u0020children\u0020into\u0020an\u0020XmlSerialized\u0020object.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_ToObject"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AFromObject\u0028\u0029",
             "name": "FromObject",
-            "summary": "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442\u0020\u0443\u0437\u0435\u043B\u0020\u0438\u0437\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430\u0020XmlSerialized",
+            "summary": "Restores\u0020a\u0020node\u0020from\u0020an\u0020XmlSerialized\u0020object.",
             "url": "classes/Colibri-Xml-XmlNode.html#method_FromObject"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003AXmlStart",
             "name": "XmlStart",
-            "summary": "",
+            "summary": "XML\u0020declaration\u0020start\u0020string.",
             "url": "classes/Colibri-Xml-XmlNode.html#constant_XmlStart"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003A\u0024_document",
             "name": "_document",
-            "summary": "Raw\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430",
+            "summary": "The\u0020raw\u0020document\u0020object.",
             "url": "classes/Colibri-Xml-XmlNode.html#property__document"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003A\u0024_node",
             "name": "_node",
-            "summary": "Raw\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0020\u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430",
+            "summary": "The\u0020raw\u0020element\u0020object.",
             "url": "classes/Colibri-Xml-XmlNode.html#property__node"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNode\u003A\u003A\u0024_tag",
             "name": "_tag",
-            "summary": "\u0414\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435\u0020\u0434\u0430\u043D\u043D\u044B\u0435",
+            "summary": "Additional\u0020data.",
             "url": "classes/Colibri-Xml-XmlNode.html#property__tag"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList",
             "name": "XmlNodeAttributeList",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u043E\u0432",
+            "summary": "XmlNodeAttributeList",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003AgetIterator\u0028\u0029",
             "name": "getIterator",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0438\u0442\u0435\u0440\u0430\u0442\u043E\u0440\u0020\u0434\u043B\u044F\u0020\u043E\u0431\u0445\u043E\u0434\u0430\u0020\u043C\u0435\u0442\u043E\u0434\u043E\u043C\u0020foreach",
+            "summary": "Returns\u0020an\u0020iterator\u0020for\u0020iteration\u0020using\u0020foreach.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method_getIterator"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003AItem\u0028\u0029",
             "name": "Item",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Returns\u0020the\u0020attribute\u0020by\u0020index.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method_Item"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003ACount\u0028\u0029",
             "name": "Count",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u043E\u0432",
+            "summary": "Returns\u0020the\u0020count\u0020of\u0020attributes.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method_Count"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003AAppend\u0028\u0029",
             "name": "Append",
-            "summary": "\u0414\u043E\u0431\u0430\u0432\u043B\u044F\u0435\u0442\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442",
+            "summary": "Appends\u0020an\u0020attribute.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method_Append"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003ARemove\u0028\u0029",
             "name": "Remove",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0430\u0442\u0442\u0440\u0438\u0431\u0443\u0442\u0020\u043F\u043E\u0020\u0438\u043C\u0435\u043D\u0438",
+            "summary": "Removes\u0020an\u0020attribute\u0020by\u0020name.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method_Remove"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003AoffsetSet\u0028\u0029",
             "name": "offsetSet",
-            "summary": "\u0423\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442\u0020\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Sets\u0020the\u0020value\u0020by\u0020index.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method_offsetSet"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003AoffsetExists\u0028\u0029",
             "name": "offsetExists",
-            "summary": "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u0442\u0020\u0435\u0441\u0442\u044C\u0020\u043B\u0438\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Checks\u0020if\u0020data\u0020exists\u0020by\u0020index.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method_offsetExists"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003AoffsetUnset\u0028\u0029",
             "name": "offsetUnset",
-            "summary": "\u0443\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0434\u0430\u043D\u043D\u044B\u0435\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Unsets\u0020data\u0020by\u0020index.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method_offsetUnset"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003AoffsetGet\u0028\u0029",
             "name": "offsetGet",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Retrieves\u0020the\u0020value\u0020by\u0020index.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#method_offsetGet"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003A\u0024_document",
             "name": "_document",
-            "summary": "\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442",
+            "summary": "The\u0020document.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#property__document"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003A\u0024_node",
             "name": "_node",
-            "summary": "\u041D\u043E\u0434\u0430",
+            "summary": "The\u0020node.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#property__node"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeAttributeList\u003A\u003A\u0024_data",
             "name": "_data",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u0430\u0442\u0440\u0438\u0431\u0443\u0442\u043E\u0432",
+            "summary": "The\u0020list\u0020of\u0020attributes.",
             "url": "classes/Colibri-Xml-XmlNodeAttributeList.html#property__data"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList",
             "name": "XmlNodeList",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u0443\u0437\u043B\u043E\u0432",
+            "summary": "XmlNodeList",
             "url": "classes/Colibri-Xml-XmlNodeList.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor",
             "url": "classes/Colibri-Xml-XmlNodeList.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003AgetIterator\u0028\u0029",
             "name": "getIterator",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0438\u0442\u0435\u0440\u0430\u0442\u043E\u0440\u0020\u0434\u043B\u044F\u0020\u043E\u0431\u0445\u043E\u0434\u0430\u0020\u043C\u0435\u0442\u043E\u0434\u043E\u043C\u0020foreach",
+            "summary": "Returns\u0020an\u0020iterator\u0020for\u0020iteration\u0020using\u0020foreach.",
             "url": "classes/Colibri-Xml-XmlNodeList.html#method_getIterator"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003AItem\u0028\u0029",
             "name": "Item",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0443\u0437\u0435\u043B\u0020\u043F\u043E\u0020\u0438\u043D\u0434\u0435\u043A\u0441\u0443",
+            "summary": "Returns\u0020the\u0020node\u0020by\u0020index.",
             "url": "classes/Colibri-Xml-XmlNodeList.html#method_Item"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003A__get\u0028\u0029",
             "name": "__get",
-            "summary": "\u0413\u0435\u0442\u0442\u0435\u0440",
+            "summary": "Getter",
             "url": "classes/Colibri-Xml-XmlNodeList.html#method___get"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003ACount\u0028\u0029",
             "name": "Count",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E\u0020\u0443\u0437\u043B\u043E\u0432",
+            "summary": "Returns\u0020the\u0020count\u0020of\u0020nodes.",
             "url": "classes/Colibri-Xml-XmlNodeList.html#method_Count"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003AFirst\u0028\u0029",
             "name": "First",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043F\u0435\u0440\u0432\u044B\u0439\u0020\u0443\u0437\u0435\u043B",
+            "summary": "Returns\u0020the\u0020first\u0020node.",
             "url": "classes/Colibri-Xml-XmlNodeList.html#method_First"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003ALast\u0028\u0029",
             "name": "Last",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u043F\u043E\u0441\u043B\u0435\u0434\u043D\u0438\u0439\u0020\u0443\u0437\u0435\u043B",
+            "summary": "Returns\u0020the\u0020last\u0020node.",
             "url": "classes/Colibri-Xml-XmlNodeList.html#method_Last"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003ARemove\u0028\u0029",
             "name": "Remove",
-            "summary": "\u0423\u0434\u0430\u043B\u044F\u0435\u0442\u0020\u0432\u0441\u0435\u0020\u0443\u0437\u043B\u044B\u0020\u0432\u0020\u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438",
+            "summary": "Removes\u0020all\u0020nodes\u0020in\u0020the\u0020collection.",
             "url": "classes/Colibri-Xml-XmlNodeList.html#method_Remove"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003AToObject\u0028\u0029",
             "name": "ToObject",
-            "summary": "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442\u0020\u0432\u0441\u0435\u0020\u0443\u0437\u043B\u044B\u0020\u0432\u0020\u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043E\u0431\u044C\u0435\u043A\u0442\u0430",
+            "summary": "Returns\u0020all\u0020nodes\u0020in\u0020the\u0020collection\u0020as\u0020an\u0020object.",
             "url": "classes/Colibri-Xml-XmlNodeList.html#method_ToObject"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003A\u0024_data",
             "name": "_data",
-            "summary": "\u0421\u043F\u0438\u0441\u043E\u043A\u0020\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0439",
+            "summary": "The\u0020list\u0020of\u0020values.",
             "url": "classes/Colibri-Xml-XmlNodeList.html#property__data"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeList\u003A\u003A\u0024_document",
             "name": "_document",
-            "summary": "\u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442",
+            "summary": "The\u0020document.",
             "url": "classes/Colibri-Xml-XmlNodeList.html#property__document"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlNodeListIterator",
             "name": "XmlNodeListIterator",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0438\u0442\u0435\u0440\u0430\u0442\u043E\u0440\u0430\u0020\u0434\u043B\u044F\u0020XmlNodeList",
+            "summary": "XmlNodeListIterator",
             "url": "classes/Colibri-Xml-XmlNodeListIterator.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlQuery",
             "name": "XmlQuery",
-            "summary": "\u041A\u043B\u0430\u0441\u0441\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0447\u0438\u043A\u0020\u043A\u0020\u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0443",
+            "summary": "XmlQuery",
             "url": "classes/Colibri-Xml-XmlQuery.html"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlQuery\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440",
+            "summary": "Constructor.",
             "url": "classes/Colibri-Xml-XmlQuery.html#method___construct"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlQuery\u003A\u003AQuery\u0028\u0029",
             "name": "Query",
-            "summary": "\u0412\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442\u0020\u0437\u0430\u043F\u0440\u043E\u0441",
+            "summary": "Executes\u0020the\u0020XPath\u0020query.",
             "url": "classes/Colibri-Xml-XmlQuery.html#method_Query"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlQuery\u003A\u003A\u0024_contextNode",
             "name": "_contextNode",
-            "summary": "\u0423\u0437\u0435\u043B\u0020\u043A\u043E\u043D\u0435\u043A\u0441\u0442",
+            "summary": "The\u0020context\u0020node\u0020for\u0020the\u0020query.",
             "url": "classes/Colibri-Xml-XmlQuery.html#property__contextNode"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlQuery\u003A\u003A\u0024_operator",
             "name": "_operator",
-            "summary": "\u042D\u043B\u0435\u043C\u0435\u043D\u0442\u0020\u0443\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u044F\u0020\u0437\u0430\u043F\u0440\u043E\u0441\u0430\u043C\u0438",
+            "summary": "The\u0020XPath\u0020operator.",
             "url": "classes/Colibri-Xml-XmlQuery.html#property__operator"
         },                {
             "fqsen": "\\Colibri\\Xml\\XmlQuery\u003A\u003A\u0024_returnAsNamedMap",
             "name": "_returnAsNamedMap",
-            "summary": "\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u043D\u043E\u0439\u0020\u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u0438,\u0020\u0438\u043B\u0438\u0020\u0432\u0020\u0432\u0438\u0434\u0435\u0020\u043F\u0440\u043E\u0441\u0442\u043E\u0433\u043E\u0020\u0441\u043F\u0438\u0441\u043A\u0430",
+            "summary": "Indicates\u0020whether\u0020to\u0020return\u0020results\u0020as\u0020a\u0020named\u0020map\u0020or\u0020a\u0020simple\u0020list.",
             "url": "classes/Colibri-Xml-XmlQuery.html#property__returnAsNamedMap"
         },                {
             "fqsen": "\\",

@@ -2,22 +2,26 @@
 
 /**
  * Xml
- * 
+ *
+ * This class represents a query executor for XML documents.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * @copyright 2020 ColibriLab
  * @package Colibri\Xml
- * 
+ *
  */
-
 namespace Colibri\Xml;
 
 use Colibri\Collections\ReadonlyCollection;
 use DOMDocument;
 
 /**
- * Список узлов
- * @property-read DOMDocument $document
- * @testFunction testXmlNamedNodeList
+ * XmlNamedNodeList
+ *
+ * This class represents a list of nodes.
+ *
+ * @property-read DOMDocument $document The document.
+ *
  * @method XmlNode offsetGet(mixed $offset)
  * 
  */
@@ -25,17 +29,17 @@ class XmlNamedNodeList extends ReadonlyCollection
 {
 
     /**
-     * Документ
+     * The document.
      *
      * @var \DOMDocument
      */
     private ?DOMDocument $_document;
 
     /**
-     * Конструктор
+     * Constructor
      *
-     * @param \DOMNodeList $nodelist Список узлов
-     * @param \DOMDocument $dom Документ
+     * @param \DOMNodeList $nodelist The node list.
+     * @param \DOMDocument $dom The document.
      */
     public function __construct(\DOMNodeList $nodelist, DOMDocument $dom)
     {
@@ -50,10 +54,10 @@ class XmlNamedNodeList extends ReadonlyCollection
     }
 
     /**
-     * Возвращает итератор для обхода методом foreach
+     * Returns an iterator for iteration using foreach.
      *
      * @return XmlNamedNodeListIterator
-     * @testFunction testXmlNamedNodeListGetIterator
+     *
      */
     public function getIterator(): XmlNamedNodeListIterator
     {
@@ -61,11 +65,11 @@ class XmlNamedNodeList extends ReadonlyCollection
     }
 
     /**
-     * Возвраащет узел по ключу
-     *  
-     * @param string $key
-     * @return XmlNode|null
-     * @testFunction testXmlNamedNodeListItem
+     * Returns the node by key.
+     *
+     * @param string $key The key.
+     * @return XmlNode|null The node, or null if not found.
+     *
      */
     public function Item(string $key): ?XmlNode
     {
@@ -77,11 +81,11 @@ class XmlNamedNodeList extends ReadonlyCollection
     }
 
     /**
-     * Возвращает узел по индексу
+     * Returns the node by index.
      *
-     * @param int $index
-     * @return XmlNode
-     * @testFunction testXmlNamedNodeListItemAt
+     * @param int $index The index.
+     * @return XmlNode The node.
+     *
      */
     public function ItemAt(int $index): XmlNode
     {
@@ -89,11 +93,11 @@ class XmlNamedNodeList extends ReadonlyCollection
     }
 
     /**
-     * Геттер
+     * Getter
      *
-     * @param string $property
+     * @param string $property The property.
      * @return mixed
-     * @testFunction testXmlNamedNodeList__get
+     *
      */
     public function __get(string $property): mixed
     {

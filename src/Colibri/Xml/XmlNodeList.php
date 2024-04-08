@@ -3,44 +3,46 @@
 /**
  * Xml
  *
+ * This class represents a query executor for XML documents.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml
  *
  */
-
 namespace Colibri\Xml;
 
 /**
- * Список узлов
+ * XmlNodeList
  *
- * @property-read \DOMDocument $document
- * @testFunction testXmlNodeList
+ * This class represents a list of XML nodes.
+ *
+ * @property-read \DOMDocument $document The document.
+ *
  * @method XmlNode offsetGet(mixed $offset)
- * 
  */
 class XmlNodeList implements \IteratorAggregate
 {
 
     /**
-     * Список значений
+     * The list of values.
      *
      * @var \DOMNodeList
      */
     private ?\DOMNodeList $_data;
 
     /**
-     * Документ
+     * The document.
      *
      * @var \DOMDocument
      */
     private ?\DOMDocument $_document;
 
     /**
-     * Конструктор
+     * Constructor
      *
-     * @param \DOMNodeList $nodelist список узлов
-     * @param \DOMDocument $dom документ
+     * @param \DOMNodeList $nodelist The list of nodes.
+     * @param \DOMDocument $dom The document.
      */
     public function __construct(\DOMNodeList $nodelist, \DOMDocument $dom)
     {
@@ -49,10 +51,9 @@ class XmlNodeList implements \IteratorAggregate
     }
 
     /**
-     * Возвращает итератор для обхода методом foreach
+     * Returns an iterator for iteration using foreach.
      *
      * @return XmlNodeListIterator
-     * @testFunction testXmlNodeListGetIterator
      */
     public function getIterator(): XmlNodeListIterator
     {
@@ -60,11 +61,11 @@ class XmlNodeList implements \IteratorAggregate
     }
 
     /**
-     * Возвращает узел по индексу
+     * Returns the node by index.
      *
-     * @param int $index
-     * @return XmlNode|null
-     * @testFunction testXmlNodeListItem
+     * @param int $index The index.
+     * @return XmlNode|null The node, or null if not found.
+     *
      */
     public function Item(int $index): ? XmlNode
     {
@@ -75,10 +76,10 @@ class XmlNodeList implements \IteratorAggregate
     }
 
     /**
-     * Геттер
+     * Getter
      *
-     * @param string $property
-     * @return mixed
+     * @param string $property The property.
+     * @return mixed The value of the property, or null if not found.
      */
     public function __get(string $property): mixed
     {
@@ -89,10 +90,9 @@ class XmlNodeList implements \IteratorAggregate
     }
 
     /**
-     * Возвращает количество узлов
+     * Returns the count of nodes.
      *
-     * @return int
-     * @testFunction testXmlNodeListCount
+     * @return int The count of nodes.
      */
     public function Count(): int
     {
@@ -100,10 +100,9 @@ class XmlNodeList implements \IteratorAggregate
     }
 
     /**
-     * Возвращает первый узел
+     * Returns the first node.
      *
-     * @return XmlNode
-     * @testFunction testXmlNodeListFirst
+     * @return XmlNode The first node.
      */
     public function First(): XmlNode
     {
@@ -111,10 +110,10 @@ class XmlNodeList implements \IteratorAggregate
     }
 
     /**
-     * Возвращает последний узел
+     * Returns the last node.
      *
-     * @return XmlNode
-     * @testFunction testXmlNodeListLast
+     * @return XmlNode The last node.
+     *
      */
     public function Last(): XmlNode
     {
@@ -122,10 +121,10 @@ class XmlNodeList implements \IteratorAggregate
     }
 
     /**
-     * Удаляет все узлы в коллекции
+     * Removes all nodes in the collection.
      *
      * @return void
-     * @testFunction testXmlNodeListRemove
+     *
      */
     public function Remove(): void
     {
@@ -135,12 +134,12 @@ class XmlNodeList implements \IteratorAggregate
     }
 
     /**
-     * Возвращает все узлы в коллекции в виде обьекта
+     * Returns all nodes in the collection as an object.
      *
-     * @param array $exclude список названий атрибутов и узлов, которые нужно исключить
-     * @param int|null $levels количество дочерних узлов
-     * @return array|null
-     * @testFunction testXmlNodeListToObject
+     * @param array $exclude The list of attribute and node names to exclude.
+     * @param int|null $levels The number of child nodes.
+     * @return array|null The nodes as an object, or null if empty.
+     *
      */
     public function ToObject(array $exclude = array(), ?int $levels = null)
     {

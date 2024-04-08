@@ -15,41 +15,42 @@ use Colibri\Xml\Serialization\XmlSerialized;
 use Colibri\Xml\XmlNode;
 
 /**
- * Определение элемента
+ * XsdElementDefinition
+ *
+ * Represents the definition of an XML element.
  * 
- * @property-read string $annotation аннотация элемента
- * @property-read string $name наименование элемента
- * @property-read \stdClass $occurs обьект определяющий с какого по какое количество может быть вхождений данного элемента
- * @property-read XsdAttributeDefinition[] $attributes список атрибутов
- * @property-read XsdElementDefinition[] $elements список элементов
- * @property-read XmlNode $type тип элемента
- * @property-read array $autocomplete список значений для интеллисенса
- * @property-read string $generate команда для генерации элемента
- * @property-read string $lookup команда для генерации межобьектных связей
- * @testFunction testXsdElementDefinition
+ * @property-read string $annotation The annotation of the element.
+ * @property-read string $name The name of the element.
+ * @property-read \stdClass $occurs An object defining the minimum and maximum occurrences of the element.
+ * @property-read XsdAttributeDefinition[] $attributes The list of attributes associated with the element.
+ * @property-read XsdElementDefinition[] $elements The list of child elements.
+ * @property-read XmlNode $type The type of the element.
+ * @property-read array $autocomplete The list of values for auto-completion.
+ * @property-read string $generate The command for generating the element.
+ * @property-read string $lookup The command for generating inter-object relationships.
  */
 class XsdElementDefinition implements \JsonSerializable
 {
 
     /**
-     * Узел
+     * The XML node.
      *
      * @var XmlNode
      */
     private ? XmlNode $_node;
 
     /**
-     * Схема
+     * The schema definition.
      *
      * @var XsdSchemaDefinition
      */
     private ? XsdSchemaDefinition $_schema;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param XmlNode $elementNode описываемый элемент
-     * @param mixed $schema схема
+     * @param XmlNode $elementNode The XML node representing the element.
+     * @param mixed $schema The schema definition.
      */
     public function __construct(XmlNode $elementNode, mixed $schema)
     {
@@ -58,11 +59,10 @@ class XsdElementDefinition implements \JsonSerializable
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $property
+     * @param string $property The name of the property.
      * @return mixed
-     * @testFunction testXsdElementDefinition__get
      */
     public function __get(string $property): mixed
     {
@@ -118,10 +118,9 @@ class XsdElementDefinition implements \JsonSerializable
     }
 
     /**
-     * Создает обьект XmlSerialized по определению
+     * Creates an XmlSerialized object based on the element definition.
      *
      * @return XmlSerialized
-     * @testFunction testXsdElementDefinitionCreateObject
      */
     public function CreateObject(): XmlSerialized
     {
@@ -146,10 +145,9 @@ class XsdElementDefinition implements \JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде простого обьекта для упаковки в json
+     * Returns the data as a plain object for JSON serialization.
      *
      * @return object
-     * @testFunction testXsdElementDefinitionJsonSerialize
      */
     public function jsonSerialize(): object|array
     {
@@ -157,10 +155,9 @@ class XsdElementDefinition implements \JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде простого обьекта
+     * Returns the data as a plain object.
      *
      * @return object
-     * @testFunction testXsdElementDefinitionToObject
      */
     public function ToObject(): object
     {

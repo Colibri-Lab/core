@@ -3,31 +3,34 @@
 /**
  * Serialization
  *
+ * This class represents a representation for a CDATA element.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml\Serialization
- *
  */
-
 namespace Colibri\Xml\Serialization;
 
 /**
- * Класс представление для элемента CDATA
+ * XmlCData
+ *
+ * This class represents a representation for a CDATA element.
+ *
  */
 class XmlCData implements \JsonSerializable
 {
 
     /**
-     * Значение
+     * The value of the CDATA element.
      *
      * @var string
      */
     public string $value;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param string $value
+     * @param string|null $value The value of the CDATA element.
      */
     public function __construct(?string $value = null)
     {
@@ -35,10 +38,9 @@ class XmlCData implements \JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде простого обьекта для упаковки в json
+     * Returns the data as a simple object for JSON serialization.
      *
-     * @return object
-     * @testFunction testJsonSerialize
+     * @return object The object representation of the CDATA element.
      */
     public function jsonSerialize(): object|array
     {

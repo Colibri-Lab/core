@@ -1,37 +1,39 @@
 <?php
 
 /**
- * Definitions
+ * XsdBaseTypeDefinition
+ *
+ * Represents the definition of a simple type.
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml\Definitions
  *
  */
-
 namespace Colibri\Xml\Definitions;
 
 /**
- * Определени простого типа
- * 
- * @property-read string $name
- * @property-read object $restrictions
- * @testFunction testXsdBaseTypeDefinition
+ * XsdBaseTypeDefinition
+ *
+ * Represents the definition of a simple type.
+ *
+ * @property-read string $name The name of the simple type.
+ * @property-read object $restrictions The restrictions applied to the simple type.
  */
 class XsdBaseTypeDefinition implements \JsonSerializable
 {
 
     /**
-     * Базовый тип
+     * The base type.
      *
      * @var string
      */
     private string $_base;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param mixed $base базовый тип
+     * @param mixed $base The base type.
      */
     public function __construct(mixed $base)
     {
@@ -39,11 +41,10 @@ class XsdBaseTypeDefinition implements \JsonSerializable
     }
 
     /**
-     * Геттер
+     * Getter.
      *
-     * @param string $name
+     * @param string $name The name of the property.
      * @return mixed
-     * @testFunction testXsdBaseTypeDefinition__get
      */
     public function __get(string $name): mixed
     {
@@ -56,10 +57,9 @@ class XsdBaseTypeDefinition implements \JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде простого обьекта для упаковки в json
+     * Returns the data as a plain object for JSON serialization.
      *
      * @return object
-     * @testFunction testXsdBaseTypeDefinitionJsonSerialize
      */
     public function jsonSerialize(): object|array
     {
@@ -67,10 +67,9 @@ class XsdBaseTypeDefinition implements \JsonSerializable
     }
 
     /**
-     * Возвращает данные в виде простого обьекта
+     * Returns the data as a plain object.
      *
      * @return object
-     * @testFunction testXsdBaseTypeDefinitionToObject
      */
     public function ToObject(): object
     {
