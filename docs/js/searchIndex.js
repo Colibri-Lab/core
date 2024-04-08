@@ -6633,22 +6633,22 @@ Search.appendIndex(
         },                {
             "fqsen": "\\dd\u0028\u0029",
             "name": "dd",
-            "summary": "",
+            "summary": "Prints\u0020debug\u0020information\u0020and\u0020exits",
             "url": "namespaces/default.html#function_dd"
         },                {
             "fqsen": "\\ddx\u0028\u0029",
             "name": "ddx",
-            "summary": "",
+            "summary": "Prints\u0020debug\u0020information\u0020without\u0020exiting\u0020from\u0020script",
             "url": "namespaces/default.html#function_ddx"
         },                {
             "fqsen": "\\ddd\u0028\u0029",
             "name": "ddd",
-            "summary": "",
+            "summary": "Prints\u0020collapsable\u0020debug\u0020information\u0020and\u0020exits",
             "url": "namespaces/default.html#function_ddd"
         },                {
             "fqsen": "\\dddx\u0028\u0029",
             "name": "dddx",
-            "summary": "",
+            "summary": "Prints\u0020collapsable\u0020debug\u0020information\u0020without\u0020exiting",
             "url": "namespaces/default.html#function_dddx"
         },                {
             "fqsen": "\\Colibri\\Utils\\Logs\\ConsoleLogger",
