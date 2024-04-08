@@ -236,7 +236,9 @@
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils.html">Utils</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils-Menu.html">Menu</a></li>
                             </ul>
         </div>
     
@@ -254,11 +256,12 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">5</span>
+    <span class="phpdocumentor-element-found-in__line">16</span>
 
     </aside>
 
-        
+            <p class="phpdocumentor-summary">Represents an item in a menu.</p>
+
 
 
 
@@ -316,60 +319,70 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
+<dd>Constructor for creating a new menu item.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Menu-Item.html#method___get">__get()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: mixed|null    </span>
 </dt>
+<dd>Magic method to get properties dynamically.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Menu-Item.html#method_Add">Add()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Utils-Menu-Item.html"><abbr title="\Colibri\Utils\Menu\Item">Item</abbr></a>    </span>
 </dt>
+<dd>Adds an item or items to this item.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Menu-Item.html#method_Create">Create()</a>
     <span>
                                 &nbsp;: self    </span>
 </dt>
+<dd>Creates a new menu item.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Menu-Item.html#method_FromArray">FromArray()</a>
     <span>
                                 &nbsp;: self    </span>
 </dt>
+<dd>Creates a menu item from an array.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Menu-Item.html#method_jsonSerialize">jsonSerialize()</a>
     <span>
                                 &nbsp;: object|array&lt;string|int, mixed&gt;    </span>
 </dt>
+<dd>Serializes the item to JSON.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Menu-Item.html#method_Merge">Merge()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
+<dd>Merges the given items with this item.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Menu-Item.html#method_Route">Route()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Generates the route for the item.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Menu-Item.html#method_ToArray">ToArray()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;|object    </span>
 </dt>
+<dd>Converts the item to an array.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Utils-Menu-Item.html#method__find">_find()</a>
     <span>
                                 &nbsp;: self|null    </span>
 </dt>
+<dd>Internal method to find an item by name.</dd>
 
     </dl>
 
@@ -402,7 +415,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">10</span>
+    <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
@@ -435,7 +448,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">8</span>
+    <span class="phpdocumentor-element-found-in__line">19</span>
 
     </aside>
 
@@ -473,11 +486,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Constructor for creating a new menu item.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$description</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$icon</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$execute</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
@@ -492,35 +506,45 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the item.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$title</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The title of the item.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$description</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The description of the item.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$icon</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The icon associated with the item.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$execute</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The action to execute when the item is clicked.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -542,14 +566,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">86</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Magic method to get properties dynamically.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__get</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -561,13 +586,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the property.</p>
+</section>
+
             </dd>
             </dl>
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value of the property or null if not found.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -583,11 +618,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">143</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Adds an item or items to this item.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Add</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-Menu-Item.html"><abbr title="\Colibri\Utils\Menu\Item">Item</abbr></a>|array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$item</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Utils-Menu-Item.html"><abbr title="\Colibri\Utils\Menu\Item">Item</abbr></a></span></code>
@@ -602,7 +638,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-Menu-Item.html"><abbr title="\Colibri\Utils\Menu\Item">Item</abbr></a>|array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The item or items to add.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -611,6 +649,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Utils-Menu-Item.html"><abbr title="\Colibri\Utils\Menu\Item">Item</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>This item.</p>
+</section>
+
             </section>
 
 </article>
@@ -628,11 +670,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates a new menu item.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Create</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$title</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$description</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$icon</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$execute</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
@@ -647,35 +690,45 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the item.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$title</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The title of the item.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$description</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The description of the item.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$icon</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The icon associated with the item.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$execute</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The action to execute when the item is clicked.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -684,6 +737,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The newly created menu item.</p>
+</section>
+
             </section>
 
 </article>
@@ -701,11 +758,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Creates a menu item from an array.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">FromArray</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$array</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
@@ -720,7 +778,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The array containing item data.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -729,6 +789,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The newly created menu item.</p>
+</section>
+
             </section>
 
 </article>
@@ -746,11 +810,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">96</span>
+    <span class="phpdocumentor-element-found-in__line">166</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Serializes the item to JSON.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">jsonSerialize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object|array&lt;string|int, mixed&gt;</span></code>
@@ -764,6 +829,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">object|array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The serialized item.</p>
+</section>
+
             </section>
 
 </article>
@@ -781,11 +850,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">114</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Merges the given items with this item.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Merge</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$items</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -800,7 +870,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The items to merge.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -822,11 +894,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">52</span>
+    <span class="phpdocumentor-element-found-in__line">99</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Generates the route for the item.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Route</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -840,6 +913,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The route of the item.</p>
+</section>
+
             </section>
 
 </article>
@@ -857,11 +934,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">102</span>
+    <span class="phpdocumentor-element-found-in__line">177</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Converts the item to an array.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">ToArray</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|object</span></code>
@@ -875,6 +953,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|object</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The converted item.</p>
+</section>
+
             </section>
 
 </article>
@@ -892,11 +974,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Menu/Item.php"><a href="files/src-colibri-utils-menu-item.html"><abbr title="src/Colibri/Utils/Menu/Item.php">Item.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">68</span>
+    <span class="phpdocumentor-element-found-in__line">127</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Internal method to find an item by name.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
                     <span class="phpdocumentor-signature__name">_find</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self|null</span></code>
@@ -911,7 +994,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the item to find.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -920,6 +1005,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">self|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The found item or null if not found.</p>
+</section>
+
             </section>
 
 </article>

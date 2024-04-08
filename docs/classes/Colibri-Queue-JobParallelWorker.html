@@ -290,42 +290,42 @@
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>ID потока</dd>
+<dd>Thread ID.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Threading-Worker.html#property__key">$_key</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Ключ необходим для идентификации процесса в списке процессов в ps</dd>
+<dd>Unique key for identifying the process.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Threading-Worker.html#property__log">$_log</a>
     <span>
                         &nbsp;: <a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a>            </span>
 </dt>
-<dd>Лог воркера</dd>
+<dd>Worker&#039;s logger.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Threading-Worker.html#property__params">$_params</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
-<dd>Переданные в воркер параметры</dd>
+<dd>Parameters passed to the worker.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Threading-Worker.html#property__prio">$_prio</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Приоритет процесса, требуется наличие nohup</dd>
+<dd>Process priority; requires the presence of &#039;nohup&#039;.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Threading-Worker.html#property__timeLimit">$_timeLimit</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Лимит по времени на выполнение процесса</dd>
+<dd>Time limit for executing the process.</dd>
 
     </dl>
 
@@ -340,42 +340,42 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Создает обьект класса Worker</dd>
+<dd>Creates a new instance of the Worker class.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Threading-Worker.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>функция Getter для получения данных по потоку</dd>
+<dd>Getter function to retrieve data related to the worker.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Threading-Worker.html#method___set">__set()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>функция Setter для ввода данных в процесс</dd>
+<dd>Setter function to set data in the worker process.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Threading-Worker.html#method_Exists">Exists()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Проверяет запущен ли другой инстанс процесса</dd>
+<dd>Checks if another instance of the process is running.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Threading-Worker.html#method_Prepare">Prepare()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Разбирает параметры из строки в объект</dd>
+<dd>Parses parameters from a string into an object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Threading-Worker.html#method_PrepareParams">PrepareParams()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Подготавливает параметры к отправке в поток</dd>
+<dd>Prepares parameters for passing to the process.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Queue-JobParallelWorker.html#method_Run">Run()</a>
@@ -389,20 +389,21 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Сериализует воркер</dd>
+<dd>Serializes the worker object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Threading-Worker.html#method_Unserialize">Unserialize()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Threading-Worker.html"><abbr title="\Colibri\Threading\Worker">Worker</abbr></a>    </span>
 </dt>
-<dd>Десериализует воркер</dd>
+<dd>Deserializes the worker object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Threading-Worker.html#method_WriteResults">WriteResults()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Writes results obtained from the worker.</dd>
 
     </dl>
 
@@ -435,11 +436,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">60</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">ID потока</p>
+        <p class="phpdocumentor-summary">Thread ID.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -469,11 +470,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">53</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Ключ необходим для идентификации процесса в списке процессов в ps</p>
+        <p class="phpdocumentor-summary">Unique key for identifying the process.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -503,11 +504,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">67</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Лог воркера</p>
+        <p class="phpdocumentor-summary">Worker&#039;s logger.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -537,11 +538,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">74</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Переданные в воркер параметры</p>
+        <p class="phpdocumentor-summary">Parameters passed to the worker.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -571,11 +572,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">46</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Приоритет процесса, требуется наличие nohup</p>
+        <p class="phpdocumentor-summary">Process priority; requires the presence of &#039;nohup&#039;.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -605,11 +606,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Лимит по времени на выполнение процесса</p>
+        <p class="phpdocumentor-summary">Time limit for executing the process.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -644,11 +645,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">83</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создает обьект класса Worker</p>
+        <p class="phpdocumentor-summary">Creates a new instance of the Worker class.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -664,7 +665,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>лимит по времени для выполнения воркера</p>
+                    <section class="phpdocumentor-description"><p>Time limit for executing the worker</p>
 </section>
 
             </dd>
@@ -673,7 +674,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">0</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>приоритет, требуется наличие nohup</p>
+                    <section class="phpdocumentor-description"><p>Process priority</p>
 </section>
 
             </dd>
@@ -682,7 +683,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>ключ процесса (уникальный ключ для того, чтобы в дальнейшем можно было идентифицировать процесс)</p>
+                    <section class="phpdocumentor-description"><p>Unique key for identifying the process</p>
 </section>
 
             </dd>
@@ -706,11 +707,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">109</span>
+    <span class="phpdocumentor-element-found-in__line">113</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">функция Getter для получения данных по потоку</p>
+        <p class="phpdocumentor-summary">Getter function to retrieve data related to the worker.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -726,13 +727,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Property name</p>
+</section>
+
             </dd>
             </dl>
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Property value</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -748,11 +759,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">143</span>
+    <span class="phpdocumentor-element-found-in__line">146</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">функция Setter для ввода данных в процесс</p>
+        <p class="phpdocumentor-summary">Setter function to set data in the worker process.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -768,34 +779,22 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Property name</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$val</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Property value</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Threading-Worker.html#method___set#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testWorker__set</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -813,11 +812,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">211</span>
+    <span class="phpdocumentor-element-found-in__line">209</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Проверяет запущен ли другой инстанс процесса</p>
+        <p class="phpdocumentor-summary">Checks if another instance of the process is running.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -828,26 +827,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Threading-Worker.html#method_Exists#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testWorkerExists</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true if running, false otherwise</p>
+</section>
+
             </section>
 
 </article>
@@ -865,11 +852,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">177</span>
+    <span class="phpdocumentor-element-found-in__line">178</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Разбирает параметры из строки в объект</p>
+        <p class="phpdocumentor-summary">Parses parameters from a string into an object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -885,29 +872,13 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>параметры процесса для десериализации</p>
+                    <section class="phpdocumentor-description"><p>Serialized parameters to be deserialized</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Threading-Worker.html#method_Prepare#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testWorkerPrepare</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -925,11 +896,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
+    <span class="phpdocumentor-element-found-in__line">167</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Подготавливает параметры к отправке в поток</p>
+        <p class="phpdocumentor-summary">Prepares parameters for passing to the process.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -945,33 +916,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>параметры процесса для сериализации</p>
+                    <section class="phpdocumentor-description"><p>Parameters to be serialized</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Threading-Worker.html#method_PrepareParams#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testWorkerPrepareParams</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Serialized parameters</p>
+</section>
+
             </section>
 
 </article>
@@ -1041,7 +1000,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Сериализует воркер</p>
+        <p class="phpdocumentor-summary">Serializes the worker object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1052,26 +1011,14 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Threading-Worker.html#method_Serialize#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testWorkerSerialize</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Serialized worker object</p>
+</section>
+
             </section>
 
 </article>
@@ -1089,11 +1036,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">200</span>
+    <span class="phpdocumentor-element-found-in__line">199</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Десериализует воркер</p>
+        <p class="phpdocumentor-summary">Deserializes the worker object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1109,35 +1056,19 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>строка содержащая сериализованный воркер</p>
+                    <section class="phpdocumentor-description"><p>Serialized worker object string</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Threading-Worker.html#method_Unserialize#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testWorkerUnserialize</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Threading-Worker.html"><abbr title="\Colibri\Threading\Worker">Worker</abbr></a></span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>десериализованный воркер</p>
+                <section class="phpdocumentor-description"><p>Deserialized worker object</p>
 </section>
 
             </section>
@@ -1157,11 +1088,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Threading/Worker.php"><a href="files/src-colibri-threading-worker.html"><abbr title="src/Colibri/Threading/Worker.php">Worker.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">228</span>
+    <span class="phpdocumentor-element-found-in__line">232</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Writes results obtained from the worker.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">WriteResults</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$args</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
@@ -1176,7 +1108,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Results obtained from the worker</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1185,6 +1119,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true if successfully written, false otherwise</p>
+</section>
+
             </section>
 
 </article>

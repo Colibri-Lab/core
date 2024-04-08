@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Performance monitor
+ * 
+ * Class for monitoring performance.
+ * 
+ * @package Colibri\Utils\Performance
+ * @author Vahan P. Grigoryan
+ * @copyright 2020 ColibriLab
+ */
 namespace Colibri\Utils\Performance;
 
 use Colibri\Common\DateHelper;
@@ -7,9 +16,7 @@ use Colibri\Common\StringHelper;
 use Colibri\Utils\Logs\Logger;
 
 /**
- * Класс для мониторинга
- * @author Vahan P. Grigoryan
- * @package Colibri\Utils\Performance
+ * Class for monitoring performance.
  */
 class Monitoring
 {
@@ -19,38 +26,37 @@ class Monitoring
     const Never = 2;
 
     /**
-     * Массив данных
-     * @var array
+     * @var array Holds timers data
      */
     private $_timers;
 
     /**
-     * Логгер
-     * @var Logger
+     * @var Logger Logger instance
      */
     private $_logger;
 
     /**
-     * Частота логирования
-     * @var mixed
+     * @var mixed Frequency of logging
      */
     private $_logging;
 
     /**
-     * Уровень логирования
-     * @var int
+     * @var int Log level
      */
+
     private $_loglevel;
 
     /**
-     * Дополнительные данные
-     * @var mixed
+     * @var mixed Additional data
      */
     private $_aditionalData;
 
     /**
-     * Конструктор
-     * @param Logger $logger
+     * Constructor
+     * 
+     * @param Logger $logger The logger instance
+     * @param int $logLevel The log level
+     * @param mixed $logging The logging frequency
      * @return void
      */
     public function __construct($logger, $logLevel = Logger::Debug, $logging = self::EveryTimer)
@@ -64,7 +70,8 @@ class Monitoring
     }
 
     /**
-     * Деструктор
+     * Destructor
+     * 
      * @return void
      */
     public function __destruct()
@@ -75,6 +82,11 @@ class Monitoring
         }
     }
 
+    /**
+     * Collects additional data
+     * 
+     * @return mixed
+     */
     private function _collectAditionalData()
     {
         return [
@@ -85,8 +97,9 @@ class Monitoring
     }
 
     /**
-     * Начать сбор
-     * @param string $name название брейкпоинта
+     * Starts a timer
+     * 
+     * @param string $name The name of the timer
      * @return void
      */
     public function StartTimer($name)
@@ -102,8 +115,9 @@ class Monitoring
     }
 
     /**
-     * Закончить сбор
-     * @param string $name название брейкпоинта
+     * Ends a timer
+     * 
+     * @param string $name The name of the timer
      * @return void
      */
     public function EndTimer($name)
@@ -120,9 +134,10 @@ class Monitoring
     }
 
     /**
-     * Записать в лог
-     * @param int $logLevel уровень логирования
-     * @param string $name название брейкпоинта
+     * Logs performance data
+     * 
+     * @param int $logLevel The log level
+     * @param string|null $name The name of the timer
      * @return void
      */
     public function Log($logLevel, $name = null)
@@ -137,6 +152,13 @@ class Monitoring
         }
     }
 
+    /**
+     * Generates a log message
+     * 
+     * @param string $name The name of the timer
+     * @param mixed $timer The timer data
+     * @return string The log message
+     */
     private function _message($name, $timer)
     {
         return DateHelper::ToDbString($this->_aditionalData['time']) . '. ' .

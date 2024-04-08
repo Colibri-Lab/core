@@ -1,28 +1,36 @@
 <?php
 
 /**
- * Узел в файле конфигурации
+ * Configuration File Node
  * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * Represents a node in a configuration file.
+ * 
+ * @author Vagan Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
- * @version 1.0.0
- * 
  */
-
 namespace Colibri\Utils\Config;
 
 use Colibri\Collections\ArrayList;
 
 /**
- * Узел в файле конфигурации
- * @testFunction testConfigItemsList
+ * Represents a node in a configuration file.
+ * 
+ * This class extends the ArrayList class and provides functionality to represent a node in a configuration file.
  */
 class ConfigItemsList extends ArrayList
 {
 
     private string $_file = '';
 
+    /**
+     * Constructor
+     * 
+     * Initializes a new instance of the ConfigItemsList class.
+     *
+     * @param array $data The data for the configuration items list.
+     * @param string $file The file associated with the configuration items list.
+     */
     public function __construct($data = array(), string $file = '')
     {
         parent::__construct($data);
@@ -30,11 +38,12 @@ class ConfigItemsList extends ArrayList
     }
 
     /**
-     * Возвращает значение по идексу
+     * Get Item by Index
+     * 
+     * Retrieves the configuration item at the specified index.
      *
-     * @param integer $index
-     * @return Config
-     * @testFunction testConfigItemsListItem
+     * @param integer $index The index of the configuration item to retrieve.
+     * @return Config The configuration item at the specified index.
      */
     public function Item(int $index): Config
     {

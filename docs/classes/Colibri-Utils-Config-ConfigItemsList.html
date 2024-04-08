@@ -260,26 +260,12 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Узел в файле конфигурации</p>
+            <p class="phpdocumentor-summary">Represents a node in a configuration file.</p>
 
-
-
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Config-ConfigItemsList.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testConfigItemsList</p>
+    <section class="phpdocumentor-description"><p>This class extends the ArrayList class and provides functionality to represent a node in a configuration file.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+
 
 
 
@@ -343,8 +329,7 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Constructor
-Creates an array list from array|object or else</dd>
+<dd>Constructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Collections-ArrayList.html#method_Add">Add()</a>
@@ -442,7 +427,7 @@ Creates an array list from array|object or else</dd>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Utils-Config-Config.html"><abbr title="\Colibri\Utils\Config\Config">Config</abbr></a>    </span>
 </dt>
-<dd>Возвращает значение по идексу</dd>
+<dd>Get Item by Index</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Collections-ArrayList.html#method_jsonSerialize">jsonSerialize()</a>
@@ -667,35 +652,40 @@ Creates an array list from array|object or else</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Config/ConfigItemsList.php"><a href="files/src-colibri-utils-config-configitemslist.html"><abbr title="src/Colibri/Utils/Config/ConfigItemsList.php">ConfigItemsList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Constructor
-Creates an array list from array|object or else</p>
+        <p class="phpdocumentor-summary">Constructor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">array()</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$file</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">array()</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$file</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Initializes a new instance of the ConfigItemsList class.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$data</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                  = <span class="phpdocumentor-signature__argument__default-value">array()</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The data for the configuration items list.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$file</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The file associated with the configuration items list.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1523,11 +1513,11 @@ $array-&gt;Insert(9, 1) and ArrayList then will contain [1,9,2,3]
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Config/ConfigItemsList.php"><a href="files/src-colibri-utils-config-configitemslist.html"><abbr title="src/Colibri/Utils/Config/ConfigItemsList.php">ConfigItemsList.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает значение по идексу</p>
+        <p class="phpdocumentor-summary">Get Item by Index</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1535,7 +1525,9 @@ $array-&gt;Insert(9, 1) and ArrayList then will contain [1,9,2,3]
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>Retrieves the configuration item at the specified index.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1543,31 +1535,21 @@ $array-&gt;Insert(9, 1) and ArrayList then will contain [1,9,2,3]
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The index of the configuration item to retrieve.</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Config-ConfigItemsList.html#method_Item#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testConfigItemsListItem</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Utils-Config-Config.html"><abbr title="\Colibri\Utils\Config\Config">Config</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The configuration item at the specified index.</p>
+</section>
+
             </section>
 
 </article>

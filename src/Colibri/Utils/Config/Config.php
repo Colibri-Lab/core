@@ -1,45 +1,44 @@
 <?php
 
 /**
- * Конфигурация
- *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * Config
+ * 
+ * Class for working with YAML configuration files.
+ * 
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
- * @version 1.0.0
- *
  */
-
 namespace Colibri\Utils\Config;
 
 use Colibri\App;
 use Colibri\Common\VariableHelper;
 use Colibri\IO\FileSystem\File;
 use Colibri\IO\FileSystem\Finder;
-use Iterator;
 use IteratorAggregate;
 use Colibri\Collections\ArrayListIterator;
 
 /**
- * Класс для работы с конфиг файлами в yaml
- * @testFunction testConfig
+ * Class for working with YAML configuration files.
+ *
  */
 class Config implements IteratorAggregate
 {
+
     private string $_file = '';
 
     /**
-     * Тут хранятся загруженные данные конфиг файлами
+     * Holds the loaded configuration data.
      *
-     * @var object
+     * @var mixed
      */
     private $_configData;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param mixed $fileName файл или данные
-     * @param boolean $isFile указываем файл передали или строку
+     * @param mixed $fileName File or data
+     * @param bool $isFile Indicates whether a file was passed or a string
      */
     public function __construct(mixed $fileName, bool $isFile = true, string $file = '')
     {
@@ -77,10 +76,10 @@ class Config implements IteratorAggregate
     }
 
     /**
-     * Загрузить yaml файл
-     * @param mixed $fileName
-     * @return Config
-     * @testFunction testConfigLoadFile
+     * Load a YAML file.
+     *
+     * @param string $fileName The name of the YAML file
+     * @return Config A Config object representing the loaded YAML file
      */
     public static function LoadFile(string $fileName): Config
     {
@@ -88,11 +87,10 @@ class Config implements IteratorAggregate
     }
 
     /**
-     * Загрузить yaml строку
+     * Load YAML string.
      *
-     * @param string $yamlData
-     * @return Config
-     * @testFunction testConfigLoad
+     * @param string $yamlData The YAML data
+     * @return Config A Config object representing the loaded YAML string
      */
     public static function Load(string $yamlData): Config
     {
@@ -100,11 +98,10 @@ class Config implements IteratorAggregate
     }
 
     /**
-     * Функция обработки команд в yaml
+     * Function for processing YAML commands.
      *
-     * @param mixed $value значение
+     * @param mixed $value The value
      * @return mixed
-     * @testFunction testConfig_prepareValue
      */
     private function _prepareValue(mixed $value, string $file = ''): mixed
     {
@@ -136,17 +133,16 @@ class Config implements IteratorAggregate
     }
 
     /**
-     * Запрос значения из конфигурации
+     * Retrieve a value from the configuration.
      *
-     * пути указываются в javascript нотации
-     * например: settings.item[0].info или settings.item.buh.notice_email
+     * Paths are specified in JavaScript notation.
+     * For example: settings.item[0].info or settings.item.buh.notice_email
      *
-     * @param string|array $item строковое представление пути в конфигурационном файле,
-     *      если передан массив то будет последовательно запрошены все элементы пока не будет
-     *      найден позитивный оптвет, если ничего не будет найдено то будет попытка вернуть $default
-     * @param mixed $default значение по умолчанию, если путь не найден
+     * @param string|array $item The path to the value in the configuration file,
+     *      if an array is passed, all elements will be sequentially requested until
+     *      a positive response is found, if nothing is found, an attempt will be made to return $default
+     * @param mixed $default The default value if the path is not found
      * @return ConfigItemsList|Config
-     * @testFunction testConfigQuery
      */
     public function Query(string|array $item, mixed $default = null): ConfigItemsList|Config
     {
@@ -210,10 +206,9 @@ class Config implements IteratorAggregate
     }
 
     /**
-     * Вернуть внутренние данные в виде обьекта
+     * Return the internal data as an object.
      *
-     * @return object
-     * @testFunction testConfigAsObject
+     * @return object|string|null
      */
     public function AsObject(): object|string|null
     {
@@ -224,10 +219,9 @@ class Config implements IteratorAggregate
     }
 
     /**
-     * Вернуть внутренние данные в виде массива
+     * Return the internal data as an array.
      *
-     * @return array
-     * @testFunction testConfigAsArray
+     * @return array|null
      */
     public function AsArray(): ?array
     {
@@ -235,11 +229,10 @@ class Config implements IteratorAggregate
     }
 
     /**
-     * Вернуть хранимое значение
-     * Внимание! Если текущие данные массив или обьект, то будет возвращен null
+     * Return the stored value.
+     * Warning! If the current data is an array or object, null will be returned.
      *
      * @return mixed
-     * @testFunction testConfigGetValue
      */
     public function GetValue(): mixed
     {
@@ -250,11 +243,10 @@ class Config implements IteratorAggregate
     }
 
     /**
-     * Проверяет на ассотиативность массива
+     * Checks for the associativeness of the array.
      *
-     * @param array $param
-     * @return boolean
-     * @testFunction testConfigIsKindOfObject
+     * @param array|null $param
+     * @return bool
      */
     public function isKindOfObject(string|array |null $param): bool
     {
@@ -272,6 +264,13 @@ class Config implements IteratorAggregate
         return false;
     }
 
+    /**
+     * Save the configuration to a YAML file.
+     *
+     * @param string $fileName The name of the YAML file
+     * @return bool True if the configuration was saved successfully, otherwise false
+     * @throws ConfigException If the configuration file cannot be saved
+     */
     public function Save(string $fileName = ''): bool
     {
         $fileName = $fileName ?: $this->_file;
@@ -287,7 +286,9 @@ class Config implements IteratorAggregate
     }
 
     /**
-     * Собирает все файлы конфигураций в папке /config
+     * Retrieves all configuration files in the /config folder.
+     *
+     * @return array An array of configuration files
      */
     public static function Enumerate(): array
     {
@@ -302,11 +303,23 @@ class Config implements IteratorAggregate
 
     }
 
+    /**
+     * Get the file name.
+     *
+     * @return string The file name
+     */
     public function GetFile(): string
     {
         return $this->_file;
     }
 
+    /**
+     * Set a value.
+     *
+     * @param string $item The item name
+     * @param mixed $value The value
+     * @throws ConfigException If an invalid query is made
+     */
     public function Set(string $item, mixed $value): void
     {
         try {
@@ -322,6 +335,12 @@ class Config implements IteratorAggregate
         }
     }
 
+    /**
+     * Retrieve an item by index.
+     *
+     * @param int $index The index of the item
+     * @return mixed The item
+     */
     public function Item(int $index): mixed
     {
         $keys = array_keys((array)$this->_configData);
@@ -331,6 +350,11 @@ class Config implements IteratorAggregate
         return null;
     }
 
+    /**
+     * Get an iterator for the object.
+     *
+     * @return ArrayListIterator An iterator for the object
+     */
     public function getIterator(): ArrayListIterator
     {
         return new ArrayListIterator($this);

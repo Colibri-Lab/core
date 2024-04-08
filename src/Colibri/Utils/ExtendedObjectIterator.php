@@ -1,46 +1,49 @@
 <?php
 
 /**
- * Utils
- * 
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * ExtendedObjectIterator
+ *
+ * This class represents an iterator for objects.
+ * It allows iterating over the properties of an object.
+ *
+ * @package Colibri\Utils\Performance
+ * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
- * @package Colibri\Utils
  * 
  */
-
 namespace Colibri\Utils;
 
 /**
- * Итератор для обьекта
+ * An iterator for objects.
  */
 class ExtendedObjectIterator implements \Iterator
 {
 
     /**
-     * Обьект коллекции
+     * The object collection.
      *
      * @var mixed
      */
     private $_data;
 
     /**
-     * Ключи в массиве данных
+     * Keys in the data array.
+     *
      * @var string[]
      */
     private $_keys;
 
     /**
-     * Текущая позиция
+     * Current position.
      *
      * @var mixed
      */
     private $_current = 0;
 
     /**
-     * Конструктор, передается обьект коллекция
+     * Constructor. Receives the object collection.
      *
-     * @param array $data - коллекция
+     * @param array|null $data The collection
      */
     public function __construct(array $data = null)
     {
@@ -49,8 +52,8 @@ class ExtendedObjectIterator implements \Iterator
     }
 
     /**
-     * Перескопить на первую запись
-     * 
+     * Rewind to the first entry.
+     *
      * @return void
      */
     public function rewind(): void
@@ -59,7 +62,7 @@ class ExtendedObjectIterator implements \Iterator
     }
 
     /**
-     * Вернуть текущее значение
+     * Return the current value.
      *
      * @return mixed
      */
@@ -73,7 +76,7 @@ class ExtendedObjectIterator implements \Iterator
     }
 
     /**
-     * Вернуть ключ текущего положения
+     * Return the key of the current position.
      *
      * @return string
      */
@@ -86,10 +89,9 @@ class ExtendedObjectIterator implements \Iterator
     }
 
     /**
-     * Вернуть следующее значение
-     *  
+     * Move to the next value.
+     *
      * @return mixed
-     * 
      */
     public function next(): mixed
     {
@@ -102,7 +104,7 @@ class ExtendedObjectIterator implements \Iterator
     }
 
     /**
-     * Проверка валидности итератора, т.е. валидно ли текущее значение
+     * Check the validity of the iterator, i.e., whether the current value is valid.
      *
      * @return bool
      */

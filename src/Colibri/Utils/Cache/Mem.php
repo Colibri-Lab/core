@@ -1,30 +1,41 @@
 <?php
 
+/**
+ * Mem
+ * 
+ * Encapsulates Memcached functions.
+ * 
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Utils\Cache
+ */
 namespace Colibri\Utils\Cache;
 
 /**
- * Класс инкапсулятор функций мемкэш
- * @testFunction testMem
+ * Memcached function encapsulator class.
+ *
  */
 class Mem
 {
 
     /**
-     * Статисчекая переменная для обеспечения синглтон механизма
+     * Static variable to ensure singleton mechanism.
      *
-     * @var \Memcache
+     * @var \Memcached
      */
     static $instance;
 
     /**
-     * Создает синглтон обьект мемкэш
+     * Creates a singleton Memcached object.
      *
-     * @testFunction testMemCreate
+     * @param string $host The Memcached host
+     * @param int $port The Memcached port
+     * @return \Memcached|null The Memcached object or null if the class does not exist
      */
     public static function Create(string $host, int $port): ?\Memcached
     {
 
-        if (!\class_exists('Memcache')) {
+        if (!\class_exists('Memcached')) {
             return null;
         }
 
@@ -38,9 +49,8 @@ class Mem
     }
 
     /**
-     * Закрывает соединение с мемкэш
+     * Closes the Memcached connection.
      *
-     * @testFunction testMemDispose
      */
     public static function Dispose(): void
     {
@@ -54,11 +64,10 @@ class Mem
     }
 
     /**
-     * Проверяет наличие переменной в кэше
+     * Checks the existence of a variable in the cache.
      *
-     * @param string $name - название переменной
-     * @return boolean
-     * @testFunction testMemExists
+     * @param string $name The name of the variable
+     * @return bool True if the variable exists in the cache, otherwise false
      */
     public static function Exists(string $name): bool
     {
@@ -73,13 +82,12 @@ class Mem
     }
 
     /**
-     * Сохраняет переменную в кэш
+     * Writes a variable to the cache.
      *
-     * @param string $name - название переменной
-     * @param mixed $value - данные
-     * @param int $livetime - время жизни
-     * @return boolean
-     * @testFunction testMemWrite
+     * @param string $name The name of the variable
+     * @param mixed $value The data
+     * @param int $livetime The lifetime of the variable in seconds
+     * @return bool True if the operation was successful, otherwise false
      */
     public static function Write(string $name, mixed $value, int $livetime = 600): bool
     {
@@ -95,13 +103,12 @@ class Mem
     }
 
     /**
-     * Сохраняет переменную в кэш в архивированном виде
+     * Writes a variable to the cache in compressed form.
      *
-     * @param string $name - название переменной
-     * @param mixed $value - данные
-     * @param int $livetime - время жизни
-     * @return boolean
-     * @testFunction testMemZWrite
+     * @param string $name The name of the variable
+     * @param mixed $value The data
+     * @param int $livetime The lifetime of the variable in seconds
+     * @return bool True if the operation was successful, otherwise false
      */
     public static function ZWrite(string $name, mixed $value, int $livetime = 600): bool
     {
@@ -113,11 +120,10 @@ class Mem
     }
 
     /**
-     * Удаляет переменную из кэша
+     * Deletes a variable from the cache.
      *
-     * @param string $name - название переменной
-     * @return mixed | boolean
-     * @testFunction testMemDelete
+     * @param string $name The name of the variable
+     * @return bool True if the operation was successful, otherwise false
      */
     public static function Delete(string $name): bool
     {
@@ -128,11 +134,10 @@ class Mem
     }
 
     /**
-     * Считывает переменную из кэша, если перенной нет, возвращает false
+     * Reads a variable from the cache.
      *
-     * @param string $name
-     * @return mixed
-     * @testFunction testMemRead
+     * @param string $name The name of the variable
+     * @return mixed|false The data of the variable, or false if the variable does not exist in the cache
      */
     public static function Read(string $name): mixed
     {
@@ -145,6 +150,12 @@ class Mem
         return Mem::$instance->get($name);
     }
 
+    /**
+     * Lists keys stored in the cache.
+     *
+     * @param string|null $filter The filter pattern to match keys against
+     * @return array An array of keys stored in the cache
+     */
     public static function List(?string $filter = null): array
     {
         if (!Mem::$instance) {

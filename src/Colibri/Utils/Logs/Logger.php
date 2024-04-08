@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Logs
+ * Logger
+ * 
+ * Represents a logger for logging messages.
  * 
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Logs
- * 
  */
-
 namespace Colibri\Utils\Logs;
 
 use Colibri\Utils\Config\Config;
@@ -17,68 +17,70 @@ use Colibri\Events\TEventDispatcher;
 use Colibri\Events\EventsContainer;
 
 /**
- * Лог файл
+ * Represents a logger for logging messages.
+ * 
+ * This abstract class provides a structure for logging messages. It implements the PSR-3 LoggerInterface and uses an event dispatcher to handle logging events.
  */
 abstract class Logger implements LoggerInterface
 {
 
     use TEventDispatcher;
 
-    /** Обязательное сообщение */
+     /** @var int Emergency level constant. */
     const Emergency = 0;
-    /** Информация */
+    /** @var int Alert level constant. */
     const Alert = 1;
-    /** Критическая ошибка */
+    /** @var int Critical level constant. */
     const Critical = 2;
-    /** Ошибка */
+    /** @var int Error level constant. */
     const Error = 3;
-    /** Предупреждение */
+    /** @var int Warning level constant. */
     const Warning = 4;
-    /** Информирование */
+    /** @var int Notice level constant. */
     const Notice = 5;
-    /** Просто информация */
+    /** @var int Informational level constant. */
     const Informational = 6;
-    /** Дебаг */
+    /** @var int Debug level constant. */
     const Debug = 7;
 
     /**
-     * Наименование лог файла
+     * The name of the log file.
      *
      * @var mixed
      */
     protected $_device;
 
     /**
-     * Максимальный уровень логирования
+     * The maximum log level.
      *
      * @var integer
      */
     protected $_maxLogLevel = 7;
 
     /**
-     * Записывает в лог данные
+     * Writes a log line.
      *
-     * @param int $level уровень ошибки
-     * @param mixed $data данные
+     * @param int $level The log level.
+     * @param mixed $data The log data.
      * @return void
-     */
-    /**
-     * @testFunction testLoggerWriteLine
+     * @abstract
      */
     abstract public function WriteLine(int $level, mixed $data): void;
 
     /**
-     * Возвращает контент лог файла
+     * Retrieves the content of the log file.
      *
-     * @return mixed
+     * @return mixed The content of the log file.
+     * @abstract
      */
     abstract public function Content(): mixed;
 
     /**
-     * Фабрика
+     * Creates a logger instance based on the provided configuration.
      *
-     * @param Config|array $loggerConfig
-     * @return Logger
+     * @param Config|array $loggerConfig The logger configuration.
+     * @return Logger The logger instance.
+     * @throws LoggerException When an invalid logger type is provided.
      */
     public static function Create(Config|array $loggerConfig): Logger
     {
@@ -132,7 +134,6 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
-     * @testFunction testLoggerAlert
      */
     public function alert($message, array $context = array()): void
     {
@@ -148,7 +149,6 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
-     * @testFunction testLoggerCritical
      */
     public function critical($message, array $context = array()): void
     {
@@ -163,7 +163,6 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
-     * @testFunction testLoggerError
      */
     public function error($message, array $context = array()): void
     {
@@ -180,7 +179,6 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
-     * @testFunction testLoggerWarning
      */
     public function warning($message, array $context = array()): void
     {
@@ -194,7 +192,6 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
-     * @testFunction testLoggerNotice
      */
     public function notice($message, array $context = array()): void
     {
@@ -210,7 +207,6 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
-     * @testFunction testLoggerInfo
      */
     public function info($message, array $context = array()): void
     {
@@ -224,7 +220,6 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
-     * @testFunction testLoggerDebug
      */
     public function debug($message, array $context = array()): void
     {
@@ -239,7 +234,6 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
-     * @testFunction testLoggerLog
      */
     public function log($level, $message, array $context = array()): void
     {

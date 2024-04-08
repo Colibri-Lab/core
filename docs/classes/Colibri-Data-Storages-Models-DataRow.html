@@ -308,7 +308,7 @@
     <span>
         &nbsp;= [&#039;type&#039; =&gt; &#039;object&#039;, &#039;patternProperties&#039; =&gt; [&#039;.*&#039; =&gt; [&#039;type&#039; =&gt; [&#039;number&#039;, &#039;string&#039;, &#039;boolean&#039;, &#039;object&#039;, &#039;array&#039;, &#039;null&#039;]]]]                            </span>
 </dt>
-<dd>Схема валидации данных</dd>
+<dd>Data validation schema.</dd>
 
     </dl>
 
@@ -366,34 +366,35 @@
     <span>
                         &nbsp;: bool|null            </span>
 </dt>
-<dd>Индикатор изменения обьекта</dd>
+<dd>Object change indicator.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Utils-ExtendedObject.html#property__changeKeyCase">$_changeKeyCase</a>
     <span>
                         &nbsp;: bool|null            </span>
 </dt>
+<dd>Change case on object keys</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Utils-ExtendedObject.html#property__data">$_data</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
-<dd>Данные обьекта, свойства</dd>
+<dd>Object data, properties.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Utils-ExtendedObject.html#property__original">$_original</a>
     <span>
                         &nbsp;: mixed            </span>
 </dt>
-<dd>Содержит данные, которые получены при инициализации</dd>
+<dd>Contains data received during initialization.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Utils-ExtendedObject.html#property__prefix">$_prefix</a>
     <span>
                         &nbsp;: string|null            </span>
 </dt>
-<dd>Префикс свойств, для обеспечения правильной работы с хранилищами</dd>
+<dd>Prefix for properties, to ensure proper operation with storages.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Data-Storages-Models-DataRow.html#property__storage">$_storage</a>
@@ -414,6 +415,7 @@
     <span>
                         &nbsp;: <abbr title="\Opis\JsonSchema\ValidationResult">ValidationResult</abbr>            </span>
 </dt>
+<dd>Validation results</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Data-Storages-Models-DataRow.html#property_casts">$casts</a>
@@ -441,28 +443,28 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Разрушает обьект</dd>
+<dd>Destructor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method___get">__get()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Магическая функция</dd>
+<dd>Retrieves the value of a dynamic or inaccessible property from the object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method___isset">__isset()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Проверяет на наличие свойства в обьекте</dd>
+<dd>Checks whether a property is set in the object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method___set">__set()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Магическая функция</dd>
+<dd>Sets the value of a dynamic or inaccessible property within the object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataRow.html#method___toString">__toString()</a>
@@ -473,16 +475,16 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method___unset">__unset()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Удаляет свойство из обьекта</dd>
+<dd>Unsets a property in the object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_Clear">Clear()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Очищает все свойства</dd>
+<dd>Cleans object</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Models-DataRow.html#method_CopyToObject">CopyToObject()</a>
@@ -496,6 +498,7 @@
     <span>
                                 &nbsp;: int    </span>
 </dt>
+<dd>Counts the number of elements in the object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataRow.html#method_Delete">Delete()</a>
@@ -522,14 +525,14 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Возвращает текущие данные обьекта (без изменений)</dd>
+<dd>Retrieves the current data of the object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_getIterator">getIterator()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Utils-ExtendedObjectIterator.html"><abbr title="\Colibri\Utils\ExtendedObjectIterator">ExtendedObjectIterator</abbr></a>    </span>
 </dt>
-<dd>Возвращает итератор</dd>
+<dd>Returns an iterator for iterating over the data of the ExtendedObject.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataRow.html#method_GetValidationData">GetValidationData()</a>
@@ -549,7 +552,7 @@
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Изменен</dd>
+<dd>Checks if the object has been changed.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataRow.html#method_IsPropertyChanged">IsPropertyChanged()</a>
@@ -561,56 +564,58 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_jsonSerialize">jsonSerialize()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
+<dd>Serializes the object to a value that can be serialized by json_encode.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_JsonUnserialize">JsonUnserialize()</a>
     <span>
                                 &nbsp;: static    </span>
 </dt>
+<dd>Constructs a new object instance from a JSON-encoded string.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_offsetExists">offsetExists()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Проверяет есть ли данные по индексу</dd>
+<dd>Checks if a value exists at the specified offset.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_offsetGet">offsetGet()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: mixed|null    </span>
 </dt>
-<dd>Возвращает значение по индексу</dd>
+<dd>Retrieves the value at the specified offset.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_offsetSet">offsetSet()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Устанавливает значение по индексу</dd>
+<dd>Sets the value at the specified offset.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_offsetUnset">offsetUnset()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>удаляет данные по индексу</dd>
+<dd>Unsets the value at the specified offset.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_Original">Original()</a>
     <span>
-                                &nbsp;: <abbr title="\stdClass">stdClass</abbr>    </span>
+                                &nbsp;: object    </span>
 </dt>
-<dd>Возвращает данные, которые были переданы при инициализации</dd>
+<dd>Returns the original data provided during object initialization.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_Prefix">Prefix()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Возвращает префикс полей обьекта</dd>
+<dd>Retrieves the prefix used for object properties.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_RemoveHandler">RemoveHandler()</a>
@@ -635,9 +640,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_SetData">SetData()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Установка данных в виде обьекта, полная замена</dd>
+<dd>Sets data for the object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataRow.html#method_Storage">Storage()</a>
@@ -658,7 +663,7 @@
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Возвращает JSON строку данных обьекта</dd>
+<dd>Converts the object&#039;s data to a JSON string.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Data-Storages-Models-DataRow.html#method_ToString">ToString()</a>
@@ -679,13 +684,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Обновляет исходные данные</dd>
+<dd>Updates the original data with the current data of the object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-ExtendedObject.html#method_Validate">Validate()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
+<dd>Validates the object&#039;s data against a JSON schema.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/Colibri-Data-Storages-Models-DataRow.html#method__processDefaultValues">_processDefaultValues()</a>
@@ -729,11 +735,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Схема валидации данных</p>
+        <p class="phpdocumentor-summary">Data validation schema.</p>
 
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1009,7 +1015,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Индикатор изменения обьекта</p>
+        <p class="phpdocumentor-summary">Object change indicator.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -1039,11 +1045,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">67</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Change case on object keys</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type">bool|null</span>
@@ -1076,7 +1083,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Данные обьекта, свойства</p>
+        <p class="phpdocumentor-summary">Object data, properties.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -1110,7 +1117,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Содержит данные, которые получены при инициализации</p>
+        <p class="phpdocumentor-summary">Contains data received during initialization.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -1144,7 +1151,7 @@
 
     </aside>
 
-        <p class="phpdocumentor-summary">Префикс свойств, для обеспечения правильной работы с хранилищами</p>
+        <p class="phpdocumentor-summary">Prefix for properties, to ensure proper operation with storages.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -1242,11 +1249,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">84</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Validation results</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
         <span class="phpdocumentor-signature__type"><abbr title="\Opis\JsonSchema\ValidationResult">ValidationResult</abbr></span>
@@ -1384,11 +1392,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">121</span>
+    <span class="phpdocumentor-element-found-in__line">126</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Разрушает обьект</p>
+        <p class="phpdocumentor-summary">Destructor</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1416,11 +1424,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">366</span>
+    <span class="phpdocumentor-element-found-in__line">440</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Магическая функция</p>
+        <p class="phpdocumentor-summary">Retrieves the value of a dynamic or inaccessible property from the object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1428,7 +1436,10 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This magic method is invoked when attempting to access a property that is not accessible or does not exist
+within the object's scope using the arrow operator (-&gt;).</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1436,7 +1447,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>название свойства</p>
+                    <section class="phpdocumentor-description"><p>The name of the property to retrieve.</p>
 </section>
 
             </dd>
@@ -1444,7 +1455,15 @@
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value of the specified property.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1460,27 +1479,31 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">338</span>
+    <span class="phpdocumentor-element-found-in__line">406</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Проверяет на наличие свойства в обьекте</p>
+        <p class="phpdocumentor-summary">Checks whether a property is set in the object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__isset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">__isset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This magic method is triggered when attempting to check whether a property is set in the object using isset().</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$property</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the property being checked.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1489,6 +1512,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>Returns true if the property is set, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -1506,11 +1533,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">392</span>
+    <span class="phpdocumentor-element-found-in__line">470</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Магическая функция</p>
+        <p class="phpdocumentor-summary">Sets the value of a dynamic or inaccessible property within the object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1518,7 +1545,10 @@
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This magic method is invoked when attempting to assign a value to a property that is not accessible or does not exist
+within the object's scope using the arrow operator (-&gt;).</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1526,7 +1556,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>название свойства</p>
+                    <section class="phpdocumentor-description"><p>The name of the property to set.</p>
 </section>
 
             </dd>
@@ -1535,7 +1565,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>значение свойства</p>
+                    <section class="phpdocumentor-description"><p>The value to assign to the property.</p>
 </section>
 
             </dd>
@@ -1594,27 +1624,31 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">352</span>
+    <span class="phpdocumentor-element-found-in__line">423</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Удаляет свойство из обьекта</p>
+        <p class="phpdocumentor-summary">Unsets a property in the object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__unset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__unset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$property</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This magic method is triggered when attempting to unset a property in the object using unset().</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$property</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the property to unset.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1636,11 +1670,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">145</span>
+    <span class="phpdocumentor-element-found-in__line">149</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Очищает все свойства</p>
+        <p class="phpdocumentor-summary">Cleans object</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1712,24 +1746,31 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">507</span>
+    <span class="phpdocumentor-element-found-in__line">640</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Counts the number of elements in the object.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Count</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method returns the number of elements in the object.</p>
+</section>
+
     
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">int</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The number of elements in the object.</p>
+</section>
+
             </section>
 
 </article>
@@ -1896,11 +1937,11 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">309</span>
+    <span class="phpdocumentor-element-found-in__line">368</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает текущие данные обьекта (без изменений)</p>
+        <p class="phpdocumentor-summary">Retrieves the current data of the object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1908,7 +1949,11 @@ additional functionality provided by ExtendedObject.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method returns the current data of the object. If the $type parameter is set to true,
+the data is converted according to the object's type conversion rules; otherwise, the raw data
+is returned without conversion.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1916,7 +1961,8 @@ additional functionality provided by ExtendedObject.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">true</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>конвертировать ли данные</p>
+                    <section class="phpdocumentor-description"><p>Optional. Determines whether to convert the data according to type conversion rules.
+Defaults to true.</p>
 </section>
 
             </dd>
@@ -1924,7 +1970,15 @@ additional functionality provided by ExtendedObject.</p>
 
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The current data of the object.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -1940,11 +1994,11 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">438</span>
+    <span class="phpdocumentor-element-found-in__line">528</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает итератор</p>
+        <p class="phpdocumentor-summary">Returns an iterator for iterating over the data of the ExtendedObject.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1952,13 +2006,20 @@ additional functionality provided by ExtendedObject.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method returns an iterator that allows iterating over the data of the ExtendedObject.
+It enables the use of foreach loops and other iterable operations on ExtendedObject instances.</p>
+</section>
+
     
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Utils-ExtendedObjectIterator.html"><abbr title="\Colibri\Utils\ExtendedObjectIterator">ExtendedObjectIterator</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An iterator for the data of the ExtendedObject.</p>
+</section>
+
             </section>
 
 </article>
@@ -2064,11 +2125,11 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">279</span>
+    <span class="phpdocumentor-element-found-in__line">326</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Изменен</p>
+        <p class="phpdocumentor-summary">Checks if the object has been changed.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2076,13 +2137,22 @@ additional functionality provided by ExtendedObject.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method determines whether any changes have been made to the object's data
+since its initialization or the last update. It returns true if changes have
+been made, indicating that the object state is different from its original state;
+otherwise, it returns false.</p>
+</section>
+
     
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the object has been changed; otherwise, false.</p>
+</section>
+
             </section>
 
 </article>
@@ -2157,22 +2227,34 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">497</span>
+    <span class="phpdocumentor-element-found-in__line">614</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Serializes the object to a value that can be serialized by json_encode.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">jsonSerialize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">jsonSerialize</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method is called during JSON serialization of the object. It allows the object
+to be serialized to a JSON-serializable representation using the json_encode function.</p>
+</section>
+
     
     
 
-    
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The serializable representation of the object.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2188,18 +2270,22 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">502</span>
+    <span class="phpdocumentor-element-found-in__line">628</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Constructs a new object instance from a JSON-encoded string.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">JsonUnserialize</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$json</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">static</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method creates a new instance of the class from a JSON-encoded string. It accepts
+a JSON string representing the object and returns a new instance of the class.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2207,7 +2293,9 @@ additional functionality provided by ExtendedObject.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The JSON-encoded string representing the object.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -2216,6 +2304,10 @@ additional functionality provided by ExtendedObject.</p>
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">static</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The new instance of the class.</p>
+</section>
+
             </section>
 
 </article>
@@ -2233,35 +2325,61 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">462</span>
+    <span class="phpdocumentor-element-found-in__line">562</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Проверяет есть ли данные по индексу</p>
+        <p class="phpdocumentor-summary">Checks if a value exists at the specified offset.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">offsetExists</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">offsetExists</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method checks if a value exists at the specified offset in the ExtendedObject. It allows
+checking the existence of values using array access syntax, e.g., isset($object['key']).</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$offset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The offset to check.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Utils-ExtendedObject.html#method_offsetExists#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\InvalidArgumentException">InvalidArgumentException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the offset is not a string or an integer.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if a value exists at the specified offset, false otherwise.</p>
+</section>
+
             </section>
 
 </article>
@@ -2279,33 +2397,63 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">489</span>
+    <span class="phpdocumentor-element-found-in__line">598</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает значение по индексу</p>
+        <p class="phpdocumentor-summary">Retrieves the value at the specified offset.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">offsetGet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">offsetGet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed|null</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method retrieves the value at the specified offset in the ExtendedObject. It allows
+accessing values using array access syntax, e.g., $value = $object['key'].</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$offset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The offset of the value to retrieve.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Utils-ExtendedObject.html#method_offsetGet#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\InvalidArgumentException">InvalidArgumentException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the offset is not a string or an integer.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The value at the specified offset, or null if the offset does not exist.</p>
+</section>
+
+            </section>
+
 </article>
                     <article
         class="phpdocumentor-element
@@ -2321,38 +2469,62 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">449</span>
+    <span class="phpdocumentor-element-found-in__line">544</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Устанавливает значение по индексу</p>
+        <p class="phpdocumentor-summary">Sets the value at the specified offset.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">offsetSet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">offsetSet</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method sets the value at the specified offset in the ExtendedObject. It allows
+setting values using array access syntax, e.g., $object['key'] = $value.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$offset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The offset at which to set the value.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The value to set at the specified offset.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Utils-ExtendedObject.html#method_offsetSet#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\InvalidArgumentException">InvalidArgumentException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the offset is not a string or an integer.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
 
     
 </article>
@@ -2370,31 +2542,53 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">475</span>
+    <span class="phpdocumentor-element-found-in__line">580</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">удаляет данные по индексу</p>
+        <p class="phpdocumentor-summary">Unsets the value at the specified offset.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">offsetUnset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
+                    <span class="phpdocumentor-signature__name">offsetUnset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method unsets the value at the specified offset in the ExtendedObject. It allows
+unsetting values using array access syntax, e.g., unset($object['key']).</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$offset</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The offset of the value to unset.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Utils-ExtendedObject.html#method_offsetUnset#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\InvalidArgumentException">InvalidArgumentException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the offset is not a string or an integer.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
 
     
 </article>
@@ -2412,25 +2606,32 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">260</span>
+    <span class="phpdocumentor-element-found-in__line">297</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает данные, которые были переданы при инициализации</p>
+        <p class="phpdocumentor-summary">Returns the original data provided during object initialization.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">Original</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\stdClass">stdClass</abbr></span></code>
+                    <span class="phpdocumentor-signature__name">Original</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method returns the original data provided during object initialization
+as an object. The original data represents the state of the object before any changes.</p>
+</section>
+
     
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\stdClass">stdClass</abbr></span>
+        <span class="phpdocumentor-signature__response_type">object</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An object containing the original data provided during initialization.</p>
+</section>
+
             </section>
 
 </article>
@@ -2448,11 +2649,11 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">270</span>
+    <span class="phpdocumentor-element-found-in__line">311</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает префикс полей обьекта</p>
+        <p class="phpdocumentor-summary">Retrieves the prefix used for object properties.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2460,13 +2661,21 @@ additional functionality provided by ExtendedObject.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method returns the prefix used for object properties. The prefix is typically
+set during object initialization and is useful for distinguishing properties
+when working with storage systems.</p>
+</section>
+
     
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The prefix used for object properties.</p>
+</section>
+
             </section>
 
 </article>
@@ -2587,7 +2796,7 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">126</span>
+    <span class="phpdocumentor-element-found-in__line">131</span>
 
     </aside>
 
@@ -2639,19 +2848,22 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">164</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Установка данных в виде обьекта, полная замена</p>
+        <p class="phpdocumentor-summary">Sets data for the object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">SetData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">SetData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method allows setting data for the object. It can accept various types of data,
+such as arrays, objects, or ExtendedObject instances.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2659,9 +2871,7 @@ additional functionality provided by ExtendedObject.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><ul>
-<li>данные</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>The data to set for the object.</p>
 </section>
 
             </dd>
@@ -2776,11 +2986,11 @@ additional functionality provided by ExtendedObject.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">318</span>
+    <span class="phpdocumentor-element-found-in__line">380</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает JSON строку данных обьекта</p>
+        <p class="phpdocumentor-summary">Converts the object&#039;s data to a JSON string.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2788,13 +2998,19 @@ additional functionality provided by ExtendedObject.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method serializes the object's data into a JSON string representation.</p>
+</section>
+
     
     
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The JSON string representing the object's data.</p>
+</section>
+
             </section>
 
 </article>
@@ -2903,11 +3119,11 @@ It allows you to determine the expected type of a property within the class.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">327</span>
+    <span class="phpdocumentor-element-found-in__line">393</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Обновляет исходные данные</p>
+        <p class="phpdocumentor-summary">Updates the original data with the current data of the object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -2915,7 +3131,10 @@ It allows you to determine the expected type of a property within the class.</p>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method updates the original data of the object with its current data.
+It is typically used after modifying the object's data to synchronize the original and current states.</p>
+</section>
+
     
     
 
@@ -2935,18 +3154,23 @@ It allows you to determine the expected type of a property within the class.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/ExtendedObject.php"><a href="files/src-colibri-utils-extendedobject.html"><abbr title="src/Colibri/Utils/ExtendedObject.php">ExtendedObject.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">166</span>
+    <span class="phpdocumentor-element-found-in__line">194</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Validates the object&#039;s data against a JSON schema.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Validate</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$throwExceptions</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
-    
+        <section class="phpdocumentor-description"><p>This method validates the object's data against a predefined JSON schema.
+If the validation fails, it returns false. Optionally, you can set
+$throwExceptions to true to throw a ValidationException upon failure.</p>
+</section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -2954,15 +3178,38 @@ It allows you to determine the expected type of a property within the class.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Whether to throw a ValidationException upon failure.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Utils-ExtendedObject.html#method_Validate#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Colibri-Exceptions-ValidationException.html"><abbr title="\Colibri\Exceptions\ValidationException">ValidationException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If $throwExceptions is true and the validation fails.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the object's data is valid according to the schema, false otherwise.</p>
+</section>
+
             </section>
 
 </article>

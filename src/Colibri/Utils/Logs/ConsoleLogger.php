@@ -1,31 +1,33 @@
 <?php
 
 /**
- * Logs
+ * ConsoleLogger
+ * 
+ * Represents a logger for logging messages to the console.
  * 
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Logs
- * 
  */
-
 namespace Colibri\Utils\Logs;
 
 use Colibri\Utils\Debug;
 use DateTime;
 
 /**
- * Лог файл
- * @testFunction testFileLogger
+ * Represents a logger for logging messages to the console.
+ * 
+ * This class extends the abstract Logger class and provides functionality to log messages to the console.
+ * 
  */
 class ConsoleLogger extends Logger
 {
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param int $maxLogLevel Уровень логирования
-     * @param mixed $device название файла
+     * @param int $maxLogLevel The maximum log level.
+     * @param mixed $dummy Dummy parameter (not used).
      */
     public function __construct(int $maxLogLevel = 7, mixed $dummy = '')
     {
@@ -34,11 +36,10 @@ class ConsoleLogger extends Logger
     }
 
     /**
-     * Getter
+     * Getter method.
      *
-     * @param string $prop
-     * @return mixed
-     * @testFunction testFileLogger__get
+     * @param string $prop The property name.
+     * @return mixed The value of the property.
      */
     public function __get(string $prop): mixed
     {
@@ -54,14 +55,12 @@ class ConsoleLogger extends Logger
         return null;
     }
 
-
     /**
-     * Записывает в лог данные
+     * Writes a log line to the console.
      *
-     * @param int $level уровень ошибки
-     * @param mixed $data данные
+     * @param int $level The log level.
+     * @param mixed $data The log data.
      * @return void
-     * @testFunction testFileLoggerWriteLine
      */
     public function WriteLine(int $level, mixed $data): void
     {
@@ -107,10 +106,9 @@ class ConsoleLogger extends Logger
     }
 
     /**
-     * Возвращает контент лог файла
+     * Retrieves the content of the log file (not applicable for ConsoleLogger).
      *
-     * @return mixed
-     * @testFunction testFileLoggerContent
+     * @return mixed The content of the log file.
      */
     public function Content(): mixed
     {
@@ -118,12 +116,11 @@ class ConsoleLogger extends Logger
     }
 
     /**
-     * Открывает лог файл для последовательного чтения
+     * Opens the log file for sequential reading (not applicable for ConsoleLogger).
      *
-     * @param integer $position стартовая позиция для чтения
+     * @param int $position The start position for reading.
      * @return void
      * @throws LoggerException
-     * @testFunction testFileLoggerOpen
      */
     public function Open(int $position = 0): void
     {
@@ -131,10 +128,9 @@ class ConsoleLogger extends Logger
     }
 
     /**
-     * Закрывает лог файл
+     * Closes the log file (not applicable for ConsoleLogger).
      *
      * @return void
-     * @testFunction testFileLoggerClose
      */
     public function Close(): void
     {
@@ -142,10 +138,9 @@ class ConsoleLogger extends Logger
     }
 
     /**
-     * Читает последние сообщения в логе начиная с позиции последнего чтения, возвращает в виде массива строк
+     * Reads the last messages in the log starting from the last read position, returning them as an array of strings (not applicable for ConsoleLogger).
      *
-     * @return array массив строк лога
-     * @testFunction testFileLoggerRead
+     * @return array An array of log message strings.
      */
     public function Read(): array
     {

@@ -236,7 +236,9 @@
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils.html">Utils</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils-Cache.html">Cache</a></li>
                             </ul>
         </div>
     
@@ -251,30 +253,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Cache/Mem.php"><a href="files/src-colibri-utils-cache-mem.html"><abbr title="src/Colibri/Utils/Cache/Mem.php">Mem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">9</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс инкапсулятор функций мемкэш</p>
+            <p class="phpdocumentor-summary">Memcached function encapsulator class.</p>
 
 
 
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Cache-Mem.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testMem</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
 
 
@@ -301,9 +287,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-Utils-Cache-Mem.html#property_instance">$instance</a>
     <span>
-                        &nbsp;: <abbr title="\Memcache">Memcache</abbr>            </span>
+                        &nbsp;: <abbr title="\Memcached">Memcached</abbr>            </span>
 </dt>
-<dd>Статисчекая переменная для обеспечения синглтон механизма</dd>
+<dd>Static variable to ensure singleton mechanism.</dd>
 
     </dl>
 
@@ -318,55 +304,56 @@
     <span>
                                 &nbsp;: <abbr title="\Memcached">Memcached</abbr>|null    </span>
 </dt>
-<dd>Создает синглтон обьект мемкэш</dd>
+<dd>Creates a singleton Memcached object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Cache-Mem.html#method_Delete">Delete()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: bool    </span>
 </dt>
-<dd>Удаляет переменную из кэша</dd>
+<dd>Deletes a variable from the cache.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Cache-Mem.html#method_Dispose">Dispose()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Закрывает соединение с мемкэш</dd>
+<dd>Closes the Memcached connection.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Cache-Mem.html#method_Exists">Exists()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Проверяет наличие переменной в кэше</dd>
+<dd>Checks the existence of a variable in the cache.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Cache-Mem.html#method_List">List()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
+<dd>Lists keys stored in the cache.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Cache-Mem.html#method_Read">Read()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: mixed|false    </span>
 </dt>
-<dd>Считывает переменную из кэша, если перенной нет, возвращает false</dd>
+<dd>Reads a variable from the cache.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Cache-Mem.html#method_Write">Write()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Сохраняет переменную в кэш</dd>
+<dd>Writes a variable to the cache.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Cache-Mem.html#method_ZWrite">ZWrite()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd>Сохраняет переменную в кэш в архивированном виде</dd>
+<dd>Writes a variable to the cache in compressed form.</dd>
 
     </dl>
 
@@ -399,15 +386,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Cache/Mem.php"><a href="files/src-colibri-utils-cache-mem.html"><abbr title="src/Colibri/Utils/Cache/Mem.php">Mem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Статисчекая переменная для обеспечения синглтон механизма</p>
+        <p class="phpdocumentor-summary">Static variable to ensure singleton mechanism.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><abbr title="\Memcache">Memcache</abbr></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><abbr title="\Memcached">Memcached</abbr></span>
     <span class="phpdocumentor-signature__name">$instance</span>
     </code>
 
@@ -438,11 +425,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Cache/Mem.php"><a href="files/src-colibri-utils-cache-mem.html"><abbr title="src/Colibri/Utils/Cache/Mem.php">Mem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Создает синглтон обьект мемкэш</p>
+        <p class="phpdocumentor-summary">Creates a singleton Memcached object.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -458,38 +445,30 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The Memcached host</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$port</span>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The Memcached port</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Cache-Mem.html#method_Create#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testMemCreate</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><abbr title="\Memcached">Memcached</abbr>|null</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The Memcached object or null if the class does not exist</p>
+</section>
+
             </section>
 
 </article>
@@ -507,15 +486,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Cache/Mem.php"><a href="files/src-colibri-utils-cache-mem.html"><abbr title="src/Colibri/Utils/Cache/Mem.php">Mem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">122</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Удаляет переменную из кэша</p>
+        <p class="phpdocumentor-summary">Deletes a variable from the cache.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Delete</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Delete</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -527,37 +506,19 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><ul>
-<li>название переменной</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>The name of the variable</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Cache-Mem.html#method_Delete#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testMemDelete</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
                     &mdash;
-                <section class="phpdocumentor-description"><p>| boolean</p>
+                <section class="phpdocumentor-description"><p>True if the operation was successful, otherwise false</p>
 </section>
 
             </section>
@@ -577,11 +538,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Cache/Mem.php"><a href="files/src-colibri-utils-cache-mem.html"><abbr title="src/Colibri/Utils/Cache/Mem.php">Mem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">45</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Закрывает соединение с мемкэш</p>
+        <p class="phpdocumentor-summary">Closes the Memcached connection.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -592,22 +553,6 @@
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Cache-Mem.html#method_Dispose#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testMemDispose</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -625,11 +570,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Cache/Mem.php"><a href="files/src-colibri-utils-cache-mem.html"><abbr title="src/Colibri/Utils/Cache/Mem.php">Mem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">63</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Проверяет наличие переменной в кэше</p>
+        <p class="phpdocumentor-summary">Checks the existence of a variable in the cache.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -645,35 +590,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><ul>
-<li>название переменной</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>The name of the variable</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Cache-Mem.html#method_Exists#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testMemExists</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the variable exists in the cache, otherwise false</p>
+</section>
+
             </section>
 
 </article>
@@ -691,11 +622,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Cache/Mem.php"><a href="files/src-colibri-utils-cache-mem.html"><abbr title="src/Colibri/Utils/Cache/Mem.php">Mem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">148</span>
+    <span class="phpdocumentor-element-found-in__line">159</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Lists keys stored in the cache.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">List</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filter</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
@@ -710,7 +642,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The filter pattern to match keys against</p>
+</section>
+
             </dd>
             </dl>
 
@@ -719,6 +653,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An array of keys stored in the cache</p>
+</section>
+
             </section>
 
 </article>
@@ -736,15 +674,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Cache/Mem.php"><a href="files/src-colibri-utils-cache-mem.html"><abbr title="src/Colibri/Utils/Cache/Mem.php">Mem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Считывает переменную из кэша, если перенной нет, возвращает false</p>
+        <p class="phpdocumentor-summary">Reads a variable from the cache.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Read</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Read</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed|false</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -756,29 +694,23 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The name of the variable</p>
+</section>
+
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Cache-Mem.html#method_Read#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testMemRead</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed|false</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The data of the variable, or false if the variable does not exist in the cache</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -794,11 +726,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Cache/Mem.php"><a href="files/src-colibri-utils-cache-mem.html"><abbr title="src/Colibri/Utils/Cache/Mem.php">Mem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">84</span>
+    <span class="phpdocumentor-element-found-in__line">92</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Сохраняет переменную в кэш</p>
+        <p class="phpdocumentor-summary">Writes a variable to the cache.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -814,9 +746,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><ul>
-<li>название переменной</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>The name of the variable</p>
 </section>
 
             </dd>
@@ -825,9 +755,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><ul>
-<li>данные</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>The data</p>
 </section>
 
             </dd>
@@ -836,35 +764,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">600</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><ul>
-<li>время жизни</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>The lifetime of the variable in seconds</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Cache-Mem.html#method_Write#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testMemWrite</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the operation was successful, otherwise false</p>
+</section>
+
             </section>
 
 </article>
@@ -882,11 +796,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Cache/Mem.php"><a href="files/src-colibri-utils-cache-mem.html"><abbr title="src/Colibri/Utils/Cache/Mem.php">Mem.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">106</span>
+    <span class="phpdocumentor-element-found-in__line">113</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Сохраняет переменную в кэш в архивированном виде</p>
+        <p class="phpdocumentor-summary">Writes a variable to the cache in compressed form.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -902,9 +816,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><ul>
-<li>название переменной</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>The name of the variable</p>
 </section>
 
             </dd>
@@ -913,9 +825,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><ul>
-<li>данные</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>The data</p>
 </section>
 
             </dd>
@@ -924,35 +834,21 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">600</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><ul>
-<li>время жизни</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>The lifetime of the variable in seconds</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Cache-Mem.html#method_ZWrite#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testMemZWrite</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>True if the operation was successful, otherwise false</p>
+</section>
+
             </section>
 
 </article>

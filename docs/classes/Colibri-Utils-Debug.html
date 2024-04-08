@@ -237,6 +237,7 @@
             <ul class="phpdocumentor-breadcrumbs">
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
                                     <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils.html">Utils</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils-Performance.html">Performance</a></li>
                             </ul>
         </div>
     
@@ -251,12 +252,14 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Debug.php"><a href="files/src-colibri-utils-debug.html"><abbr title="src/Colibri/Utils/Debug.php">Debug.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Методы для вывода отладочной информации</p>
+            <p class="phpdocumentor-summary">Class Debug</p>
 
+    <section class="phpdocumentor-description"><p>Methods for outputting debug information.</p>
+</section>
 
 
 
@@ -286,30 +289,30 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Debug.html#method_IOut">IOut()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: void    </span>
 </dt>
-<dd>Печатает красиво обьект в виде дерева</dd>
+<dd>Prints an object in a tree-like format.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Debug.html#method_Out">Out()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Функция вывода</dd>
+<dd>Outputs debug information.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Debug.html#method_ROut">ROut()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd>Функция вывода</dd>
+<dd>Returns debug information as a string.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Utils-Debug.html#method__createArgs">_createArgs()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Превращает аргументы в правильный текстовый вид</dd>
+<dd>Converts arguments into a human-readable format.</dd>
 
     </dl>
 
@@ -340,15 +343,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Debug.php"><a href="files/src-colibri-utils-debug.html"><abbr title="src/Colibri/Utils/Debug.php">Debug.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">79</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Печатает красиво обьект в виде дерева</p>
+        <p class="phpdocumentor-summary">Prints an object in a tree-like format.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">IOut</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">IOut</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -372,11 +375,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Debug.php"><a href="files/src-colibri-utils-debug.html"><abbr title="src/Colibri/Utils/Debug.php">Debug.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">52</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Функция вывода</p>
+        <p class="phpdocumentor-summary">Outputs debug information.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -404,11 +407,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Debug.php"><a href="files/src-colibri-utils-debug.html"><abbr title="src/Colibri/Utils/Debug.php">Debug.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">71</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Функция вывода</p>
+        <p class="phpdocumentor-summary">Returns debug information as a string.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -423,6 +426,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The debug information</p>
+</section>
+
             </section>
 
 </article>
@@ -440,11 +447,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Debug.php"><a href="files/src-colibri-utils-debug.html"><abbr title="src/Colibri/Utils/Debug.php">Debug.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Превращает аргументы в правильный текстовый вид</p>
+        <p class="phpdocumentor-summary">Converts arguments into a human-readable format.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
@@ -460,7 +467,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The arguments to convert</p>
+</section>
+
             </dd>
             </dl>
 
@@ -469,6 +478,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The converted arguments</p>
+</section>
+
             </section>
 
 </article>

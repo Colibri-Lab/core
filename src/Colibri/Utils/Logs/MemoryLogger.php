@@ -8,21 +8,19 @@
  * @package Colibri\Utils\Logs
  * 
  */
-
 namespace Colibri\Utils\Logs;
 
 use Colibri\Common\DateHelper;
 use DateTime;
 
 /**
- * Класс для работы с логами в памяти
- * @testFunction testMemoryLogger
+ * Class for working with in-memory logs
  */
 class MemoryLogger extends Logger
 {
 
     /**
-     * Конструктор
+     * Constructor
      *
      * @param integer $maxLogLevel
      * @param array $dummy
@@ -34,12 +32,11 @@ class MemoryLogger extends Logger
     }
 
     /**
-     * Записывает в лог данные
+     * Writes data to the log
      *
-     * @param int $level уровень ошибки
-     * @param mixed $data данные
+     * @param int $level error level
+     * @param mixed $data data
      * @return void
-     * @testFunction testMemoryLoggerWriteLine
      */
     public function WriteLine(int $level, mixed $data): void
     {
@@ -59,10 +56,9 @@ class MemoryLogger extends Logger
     }
 
     /**
-     * Возвращает контент лог файла
+     * Returns the content of the log file
      *
      * @return mixed
-     * @testFunction testMemoryLoggerContent
      */
     public function Content(): mixed
     {

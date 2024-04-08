@@ -1,29 +1,31 @@
 <?php
 
 /**
- * Utils
+ * Utilities
  * 
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * Collection of methods for debugging and outputting information.
+ * 
+ * @package Colibri\Utils\Performance
+ * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
- * @package Colibri\Utils
- * 
  */
-
 namespace Colibri\Utils;
 
 use Colibri\App;
 
 /**
- * Методы для вывода отладочной информации
+ * Class Debug
+ * 
+ * Methods for outputting debug information.
  */
 class Debug
 {
 
     /**
-     * Превращает аргументы в правильный текстовый вид
+     * Converts arguments into a human-readable format.
      *
-     * @param array $args
-     * @return array
+     * @param array $args The arguments to convert
+     * @return array The converted arguments
      */
     private static function _createArgs($args)
     {
@@ -45,7 +47,7 @@ class Debug
     }
 
     /**
-     * Функция вывода
+     * Outputs debug information.
      *
      * @return void
      */
@@ -62,9 +64,9 @@ class Debug
     }
 
     /**
-     * Функция вывода
+     * Returns debug information as a string.
      *
-     * @return string
+     * @return string The debug information
      */
     public static function ROut()
     {
@@ -73,8 +75,9 @@ class Debug
     }
 
     /**
-     * Печатает красиво обьект в виде дерева
+     * Prints an object in a tree-like format.
      *
+     * @return void
      */
     public static function IOut()
     {

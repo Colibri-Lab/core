@@ -236,7 +236,9 @@
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri.html">Colibri</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils.html">Utils</a></li>
+                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Colibri-Utils-Minifiers.html">Minifiers</a></li>
                             </ul>
         </div>
     
@@ -251,11 +253,12 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Minifiers/Javascript.php"><a href="files/src-colibri-utils-minifiers-javascript.html"><abbr title="src/Colibri/Utils/Minifiers/Javascript.php">Javascript.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">11</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
-        
+            <p class="phpdocumentor-summary">Class for minifying JavaScript code.</p>
+
 
 
 
@@ -300,24 +303,28 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
+<dd>Constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Minifiers-Javascript.html#method_Minify">Minify()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Minifies the given JavaScript content.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Minifiers-Javascript.html#method_Run">Run()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Minifies the JavaScript content.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Utils-Minifiers-Javascript.html#method__convert">_convert()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
+<dd>Converts the JavaScript content.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/Colibri-Utils-Minifiers-Javascript.html#method__getAdditionalObjectNames">_getAdditionalObjectNames()</a>
@@ -362,7 +369,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Minifiers/Javascript.php"><a href="files/src-colibri-utils-minifiers-javascript.html"><abbr title="src/Colibri/Utils/Minifiers/Javascript.php">Javascript.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">14</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
@@ -400,11 +407,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Minifiers/Javascript.php"><a href="files/src-colibri-utils-minifiers-javascript.html"><abbr title="src/Colibri/Utils/Minifiers/Javascript.php">Javascript.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Constructor.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
@@ -431,11 +439,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Minifiers/Javascript.php"><a href="files/src-colibri-utils-minifiers-javascript.html"><abbr title="src/Colibri/Utils/Minifiers/Javascript.php">Javascript.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Minifies the given JavaScript content.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">Minify</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$content</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -450,7 +459,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The JavaScript content to minify.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -459,6 +470,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The minified JavaScript content.</p>
+</section>
+
             </section>
 
 </article>
@@ -476,11 +491,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Minifiers/Javascript.php"><a href="files/src-colibri-utils-minifiers-javascript.html"><abbr title="src/Colibri/Utils/Minifiers/Javascript.php">Javascript.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">98</span>
+    <span class="phpdocumentor-element-found-in__line">128</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Minifies the JavaScript content.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Run</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$content</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -495,7 +511,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The JavaScript content to minify.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -504,6 +522,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The minified JavaScript content.</p>
+</section>
+
             </section>
 
 </article>
@@ -521,11 +543,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Minifiers/Javascript.php"><a href="files/src-colibri-utils-minifiers-javascript.html"><abbr title="src/Colibri/Utils/Minifiers/Javascript.php">Javascript.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">81</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Converts the JavaScript content.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
                     <span class="phpdocumentor-signature__name">_convert</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$content</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
@@ -540,7 +563,9 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The JavaScript content to convert.</p>
+</section>
+
             </dd>
             </dl>
 
@@ -549,6 +574,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The converted JavaScript content.</p>
+</section>
+
             </section>
 
 </article>
@@ -566,7 +595,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Minifiers/Javascript.php"><a href="files/src-colibri-utils-minifiers-javascript.html"><abbr title="src/Colibri/Utils/Minifiers/Javascript.php">Javascript.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
@@ -597,7 +626,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Minifiers/Javascript.php"><a href="files/src-colibri-utils-minifiers-javascript.html"><abbr title="src/Colibri/Utils/Minifiers/Javascript.php">Javascript.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 

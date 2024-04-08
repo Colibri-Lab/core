@@ -6,24 +6,25 @@
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Logs
- *
  */
-
 namespace Colibri\Utils\Logs;
 
 
 /**
- * Класс для работы с GrayLog
- * @testFunction testGraylogLogger
+ * Class for working with GrayLog.
+ *
+ * This class extends the abstract Logger class and provides functionality to log messages to a GrayLog server.
+ *
  */
 class GraylogLogger extends Logger
 {
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param integer $maxLogLevel
-     * @param string $device
+     * @param integer $maxLogLevel The maximum log level.
+     * @param mixed $device The device information containing the server and port.
+     * @throws LoggerException If the device information is invalid.
      */
     public function __construct(int $maxLogLevel = 7, mixed $device = '')
     {
@@ -40,12 +41,11 @@ class GraylogLogger extends Logger
     }
 
     /**
-     * Записывает в лог данные
+     * Writes a log line to GrayLog.
      *
-     * @param int $level уровень ошибки
-     * @param mixed $data данные
+     * @param int $level The log level.
+     * @param mixed $data The log data.
      * @return void
-     * @testFunction testGraylogLoggerWriteLine
      */
     public function WriteLine(int $level, mixed $data): void
     {
@@ -83,10 +83,9 @@ class GraylogLogger extends Logger
     }
 
     /**
-     * Возвращает контент лог файла
+     * Returns the content of the log file (not applicable for GrayLog).
      *
-     * @return mixed
-     * @testFunction testGraylogLoggerContent
+     * @return mixed null
      */
     public function Content(): mixed
     {

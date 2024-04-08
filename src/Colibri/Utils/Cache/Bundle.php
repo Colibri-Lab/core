@@ -3,11 +3,12 @@
 /**
  * Bundle
  *
+ * Represents a utility class for creating cache bundles of styles and scripts.
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
- * @package Colibri\Utils
+ * @copyright 2019 ColibriLab
+ * @package Colibri\Utils\Cache
  */
-
 namespace Colibri\Utils\Cache;
 
 use axy\sourcemap\SourceMap;
@@ -21,22 +22,21 @@ use Colibri\Utils\Debug;
 use Colibri\Utils\Config\ConfigException;
 
 /**
- * Создание кэшей стилей и скриптов
- * @testFunction testBundle
+ * Utility class for creating cache bundles of styles and scripts.
+ *
  */
 class Bundle
 {
     /**
-     * Компиляция скриптов и стилей
+     * Compiles scripts and styles.
      *
-     * @param string $name
-     * @param array $exts
-     * @param string $path
-     * @param array $exception
-     * @param boolean $preg
-     * @param boolean $returnContent
-     * @return string
-     * @testFunction testBundleCompile
+     * @param string $name The name of the bundle
+     * @param array $exts File extensions to include
+     * @param string $path The path to search for assets
+     * @param array $exception Directories to exclude from the search
+     * @param bool $preg Use regular expressions in the search
+     * @param bool $returnContent Whether to return the compiled content instead of writing to a file
+     * @return string The path to the compiled bundle
      */
     public static function Compile(string $name, array $exts, string $path, array $exception = array(), bool $preg = false, bool $returnContent = false): string
     {
@@ -82,6 +82,16 @@ class Bundle
         return str_replace(App::$webRoot, '/', $jpweb);
     }
 
+    /**
+     * Retrieves the last modified timestamp of the bundle.
+     *
+     * @param string $name The name of the bundle
+     * @param array $exts File extensions to include
+     * @param string $path The path to search for assets
+     * @param array $exception Directories to exclude from the search
+     * @param bool $preg Use regular expressions in the search
+     * @return int The last modified timestamp
+     */
     public static function LastModified(string $name, array $exts, string $path, array $exception = array(), bool $preg = false): int
     {
         $lastModified = 0;
@@ -105,14 +115,13 @@ class Bundle
     }
 
     /**
-     * Компиляция скриптов и стилей в виде массива файлов
+     * Compiles scripts and styles from specified files.
      *
-     * @param string $name
-     * @param array $exts
-     * @param array $files
-     * @param boolean $returnContent
-     * @return string
-     * @testFunction testBundleCompile
+     * @param string $name The name of the bundle
+     * @param array $exts File extensions to include
+     * @param array $files Array of file paths to compile
+     * @param bool $returnContent Whether to return the compiled content instead of writing to a file
+     * @return string The path to the compiled bundle
      */
     public static function CompileFiles(string $name, array $exts, array $files, bool $returnContent = false): string
     {
@@ -150,7 +159,13 @@ class Bundle
     }
 
     /**
-     * @testFunction testBundleGetNamespaceAssets
+     * Retrieves assets from namespaces.
+     *
+     * @param string $path The path to search for assets
+     * @param array $exts File extensions to include
+     * @param array $exception Directories to exclude from the search
+     * @param bool $preg Use regular expressions in the search
+     * @return array Array of asset file paths
      */
     public static function GetNamespaceAssets(string $path, array $exts, array $exception = [], bool $preg = false): array
     {
@@ -179,14 +194,13 @@ class Bundle
     }
 
     /**
-     * Возвращает список дочерних вложений
+     * Retrieves child assets.
      *
-     * @param string $path
-     * @param array $exts
-     * @param array $exception
-     * @param boolean $preg
-     * @return array
-     * @testFunction testBundleGetChildAssets
+     * @param string $path The path to search for assets
+     * @param array $exts File extensions to include
+     * @param array $exception Directories to exclude from the search
+     * @param bool $preg Use regular expressions in the search
+     * @return array Array of asset file paths
      */
     public static function GetChildAssets(string $path, array $exts, array $exception = [], bool $preg = false): array
     {
@@ -216,13 +230,14 @@ class Bundle
     }
 
     /**
-     * Автоматизация скриптов и стилей
+     * Automates the process of bundling scripts and styles.
      *
-     * @param string $name
-     * @param array|string $ext
-     * @param array $ar
-     * @return string
-     * @testFunction testBundleAutomate
+     * @param string $domain The domain name
+     * @param string $name The name of the bundle
+     * @param string $ext The file extension to include
+     * @param array $ar Array of settings for bundling assets
+     * @param string|null $useDomainsInUrls The domain to use in URLs
+     * @return string The path to the compiled bundle
      */
     public static function Automate(
         string $domain,
@@ -301,6 +316,14 @@ class Bundle
         return str_replace(App::$webRoot, '/', $jpweb . '?' . $recacheKey);
     }
 
+    /**
+     * Exports the compiled bundle.
+     *
+     * @param string $domain The domain name
+     * @param string $ext The file extension
+     * @param string $name The name of the bundle
+     * @param string $content The compiled content
+     */
     public static function Export(string $domain, string $ext, string $name, string $content)
     {
         try {

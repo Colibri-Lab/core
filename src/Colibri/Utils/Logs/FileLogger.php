@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Logs
+ * FileLogger
+ * 
+ * Represents a logger for logging messages to a file.
  * 
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Logs
- * 
  */
-
 namespace Colibri\Utils\Logs;
 
 use Colibri\App;
@@ -18,27 +18,41 @@ use Colibri\Common\StringHelper;
 use DateTime;
 
 /**
- * Лог файл
- * @testFunction testFileLogger
+ * Represents a logger for logging messages to a file.
+ * 
+ * This class extends the abstract Logger class and provides functionality to log messages to a file.
+ * 
  */
 class FileLogger extends Logger
 {
 
     /**
-     * Текущая позиция
+     * Current position in the log file.
+     *
      * @var int
      */
     private int $_currentPos;
 
+    /**
+     * Indicates whether to log messages to the console as well.
+     *
+     * @var bool
+     */
     private bool $_console;
 
+    /**
+     * The file handler.
+     *
+     * @var mixed
+     */
     private mixed $_handler;
 
     /**
-     * Конструктор
+     * Constructor.
      *
-     * @param int $maxLogLevel Уровень логирования
-     * @param mixed $device название файла
+     * @param int $maxLogLevel The maximum log level.
+     * @param mixed $device The file name.
+     * @param bool $console Whether to log messages to the console as well. Default is false.
      */
     public function __construct(int $maxLogLevel = 7, mixed $device = '', $console = false)
     {
@@ -51,11 +65,10 @@ class FileLogger extends Logger
     }
 
     /**
-     * Getter
+     * Getter method.
      *
-     * @param string $prop
-     * @return mixed
-     * @testFunction testFileLogger__get
+     * @param string $prop The property name.
+     * @return mixed The value of the property.
      */
     public function __get(string $prop): mixed
     {
@@ -71,14 +84,12 @@ class FileLogger extends Logger
         return null;
     }
 
-
     /**
-     * Записывает в лог данные
+     * Writes a log line to the file.
      *
-     * @param int $level уровень ошибки
-     * @param mixed $data данные
+     * @param int $level The log level.
+     * @param mixed $data The log data.
      * @return void
-     * @testFunction testFileLoggerWriteLine
      */
     public function WriteLine(int $level, mixed $data): void
     {
@@ -119,10 +130,9 @@ class FileLogger extends Logger
     }
 
     /**
-     * Возвращает контент лог файла
+     * Retrieves the content of the log file.
      *
-     * @return mixed
-     * @testFunction testFileLoggerContent
+     * @return mixed The content of the log file.
      */
     public function Content(): mixed
     {
@@ -130,11 +140,10 @@ class FileLogger extends Logger
     }
 
     /**
-     * Открывает лог файл для последовательного чтения
+     * Opens the log file for sequential reading.
      *
-     * @param integer $position стартовая позиция для чтения
+     * @param int $position The start position for reading.
      * @return void
-     * @testFunction testFileLoggerOpen
      */
     public function Open(int $position = 0): void
     {
@@ -146,10 +155,9 @@ class FileLogger extends Logger
     }
 
     /**
-     * Закрывает лог файл
+     * Closes the log file.
      *
      * @return void
-     * @testFunction testFileLoggerClose
      */
     public function Close(): void
     {
@@ -159,10 +167,9 @@ class FileLogger extends Logger
     }
 
     /**
-     * Читает последние сообщения в логе начиная с позиции последнего чтения, возвращает в виде массива строк
+     * Reads the last messages in the log starting from the last read position, returning them as an array of strings.
      *
-     * @return array массив строк лога
-     * @testFunction testFileLoggerRead
+     * @return array An array of log message strings.
      */
     public function Read(): array
     {

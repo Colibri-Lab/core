@@ -2,12 +2,13 @@
 
 /**
  * Threading
+ * 
+ * This class manages processes for multithreading.
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
  * @package Colibri\Threading
  */
-
 namespace Colibri\Threading;
 
 use Colibri\App;
@@ -16,95 +17,103 @@ use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 
 /**
- * Класс для работы с процессами
- * Внимание: для корректной работы требуется наличие php_cli, memcached и прав на запуск скриптов через shell_exec и exec
- * Внимание: перед использованием проверьте наличие обарботчика php_cli в папке указанной в константе Handler,
- * если у вас обработчик лежит в другом месте, то замените эту переменную
+ * Manages processes for multithreading.
+ * 
+ * Attention: For proper functionality, ensure the presence of php_cli, memcached, and permissions to execute scripts using shell_exec and exec.
+ * Before use, verify the existence of the php_cli handler in the folder specified by the Handler constant. If your handler is elsewhere, modify this variable accordingly.
  *
- * Необходимо учитывать, что будет присутствовать 2 объекта класса Worker, первый в источнике потока, второй в самом потоке
+ * Note: Two instances of the Worker class will be present, one in the source thread and the other in the spawned thread.
  *
- * пример работы:
+ * Example Usage:
  *
- * class TestWorker extends Worker { // класс обертка для воркера
- *      public function Run(): void { // описываем функцию, конкретные действия
- *          for($i=0;$i<10;$i++)
- *              $this->_log->debug('Test Worker run ok...', $i, rout($this->_params));
- *      }
+ * ```php
+ * class TestWorker extends Worker { // Wrapper class for the worker
+ *     public function Run(): void { // Defines the function and specifies the actions
+ *         for ($i = 0; $i < 10; $i++)
+ *             $this->_log->debug('Test Worker run ok...', $i, rout($this->_params));
+ *     }
  * }
  *
  * $worker = new TestWorker();
- * $process = new Process($worker); // или Process::Create($worker);
- * $process->Run((object)['blablabla' => 'test']); // запускаем воркер, передаем параметры потоку
+ * $process = new Process($worker); // or Process::Create($worker);
+ * $process->Run((object)['blablabla' => 'test']); // Starts the worker and passes parameters to the thread
  *
- * $workerOutput = array();
- * $worker->log->Open(); // открываем лог воркера
- * while($process->IsRunning()) {  // проверяем работает ли все еще воркер
- *      $workerOutput = array_merge($workerOutput, $worker->log->Read()); // считываем последние сообщения
- *      sleep(1);
+ * $workerOutput = [];
+ * $worker->log->Open(); // Opens the worker's log
+ * while ($process->IsRunning()) {  // Checks if the worker is still running
+ *     $workerOutput = array_merge($workerOutput, $worker->log->Read()); // Reads the latest messages
+ *     sleep(1);
  * }
- * $worker->log->Close(); // закрываем лог воркера
+ * $worker->log->Close(); // Closes the worker's log
+ * ```
  *
- *
- *
- *
- * @property-read int $pid
- * @property-read string $name
- * @property-read string $command
- * @property-read string $request
- * @property array|object $params
- * @property-read Worker $worker
- * @property-read ?object $results
- *
+ * @property-read int $pid Process ID (PID)
+ * @property-read string $name Name of the process
+ * @property-read string $command Command used to start the worker
+ * @property-read string $request HTTP request URL for the worker
+ * @property array|object $params Parameters passed to the process
+ * @property-read Worker $worker Instance of the Worker class
+ * @property-read ?object $results Results obtained from the worker
  */
 class Process
 {
     /**
-     * PID процесса Worker-а
+     * Process ID (PID) of the worker process.
      *
      * @var int
      */
     private $_pid;
 
     /**
-     * Worker который нужно запустить
+     * Worker instance to be launched.
      *
      * @var Worker
      */
     private $_worker;
 
     /**
-     * Отобразить команду запуска воркера
+     * Indicates whether to display the command used to start the worker.
+     *
      * @var bool
      */
     private $_debug;
 
     /**
-     * Точка входа для консольного потока
+     * Entry point for the console stream.
+     *
      * @var string
      */
     private $_entry;
 
     /**
-     * Параметры
+     * Parameters for the process.
+     *
+     * @var object
      */
     private object $_params;
 
     /**
-     * Ключ воркера
+     * Key for the worker.
+     *
+     * @var string
      */
     private string $_workerKey = '';
 
     /**
-     * Обработчик запросов, в большинстве случаев php_cli
-     * Если у вас на сервере php_cli лежит в другом месте, необходимо изменить эту переменную
+     * Request handler, usually php_cli.
+     * Modify this variable if php_cli is located elsewhere on the server.
+     *
+     * @var string
      */
     private string $_handler = '/usr/bin/php';
 
     /**
-     * Выполняет Worker по имени класса в отдельном потоке
+     * Initializes a new instance of the Process class.
      *
-     * @param Worker $worker
-     * @param bool $debug отобразить команду запуска воркера
+     * @param Worker $worker Worker instance to be launched
+     * @param bool $debug Indicates whether to display the command used to start the worker
+     * @param string $entry Entry point for the console stream
+     * @param int $pid Process ID (PID) of the worker process
      */
     public function __construct(Worker $worker, bool $debug = false, string $entry = '', $pid = 0)
     {
@@ -117,10 +126,11 @@ class Process
     }
 
     /**
-     * Создает Process
+     * Creates a new instance of the Process class.
      *
-     * @param Worker $worker
-     * @param bool $debug отобразить команду запуска воркера
+     * @param Worker $worker Worker instance to be launched
+     * @param bool $debug Indicates whether to display the command used to start the worker
+     * @param string $entry Entry point for the console stream
      * @return Process
      */
     public static function Create(Worker $worker, bool $debug = false, string $entry = ''): Process
@@ -128,6 +138,14 @@ class Process
         return new Process($worker, $debug, $entry);
     }
 
+    /**
+     * Retrieves a Process instance by worker name.
+     *
+     * @param string $workerName Name of the worker
+     * @param bool $debug Indicates whether to display the command used to start the worker
+     * @param string $entry Entry point for the console stream
+     * @return Process|null
+     */
     public static function ByWorkerName(string $workerName, bool $debug = false, string $entry = ''): ?Process
     {
         exec('ps -ax | grep ' . $workerName, $console);
@@ -154,11 +172,23 @@ class Process
 
     }
 
+    /**
+     * Sets the handler for processing requests.
+     *
+     * @param string $handler Request handler
+     * @return void
+     */
     public function SetHandler(string $handler): void
     {
         $this->_handler = $handler;
     }
 
+    /**
+     * Retrieves the results obtained from the worker.
+     *
+     * @param bool $removeResults Indicates whether to remove the results after retrieval
+     * @return ?object Results obtained from the worker
+     */
     public function GetWorkerResults(bool $removeResults = true): ?object
     {
         $workerKey = $this->_workerKey;
@@ -174,10 +204,10 @@ class Process
     }
 
     /**
-     * Getter
+     * Magic getter method.
      *
-     * @param string $prop свойство
-     * @return mixed
+     * @param string $prop Property name
+     * @return mixed Property value
      */
     public function __get(string $prop): mixed
     {
@@ -201,6 +231,13 @@ class Process
         return null;
     }
 
+    /**
+     * Magic setter method.
+     *
+     * @param string $property Property name
+     * @param mixed $value Property value
+     * @return void
+     */
     public function __set(string $property, mixed $value): void
     {
         if ($property === 'params') {
@@ -209,9 +246,9 @@ class Process
     }
 
     /**
-     * Запускает Worker
+     * Starts the worker process.
      *
-     * @param object $params параметры для передачи в процесс
+     * @param object|null $params Parameters to pass to the process
      * @return void
      */
     public function Run(?object $params = null): void
@@ -234,9 +271,9 @@ class Process
     }
 
     /**
-     * Проверяет запущен ли Worker
+     * Checks if the worker process is running.
      *
-     * @return boolean true если запущен, false если нет
+     * @return boolean true if running, false if not
      */
     public function IsRunning(): bool
     {
@@ -248,9 +285,9 @@ class Process
     }
 
     /**
-     * Останавливает Worker
+     * Stops the worker process.
      *
-     * @return bool true если удалось остановить, false если нет
+     * @return bool true if stopped successfully, false if not
      */
     public function Stop(): bool
     {
@@ -263,10 +300,10 @@ class Process
     }
 
     /**
-     * Проверяет живой ли процесс по PID—у
+     * Checks if a process is running by its PID.
      *
-     * @param integer $pid PID процесса
-     * @return boolean
+     * @param integer $pid Process ID (PID)
+     * @return boolean true if running, false if not
      */
     public static function IsProcessRunning(int $pid): bool
     {
@@ -275,10 +312,10 @@ class Process
     }
 
     /**
-     * Убивает процесс и возвращает true если получилось и false если нет
+     * Kills a process by its PID and returns true if successful, false if not.
      *
-     * @param integer $pid PID процесса
-     * @return boolean
+     * @param integer $pid Process ID (PID)
+     * @return boolean true if killed, false if not
      */
     public static function StopProcess(int $pid): bool
     {

@@ -260,26 +260,12 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс для работы с GrayLog</p>
+            <p class="phpdocumentor-summary">Class for working with GrayLog.</p>
 
-
-
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-GraylogLogger.html#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testGraylogLogger</p>
+    <section class="phpdocumentor-description"><p>This class extends the abstract Logger class and provides functionality to log messages to a GrayLog server.</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+
 
 
 
@@ -306,56 +292,48 @@
     <span>
         &nbsp;= 1                            </span>
 </dt>
-<dd>Информация</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Utils-Logs-Logger.html#constant_Critical">Critical</a>
     <span>
         &nbsp;= 2                            </span>
 </dt>
-<dd>Критическая ошибка</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Utils-Logs-Logger.html#constant_Debug">Debug</a>
     <span>
         &nbsp;= 7                            </span>
 </dt>
-<dd>Дебаг</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Utils-Logs-Logger.html#constant_Emergency">Emergency</a>
     <span>
         &nbsp;= 0                            </span>
 </dt>
-<dd>Обязательное сообщение</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Utils-Logs-Logger.html#constant_Error">Error</a>
     <span>
         &nbsp;= 3                            </span>
 </dt>
-<dd>Ошибка</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Utils-Logs-Logger.html#constant_Informational">Informational</a>
     <span>
         &nbsp;= 6                            </span>
 </dt>
-<dd>Просто информация</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Utils-Logs-Logger.html#constant_Notice">Notice</a>
     <span>
         &nbsp;= 5                            </span>
 </dt>
-<dd>Информирование</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-Utils-Logs-Logger.html#constant_Warning">Warning</a>
     <span>
         &nbsp;= 4                            </span>
 </dt>
-<dd>Предупреждение</dd>
 
     </dl>
 
@@ -371,14 +349,14 @@
     <span>
                         &nbsp;: mixed            </span>
 </dt>
-<dd>Наименование лог файла</dd>
+<dd>The name of the log file.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -protected">
     <a href="classes/Colibri-Utils-Logs-Logger.html#property__maxLogLevel">$_maxLogLevel</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>Максимальный уровень логирования</dd>
+<dd>The maximum log level.</dd>
 
     </dl>
 
@@ -393,7 +371,7 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Конструктор</dd>
+<dd>Constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Logs-Logger.html#method_alert">alert()</a>
@@ -407,14 +385,14 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Возвращает контент лог файла</dd>
+<dd>Returns the content of the log file (not applicable for GrayLog).</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Logs-Logger.html#method_Create">Create()</a>
     <span>
                                 &nbsp;: <a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a>    </span>
 </dt>
-<dd>Фабрика</dd>
+<dd>Creates a logger instance based on the provided configuration.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Utils-Logs-Logger.html#method_critical">critical()</a>
@@ -499,7 +477,7 @@ be logged and monitored.</dd>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Записывает в лог данные</dd>
+<dd>Writes a log line to GrayLog.</dd>
 
     </dl>
 
@@ -523,22 +501,23 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Информация</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">Alert</span>
     = <span class="phpdocumentor-signature__default-value">1</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Alert level constant.</p>
+</section>
+
     
 
 </article>
@@ -552,22 +531,23 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Критическая ошибка</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">Critical</span>
     = <span class="phpdocumentor-signature__default-value">2</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Critical level constant.</p>
+</section>
+
     
 
 </article>
@@ -581,22 +561,23 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">44</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Дебаг</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">Debug</span>
     = <span class="phpdocumentor-signature__default-value">7</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Debug level constant.</p>
+</section>
+
     
 
 </article>
@@ -610,22 +591,23 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Обязательное сообщение</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">Emergency</span>
     = <span class="phpdocumentor-signature__default-value">0</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Emergency level constant.</p>
+</section>
+
     
 
 </article>
@@ -639,22 +621,23 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Ошибка</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">Error</span>
     = <span class="phpdocumentor-signature__default-value">3</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Error level constant.</p>
+</section>
+
     
 
 </article>
@@ -668,22 +651,23 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Просто информация</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">Informational</span>
     = <span class="phpdocumentor-signature__default-value">6</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Informational level constant.</p>
+</section>
+
     
 
 </article>
@@ -697,22 +681,23 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Информирование</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">Notice</span>
     = <span class="phpdocumentor-signature__default-value">5</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Notice level constant.</p>
+</section>
+
     
 
 </article>
@@ -726,22 +711,23 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Предупреждение</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">int</span>
     <span class="phpdocumentor-signature__name">Warning</span>
     = <span class="phpdocumentor-signature__default-value">4</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Warning level constant.</p>
+</section>
+
     
 
 </article>
@@ -771,11 +757,11 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">49</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Наименование лог файла</p>
+        <p class="phpdocumentor-summary">The name of the log file.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -805,11 +791,11 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Максимальный уровень логирования</p>
+        <p class="phpdocumentor-summary">The maximum log level.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">protected</span>
@@ -844,15 +830,15 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/GraylogLogger.php"><a href="files/src-colibri-utils-logs-grayloglogger.html"><abbr title="src/Colibri/Utils/Logs/GraylogLogger.php">GraylogLogger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конструктор</p>
+        <p class="phpdocumentor-summary">Constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$maxLogLevel</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">7</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$device</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$maxLogLevel</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">7</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$device</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
@@ -864,18 +850,39 @@ be logged and monitored.</dd>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                  = <span class="phpdocumentor-signature__argument__default-value">7</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The maximum log level.</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$device</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                  = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The device information containing the server and port.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Utils-Logs-GraylogLogger.html#method___construct#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Colibri-Utils-Logs-LoggerException.html"><abbr title="\Colibri\Utils\Logs\LoggerException">LoggerException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the device information is invalid.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
 
     
 </article>
@@ -893,7 +900,7 @@ be logged and monitored.</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">138</span>
 
     </aside>
 
@@ -928,22 +935,6 @@ trigger the SMS alerts and wake you up.</p>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-Logger.html#method_alert#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testLoggerAlert</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -961,11 +952,11 @@ trigger the SMS alerts and wake you up.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/GraylogLogger.php"><a href="files/src-colibri-utils-logs-grayloglogger.html"><abbr title="src/Colibri/Utils/Logs/GraylogLogger.php">GraylogLogger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">91</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает контент лог файла</p>
+        <p class="phpdocumentor-summary">Returns the content of the log file (not applicable for GrayLog).</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -976,24 +967,16 @@ trigger the SMS alerts and wake you up.</p>
     
     
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-GraylogLogger.html#method_Content#tags" class="headerlink"><i class="fas fa-link"></i></a>
 
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testGraylogLoggerContent</p>
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>null</p>
 </section>
 
-                                    </dd>
-                                            </dl>
+            </section>
 
-    
 </article>
                     <article
         class="phpdocumentor-element
@@ -1009,11 +992,11 @@ trigger the SMS alerts and wake you up.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Фабрика</p>
+        <p class="phpdocumentor-summary">Creates a logger instance based on the provided configuration.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1029,15 +1012,38 @@ trigger the SMS alerts and wake you up.</p>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-Config-Config.html"><abbr title="\Colibri\Utils\Config\Config">Config</abbr></a>|array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>The logger configuration.</p>
+</section>
+
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="classes/Colibri-Utils-Logs-Logger.html#method_Create#tags" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><a href="classes/Colibri-Utils-Logs-LoggerException.html"><abbr title="\Colibri\Utils\Logs\LoggerException">LoggerException</abbr></a></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>When an invalid logger type is provided.</p>
+</section>
+
+                                    </dd>
+                                            </dl>
 
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type"><a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>The logger instance.</p>
+</section>
+
             </section>
 
 </article>
@@ -1089,22 +1095,6 @@ trigger the SMS alerts and wake you up.</p>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-Logger.html#method_critical#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testLoggerCritical</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1122,7 +1112,7 @@ trigger the SMS alerts and wake you up.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">229</span>
+    <span class="phpdocumentor-element-found-in__line">224</span>
 
     </aside>
 
@@ -1154,22 +1144,6 @@ trigger the SMS alerts and wake you up.</p>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-Logger.html#method_debug#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testLoggerDebug</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1257,7 +1231,7 @@ trigger the SMS alerts and wake you up.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">120</span>
+    <span class="phpdocumentor-element-found-in__line">122</span>
 
     </aside>
 
@@ -1322,7 +1296,7 @@ trigger the SMS alerts and wake you up.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">168</span>
+    <span class="phpdocumentor-element-found-in__line">167</span>
 
     </aside>
 
@@ -1355,22 +1329,6 @@ be logged and monitored.</p>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-Logger.html#method_error#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testLoggerError</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1445,7 +1403,7 @@ be logged and monitored.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">215</span>
+    <span class="phpdocumentor-element-found-in__line">211</span>
 
     </aside>
 
@@ -1479,22 +1437,6 @@ be logged and monitored.</p>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-Logger.html#method_info#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testLoggerInfo</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1512,7 +1454,7 @@ be logged and monitored.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">244</span>
+    <span class="phpdocumentor-element-found-in__line">238</span>
 
     </aside>
 
@@ -1551,22 +1493,6 @@ be logged and monitored.</p>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-Logger.html#method_log#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testLoggerLog</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1584,7 +1510,7 @@ be logged and monitored.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">199</span>
+    <span class="phpdocumentor-element-found-in__line">196</span>
 
     </aside>
 
@@ -1616,22 +1542,6 @@ be logged and monitored.</p>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-Logger.html#method_notice#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testLoggerNotice</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1706,7 +1616,7 @@ be logged and monitored.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Utils/Logs/Logger.php"><a href="files/src-colibri-utils-logs-logger.html"><abbr title="src/Colibri/Utils/Logs/Logger.php">Logger.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">185</span>
+    <span class="phpdocumentor-element-found-in__line">183</span>
 
     </aside>
 
@@ -1741,22 +1651,6 @@ that are not necessarily wrong.</p>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-Logger.html#method_warning#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testLoggerWarning</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>
@@ -1778,7 +1672,7 @@ that are not necessarily wrong.</p>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Записывает в лог данные</p>
+        <p class="phpdocumentor-summary">Writes a log line to GrayLog.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1794,7 +1688,7 @@ that are not necessarily wrong.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>уровень ошибки</p>
+                    <section class="phpdocumentor-description"><p>The log level.</p>
 </section>
 
             </dd>
@@ -1803,29 +1697,13 @@ that are not necessarily wrong.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>данные</p>
+                    <section class="phpdocumentor-description"><p>The log data.</p>
 </section>
 
             </dd>
             </dl>
 
     
-    <h5 class="phpdocumentor-tag-list__heading" id="tags">
-        Tags
-        <a href="classes/Colibri-Utils-Logs-GraylogLogger.html#method_WriteLine#tags" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h5>
-    <dl class="phpdocumentor-tag-list">
-                                    <dt class="phpdocumentor-tag-list__entry">
-                    <span class="phpdocumentor-tag__name">testFunction</span>
-                </dt>
-                <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>testGraylogLoggerWriteLine</p>
-</section>
-
-                                    </dd>
-                                            </dl>
 
     
 </article>

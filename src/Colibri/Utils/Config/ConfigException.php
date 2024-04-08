@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Исключение для конфигураций
+ * Configuration Exception
  * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * Exception class for configuration-related errors.
+ * 
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Config
- * @version 1.0.0
- * 
  */
 
 namespace Colibri\Utils\Config;
@@ -15,7 +15,7 @@ namespace Colibri\Utils\Config;
 use Colibri\AppException;
 
 /**
- * Класс исключения для конфиг файлов
+ * Exception class for configuration-related errors.
  */
 class ConfigException extends AppException
 {

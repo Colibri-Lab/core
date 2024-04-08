@@ -14,7 +14,8 @@ namespace Colibri\Utils\Logs;
 use Colibri\AppException;
 
 /**
- * Исключение для пакета
+ * Exception for the logging package
+ * 
  */
 class LoggerException extends AppException
 {

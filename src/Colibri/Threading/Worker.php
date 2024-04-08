@@ -20,60 +20,65 @@ use Colibri\Threading\ErrorCodes;
 use Colibri\Utils\Debug;
 
 /**
- * Класс работы в процессами, имитирует поток
- * Для работы необходимо наличие php-cli, memcached и ramdisk
- * @testFunction testWorker
+ * Worker
+ *
+ * Represents a worker class for managing processes.
+ * 
+ * This abstract class serves as a base for defining specific actions to be performed in separate processes.
+ * 
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @package Colibri\Threading
  */
 abstract class Worker
 {
     /**
-     * Лимит по времени на выполнение процесса
+     * Time limit for executing the process.
      *
      * @var integer
      */
     protected int $_timeLimit = 0;
 
     /**
-     * Приоритет процесса, требуется наличие nohup
+     * Process priority; requires the presence of 'nohup'.
      *
      * @var integer
      */
     protected int $_prio = 0;
 
     /**
-     * Ключ необходим для идентификации процесса в списке процессов в ps
+     * Unique key for identifying the process.
      *
      * @var string
      */
     protected string $_key = '';
 
     /**
-     * ID потока
+     * Thread ID.
      *
      * @var string
      */
     protected string $_id = '';
 
     /**
-     * Лог воркера
+     * Worker's logger.
      *
      * @var Logger
      */
     protected $_log;
 
     /**
-     * Переданные в воркер параметры
+     * Parameters passed to the worker.
      *
      * @var mixed
      */
     protected $_params;
 
     /**
-     * Создает обьект класса Worker
+     * Creates a new instance of the Worker class.
      *
-     * @param integer $timeLimit лимит по времени для выполнения воркера
-     * @param integer $prio приоритет, требуется наличие nohup
-     * @param string $key ключ процесса (уникальный ключ для того, чтобы в дальнейшем можно было идентифицировать процесс)
+     * @param integer $timeLimit Time limit for executing the worker
+     * @param integer $prio Process priority
+     * @param string $key Unique key for identifying the process
      */
     public function __construct(int $timeLimit = 0, int $prio = 0, string $key = '')
     {
@@ -91,20 +96,19 @@ abstract class Worker
     }
 
     /**
-     * Работа по процессу/потоку, необходимо переопределить
+     * Runs the worker process.
+     * 
+     * This method must be implemented in subclasses to define specific actions.
      *
      * @return void
-     */
-    /**
-     * @testFunction testWorkerRun
      */
     abstract public function Run(): void;
 
     /**
-     * функция Getter для получения данных по потоку
+     * Getter function to retrieve data related to the worker.
      *
-     * @param string $prop
-     * @return mixed
+     * @param string $prop Property name
+     * @return mixed Property value
      */
     public function __get(string $prop): mixed
     {
@@ -134,11 +138,10 @@ abstract class Worker
     }
 
     /**
-     * функция Setter для ввода данных в процесс
+     * Setter function to set data in the worker process.
      *
-     * @param string $prop
-     * @param mixed $val
-     * @testFunction testWorker__set
+     * @param string $prop Property name
+     * @param mixed $val Property value
      */
     public function __set($prop, $val)
     {
@@ -156,11 +159,10 @@ abstract class Worker
     }
 
     /**
-     * Подготавливает параметры к отправке в поток
+     * Prepares parameters for passing to the process.
      *
-     * @param mixed $params параметры процесса для сериализации
-     * @return string
-     * @testFunction testWorkerPrepareParams
+     * @param mixed $params Parameters to be serialized
+     * @return string Serialized parameters
      */
     public function PrepareParams($params)
     {
@@ -168,11 +170,10 @@ abstract class Worker
     }
 
     /**
-     * Разбирает параметры из строки в объект
+     * Parses parameters from a string into an object.
      *
-     * @param mixed $params параметры процесса для десериализации
+     * @param mixed $params Serialized parameters to be deserialized
      * @return void
-     * @testFunction testWorkerPrepare
      */
     public function Prepare($params)
     {
@@ -180,10 +181,9 @@ abstract class Worker
     }
 
     /**
-     * Сериализует воркер
+     * Serializes the worker object.
      *
-     * @return string
-     * @testFunction testWorkerSerialize
+     * @return string Serialized worker object
      */
     public function Serialize()
     {
@@ -191,11 +191,10 @@ abstract class Worker
     }
 
     /**
-     * Десериализует воркер
+     * Deserializes the worker object.
      *
-     * @param string $workerString строка содержащая сериализованный воркер
-     * @return Worker десериализованный воркер
-     * @testFunction testWorkerUnserialize
+     * @param string $workerString Serialized worker object string
+     * @return Worker Deserialized worker object
      */
     public static function Unserialize($workerString)
     {
@@ -203,10 +202,9 @@ abstract class Worker
     }
 
     /**
-     * Проверяет запущен ли другой инстанс процесса
+     * Checks if another instance of the process is running.
      *
-     * @return bool
-     * @testFunction testWorkerExists
+     * @return bool true if running, false otherwise
      */
     public function Exists()
     {
@@ -225,6 +223,12 @@ abstract class Worker
         return false;
     }
 
+    /**
+     * Writes results obtained from the worker.
+     *
+     * @param object $args Results obtained from the worker
+     * @return bool true if successfully written, false otherwise
+     */
     public function WriteResults(object $args): bool
     {
         $workerDataPath = App::$appRoot . App::$config->Query('runtime')->GetValue() . 'workers/';

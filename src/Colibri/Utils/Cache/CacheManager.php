@@ -1,28 +1,33 @@
 <?php
 
 /**
- * Хочется что либо закэшировать?
- * Тебе сюда!
+ * Cache Manager
  * 
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
- * @copyright 2019 Colibri
+ * Provides functionality for caching files.
+ * 
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 ColibriLab
  * @package Colibri\Utils\Cache
- * @version 1.0.0
- * 
  */
-
 namespace Colibri\Utils\Cache;
 
 use Colibri\App;
 use Colibri\IO\FileSystem\File;
 
 /**
- * Менеджер кэширования
- * @testFunction testCacheManager
+ * Cache Manager class.
+ *
  */
 class CacheManager
 {
 
+    /**
+     * Gets the cache file path.
+     *
+     * @param string $section The cache section
+     * @param string $fileName The name of the file
+     * @return string The cache file path
+     */
     private static function _getPath(string $section, string $fileName)
     {
         $etag = md5($fileName);
@@ -31,12 +36,12 @@ class CacheManager
     }
 
     /**
-     * Положить файл в кэш
+     * Puts a file into the cache.
      *
-     * @param string $section
-     * @param string $file
-     * @return string
-     * @testFunction testCacheManagerPut
+     * @param string $section The cache section
+     * @param string $fileName The name of the file
+     * @param string $fileContent The content of the file
+     * @return string The path to the cached file
      */
     public static function Put(string $section, string $fileName, string $fileContent)
     {
@@ -47,10 +52,11 @@ class CacheManager
 
 
     /**
-     * Проверяет наличие кэша
-     * @param string $section секция
-     * @param string $file файл
-     * @return bool есть/нет
+     * Checks if the cache exists for the given file.
+     *
+     * @param string $section The cache section
+     * @param string $fileName The name of the file
+     * @return bool True if the cache exists, otherwise false
      */
     public static function Exists(string $section, string $fileName)
     {
@@ -58,11 +64,11 @@ class CacheManager
     }
 
     /**
-     * Возвращает файл (путь к файлу) кэша
-     * ! внимание, не проверяет наличие файла
-     * @param string $section секция
-     * @param string $file файл
-     * @return string 
+     * Gets the cached file content.
+     *
+     * @param string $section The cache section
+     * @param string $fileName The name of the file
+     * @return string|null The content of the cached file, or null if not found
      */
     public static function Get(string $section, string $fileName): ?string
     {
@@ -74,10 +80,11 @@ class CacheManager
     }
 
     /**
-     * Возвращает данные файл кэша
-     * @param string $section секция
-     * @param string $file файл
-     * @return string|null 
+     * Gets the cache file path.
+     *
+     * @param string $section The cache section
+     * @param string $fileName The name of the file
+     * @return string The cache file path
      */
     public static function GetPath(string $section, string $fileName): string
     {

@@ -1,24 +1,42 @@
 <?php
 
+/**
+ * Represents custom javascript minifier
+ * 
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2020 ColibriLab
+ * @package Colibri\Utils\Minifiers
+ * 
+ */
 namespace Colibri\Utils\Minifiers;
 
 use Colibri\App;
 use Colibri\Common\RandomizationHelper;
 use Colibri\IO\FileSystem\File;
-use Colibri\Utils\Debug;
 
-
+/**
+ * Class for minifying JavaScript code.
+ */
 class Javascript
 {
 
     private ?object $_config = null;
 
+    /**
+     * Minifies the given JavaScript content.
+     *
+     * @param string $content The JavaScript content to minify.
+     * @return string The minified JavaScript content.
+     */
     public static function Minify(string $content): string
     {
         $self = new self();
         return $self->Run($content);
     }
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->_config = App::$config->Query('minifier')->AsObject();
@@ -54,6 +72,12 @@ class Javascript
         return $return;
     }
 
+    /**
+     * Converts the JavaScript content.
+     *
+     * @param mixed $content The JavaScript content to convert.
+     * @return string The converted JavaScript content.
+     */
     private function _convert($content): string
     {
         $prefix = RandomizationHelper::Character(1);
@@ -95,6 +119,12 @@ class Javascript
         return $content;
     }
 
+    /**
+     * Minifies the JavaScript content.
+     *
+     * @param string $content The JavaScript content to minify.
+     * @return string The minified JavaScript content.
+     */
     public function Run(string $content): string
     {
 
