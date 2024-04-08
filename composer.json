@@ -17,6 +17,9 @@
         "phpmailer/phpmailer": "^6.7.1"
     },
     "autoload": {
+        "files": [
+            "src/Colibri/Utils/functions.php"
+        ],
         "psr-4": {
             "Colibri\\": "src/Colibri/"
         }
