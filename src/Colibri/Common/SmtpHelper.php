@@ -71,7 +71,14 @@ class SmtpHelper
         $mailer->Body = $body;
         $mailer->addAddress($address);
         foreach($attachments as $attachment) {
-            $mailer->addAttachment($attachment['path'], $attachment['name'], $attachment['encoding'] ?? PHPMailer::ENCODING_BASE64, $attachment['type'] ?? '', $attachment['disposition'] ?? 'attachment');
+            $attachment = (array)$attachment;
+            $mailer->addAttachment(
+                $attachment['path'],
+                $attachment['name'],
+                $attachment['encoding'] ?? PHPMailer::ENCODING_BASE64,
+                $attachment['type'] ?? '',
+                $attachment['disposition'] ?? 'attachment'
+            );
         }
         try {
             if (!$mailer->Send()) {
