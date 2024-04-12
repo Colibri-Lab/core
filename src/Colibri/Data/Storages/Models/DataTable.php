@@ -505,7 +505,7 @@ class DataTable extends BaseDataTable
     {
         $xml = XmlNode::Load($file, true);
         $rows = $xml->Query('//row');
-        $this->Load('select * from ' . $this->_storage->name . ' where false');
+        $this->Load('select * from ' . $this->_storage->table . ' where false');
         $hasErrors = false;
         foreach ($rows as $row) {
             if ($firstrow-- > 1) {
