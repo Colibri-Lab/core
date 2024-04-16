@@ -259,6 +259,7 @@ class Manager
             throw new Exception('Job does not exists, please use Add method');
         }
 
+        $job->SetHeaders();
         $jobArray = $job->ToArray();
         if($startDate) {
             $jobArray['datestart'] = $startDate;

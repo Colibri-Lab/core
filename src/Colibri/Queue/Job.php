@@ -76,7 +76,7 @@ abstract class Job extends ExtendedObject implements IJob
      */
     public function SetHeaders(): void
     {
-        $this->_headers = [];
+        $this->headers = [];
     }
 
     /**
@@ -210,7 +210,7 @@ abstract class Job extends ExtendedObject implements IJob
             'parallel' => $this->parallel,
             'class' => static::class,
             'payload_class' => get_class($this->payload),
-            'payload' => json_encode(['data' => $this->payload, 'headers' => $this->_headers]),
+            'payload' => json_encode(['data' => $this->payload, 'headers' => $this->headers]),
             'id' => $this->id ?: null
         ];
     }
