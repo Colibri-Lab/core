@@ -224,6 +224,8 @@ class Manager
             $startDate = (string)(new DateTimeField('now'));
         }
 
+        $job->SetHeaders();
+
         $jobArray = $job->ToArray();
         $jobArray['datestart'] = $startDate;
 
@@ -410,7 +412,13 @@ class Manager
 
         $class = $data->class;
         $payloadClass = $data->payload_class ?? 'ExtendedObject';
-        $data->payload = new $payloadClass(json_decode($data->payload));
+        $payloadContent = (array)json_decode($data->payload);
+        $payloadData = $payloadContent['data'];
+        $headers = (array)$payloadContent['headers'];
+        if(!empty($headers)) {
+            App::$request->ModifyHeaders($headers);
+        }
+        $data->payload = new $payloadClass($payloadData);
         return new $class($data);
 
     }
@@ -439,7 +447,13 @@ class Manager
         }
         $class = $data->class;
         $payloadClass = $data->payload_class ?? 'ExtendedObject';
-        $data->payload = new $payloadClass(json_decode($data->payload));
+        $payloadContent = (array)json_decode($data->payload);
+        $payloadData = $payloadContent['data'];
+        $headers = (array)$payloadContent['headers'];
+        if(!empty($headers)) {
+            App::$request->ModifyHeaders($headers);
+        }
+        $data->payload = new $payloadClass($payloadData);
         return new $class($data);
     }
 

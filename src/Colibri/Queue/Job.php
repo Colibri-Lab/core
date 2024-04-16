@@ -21,6 +21,7 @@ use Colibri\Utils\Logs\Logger;
  * Represents a job to be executed.
  *
  * @property ExtendedObject $payload The payload object associated with the job.
+ * @property array $headers The headers payload associated with the job.
  * @property string $payload_class The class name of the payload associated with the job.
  * @property string $class The class name of the job.
  * @property int $attempts The number of attempts made to execute the job.
@@ -68,6 +69,15 @@ abstract class Job extends ExtendedObject implements IJob
      * @return bool True if the job is handled successfully, false otherwise.
      */
     public abstract function Handle(Logger $logger): bool;
+
+    /**
+     * Add headers to job manager
+     * @overloads
+     */
+    public function SetHeaders(): void
+    {
+        $this->_headers = [];
+    }
 
     /**
      * Checks if the current attempt is the last attempt.
@@ -200,7 +210,7 @@ abstract class Job extends ExtendedObject implements IJob
             'parallel' => $this->parallel,
             'class' => static::class,
             'payload_class' => get_class($this->payload),
-            'payload' => json_encode($this->payload),
+            'payload' => json_encode(['data' => $this->payload, 'headers' => $this->_headers]),
             'id' => $this->id ?: null
         ];
     }

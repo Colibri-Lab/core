@@ -31,6 +31,12 @@ use Colibri\Utils\Logs\Logger;
 interface IJob
 {
     /**
+     * Add headers to job manager
+     * @param array $headers
+     */
+    public function SetHeaders(): void;
+    
+    /**
      * Handles the job.
      *
      * @param Logger $logger The logger instance to use for logging.

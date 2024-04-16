@@ -267,4 +267,11 @@ class Request
 
     }
 
+    public function ModifyHeaders(array $headers = [])
+    {
+        foreach($headers as $headerName => $headerValue) {
+            $_SERVER['HTTP_' . $headerName] = $headerValue;
+        }
+    }
+
 }
