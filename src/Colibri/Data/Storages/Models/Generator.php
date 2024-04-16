@@ -284,7 +284,7 @@ class Generator
         }
 
         $properties[] = ' * @property' . ($field->readonly ? '-read' : '') . ' ' .
-            $class . ($generic ? '|' . $generic : '') . (!$field->required ? '|null' : '') .
+            $class . ($generic && $generic != $class ? '|' . $generic : '') . (!$field->required ? '|null' : '') .
             ' $' . $field->{'name'} . ' ' . $desc;
         if ($field->values) {
             foreach ($field->values as $value => $title) {
