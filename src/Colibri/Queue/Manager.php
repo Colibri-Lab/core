@@ -459,6 +459,46 @@ class Manager
     }
 
     /**
+     * Checks the job exists and is running
+     *
+     * @param string $class The job class
+     * @param ?string $payloadClass The job payload class
+     * @param array|object|null $payloadFilter object of payload to check
+     * @return boolean true if the job exists and running, false if job exists 
+     *                 and not running, and null if job does not exists
+     */
+    public function JobIsRunning(string $class, ?string $payloadClass, object|array|null $payloadFilter = null): ?bool
+    {
+        $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+
+        $pfilter = [];
+        if($payloadFilter) {
+            foreach($payloadFilter as $key => $value) {
+                $pfilter[] = 'JSON_EXTRACT(payload, \'$.data.'.$key.'\')=' . 
+                    (is_numeric($value) ? $value : '\'' . $value . '\'');
+            }
+        }
+
+        $reader = $accessPoint->Query(
+            'select
+                *
+            from
+                '.$this->_storages['list'].'
+            where
+                class=\''.str_replace('\\', '\\\\', $class).'\''.
+                ($payloadClass ? ' and payload_class=\''.str_replace('\\', '\\\\', $payloadClass).'\'' : '').
+                (!empty($pfilter) ? ' and ' . implode(' and ', $pfilter) : '').'
+        '
+        );
+        $data = $reader->Read();
+        if(!$data) {
+            return null;
+        }
+        
+        return $data->reservation_key !== null;
+    }
+
+    /**
      * Processes jobs from the specified queue indefinitely.
      *
      * @param string $queue The queue to process jobs from.
