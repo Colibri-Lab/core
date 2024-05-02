@@ -119,7 +119,7 @@ class Monitoring
      * @param string $name The name of the timer
      * @return void
      */
-    public function EndTimer($name)
+    public function EndTimer($name, ?\Closure $if = null)
     {
         $timer = $this->_timers[$name];
         $timer->end = \microtime(true);
@@ -127,7 +127,7 @@ class Monitoring
         $timer->interval = (int) (($timer->end - $timer->start) * 1000);
         $this->_timers[$name] = $timer;
 
-        if ($this->_logging == self::EveryTimer) {
+        if ($this->_logging == self::EveryTimer && (!$if || $if($timer))) {
             $this->Log($this->_loglevel, $name);
         }
     }

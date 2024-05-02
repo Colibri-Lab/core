@@ -99,7 +99,7 @@ class DataTable extends BaseDataTable
         return new $className($this, $result, $this->_storage);
     }
 
-    private static function _replaceFields(string $value, Storage $storage): string
+    protected static function _replaceFields(string $value, Storage $storage): string
     {
         $res = preg_match_all('/\{([^\}]+)\}/', $value, $matches, \PREG_SET_ORDER);
         if ($res > 0) {
