@@ -477,6 +477,25 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
+     * Unplucks a selected fields from table and returns array containing unplucked rows
+     *
+     * @param array $fields fields to unpluck from row
+     * @return array An array representation of the collection.
+     */
+    public function Unpluck(array $fields): array
+    {
+        $ret = [];
+        foreach ($this as $row) {
+            $plucked = [];
+            foreach($fields as $field) {
+                $plucked[$field] = $row->$field;
+            }
+            $ret[] = $plucked;
+        }
+        return $ret;
+    }
+
+    /**
      * Saves all DataRow objects in the data table to the data source.
      *
      * @return void

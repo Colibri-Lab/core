@@ -90,7 +90,7 @@ abstract class Worker
 
         $cache = App::$config->Query('cache')->GetValue();
         $this->_log = new FileLogger(
-            App::$isDev ? Logger::Debug : Logger::Error,
+            App::$isDev || App::$isLocal ? Logger::Debug : Logger::Error,
             App::$webRoot . $cache . 'log/worker_log_' . $this->_key . '.log'
         ); // лог файл не режется на куски
     }
