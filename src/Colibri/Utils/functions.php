@@ -50,3 +50,15 @@ if (!function_exists('dddx')) {
     }
 
 }
+
+if (!function_exists('ddrx')) {
+
+    /**
+     * Prints collapsable debug information without exiting
+     */
+    function ddrx(...$args)
+    {
+        return Debug::ROut($args);
+    }
+
+}
