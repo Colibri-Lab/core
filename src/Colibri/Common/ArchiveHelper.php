@@ -45,12 +45,24 @@ class ArchiveHelper
         }
         File::Create($runtime);
         File::Write($runtime, $binary);
-        $zip = new \ZipArchive();
-        $zip->open($runtime);
-        $return = $zip->getFromIndex(0);
-        $zip->close();
+
+        if(self::IsArchive($runtime)) {
+            $zip = new \ZipArchive();
+            $zip->open($runtime);
+            $return = $zip->getFromIndex(0);
+            $zip->close();    
+        }
+
         File::Delete($runtime);
         return $return;
+    }
+
+    public static function IsArchive(string $filename): bool
+    {
+        $fh = fopen($filename,'r');
+        $bytes = fread($fh,4);
+        fclose($fh);
+        return ('504b0304' === bin2hex($bytes));
     }
 
 }
