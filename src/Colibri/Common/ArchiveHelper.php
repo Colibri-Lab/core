@@ -22,6 +22,12 @@ use Colibri\Data\Storages\Fields\DateTimeField;
  */
 class ArchiveHelper
 {
+    /**
+     * Create archive from binary data and file name
+     * @property string $binary data to archive
+     * @property string $file file name
+     * @return string
+     */
     public static function Create(string $binary, string $file): string
     {
         $runtime = App::$appRoot . App::$config->Query('runtime')->GetValue() . '/temp.zip';
@@ -37,6 +43,11 @@ class ArchiveHelper
         return $return;
     }
 
+    /**
+     * Extract and archive from binary data
+     * @property string $binary archive data
+     * @return string
+     */
     public static function Extract(string $binary): string
     {
         $runtime = App::$appRoot . App::$config->Query('runtime')->GetValue() . '/temp.zip';
@@ -57,6 +68,11 @@ class ArchiveHelper
         return $return;
     }
 
+    /**
+     * Check if the file is zip archive
+     * @property string $filename file name to check
+     * @return bool
+     */
     public static function IsArchive(string $filename): bool
     {
         $fh = fopen($filename, 'r');
