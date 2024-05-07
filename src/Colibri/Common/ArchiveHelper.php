@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
+
 namespace Colibri\Common;
 
 use Colibri\App;
@@ -21,7 +22,6 @@ use Colibri\Data\Storages\Fields\DateTimeField;
  */
 class ArchiveHelper
 {
-
     public static function Create(string $binary, string $file): string
     {
         $runtime = App::$appRoot . App::$config->Query('runtime')->GetValue() . '/temp.zip';
@@ -36,7 +36,7 @@ class ArchiveHelper
         File::Delete($runtime);
         return $return;
     }
-    
+
     public static function Extract(string $binary): string
     {
         $runtime = App::$appRoot . App::$config->Query('runtime')->GetValue() . '/temp.zip';
@@ -50,7 +50,7 @@ class ArchiveHelper
             $zip = new \ZipArchive();
             $zip->open($runtime);
             $return = $zip->getFromIndex(0);
-            $zip->close();    
+            $zip->close();
         }
 
         File::Delete($runtime);
@@ -59,10 +59,10 @@ class ArchiveHelper
 
     public static function IsArchive(string $filename): bool
     {
-        $fh = fopen($filename,'r');
-        $bytes = fread($fh,4);
+        $fh = fopen($filename, 'r');
+        $bytes = fread($fh, 4);
         fclose($fh);
-        return ('504b0304' === bin2hex($bytes));
+        return '504b0304' === bin2hex($bytes);
     }
 
 }
