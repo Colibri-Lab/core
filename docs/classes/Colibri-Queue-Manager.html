@@ -386,6 +386,13 @@
 <dd>Adds an event handler.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Colibri-Queue-Manager.html#method_JobIsRunning">JobIsRunning()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Checks the job exists and is running</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Queue-Manager.html#method_Migrate">Migrate()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -742,7 +749,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Manager.php"><a href="files/src-colibri-queue-manager.html"><abbr title="src/Colibri/Queue/Manager.php">Manager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">495</span>
+    <span class="phpdocumentor-element-found-in__line">550</span>
 
     </aside>
 
@@ -782,7 +789,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Manager.php"><a href="files/src-colibri-queue-manager.html"><abbr title="src/Colibri/Queue/Manager.php">Manager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">281</span>
+    <span class="phpdocumentor-element-found-in__line">284</span>
 
     </aside>
 
@@ -921,7 +928,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Manager.php"><a href="files/src-colibri-queue-manager.html"><abbr title="src/Colibri/Queue/Manager.php">Manager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">305</span>
+    <span class="phpdocumentor-element-found-in__line">308</span>
 
     </aside>
 
@@ -999,7 +1006,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Manager.php"><a href="files/src-colibri-queue-manager.html"><abbr title="src/Colibri/Queue/Manager.php">Manager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">424</span>
+    <span class="phpdocumentor-element-found-in__line">433</span>
 
     </aside>
 
@@ -1051,7 +1058,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Manager.php"><a href="files/src-colibri-queue-manager.html"><abbr title="src/Colibri/Queue/Manager.php">Manager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">381</span>
+    <span class="phpdocumentor-element-found-in__line">384</span>
 
     </aside>
 
@@ -1152,6 +1159,77 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_JobIsRunning">
+        JobIsRunning()
+        <a href="classes/Colibri-Queue-Manager.html#method_JobIsRunning" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Manager.php"><a href="files/src-colibri-queue-manager.html"><abbr title="src/Colibri/Queue/Manager.php">Manager.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">470</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Checks the job exists and is running</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">JobIsRunning</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$class</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$payloadClass</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$payloadFilter</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$class</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The job class</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$payloadClass</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The job payload class</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$payloadFilter</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;|object|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>object of payload to check</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>true if the job exists and running, false if job exists
+and not running, and null if job does not exists</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_Migrate">
         Migrate()
         <a href="classes/Colibri-Queue-Manager.html#method_Migrate" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1229,7 +1307,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Manager.php"><a href="files/src-colibri-queue-manager.html"><abbr title="src/Colibri/Queue/Manager.php">Manager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">453</span>
+    <span class="phpdocumentor-element-found-in__line">508</span>
 
     </aside>
 
@@ -1354,7 +1432,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Manager.php"><a href="files/src-colibri-queue-manager.html"><abbr title="src/Colibri/Queue/Manager.php">Manager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">347</span>
+    <span class="phpdocumentor-element-found-in__line">350</span>
 
     </aside>
 
@@ -1432,7 +1510,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Queue/Manager.php"><a href="files/src-colibri-queue-manager.html"><abbr title="src/Colibri/Queue/Manager.php">Manager.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">251</span>
+    <span class="phpdocumentor-element-found-in__line">253</span>
 
     </aside>
 
@@ -1629,6 +1707,7 @@
                                             <li><a href="classes/Colibri-Queue-Manager.html#method_GetJobById">GetJobById()</a></li>
                                             <li><a href="classes/Colibri-Queue-Manager.html#method_GetNextJob">GetNextJob()</a></li>
                                             <li><a href="classes/Colibri-Events-TEventDispatcher.html#method_HandleEvent">HandleEvent()</a></li>
+                                            <li><a href="classes/Colibri-Queue-Manager.html#method_JobIsRunning">JobIsRunning()</a></li>
                                             <li><a href="classes/Colibri-Queue-Manager.html#method_Migrate">Migrate()</a></li>
                                             <li><a href="classes/Colibri-Queue-Manager.html#method_ProcessJobs">ProcessJobs()</a></li>
                                             <li><a href="classes/Colibri-Events-TEventDispatcher.html#method_RemoveHandler">RemoveHandler()</a></li>

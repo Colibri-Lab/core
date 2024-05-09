@@ -576,6 +576,13 @@
 </dt>
 <dd>Converts the data table to an array.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Colibri-Data-Models-DataTable.html#method_Unpluck">Unpluck()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+</dt>
+<dd>Unplucks a selected fields from table and returns array containing unplucked rows</dd>
+
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__createDataRowObject">_createDataRowObject()</a>
     <span>
@@ -610,6 +617,12 @@
 <dd>Reads data from a data source up to a specified index.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -protected">
+    <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__replaceFields">_replaceFields()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -protected">
     <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_DeleteByFilter">DeleteByFilter()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -633,12 +646,6 @@
                                 &nbsp;: object    </span>
 </dt>
 <dd>Retrieves the encoding information for a specified table.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -private">
-    <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__replaceFields">_replaceFields()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
 
     </dl>
 
@@ -1075,7 +1082,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">508</span>
+    <span class="phpdocumentor-element-found-in__line">527</span>
 
     </aside>
 
@@ -1252,7 +1259,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">496</span>
+    <span class="phpdocumentor-element-found-in__line">515</span>
 
     </aside>
 
@@ -1916,7 +1923,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">544</span>
+    <span class="phpdocumentor-element-found-in__line">563</span>
 
     </aside>
 
@@ -1968,7 +1975,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">564</span>
+    <span class="phpdocumentor-element-found-in__line">583</span>
 
     </aside>
 
@@ -2020,7 +2027,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">530</span>
+    <span class="phpdocumentor-element-found-in__line">549</span>
 
     </aside>
 
@@ -2073,7 +2080,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">554</span>
+    <span class="phpdocumentor-element-found-in__line">573</span>
 
     </aside>
 
@@ -2157,7 +2164,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">484</span>
+    <span class="phpdocumentor-element-found-in__line">503</span>
 
     </aside>
 
@@ -2421,6 +2428,58 @@
                  = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>(optional) Whether to exclude the prefix from keys. Default is false.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>An array representation of the collection.</p>
+</section>
+
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_Unpluck">
+        Unpluck()
+        <a href="classes/Colibri-Data-Models-DataTable.html#method_Unpluck" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Models/DataTable.php"><a href="files/src-colibri-data-models-datatable.html"><abbr title="src/Colibri/Data/Models/DataTable.php">DataTable.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">485</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Unplucks a selected fields from table and returns array containing unplucked rows</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">Unpluck</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$fields</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$fields</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>fields to unpluck from row</p>
 </section>
 
             </dd>
@@ -2738,6 +2797,58 @@
             -protected
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method__replaceFields">
+        _replaceFields()
+        <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__replaceFields" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Models/DataTable.php"><a href="files/src-colibri-data-storages-models-datatable.html"><abbr title="src/Colibri/Data/Storages/Models/DataTable.php">DataTable.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">102</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">protected</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">_replaceFields</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Storage.html"><abbr title="\Colibri\Data\Storages\Storage">Storage</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$storage</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$storage</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Storage.html"><abbr title="\Colibri\Data\Storages\Storage">Storage</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            </section>
+
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -protected
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_DeleteByFilter">
         DeleteByFilter()
         <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_DeleteByFilter" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2947,58 +3058,6 @@
             </section>
 
 </article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -private
-                                    -static                    "
->
-    <h4 class="phpdocumentor-element__name" id="method__replaceFields">
-        _replaceFields()
-        <a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__replaceFields" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/Data/Storages/Models/DataTable.php"><a href="files/src-colibri-data-storages-models-datatable.html"><abbr title="src/Colibri/Data/Storages/Models/DataTable.php">DataTable.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">102</span>
-
-    </aside>
-
-    
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">_replaceFields</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Storage.html"><abbr title="\Colibri\Data\Storages\Storage">Storage</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$storage</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$storage</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Data-Storages-Storage.html"><abbr title="\Colibri\Data\Storages\Storage">Storage</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                
-            </dd>
-            </dl>
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">string</span>
-            </section>
-
-</article>
             </section>
 
         <div class="phpdocumentor-modal" id="source-view">
@@ -3157,16 +3216,17 @@
                                             <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_SetFullSelect">SetFullSelect()</a></li>
                                             <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_Storage">Storage()</a></li>
                                             <li><a href="classes/Colibri-Data-Models-DataTable.html#method_ToArray">ToArray()</a></li>
+                                            <li><a href="classes/Colibri-Data-Models-DataTable.html#method_Unpluck">Unpluck()</a></li>
                                             <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__createDataRowObject">_createDataRowObject()</a></li>
                                             <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__loadByFilter">_loadByFilter()</a></li>
                                             <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__loadFromFileXML">_loadFromFileXML()</a></li>
                                             <li><a href="classes/Colibri-Data-Models-DataTable.html#method__read">_read()</a></li>
                                             <li><a href="classes/Colibri-Data-Models-DataTable.html#method__readTo">_readTo()</a></li>
+                                            <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__replaceFields">_replaceFields()</a></li>
                                             <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_DeleteByFilter">DeleteByFilter()</a></li>
                                             <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_RestoreByFilter">RestoreByFilter()</a></li>
                                             <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method_UpdateByFilter">UpdateByFilter()</a></li>
                                             <li><a href="classes/Colibri-Data-Models-DataTable.html#method__getTableEncoding">_getTableEncoding()</a></li>
-                                            <li><a href="classes/Colibri-Data-Storages-Models-DataTable.html#method__replaceFields">_replaceFields()</a></li>
                                     </ul>
             </li>
                     </ul>

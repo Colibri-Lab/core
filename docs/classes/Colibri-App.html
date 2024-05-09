@@ -248,11 +248,11 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">37</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Класс приложения</p>
+            <p class="phpdocumentor-summary">Main application class.</p>
 
 
 
@@ -282,28 +282,24 @@
     <span>
         &nbsp;= &#039;dev&#039;                            </span>
 </dt>
-<dd>Режим приложения в разработке</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-App.html#constant_ModeLocal">ModeLocal</a>
     <span>
         &nbsp;= &#039;local&#039;                            </span>
 </dt>
-<dd>Режим приложения на локальном компьютере</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-App.html#constant_ModeRelease">ModeRelease</a>
     <span>
         &nbsp;= &#039;prod&#039;                            </span>
 </dt>
-<dd>Режим приложения в релизе</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -constant -public">
     <a href="classes/Colibri-App.html#constant_ModeTest">ModeTest</a>
     <span>
         &nbsp;= &#039;test&#039;                            </span>
 </dt>
-<dd>Режим приложения в тестировании</dd>
 
     </dl>
 
@@ -319,105 +315,90 @@
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Корень приложения</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_config">$config</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Utils-Config-Config.html"><abbr title="\Colibri\Utils\Config\Config">Config</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Utils-Config-Config.html"><abbr title="\Colibri\Utils\Config\Config">Config</abbr></a>|null            </span>
 </dt>
-<dd>Конфигурационный файл приложения</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_dataAccessPoints">$dataAccessPoints</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Data-DataAccessPoints.html"><abbr title="\Colibri\Data\DataAccessPoints">DataAccessPoints</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Data-DataAccessPoints.html"><abbr title="\Colibri\Data\DataAccessPoints">DataAccessPoints</abbr></a>|null            </span>
 </dt>
-<dd>Доступ к данным DAL</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_domainKey">$domainKey</a>
     <span>
                         &nbsp;: string|null            </span>
 </dt>
-<dd>Ключ домена</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_eventDispatcher">$eventDispatcher</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Events-EventDispatcher.html"><abbr title="\Colibri\Events\EventDispatcher">EventDispatcher</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Events-EventDispatcher.html"><abbr title="\Colibri\Events\EventDispatcher">EventDispatcher</abbr></a>|null            </span>
 </dt>
-<dd>Диспатчер событий</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_instance">$instance</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-App.html"><abbr title="\Colibri\App">App</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-App.html"><abbr title="\Colibri\App">App</abbr></a>|null            </span>
 </dt>
-<dd>Синглтон</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_isDev">$isDev</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
-<dd>Режим разработки</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_isLocal">$isLocal</a>
     <span>
                         &nbsp;: bool            </span>
 </dt>
-<dd>Локальный режим</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_log">$log</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a>|null            </span>
 </dt>
-<dd>Лог девайс</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_mode">$mode</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Режим</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_moduleManager">$moduleManager</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Modules-ModuleManager.html"><abbr title="\Colibri\Modules\ModuleManager">ModuleManager</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Modules-ModuleManager.html"><abbr title="\Colibri\Modules\ModuleManager">ModuleManager</abbr></a>|null            </span>
 </dt>
-<dd>Менеджер модулей</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_monitoring">$monitoring</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Utils-Performance-Monitoring.html"><abbr title="\Colibri\Utils\Performance\Monitoring">Monitoring</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Utils-Performance-Monitoring.html"><abbr title="\Colibri\Utils\Performance\Monitoring">Monitoring</abbr></a>|null            </span>
 </dt>
-<dd>Мониторинг</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_request">$request</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Web-Request.html"><abbr title="\Colibri\Web\Request">Request</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Web-Request.html"><abbr title="\Colibri\Web\Request">Request</abbr></a>|null            </span>
 </dt>
-<dd>Обьект запроса</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_response">$response</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>|null            </span>
 </dt>
-<dd>Обьект ответа</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_router">$router</a>
     <span>
                         &nbsp;: <a href="classes/Colibri-Web-Router.html"><abbr title="\Colibri\Web\Router">Router</abbr></a>|null            </span>
 </dt>
-<dd>Раутер</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_systemTimezone">$systemTimezone</a>
@@ -428,23 +409,20 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_threadingManager">$threadingManager</a>
     <span>
-                        &nbsp;: <a href="classes/Colibri-Threading-Manager.html"><abbr title="\Colibri\Threading\Manager">Manager</abbr></a>            </span>
+                        &nbsp;: <a href="classes/Colibri-Threading-Manager.html"><abbr title="\Colibri\Threading\Manager">Manager</abbr></a>|null            </span>
 </dt>
-<dd>Менеджер процессов</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_vendorRoot">$vendorRoot</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Путь к папке vendor</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -public">
     <a href="classes/Colibri-App.html#property_webRoot">$webRoot</a>
     <span>
                         &nbsp;: string            </span>
 </dt>
-<dd>Корень Public части сайта</dd>
 
     </dl>
 
@@ -459,13 +437,14 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
+<dd>Backs up necessary files.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-App.html#method_Create">Create()</a>
     <span>
                                 &nbsp;: self    </span>
 </dt>
-<dd>Статический конструктор</dd>
+<dd>Static constructor.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_DispatchEvent">DispatchEvent()</a>
@@ -479,7 +458,7 @@
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Возвращает список прав для приложения</dd>
+<dd>Returns a list of permissions for the application.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_HandleEvent">HandleEvent()</a>
@@ -493,7 +472,7 @@
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd>Инициализация приложения</dd>
+<dd>Initializes the application.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Colibri-Events-TEventDispatcher.html#method_RemoveHandler">RemoveHandler()</a>
@@ -507,7 +486,7 @@
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Закрываем конструктор</dd>
+<dd>Prevents instantiation of the class.</dd>
 
     </dl>
 
@@ -531,22 +510,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Режим приложения в разработке</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">ModeDevelopment</span>
     = <span class="phpdocumentor-signature__default-value">&#039;dev&#039;</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Application mode for development</p>
+</section>
+
     
 
 </article>
@@ -560,22 +540,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Режим приложения на локальном компьютере</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">ModeLocal</span>
     = <span class="phpdocumentor-signature__default-value">&#039;local&#039;</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Application mode for local machine</p>
+</section>
+
     
 
 </article>
@@ -589,22 +570,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">49</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Режим приложения в релизе</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">ModeRelease</span>
     = <span class="phpdocumentor-signature__default-value">&#039;prod&#039;</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Application mode for production</p>
+</section>
+
     
 
 </article>
@@ -618,22 +600,23 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">48</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Режим приложения в тестировании</p>
-
+    
     <code class="phpdocumentor-signature phpdocumentor-code ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">ModeTest</span>
     = <span class="phpdocumentor-signature__default-value">&#039;test&#039;</span>
 </code>
 
 
     
-    
+        <section class="phpdocumentor-description"><p>Application mode for testing</p>
+</section>
+
     
 
 </article>
@@ -663,12 +646,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">78</span>
+    <span class="phpdocumentor-element-found-in__line">61</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Корень приложения</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
@@ -676,7 +658,9 @@
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Application root directory</p>
+</section>
+
     
 
 </article>
@@ -697,20 +681,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">116</span>
+    <span class="phpdocumentor-element-found-in__line">79</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Конфигурационный файл приложения</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Utils-Config-Config.html"><abbr title="\Colibri\Utils\Config\Config">Config</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Utils-Config-Config.html"><abbr title="\Colibri\Utils\Config\Config">Config</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$config</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Application configuration file</p>
+</section>
+
     
 
 </article>
@@ -731,20 +716,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">137</span>
+    <span class="phpdocumentor-element-found-in__line">88</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Доступ к данным DAL</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Data-DataAccessPoints.html"><abbr title="\Colibri\Data\DataAccessPoints">DataAccessPoints</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Data-DataAccessPoints.html"><abbr title="\Colibri\Data\DataAccessPoints">DataAccessPoints</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$dataAccessPoints</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Data access points</p>
+</section>
+
     
 
 </article>
@@ -765,12 +751,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">160</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Ключ домена</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string|null</span>
@@ -778,7 +763,9 @@
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Domain key</p>
+</section>
+
     
 
 </article>
@@ -799,20 +786,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Диспатчер событий</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Events-EventDispatcher.html"><abbr title="\Colibri\Events\EventDispatcher">EventDispatcher</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Events-EventDispatcher.html"><abbr title="\Colibri\Events\EventDispatcher">EventDispatcher</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$eventDispatcher</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Event dispatcher</p>
+</section>
+
     
 
 </article>
@@ -833,20 +821,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+    <span class="phpdocumentor-element-found-in__line">52</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Синглтон</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-App.html"><abbr title="\Colibri\App">App</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-App.html"><abbr title="\Colibri\App">App</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$instance</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Singleton instance</p>
+</section>
+
     
 
 </article>
@@ -867,12 +856,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">103</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Режим разработки</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">bool</span>
@@ -880,7 +868,9 @@
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Indicates whether the application is in development mode</p>
+</section>
+
     
 
 </article>
@@ -901,12 +891,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">109</span>
+    <span class="phpdocumentor-element-found-in__line">76</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Локальный режим</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">bool</span>
@@ -914,7 +903,9 @@
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Indicates whether the application is running locally</p>
+</section>
+
     
 
 </article>
@@ -935,20 +926,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">143</span>
+    <span class="phpdocumentor-element-found-in__line">91</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Лог девайс</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$log</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Logger device</p>
+</section>
+
     
 
 </article>
@@ -969,12 +961,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">70</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Режим</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
@@ -982,7 +973,9 @@
      = <span class="phpdocumentor-signature__default-value">&#039;local&#039;</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Application mode</p>
+</section>
+
     
 
 </article>
@@ -1003,20 +996,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">130</span>
+    <span class="phpdocumentor-element-found-in__line">85</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Менеджер модулей</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Modules-ModuleManager.html"><abbr title="\Colibri\Modules\ModuleManager">ModuleManager</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Modules-ModuleManager.html"><abbr title="\Colibri\Modules\ModuleManager">ModuleManager</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$moduleManager</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Module manager</p>
+</section>
+
     
 
 </article>
@@ -1037,20 +1031,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">97</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Мониторинг</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Utils-Performance-Monitoring.html"><abbr title="\Colibri\Utils\Performance\Monitoring">Monitoring</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Utils-Performance-Monitoring.html"><abbr title="\Colibri\Utils\Performance\Monitoring">Monitoring</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$monitoring</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Monitoring</p>
+</section>
+
     
 
 </article>
@@ -1071,20 +1066,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Обьект запроса</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Web-Request.html"><abbr title="\Colibri\Web\Request">Request</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Web-Request.html"><abbr title="\Colibri\Web\Request">Request</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$request</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Request object</p>
+</section>
+
     
 
 </article>
@@ -1105,20 +1101,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">58</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Обьект ответа</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Web-Response.html"><abbr title="\Colibri\Web\Response">Response</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$response</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Response object</p>
+</section>
+
     
 
 </article>
@@ -1139,12 +1136,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
+    <span class="phpdocumentor-element-found-in__line">103</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Раутер</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Web-Router.html"><abbr title="\Colibri\Web\Router">Router</abbr></a>|null</span>
@@ -1152,7 +1148,9 @@
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Router</p>
+</section>
+
     
 
 </article>
@@ -1173,7 +1171,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">167</span>
+    <span class="phpdocumentor-element-found-in__line">106</span>
 
     </aside>
 
@@ -1185,7 +1183,9 @@
      = <span class="phpdocumentor-signature__default-value">&#039;UTC&#039;</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>System timezone</p>
+</section>
+
     
 
 </article>
@@ -1206,20 +1206,21 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">149</span>
+    <span class="phpdocumentor-element-found-in__line">94</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Менеджер процессов</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Threading-Manager.html"><abbr title="\Colibri\Threading\Manager">Manager</abbr></a></span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type"><a href="classes/Colibri-Threading-Manager.html"><abbr title="\Colibri\Threading\Manager">Manager</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$threadingManager</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Process manager</p>
+</section>
+
     
 
 </article>
@@ -1240,12 +1241,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">91</span>
+    <span class="phpdocumentor-element-found-in__line">67</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Путь к папке vendor</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
@@ -1253,7 +1253,9 @@
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Path to vendor folder</p>
+</section>
+
     
 
 </article>
@@ -1274,12 +1276,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">85</span>
+    <span class="phpdocumentor-element-found-in__line">64</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Корень Public части сайта</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
     <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
@@ -1287,7 +1288,9 @@
      = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span></code>
 
     
-    
+        <section class="phpdocumentor-description"><p>Public directory root</p>
+</section>
+
     
 
 </article>
@@ -1313,11 +1316,12 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">363</span>
+    <span class="phpdocumentor-element-found-in__line">306</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Backs up necessary files.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">Backup</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$logger</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$path</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
@@ -1332,14 +1336,18 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Colibri-Utils-Logs-Logger.html"><abbr title="\Colibri\Utils\Logs\Logger">Logger</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Logger instance</p>
+</section>
+
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$path</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                
+                    <section class="phpdocumentor-description"><p>Path to backup location</p>
+</section>
+
             </dd>
             </dl>
 
@@ -1361,11 +1369,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">182</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Статический конструктор</p>
+        <p class="phpdocumentor-summary">Static constructor.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1467,11 +1475,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">352</span>
+    <span class="phpdocumentor-element-found-in__line">288</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Возвращает список прав для приложения</p>
+        <p class="phpdocumentor-summary">Returns a list of permissions for the application.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1486,6 +1494,10 @@
             <section>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>List of permissions</p>
+</section>
+
             </section>
 
 </article>
@@ -1560,11 +1572,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">198</span>
+    <span class="phpdocumentor-element-found-in__line">137</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Инициализация приложения</p>
+        <p class="phpdocumentor-summary">Initializes the application.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1649,11 +1661,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Colibri/App.php"><a href="files/src-colibri-app.html"><abbr title="src/Colibri/App.php">App.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">172</span>
+    <span class="phpdocumentor-element-found-in__line">111</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Закрываем конструктор</p>
+        <p class="phpdocumentor-summary">Prevents instantiation of the class.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
