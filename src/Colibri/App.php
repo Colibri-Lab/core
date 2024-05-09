@@ -1,16 +1,15 @@
 <?php
 
 /**
- * Основной класс приложения
+ * Main application class.
  *
- * @author Ваган Григорян <vahan.grigoryan@gmail.com>
+ * This class represents the core of the application.
+ *
+ * @author Vagan Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
  * @package App
  * @version 1.0.0
- *
- *
  */
-
 namespace Colibri;
 
 use Colibri\Web\Request;
@@ -33,141 +32,81 @@ use Colibri\Web\Router;
 use Colibri\IO\FileSystem\Directory;
 
 /**
- * Класс приложения
+ * Main application class.
  */
 final class App
 {
-    // подключаем функционал событийной модели
+    // Include event model functionality
     use TEventDispatcher;
 
-    /** Режим приложения на локальном компьютере */
+    /** @var string Application mode for local machine */
     public const ModeLocal = 'local';
-    /** Режим приложения в разработке */
+    /** @var string Application mode for development */
     public const ModeDevelopment = 'dev';
-    /** Режим приложения в тестировании */
+    /** @var string Application mode for testing */
     public const ModeTest = 'test';
-    /** Режим приложения в релизе */
+    /** @var string Application mode for production */
     public const ModeRelease = 'prod';
 
-    /**
-     * Синглтон
-     *
-     * @var App
-     */
+    /** @var App|null Singleton instance */
     public static ?App $instance = null;
 
-    /**
-     * Обьект запроса
-     *
-     * @var Request
-     */
+    /** @var Request|null Request object */
     public static ?Request $request = null;
 
-    /**
-     * Обьект ответа
-     *
-     * @var Response
-     */
+    /** @var Response|null Response object */
     public static ?Response $response = null;
 
-    /**
-     * Корень приложения
-     *
-     * @var string
-     */
+    /** @var string Application root directory */
     public static string $appRoot = '';
 
-    /**
-     * Корень Public части сайта
-     *
-     * @var string
-     */
+    /** @var string Public directory root */
     public static string $webRoot = '';
 
-    /**
-     * Путь к папке vendor
-     * @var string
-     */
+    /** @var string Path to vendor folder */
     public static string $vendorRoot = '';
 
-    /**
-     * Режим
-     * @var string
-     */
+    /** @var string Application mode */
     public static string $mode = 'local';
 
-    /**
-     * Режим разработки
-     * @var boolean
-     */
+    /** @var bool Indicates whether the application is in development mode */
     public static bool $isDev = false;
 
-    /**
-     * Локальный режим
-     * @var boolean
-     */
+    /** @var bool Indicates whether the application is running locally */
     public static bool $isLocal = false;
 
-    /**
-     * Конфигурационный файл приложения
-     *
-     * @var Config
-     */
+    /** @var Config|null Application configuration file */
     public static ?Config $config = null;
 
-    /**
-     * Диспатчер событий
-     *
-     * @var EventDispatcher
-     */
+    /** @var EventDispatcher|null Event dispatcher */
     public static ?EventDispatcher $eventDispatcher = null;
 
-    /**
-     * Менеджер модулей
-     *
-     * @var ModuleManager
-     */
+    /** @var ModuleManager|null Module manager */
     public static ?ModuleManager $moduleManager = null;
 
-    /**
-     * Доступ к данным DAL
-     *
-     * @var DataAccessPoints
-     */
+    /** @var DataAccessPoints|null Data access points */
     public static ?DataAccessPoints $dataAccessPoints = null;
 
-    /**
-     * Лог девайс
-     * @var Logger
-     */
+    /** @var Logger|null Logger device */
     public static ?Logger $log = null;
 
-    /**
-     * Менеджер процессов
-     * @var Manager
-     */
+    /** @var Manager|null Process manager */
     public static ?Manager $threadingManager = null;
 
-    /**
-     * Мониторинг
-     * @var Monitoring
-     */
+    /** @var Monitoring|null Monitoring */
     public static ?Monitoring $monitoring = null;
 
-    /**
-     * Ключ домена
-     */
+    /** @var string|null Domain key */
     public static ?string $domainKey = null;
 
-    /**
-     * Раутер
-     */
+    /** @var Router|null Router */
     public static ?Router $router = null;
 
+    /** @var string System timezone */
     public static string $systemTimezone = 'UTC';
 
     /**
-     * Закрываем конструктор
+     * Prevents instantiation of the class.
      */
     private function __construct()
     {
@@ -175,7 +114,7 @@ final class App
     }
 
     /**
-     * Статический конструктор
+     * Static constructor.
      *
      * @return self
      */
@@ -191,14 +130,14 @@ final class App
     }
 
     /**
-     * Инициализация приложения
+     * Initializes the application.
      *
      * @return void
      */
     public function Initialize(): void
     {
 
-        // Блок для обеспечения работы с php-cli
+        // PHP CLI support block
         if (isset($_SERVER['argv']) && !isset($_SERVER['REQUEST_METHOD'])) {
 
             if (File::Exists(realpath(getcwd() . '/../config/app.yaml'))) {
@@ -219,7 +158,7 @@ final class App
             }
         }
 
-        // получаем местоположение приложения
+        // Get application location
         if (!self::$appRoot) {
 
             // пробуем получить DOCUMENT_ROOT
@@ -231,17 +170,17 @@ final class App
             self::$vendorRoot = realpath(self::$appRoot) . '/vendor/';
         }
 
-        // поднимаем конфиги
+        // Load configurations
         if (!self::$config) {
             self::$config = Config::LoadFile('app.yaml');
         }
 
-        // поднимаем лог девайс
+        // Initialize logger device
         if (!self::$log) {
             self::$log = Logger::Create(self::$config->Query('logger'));
         }
 
-
+        // Set application mode
         self::$mode = self::$config->Query('mode')->GetValue();
         if (self::$mode == App::ModeDevelopment || self::$mode == App::ModeLocal) {
             self::$isDev = true;
@@ -250,7 +189,7 @@ final class App
             }
         }
 
-        // определяем домен, и ключ домена по хосту
+        // Define domain and domain key based on the host
         try {
             $host = $_SERVER['HTTP_HOST'];
             $domains = self::$config->Query('hosts.domains')->AsObject();
@@ -273,9 +212,7 @@ final class App
             // do nothing
         }
 
-        /**
-         * Создаем обьект мониторинга
-         */
+        // Create monitoring object
         $monitoringConfig = self::$config->Query('monitoring');
         if ($monitoringConfig) {
             $level = $monitoringConfig->Query('level')->GetValue();
@@ -287,20 +224,19 @@ final class App
         self::$monitoring = new Monitoring(self::$log, $level, $logging);
         self::$monitoring->StartTimer('app');
 
-        // создание всяких утилитных классов
-        // без привязки к приложению, просто создаем утилиту
+        // Create utility classes
+        // Utility creation without binding to the application, just creating utility
         Mem::Create(self::$config->Query(
             'memcache.host',
             'localhost'
         )->GetValue(), self::$config->Query('memcache.port', '11211')->GetValue());
 
-        // создание DAL
+        // Create DAL
         if (!self::$dataAccessPoints) {
             self::$dataAccessPoints = DataAccessPoints::Create();
         }
 
-
-        // в первую очеред запускаем события
+        // Start events
         if (!self::$eventDispatcher) {
             self::$eventDispatcher = EventDispatcher::Create();
         }
@@ -312,11 +248,11 @@ final class App
             self::$router->UpdateRequest();
         }
 
-        // запускаем запрос
+        // Start request
         if (!self::$request) {
             self::$request = Request::Create();
         }
-        // запускаем ответ
+        // Start response
         if (!self::$response) {
             self::$response = Response::Create();
         }
@@ -345,9 +281,9 @@ final class App
     }
 
     /**
-     * Возвращает список прав для приложения
+     * Returns a list of permissions for the application.
      *
-     * @return array
+     * @return array List of permissions
      */
     public function GetPermissions(): array
     {
@@ -360,6 +296,13 @@ final class App
         return $permissions;
     }
 
+    /**
+     * Backs up necessary files.
+     *
+     * @param Logger $logger Logger instance
+     * @param string $path Path to backup location
+     * @return void
+     */
     public function Backup(Logger $logger, string $path): void
     {
 
