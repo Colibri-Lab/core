@@ -784,6 +784,33 @@ class VariableHelper
     }
 
     /**
+     * Filters the given object using the provided closure.
+     *
+     * This method applies a user-defined closure function to the provided object,
+     * allowing for custom filtering or transformation of the object.
+     *
+     * @param mixed $object The object to be filtered. This can be any type of data.
+     * @param \Closure|null $closure A closure function that defines the filtering logic. 
+     *                               If null, no filtering is applied.
+     * @return mixed The filtered object. The returned type depends on the closure's logic.
+     */
+    public static function Filter(mixed $object, ?\Closure $closure): mixed
+    {
+        if(!$closure) {
+            return $object;
+        }
+
+        $newObject = [];
+        foreach($object as $key => $value) {
+            if($closure($key, $value)) {
+                $newObject[$key] = $value;
+            }
+        }
+
+        return $newObject;
+    }
+
+    /**
      * Converts a callable to its string representation.
      *
      * This function takes a callable (such as a closure or function) and returns its
