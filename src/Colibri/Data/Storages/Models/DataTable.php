@@ -251,7 +251,7 @@ class DataTable extends BaseDataTable
             if(substr($value, 0, 1) === '^') {
                 $value = self::_replaceFields($value, $storage);
             }
-            $newFields[$storage->GetRealFieldName($key)] = $value;
+            $newFields[self::_replaceFields($key, $storage)] = $value;
         }
 
         $res = $storage->accessPoint->Update(
