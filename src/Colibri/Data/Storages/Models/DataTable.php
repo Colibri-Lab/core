@@ -414,7 +414,7 @@ class DataTable extends BaseDataTable
         if (File::Exists($file)) {
             File::Delete($file);
         }
-        $langModule = App::$moduleManager->lang;
+        $langModule = App::$moduleManager->{'lang'};
 
         $stream = XmlNode::LoadNode('<table></table>', 'utf-8');
         $header = [];
