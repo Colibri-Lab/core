@@ -371,7 +371,7 @@ class DataTable extends BaseDataTable
             File::Delete($file);
         }
 
-        $langModule = App::$moduleManager->lang;
+        $langModule = App::$moduleManager->{'lang'};
 
         $stream = File::Create($file);
         $header = [];
