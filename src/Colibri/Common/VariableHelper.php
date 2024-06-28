@@ -915,4 +915,22 @@ class VariableHelper
         return $ret;
     }
 
+    /**
+     * Finds an object in array with key equals to value 
+     * @param array $array
+     * @param string $innerObjectKey
+     * @param string $innerObjectValue
+     * @return mixed 
+     */
+    public static function FindInArray(array $array, string $innerObjectKey, string $innerObjectvalue): mixed
+    {
+        foreach($array as $object) {
+            $obj = (array)$object;
+            if(isset($obj[$innerObjectKey]) && $obj[$innerObjectKey] == $innerObjectvalue) {
+                return $object;
+            }
+        }        
+        return null;
+    }
+
 }
