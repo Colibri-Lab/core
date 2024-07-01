@@ -245,7 +245,12 @@ class DataRow extends BaseDataRow
                 } elseif (!is_null($rowValue)) {
 
                     try {
-                        $c = new $class($rowValue, $this->_storage, $field, $this);
+                        $reflection = new ReflectionClass($class);
+                        if ($reflection->isSubclassOf(BaseDataRow::class)) {
+                            $c = $class::Create($rowValue);
+                        } else {
+                            $c = new $class($rowValue, $this->_storage, $field, $this);
+                        }
                         $this->_data[$property] = (string) $c;
                     } catch (\Throwable $e) {
                         $this->_data[$property] = $rowValue;
