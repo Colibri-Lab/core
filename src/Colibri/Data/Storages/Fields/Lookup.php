@@ -128,6 +128,10 @@ class Lookup
                 return null;
             }
             list($tableClass, $rowClass) = $storage->GetModelClasses();
+            $isMultiple = $this->_xfield['params']['multiple'] ?? false;
+            if ($isMultiple) {
+                $value = is_string($value) ? json_decode($value) : $value;
+            }
             $accessPoint = $storage->accessPoint;
             if (!is_array($value)) {
                 $filter = $storage->GetRealFieldName(
@@ -153,7 +157,7 @@ class Lookup
                 return null;
             }
             $table = new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
-            if ($table->Count() === 1) {
+            if ($table->Count() === 1 && !$isMultiple) {
                 $v = $table->First();
                 if (isset($data->value)) {
                     $v->value = $v->{$data->value};
