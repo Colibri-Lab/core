@@ -29,6 +29,7 @@ use Colibri\Data\Storages\Fields\Lookup;
  * @property-read bool $readonly да, если поле запрещено к редактированию
  * @property-read bool $inTemplate да, если поле должно отображаться в шаблоне
  * @property-read Field $parent
+ * @property-read array $path
  * @property-read ?string $param тип поля в запросе
  * @property string $formula формула
  * @property array $rawvalues
@@ -180,6 +181,8 @@ class Field
                 return isset($this->_xfield['default']) && $this->_xfield['default'] !== null;
             case 'parent':
                 return $this->_parent;
+            case 'path':
+                return $this->Path();
             case 'rawvalues':
                 return isset($this->_xfield['values']) ? $this->_xfield['values'] : null;
             case 'param':
@@ -217,6 +220,16 @@ class Field
     public function ToArray(): array
     {
         return $this->_xfield;
+    }
+
+    public function Path(): array {
+        $path = [];
+        $parent = $this;
+        while($parent) {
+            $path[] = $parent->{'name'};
+            $parent = $this->parent;
+        }
+        return array_reverse($path);
     }
 
     public function UpdateField(Field $field)

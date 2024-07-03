@@ -573,4 +573,14 @@ class Storage
         $this->accessPoint->Query('ALTER TABLE '.$this->table.' ENABLE KEYS');
     }
 
+    public function RecurseFields(\Closure $closure, ?object $fields = null)
+    {
+        foreach(($fields ?: $this->_fields) as $field) {
+            $closure->call($this, $field);
+            if($field->fields) {
+                $this->RecurseFields($closure, $field->fields);
+            }
+        }
+    }
+
 }
