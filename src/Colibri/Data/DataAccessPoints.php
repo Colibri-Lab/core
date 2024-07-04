@@ -218,7 +218,7 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param mixed $value
      * @return void
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new \RuntimeException();
     }
@@ -228,7 +228,7 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param string $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         if (!VariableHelper::IsString($offset)) {
             throw new \InvalidArgumentException();
@@ -241,7 +241,7 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param string $offset
      * @return void
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new \RuntimeException();
     }
@@ -252,7 +252,7 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
      * @param string $offset
      * @return DataAccessPoint
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         if (!VariableHelper::IsString($offset)) {
             throw new \InvalidArgumentException();
@@ -268,6 +268,13 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
     public function Count(): int
     {
         return count($this->pool);
+    }
+
+    public function ReopenAll()
+    {
+        foreach($this as $accessPoint) {
+            $accessPoint->Reopen();
+        } 
     }
 
 }

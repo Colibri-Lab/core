@@ -395,4 +395,10 @@ class DataAccessPoint
         $queryBuilder = new $querybuilderClassObject();
         return $this->Query($queryBuilder->CreateRollback(), ['type' => DataAccessPoint::QueryTypeNonInfo]);
     }
+
+    public function Reopen() 
+    {
+        $this->_connection->Reopen();
+    }
+
 }
