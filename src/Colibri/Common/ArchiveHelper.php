@@ -50,13 +50,14 @@ class ArchiveHelper
      */
     public static function Extract(string $binary): string
     {
-        $runtime = App::$appRoot . App::$config->Query('runtime')->GetValue() . '/temp.zip';
+        $runtime = App::$appRoot . App::$config->Query('runtime')->GetValue() . 'temp.zip';
         if (File::Exists($runtime)) {
             File::Delete($runtime);
         }
         File::Create($runtime);
         File::Write($runtime, $binary);
 
+        $return = $binary;
         if(self::IsArchive($runtime)) {
             $zip = new \ZipArchive();
             $zip->open($runtime);
