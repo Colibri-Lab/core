@@ -34,9 +34,10 @@ class ArchiveHelper
         if(File::Exists($runtime)) {
             File::Delete($runtime);
         }
+        $fileInfo = pathinfo($file)['basename'];
         $zip = new \ZipArchive();
         $zip->open($runtime, \ZipArchive::CREATE);
-        $zip->addFromString($file, $binary, \ZipArchive::FL_OVERWRITE);
+        $zip->addFromString($fileInfo, $binary, \ZipArchive::FL_OVERWRITE);
         $zip->close();
         $return = file_get_contents($runtime);
         File::Delete($runtime);
