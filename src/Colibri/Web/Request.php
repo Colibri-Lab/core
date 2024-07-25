@@ -274,4 +274,28 @@ class Request
         }
     }
 
+    public function ExtractFiles(array $fileKeys): array
+    {
+        $files = [];
+        foreach($fileKeys as $fileKey) {
+            $files[] = $this->ExtractFile($fileKey);
+        }
+        return $files;
+    }
+
+    public function ExtractFile(string $fileKey): ?RequestedFile
+    {
+        if($this->files->$fileKey) {
+            return $this->files->$fileKey;
+        }
+
+        $fileKey = str_replace('file(', '', $fileKey);
+        $fileKey = str_replace(')', '', $fileKey);
+        if($this->files->$fileKey) {
+            return $this->files->$fileKey;
+        }
+
+        return null;
+    }
+
 }
