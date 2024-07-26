@@ -475,7 +475,7 @@ class Manager
         if($payloadFilter) {
             foreach($payloadFilter as $key => $value) {
                 $pfilter[] = 'JSON_EXTRACT(payload, \'$.data.'.$key.'\')=' . 
-                    (is_numeric($value) ? $value : '\'' . $value . '\'');
+                    (is_numeric($value) ? $value : ($value === null ? 'CAST(\'null\' AS JSON)' : '\'' . $value . '\''));
             }
         }
 
