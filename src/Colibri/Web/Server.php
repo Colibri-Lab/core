@@ -355,12 +355,15 @@ class Server
                 'get' => $get,
                 'post' => $post,
                 'payload' => $payload,
-                'result' => $result
+                'result' => $result,
+                'type' => $type
             ];
             $this->DispatchEvent(EventsContainer::RpcRequestProcessed, $args);
 
-            // на случай, если не включен модуль языков
-            $args->result = NoLangHelper::ParseArray($args->result);
+            if($type !== self::Stream) {
+                // на случай, если не включен модуль языков
+                $args->result = NoLangHelper::ParseArray($args->result);
+            }
 
             App::$monitoring->EndTimer('web-request');
 
