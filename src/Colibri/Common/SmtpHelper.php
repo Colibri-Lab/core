@@ -35,7 +35,7 @@ class SmtpHelper
         string $address,
         string $subject,
         string $body,
-        array $attachments = []
+        ?array $attachments = []
     ): void {
 
         $smtpEnabled = $configArray['enabled'];
@@ -70,7 +70,7 @@ class SmtpHelper
         $mailer->isHTML();
         $mailer->Body = $body;
         $mailer->addAddress($address);
-        foreach($attachments as $attachment) {
+        foreach(($attachments ?: []) as $attachment) {
             $attachment = (array)$attachment;
             $mailer->addAttachment(
                 $attachment['path'],
