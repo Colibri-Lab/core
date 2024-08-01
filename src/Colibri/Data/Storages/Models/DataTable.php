@@ -527,6 +527,41 @@ class DataTable extends BaseDataTable
         return $hasErrors;
     }
 
+    protected static function _exportToFileJson(
+        Storage|string $storage,
+        string|File $file,
+        array $fields,
+        ?array $filter = null
+    ): bool {
+        if (is_string($storage)) {
+            $storage = Storages::Create()->Load($storage);
+        }
+
+        $fieldsConverted = [];
+        foreach($fields as $field) {
+            $fieldsConverted[] = self::_replaceFields($field, $storage);
+        }
+
+        $filters = [];
+        foreach($filter as $field => $value) {
+            $filters[] = self::_replaceFields($field, $storage) . '=\''.$value.'\'';
+        }
+
+        $result = $storage->accessPoint->Query('
+            SELECT '.implode(',', $fieldsConverted).'
+            FROM '.$storage->table.'
+            WHERE ' . implode(' and  ', $filters) . '
+            INTO OUTFILE \'' . ($file instanceof File ? $file->path : $file) .'\'
+            FIELDS TERMINATED BY \',\' OPTIONALLY ENCLOSED BY \'"\'
+            LINES TERMINATED BY \',\\n\'
+        ', ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        if($result->error) {
+            throw new DataModelException($result->error);
+        }
+
+        return true;
+    }
+
     protected static function _loadFromFileXML(
         Storage|string $storage,
         string|File $file,
