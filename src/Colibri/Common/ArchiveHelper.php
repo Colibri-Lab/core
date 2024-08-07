@@ -83,4 +83,12 @@ class ArchiveHelper
         return '504b0304' === bin2hex($bytes);
     }
 
+    public static function ExtractTo(string $path, string $directoryPath): void
+    {
+        $arch = new \ZipArchive();
+        $arch->open($path);
+        $arch->extractTo($directoryPath);
+        $arch->close();
+    }
+
 }
