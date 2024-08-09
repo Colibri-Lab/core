@@ -254,21 +254,26 @@ class Storages
                     ];
                 }
 
-                $indexesReader = $dtp->Query('SHOW INDEX FROM ' . $table_name);
-                $indices = array();
-                while ($index = $indexesReader->Read()) {
-                    if ($index->Key_name && $index->Key_name != 'PRIMARY') {
-                        // индексы возвращаются отдельно для каждого поля
-                        // Sec_in_index указывает на какой позиции стоит поле
-                        if (!isset($indices[$index->Key_name])) {
-                            if (isset($index->Seq_in_index)) {
-                                $index->Column_name = [($index->Seq_in_index - 1) => $index->Column_name];
+                try {
+
+                    $indexesReader = $dtp->Query('SHOW INDEX FROM ' . $table_name);
+                    $indices = array();
+                    while ($index = $indexesReader->Read()) {
+                        if ($index->Key_name && $index->Key_name != 'PRIMARY') {
+                            // индексы возвращаются отдельно для каждого поля
+                            // Sec_in_index указывает на какой позиции стоит поле
+                            if (!isset($indices[$index->Key_name])) {
+                                if (isset($index->Seq_in_index)) {
+                                    $index->Column_name = [($index->Seq_in_index - 1) => $index->Column_name];
+                                }
+                                $indices[$index->Key_name] = $index;
+                            } else {
+                                $indices[$index->Key_name]->Column_name[$index->Seq_in_index - 1] = $index->Column_name;
                             }
-                            $indices[$index->Key_name] = $index;
-                        } else {
-                            $indices[$index->Key_name]->Column_name[$index->Seq_in_index - 1] = $index->Column_name;
                         }
                     }
+                } catch(\Throwable $e) {
+                    $logger->error($table_name . ' does not exists');
                 }
 
                 $virutalFields = [];
