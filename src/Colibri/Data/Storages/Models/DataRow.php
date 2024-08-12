@@ -193,7 +193,11 @@ class DataRow extends BaseDataRow
             }
         } elseif ($field->{'class'} === 'int' || $field->{'class'} === 'float' || $field->{'class'} === 'double') {
             if ($mode == 'get') {
-                $value = $rowValue == "" ? "" : ($rowValue == (float) $rowValue ? (float) $rowValue : $rowValue);
+                if(!$field->{'required'} && $rowValue === null) {
+                    $value = null;
+                } else {
+                    $value = $rowValue === "" ? "" : ($rowValue == (float) $rowValue ? (float) $rowValue : $rowValue);
+                }
             } else {
                 $this->_data[$property] = $field->required ?
                     ($rowValue === "" ? 0 : $rowValue) : ($rowValue === "" ? null : $rowValue);
