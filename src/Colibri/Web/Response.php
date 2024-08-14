@@ -438,7 +438,7 @@ class Response
     public function Close(int $status, string $content = '', string $type = 'text/html', string $encoding = 'utf-8', ?array $headers = [], ?array $cookies = []): void
     {
         try {
-            header('HTTP/1.1 ' . $status . ' ' . Response::$codes[$status]);
+            header('HTTP/1.1 ' . $status . ' ' . (isset(Response::$codes[$status]) ? Response::$codes[$status] : 500));
             foreach ($headers as $header => $value) {
                 if (is_object($value)) {
                     // значит это обьект, и мы передаем еще нужно ли кодировать значение
