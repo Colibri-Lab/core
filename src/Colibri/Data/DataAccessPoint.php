@@ -168,6 +168,8 @@ class DataAccessPoint
             return $this->_connection;
         } elseif ($property == 'point') {
             return $this->_accessPointData;
+        } elseif ($property == 'symbol') {
+            return $this->_connection->symbol;
         } else {
             return $this->Query('select * from ' . $property);
         }

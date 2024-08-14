@@ -170,6 +170,8 @@ final class Connection implements IConnection
                 return $this->_connectioninfo->host;
             case 'port':
                 return $this->_connectioninfo->port;
+            case 'symbol':
+                return '"';
             default:
                 return null;
         }
