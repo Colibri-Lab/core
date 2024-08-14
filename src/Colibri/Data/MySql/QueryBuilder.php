@@ -49,7 +49,7 @@ class QueryBuilder implements IQueryBuilder
         $vals = array_values($data);
         $values = "(" . join(", ", $vals) . ")";
 
-        return "insert into " . $table . $fields . ' values' . $values;
+        return "insert into `" . $table . '`' . $fields . ' values' . $values;
     }
 
     /**
@@ -80,7 +80,7 @@ class QueryBuilder implements IQueryBuilder
         $vals = array_values($data);
         $values = "(" . join(", ", $vals) . ")";
 
-        return "replace into " . $table . $fields . ' values' . $values;
+        return "replace into `" . $table . '`' . $fields . ' values' . $values;
     }
 
     /**
@@ -119,7 +119,7 @@ class QueryBuilder implements IQueryBuilder
             }
         }
 
-        return "insert into " . $table . $fields . ' values ' . $values .
+        return "insert into `" . $table . '`' . $fields . ' values ' . $values .
             ' on duplicate key update ' . substr($updateStatement, 1);
     }
 
@@ -154,7 +154,7 @@ class QueryBuilder implements IQueryBuilder
         }
         $values = substr($values, 1);
 
-        return "insert into " . $table . $fields . ' values' . $values;
+        return "insert into `" . $table . '`' . $fields . ' values' . $values;
     }
 
     /**
@@ -181,7 +181,7 @@ class QueryBuilder implements IQueryBuilder
             }
             $q .= ',`' . $k . '`=' . $val;
         }
-        return "update " . $table . ' set ' . substr($q, 1) . ' where ' . $condition;
+        return "update `" . $table . '` set ' . substr($q, 1) . ' where ' . $condition;
     }
 
     /**
@@ -196,7 +196,7 @@ class QueryBuilder implements IQueryBuilder
         if (!empty($condition)) {
             $condition = ' where ' . $condition;
         }
-        return (empty($condition) ? 'truncate table ' : 'delete from ') . $table . $condition;
+        return (empty($condition) ? 'truncate table ' : 'delete from ') . '`' . $table . '`' . $condition;
     }
 
     /**
@@ -217,7 +217,7 @@ class QueryBuilder implements IQueryBuilder
      */
     public function CreateShowField(string $table): string
     {
-        return "show columns from " . $table;
+        return "show columns from `" . $table . '`';
     }
 
     /**
