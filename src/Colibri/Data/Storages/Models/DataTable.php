@@ -146,7 +146,7 @@ class DataTable extends BaseDataTable
             DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
         return self::LoadByQuery(
             $storage,
-            'select '. ($selectFields ? $selectFields : '*') .' from ' . $storage->table . $joinTables .
+            'select '. ($selectFields ? $selectFields : '*') .' from `' . $storage->table . '`' . $joinTables .
                 (!empty($filter) ? ' where ' . implode(' and ', $filter) : '') .
                 ($groupBy ? ' group by ' . $groupBy : '') . ($order ? ' order by ' . $order : ''),
             $additionalParams
