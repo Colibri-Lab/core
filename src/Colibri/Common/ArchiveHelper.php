@@ -11,6 +11,7 @@
 namespace Colibri\Common;
 
 use Colibri\App;
+use Colibri\IO\FileSystem\Directory;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 use DateTime;
@@ -85,10 +86,16 @@ class ArchiveHelper
 
     public static function ExtractTo(string $path, string $directoryPath): void
     {
+        
+        if(!Directory::Exists($directoryPath)) {
+            Directory::Create($directoryPath, true, '777');
+        }
+
         $arch = new \ZipArchive();
         $arch->open($path);
         $arch->extractTo($directoryPath);
         $arch->close();
+        
     }
 
 }
