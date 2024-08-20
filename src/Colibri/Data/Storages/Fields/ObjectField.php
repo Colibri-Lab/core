@@ -220,7 +220,16 @@ class ObjectField extends ExtendedObject
                     $return[$fieldName] = $ret;
                 } else {
                     if (is_object($fieldValue) && method_exists($fieldValue, 'GetValidationData')) {
-                        $return[$fieldName] = $fieldValue->GetValidationData();
+                        if($fieldData->{'class'} === 'string') {
+                            $ret = (string)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
+                        } elseif($fieldData->{'class'} === 'float') {
+                            $ret = (float)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
+                        } elseif($fieldData->{'class'} === 'int') {
+                            $ret = (int)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
+                        } else {
+                            $ret = $fieldValue->GetValidationData();
+                        }
+                        $return[$fieldName] = $ret;
                     } else {
                         $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField()};
                     }
