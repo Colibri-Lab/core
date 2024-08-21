@@ -299,6 +299,22 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
     }
 
     /**
+     * Resets the original data to empty object
+     * @property string $property
+     * @return void
+     */
+    public function ResetOriginal(?string $property = null): void
+    {
+        if($property === null) {
+            $this->_original = (object)[];
+        } else {
+            $original = (array) $this->_original;
+            unset($original[$this->_prefix . $property]);
+            $this->_original = (object) $original;
+        }
+    }
+
+    /**
      * Retrieves the prefix used for object properties.
      *
      * This method returns the prefix used for object properties. The prefix is typically
