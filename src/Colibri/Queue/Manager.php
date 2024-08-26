@@ -490,7 +490,7 @@ class Manager
             if(is_array($dateStart)) {
                 $dateFilter = 'datestart between \'' . $dateStart[0] . '\' and \'' . $dateStart[1] . '\'';
             } else {
-                $dateFilter = 'datestart = \''.$dateStart.'\'';
+                $dateFilter = 'Date(datestart) = \''.$dateStart.'\'';
             }
         }
 
