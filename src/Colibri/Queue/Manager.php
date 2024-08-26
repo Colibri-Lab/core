@@ -467,7 +467,7 @@ class Manager
      * @return boolean true if the job exists and running, false if job exists 
      *                 and not running, and null if job does not exists
      */
-    public function JobIsRunning(string $class, ?string $payloadClass, object|array|null $payloadFilter = null): ?bool
+    public function JobIsRunning(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
 
@@ -476,12 +476,21 @@ class Manager
             foreach($payloadFilter as $key => $value) {
                 if(is_string($value)) {
                     $value = '\'' . $value . '\'';
-                } else if(is_bool($value)) {
+                } elseif (is_bool($value)) {
                     $value = 'CAST(\''.($value ? 'true' : 'false').'\' AS JSON)';
-                } else if(is_null($value)) {
+                } elseif (is_null($value)) {
                     $value = 'CAST(\'null\' AS JSON)';
                 }
                 $pfilter[] = 'JSON_EXTRACT(payload, \'$.data.'.$key.'\')=' . $value;
+            }
+        }
+
+        $dateFilter = '';
+        if($dateStart !== null) {
+            if(is_array($dateStart)) {
+                $dateFilter = 'datestart between \'' . $dateStart[0] . '\' and \'' . $dateStart[1] . '\'';
+            } else {
+                $dateFilter = 'datestart = \''.$dateStart.'\'';
             }
         }
 
@@ -492,7 +501,8 @@ class Manager
                 '.$this->_storages['list'].'
             where
                 class=\''.str_replace('\\', '\\\\', $class).'\''.
-                ($payloadClass ? ' and payload_class=\''.str_replace('\\', '\\\\', $payloadClass).'\'' : '').
+                ($payloadClass ? ' and payload_class=\''.str_replace('\\', '\\\\', $payloadClass).'\'' : '') .
+                ($dateFilter ? ' and ' . $dateFilter : '') .
                 (!empty($pfilter) ? ' and ' . implode(' and ', $pfilter) : '').'
         '
         );
