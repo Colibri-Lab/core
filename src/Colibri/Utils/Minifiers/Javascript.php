@@ -147,6 +147,24 @@ class Javascript
 
             File::Delete($cacheFileIn);
             File::Delete($cacheFileOut);
+        } elseif ($this->_config?->type === 'webpack')  {
+            $commandline = $this->_config->command;
+            $time = microtime(true);
+            $runtime = App::$config->Query('runtime')->GetValue();
+
+            $cachePath = App::$appRoot . $runtime;
+            $cacheFileIn = 'code' . $time . '.js';
+            $cacheFileOut = 'code' . $time . '-minified.js';
+
+            File::Write($cachePath . $cacheFileIn, $content);
+            $commandline = sprintf($commandline, $cachePath . $cacheFileIn, $cachePath, $cacheFileOut);
+            shell_exec($commandline);
+            $content = File::Read($cachePath . $cacheFileOut);
+            $content = substr($content, 6);
+            $content = substr($content, 0, strlen($content) - 5) . ';';
+
+            File::Delete($cachePath . $cacheFileIn);
+            File::Delete($cachePath . $cacheFileOut);
 
         } elseif ($this->_config?->type === 'shrink') {
             return \JShrink\Minifier::minify($content, array('flaggedComments' => false));
