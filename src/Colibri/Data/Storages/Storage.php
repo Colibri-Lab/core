@@ -33,6 +33,7 @@ use Colibri\Utils\Config\Config;
  * @property-read DataAccessPoint $accessPoint The DataAccessPoint object associated with the storage.
  * @property-read bool $isSoftDelete Indicates whether the rows is not deleted but marked as deleted
  * @property-read bool $isShowDeletedRows Indicates whether the deleted rows must be shown or not
+ * 
  */
 class Storage
 {
