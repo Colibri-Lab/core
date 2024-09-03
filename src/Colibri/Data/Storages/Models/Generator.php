@@ -102,7 +102,11 @@ class Generator
 
             if ($field->values) {
                 foreach ($field->values as $value => $title) {
-                    $schemaEnum[] = is_string($value) ? '\'' . $value . '\'' : $value;
+                    if(in_array($field->type, ['varchar', 'text', 'tinytext', 'mediumtext', 'longtext'])) {
+                        $schemaEnum[] = '\'' . $value . '\'';
+                    } else {
+                        $schemaEnum[] = is_string($value) ? '\'' . $value . '\'' : $value;
+                    }
                 }
             }
 
