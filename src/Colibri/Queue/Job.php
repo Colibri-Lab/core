@@ -191,6 +191,8 @@ abstract class Job extends ExtendedObject implements IJob
     {
         $this->attempts += 1;
         $this->datereserved = null;
+        $this->reservation_key = null;
+        $this->datestart = (new \DateTime('now'))->modify('+5 minutes')->format('Y-m-d H:i:s');
         return Manager::Create()->UpdateJob($this);
     }
 
