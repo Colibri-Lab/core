@@ -187,12 +187,12 @@ abstract class Job extends ExtendedObject implements IJob
      *
      * @return bool True if the transaction is successfully rolled back, false otherwise.
      */
-    public function Rollback(): bool
+    public function Rollback(?int $delaySeconds = null): bool
     {
         $this->attempts += 1;
         $this->datereserved = null;
         $this->reservation_key = null;
-        $this->datestart = (new \DateTime('now'))->modify('+5 minutes')->format('Y-m-d H:i:s');
+        $this->datestart = (new \DateTime('now'))->modify('+'.$delaySeconds.' seconds')->format('Y-m-d H:i:s');
         return Manager::Create()->UpdateJob($this);
     }
 
