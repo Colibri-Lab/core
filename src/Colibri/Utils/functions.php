@@ -77,6 +77,9 @@ if(!function_exists('runx')) {
         }
         return shell_exec($command . ' ' . implode(' ', $sargs).' > /dev/null & echo $!');
     }
+}
+
+if(!function_exists('killx')) {
 
     /**
      * Kills a command by PID
@@ -87,7 +90,14 @@ if(!function_exists('runx')) {
     {
         shell_exec('kill -KILL ' . $pid);
     }
+}
 
+if(!function_exists('pidx')) {
+    /**
+     * Returns a array of pids of processes matched search string
+     * @param string $searchKey
+     * @return int|array
+     */
     function pidx(string $searchKey): int|array
     {
         $pids = [];
