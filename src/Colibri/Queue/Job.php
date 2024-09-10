@@ -184,7 +184,7 @@ abstract class Job extends ExtendedObject implements IJob
 
     /**
      * Rolls back a transaction.
-     *
+     * @param ?int $delaySeconds delay before run again
      * @return bool True if the transaction is successfully rolled back, false otherwise.
      */
     public function Rollback(?int $delaySeconds = null): bool
