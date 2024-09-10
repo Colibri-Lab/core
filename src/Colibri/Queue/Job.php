@@ -11,6 +11,7 @@
  */
 
 namespace Colibri\Queue;
+
 use Colibri\Common\DateHelper;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\Logger;
@@ -31,7 +32,6 @@ use Colibri\Utils\Logs\Logger;
  */
 abstract class Job extends ExtendedObject implements IJob
 {
-
     /**
      * Maximum number of attempts for executing the job.
      *
@@ -49,8 +49,13 @@ abstract class Job extends ExtendedObject implements IJob
      * @param ?int $id The ID of the job.
      * @return static The created job instance.
      */
-    public static function Create(ExtendedObject $payload, string $queue = 'default', int $attempts = 0, bool $parallel = false, ?int $id = null): static
-    {
+    public static function Create(
+        ExtendedObject $payload,
+        string $queue = 'default',
+        int $attempts = 0,
+        bool $parallel = false,
+        ?int $id = null
+    ): static {
         $job = new static();
         $job->payload = $payload;
         $job->payload_class = get_class($payload);
@@ -68,7 +73,7 @@ abstract class Job extends ExtendedObject implements IJob
      * @param Logger $logger The logger instance to use for logging.
      * @return bool True if the job is handled successfully, false otherwise.
      */
-    public abstract function Handle(Logger $logger): bool;
+    abstract public function Handle(Logger $logger): bool;
 
     /**
      * Add headers to job manager
@@ -88,7 +93,7 @@ abstract class Job extends ExtendedObject implements IJob
     {
         return ($this->attempts ?: 0) > static::$maxAttempts;
     }
-    
+
     /**
      * Checks if the job can be executed in parallel.
      *
@@ -192,7 +197,8 @@ abstract class Job extends ExtendedObject implements IJob
         $this->attempts += 1;
         $this->datereserved = null;
         $this->reservation_key = null;
-        $this->datestart = (new \DateTime('now'))->modify('+'.$delaySeconds.' seconds')->format('Y-m-d H:i:s');
+        $this->datestart = (new \DateTime('now'))
+            ->modify('+'.$delaySeconds.' seconds')->format('Y-m-d H:i:s');
         return Manager::Create()->UpdateJob($this);
     }
 
