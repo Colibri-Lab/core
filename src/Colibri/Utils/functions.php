@@ -97,9 +97,9 @@ if(!function_exists('runx')) {
                 continue;
             }
             $k = explode(' ', $line);
-            $pids[] = $k;
+            $pids[] = (int)$k;
         }
-        return count($pids) > 1 ? $pids : $pids[0];
+        return count($pids) > 1 ? $pids : (int)$pids[0];
     }
 
 }
