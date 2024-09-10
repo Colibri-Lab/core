@@ -64,6 +64,12 @@ if (!function_exists('ddrx')) {
 }
 
 if(!function_exists('runx')) {
+    /**
+     * Runs a command in shell
+     * @param string $command command to run
+     * @param object|array $args arguments
+     * @return bool|string|null
+     */
     function runx(string $command, object|array $args = []) {
         $sargs = [];
         foreach($args as $key => $value) {
@@ -71,4 +77,29 @@ if(!function_exists('runx')) {
         }
         return shell_exec($command . ' ' . implode(' ', $sargs).' > /dev/null & echo $!');
     }
+
+    /**
+     * Kills a command by PID
+     * @param int $pid pid of command process
+     * @return void
+     */
+    function killx(int $pid) 
+    {
+        shell_exec('kill -KILL ' . $pid);
+    }
+
+    function pidx(string $searchKey): int|array
+    {
+        $pids = [];
+        exec('ps -ax | grep "'.$searchKey.'"', $console);
+        foreach($console as $line) {
+            if(strstr($line, 'grep') !== false) {
+                continue;
+            }
+            $k = explode(' ', $line);
+            $pids[] = $k;
+        }
+        return count($pids) > 1 ? $pids : $pids[0];
+    }
+
 }
