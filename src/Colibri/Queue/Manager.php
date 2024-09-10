@@ -235,6 +235,11 @@ class Manager
             $this->DispatchEvent('JobAdded', ['id' => $res->insertid]);
 
             $this->id = $res->insertid;
+
+            if(!self::IsRunning($job->queue)) {
+                runx(App::$appRoot . 'bin/queue', [$job->queue]);
+            }
+
             return true;
         }
 
@@ -614,6 +619,26 @@ class Manager
 
         return $ret;
     }
+
+    
+    /**
+     * Retrieves when queue is running
+     *
+     * @param string $queueName Name of the worker
+     * @return bool
+     */
+    public static function IsRunning(string $queueName): bool
+    {
+        exec('ps -ax | grep "command=queue"', $console);
+
+        foreach($console as $line) {
+            if(strstr($line, $queueName . ',') !== false || strstr($line, ',' . $queueName) !== false || strstr($line, '=' . $queueName) !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 }

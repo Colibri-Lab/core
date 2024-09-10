@@ -62,3 +62,13 @@ if (!function_exists('ddrx')) {
     }
 
 }
+
+if(!function_exists('runx')) {
+    function runx(string $command, object|array $args = []) {
+        $sargs = [];
+        foreach($args as $key => $value) {
+            $sargs[] = (is_string($key) ?  $key . '=' : '') . '"' . $value . '"';
+        }
+        return shell_exec($command . ' ' . implode(' ', $sargs).' > /dev/null & echo $!');
+    }
+}
