@@ -278,7 +278,11 @@ class Request
     {
         $files = [];
         foreach($fileKeys as $fileKey) {
-            $files[] = $this->ExtractFile($fileKey);
+            if(is_string($fileKey)) {
+                $files[] = $this->ExtractFile($fileKey);
+            } else {
+                $files[] = $fileKey;
+            }
         }
         return $files;
     }
