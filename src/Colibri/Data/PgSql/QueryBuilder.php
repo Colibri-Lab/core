@@ -51,7 +51,9 @@ class QueryBuilder implements IQueryBuilder
         $vals = array_values($data);
         $values = "(" . join(", ", $vals) . ")";
 
-        return 'insert into "' . $table . '"' . $fields . ' values' . $values;
+        $table = '"'. implode('"."', explode('.', $table)) . '"';
+
+        return 'insert into ' . $table . $fields . ' values' . $values;
     }
 
     /**
@@ -81,8 +83,9 @@ class QueryBuilder implements IQueryBuilder
 
         $vals = array_values($data);
         $values = "(" . join(", ", $vals) . ")";
+        $table = '"'. implode('"."', explode('.', $table)) . '"';
 
-        return 'replace into "' . $table . '"' . $fields . ' values' . $values;
+        return 'replace into ' . $table . $fields . ' values' . $values;
     }
 
     /**
@@ -120,8 +123,9 @@ class QueryBuilder implements IQueryBuilder
                 $updateStatement .= ',"' . $k . '"=' . ($v == null ? 'null' : '\'' . addslashes($v) . '\'');
             }
         }
+        $table = '"'. implode('"."', explode('.', $table)) . '"';
 
-        return 'insert into "' . $table . '"' . $fields . ' values ' . $values . ' on duplicate key update ' . substr($updateStatement, 1);
+        return 'insert into ' . $table . $fields . ' values ' . $values . ' on duplicate key update ' . substr($updateStatement, 1);
     }
 
     /**
@@ -154,8 +158,9 @@ class QueryBuilder implements IQueryBuilder
             $values .= ",(" . implode(", ", $vals) . ")";
         }
         $values = substr($values, 1);
+        $table = '"'. implode('"."', explode('.', $table)) . '"';
 
-        return 'insert into "' . $table . '"' . $fields . ' values' . $values;
+        return 'insert into ' . $table . $fields . ' values' . $values;
     }
 
     /**
@@ -180,7 +185,9 @@ class QueryBuilder implements IQueryBuilder
             }
             $q .= ',"' . $k . '"=' . $val;
         }
-        return 'update "' . $table . '"' . ' set ' . substr($q, 1) . ' where ' . $condition;
+        
+        $table = '"'. implode('"."', explode('.', $table)) . '"';
+        return 'update ' . $table . ' set ' . substr($q, 1) . ' where ' . $condition;
     }
 
     /**
@@ -195,7 +202,8 @@ class QueryBuilder implements IQueryBuilder
         if (!empty($condition)) {
             $condition = ' where ' . $condition;
         }
-        return (empty($condition) ? 'truncate table ' : 'delete from ') . '"' . $table . '"' . $condition;
+        $table = '"'. implode('"."', explode('.', $table)) . '"';
+        return (empty($condition) ? 'truncate table ' : 'delete from ') . $table . $condition;
     }
 
     /**
