@@ -34,6 +34,10 @@ class Generator
         'date' => 'string',
         'datetime' => 'string',
         'varchar' => 'string',
+        'text' => 'string',
+        'longtext' => 'string',
+        'mediumtext' => 'string',
+        'tinytext' => 'string',
         'enum' => 'string|int|float',
         'json' => [
             '*' => 'object',
