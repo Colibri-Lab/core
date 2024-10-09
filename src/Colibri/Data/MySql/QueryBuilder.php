@@ -10,6 +10,7 @@
  */
 namespace Colibri\Data\MySql;
 
+use Colibri\Common\StringHelper;
 use Colibri\Data\SqlClient\IQueryBuilder;
 
 /**
@@ -37,7 +38,7 @@ class QueryBuilder implements IQueryBuilder
                 $value = 'null';
             } elseif (is_bool($value)) {
                 $value = '\'' . ($value ? 1 : 0) . '\'';
-            } elseif (strstr($value, '[[') === false || strstr($value, ']]') === false) {
+            } elseif (StringHelper::IsJsonString($value) || (strstr($value, '[[') === false || strstr($value, ']]') === false)) {
                 $value = '\'' . addslashes($value) . '\'';
             }
             $data[$key] = $value;
