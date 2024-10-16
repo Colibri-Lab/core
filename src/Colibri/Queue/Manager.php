@@ -234,7 +234,7 @@ class Manager
 
             $this->DispatchEvent('JobAdded', ['id' => $res->insertid]);
 
-            $this->id = $res->insertid;
+            $job->id = $res->insertid;
 
             if(!self::IsRunning($job->queue)) {
                 runx(App::$appRoot . 'bin/queue', [$job->queue]);
