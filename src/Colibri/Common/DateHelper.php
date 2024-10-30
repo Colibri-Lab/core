@@ -142,6 +142,31 @@ class DateHelper
     }
 
     /**
+     * Converts a human-readable date string to timestamp.
+     * 
+     * @example
+     * ```
+     * DateHelper::FromHumanDate('23 марта 2024 года') returns 123123123
+     * ```
+     *
+     * @param string $time the human-readable time string
+     * @param string $language a language
+     * @return int timestamp
+     */
+    public static function FromHumanDate(string $time, string $language = 'ru'): int
+    {
+        if (is_numeric($time)) {
+            return (int)$time;
+        }
+        $time = explode(' ', trim(str_replace('год', '', str_replace('года', '', $time))));
+        $day = $time[0];
+        $month = array_search(StringHelper::ToLower($time[1]), TimeZoneHelper::$texts[$language]['months2']) + 1;
+        $year = $time[2];
+
+        return (new DateTime($year . '-' . $month . '-' . $day))->getTimestamp();
+    }
+
+    /**
      * Converts a timestamp or date string to a human-readable quarter representation.
      * 
      * @example
