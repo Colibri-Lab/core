@@ -380,6 +380,12 @@ class Manager
 
     }
 
+    public function UpdateSuccessedJob(int $id, object|array $result): mixed
+    {
+        $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        return $accessPoint->Update($this->_storages['success'], ['result' => json_encode(['result' => $result])], 'id='.$id);
+    }
+
     /**
      * Retrieves the next job from the specified queue.
      *
@@ -517,6 +523,60 @@ class Manager
         }
         
         return $data->reservation_key !== null;
+    }
+
+    public function GetSuccessed(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, object|array|null $resultFilter = null): array
+    {
+        $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+
+        $pfilter = [];
+        if($payloadFilter) {
+            foreach($payloadFilter as $key => $value) {
+                if(is_string($value)) {
+                    $value = '\'' . $value . '\'';
+                } elseif (is_bool($value)) {
+                    $value = 'CAST(\''.($value ? 'true' : 'false').'\' AS JSON)';
+                } elseif (is_null($value)) {
+                    $value = 'CAST(\'null\' AS JSON)';
+                }
+                $pfilter[] = 'JSON_EXTRACT(payload, \'$.'.$key.'\')=' . $value;
+            }
+        }
+        $rfilter = [];
+        if($resultFilter) {
+            foreach($resultFilter as $key => $value) {
+                if(is_string($value)) {
+                    $value = '\'' . $value . '\'';
+                } elseif (is_bool($value)) {
+                    $value = 'CAST(\''.($value ? 'true' : 'false').'\' AS JSON)';
+                } elseif (is_null($value)) {
+                    $value = 'CAST(\'null\' AS JSON)';
+                }
+                $rfilter[] = 'JSON_EXTRACT(result, \'$.result.'.$key.'\')=' . $value;
+            }
+        }
+
+        $reader = $accessPoint->Query(
+            'select
+                *
+            from
+                '.$this->_storages['success'].'
+            where
+                class=\''.str_replace('\\', '\\\\', $class).'\''.
+                ($payloadClass ? ' and payload_class=\''.str_replace('\\', '\\\\', $payloadClass).'\'' : '') .
+                (!empty($pfilter) ? ' and ' . implode(' and ', $pfilter) : '').
+                (!empty($rfilter) ? ' and ' . implode(' and ', $rfilter) : '').
+            '
+            order by datecreated desc
+            '
+        );
+
+        $d= [];
+        while($data = $reader->Read()) {
+            $d[] = $data;
+        }
+        return $d;
+
     }
 
     /**
