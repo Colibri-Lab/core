@@ -64,5 +64,9 @@ class FileListField extends ArrayList
         return $this->ToString();
     }
 
+    public function GetValidationData(): mixed
+    {
+        return array_map(fn($item) => $item->ToArray(), $this->ToArray());
+    }
 
 }
