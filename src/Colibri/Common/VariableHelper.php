@@ -359,13 +359,17 @@ class VariableHelper
      * filtered representation suitable for JSON serialization. Filters can be applied
      * based on specific criteria.
      *
-     * @param array|object $var The input array or object to be transformed.
+     * @param array|object|null $var The input array or object to be transformed.
      * @param string $prefix An optional prefix to prepend to each filter key.
      *
      * @return array The resulting JSON-like structure with filters.
      */
-    public static function ToJsonFilters(array|object $var, string $prefix = ''): array
+    public static function ToJsonFilters(array|object|null $var, string $prefix = ''): array
     {
+
+        if($var === null) {
+            $var = [];
+        }
 
         $ret = [];
 

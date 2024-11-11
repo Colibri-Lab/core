@@ -82,7 +82,7 @@ class FileField implements JsonSerializable
      */
     public function __construct($data, ? Storage $storage = null, ? Field $field = null)
     {
-        $this->_path = $data;
+        $this->_path = is_array($data) || is_object($data) ? ((array)$data)['path'] : $data;
         $this->_name = basename($this->_path);
         $this->_ext = pathinfo($this->_path, PATHINFO_EXTENSION);
     }
@@ -249,6 +249,11 @@ class FileField implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return (string) $this;
+    }
+
+    public function ToArray(bool $noPrefix = false): array
+    {
+        return ['path' => $this->_path];
     }
 
 }

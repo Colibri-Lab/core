@@ -26,6 +26,7 @@ use ReflectionClass;
 use Colibri\Data\Storages\Fields\UUIDField;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\SqlClient\QueryInfo;
+use Colibri\Data\Storages\Fields\FileListField;
 
 /**
  * Представление строки в таблице в хранилище
@@ -436,7 +437,10 @@ class DataRow extends BaseDataRow
         foreach ($ar as $key => $value) {
             if ($value instanceof FileField) {
                 $ar[$key] = $value->Source();
+            } elseif ($value instanceof FileListField) {
+                $ar[$key] = (string)$value;
             }
+
         }
         return $ar;
     }

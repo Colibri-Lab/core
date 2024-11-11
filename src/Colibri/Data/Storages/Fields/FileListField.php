@@ -27,10 +27,14 @@ class FileListField extends ArrayList
     public function __construct($data)
     {
         parent::__construct([]);
-        $data = str_replace("\n", "", str_replace("\r", "", $data));
+        if(is_string($data)) {
+            $data = str_replace("\n", "", str_replace("\r", "", $data));
+            if(!empty($data)) {
+                $data = explode(';', $data);
+            }
+        }
         if (!empty($data)) {
-            $sources = explode(';', $data);
-            foreach ($sources as $file) {
+            foreach ($data as $file) {
                 $this->Add(new FileField($file));
             }
         }
