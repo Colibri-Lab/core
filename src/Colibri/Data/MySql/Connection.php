@@ -105,7 +105,7 @@ final class Connection implements IConnection
             throw new MySqlException(mysqli_error($this->_resource));
         }
 
-        mysqli_query($this->_resource, 'set names utf8');
+        mysqli_query($this->_resource, 'SET NAMES utf8mb4 COLLATE utf8mb4_general_ci');
 
         return true;
     }
