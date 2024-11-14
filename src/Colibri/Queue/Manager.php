@@ -578,7 +578,7 @@ class Manager
         }
         
         return $class::Create(
-            new $payloadClass($data->payload),
+            new $payloadClass(json_decode($data->payload)),
             $data->queue,
             $data->attempts,
             $data->parallel,
