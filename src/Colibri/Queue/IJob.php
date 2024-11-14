@@ -35,6 +35,12 @@ interface IJob
      * @param array $headers
      */
     public function SetHeaders(): void;
+
+    /**
+     * Returns a key for parallel worker
+     * @return string
+     */
+    public function Key(): string;
     
     /**
      * Handles the job.

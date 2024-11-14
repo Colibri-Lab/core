@@ -173,6 +173,36 @@ class Process
     }
 
     /**
+     * Retrieves a Process instance id by name
+     *
+     * @param string $workerName Name of the worker
+     * @return int|null
+     */
+    public static function PidByWorkerName(string $workerName): ?int
+    {
+        exec('ps -ax | grep ' . $workerName, $console);
+
+        $pid = 0;
+        $worker = null;
+        foreach($console as $line) {
+            if(strstr($line, $workerName) !== false && strstr($line, 'index.php') !== false) {
+                $line = trim($line);
+                $line = preg_replace('/\s+/', ' ', $line);
+                $parts = explode(' ', $line);
+                $pid = $parts[0];
+                break;
+            }
+        }
+
+        if($pid === 0) {
+            return null;
+        }
+
+        return $pid;
+
+    }
+
+    /**
      * Sets the handler for processing requests.
      *
      * @param string $handler Request handler

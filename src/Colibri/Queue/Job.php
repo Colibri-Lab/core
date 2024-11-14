@@ -12,7 +12,9 @@
 
 namespace Colibri\Queue;
 
+use Colibri\App;
 use Colibri\Common\DateHelper;
+use Colibri\Threading\Process;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\Logger;
 
@@ -82,6 +84,11 @@ abstract class Job extends ExtendedObject implements IJob
     public function SetHeaders(): void
     {
         $this->headers = [];
+    }
+
+    public function Key(): string
+    {
+        return md5($this?->id);
     }
 
     /**
@@ -156,6 +163,16 @@ abstract class Job extends ExtendedObject implements IJob
      */
     public function Commit(array|object $result): bool
     {
+        
+        // killing a process if exists
+        if($this->IsParallel()) {
+            $parallelWorkerKey = $this->Key();
+            $pid = Process::PidByWorkerName($parallelWorkerKey);
+            if($pid) {
+                Process::StopProcess($pid);
+            }
+        }
+
         /** @var Manager */
         $manager = Manager::Create();
         if(!$manager->SuccessJob($this, $result)) {
@@ -176,6 +193,16 @@ abstract class Job extends ExtendedObject implements IJob
      */
     public function Fail(\Throwable $exception, bool $isLastAttempt = false): bool
     {
+
+        // killing a process if exists
+        if($this->IsParallel()) {
+            $parallelWorkerKey = $this->Key();
+            $pid = Process::PidByWorkerName($parallelWorkerKey);
+            if($pid) {
+                Process::StopProcess($pid);
+            }
+        }
+
         /** @var Manager */
         $manager = Manager::Create();
         if(!$manager->FailJob($this, $exception)) {

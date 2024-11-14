@@ -668,7 +668,7 @@ class Manager
 
             if($job->IsParallel()) {
 
-                $worker = new JobParallelWorker();
+                $worker = new JobParallelWorker(0, 0, $job->Key());
                 $process = new Process($worker);
                 $process->Run((object)['queue' => $job->queue, 'id' => $job->id]);
 
