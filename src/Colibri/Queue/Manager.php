@@ -525,6 +525,67 @@ class Manager
         return $data->reservation_key !== null;
     }
 
+    /**
+     * Find job
+     *
+     * @param string $class The job class
+     * @param ?string $payloadClass The job payload class
+     * @param array|object|null $payloadFilter object of payload to check
+     * @return IJob 
+     */
+    public function FindJob(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?IJob
+    {
+        $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+
+        $pfilter = [];
+        if($payloadFilter) {
+            foreach($payloadFilter as $key => $value) {
+                if(is_string($value)) {
+                    $value = '\'' . $value . '\'';
+                } elseif (is_bool($value)) {
+                    $value = 'CAST(\''.($value ? 'true' : 'false').'\' AS JSON)';
+                } elseif (is_null($value)) {
+                    $value = 'CAST(\'null\' AS JSON)';
+                }
+                $pfilter[] = 'JSON_EXTRACT(payload, \'$.data.'.$key.'\')=' . $value;
+            }
+        }
+
+        $dateFilter = '';
+        if($dateStart !== null) {
+            if(is_array($dateStart)) {
+                $dateFilter = 'datestart between \'' . $dateStart[0] . '\' and \'' . $dateStart[1] . '\'';
+            } else {
+                $dateFilter = 'Date(datestart) = \''.$dateStart.'\'';
+            }
+        }
+
+        $reader = $accessPoint->Query(
+            'select
+                *
+            from
+                '.$this->_storages['list'].'
+            where
+                class=\''.str_replace('\\', '\\\\', $class).'\''.
+                ($payloadClass ? ' and payload_class=\''.str_replace('\\', '\\\\', $payloadClass).'\'' : '') .
+                ($dateFilter ? ' and ' . $dateFilter : '') .
+                (!empty($pfilter) ? ' and ' . implode(' and ', $pfilter) : '').'
+        '
+        );
+        $data = $reader->Read();
+        if(!$data) {
+            return null;
+        }
+        
+        return $class::Create(
+            new $payloadClass($data->payload),
+            $data->queue,
+            $data->attempts,
+            $data->parallel,
+            $data->id
+        );
+    }
+
     public function GetSuccessed(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, object|array|null $resultFilter = null): array
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
