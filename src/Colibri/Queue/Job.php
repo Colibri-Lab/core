@@ -161,11 +161,11 @@ abstract class Job extends ExtendedObject implements IJob
      * @param array|object $result The result of the transaction.
      * @return bool True if the transaction is successfully committed, false otherwise.
      */
-    public function Commit(array|object $result): bool
+    public function Commit(array|object $result, bool $stopProcess = false): bool
     {
         
         // killing a process if exists
-        if($this->IsParallel()) {
+        if($stopProcess && $this->IsParallel()) {
             $parallelWorkerKey = $this->Key();
             $pid = Process::PidByWorkerName($parallelWorkerKey);
             if($pid) {
@@ -191,11 +191,11 @@ abstract class Job extends ExtendedObject implements IJob
      * @param bool $isLastAttempt Indicates if the failure is occurring on the last attempt.
      * @return bool True if the job is marked as failed, false otherwise.
      */
-    public function Fail(\Throwable $exception, bool $isLastAttempt = false): bool
+    public function Fail(\Throwable $exception, bool $isLastAttempt = false, bool $stopProcess = false): bool
     {
 
         // killing a process if exists
-        if($this->IsParallel()) {
+        if($stopProcess && $this->IsParallel()) {
             $parallelWorkerKey = $this->Key();
             $pid = Process::PidByWorkerName($parallelWorkerKey);
             if($pid) {
