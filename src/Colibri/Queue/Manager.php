@@ -531,9 +531,9 @@ class Manager
      * @param string $class The job class
      * @param ?string $payloadClass The job payload class
      * @param array|object|null $payloadFilter object of payload to check
-     * @return IJob 
+     * @return [IJob]|null 
      */
-    public function FindJob(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?IJob
+    public function FindJob(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?array
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
 
@@ -572,18 +572,22 @@ class Manager
                 (!empty($pfilter) ? ' and ' . implode(' and ', $pfilter) : '').'
         '
         );
-        $data = $reader->Read();
-        if(!$data) {
+        if($reader->Count() == 0) {
             return null;
         }
+
+        $ret = [];
+        while($data = $reader->Read()) {
+            $ret[] = $class::Create(
+                new $payloadClass(json_decode($data->payload)),
+                $data->queue,
+                $data->attempts,
+                $data->parallel,
+                $data->id
+            );
+        }
         
-        return $class::Create(
-            new $payloadClass(json_decode($data->payload)),
-            $data->queue,
-            $data->attempts,
-            $data->parallel,
-            $data->id
-        );
+        return $ret;
     }
 
     public function GetSuccessed(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, object|array|null $resultFilter = null): array
