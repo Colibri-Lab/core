@@ -212,7 +212,7 @@ abstract class Worker
         $output = [];
         $code = 0;
 
-        exec("/bin/ps -auxww | /bin/grep " . $this->_key . " | /bin/grep -v grep", $output, $code);
+        exec((Process::$useSudo ? 'sudo ' : '') . "/bin/ps -auxww | /bin/grep " . $this->_key . " | /bin/grep -v grep", $output, $code);
         if ($code != 0 && $code != 1) {
             return false;
         }

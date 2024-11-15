@@ -57,6 +57,9 @@ use Colibri\Utils\Debug;
  */
 class Process
 {
+ 
+    public static bool $useSudo = false;
+    
     /**
      * Process ID (PID) of the worker process.
      *
@@ -138,69 +141,7 @@ class Process
         return new Process($worker, $debug, $entry);
     }
 
-    /**
-     * Retrieves a Process instance by worker name.
-     *
-     * @param string $workerName Name of the worker
-     * @param bool $debug Indicates whether to display the command used to start the worker
-     * @param string $entry Entry point for the console stream
-     * @return Process|null
-     */
-    public static function ByWorkerName(string $workerName, bool $debug = false, string $entry = ''): ?Process
-    {
-        exec('ps -ax | grep ' . $workerName, $console);
 
-        $pid = 0;
-        $worker = null;
-        foreach($console as $line) {
-            if(strstr($line, $workerName) !== false && strstr($line, 'index.php') !== false) {
-                $line = trim($line);
-                $line = preg_replace('/\s+/', ' ', $line);
-                $parts = explode(' ', $line);
-                $pid = $parts[0];
-                $worker = VariableHelper::Unserialize(str_replace('worker=', '', $parts[10]));
-                $worker->Prepare(str_replace('params=', '', $parts[11]));
-                break;
-            }
-        }
-
-        if($pid === 0) {
-            return null;
-        }
-
-        return new Process($worker, $debug, $entry, $pid);
-
-    }
-
-    /**
-     * Retrieves a Process instance id by name
-     *
-     * @param string $workerName Name of the worker
-     * @return int|null
-     */
-    public static function PidByWorkerName(string $workerName): ?int
-    {
-        exec('ps -ax | grep ' . $workerName, $console);
-
-        $pid = 0;
-        $worker = null;
-        foreach($console as $line) {
-            if(strstr($line, $workerName) !== false && strstr($line, 'index.php') !== false) {
-                $line = trim($line);
-                $line = preg_replace('/\s+/', ' ', $line);
-                $parts = explode(' ', $line);
-                $pid = $parts[0];
-                break;
-            }
-        }
-
-        if($pid === 0) {
-            return null;
-        }
-
-        return $pid;
-
-    }
 
     /**
      * Sets the handler for processing requests.
@@ -250,7 +191,7 @@ class Process
         } elseif ($prop === 'worker') {
             return $this->_worker;
         } elseif ($prop == 'command') {
-            return 'cd ' . App::$request->server->{'document_root'} . $this->_entry . '/ && ' . $this->_handler . ' index.php ' . App::$request->host . ' / name="'.$this->name.'" key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($this->_params) . '"';
+            return 'cd ' . App::$request->server->{'document_root'} . $this->_entry . '/ && ' . (self::$useSudo ? 'sudo ' : '') . $this->_handler . ' index.php ' . App::$request->host . ' / name="'.$this->name.'" key="' . $this->_worker->key . '" worker="' . $this->_worker->Serialize() . '" params="' . $this->_worker->PrepareParams($this->_params) . '"';
         } elseif ($prop == 'request') {
             return $this->_entry . '/?name='.$this->name.'&key=' . $this->_worker->key . '&worker=' . $this->_worker->Serialize() . '&params=' . $this->_worker->PrepareParams($this->_params);
         } elseif ($prop == 'params') {
@@ -308,7 +249,7 @@ class Process
     public function IsRunning(): bool
     {
         if ($this->_pid) {
-            exec('ps ' . $this->_pid, $state);
+            exec((self::$useSudo ? 'sudo ' : '') . 'ps ' . $this->_pid, $state);
             return count($state) >= 2;
         }
         return false;
@@ -322,7 +263,7 @@ class Process
     public function Stop(): bool
     {
         if ($this->IsRunning()) {
-            exec('kill -KILL ' . $this->_pid);
+            exec((self::$useSudo ? 'sudo ' : '') . 'kill -KILL ' . $this->_pid);
             return $this->IsRunning();
         } else {
             return true;
@@ -337,7 +278,7 @@ class Process
      */
     public static function IsProcessRunning(int $pid): bool
     {
-        exec('ps ' . $pid, $state);
+        exec((self::$useSudo ? 'sudo ' : '') . 'ps ' . $pid, $state);
         return (count($state) >= 2);
     }
 
@@ -350,10 +291,77 @@ class Process
     public static function StopProcess(int $pid): bool
     {
         if (Process::IsProcessRunning($pid)) {
-            exec('kill -KILL ' . $pid);
+            exec((self::$useSudo ? 'sudo ' : '') . 'kill -KILL ' . $pid);
             return Process::IsProcessRunning($pid);
         } else {
             return true;
         }
     }
+
+    
+    /**
+     * Retrieves a Process instance id by name
+     *
+     * @param string $workerName Name of the worker
+     * @return int|null
+     */
+    public static function PidByWorkerName(string $workerName): ?int
+    {
+        exec((self::$useSudo ? 'sudo ' : '') . 'ps -ax | grep ' . $workerName, $console);
+
+        $pid = 0;
+        $worker = null;
+        foreach($console as $line) {
+            if(strstr($line, $workerName) !== false && strstr($line, 'index.php') !== false) {
+                $line = trim($line);
+                $line = preg_replace('/\s+/', ' ', $line);
+                $parts = explode(' ', $line);
+                $pid = $parts[0];
+                break;
+            }
+        }
+
+        if($pid === 0) {
+            return null;
+        }
+
+        return $pid;
+
+    }
+
+    
+    /**
+     * Retrieves a Process instance by worker name.
+     *
+     * @param string $workerName Name of the worker
+     * @param bool $debug Indicates whether to display the command used to start the worker
+     * @param string $entry Entry point for the console stream
+     * @return Process|null
+     */
+    public static function ByWorkerName(string $workerName, bool $debug = false, string $entry = ''): ?Process
+    {
+        exec((self::$useSudo ? 'sudo ' : '') . 'ps -ax | grep ' . $workerName, $console);
+
+        $pid = 0;
+        $worker = null;
+        foreach($console as $line) {
+            if(strstr($line, $workerName) !== false && strstr($line, 'index.php') !== false) {
+                $line = trim($line);
+                $line = preg_replace('/\s+/', ' ', $line);
+                $parts = explode(' ', $line);
+                $pid = $parts[0];
+                $worker = VariableHelper::Unserialize(str_replace('worker=', '', $parts[10]));
+                $worker->Prepare(str_replace('params=', '', $parts[11]));
+                break;
+            }
+        }
+
+        if($pid === 0) {
+            return null;
+        }
+
+        return new Process($worker, $debug, $entry, $pid);
+
+    }
+
 }
