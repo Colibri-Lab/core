@@ -167,10 +167,11 @@ abstract class Job extends ExtendedObject implements IJob
         // killing a process if exists
         if($stopProcess && $this->IsParallel()) {
             $parallelWorkerKey = $this->Key();
-            $pid = Process::PidByWorkerName($parallelWorkerKey);
-            App::$log->debug('Searching for process ' . $parallelWorkerKey . ' found ' . $pid);
-            if($pid) {
-                Process::StopProcess($pid);
+            $i = 10;
+            while(true || $i > 0) {
+                $pid = Process::PidByWorkerName($parallelWorkerKey);
+                $pid && Process::StopProcess($pid);
+                $i--;
             }
         }
 
@@ -198,9 +199,11 @@ abstract class Job extends ExtendedObject implements IJob
         // killing a process if exists
         if($stopProcess && $this->IsParallel()) {
             $parallelWorkerKey = $this->Key();
-            $pid = Process::PidByWorkerName($parallelWorkerKey);
-            if($pid) {
-                Process::StopProcess($pid);
+            $i = 10;
+            while(true || $i > 0) {
+                $pid = Process::PidByWorkerName($parallelWorkerKey);
+                $pid && Process::StopProcess($pid);
+                $i--;
             }
         }
 
