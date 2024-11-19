@@ -22,6 +22,10 @@ use Colibri\Utils\Logs\Logger;
  */
 class JobParallelWorker extends Worker
 {
+
+    private ?Logger $_logger = null;
+
+    private ?IJob $_job = null;
     
     /**
      * Runs the job routine.
@@ -37,21 +41,39 @@ class JobParallelWorker extends Worker
         sleep(RandomizationHelper::Integer(1, 5));
 
         $cache = App::$config->Query('cache')->GetValue();
-        $logger = new FileLogger(Logger::Debug, $cache . 'log/queue-' . $queue . '.log', true);
-        $logger->info($queue . ':' . $id . ': Begin job routine for parallel');
+        $this->_logger = new FileLogger(Logger::Debug, $cache . 'log/queue-' . $queue . '.log', true);
+        $this->_logger->info($queue . ':' . $id . ': Begin job routine for parallel');
 
-        $job = Manager::Create()->GetJobById($id);
-        if(!$job) {
-            $logger->info($queue . ':' . $id . ': Job not found!');
+        $this->_job = Manager::Create()->GetJobById($id);
+        if(!$this->_job) {
+            $this->_logger->info($queue . ':' . $id . ': Job not found!');
         }
 
-        $logger->info($queue . ':' . $id . ': Job starts');
-        if(!$job->Handle($logger)) {
-            $logger->info($queue . ':' . $id . ': Job fails!');
+        $this->_logger->info($queue . ':' . $id . ': Job starts');
+        if(!$this->_job->Handle($this->_logger)) {
+            $this->_logger->info($queue . ':' . $id . ': Job fails!');
         } else {
-            $logger->info($queue . ': Job success');
+            $this->_logger->info($queue . ': Job success');
         }
 
+    }
+
+    protected function PrepareShutdownDetect() 
+    {
+        $worker = $this;
+        register_shutdown_function(function() use ($worker) {
+            $worker->Log()->emergency('Job is stopped!!' . "\n\n" . $worker->key . ' ' . $worker->id);
+            $worker->Log()->emergency(ddrx($worker->Job()->ToArray()));
+        });
+
+    }
+
+    public function Log(): ?Logger {
+        return $this->_logger;
+    }
+
+    public function Job(): ?IJob {
+        return $this->_job;
     }
 
 }
