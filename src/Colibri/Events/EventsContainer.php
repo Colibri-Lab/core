@@ -175,4 +175,10 @@ class EventsContainer
 
     #endregion
 
+    #region JobParallelProcesses
+
+    const ParallelJobIsEnded = 'job.parallel.ended';
+
+    #endregion
+
 }

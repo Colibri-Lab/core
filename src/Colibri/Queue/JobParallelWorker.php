@@ -58,22 +58,4 @@ class JobParallelWorker extends Worker
 
     }
 
-    protected function PrepareShutdownDetect() 
-    {
-        $worker = $this;
-        register_shutdown_function(function() use ($worker) {
-            $worker->Log()->emergency('Job is stopped!!' . "\n\n" . $worker->key . ' ' . $worker->id);
-            $worker->Log()->emergency(ddrx($worker->Job()->ToArray()));
-        });
-
-    }
-
-    public function Log(): ?Logger {
-        return $this->_logger;
-    }
-
-    public function Job(): ?IJob {
-        return $this->_job;
-    }
-
 }

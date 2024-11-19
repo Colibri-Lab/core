@@ -94,17 +94,6 @@ abstract class Worker
             App::$webRoot . $cache . 'log/worker_log_' . $this->_key . '.log'
         );
 
-        $this->PrepareShutdownDetect();
-
-    }
-
-    protected function PrepareShutdownDetect() 
-    {
-        $worker = $this;
-        register_shutdown_function(function() use ($worker) {
-            $worker->log->emergency('Worker is stopped !!' . "\n\n" . $worker->key . ' ' . $worker->id);
-        });
-
     }
 
     /**

@@ -22,6 +22,7 @@ use Colibri\Common\StringHelper;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\SqlClient\Command;
 use Colibri\Data\Storages\Fields\DateTimeField;
+use Colibri\Events\EventsContainer;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Threading\Process;
 use Colibri\Utils\ExtendedObject;
@@ -653,11 +654,17 @@ class Manager
      */
     public function ProcessJobs(string $queue): never
     {
-
+        $activeParallelProcesses = [];
         while(true) {
 
             $job = Manager::Create()->GetNextJob(explode(',', $queue));
             if(!$job) {
+                foreach($activeParallelProcesses as $index => $process) {
+                    if(!$process->IsRunning()) {
+                        $this->DispatchEvent(EventsContainer::ParallelJobIsEnded, ['process' => $process]);
+                        array_splice($activeParallelProcesses, $index, 1);
+                    }
+                }
                 sleep($this->_config['timeout'] ?? 3);
                 continue;
             }
@@ -675,6 +682,7 @@ class Manager
                 $worker = new JobParallelWorker(0, 0, $job->Key());
                 $process = new Process($worker);
                 $process->Run((object)['queue' => $job->queue, 'id' => $job->id]);
+                $activeParallelProcesses[] = $process;
 
             } else {
                 $logger->info($job->queue . ': Job starts');
