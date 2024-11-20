@@ -164,6 +164,16 @@ abstract class Job extends ExtendedObject implements IJob
     public function Commit(array|object $result, bool $stopProcess = false): bool
     {
         
+        
+        /** @var Manager */
+        $manager = Manager::Create();
+        if(!$manager->SuccessJob($this, $result)) {
+            return false;
+        }
+        if(!$manager->DeleteJob($this)) {
+            return false;
+        }
+
         // killing a process if exists
         if($stopProcess && $this->IsParallel()) {
             $parallelWorkerKey = $this->Key();
@@ -175,14 +185,6 @@ abstract class Job extends ExtendedObject implements IJob
             }
         }
 
-        /** @var Manager */
-        $manager = Manager::Create();
-        if(!$manager->SuccessJob($this, $result)) {
-            return false;
-        }
-        if(!$manager->DeleteJob($this)) {
-            return false;
-        }
         return true;
     }
 
@@ -196,6 +198,15 @@ abstract class Job extends ExtendedObject implements IJob
     public function Fail(\Throwable $exception, bool $isLastAttempt = false, bool $stopProcess = false): bool
     {
 
+        /** @var Manager */
+        $manager = Manager::Create();
+        if(!$manager->FailJob($this, $exception)) {
+            return false;
+        }
+        if($isLastAttempt && !$manager->DeleteJob($this)) {
+            return false;
+        }
+        
         // killing a process if exists
         if($stopProcess && $this->IsParallel()) {
             $parallelWorkerKey = $this->Key();
@@ -207,14 +218,6 @@ abstract class Job extends ExtendedObject implements IJob
             }
         }
 
-        /** @var Manager */
-        $manager = Manager::Create();
-        if(!$manager->FailJob($this, $exception)) {
-            return false;
-        }
-        if($isLastAttempt && !$manager->DeleteJob($this)) {
-            return false;
-        }
         return true;
     }
 
