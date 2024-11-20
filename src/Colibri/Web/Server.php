@@ -13,6 +13,7 @@ namespace Colibri\Web;
 
 use Colibri\App;
 use Colibri\Common\Encoding;
+use Colibri\Common\ErrorHelper;
 use Colibri\Common\MimeType;
 use Colibri\Common\XmlHelper;
 use Colibri\Common\HtmlHelper;
@@ -144,6 +145,12 @@ class Server
         string $cmd = '',
         mixed $data = null
     ) {
+
+        ErrorHelper::Telegram('@colibri_core_errors', 'Code: 404\nMessage: ' . $message . '\nResult: ' . ddrx([
+            'code' => $code,
+            'command' => $cmd,
+            'data' => $data
+        ]));
 
         $this->Finish($type, (object) [
             'code' => 404,
@@ -342,10 +349,20 @@ class Server
                 ];
 
                 $code = $e->getCode() ?: 500;
-
                 $message = $e->getMessage();
+
                 App::$log->debug($code . ': ' . $message);
                 App::$log->debug($e->getTraceAsString());
+
+                ErrorHelper::Telegram('@colibri_core_errors', 
+                    '<b style="color: red">' . $class . $method . '.' . $type . "</b>\n".
+                    '<b>Server:</b> ' . App::$request->host . "\n\n" . 
+                    '<b>Trace:</b> ' . $e->getTraceAsString() . "\n\n" . 
+                    '<b>Params:</b> ' . json_encode([$get->ToArray(), $post->ToArray(), $payload->ToArray()]) . "\n" .
+                    '<b>Response:</b> ' . $code . ', ' . $message . "\n" .
+                    '<b>Result:</b> ' . json_encode($result) . "\n"
+                );
+
             }
 
             $args = (object) [
