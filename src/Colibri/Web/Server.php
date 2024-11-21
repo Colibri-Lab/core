@@ -355,7 +355,7 @@ class Server
                 App::$log->debug($e->getTraceAsString());
 
                 ErrorHelper::Telegram('@colibri_core_errors', 
-                    '<b style="color: red">' . $class . $method . '.' . $type . "</b>\n".
+                    '<b style="color: red">' . $class . '\\' . $method . '.' . $type . "</b>\n".
                     '<b>Server:</b> ' . App::$request->host . "\n\n" . 
                     '<b>Trace:</b> ' . $e->getTraceAsString() . "\n\n" . 
                     '<b>Params:</b> ' . json_encode([$get->ToArray(), $post->ToArray(), $payload->ToArray()]) . "\n" .
