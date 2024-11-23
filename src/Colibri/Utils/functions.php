@@ -1,4 +1,6 @@
 <?php
+
+use Colibri\App;
 use Colibri\Utils\Debug;
 
 if (!function_exists('dd')) {
@@ -112,4 +114,25 @@ if(!function_exists('pidx')) {
         return count($pids) > 1 ? $pids : (int)$pids[0];
     }
 
+}
+
+if(!function_exists('app_debug')) {
+    function app_debug(...$args) {
+        $message = Debug::ROut($args);
+        App::$log->debug($message);
+    }
+}
+
+if(!function_exists('app_info')) {
+    function app_info(...$args) {
+        $message = Debug::ROut($args);
+        App::$log->info($message);
+    }
+}
+
+if(!function_exists('app_emergency')) {
+    function app_emergency(...$args) {
+        $message = Debug::ROut($args);
+        App::$log->info($message);
+    }
 }
