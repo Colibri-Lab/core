@@ -1125,4 +1125,13 @@ class StringHelper
         return preg_replace('/^['.$trim_chars.']*(?U)(.*)['.$trim_chars.']*$/u', '\\1', $string);
     }
 
+    public static function ReplaceInObject($object, $search, $replace): object
+    {
+        $object = (array)$object;
+        foreach($object as $key => $value) {
+            $object[$key] = self::Replace($object[$key], $search, $replace);
+        }
+        return (object)$object;
+    }
+
 }
