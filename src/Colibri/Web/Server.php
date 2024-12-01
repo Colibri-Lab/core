@@ -7,8 +7,9 @@
  *
  * @package Colibri\Web
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web;
 
 use Colibri\App;
@@ -31,9 +32,9 @@ class Server
 {
     use TEventDispatcher;
 
-     /**
-     * List of errors
-     */
+    /**
+    * List of errors
+    */
     public const IncorrectCommandObject = 1;
     public const UnknownMethodInObject = 2;
 
@@ -365,10 +366,11 @@ class Server
                     }
                 }
 
-                $sendToTelegram && ErrorHelper::Telegram('@colibri_core_errors', 
+                $sendToTelegram && ErrorHelper::Telegram(
+                    '@colibri_core_errors',
                     '<b style="color: red">' . $class . '\\' . $method . '.' . $type . "</b>\n".
-                    '<b>Server:</b> ' . App::$request->host . "\n\n" . 
-                    '<b>Trace:</b> ' . $e->getTraceAsString() . "\n\n" . 
+                    '<b>Server:</b> ' . App::$request->host . "\n\n" .
+                    '<b>Trace:</b> ' . $e->getTraceAsString() . "\n\n" .
                     '<b>Params:</b> ' . json_encode([$get->ToArray(), $post->ToArray(), $payload->ToArray()]) . "\n" .
                     '<b>Response:</b> ' . $code . ', ' . $message . "\n" .
                     '<b>Result:</b> ' . json_encode($result) . "\n"
