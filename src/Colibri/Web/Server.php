@@ -355,9 +355,14 @@ class Server
                 App::$log->debug($e->getTraceAsString());
 
                 $sendToTelegram = true;
-                $arrayExclude = App::$config->Query('errors.exclude', [])->AsArray();
+                $arrayExclude = App::$config->Query('errors.exclude', [])->ToArray();
                 if($arrayExclude && !empty($arrayExclude)) {
-                    $sendToTelegram = !in_array(get_class($e), $arrayExclude);
+                    foreach($arrayExclude as $classFilter) {
+                        if(strstr(get_class($e), $classFilter) !== false) {
+                            $sendToTelegram = false;
+                            break;
+                        }
+                    }
                 }
 
                 $sendToTelegram && ErrorHelper::Telegram('@colibri_core_errors', 
