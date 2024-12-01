@@ -354,7 +354,13 @@ class Server
                 App::$log->debug($code . ': ' . $message);
                 App::$log->debug($e->getTraceAsString());
 
-                ErrorHelper::Telegram('@colibri_core_errors', 
+                $sendToTelegram = true;
+                $arrayExclude = App::$config->Query('errors.exclude', [])->AsArray();
+                if($arrayExclude && !empty($arrayExclude)) {
+                    $sendToTelegram = !in_array(get_class($e), $arrayExclude);
+                }
+
+                $sendToTelegram && ErrorHelper::Telegram('@colibri_core_errors', 
                     '<b style="color: red">' . $class . '\\' . $method . '.' . $type . "</b>\n".
                     '<b>Server:</b> ' . App::$request->host . "\n\n" . 
                     '<b>Trace:</b> ' . $e->getTraceAsString() . "\n\n" . 
