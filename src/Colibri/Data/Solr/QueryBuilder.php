@@ -1,24 +1,23 @@
 <?php
 
+
 /**
- * PgSql
+ * Solr
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Data\PgSql
+ * @package Colibri\Data\Solr
  */
+namespace Colibri\Data\Solr;
 
-namespace Colibri\Data\PgSql;
-
-use Colibri\Common\VariableHelper;
+use Colibri\Common\StringHelper;
 use Colibri\Data\SqlClient\IQueryBuilder;
-use Colibri\Utils\Debug;
 
 /**
- * Class for generating queries for the PostgreSql driver.
+ * Class for generating queries for the MySql driver.
  *
  * This class implements the IQueryBuilder interface, providing methods to generate various types of SQL queries
- * compatible with the PostgreSql database.
+ * compatible with the MySql database.
  *
  */
 class QueryBuilder implements IQueryBuilder
@@ -39,21 +38,19 @@ class QueryBuilder implements IQueryBuilder
                 $value = 'null';
             } elseif (is_bool($value)) {
                 $value = '\'' . ($value ? 1 : 0) . '\'';
-            } elseif (strstr($value, '[[') === false || strstr($value, ']]') === false) {
+            } elseif (StringHelper::IsJsonString($value) || (strstr($value, '[[') === false || strstr($value, ']]') === false)) {
                 $value = '\'' . addslashes($value) . '\'';
             }
             $data[$key] = $value;
         }
 
         $keys = array_keys($data);
-        $fields = '("' . join('", "', $keys) . '")';
+        $fields = '(`' . join("`, `", $keys) . '`)';
 
         $vals = array_values($data);
         $values = "(" . join(", ", $vals) . ")";
 
-        $table = '"'. implode('"."', explode('.', $table)) . '"';
-
-        return 'insert into ' . $table . $fields . ' values' . $values;
+        return "insert into `" . $table . '`' . $fields . ' values' . $values;
     }
 
     /**
@@ -79,13 +76,12 @@ class QueryBuilder implements IQueryBuilder
         }
 
         $keys = array_keys($data);
-        $fields = '("' . join('", "', $keys) . '")';
+        $fields = '(`' . join("`, `", $keys) . '`)';
 
         $vals = array_values($data);
         $values = "(" . join(", ", $vals) . ")";
-        $table = '"'. implode('"."', explode('.', $table)) . '"';
 
-        return 'replace into ' . $table . $fields . ' values' . $values;
+        return "replace into `" . $table . '`' . $fields . ' values' . $values;
     }
 
     /**
@@ -101,7 +97,7 @@ class QueryBuilder implements IQueryBuilder
     {
         $data = (array) $data;
         $keys = array_keys($data);
-        $fields = '("' . implode('", "', $keys) . '")';
+        $fields = '(`' . implode("`, `", $keys) . '`)';
 
         $vals = array_values($data);
         $vs = [];
@@ -120,12 +116,12 @@ class QueryBuilder implements IQueryBuilder
         $updateStatement = '';
         foreach ($data as $k => $v) {
             if (!in_array($k, $exceptFields)) {
-                $updateStatement .= ',"' . $k . '"=' . ($v == null ? 'null' : '\'' . addslashes($v) . '\'');
+                $updateStatement .= ',`' . $k . '`=' . ($v == null ? 'null' : '\'' . addslashes($v) . '\'');
             }
         }
-        $table = '"'. implode('"."', explode('.', $table)) . '"';
 
-        return 'insert into ' . $table . $fields . ' values ' . $values . ' on duplicate key update ' . substr($updateStatement, 1);
+        return "insert into `" . $table . '`' . $fields . ' values ' . $values .
+            ' on duplicate key update ' . substr($updateStatement, 1);
     }
 
     /**
@@ -138,7 +134,7 @@ class QueryBuilder implements IQueryBuilder
     public function CreateBatchInsert(string $table, array |object $data): string
     {
         $keys = array_keys((array) $data[0]);
-        $fields = '("' . implode('", "', $keys) . '")';
+        $fields = '(`' . implode("`, `", $keys) . '`)';
 
         $values = '';
         foreach ($data as $row) {
@@ -158,9 +154,8 @@ class QueryBuilder implements IQueryBuilder
             $values .= ",(" . implode(", ", $vals) . ")";
         }
         $values = substr($values, 1);
-        $table = '"'. implode('"."', explode('.', $table)) . '"';
 
-        return 'insert into ' . $table . $fields . ' values' . $values;
+        return "insert into `" . $table . '`' . $fields . ' values' . $values;
     }
 
     /**
@@ -180,14 +175,14 @@ class QueryBuilder implements IQueryBuilder
                 $val = 'null';
             } elseif (is_bool($val)) {
                 $val = '\'' . ($val ? 1 : 0) . '\'';
+            } elseif (strpos($val, '^') === 0) {
+                $val = substr($val, 1);
             } elseif (strstr($val, '[[') === false || strstr($val, ']]') === false) {
                 $val = '\'' . addslashes($val) . '\'';
             }
-            $q .= ',"' . $k . '"=' . $val;
+            $q .= ',`' . $k . '`=' . $val;
         }
-        
-        $table = '"'. implode('"."', explode('.', $table)) . '"';
-        return 'update ' . $table . ' set ' . substr($q, 1) . ' where ' . $condition;
+        return "update `" . $table . '` set ' . substr($q, 1) . ' where ' . $condition;
     }
 
     /**
@@ -202,8 +197,7 @@ class QueryBuilder implements IQueryBuilder
         if (!empty($condition)) {
             $condition = ' where ' . $condition;
         }
-        $table = '"'. implode('"."', explode('.', $table)) . '"';
-        return (empty($condition) ? 'truncate table ' : 'delete from ') . $table . $condition;
+        return (empty($condition) ? 'truncate table ' : 'delete from ') . '`' . $table . '`' . $condition;
     }
 
     /**
@@ -211,19 +205,9 @@ class QueryBuilder implements IQueryBuilder
      *
      * @return string The generated SHOW TABLES query.
      */
-    public function CreateShowTables(?string $tableFilter = null, ?string $database = null): string
+    public function CreateShowTables(): string
     {
-        return 'SELECT * FROM pg_catalog.pg_tables WHERE true' . ($tableFilter ? ' and tablename=\''.$tableFilter.'\'' : '') . ($tableFilter ? ' and schemaname=\''.$database.'\'' : '');
-    }
-
-    /**
-     * Creates a SHOW TABLES query.
-     *
-     * @return string The generated SHOW TABLES query.
-     */
-    public function CreateShowIndexes(string $table, ?string $database = null): string
-    {
-        return 'SELECT * FROM pg_catalog.pg_indexes WHERE true' . ($table ? ' and tablename=\''.$table.'\'' : '') . ($table ? ' and schemaname=\''.$database.'\'' : '');
+        return "show tables";
     }
 
     /**
@@ -232,11 +216,10 @@ class QueryBuilder implements IQueryBuilder
      * @param string $table The name of the table.
      * @return string The generated SHOW COLUMNS FROM query.
      */
-    public function CreateShowField(string $table, ?string $database = null): string
+    public function CreateShowField(string $table): string
     {
-        return 'SELECT * FROM information_schema.columns WHERE '.($database ? 'table_schema = \''.$database.'\' AND ' : '').'table_name = \''.$table.'\'';
+        return "show columns from `" . $table . '`';
     }
-
 
     /**
      * Creates a BEGIN transaction query.
@@ -244,9 +227,15 @@ class QueryBuilder implements IQueryBuilder
      * @param string|null $type (optional) The type of transaction (e.g., 'readonly', 'readwrite'). Default is null.
      * @return string The generated BEGIN transaction query.
      */
-    public function CreateBegin(string $type = 'readonly'): string
+    public function CreateBegin(string $type = null): string
     {
-        return 'begin transaction';
+        if($type === 'readonly') {
+            return 'start transaction READ ONLY';
+        } elseif($type === 'readwrite') {
+            return 'start transaction READ WRITE';
+        } else {
+            return 'start transaction';
+        }
     }
 
     /**

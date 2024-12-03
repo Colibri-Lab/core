@@ -228,15 +228,15 @@ class Storages
                 }
 
                 $dtp = App::$dataAccessPoints->Get($xstorage['access-point']);
-                $reader = $dtp->Query('SHOW TABLES LIKE \'' . $table_name . '\'');
-                if ($reader->count == 0) {
+                $reader = $dtp->Tables($table_name);
+                if ($reader->Count() == 0) {
                     $logger->error($table_name . ': Storage destination not found: creating');
                     $this->_createStorageTable($logger, $dtp, $prefix, $name);
                 }
 
                 // проверяем наличие и типы полей, и если отличаются пересоздаем
-                $ofields = array();
-                $reader = $dtp->Query('SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=\'' . $dtp->point->database . '\' and TABLE_NAME=\'' . $table_name . '\'');
+                $ofields = [];
+                $reader = $dtp->Fields($table_name);
                 while ($ofield = $reader->Read()) {
 
                     $ofield->GENERATION_EXPRESSION = preg_replace_callback("/_utf8mb\d\\\'(.*?)\\\'/", function ($match) {
@@ -256,8 +256,8 @@ class Storages
 
                 try {
 
-                    $indexesReader = $dtp->Query('SHOW INDEX FROM ' . $table_name);
-                    $indices = array();
+                    $indexesReader = $dtp->Indexes($table_name);
+                    $indices = [];
                     while ($index = $indexesReader->Read()) {
                         if ($index->Key_name && $index->Key_name != 'PRIMARY') {
                             // индексы возвращаются отдельно для каждого поля
@@ -392,17 +392,6 @@ class Storages
                     }
                 }
 
-                // ! @deprecated
-                // $xobjects = isset($xstorage['objects']) ? $xstorage['objects'] : [];
-                // foreach ($xobjects as $xobject) {
-                //     if (isset($xobject['json'])) {
-                //         $object = json_decode($xobject['json']);
-                //         $datatable = new StorageDataTable(App::$dataAccessPoints->Get($name));
-                //         if (!$datatable->SaveRow($datatable->CreateEmptyRow($object))) {
-
-                //         }
-                //     }
-                // }
 
             }
 

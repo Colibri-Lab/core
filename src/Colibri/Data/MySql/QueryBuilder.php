@@ -205,9 +205,19 @@ class QueryBuilder implements IQueryBuilder
      *
      * @return string The generated SHOW TABLES query.
      */
-    public function CreateShowTables(): string
+    public function CreateShowTables(?string $table = null, ?string $database = null): string
     {
-        return "show tables";
+        return "show tables" . ($table ? " like '" . $table . "'" : "");
+    }
+
+    /**
+     * Creates a SHOW TABLES query.
+     *
+     * @return string The generated SHOW TABLES query.
+     */
+    public function CreateShowIndexes(string $table, ?string $database = null): string
+    {
+        return 'SHOW INDEX FROM ' . $table;
     }
 
     /**
@@ -216,9 +226,9 @@ class QueryBuilder implements IQueryBuilder
      * @param string $table The name of the table.
      * @return string The generated SHOW COLUMNS FROM query.
      */
-    public function CreateShowField(string $table): string
+    public function CreateShowField(string $table, ?string $database = null): string
     {
-        return "show columns from `" . $table . '`';
+        return "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='" . $database . "' and TABLE_NAME='" . $table . "'";
     }
 
     /**

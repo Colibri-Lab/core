@@ -358,11 +358,35 @@ class DataAccessPoint
      *
      * @return IDataReader|null Returns an IDataReader object or null.
      */    
-    public function Tables(): IDataReader|QueryInfo
+    public function Tables(?string $table = null): IDataReader|QueryInfo
     {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateShowTables(), ['type' => self::QueryTypeReader]);
+        return $this->Query($queryBuilder->CreateShowTables($table), ['type' => self::QueryTypeReader]);
+    }
+
+    /**
+     * Returns a list of fields in the database table.
+     *
+     * @return IDataReader|null Returns an IDataReader object or null.
+     */    
+    public function Fields(string $table, ?string $database = null): IDataReader|QueryInfo
+    {
+        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
+        $queryBuilder = new $querybuilderClassObject();
+        return $this->Query($queryBuilder->CreateShowField($table, $database ?: $this->point->database), ['type' => self::QueryTypeReader]);
+    }
+    
+    /**
+     * Returns a list of indexes in the database table.
+     *
+     * @return IDataReader|null Returns an IDataReader object or null.
+     */    
+    public function Indexes(string $table, ?string $database = null): IDataReader|QueryInfo
+    {
+        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
+        $queryBuilder = new $querybuilderClassObject();
+        return $this->Query($queryBuilder->CreateShowIndexes($table, $database ?: $this->point->database), ['type' => self::QueryTypeReader]);
     }
 
     /**

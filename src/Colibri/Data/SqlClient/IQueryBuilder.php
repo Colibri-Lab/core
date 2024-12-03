@@ -79,7 +79,7 @@ interface IQueryBuilder
      *
      * @return string The generated SHOW TABLES query.
      */
-    public function CreateShowTables(): string;
+    public function CreateShowTables(?string $tableFilter = null, ?string $database = null): string;
 
     /**
      * Creates an SQL SHOW FIELD query.
@@ -87,7 +87,15 @@ interface IQueryBuilder
      * @param string $table The name of the table.
      * @return string The generated SHOW FIELD query.
      */
-    public function CreateShowField(string $table): string;
+    public function CreateShowField(string $table, ?string $database = null): string;
+
+    /**
+     * Creates an query for list indexes in table
+     * @param string $table
+     * @param mixed $database
+     * @return string
+     */
+    public function CreateShowIndexes(string $table, ?string $database = null): string;
 
     /**
      * Creates an SQL BEGIN transaction query.
