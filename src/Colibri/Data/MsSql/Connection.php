@@ -2,26 +2,26 @@
 
 
 /**
- * MySql
+ * MsSql
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Data\MySql
+ * @package Colibri\Data\MsSql
  */
-namespace Colibri\Data\MySql;
+namespace Colibri\Data\MsSql;
 
 use Colibri\Data\SqlClient\IConnection;
-use Colibri\Data\MySql\Exception as MySqlException;
+use Colibri\Data\MsSql\Exception as MsSqlException;
 
 /**
- * Class for connecting to the MySQL database.
+ * Class for connecting to the MsSql database.
  *
- * This class provides methods for establishing and managing connections to a MySQL database.
+ * This class provides methods for establishing and managing connections to a MsSql database.
  *
- * @property-read resource $resource The MySQL connection resource.
- * @property-read resource $raw The raw MySQL connection resource.
+ * @property-read resource $resource The MsSql connection resource.
+ * @property-read resource $raw The raw MsSql connection resource.
  * @property-read resource $connection Alias for $resource.
- * @property-read bool $isAlive Indicates whether the connection to the MySQL server is alive.
+ * @property-read bool $isAlive Indicates whether the connection to the MsSql server is alive.
  *
  */
 final class Connection implements IConnection
@@ -32,7 +32,7 @@ final class Connection implements IConnection
     private $_connectioninfo = null;
 
     /**
-     * @var \mysqli|null The MySQL connection resource.
+     * @var \MsSqli|null The MsSql connection resource.
      */
     private $_resource = null;
 
@@ -41,10 +41,10 @@ final class Connection implements IConnection
      *
      * Initializes a new Connection object with the provided connection information.
      *
-     * @param string $host The hostname or IP address of the MySQL server.
-     * @param string $port The port number of the MySQL server.
-     * @param string $user The MySQL username.
-     * @param string $password The MySQL password.
+     * @param string $host The hostname or IP address of the MsSql server.
+     * @param string $port The port number of the MsSql server.
+     * @param string $user The MsSql username.
+     * @param string $password The MsSql password.
      * @param bool $persistent Whether to use a persistent connection (true) or not (false).
      * @param string|null $database (Optional) The name of the default database to connect to.
      */
@@ -74,37 +74,38 @@ final class Connection implements IConnection
     }
 
     /**
-     * Opens a connection to the MySQL database server.
+     * Opens a connection to the MsSql database server.
      *
      * @return bool Returns true if the connection was successful; otherwise, false.
      *
-     * @throws MySqlException If an error occurs while establishing the connection.
+     * @throws MsSqlException If an error occurs while establishing the connection.
      *
      */
     public function Open(): bool
     {
 
         if (is_null($this->_connectioninfo)) {
-            throw new MySqlException('You must provide a connection info object while creating a connection.');
+            throw new MsSqlException('You must provide a connection info object while creating a connection.');
         }
 
         try {
-            $this->_resource = mysqli_connect(
-                ($this->_connectioninfo->persistent ? 'p:' : '') .
-                    $this->_connectioninfo->host .
-                    ($this->_connectioninfo->port ? ':' . $this->_connectioninfo->port : ''),
-                $this->_connectioninfo->user,
-                $this->_connectioninfo->password
+            $this->_resource = \sqlsrv_connect(
+                $this->_connectioninfo->host . ',' . $this->_connectioninfo->port,
+                [
+                    'Database' => $this->_connectioninfo->database,
+                    'UID' => $this->_connectioninfo->user,
+                    'PWD' => $this->_connectioninfo->password
+                ]
             );
             if (!$this->_resource) {
-                throw new MySqlException(
+                throw new MsSqlException(
                     'Connection: ' . $this->_connectioninfo->host . ' ' .
                         $this->_connectioninfo->port . ' ' . $this->_connectioninfo->user . ': ' .
-                        mysqli_connect_error()
+                        implode(',', \sqlsrv_errors())
                 );
             }
         } catch (\Throwable $e) {
-            throw new MySqlException(
+            throw new MsSqlException(
                 'Connection: ' . $this->_connectioninfo->host . ' ' .
                 $this->_connectioninfo->port . ' ' . $this->_connectioninfo->user . ': ' . $e->getMessage(),
                 $e->getCode(),
@@ -112,19 +113,13 @@ final class Connection implements IConnection
             );
         }
 
-        if (
-            !empty($this->_connectioninfo->database) &&
-            !mysqli_select_db($this->_resource, $this->_connectioninfo->database)) {
-            throw new MySqlException(mysqli_error($this->_resource));
-        }
-
-        mysqli_query($this->_resource, 'SET NAMES utf8mb4 COLLATE utf8mb4_general_ci');
+        // sqlsrv_query($this->_resource, 'SET NAMES utf8mb4 COLLATE utf8mb4_general_ci');
 
         return true;
     }
 
     /**
-     * Reopens the MySQL database connection.
+     * Reopens the MsSql database connection.
      *
      * This method is an alias for Open().
      *
@@ -137,7 +132,7 @@ final class Connection implements IConnection
     }
 
     /**
-     * Closes the MySQL database connection.
+     * Closes the MsSql database connection.
      *
      * @return void
      *
@@ -145,7 +140,7 @@ final class Connection implements IConnection
     public function Close(): void
     {
         if (is_resource($this->_resource)) {
-            mysqli_close($this->_resource);
+            \sqlsrv_close($this->_resource);
         }
     }
 
@@ -181,7 +176,7 @@ final class Connection implements IConnection
     }
 
     public function Ping(): bool {
-        return mysqli_ping($this->_resource);
+        return sqlsrv_query($this->_resource, 'SELECT true') !== false;
     }
 
     public static function AllowedTypes(): array

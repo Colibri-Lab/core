@@ -2,13 +2,13 @@
 
 
 /**
- * Solr
+ * MsSql
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Data\Solr
+ * @package Colibri\Data\MsSql
  */
-namespace Colibri\Data\Solr;
+namespace Colibri\Data\MsSql;
 
 
 use Colibri\Data\SqlClient\QueryInfo as SqlQueryInfo;

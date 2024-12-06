@@ -350,14 +350,14 @@ class StringHelper
         }
 
         $qs = StringHelper::ParseAsUrl($url);
-        $qs->params = array_merge($qs->params ?: [], $params);
+        $qs->params = array_merge($qs->params ?: [], (array)$params);
 
         $query = [];
         foreach ($qs->params as $key => $value) {
             $query[] = $key . '=' . ($encode ? urlencode($value) : $value);
         }
 
-        return ($qs->scheme ? $qs->scheme . '://' : '') . ($qs->host ?? '') . $qs->path . (!empty($query) ? '?' . implode('&', $query) : '');
+        return ($qs->scheme ? $qs->scheme . '://' : '') . ($qs->host ?? '') . ($qs->port ? ':' . $qs->port : '') . $qs->path . (!empty($query) ? '?' . implode('&', $query) : '');
 
     }
 

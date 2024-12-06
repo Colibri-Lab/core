@@ -2,28 +2,30 @@
 
 
 /**
- * MySql
+ * MongoDb
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Data\Solr
+ * @package Colibri\Data\MongoDb
  */
-namespace Colibri\Data\Solr;
+namespace Colibri\Data\MongoDb;
 
 use Colibri\Common\StringHelper;
 use Colibri\Data\NoSqlClient\IConnection;
-use Colibri\Data\Solr\Exception as Exception;
+use Colibri\Data\MongoDb\Exception as Exception;
 use Colibri\IO\Request\Request;
-use SolrClient;
+use MongoDB\Client as MongoDbClient;
+use MongoDB\Database as MongoDbDatabase;
 
 /**
  * Class for connecting to the MySQL database.
  *
  * This class provides methods for establishing and managing connections to a MySQL database.
  *
- * @property-read resource $resource The MySQL connection resource.
- * @property-read resource $raw The raw MySQL connection resource.
- * @property-read resource $connection Alias for $resource.
+ * @property-read MongoDbClient $resource The MySQL connection resource.
+ * @property-read MongoDbClient $raw The raw MySQL connection resource.
+ * @property-read MongoDbClient $connection Alias for $resource.
+ * @property-read MongoDbDatabase $database Alias for $resource.
  * @property-read object $info Alias for $resource.
  * @property-read bool $isAlive Indicates whether the connection to the MySQL server is alive.
  *
@@ -36,9 +38,14 @@ final class Connection implements IConnection
     private $_connectioninfo = null;
 
     /**
-     * @var \SolrClient|null The connection resource.
+     * @var MongoDbClient|null The connection resource.
      */
-    private $_resource = null;
+    private ?MongoDbClient $_resource = null;
+
+    /**
+     * @var MongoDbDatabase|null The database resource.
+     */
+    private ?MongoDbDatabase $_database = null;
 
     /**
      * Connection constructor.
@@ -74,11 +81,10 @@ final class Connection implements IConnection
         }
 
         try {
-            
-            if(!$this->Ping()) {
-                throw new Exception('Can not connect to host or host is not alive', 418);
-            }
 
+            $this->_resource = new MongoDbClient('mongodb://'.$this->_connectioninfo->host.':' . $this->_connectioninfo->port, );
+            $this->_database = $this->_resource->getDatabase($this->_connectioninfo->database);
+            
         } catch (\Throwable $e) {
             throw new Exception(
                 'Connection: ' . $this->_connectioninfo->host . ' ' .
@@ -112,6 +118,7 @@ final class Connection implements IConnection
      */
     public function Close(): void
     {
+        // do nothing
     }
 
     /**
@@ -130,6 +137,8 @@ final class Connection implements IConnection
             case "raw":
             case "connection":
                 return $this->_resource;
+            case "database":
+                return $this->_database;
             case "isAlive":
                 return $this->Ping();
             case 'host':
@@ -145,8 +154,12 @@ final class Connection implements IConnection
 
     public function Ping(): bool
     {
-        $result = Command::Execute($this, 'get', '/admin/cores', ['wt' => 'json'], 'status');
-        return $result->QueryInfo()->affected > 0;
+        try {
+            $names = $this->_database->listCollectionNames();
+            return true;
+        } catch(\Throwable $e) {
+            return false;
+        }
     }
 
     

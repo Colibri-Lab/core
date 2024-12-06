@@ -11,9 +11,12 @@
 namespace Colibri\Data;
 
 use Colibri\App;
-use Colibri\Data\SqlClient\IConnection;
+use Colibri\Data\NoSqlClient\ICommandResult;
+use Colibri\Data\SqlClient\IConnection as ISqlClientConnection;
+use Colibri\Data\NoSqlClient\IConnection as INoSqlClientConnection;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\SqlClient\QueryInfo;
+use Colibri\Data\Storages\Storage;
 use Colibri\Utils\Debug;
 use DateTime;
 
@@ -98,12 +101,19 @@ use DateTime;
  * ```
  *
  * @property-read string $name
- * @property-read IConnection $connection
+ * @property-read string $dbms
+ * @property-read ISqlClientConnection|INoSqlClientConnection $connection
  * @property-read object $point
  *
  */
 class DataAccessPoint
 {
+    /** Type of DBMS is relational */
+    public const DBMSTypeRelational = 'relational';
+    
+    /** Type of DBMS is nosql */
+    public const DBMSTypeNoSql = 'nosql';
+
     /** Execute the query and return a Reader */
     public const QueryTypeReader = 'reader';
 
@@ -129,31 +139,25 @@ class DataAccessPoint
     /**
      * Connection object
      *
-     * @var IConnection
+     * @var ISqlClientConnection|INoSqlClientConnection
      */
-    private IConnection $_connection;
+    private ISqlClientConnection|INoSqlClientConnection $_connection;
 
     /**
      * Constructor
      *
-     * @param object $accessPointData The access point data object.
+     * @param object|array $accessPointData The access point data object.
      */
-    public function __construct($accessPointData)
+    public function __construct(object|array $accessPointData)
     {
 
-        $this->_accessPointData = $accessPointData;
+        $this->_accessPointData = (object)$accessPointData;
 
         $connectionClassObject = $this->_accessPointData->driver->connection;
 
-        $this->_connection = new $connectionClassObject(
-            $this->_accessPointData->host,
-            $this->_accessPointData->port,
-            $this->_accessPointData->user,
-            $this->_accessPointData->password,
-            $this->_accessPointData->persistent,
-            $this->_accessPointData->database
-        );
+        $this->_connection = $connectionClassObject::FromConnectionInfo($this->_accessPointData);
         $this->_connection->Open();
+
     }
 
     /**
@@ -170,9 +174,55 @@ class DataAccessPoint
             return $this->_accessPointData;
         } elseif ($property == 'symbol') {
             return $this->_connection->symbol;
+        } elseif ($property == 'dbms') {
+            $dbms = 'relational';
+            if($this->_accessPointData->driver?->dbms) {
+                if(strstr($this->_accessPointData->driver?->dbms, 'DataAccessPoint') !== false) {
+                    eval('$dbms = '.$this->_accessPointData->driver?->dbms.';');
+                } else {
+                    $dbms = $this->_accessPointData->driver?->dbms;
+                }
+            }
+            return $dbms;
+        } elseif ($property == 'allowedTypes') {
+            $connectionClass = $this->_accessPointData->driver->connection;
+            return $connectionClass::AllowedTypes();
         } else {
-            return $this->Query('select * from ' . $property);
+            if($this->dbms === self::DBMSTypeRelational) {
+                return $this->Query('select * from ' . $property);
+            } else {
+                throw new DataAccessPointsException('Can not execute relational query on nosql database');
+            }
         }
+    }
+    
+    public function Reopen() 
+    {
+        $this->_connection->Reopen();
+    }
+
+    public function ExecuteCommand(string $command, ...$arguments):  mixed
+    {
+        if($this->_accessPointData->driver->dbms === self::DBMSTypeRelational) {
+            throw new DataAccessPointsException('Can not execute command on relational database! Please use the Query method');
+        }
+        
+        $commandClassObject = $this->_accessPointData->driver->command;
+        $cmd = new $commandClassObject($this->_connection);
+        if(method_exists($cmd, $command)) {
+            return $cmd->$command(...$arguments);
+        }
+
+        throw new DataAccessPointsException('Can not find required command in driver Command object');
+
+    }
+
+    public function __call(string $name, array $arguments): mixed
+    {
+        if(method_exists($this, $name)) {
+            return $this->$name(...$arguments);
+        }
+        return $this->ExecuteCommand($name, ...$arguments);
     }
 
     /**
@@ -261,6 +311,12 @@ class DataAccessPoint
 
     }
 
+    public function CreateQuery(string $method, array $attributes) {
+        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
+        $queryBuilder = new $querybuilderClassObject();
+        return $queryBuilder->$method(...$attributes);
+    }
+
     /**
      * Inserts a new row.
      *
@@ -275,9 +331,7 @@ class DataAccessPoint
         if (!is_null($params)) {
             $queryParams['params'] = $params;
         }
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateInsert($table, $row), $queryParams);
+        return $this->Query($this->CreateQuery('CreateInsert', [$table, $row]), $queryParams);
     }
 
     /**
@@ -297,13 +351,11 @@ class DataAccessPoint
         array $exceptFields = [],
         string $returning = '' /* used only in postgres*/
     ): QueryInfo {
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateInsertOrUpdate(
+        return $this->Query($this->CreateQuery('CreateInsertOrUpdate', [
             $table,
             $row,
             $exceptFields
-        ), ['type' => self::QueryTypeNonInfo, 'returning' => $returning]);
+        ]), ['type' => self::QueryTypeNonInfo, 'returning' => $returning]);
     }
 
     /**
@@ -315,9 +367,7 @@ class DataAccessPoint
      */
     public function InsertBatch(string $table, array $rows = []): QueryInfo
     {
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateBatchInsert($table, $rows), ['type' => self::QueryTypeNonInfo]);
+        return $this->Query($this->CreateQuery('CreateBatchInsert', [$table, $rows]), ['type' => self::QueryTypeNonInfo]);
     }
 
     /**
@@ -334,9 +384,7 @@ class DataAccessPoint
         if (!is_null($params)) {
             $queryParams['params'] = $params;
         }
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateUpdate($table, $condition, $row), $queryParams);
+        return $this->Query($this->CreateQuery('CreateUpdate', [$table, $condition, $row]), $queryParams);
     }
 
     /**
@@ -348,9 +396,7 @@ class DataAccessPoint
      */
     public function Delete(string $table, string $condition = ''): QueryInfo
     {
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateDelete($table, $condition), ['type' => self::QueryTypeNonInfo]);
+        return $this->Query($this->CreateQuery('CreateDelete', [$table, $condition]), ['type' => self::QueryTypeNonInfo]);
     }
 
     /**
@@ -360,9 +406,7 @@ class DataAccessPoint
      */    
     public function Tables(?string $table = null): IDataReader|QueryInfo
     {
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateShowTables($table), ['type' => self::QueryTypeReader]);
+        return $this->Query($this->CreateQuery('CreateShowTables', [$table]), ['type' => self::QueryTypeReader]);
     }
 
     /**
@@ -372,9 +416,7 @@ class DataAccessPoint
      */    
     public function Fields(string $table, ?string $database = null): IDataReader|QueryInfo
     {
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateShowField($table, $database ?: $this->point->database), ['type' => self::QueryTypeReader]);
+        return $this->Query($this->CreateQuery('CreateShowField', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
     }
     
     /**
@@ -384,47 +426,48 @@ class DataAccessPoint
      */    
     public function Indexes(string $table, ?string $database = null): IDataReader|QueryInfo
     {
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateShowIndexes($table, $database ?: $this->point->database), ['type' => self::QueryTypeReader]);
+        return $this->Query($this->CreateQuery('CreateShowIndexes', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
     }
 
     /**
      * Starts a transaction.
      * @return void
      */
-    public function Begin(?string $type = null): QueryInfo
+    public function Begin(?string $type = null): ?QueryInfo
     {
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateBegin($type), ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        if($this->dbms === self::DBMSTypeRelational) {
+            return $this->Query($this->CreateQuery('CreateBegin', [$type]), ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        }
+        return null;
     }
 
     /**
      * Commits the transaction.
      * @return void
      */
-    public function Commit(): QueryInfo
+    public function Commit(): ?QueryInfo
     {
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateCommit(), ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        if($this->dbms === self::DBMSTypeRelational) {
+            return $this->Query($this->CreateQuery('CreateCommit', []), ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        }
+        return null;
     }
 
     /**
      * Rolls back the transaction.
      * @return void
      */
-    public function Rollback(): QueryInfo
+    public function Rollback(): ?QueryInfo
     {
-        $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
-        return $this->Query($queryBuilder->CreateRollback(), ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        if($this->dbms === self::DBMSTypeRelational) {
+            return $this->Query($this->CreateQuery('CreateRollback', []), ['type' => DataAccessPoint::QueryTypeNonInfo]);
+        }
+        return null;
     }
 
-    public function Reopen() 
+    public function ProcessFilters(Storage $storage, string $fullTextSearchTerms, array $filters, string $sortField, string $sortOrder): array
     {
-        $this->_connection->Reopen();
+        return $this->CreateQuery('ProcessFilters', [$storage, $fullTextSearchTerms, $filters, $sortField, $sortOrder]);
     }
 
 }

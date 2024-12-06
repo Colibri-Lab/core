@@ -3,16 +3,15 @@
 namespace [[namespace-path]];
 
 use Colibri\Data\DataAccessPoint;
-use Colibri\Data\SqlClient\IDataReader;
+use Colibri\Data\NoSqlClient\ICommandResult;
 use Colibri\Data\Storages\Storages;
 use Colibri\Data\Storages\Storage;
 use Colibri\Utils\Logs\Logger;
-use Colibri\Data\SqlClient\QueryInfo;
-use [[parent-table-class-name]] as BaseModelDataTable;
+use [[parent-table-class-name]] as BaseModelDataCollection;
 use [[namespace-path]]\[[row-class-name]];
 
 /**
- * Table class of [[storage-desc]] storage
+ * Collection class of [[storage-desc]] storage
  * @author <author name and email>
  * @package [[namespace-path]]
  * 
@@ -22,20 +21,20 @@ use [[namespace-path]]\[[row-class-name]];
  * @method [[row-class-name]] offsetGet(mixed $offset)
  * 
  */
-class [[table-class-name]] extends BaseModelDataTable 
+class [[table-class-name]] extends BaseModelDataCollection 
 {
 
     /**
      * Constructor
      * @param DataAccessPoint $point data access point
-     * @param IDataReader|null $reader sql reader
-     * @param string|\Closure $returnAs return as this class
+     * @param ICommandResult|null $reader query result 
+     * @param string|\Closure $returnAs return row as class
      * @param Storage|null $storage storage object
      * @return void 
      */
     public function __construct(
         DataAccessPoint $point, 
-        IDataReader $reader = null, 
+        ?ICommandResult $reader = null, 
         string $returnAs = '[[row-class-name]]', 
         Storage|null $storage = null
     )
@@ -45,28 +44,27 @@ class [[table-class-name]] extends BaseModelDataTable
 
     
     /**
-     * Create table by filters and sort
+     * Creates a collection object by filters
      * @param int $page page
      * @param int $pagesize page size
-     * @param string $filter filters string
-     * @param string $order sort order
-     * @param array $params params
-     * @param bool $calculateAffected if needed to return affected, default true
+     * @param ?array $query query object
+     * @param ?array $filter filters object
+     * @param ?array $order order object
      * @return [[table-class-name]]
      */
     public static function LoadByFilter(
-        int $page = -1, 
-        int $pagesize = 20, 
-        string $filter = null, 
-        string $order = null, 
-        array $params = [], 
-        bool $calculateAffected = true
+        int $page = -1,
+        int $pagesize = 20,
+        ?array $query = null,
+        ?array $filter = null,
+        ?array $order = null
     ) : ?[[table-class-name]]
     {
         $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
-        return parent::_loadByFilter($storage, $page, $pagesize, $filter, $order, $params, $calculateAffected);
+        return parent::_loadByFilter($storage, $page, $pagesize, $query, $filter, $order);
     }
 
+    
     /**
      * Create table by any filters
      * @param int $page page
@@ -74,7 +72,8 @@ class [[table-class-name]] extends BaseModelDataTable
      * @param ?array $filtersArray filters array|object
      * @param string $sortField sort field
      * @param string $sortOrder sort order, default asc
-     * @return ?[[table-class-name]]
+     * @param bool $calculateAffected if needed to return affected, default true
+     * @return [[table-class-name]]
      */
     public static function LoadBy(
         int $page = -1, 
@@ -86,54 +85,53 @@ class [[table-class-name]] extends BaseModelDataTable
     ) : ?[[table-class-name]]
     {
         $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
-        [$filter, $order, $params] = $storage->accessPoint->ProcessFilters($storage, $searchTerm, $filtersArray, $sortField, $sortOrder);
-        return parent::_loadByFilter($storage, $page, $pagesize, $filter, $order, $params);
+        [$query, $filters, $order] = $storage->accessPoint->ProcessFilters($storage, $searchTerm, $filtersArray, $sortField, $sortOrder);
+        return parent::_loadByFilter($storage, $page, $pagesize, $query, $filters, $order);
     }
 
     /**
-     * Loads all rows from table
+     * Returns all documents in collection
      * @param int $page page
      * @param int $pagesize page size
      * @return [[table-class-name]] 
      */
     public static function LoadAll(
         int $page = -1, 
-        int $pagesize = 20, 
-        bool $calculateAffected = false
+        int $pagesize = 20
     ) : ?[[table-class-name]]
     {
-        return self::LoadByFilter($page, $pagesize, null, null, [], $calculateAffected);
+        return self::LoadByFilter($page, $pagesize);
     }
 
     /**
-     * Returns row model by ID
-     * @param int $id ID строки
+     * Returns a row document by ID
+     * @param int $id ID id of document
      * @return [[row-class-name]]|null
      */
     public static function LoadById(int $id) : [[row-class-name]]|null 
     {
-        $table = self::LoadByFilter(1, 1, '{id}=[[id:integer]]', null, ['id' => $id], false);
+        $table = self::LoadByFilter(1, 1, ['id' => $id], null);
         return $table && $table->Count() > 0 ? $table->First() : null;
     }
 
     /**
-     * Returns an empty row object
+     * Creates an empty document
      * @return [[row-class-name]]
      */
     public static function LoadEmpty() : [[row-class-name]]
     {
-        $table = self::LoadByFilter(-1, 20, 'false', null, [], false);
+        $table = self::LoadByFilter(-1, 20, ['id' => null], null);
         return $table->CreateEmptyRow();
     }
 
     /**
-     * Deletes a rows by array of ID
-     * @param int[] $ids ID array of ID
+     * Deletes a rows by array of ID 
+     * @param int[] $ids array of ID
      * @return bool
      */
     public static function DeleteAllByIds(array $ids): bool
     {
-        return self::DeleteAllByFilter('{id} in ('.implode(',', $ids).')');
+        return self::DeleteAllByFilter(['id' => array_map(fn($v) => (int)$v, $ids)]);
     }
 
     /**
@@ -147,12 +145,13 @@ class [[table-class-name]] extends BaseModelDataTable
         return self::RestoreByFilter($storage, ['id' => array_map(fn($v) => (int)$v, $ids)]);
     }
 
+
     /**
-     * Deletes a rows by filter
-     * @param string $filter filter string, {field} form can be used
+     * Deletes rows by filters
+     * @param array $filter filters array
      * @return bool
      */
-    public static function DeleteAllByFilter(string $filter): bool
+    public static function DeleteAllByFilter(array $filter): bool
     {
         $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
         return self::DeleteByFilter($storage, $filter);
@@ -164,6 +163,7 @@ class [[table-class-name]] extends BaseModelDataTable
      */
     public static function DataMigrate(?Logger $logger = null): bool
     {
+        // миграция данных
         return true;
     }
 

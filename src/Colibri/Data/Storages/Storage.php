@@ -15,6 +15,7 @@ use Colibri\Data\Storages\Fields\Field;
 use Colibri\App;
 use Colibri\AppException;
 use Colibri\Common\StringHelper;
+use Colibri\Common\VariableHelper;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\Storages\Models\DataRow;
 use Colibri\Modules\Module;
@@ -290,7 +291,11 @@ class Storage
      */
     public function GetRealFieldName($name)
     {
-        return $this->name . '_' . $name;
+        if($this->_dataPoint->dbms === DataAccessPoint::DBMSTypeRelational) {
+            return $this->name . '_' . $name;
+        } else {
+            return $name;
+        }
     }
 
     /**
@@ -301,7 +306,11 @@ class Storage
      */
     public function GetFieldName($name)
     {
-        return str_replace($this->name . '_', '', $name);
+        if($this->_dataPoint->dbms === DataAccessPoint::DBMSTypeRelational) {
+            return str_replace($this->name . '_', '', $name);
+        } else {
+            return $name;
+        }
     }
 
     /**
@@ -548,8 +557,31 @@ class Storage
      */
     public function GetStatus(): object
     {
-        $reader = $this->accessPoint->Query('SHOW TABLE STATUS LIKE \''.$this->table.'\'');
-        return $reader->Read();
+        if($this->accessPoint->dbms === DataAccessPoint::DBMSTypeRelational) {
+            $reader = $this->accessPoint->Query('SHOW TABLE STATUS LIKE \''.$this->table.'\'');
+            return $reader->Read();
+        } else {
+            return (object)[
+                'Name' => $this->table,
+                'Engine' => 'NoSql', 
+                'Version' => 0, 
+                'Row_Format' => 'Dynamic', 
+                'Rows' => 0, 
+                'Avg_row_length' => 0, 
+                'Data_length' => 0, 
+                'Max_data_length' => 0, 
+                'Index_length' => 0, 
+                'Data_free' => 0, 
+                'Auto_increment' => 0, 
+                'Create_time' => 0, 
+                'Update_time' => null, 
+                'Check_time' => 0,
+                'Collection' => 'utf8mb3_general_ci',
+                'Checksum' => null, 
+                'Create_options' => null,
+                'Comment' => null 
+            ];
+        }
     }
 
     /**
@@ -560,7 +592,9 @@ class Storage
      */
     public function DisableKeys()
     {
-        $this->accessPoint->Query('ALTER TABLE '.$this->table.' DISABLE KEYS');
+        if($this->accessPoint->dbms === DataAccessPoint::DBMSTypeRelational) {
+            $this->accessPoint->Query('ALTER TABLE '.$this->table.' DISABLE KEYS');
+        }
     }
 
     /**
@@ -571,7 +605,9 @@ class Storage
      */
     public function EnableKeys()
     {
-        $this->accessPoint->Query('ALTER TABLE '.$this->table.' ENABLE KEYS');
+        if($this->accessPoint->dbms === DataAccessPoint::DBMSTypeRelational) {
+            $this->accessPoint->Query('ALTER TABLE '.$this->table.' ENABLE KEYS');
+        }
     }
 
     public function RecurseFields(\Closure $closure, ?object $fields = null)

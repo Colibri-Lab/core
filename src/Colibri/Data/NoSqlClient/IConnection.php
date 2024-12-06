@@ -5,19 +5,19 @@
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Data\SqlClient
+ * @package Colibri\Data\NoSqlClient
  */
 
-namespace Colibri\Data\SqlClient;
+namespace Colibri\Data\NoSqlClient;
 
 /**
  * Interface for managing database connections.
  */
 interface IConnection
 {
-    
-    public static function FromConnectionInfo(object|array $connectionInfo): static;
 
+    public static function FromConnectionInfo(object|array $connectionInfo): static;
+    
     /**
      * Opens a connection to the database.
      *
@@ -38,13 +38,14 @@ interface IConnection
      * @return void
      */
     public function Close(): void;
-    
+
     /**
      * Check that the service alive
      * @return bool
      */
     public function Ping(): bool;
 
+    
     public static function AllowedTypes(): array;
 
 }

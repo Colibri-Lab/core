@@ -937,4 +937,25 @@ class VariableHelper
         return null;
     }
 
+    /**
+     * Checks the string is valid regexp
+     * @param string $value
+     * @return bool
+     */
+    public static function IsValidRegExp(string $value): bool
+    {
+        return @preg_match($value, '') !== false;
+    }
+
+    /**
+     * Returns options from regexp string as array of options
+     * @param string $value
+     * @return array
+     */
+    public static function ParseRegexp(string $value): array
+    {
+        preg_match('/\/(.*)\/([imsxUdu]+)/', $value, $matches);
+        return [isset($matches[1]) ? $matches[1] : '', isset($matches[2]) ? $matches[2] : ''];
+    }
+
 }

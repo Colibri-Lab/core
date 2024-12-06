@@ -2,24 +2,22 @@
 
 
 /**
- * MySql
+ * MsSql
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Data\MySql
+ * @package Colibri\Data\MsSql
  */
-namespace Colibri\Data\MySql;
+namespace Colibri\Data\MsSql;
 
 use Colibri\Common\StringHelper;
-use Colibri\Common\VariableHelper;
 use Colibri\Data\SqlClient\IQueryBuilder;
-use Colibri\Data\Storages\Storage;
 
 /**
- * Class for generating queries for the MySql driver.
+ * Class for generating queries for the MsSql driver.
  *
  * This class implements the IQueryBuilder interface, providing methods to generate various types of SQL queries
- * compatible with the MySql database.
+ * compatible with the MsSql database.
  *
  */
 class QueryBuilder implements IQueryBuilder
@@ -285,146 +283,4 @@ class QueryBuilder implements IQueryBuilder
             ) DEFAULT CHARSET=utf8
         ';
     }
-
-    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
-    {
-        
-        $filterFields = VariableHelper::ToJsonFilters($filterFields);
-
-        $searchFilters = [];
-        foreach($filterFields as $key => $filterData) {
-            $parts = StringHelper::Explode($key, ['[', '.']);
-            $fieldName = $parts[0];
-            $filterPath = substr($key, strlen($fieldName));
-            $filterPath = '$'.str_replace('[0]', '[*]', $filterPath);
-
-            if($filterPath === '$') {
-                $searchFilters[$fieldName] = $filterData;
-            } else {
-                if(!isset($searchFilters[$fieldName])) {
-                    $searchFilters[$fieldName] = [];
-                }
-                $searchFilters[$fieldName][$filterPath] = $filterData;
-            }
-        }
-
-        $joinTables = [];
-        $fields = [];
-        $fieldIndex = 0;
-        foreach($searchFilters as $fieldName => $fieldParams) {
-            if(in_array($fieldName, ['id', 'datecreated', 'datemodified'])) {
-                $field = (object)[
-                    'component' => $fieldName === 'id' ? 'Colibri.UI.Forms.Number' : 'Colibri.UI.Forms.DateTime',
-                    'desc' => [
-                        'id' => 'ID',
-                        'datecreated' => 'Дата создания',
-                        'datemodified' => 'Дата изменения'
-                    ][$fieldName],
-                    'type' => [
-                        'id' => 'int',
-                        'datecreated' => 'datetime',
-                        'datemodified' => 'datetime'
-                    ][$fieldName],
-                    'param' => [
-                        'id' => 'integer',
-                        'datecreated' => 'string',
-                        'datemodified' => 'string'
-                    ][$fieldName],
-                ];
-            } else {
-                $field = $storage->GetField($fieldName);
-            }
-            if($field->type === 'json') {
-                foreach($fieldParams as $path => $value) {
-                    $joinTables[] = '
-                        inner join (
-                            select
-                                {id} as t_'.$fieldIndex.'_id, t_'.$fieldIndex.'.json_field_'.$fieldIndex.'
-                            from '.$storage->table.', json_table(
-                                {'.$fieldName.'},
-                                \''.$path.'\'
-                                columns (
-                                    json_field_'.$fieldIndex.' varchar(1024) path \'$\'
-                                )
-                            ) t_'.$fieldIndex.'
-                        ) json_table_'.$fieldIndex.' on '.
-                        'json_table_'.$fieldIndex.'.t_'.$fieldIndex.'_id='.$storage->table.'.{id}';
-
-                    $fieldPath = str_replace('[*]', '', $path);
-                    $fieldPath = str_replace('$', '', $fieldPath);
-                    $fieldPath = str_replace('.', '/', $fieldPath);
-                    $fieldPath = str_replace('//', '/', $fieldName . '/' . $fieldPath);
-                    $fields['json_field_'.$fieldIndex] = [$storage->GetField($fieldPath), $value];
-                    $fieldIndex++;
-                }
-            } else {
-                $fields[$fieldName] = [$field, $fieldParams];
-            }
-        }
-
-        $filters = [];
-        $params = [];
-        if($term) {
-            $termFilters = [];
-            foreach ($storage->fields as $field) {
-                if ($field->class === 'string') {
-                    $termFilters[] = '{' . $field->name . '} like [[term:string]]';
-                }
-            }
-            $filters[] = '(' . implode(' or ', $termFilters) . ')';
-            $params['term'] = '%' . $term . '%';
-        }
-
-        foreach($fields as $fieldName => $fieldData) {
-            $field = $fieldData[0];
-            $value = $fieldData[1];
-
-            if(in_array($field->component, [
-                'Colibri.UI.Forms.Date',
-                'Colibri.UI.Forms.DateTime',
-                'Colibri.UI.Forms.Number'
-            ])) {
-                $filters[] = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}').
-                    ' between [['.
-                        $fieldName . '0:' . $field->param . ']] and [[' .
-                        $fieldName . '1:' . $field->param . ']]';
-                $params[$fieldName.'0'] = $value[0];
-                $params[$fieldName.'1'] = $value[1];
-            } else {
-                if(!is_array($value)) {
-                    $value = [$value];
-                }
-                $flts = [];
-                foreach($value as $index => $v) {
-                    $eq = '=';
-                    if($field->param === 'string') {
-                        $eq = 'like';
-                    }
-                    $flts[] = (strstr($fieldName, 'json_') !== false ? $fieldName :
-                        '{' . $fieldName . '}').' '.$eq.' [['.$fieldName.$index.':'.($field->param ?: 'string').']]';
-                    $params[$fieldName.$index] = $eq === 'like' ? '%' . $v . '%' : $v;
-                }
-                $filters[] = implode(' or ', $flts);
-            }
-
-        }
-
-
-        if(!empty($joinTables)) {
-            $params['__joinTables'] = $joinTables;
-        }
-
-        if (!$sortField) {
-            $sortField = '{id}';
-        } else {
-            $sortField = '{' . $sortField . '}';
-        }
-        if (!$sortOrder) {
-            $sortOrder = 'asc';
-        }
-
-        return [implode(' and ', $filters), $sortField . ' ' . $sortOrder, $params];
-
-    }
-
 }

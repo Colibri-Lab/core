@@ -14,7 +14,6 @@ use Colibri\Data\SqlClient\IConnection;
 use Colibri\Data\PgSql\Exception as PgSqlException;
 use PgSql\Connection as PgSqlConnection;
 
-
 /**
  * Class for connecting to the PostgreSql database.
  *
@@ -66,6 +65,19 @@ final class Connection implements IConnection
             'persistent' => $persistent,
             'database' => $database
         ];
+    }
+
+    public static function FromConnectionInfo(object|array $connectionInfo): static
+    {
+        $connectionInfo = (object)$connectionInfo;
+        return new static(
+            $connectionInfo->host,
+            $connectionInfo->port,
+            $connectionInfo->user,
+            $connectionInfo->password,
+            $connectionInfo->persistent,
+            $connectionInfo->database
+        );
     }
 
     /**
@@ -163,7 +175,7 @@ final class Connection implements IConnection
             case "connection":
                 return $this->_resource;
             case "isAlive":
-                return pg_ping($this->_resource);
+                return $this->Ping();
             case 'database':
                 return $this->_connectioninfo->database;
             case 'host':
@@ -175,5 +187,30 @@ final class Connection implements IConnection
             default:
                 return null;
         }
+    }
+
+    public function Ping(): bool
+    {
+        return pg_ping($this->_resource);
+    }
+    
+    public static function AllowedTypes(): array
+    {
+        return [
+            'bool' => ['length' => false, 'generic' => 'bool'],
+            'int' => ['length' => true, 'generic' => 'int'],
+            'bigint' => ['length' => false, 'generic' => 'int'],
+            'float' => ['length' => true, 'generic' => 'float'],
+            'double' => ['length' => true, 'generic' => 'float'],
+            'date' => ['length' => false, 'generic' => 'DateField'],
+            'datetime' => ['length' => false, 'generic' => 'DateTimeField'],
+            'varchar' => ['length' => true, 'generic' => 'string'],
+            'text' => ['length' => false, 'generic' => 'string'],
+            'longtext' => ['length' => false, 'generic' => 'string'],
+            'mediumtext' => ['length' => false, 'generic' => 'string'],
+            'tinytext' => ['length' => true, 'generic' => 'string'],
+            'enum' => ['length' => false, 'generic' => 'ValueField'],
+            'json' => ['length' => false, 'generic' => ['Object' => 'ObjectField', 'Array' => 'ArrayField']]
+        ];
     }
 }

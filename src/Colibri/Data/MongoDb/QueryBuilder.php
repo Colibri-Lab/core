@@ -8,7 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\MySql
  */
-namespace Colibri\Data\Solr;
+namespace Colibri\Data\MongoDb;
 
 use Colibri\Common\StringHelper;
 use Colibri\Common\VariableHelper;
@@ -16,7 +16,7 @@ use Colibri\Data\SqlClient\IQueryBuilder;
 use Colibri\Data\Storages\Storage;
 
 /**
- * Class for generating queries for the Solr driver.
+ * Class for generating queries for the MongoDb driver.
  *
  */
 class QueryBuilder

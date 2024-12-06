@@ -32,7 +32,7 @@ class DataRow extends ExtendedObject
      *
      * @var DataTable
      */
-    protected ? DataTable $_table = null;
+    protected DataTable|DataCollection|null $_table = null;
 
     /**
      * Constructor
@@ -41,7 +41,7 @@ class DataRow extends ExtendedObject
      * @param mixed $data
      * @param string $tablePrefix
      */
-    public function __construct(DataTable $table, mixed $data, string $tablePrefix = '')
+    public function __construct(DataTable|DataCollection $table, mixed $data, string $tablePrefix = '')
     {
         parent::__construct($data, $tablePrefix);
         $this->_table = $table;

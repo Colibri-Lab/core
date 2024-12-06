@@ -6,14 +6,14 @@
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Data\Solr
+ * @package Colibri\Data\MongoDb
  */
-namespace Colibri\Data\Solr;
+namespace Colibri\Data\MongoDb;
 
 use Colibri\Data\DataAccessPointsException;
 
 /**
- * Exception class for using in Solr driver
+ * Exception class for using in MongoDb driver
  */
 class Exception extends DataAccessPointsException
 {

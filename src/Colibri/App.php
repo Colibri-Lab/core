@@ -136,6 +136,10 @@ final class App
      */
     public function Initialize(): void
     {
+        
+        // try to get system timezone
+        self::$systemTimezone = trim(shell_exec('cat /etc/timezone'), "\r\t\n ");
+        date_default_timezone_set(self::$systemTimezone);
 
         // PHP CLI support block
         if (isset($_SERVER['argv']) && !isset($_SERVER['REQUEST_METHOD'])) {
@@ -272,10 +276,6 @@ final class App
         self::$monitoring->EndTimer('threads');
 
         self::$monitoring->EndTimer('app');
-
-        // try to get system timezone
-        self::$systemTimezone = trim(shell_exec('cat /etc/timezone'), "\r\t\n ");
-        date_default_timezone_set(self::$systemTimezone);
 
         $this->DispatchEvent(EventsContainer::AppReady);
     }

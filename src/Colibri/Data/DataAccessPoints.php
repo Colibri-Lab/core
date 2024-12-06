@@ -153,22 +153,48 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
                 throw new DataAccessPointsException('Unknown access point type: '.$accessPointType);
             }
 
-            $database = $accessPointData->database;
+            $driver = clone $this->_accessPoints->drivers->$accessPointType;
+            if($driver?->dbms ?? false) {
+                eval('$driver->dbms = '.$driver?->dbms.';');
+            } else {
+                $driver->dbms = DataAccessPoint::DBMSTypeRelational;
+            }
+            $dbmsType = $driver->dbms;
+
             $logqueries = $accessPointData->logqueries ?? null;
             $mindelay = $accessPointData->mindelay ?? null;
+    
 
-            // формируем данные для инициализации точки доступа
-            $accessPointInit = (object)[
-                'host' => $this->_accessPoints->connections->$accessPointConnection->host,
-                'port' => $this->_accessPoints->connections->$accessPointConnection->port,
-                'user' => $this->_accessPoints->connections->$accessPointConnection->user,
-                'password' => $this->_accessPoints->connections->$accessPointConnection->password,
-                'persistent' => (isset($this->_accessPoints->connections->$accessPointConnection->persistent) ? $this->_accessPoints->connections->$accessPointConnection->persistent : false),
-                'database' => $database,
-                'logqueries' => $logqueries,
-                'mindelay' => $mindelay,
-                'driver' => $this->_accessPoints->drivers->$accessPointType
-            ];
+
+            if($dbmsType == DataAccessPoint::DBMSTypeRelational) {
+
+    
+                // формируем данные для инициализации точки доступа
+                $accessPointInit = (object)[
+                    'host' => $this->_accessPoints->connections->$accessPointConnection->host,
+                    'port' => $this->_accessPoints->connections->$accessPointConnection->port,
+                    'user' => $this->_accessPoints->connections->$accessPointConnection->user,
+                    'password' => $this->_accessPoints->connections->$accessPointConnection->password,
+                    'persistent' => (isset($this->_accessPoints->connections->$accessPointConnection->persistent) ? $this->_accessPoints->connections->$accessPointConnection->persistent : false),
+                    'database' => $accessPointData?->database ?? '',
+                    'logqueries' => $logqueries,
+                    'mindelay' => $mindelay,
+                    'driver' => $driver
+                ];
+    
+            } else {
+                $accessPointInit = VariableHelper::Extend(
+                    (array)$this->_accessPoints->connections->$accessPointConnection, 
+                    [
+                        'driver' => $driver,
+                        'logqueries' => $logqueries,
+                        'mindelay' => $mindelay,
+                    ]
+                );
+                if($accessPointData?->database ?? false) {
+                    $accessPointInit['database'] = $accessPointData?->database;
+                }
+            }
 
             $return = new DataAccessPoint($accessPointInit);
             $this->_accessPointsPool[$name] = $return;

@@ -2,13 +2,13 @@
 
 
 /**
- * Solr
+ * MsSql
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Data\Solr
+ * @package Colibri\Data\MsSql
  */
-namespace Colibri\Data\Solr;
+namespace Colibri\Data\MsSql;
 
 use Colibri\Data\SqlClient\DataField;
 use Colibri\Data\SqlClient\IDataReader;
@@ -81,7 +81,7 @@ final class DataReader implements IDataReader
     public function Close(): void
     {
         if ($this->_results && isset($this->_results->current_field)) {
-            mysqli_free_result($this->_results);
+            \sqlsrv_free_stmt($this->_results);
             $this->_results = null;
         }
     }
@@ -93,7 +93,7 @@ final class DataReader implements IDataReader
      */
     public function Read(): ?object
     {
-        $result = mysqli_fetch_object($this->_results);
+        $result = \sqlsrv_fetch_object($this->_results);
         if (!$result) {
             return null;
         }
@@ -109,9 +109,10 @@ final class DataReader implements IDataReader
     public function Fields(): array
     {
         $fields = array();
-        $num = mysqli_num_fields($this->_results);
+        $num = \sqlsrv_num_fields($this->_results);
+        $fieldMeta = \sqlsrv_field_metadata($this->_results);
         for ($i = 0; $i < $num; $i++) {
-            $f = mysqli_fetch_field_direct($this->_results, $i);
+            $f = $fieldMeta[$i];
             $field = new DataField();
             $field->db = $f->db;
             $field->name = $f->name;
@@ -142,7 +143,7 @@ final class DataReader implements IDataReader
         $property = strtolower($property);
         switch ($property) {
             case 'hasrows': {
-                    $return = $this->_results && mysqli_num_rows($this->_results) > 0;
+                    $return = $this->_results && sqlsrv_num_rows($this->_results) > 0;
                     break;
                 }
             case 'affected': {
@@ -151,7 +152,7 @@ final class DataReader implements IDataReader
                 }
             case 'count': {
                     if (is_null($this->_count)) {
-                        $this->_count = mysqli_num_rows($this->_results);
+                        $this->_count = sqlsrv_num_rows($this->_results);
                     }
                     $return = $this->_count;
                     break;
@@ -186,9 +187,9 @@ final class DataReader implements IDataReader
     }
 
     /**
-     * Converts the MySQL field type ID to a readable string.
+     * Converts the MsSql field type ID to a readable string.
      *
-     * @param string $type_id The MySQL field type ID.
+     * @param string $type_id The MsSql field type ID.
      * @return string|null The readable string representing the field type.
      */
     private function _type2txt(string $type_id): string
@@ -198,8 +199,8 @@ final class DataReader implements IDataReader
         if (!isset($types)) {
             $types = array();
             $constants = get_defined_constants(true);
-            foreach ($constants['mysqli'] as $c => $n) {
-                if (preg_match('/^MYSQLI_TYPE_(.*)/', $c, $m)) {
+            foreach ($constants['SQLSRV'] as $c => $n) {
+                if (preg_match('/^SQLSRV_TYPE_(.*)/', $c, $m)) {
                     $types[$n] = $m[1];
                 }
             }
@@ -209,9 +210,9 @@ final class DataReader implements IDataReader
     }
 
     /**
-     * Converts the MySQL field flags to a readable string.
+     * Converts the MsSql field flags to a readable string.
      *
-     * @param int $flags_num The MySQL field flags.
+     * @param int $flags_num The MsSql field flags.
      * @return array An array containing the readable field flags.
      */
     private function _flags2txt(int $flags_num): array
@@ -221,8 +222,8 @@ final class DataReader implements IDataReader
         if (!isset($flags)) {
             $flags = array();
             $constants = get_defined_constants(true);
-            foreach ($constants['mysqli'] as $c => $n) {
-                if (preg_match('/MYSQLI_(.*)_FLAG$/', $c, $m) && !array_key_exists($n, $flags)) {
+            foreach ($constants['SQLSRV'] as $c => $n) {
+                if (preg_match('/SQLSRV_(.*)_FLAG$/', $c, $m) && !array_key_exists($n, $flags)) {
                     $flags[$n] = $m[1];
                 }
             }

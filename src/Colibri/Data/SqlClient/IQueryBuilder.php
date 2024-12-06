@@ -117,4 +117,7 @@ interface IQueryBuilder
      * @return string The generated ROLLBACK transaction query.
      */
     public function CreateRollback(): string;
+
+    public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string;
+
 }

@@ -5,6 +5,7 @@ namespace Colibri\Data\Storages\Models;
 use Colibri\App;
 use Colibri\AppException;
 use Colibri\Common\StringHelper;
+use Colibri\Data\DataAccessPoint;
 use Colibri\Data\Storages\Storage;
 use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
@@ -553,6 +554,7 @@ class Generator
 
         [$rootNamespace, $table, $row] = self::_convertNames($rootNamespace, $table, $row);
 
+        $dbms = $storage->accessPoint->dbms;
         $storageDesc = $storage->{'desc'};
         if ($langModule) {
             $storageDesc = $storageDesc[$langModule->Default()] ?? $storageDesc;
@@ -599,10 +601,10 @@ class Generator
 
             $args['namespace-path'] = $rootNamespace;
             $args['table-class-name'] = $table;
-            $args['parent-table-class-name'] = 'Colibri\\Data\\Storages\\Models\\DataTable';
+            $args['parent-table-class-name'] = 'Colibri\\Data\\Storages\\Models\\' . ($dbms === DataAccessPoint::DBMSTypeRelational ? 'DataTable' : 'DataCollection');
             $args['row-class-name'] = $row;
 
-            $templateContent = File::Read(__DIR__ . '/model-templates/table-template.template');
+            $templateContent = File::Read(__DIR__ . '/model-templates/'.($dbms === DataAccessPoint::DBMSTypeRelational ? 'table-template' : 'collection-template').'.template');
             foreach ($args as $key => $value) {
                 $templateContent = str_replace('[[' . $key . ']]', $value, $templateContent);
             }
@@ -617,7 +619,7 @@ class Generator
 
             $args['namespace-path'] = $rootNamespace;
             $args['table-class-name'] = $table;
-            $args['parent-table-class-name'] = 'Colibri\\Data\\Storages\\Models\\DataTable';
+            $args['parent-table-class-name'] = 'Colibri\\Data\\Storages\\Models\\' . ($dbms === DataAccessPoint::DBMSTypeRelational ? 'DataTable' : 'DataCollection');
             $args['row-class-name'] = $row;
             $args['parent-row-class-name'] = 'Colibri\\Data\\Storages\\Models\\DataRow';
             $args['properties-list'] = implode("\n", $properties);

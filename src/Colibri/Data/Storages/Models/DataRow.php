@@ -16,6 +16,7 @@ use Colibri\Data\Storages\Storage;
 use Colibri\Data\Models\DataModelException;
 use Colibri\Data\Models\DataRow as BaseDataRow;
 use Colibri\Data\Models\DataTable;
+use Colibri\Data\Models\DataCollection;
 use Colibri\Common\StringHelper;
 use Colibri\Common\VariableHelper;
 use Colibri\Data\Storages\Fields\DateTimeField;
@@ -51,17 +52,20 @@ class DataRow extends BaseDataRow
     /**
      * Конструктор
      *
-     * @param DataTable $table
+     * @param DataTable|DataCollection $table
      * @param mixed $data
      * @param Storage|null $storage
      * @throws DataModelException
      */
-    public function __construct(DataTable $table, mixed $data = null, ?Storage $storage = null)
+    public function __construct(DataTable|DataCollection $table, mixed $data = null, ?Storage $storage = null)
     {
         if (!$storage) {
             throw new DataModelException('Unknown storage');
         }
         $this->_storage = $storage;
+        if($storage->accessPoint->dbms === DataAccessPoint::DBMSTypeNoSql) {
+            $this->_changeKeyCase = false;
+        }
 
         if (empty($data)) {
             $dt = new \DateTime();
@@ -71,7 +75,7 @@ class DataRow extends BaseDataRow
                 $this->_storage->GetRealFieldName('datemodified') => $dt->format('Y-m-d H:i:s')
             ];
         }
-        parent::__construct($table, $data, $storage->name);
+        parent::__construct($table, $data, $storage->accessPoint->dbms === DataAccessPoint::DBMSTypeNoSql ? '' : $storage->name);
         $this->_processDefaultValues();
     }
 
@@ -326,6 +330,8 @@ class DataRow extends BaseDataRow
                         ' field is required for storage ' . $storage->name, 500, null);
                 }
 
+            } elseif(!in_array($key, ['datecreated', 'datemodified', 'datedeleted','id'])) {
+                unset($data[$key]);
             }
         }
 
@@ -409,7 +415,7 @@ class DataRow extends BaseDataRow
             } elseif (strstr($fieldData->{'class'}, 'DateField') !== false ||
                 strstr($fieldData->{'class'}, 'DateTimeField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
-            } elseif (method_exists($fieldValue, 'GetValidationData')) {
+            } elseif ((is_object($fieldValue)) && method_exists($fieldValue, 'GetValidationData')) {
                 $return[$fieldName] = $fieldValue->GetValidationData();
             }
         }
