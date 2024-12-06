@@ -37,6 +37,8 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
 
     protected ?ICommandResult $_result = null;
 
+    protected array $_rows = [];
+
     /**
      * Rows class name
      *
@@ -60,6 +62,7 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
     ) {
         $this->_point = $point;
         $this->_result = $result;
+        $this->_rows = $result?->ResultData() ?? [];
         $this->_table = $result->QueryInfo()->name;
         $this->_returnAs = $returnAs;
     }
@@ -187,8 +190,7 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      */
     public function Item(int $index): mixed
     {
-        $rows = $this->_result->ResultData();
-        return $this->_createDataRowObject($rows[$index]);
+        return $this->_createDataRowObject($this->_rows[$index]);
     }
 
     /**
@@ -281,7 +283,7 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      */
     public function Set(int $index, ExtendedObject $data): void
     {
-        $this->_cache->Set($index, $data);
+        $this->_rows[$index] = $data;
     }
 
     /**
@@ -361,9 +363,9 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
     public function offsetSet(mixed $offset, mixed $value): void
     {
         if (is_null($offset)) {
-            $this->_cache->Add($value);
+            $this->_rows[] = $value;
         } else {
-            $this->_cache->Set($offset, $value);
+            $this->_rows[$offset] = $value;
         }
     }
 
@@ -374,7 +376,7 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      */
     public function offsetExists(mixed $offset): bool
     {
-        return $offset < $this->_cache->Count();
+        return $offset < count($this->_rows);
     }
 
     /**
@@ -384,7 +386,7 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      */
     public function offsetUnset(mixed $offset): void
     {
-        $this->_cache->DeleteAt($offset);
+        array_splice($this->_rows, $offset, 1);
     }
 
     /**
