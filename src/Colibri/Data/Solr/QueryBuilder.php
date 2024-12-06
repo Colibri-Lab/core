@@ -10,6 +10,7 @@
  */
 namespace Colibri\Data\Solr;
 
+use Colibri\Common\DateHelper;
 use Colibri\Common\StringHelper;
 use Colibri\Common\VariableHelper;
 use Colibri\Data\SqlClient\IQueryBuilder;
@@ -21,6 +22,10 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder
 {
+
+    public const MutationInsert = 'insert';
+    public const MutationUpdate = 'update';
+    public const MutationDelete = 'delete';
     
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
     {
@@ -66,9 +71,11 @@ class QueryBuilder
         if($term) {
             foreach ($storage->fields as $field) {
                 if ($field->class === 'string') {
-                    $query[$storage->GetRealFieldName($field->name)] = '/.*' . $storage->accessPoint->EscapeQuery($term) . '.*/i';
+                    $query[$storage->GetRealFieldName($field->name)] = '*' . $storage->accessPoint->EscapeQuery($term) . '*';
                 }
             }
+        } else {
+            $query = ['*' => '*'];
         }
 
         foreach($fields as $fieldName => $fieldData) {
@@ -77,34 +84,93 @@ class QueryBuilder
             
             $fieldName = $storage->GetRealFieldName($fieldName);
 
-            if(in_array($field->component, [
-                'Colibri.UI.Forms.Date',
-                'Colibri.UI.Forms.DateTime',
+            if(in_array($field->type, [
+                'date',
+                'datetime',
             ])) {
-                $filters[$fieldName] = ['datetime', 'between', ...array_map(fn($v) => $storage->accessPoint->EscapeQuery((new \DateTime(trim($v)))->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d\\TH:i:s\\Z')), $value)];
-            } elseif (in_array($field->component, [
-                'Colibri.UI.Forms.Number'
+                $filters[$fieldName] = '['.($value[0] ? $storage->accessPoint->EscapeQuery(DateHelper::ToISODate($value[0])) : '*').' TO '.($value[1] ? $storage->accessPoint->EscapeQuery(DateHelper::ToISODate($value[1])) : '*').']';
+            } elseif (in_array($field->type, [
+                'bigint', 'int', 'float'
             ])) {
-                $filters[$fieldName] = ['number', 'between', array_map(fn($v) => $storage->accessPoint->EscapeQuery(trim($v)), $value)];
+                $filters[$fieldName] = [];
+                if(count($value) == 2) {
+                    $filters[$fieldName] = '['.($value[0] ? $value[0] : '*').' TO '.($value[1] ? $value[1] : '*').']';
+                } elseif(count($value) > 1) {
+                    $filters[$fieldName] = '(' . implode(' or ', array_map(fn($v) => $storage->accessPoint->EscapeQuery($v), $value)) . ')';
+                } else {
+                    $filters[$fieldName] = $value[0];
+                }
+            } elseif (in_array($field->type, [
+                'bool'
+            ])) {
+                if($value == 1) {
+                    $filters[$fieldName] = true;
+                } else {
+                    $filters['-' . $fieldName] = '*';
+                }
             } else {
                 if(!is_array($value)) {
-                    $value = [$value];
+                    $filters[$fieldName] = '*' . $storage->accessPoint->EscapeQuery($value) . '*';
+                } else {
+                    $filters[$fieldName] = '(' . implode(' or ', array_map(fn($v) => '*' . $storage->accessPoint->EscapeQuery($v) . '*', $value)) . ')';
                 }
-                $filters[$fieldName] = ['string', 'in', array_map(fn($v) => '/.*' . $storage->accessPoint->EscapeQuery($v) . '.*/i', $value)];
             }
 
         }
 
-        if (!$sortField) {
-            $sortField = $storage->GetRealFieldName('id');
+        $sortField = $storage->GetRealFieldName($sortField ?: 'id');
+        $sortOrder = $sortOrder ?: 'asc';
+
+        return [$query, $filters, [$sortField => $sortOrder]];
+
+    }
+
+    public function ProcessMutationData(mixed $row, string $mutationType): array|object
+    {
+
+        if(is_object($row) && method_exists($row, 'GetData')) {
+            $data = (array)$row->GetData();
         } else {
-            $sortField = $storage->GetRealFieldName($sortField);
-        }
-        if (!$sortOrder) {
-            $sortOrder = 'asc';
+            $data = (array)$row;
         }
 
-        return [$query, $filters, $sortField . ' ' . $sortOrder];
+        if($mutationType === self::MutationUpdate) {
+            $fieldValues = [];
+            foreach ($data as $key => $value) {
+                if(is_object($row) && method_exists($row, 'IsPropertyChanged')) {
+                    $f = $row->Storage()->GetField($key);
+                    if ($row->IsPropertyChanged($key)) {
+                        if (in_array($f->type, ['date', 'datetime'])) {
+                            $fieldValues[$key] = DateHelper::ToISODate($value);
+                        } else {
+                            $fieldValues[$key] = $value;
+                        }
+                    }
+                } else {
+                    $fieldValues[$key] = $value;
+                }
+            }
+            $fieldValues['datemodified'] = DateHelper::ToISODate();
+            return $fieldValues;
+        } elseif ($mutationType === self::MutationDelete) {
+            return $data;
+        } elseif ($mutationType === self::MutationInsert) {
+
+            $data['datecreated'] = DateHelper::ToISODate($data['datecreated']) ?? DateHelper::ToISODate();
+            $data['datemodified'] = DateHelper::ToISODate($data['datemodified']) ?? DateHelper::ToISODate();
+            $data['datedeleted'] = $data['datedeleted'] ? DateHelper::ToISODate($data['datedeleted']) : null;
+            unset($data['id']);
+
+            foreach ($data as $key => $value) {
+                $f = $row->Storage()->GetField($key);
+                if (in_array($f->type, ['date', 'datetime'])) {
+                    $data[$key] = DateHelper::ToISODate($value);
+                }
+            }
+
+            return $data;
+
+        }
 
     }
 

@@ -173,7 +173,8 @@ final class Connection implements IConnection
             'date' => ['length' => false, 'generic' => 'DateField'],
             'datetime' => ['length' => false, 'generic' => 'DateTimeField'],
             'varchar' => ['length' => false, 'generic' => 'string'],
-            'longtext' => ['length' => false, 'generic' => 'string']
+            'longtext' => ['length' => false, 'generic' => 'string'],
+            'json' => ['length' => false, 'generic' => 'ObjectField']
         ];
     }
 

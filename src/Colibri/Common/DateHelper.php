@@ -518,4 +518,12 @@ class DateHelper
         return cal_days_in_month(CAL_GREGORIAN, $dt->format('M'), $dt->format('yyyy'));
     }
 
+    public static function ToISODate(?string $value = 'now'): string
+    {
+        if(!$value) {
+            $value = 'now';
+        }
+        return (new DateTime(trim($value)))->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d\\TH:i:s\\Z');
+    }
+
 }

@@ -26,6 +26,7 @@ use Colibri\Exceptions\ValidationException;
 use ReflectionClass;
 use Colibri\Data\Storages\Fields\UUIDField;
 use Colibri\Data\DataAccessPoint;
+use Colibri\Data\NoSqlClient\ICommandResult;
 use Colibri\Data\SqlClient\QueryInfo;
 use Colibri\Data\Storages\Fields\FileListField;
 
@@ -506,6 +507,9 @@ class DataRow extends BaseDataRow
 
         if (is_string($newValue) && StringHelper::IsJsonString($newValue)) {
             $newValue = json_decode($newValue);
+        }
+
+        if(is_string($originalValue)) {
             $originalValue = json_decode($originalValue);
         }
 
@@ -516,7 +520,7 @@ class DataRow extends BaseDataRow
      * Вызывает SaveRow у таблицы
      * @return QueryInfo|bool
      */
-    public function Save(bool $performValidationBeforeSave = false): QueryInfo|bool
+    public function Save(bool $performValidationBeforeSave = false): QueryInfo|ICommandResult|bool
     {
         if ($performValidationBeforeSave) {
             $this->Validate(true);

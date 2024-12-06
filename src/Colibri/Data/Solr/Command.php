@@ -132,20 +132,29 @@ final class Command extends NoSqlCommand
         return $return;
     }
 
-    public function UpdateDocument(string $collectionName, object $partOfDocument): CommandResult
+    public function UpdateDocument(string $collectionName, int $id, object $partOfDocument): CommandResult
     {
-        $return = Command::Execute($this->_connection, 'post', '/' . $collectionName . '/update?wt=json&overwrite=true&commit=true', (array)$partOfDocument);
+        $partOfDocument->id = $id;
+        $return = Command::Execute($this->_connection, 'post', '/' . $collectionName . '/update?wt=json&overwrite=true&commit=true', [$partOfDocument]);
         $return->SetCollectionName($collectionName);
-        $return->SetReturnedId($partOfDocument->id);
+        $return->SetReturnedId($id);
         return $return;
     }
 
-    public function UpdateDocuments(string $collectionName, array $arrayOfPartOfDocuments): CommandResult
+    public function UpdateDocuments(string $collectionName, array $filter, array $update): CommandResult
     {
-        $return = Command::Execute($this->_connection, 'post', '/' . $collectionName . '/update?wt=json&overwrite=true&commit=true', $arrayOfPartOfDocuments);
-        foreach($arrayOfPartOfDocuments as $document) {
-            $return->SetReturnedId($document?->id);
+        $resultsOfIds = $this->SelectDocuments($collectionName, ['*' => '*'], $filter, null, []);
+        if($resultsOfIds->Error()) {
+            return $resultsOfIds;
         }
+
+        $updateData = [];
+        $ids = $resultsOfIds->ResultData();
+        foreach($ids as $idData) {
+            $updateData[] = [...(array)$idData, ...$update];
+        }
+
+        $return = Command::Execute($this->_connection, 'post', '/' . $collectionName . '/update?wt=json&commit=true', $updateData);
         $return->SetCollectionName($collectionName);
         return $return;
     }
@@ -156,7 +165,7 @@ final class Command extends NoSqlCommand
         foreach($deleteQuery as $key => $value) {
             $deleteParams[] = $key . ':' . $value;
         }
-        $params = ['delete' => $deleteParams];
+        $params = ['delete' => ['query' => implode(' and ', $deleteParams)]];
         $return = Command::Execute($this->_connection, 'post', '/' . $collectionName . '/update?wt=json&commit=true', $params);
         $return->SetCollectionName($collectionName);
         return $return;
@@ -174,33 +183,25 @@ final class Command extends NoSqlCommand
      * @param int $pagesize
      * @return \Colibri\Data\Solr\CommandResult
      */
-    public function SelectDocuments(string $collectionName, array $select, ?array $filters = null, ?array $faset = null, ?array $fields = null, ?string $sort = null, int $page = -1, int $pagesize = 20): CommandResult
+    public function SelectDocuments(string $collectionName, array $select, ?array $filters = null, ?array $faset = null, ?array $fields = null, ?array $sort = null, int $page = -1, int $pagesize = 20): CommandResult
     {
+     
+        $params = ['wt' => 'json'];
         $q = [];
         foreach($select as $key => $value) {
             if(is_array($value)) {
+                $vv = [];
                 foreach($value as $v) {
-                    $q[] = $key . ':' . $v;
+                    $vv[] = $key . ':' . $v;
                 }
+                $q[] = '(' . implode(' or ', $vv) . ')';
             } else {
-                $q[] = $key . ':' . $value;
+                $q[] = $key.':'.$value;
             }
         }
-        $q = implode(' or ', $q);
-        $fq = [];
-        foreach(($filters ?? []) as $key => $value) {
-            // if this is a regexp, need to be parsed, and replaced by * and other lunar string
-            $fq[] = $key . ':' . $value;
-        }
-        $fq = implode(' and ', $fq);
+        $params['q'] = implode(' or ', $q);
+        $params['fq'] = VariableHelper::ToString($filters, ' and ', ':', false);
 
-        $params = ['wt' => 'json'];
-        if($q) {
-            $params['q'] = $q;
-        }
-        if($fq) {
-            $params['fq'] = $fq;
-        }
         if(!empty($faset)) {
             $params['faset'] = true;
             foreach($faset as $key => $value) {
@@ -212,13 +213,14 @@ final class Command extends NoSqlCommand
         }
 
         if($sort) {
-            $params['sort'] = $sort;
+            $params['sort'] = array_keys($sort)[0] . ' ' . array_values($sort)[0];
         }
 
         if($page >= 0) {
             $params['start'] = ($page - 1) * $pagesize;
             $params['rows'] = $pagesize;
         }
+        $params['q.op'] = 'OR';
 
         $return = Command::Execute($this->_connection, 'get', '/' . $collectionName . '/select', $params);
         $return->SetCollectionName($collectionName);
@@ -286,8 +288,8 @@ final class Command extends NoSqlCommand
             }
         }
 
-        $this->AddField($collectionName, 'datecreated', 'datetime', true, true, null);
-        $this->AddField($collectionName, 'datemodified', 'datetime', true, true, null);
+        $this->AddField($collectionName, 'datecreated', 'datetime', false, true, null);
+        $this->AddField($collectionName, 'datemodified', 'datetime', false, true, null);
         $this->AddField($collectionName, 'datedeleted', 'datetime', false, true, null);
 
 
@@ -307,7 +309,7 @@ final class Command extends NoSqlCommand
             "type" => $fieldType,
             "stored" => true,
             "indexed" => $indexed,
-            "required" => $required,
+            "required" => false,
             "docValues" => $indexed,
             "termVectors" => $indexed,
             "termPositions" => $indexed,
@@ -337,7 +339,7 @@ final class Command extends NoSqlCommand
             "name" => $fieldName,
             "type" => $fieldType,
             "stored" => true,
-            "indexed" => $indexed,
+            "indexed" => false,
             "required" => $required,
             "docValues" => $indexed,
             "termVectors" => $indexed,

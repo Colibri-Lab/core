@@ -952,8 +952,11 @@ class VariableHelper
      * @param string $value
      * @return array
      */
-    public static function ParseRegexp(string $value): array
+    public static function ParseRegexp(?string $value): array
     {
+        if(!$value) {
+            return [];
+        }
         preg_match('/\/(.*)\/([imsxUdu]+)/', $value, $matches);
         return [isset($matches[1]) ? $matches[1] : '', isset($matches[2]) ? $matches[2] : ''];
     }

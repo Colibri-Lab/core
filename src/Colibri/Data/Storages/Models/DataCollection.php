@@ -122,18 +122,18 @@ class DataCollection extends BaseDataTable
         Storage $storage,
         int $page = -1,
         int $pagesize = 20,
-        array $query = ['*' => '*'],
+        ?array $query = null,
         ?array $filter = null,
-        ?string $order = null
+        ?array $order = null
     ): ?static {
         return self::LoadByQuery($storage, $query, $filter, $order, $page, $pagesize);
     }
 
     public static function LoadByQuery(
         Storage|string $storage,
-        array $query = ['*' => '*'],
+        ?array $query = null,
         ?array $filters = null,
-        ?string $sort = null,
+        ?array $sort = null,
         int $page = -1,
         int $pagesize = 20
     ): ?static {
@@ -162,29 +162,20 @@ class DataCollection extends BaseDataTable
 
         $params = (object)$storage?->{'params'};
         if($params?->{'softdeletes'} === true) {
-            $result = $storage->accessPoint->ExecuteCommand(
-                'SelectDocuments',
-                $storage->table,
-                $filter,
-                null,
-                null,
-                ['id']
-            );
-            $updateFilter = [];
-            $data = $result->ResultData();
-            foreach($data as $idData) {
-                $updateFilter[] = (object)['id' => $idData->id, $storage->GetRealFieldName('datedeleted') => ['set' => DateHelper::ToDbString()]];
-            }
+            [, $filters, ] = $storage->accessPoint->ProcessFilters($storage, '', $filter, '', '');
+            $updateData = $storage->accessPoint->ProcessMutationData(['datedeleted' => DateHelper::ToDbString()], 'update');
             $res = $storage->accessPoint->ExecuteCommand(
                 'UpdateDocuments',
                 $storage->table,
-                $updateFilter
+                $filters,
+                $updateData
             );
             if (!$res->Error()) {
                 return true;
             }
         } else {
-            $res = $storage->accessPoint->ExecuteCommand('DeleteDocuments', $storage->table, $filter);
+            [, $filters, ] = $storage->accessPoint->ProcessFilters($storage, '', $filter, '', '');
+            $res = $storage->accessPoint->ExecuteCommand('DeleteDocuments', $storage->table, $filters);
             if (!$res->error) {
                 return true;
             }
@@ -204,28 +195,18 @@ class DataCollection extends BaseDataTable
 
         $params = (object)$storage?->{'params'};
         if($params?->{'softdeletes'} === true) {
-            $result = $storage->accessPoint->ExecuteCommand(
-                'SelectDocuments',
-                $storage->table,
-                $filter,
-                null,
-                null,
-                ['id']
-            );
-            $updateFilter = [];
-            $data = $result->ResultData();
-            foreach($data as $idData) {
-                $updateFilter[] = (object)['id' => $idData->id, $storage->GetRealFieldName('datedeleted') => ['set' => null]];
-            }
+            [, $filters, ] = $storage->accessPoint->ProcessFilters($storage, '', $filter, '', '');
+            $updateData = $storage->accessPoint->ProcessMutationData(['datedeleted' => null], 'update');
             $res = $storage->accessPoint->ExecuteCommand(
                 'UpdateDocuments',
                 $storage->table,
-                $updateFilter
+                $filters,
+                $updateData
             );
             if (!$res->Error()) {
                 return true;
             }
-        } 
+        }
 
         app_debug(['Error', $res]);
         return false;
@@ -239,34 +220,15 @@ class DataCollection extends BaseDataTable
         if (is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
         }
-
-        $result = $storage->accessPoint->ExecuteCommand(
-            'SelectDocuments',
+        $res = $storage->accessPoint->ExecuteCommand(
+            'UpdateDocuments',
             $storage->table,
             $filter,
-            [],
-            ['id']
-        );
-        $updateFilter = [];
-        $data = $result->ResultData();
-        foreach($data as $idData) {
-            $f = ['id' => $idData->id];
-            foreach($fields as $key => $value) {
-                $updateFilter[$key] = $value;
-            }
-            $updateFilter[] = $f;
-        }
-
-        $res = $storage->accessPoint->ExecuteCommand(
-            'UpdateDocument',
-            $storage->table,
-            $updateFilter
+            $fields
         );
         if (!$res->Error()) {
             return true;
         }
-
-
         app_debug(['Error', $res]);
         return false;
     }
@@ -275,33 +237,23 @@ class DataCollection extends BaseDataTable
      * Сохраняет переданную строку в базу данных
      * @param DataRow|BaseDataRow $row строка для сохранения
      * @param string|null $idField поле для автоинкремента, если не найдется в таблице
-     * @return QueryInfo|bool
+     * @return ICommandResult|bool
      * @throws DataModelException
      */
     public function SaveRow(
         DataRow|BaseDataRow $row,
         ?string $idField = null,
         ?bool $convert = true
-    ): QueryInfo|bool {
+    ): ICommandResult|bool {
 
         $idf = $this->_storage->GetRealFieldName('id');
         $idc = $this->_storage->GetRealFieldName('datecreated');
         $idm = $this->_storage->GetRealFieldName('datemodified');
-        $idd = $this->_storage->GetRealFieldName('datedeleted');
         $id = $row->id;
 
         // получаем сконвертированные данные
-        $data = $row->GetData();
-
-        unset($data[$idf]);
-        $data[$idm] = DateHelper::ToDBString(time());
-
+        $data = $this->_storage->accessPoint->ProcessMutationData($row, !!$id ? 'update' : 'insert');
         if (!$id) {
-                
-            $data[$idc] = (new \DateTime('now'))->format('Y-m-d\\TH:i:s\\Z');
-            $data[$idm] = (new \DateTime('now'))->format('Y-m-d\\TH:i:s\\Z');
-            $data[$idd] = null;
-
             $res = $this->_storage->accessPoint->ExecuteCommand(
                 'InsertDocument',
                 $this->_storage->table,
@@ -313,26 +265,23 @@ class DataCollection extends BaseDataTable
             }
             $queryInfo = $res->QueryInfo();
             $row->$idf = $queryInfo->returned[0];
-            $row->$idc = (new \DateTime('now'))->format('Y-m-d\\TH:i:s\\Z');
-            $row->$idm = (new \DateTime('now'))->format('Y-m-d\\TH:i:s\\Z');
+            $row->$idc = $data['datecreated'];
+            $row->$idm = $data['datemodified'];
         } else {
             
-            $fieldValues = ['id' => $id];
-            foreach ($data as $key => $value) {
-                if ($row->IsPropertyChanged($key)) {
-                    $fieldValues[$key] = ['set' => $value];
-                }
-            }
-
             $res = $this->_storage->accessPoint->ExecuteCommand(
                 'UpdateDocument',
                 $this->_storage->table,
-                (object)$fieldValues
+                (int)$id,
+                (object)$data
             );
             if ($res->Error()) {
                 app_debug('Error', $res);
                 return $res;
             }
+
+            $row->$idm = $data['datemodified'];
+
         }
 
         return true;

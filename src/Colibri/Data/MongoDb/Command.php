@@ -19,6 +19,7 @@ use Colibri\Data\NoSqlClient\QueryInfo;
 use Colibri\Data\MongoDb\Exception as MongoDbException;
 use Colibri\IO\Request\Encryption;
 use Colibri\IO\Request\Request;
+use MongoDB\Builder\Expression\Variable;
 use MongoDB\Collection;
 use MongoDB\Database;
 
@@ -94,7 +95,7 @@ final class Command extends NoSqlCommand
 
     public function MaxId(string $collectionName): int
     {
-        $result = $this->SelectDocuments($collectionName, [], null, null, ['id'], 'id desc', 1, 1);
+        $result = $this->SelectDocuments($collectionName, [], null, null, ['id'], ['id' => -1], 1, 1);
         $count = $result->QueryInfo()->count;
         if($count === 0) {
             return 0;
@@ -113,14 +114,14 @@ final class Command extends NoSqlCommand
         /** @var Collection */
         $collection = $db->getCollection($collectionName);
 
-        $result = $collection->insertOne($document);
-        if($result->getInsertedCount() > 0) {
-            $return = new CommandResult((object)['responseHeader' => (object)[], 'response' => (object)[]]);
-            $return->SetReturnedId($document->id);
-        } else {
-            $return = new CommandResult((object)['responseHeader' => (object)[], 'error' => (object)[]]);
+        try {
+            $result = $collection->insertOne($document);
+            $return = new CommandResult((object)['responseHeader' => (object)['affected' => $result->getInsertedCount(), 'count' => $result->getInsertedCount()], 'response' => (object)[]]);
+        } catch(\Throwable $e) {
+            $return = new CommandResult((object)['error' => $e]);
         }
         $return->SetCollectionName($collectionName);
+        $return->SetReturnedId($document->id);
         return $return;
     }
 
@@ -139,52 +140,43 @@ final class Command extends NoSqlCommand
         return $return;
     }
 
-    public function UpdateDocument(string $collectionName, object $partOfDocument): CommandResult
+    public function UpdateDocument(string $collectionName, int $id, object $partOfDocument): CommandResult
     {
         /** @var Database */
         $db = $this->_connection->database;
         /** @var Collection */
         $collection = $db->getCollection($collectionName);
 
-        $updateOperator = ['$set' => []];
-        foreach($partOfDocument as $key => $value) {
-            if(is_array($value)) {
-                foreach($value as $k => $v) {
-                    $updateOperator['$' . $k][$key] = $v;
-                }
-            }
+        try {
+            $result = $collection->updateOne(['id' => $id], $partOfDocument);
+            $return = new CommandResult((object)['responseHeader' => (object)['affected' => $result->getModifiedCount(), 'count' => $result->getModifiedCount()], 'response' => (object)[]]);
+        } catch(\Throwable $e) {
+            $return = new CommandResult((object)['error' => $e]);
         }
-
-        $result = $collection->updateOne(['id' => $partOfDocument->id], $updateOperator);
-        if($result->getModifiedCount() > 0) {
-            $return = new CommandResult((object)['responseHeader' => (object)[], 'response' => (object)[]]);
-            $return->SetCollectionName($collectionName);
-            $return->SetReturnedId($partOfDocument->id);
-            return $return;
-        } else {
-            $return = new CommandResult((object)['error' => []]);
-            $return->SetCollectionName($collectionName);
-            $return->SetReturnedId($partOfDocument->id);
-            return $return;
-        }
+        $return->SetCollectionName($collectionName);
+        $return->SetReturnedId($id);
+        return $return;
+        
     }
 
-    public function UpdateDocuments(string $collectionName, array $arrayOfPartOfDocuments): CommandResult
+    public function UpdateDocuments(string $collectionName, array $filter, array $update): CommandResult
     {
-        $results = [];
-        foreach($arrayOfPartOfDocuments as $document) {
-            $results[] = $this->UpdateDocument($collectionName, $document);
+        /** @var Database */
+        $db = $this->_connection->database;
+        /** @var Collection */
+        $collection = $db->getCollection($collectionName);
+        
+        try {
+            $result = $collection->updateMany($filter, $update);
+            $return = new CommandResult((object)['responseHeader' => (object)['affected' => $result->getModifiedCount(), 'count' => $result->getModifiedCount()], 'response' => (object)[]]);
+        } catch(\Throwable $e) {
+            $return = new CommandResult((object)['error' => $e]);
         }
-
-        $return = new CommandResult((object)['responseHeader' => (object)[], 'response' => (object)[]]);
         $return->SetCollectionName($collectionName);
-        foreach($results as $result) {
-            $return->MergeWith($result);
-        }
         return $return;
     }
 
-    public function DeleteDocuments(string $collectionName, array $deleteQuery = []): CommandResult
+    public function DeleteDocuments(string $collectionName, array $filter): CommandResult
     {
         
         /** @var Database */
@@ -192,15 +184,12 @@ final class Command extends NoSqlCommand
         /** @var Collection */
         $collection = $db->getCollection($collectionName);
 
-        $deleteParams = [];
-        foreach($deleteQuery as $key => $value) {
-            $deleteParams[$key] =  $value;
+        try {
+            $result = $collection->deleteMany($filter);
+            $return = new CommandResult((object)['responseHeader' => (object)['affected' => $result->getDeletedCount(), 'count' => $result->getDeletedCount()], 'response' => (object)[]]);
+        } catch(\Throwable $e) {
+            $return = new CommandResult((object)['error' => $e]);
         }
-
-        $result = $collection->deleteMany($deleteParams);
-
-        $params = ['delete' => $deleteParams];
-        $return = Command::Execute($this->_connection, 'post', '/' . $collectionName . '/update?wt=json&commit=true', $params);
         $return->SetCollectionName($collectionName);
         return $return;
     }
@@ -217,13 +206,12 @@ final class Command extends NoSqlCommand
      * @param int $pagesize
      * @return \Colibri\Data\Solr\CommandResult
      */
-    public function SelectDocuments(string $collectionName, array $select, ?array $filters = null, ?array $faset = null, ?array $fields = null, ?string $sort = null, int $page = -1, int $pagesize = 20): CommandResult
+    public function SelectDocuments(string $collectionName, ?array $select = null, ?array $filters = null, ?array $faset = null, ?array $fields = null, ?array $sort = null, int $page = -1, int $pagesize = 20): CommandResult
     {
         
         $options = [];
         if($sort) {
-            $parts = explode(' ', $sort);
-            $options['sort'] = [$parts[0] => ($parts[1] ?? 'asc') === 'asc' ? 1 : -1];
+            $options['sort'] = $sort;
         }
         if($page >= 0) {
             $options['skip'] = ($page - 1) * $pagesize;
@@ -237,42 +225,26 @@ final class Command extends NoSqlCommand
             }
         }
 
-        $filter = [];
-        if($filters) {
-            foreach($filters as $key => $value) {
-                $type = $value[0];
-                $operation = $value[1];
-                array_splice($value, 0, 2);
-
-                if($type === 'number') {
-                    $value = array_map(fn($v) => (float)$v, $value);
-                }
-                if(count($value) === 1) {
-                    $operation = 'eq';
-                    $value = $value[0];
-                }
-                $filter[$key] = ['$' . $operation => is_array($value) ? implode(',', $value) : $value];
-
-            }
-        }
-        
-        if(!empty($select)) {
+        if($select && !empty($select)) {
             $or = [];
             foreach($select as $key => $value) {
-                if(is_array($value)) {
+                if ($value === null) {
+                    $value = 0;
+                }
+                if (is_array($value)) {
                     $or[] = [$key => ['$in' => $value]];
-                } elseif (VariableHelper::IsValidRegExp($value)) {
+                } elseif (is_numeric($value) || is_bool($value)) {
+                    $or[] = [$key => ['$eq' => $value]];
+                } else {
                     $regexp = VariableHelper::ParseRegexp($value);
                     $or[] = [$key => ['$regex' => $regexp[0], '$options' => $regexp[1]]];
-                } else {
-                    $or[] = [$key => ['$eq' => $value]];
                 }
             }
-            if(!empty($filter)) {
-                $filter = ['$and' => $filter];
-                $filter['$or'] = $or;
+            if(!empty($filters)) {
+                $filters = ['$and' => $filters];
+                $filters['$or'] = $or;
             } else {
-                $filter = ['$or' => $or];
+                $filters = ['$or' => $or];
             }
 
         }
@@ -282,22 +254,27 @@ final class Command extends NoSqlCommand
         /** @var Collection */
         $collection = $db->getCollection($collectionName);
 
-        
-        $rows = [];
-        $cursor = $collection->find($filter, $options);
-        foreach ($cursor as $document) {
-            /** @var $document \MongoDB\Model\BSONDocument  */
-            $docArray = (object)(array)$document;
-            $rows[] = $docArray;
-        }
-        
-        $affected = count($rows);
-        if($page >= 0) {
-            $affected = $collection->countDocuments($filter);
-        }
+        try {
 
-        $return = new CommandResult((object)['responseHeader' => (object)[], 'response' => (object)['docs' => $rows, 'numFound' => $affected]]);
-        $return->SetCollectionName($collectionName);
+            $rows = [];
+            $cursor = $collection->find($filters ?? [], $options);
+            foreach ($cursor as $document) {
+                /** @var $document \MongoDB\Model\BSONDocument  */
+                $docArray = (object)(array)$document;
+                $rows[] = $docArray;
+            }
+            
+            $affected = count($rows);
+            if($page >= 0) {
+                $affected = $collection->countDocuments($filters ?? []);
+            }
+    
+            $return = new CommandResult((object)['responseHeader' => (object)[], 'response' => (object)['docs' => $rows, 'numFound' => $affected]]);
+            $return->SetCollectionName($collectionName);
+        } catch(\Throwable $e) {
+            $return = new CommandResult((object)['error' => $e]);
+            $return->SetCollectionName($collectionName);
+        }
         return $return;
     }
 

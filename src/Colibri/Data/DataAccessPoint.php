@@ -470,4 +470,10 @@ class DataAccessPoint
         return $this->CreateQuery('ProcessFilters', [$storage, $fullTextSearchTerms, $filters, $sortField, $sortOrder]);
     }
 
+    public function ProcessMutationData(mixed $row, string $mutationType): array
+    {
+        return $this->CreateQuery('ProcessMutationData', [$row, $mutationType]);
+    }
+
+
 }

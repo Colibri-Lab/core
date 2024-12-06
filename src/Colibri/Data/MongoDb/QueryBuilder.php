@@ -10,6 +10,7 @@
  */
 namespace Colibri\Data\MongoDb;
 
+use Colibri\Common\DateHelper;
 use Colibri\Common\StringHelper;
 use Colibri\Common\VariableHelper;
 use Colibri\Data\SqlClient\IQueryBuilder;
@@ -21,6 +22,10 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder
 {
+
+    public const MutationInsert = 'insert';
+    public const MutationUpdate = 'update';
+    public const MutationDelete = 'delete';
     
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
     {
@@ -64,11 +69,18 @@ class QueryBuilder
         $filters = [];
         $query = [];
         if($term) {
-            foreach ($storage->fields as $field) {
-                if ($field->class === 'string') {
-                    $query[$storage->GetRealFieldName($field->name)] = '/.*' . $storage->accessPoint->EscapeQuery($term) . '.*/i';
+            function getFieldQuery($term, $fields, $parent, $storage, &$query) {
+                foreach ($fields as $field) {
+                    if ($field->class === 'string') {
+                        $query[($parent ? $parent.'.' : '').$storage->GetRealFieldName($field->name)] = '/' . $storage->accessPoint->EscapeQuery($term) . '/i';
+                    } elseif ($field->fields) {
+                        getFieldQuery($term, $field->fields, $field->name, $storage, $query);
+                    }
                 }
             }
+            
+            getFieldQuery($term, $storage->fields, '', $storage, $query);
+
         }
 
         foreach($fields as $fieldName => $fieldData) {
@@ -81,16 +93,35 @@ class QueryBuilder
                 'Colibri.UI.Forms.Date',
                 'Colibri.UI.Forms.DateTime',
             ])) {
-                $filters[$fieldName] = ['datetime', 'between', ...array_map(fn($v) => $storage->accessPoint->EscapeQuery((new \DateTime(trim($v)))->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d\\TH:i:s\\Z')), $value)];
+                $filters[$fieldName] = [];
+                if($value[0]) {
+                    $filters[$fieldName]['$gte'] = DateHelper::ToISODate($value[0]);
+                }
+                if($value[1]) {
+                    $filters[$fieldName]['$lte'] = DateHelper::ToISODate($value[1]);
+                }
             } elseif (in_array($field->component, [
                 'Colibri.UI.Forms.Number'
             ])) {
-                $filters[$fieldName] = ['number', 'between', array_map(fn($v) => $storage->accessPoint->EscapeQuery(trim($v)), $value)];
-            } else {
-                if(!is_array($value)) {
-                    $value = [$value];
+                $filters[$fieldName] = [];
+                if(count($value) == 2) {
+                    if($value[0]) {
+                        $filters[$fieldName] = ['$gte' => $value[0]];
+                    }
+                    if($value[1]) {
+                        $filters[$fieldName] = ['$lte' => $value[1]];
+                    }
+                } elseif(count($value) > 1) {
+                    $filters[$fieldName] = ['$in' => $value];
+                } else {
+                    $filters[$fieldName] = ['$eq' => $value[0]];
                 }
-                $filters[$fieldName] = ['string', 'in', array_map(fn($v) => '/.*' . $storage->accessPoint->EscapeQuery($v) . '.*/i', $value)];
+            } else {
+                if(is_array($value)) {
+                    $filters[$fieldName] = ['$in' => $value];
+                } else {
+                    $filters[$fieldName] = ['$regex' => $value, '$options' => 'i'];
+                }
             }
 
         }
@@ -104,8 +135,47 @@ class QueryBuilder
             $sortOrder = 'asc';
         }
 
-        return [$query, $filters, $sortField . ' ' . $sortOrder];
+        return [$query, $filters, [$sortField => $sortOrder === 'asc' ? 1 : -1]];
 
     }
+
+    public function ProcessMutationData(mixed $row, string $mutationType): array|object
+    {
+
+        if(is_object($row) && method_exists($row, 'GetValidationData')) {
+            $data = (array)$row->GetValidationData();
+        } else {
+            $data = (array)$row;
+        }
+
+        if($mutationType === self::MutationUpdate) {
+            $fieldValues = ['$set' => []];
+            foreach ($data as $key => $value) {
+                if(is_object($row) && method_exists($row, 'IsPropertyChanged')) {
+                    if ($row->IsPropertyChanged($key)) {
+                        $fieldValues['$set'][$key] = $value;
+                    }
+                } else {
+                    $fieldValues['$set'][$key] = $value;
+                }
+                
+            }
+            return $fieldValues;
+        } elseif ($mutationType === self::MutationDelete) {
+            return $data;
+        } elseif ($mutationType === self::MutationInsert) {
+
+            $data['datecreated'] = $data['datecreated'] ?? DateHelper::ToDBString();
+            $data['datemodified'] = $data['datemodified'] ?? DateHelper::ToDBString();
+            $data['datedeleted'] = $data['datedeleted'] ?? null;
+            unset($data['id']);
+            return $data;
+
+        }
+
+    }
+
+    
+
 
 }
