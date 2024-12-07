@@ -197,20 +197,20 @@ final class Connection implements IConnection
     public static function AllowedTypes(): array
     {
         return [
-            'bool' => ['length' => false, 'generic' => 'bool'],
-            'int' => ['length' => true, 'generic' => 'int'],
-            'bigint' => ['length' => false, 'generic' => 'int'],
-            'float' => ['length' => true, 'generic' => 'float'],
-            'double' => ['length' => true, 'generic' => 'float'],
-            'date' => ['length' => false, 'generic' => 'DateField'],
-            'datetime' => ['length' => false, 'generic' => 'DateTimeField'],
-            'varchar' => ['length' => true, 'generic' => 'string'],
-            'text' => ['length' => false, 'generic' => 'string'],
-            'longtext' => ['length' => false, 'generic' => 'string'],
-            'mediumtext' => ['length' => false, 'generic' => 'string'],
-            'tinytext' => ['length' => true, 'generic' => 'string'],
-            'enum' => ['length' => false, 'generic' => 'ValueField'],
-            'json' => ['length' => false, 'generic' => ['Object' => 'ObjectField', 'Array' => 'ArrayField']]
+            'bool' => ['length' => false, 'generic' => 'bool', 'component' => 'Colibri.UI.Forms.Checkbox'],
+            'int' => ['length' => true, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
+            'bigint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
+            'float' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
+            'double' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
+            'date' => ['length' => false, 'generic' => 'DateField', 'component' => 'Colibri.UI.Forms.Date'],
+            'datetime' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
+            'varchar' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
+            'text' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
+            'longtext' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
+            'mediumtext' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
+            'tinytext' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
+            'enum' => ['length' => false, 'generic' => 'ValueField', 'component' => 'Colibri.UI.Forms.Select'],
+            'json' => ['length' => false, 'generic' => ['Colibri.UI.Forms.Object' => 'ObjectField', 'Colibri.UI.Forms.Array' => 'ArrayField'], 'component' => 'Colibri.UI.Forms.Object']
         ];
     }
 }

@@ -153,14 +153,14 @@ final class Connection implements IConnection
     public static function AllowedTypes(): array
     {
         return [
-            'bool' => ['length' => false, 'generic' => 'bool'],
-            'int' => ['length' => false, 'generic' => 'int'],
-            'bigint' => ['length' => false, 'generic' => 'int'],
-            'float' => ['length' => false, 'generic' => 'float'],
-            'date' => ['length' => false, 'generic' => 'DateField'],
-            'datetime' => ['length' => false, 'generic' => 'DateTimeField'],
-            'varchar' => ['length' => false, 'generic' => 'string'],
-            'longtext' => ['length' => false, 'generic' => 'string']
+            'bool' => ['length' => false, 'generic' => 'bool', 'component' => 'Colibri.UI.Forms.Checkbox'],
+            'int' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
+            'bigint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
+            'float' => ['length' => false, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
+            'date' => ['length' => false, 'generic' => 'DateField', 'component' => 'Colibri.UI.Forms.Date'],
+            'datetime' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
+            'varchar' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
+            'longtext' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea']
         ];
     }
 
