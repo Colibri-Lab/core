@@ -449,7 +449,7 @@ class Storages
     
                             $orType = $fieldFound->type != $xfield['type'];
                             $orDefault = ($fieldFound?->default ?? null) != $default;
-                            $orRequired = $fieldFound->required != $required;
+                            $orRequired = ($fieldFound?->required ?? false) != $required;
 
                             if ($orType || $orDefault || $orRequired) {
                                 $logger->error($name . ': ' . $fname . ': Field destination changed: updating');

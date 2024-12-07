@@ -45,7 +45,7 @@ final class CommandResult implements ICommandResult
         $affected = count($this->ResultData());
         $count = count($this->ResultData());
         if($this->_response?->response ?? null) {
-            $affected = $this->_response?->response->numFound;
+            $affected = ($this->_response?->response?->numFound ?? 0);
         }
         return (object)[...(array)$this->_response->responseHeader, ...['affected' => $affected, 'count' => $count]];
     }
@@ -79,13 +79,13 @@ final class CommandResult implements ICommandResult
     {
         $return = [];
         if($this->_response?->response ?? null) {
-            $return = (array)$this->_response?->response?->docs ?? [];
+            $return = (array)($this->_response?->response?->docs ?? []);
         } elseif ($this->_response?->status ?? null) {
-            $return = (array)$this->_response?->status ?? [];
+            $return = (array)($this->_response?->status ?? []);
         } elseif ($this->_response?->fieldTypes ?? null) {
-            $return = (array)$this->_response?->fieldTypes ?? [];
+            $return = (array)($this->_response?->fieldTypes ?? []);
         } elseif ($this->_response?->fields ?? null) {
-            $return = (array)$this->_response?->fields ?? [];
+            $return = (array)($this->_response?->fields ?? []);
         }
         $return = $this->_convert($return);
         return $return;

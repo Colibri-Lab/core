@@ -92,6 +92,14 @@ class QueryBuilder
             } elseif (in_array($field->type, [
                 'bigint', 'int', 'float'
             ])) {
+                if($fieldName === 'id') {
+                    if(is_array($value)) {
+                        $value = array_map(fn($v) => StringHelper::Expand($v, 20, '0'), $value);
+                    } else {
+                        $value = StringHelper::Expand($value, 20, '0');
+                    }
+                }
+                
                 $filters[$fieldName] = [];
                 if(count($value) == 2) {
                     $filters[$fieldName] = '['.($value[0] ? $value[0] : '*').' TO '.($value[1] ? $value[1] : '*').']';
@@ -158,12 +166,12 @@ class QueryBuilder
 
             $data['datecreated'] = DateHelper::ToISODate($data['datecreated']) ?? DateHelper::ToISODate();
             $data['datemodified'] = DateHelper::ToISODate($data['datemodified']) ?? DateHelper::ToISODate();
-            $data['datedeleted'] = $data['datedeleted'] ? DateHelper::ToISODate($data['datedeleted']) : null;
+            $data['datedeleted'] = isset($data['datedeleted']) ? DateHelper::ToISODate($data['datedeleted']) : null;
             unset($data['id']);
 
             foreach ($data as $key => $value) {
                 $f = $row->Storage()->GetField($key);
-                if (in_array($f->type, ['date', 'datetime'])) {
+                if (in_array($key, ['datecreated', 'datemodified', 'datedeleted']) || in_array($f->type, ['date', 'datetime'])) {
                     $data[$key] = DateHelper::ToISODate($value);
                 }
             }

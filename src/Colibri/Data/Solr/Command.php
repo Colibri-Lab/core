@@ -110,7 +110,7 @@ final class Command extends NoSqlCommand
     public function InsertDocument(string $collectionName, object $document): CommandResult
     {
         $maxId = $this->MaxId($collectionName);
-        $document->id = $maxId + 1;
+        $document->id = StringHelper::Expand((string)($maxId + 1), 20, '0');
         $return = Command::Execute($this->_connection, 'post', '/' . $collectionName . '/update?wt=json&overwrite=true&commit=true', [$document]);
         $return->SetReturnedId($document->id);
         $return->SetCollectionName($collectionName);
@@ -134,7 +134,7 @@ final class Command extends NoSqlCommand
 
     public function UpdateDocument(string $collectionName, int $id, object $partOfDocument): CommandResult
     {
-        $partOfDocument->id = $id;
+        $partOfDocument->id = StringHelper::Expand((string)$id, 20, '0');
         $return = Command::Execute($this->_connection, 'post', '/' . $collectionName . '/update?wt=json&overwrite=true&commit=true', [$partOfDocument]);
         $return->SetCollectionName($collectionName);
         $return->SetReturnedId($id);
@@ -309,8 +309,8 @@ final class Command extends NoSqlCommand
             "type" => $fieldType,
             "stored" => true,
             "indexed" => $indexed,
-            "required" => false,
-            "docValues" => $indexed,
+            "required" => $required,
+            "docValues" => $fieldType != 'longtext' ? $indexed : false,
             "termVectors" => $indexed,
             "termPositions" => $indexed,
             "termOffsets" => $indexed
@@ -339,7 +339,7 @@ final class Command extends NoSqlCommand
             "name" => $fieldName,
             "type" => $fieldType,
             "stored" => true,
-            "indexed" => false,
+            "indexed" => $indexed,
             "required" => $required,
             "docValues" => $indexed,
             "termVectors" => $indexed,

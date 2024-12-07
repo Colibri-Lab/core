@@ -33,7 +33,7 @@ final class CommandResult implements ICommandResult
 
     public function Error(): ?object
     {
-        if($this->_response?->error) {
+        if($this->_response?->error ?? false) {
             return json_decode($this->_response?->error);
         }
         return null;
