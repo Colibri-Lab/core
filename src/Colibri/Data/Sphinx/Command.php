@@ -303,11 +303,7 @@ final class Command extends SqlCommand
             $fname = $storage . '_' . $fieldName;
             $fparams = $xfield['params'] ?? [];
 
-            if (($xfield['virtual'] ?? false) === true) {
-                $virutalFields[$fieldName] = $xfield;
-                continue;
-            }
-
+            
             if ($xfield['type'] == 'enum') {
                 $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '(' . implode(',', array_map(function ($v) {
                     return '\'' . $v['value'] . '\'';
@@ -322,6 +318,12 @@ final class Command extends SqlCommand
                 $fparams['required'] = false;
             }
 
+            if (($xfield['virtual'] ?? false) === true) {
+                $virutalFields[$fieldName] = $xfield;
+                continue;
+            }
+
+
             $xdesc = isset($xfield['desc']) ? json_encode($xfield['desc'], JSON_UNESCAPED_UNICODE) : '';
             if (!isset($ofields[$fname])) {
                 $logger->error($storage . ': ' . $fieldName . ': Field destination not found: creating');
@@ -331,7 +333,7 @@ final class Command extends SqlCommand
                 $required = isset($fparams['required']) ? $fparams['required'] : false;
                 $type = $xfield['type'];
 
-                [$required, $length, $default] = $UpdateDefaultAndLength($field, $type, $required, $length, $default);
+                [$required, $length, $default] = $UpdateDefaultAndLength($fieldName, $type, $required, $length, $default);
 
                 // ! специфика UUID нужно выключить параметр sql_log_bin
                 $sqlLogBinVal = 0;
@@ -345,8 +347,8 @@ final class Command extends SqlCommand
                 }
 
                 $res = $Exec('
-                    ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
-                    ADD COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
+                    ALTER TABLE `' . $table . '` 
+                    ADD COLUMN `' . $storage . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
                     ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''), 
                     $this->_connection
                 );
@@ -380,11 +382,11 @@ final class Command extends SqlCommand
                 if ($orType || $orDefault || $orRequired) {
                     $logger->error($storage . ': ' . $fieldName . ': Field destination changed: updating');
 
-                    [$required, $length, $default] = $UpdateDefaultAndLength($field, $type, $required, $length, $default);
+                    [$required, $length, $default] = $UpdateDefaultAndLength($fieldName, $type, $required, $length, $default);
 
                     $res = $Exec(
-                        'ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
-                        MODIFY COLUMN `' . $table . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' ' . 
+                        'ALTER TABLE `' . $table . '` 
+                        MODIFY COLUMN `' . $storage . '_' . $fieldName . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' ' . 
                         (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? 'COMMENT \'' . $xdesc . '\'' : ''),
                         $this->_connection
                     );
@@ -405,7 +407,7 @@ final class Command extends SqlCommand
                 $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
                 $res = $Exec('
                     ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
-                    ADD COLUMN `' . $table . '_' . $field . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
+                    ADD COLUMN `' . $table . '_' . $fieldName . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
                     GENERATED ALWAYS AS (' . $xVirtualField['expression'] . ') STORED ' .
                     ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''), $this->_connection);
 
@@ -430,8 +432,8 @@ final class Command extends SqlCommand
                     $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
                     
                     $res = $Exec(
-                        'ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
-                        MODIFY COLUMN `' . $table . '_' . $field . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') .
+                        'ALTER TABLE `' . $table . '` 
+                        MODIFY COLUMN `' . $storage . '_' . $fieldName . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') .
                         ' GENERATED ALWAYS AS (' . $expression . ') STORED ' .
                         ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''),
                         $this->_connection
@@ -458,7 +460,7 @@ final class Command extends SqlCommand
                 }
         
                 $res = $Exec('
-                    ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
+                    ALTER TABLE `' . $table . '` 
                     ADD' . ($xindex['type'] !== 'NORMAL' ? ' ' . $xindex['type'] : '') . ' INDEX `' . $indexName . '` (`' . 
                         $table . '_' . implode('`,`' . $table . '_', $xindex['fields']) . '`) ' . 
                     ($method ? ' USING ' . $method : '') . '
@@ -516,4 +518,6 @@ final class Command extends SqlCommand
             }
         }
     }
+
+    
 }
