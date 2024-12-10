@@ -48,4 +48,8 @@ interface IConnection
     
     public static function AllowedTypes(): array;
 
+    public static function HasIndexes(): bool;
+    
+    public static function FieldsHasPrefix(): bool;
+
 }

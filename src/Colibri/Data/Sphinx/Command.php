@@ -1,20 +1,20 @@
 <?php
 
 /**
- * MsSql
+ * Sphinx
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Data\MsSql
+ * @package Colibri\Data\Sphinx
  */
 
-namespace Colibri\Data\MsSql;
+namespace Colibri\Data\Sphinx;
 
 use Colibri\Data\SqlClient\Command as SqlCommand;
-use Colibri\Data\MsSql\Exception as MsSqlException;
+use Colibri\Data\Sphinx\Exception as SphinxException;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Utils\Logs\Logger;
-use MsSqli_stmt;
+use mysqli_stmt;
 
 /**
  * Represents a final database command, extending SqlCommand.
@@ -28,19 +28,19 @@ final class Command extends SqlCommand
      * Prepares a statement with parameters.
      *
      * @param string $query The query with placeholders for parameters.
-     * @return MsSqli_stmt The prepared statement.
-     * @throws MsSqlException If no parameters are provided or if there's an issue with the query.
+     * @return mysqli_stmt The prepared statement.
+     * @throws SphinxException If no parameters are provided or if there's an issue with the query.
      */
-    private function _prepareStatement(string $query): mixed
+    private function _prepareStatement(string $query): mysqli_stmt
     {
 
         if (!$this->_params) {
-            throw new MsSqlException('no params', 0);
+            throw new SphinxException('no params', 0);
         }
 
         $res = preg_match_all('/\[\[([^\]]+)\]\]/', $query, $matches);
         if ($res == 0) {
-            throw new MsSqlException('no params', 0);
+            throw new SphinxException('no params', 0);
         }
 
         $typesAliases = ['integer' => 'i', 'double' => 'd', 'string' => 's', 'blob' => 'b'];
@@ -80,11 +80,11 @@ final class Command extends SqlCommand
             }
         }
 
-        $stmt = MsSqli_prepare($this->_connection->resource, $query);
+        $stmt = mysqli_prepare($this->_connection->resource, $query);
         if (!$stmt) {
-            throw new MsSqlException(
-                MsSqli_error($this->_connection->resource),
-                MsSqli_errno($this->_connection->resource)
+            throw new SphinxException(
+                mysqli_error($this->_connection->resource),
+                mysqli_errno($this->_connection->resource)
             );
         }
 
@@ -95,7 +95,7 @@ final class Command extends SqlCommand
             $params[] = & $values[$i];
         }
 
-        call_user_func_array('MsSqli_stmt_bind_param', $params);
+        call_user_func_array('mysqli_stmt_bind_param', $params);
 
         return $stmt;
     }
@@ -105,13 +105,13 @@ final class Command extends SqlCommand
      *
      * @param bool $info Whether to execute a query to obtain the affected variable. Default is true.
      * @return IDataReader The data reader.
-     * @throws MsSqlException If there's an issue executing the query.
+     * @throws SphinxException If there's an issue executing the query.
      */
     public function ExecuteReader(bool $info = true): IDataReader
     {
 
         // выбираем базу данныx, с которой работает данный линк
-        MsSqli_select_db($this->_connection->resource, $this->_connection->database);
+        mysqli_select_db($this->_connection->resource, $this->_connection->database);
 
         // если нужно посчитать количество результатов
         $affected = null;
@@ -121,19 +121,19 @@ final class Command extends SqlCommand
             $limitQuery = 'select count(*) as affected from (' . $this->query . ') tbl';
             if ($this->_params) {
                 $stmt = $this->_prepareStatement($limitQuery);
-                MsSqli_stmt_execute($stmt);
-                $ares = MsSqli_stmt_get_result($stmt);
+                mysqli_stmt_execute($stmt);
+                $ares = mysqli_stmt_get_result($stmt);
             } else {
-                $ares = MsSqli_query($this->_connection->resource, $limitQuery);
+                $ares = mysqli_query($this->_connection->resource, $limitQuery);
             }
-            if (!($ares instanceof \MsSqli_result)) {
-                throw new MsSqlException(
-                    MsSqli_error($this->_connection->resource) . ' query: ' . $limitQuery,
-                    MsSqli_errno($this->_connection->resource)
+            if (!($ares instanceof \mysqli_result)) {
+                throw new SphinxException(
+                    mysqli_error($this->_connection->resource) . ' query: ' . $limitQuery,
+                    mysqli_errno($this->_connection->resource)
                 );
             }
-            if (MsSqli_num_rows($ares) > 0) {
-                $affected = MsSqli_fetch_object($ares)->affected;
+            if (mysqli_num_rows($ares) > 0) {
+                $affected = mysqli_fetch_object($ares)->affected;
             }
 
         }
@@ -144,17 +144,17 @@ final class Command extends SqlCommand
         // выполняем запрос
         if ($this->_params) {
             $stmt = $this->_prepareStatement($preparedQuery);
-            MsSqli_stmt_execute($stmt);
-            $res = MsSqli_stmt_get_result($stmt);
+            mysqli_stmt_execute($stmt);
+            $res = mysqli_stmt_get_result($stmt);
         } else {
-            $res = MsSqli_query($this->_connection->resource, $preparedQuery);
+            $res = mysqli_query($this->_connection->resource, $preparedQuery);
         }
         
 
-        if (!($res instanceof \MsSqli_result)) {
-            throw new MsSqlException(
-                MsSqli_error($this->_connection->resource) . ' query: ' . $preparedQuery,
-                MsSqli_errno($this->_connection->resource)
+        if (!($res instanceof \mysqli_result)) {
+            throw new SphinxException(
+                mysqli_error($this->_connection->resource) . ' query: ' . $preparedQuery,
+                mysqli_errno($this->_connection->resource)
             );
         }
 
@@ -167,29 +167,29 @@ final class Command extends SqlCommand
      *
      * @param string|null $dummy (Unused parameter) Dummy parameter for compatibility. Default is null.
      * @return QueryInfo The query information.
-     * @throws MsSqlException If there's an issue executing the query.
+     * @throws SphinxException If there's an issue executing the query.
      */
     public function ExecuteNonQuery(?string $dummy = null): QueryInfo
     {
-        MsSqli_select_db($this->_connection->resource, $this->_connection->database);
+        mysqli_select_db($this->_connection->resource, $this->_connection->database);
 
         if ($this->_params) {
             $stmt = $this->_prepareStatement($this->query);
-            MsSqli_stmt_execute($stmt);
+            mysqli_stmt_execute($stmt);
             return new QueryInfo(
                 $this->type,
-                MsSqli_stmt_insert_id($stmt),
-                MsSqli_stmt_affected_rows($stmt),
-                MsSqli_stmt_error($stmt),
+                mysqli_stmt_insert_id($stmt),
+                mysqli_stmt_affected_rows($stmt),
+                mysqli_stmt_error($stmt),
                 $this->query
             );
         } else {
-            MsSqli_query($this->_connection->resource, $this->query);
+            mysqli_query($this->_connection->resource, $this->query);
             return new QueryInfo(
                 $this->type,
-                MsSqli_insert_id($this->connection->resource),
-                MsSqli_affected_rows($this->connection->resource),
-                MsSqli_error($this->connection->resource),
+                mysqli_insert_id($this->connection->resource),
+                mysqli_affected_rows($this->connection->resource),
+                mysqli_error($this->connection->resource),
                 $this->query
             );
         }
@@ -516,5 +516,4 @@ final class Command extends SqlCommand
             }
         }
     }
-
 }

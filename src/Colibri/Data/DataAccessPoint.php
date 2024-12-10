@@ -18,6 +18,7 @@ use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\SqlClient\QueryInfo;
 use Colibri\Data\Storages\Storage;
 use Colibri\Utils\Debug;
+use Colibri\Utils\Logs\Logger;
 use DateTime;
 
 /**
@@ -102,6 +103,8 @@ use DateTime;
  *
  * @property-read string $name
  * @property-read string $dbms
+ * @property-read bool $hasIndexes
+ * @property-read bool $fieldsHasPrefix
  * @property-read ISqlClientConnection|INoSqlClientConnection $connection
  * @property-read object $point
  *
@@ -187,6 +190,12 @@ class DataAccessPoint
         } elseif ($property == 'allowedTypes') {
             $connectionClass = $this->_accessPointData->driver->connection;
             return $connectionClass::AllowedTypes();
+        } elseif ($property == 'hasIndexes') {
+            $connectionClass = $this->_accessPointData->driver->connection;
+            return $connectionClass::HasIndexes();
+        } elseif ($property == 'fieldsHasPrefix') {
+            $connectionClass = $this->_accessPointData->driver->connection;
+            return $connectionClass::FieldsHasPrefix();
         } else {
             if($this->dbms === self::DBMSTypeRelational) {
                 return $this->Query('select * from ' . $property);
@@ -203,12 +212,12 @@ class DataAccessPoint
 
     public function ExecuteCommand(string $command, ...$arguments):  mixed
     {
-        if($this->_accessPointData->driver->dbms === self::DBMSTypeRelational) {
-            throw new DataAccessPointsException('Can not execute command on relational database! Please use the Query method');
-        }
-        
         $commandClassObject = $this->_accessPointData->driver->command;
-        $cmd = new $commandClassObject($this->_connection);
+        if($this->_accessPointData->driver->dbms === self::DBMSTypeRelational) {
+            $cmd = new $commandClassObject('', $this->_connection);
+        } else {
+            $cmd = new $commandClassObject($this->_connection);
+        }
         if(method_exists($cmd, $command)) {
             return $cmd->$command(...$arguments);
         }
@@ -318,6 +327,19 @@ class DataAccessPoint
     }
 
     /**
+     * Get status.
+     *
+     * @param string $table The name of the table.
+     * @param array $row The row to be inserted.
+     * @param string $returning The name of the field whose value needs to be returned. (For MySQL, this can be omitted, and the value of the identity field will be returned.)
+     * @return IDataReader|QueryInfo
+     */
+    public function Status(string $table): IDataReader|QueryInfo
+    {
+        return $this->Query($this->CreateQuery('CreateShowStatus', [$table]));
+    }
+
+    /**
      * Inserts a new row.
      *
      * @param string $table The name of the table.
@@ -412,21 +434,40 @@ class DataAccessPoint
     /**
      * Returns a list of fields in the database table.
      *
-     * @return IDataReader|null Returns an IDataReader object or null.
+     * @return array Returns an IDataReader object or null.
      */    
-    public function Fields(string $table, ?string $database = null): IDataReader|QueryInfo
+    public function Fields(string $table, ?string $database = null): array
     {
-        return $this->Query($this->CreateQuery('CreateShowField', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
+        $fields = [];
+        $return = $this->Query($this->CreateQuery('CreateShowField', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
+        while($field = $return->Read()) {
+            $f = $this->_connection->ExtractFieldInformation($field);
+            $fields[$f->Field] = $f;
+        }
+        return $fields;
     }
     
     /**
      * Returns a list of indexes in the database table.
      *
-     * @return IDataReader|null Returns an IDataReader object or null.
+     * @return array Returns an IDataReader object or null.
      */    
-    public function Indexes(string $table, ?string $database = null): IDataReader|QueryInfo
+    public function Indexes(string $table, ?string $database = null): array
     {
-        return $this->Query($this->CreateQuery('CreateShowIndexes', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
+        $return = $this->Query($this->CreateQuery('CreateShowIndexes', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
+        $indices = [];
+        while ($index = $return->Read()) {
+            $i = $this->_connection->ExtractIndexInformation($index);
+            
+            if (!isset($indices[$i->Name])) {
+                $i->Columns = [($i->ColumnPosition - 1) => $i->Columns[0]];
+                $indices[$i->Name] = $i;
+            } else {
+                $indices[$i->Name]->Columns[$i->ColumnPosition - 1] = $i->Columns[0];
+            }
+            
+        }
+        return $indices;
     }
 
     /**
@@ -475,5 +516,9 @@ class DataAccessPoint
         return $this->CreateQuery('ProcessMutationData', [$row, $mutationType]);
     }
 
+    public function Migrate(Logger $logger, string $storage, array $xstorage): void
+    {
+        $this->ExecuteCommand('Migrate', $logger, $storage, $xstorage);
+    }
 
 }

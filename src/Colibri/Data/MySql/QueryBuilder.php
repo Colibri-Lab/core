@@ -233,6 +233,17 @@ class QueryBuilder implements IQueryBuilder
         return "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='" . $database . "' and TABLE_NAME='" . $table . "'";
     }
 
+    public function CreateShowStatus(string $table): string
+    {
+        return 'SHOW TABLE STATUS LIKE \''.$table.'\'';
+    }
+
+    
+    public function CreateDrop($table): string
+    {
+        return 'drop table ' . $table;
+    }
+
     /**
      * Creates a BEGIN transaction query.
      *

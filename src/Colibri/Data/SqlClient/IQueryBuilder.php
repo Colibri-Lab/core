@@ -120,4 +120,6 @@ interface IQueryBuilder
 
     public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string;
 
+    public function CreateDrop($table): string;
+
 }

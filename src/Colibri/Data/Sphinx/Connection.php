@@ -2,26 +2,26 @@
 
 
 /**
- * MsSql
+ * Sphinx
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
- * @package Colibri\Data\MsSql
+ * @package Colibri\Data\Sphinx
  */
-namespace Colibri\Data\MsSql;
+namespace Colibri\Data\Sphinx;
 
 use Colibri\Data\SqlClient\IConnection;
-use Colibri\Data\MsSql\Exception as MsSqlException;
+use Colibri\Data\Sphinx\Exception as SphinxException;
 
 /**
- * Class for connecting to the MsSql database.
+ * Class for connecting to the Sphinx database.
  *
- * This class provides methods for establishing and managing connections to a MsSql database.
+ * This class provides methods for establishing and managing connections to a Sphinx database.
  *
- * @property-read resource $resource The MsSql connection resource.
- * @property-read resource $raw The raw MsSql connection resource.
+ * @property-read resource $resource The Sphinx connection resource.
+ * @property-read resource $raw The raw Sphinx connection resource.
  * @property-read resource $connection Alias for $resource.
- * @property-read bool $isAlive Indicates whether the connection to the MsSql server is alive.
+ * @property-read bool $isAlive Indicates whether the connection to the Sphinx server is alive.
  *
  */
 final class Connection implements IConnection
@@ -32,7 +32,7 @@ final class Connection implements IConnection
     private $_connectioninfo = null;
 
     /**
-     * @var \MsSqli|null The MsSql connection resource.
+     * @var \mysqli|null The MySQL connection resource.
      */
     private $_resource = null;
 
@@ -41,14 +41,14 @@ final class Connection implements IConnection
      *
      * Initializes a new Connection object with the provided connection information.
      *
-     * @param string $host The hostname or IP address of the MsSql server.
-     * @param string $port The port number of the MsSql server.
-     * @param string $user The MsSql username.
-     * @param string $password The MsSql password.
+     * @param string $host The hostname or IP address of the MySQL server.
+     * @param string $port The port number of the MySQL server.
+     * @param string $user The MySQL username.
+     * @param string $password The MySQL password.
      * @param bool $persistent Whether to use a persistent connection (true) or not (false).
      * @param string|null $database (Optional) The name of the default database to connect to.
      */
-    public function __construct(string $host, string $port, string $user, string $password, ?bool $persistent = false, ?string $database = null)
+    public function __construct(string $host, string $port, ?string $user, ?string $password, ?bool $persistent = false, ?string $database = null)
     {
         $this->_connectioninfo = (object) [
             'host' => $host,
@@ -74,38 +74,37 @@ final class Connection implements IConnection
     }
 
     /**
-     * Opens a connection to the MsSql database server.
+     * Opens a connection to the MySQL database server.
      *
      * @return bool Returns true if the connection was successful; otherwise, false.
      *
-     * @throws MsSqlException If an error occurs while establishing the connection.
+     * @throws SphinxException If an error occurs while establishing the connection.
      *
      */
     public function Open(): bool
     {
 
         if (is_null($this->_connectioninfo)) {
-            throw new MsSqlException('You must provide a connection info object while creating a connection.');
+            throw new SphinxException('You must provide a connection info object while creating a connection.');
         }
 
         try {
-            $this->_resource = \sqlsrv_connect(
-                $this->_connectioninfo->host . ',' . $this->_connectioninfo->port,
-                [
-                    'Database' => $this->_connectioninfo->database,
-                    'UID' => $this->_connectioninfo->user,
-                    'PWD' => $this->_connectioninfo->password
-                ]
+            $this->_resource = mysqli_connect(
+                ($this->_connectioninfo->persistent ? 'p:' : '') .
+                    $this->_connectioninfo->host .
+                    ($this->_connectioninfo->port ? ':' . $this->_connectioninfo->port : ''),
+                $this->_connectioninfo->user,
+                $this->_connectioninfo->password
             );
             if (!$this->_resource) {
-                throw new MsSqlException(
+                throw new SphinxException(
                     'Connection: ' . $this->_connectioninfo->host . ' ' .
                         $this->_connectioninfo->port . ' ' . $this->_connectioninfo->user . ': ' .
-                        implode(',', \sqlsrv_errors())
+                        mysqli_connect_error()
                 );
             }
         } catch (\Throwable $e) {
-            throw new MsSqlException(
+            throw new SphinxException(
                 'Connection: ' . $this->_connectioninfo->host . ' ' .
                 $this->_connectioninfo->port . ' ' . $this->_connectioninfo->user . ': ' . $e->getMessage(),
                 $e->getCode(),
@@ -113,13 +112,17 @@ final class Connection implements IConnection
             );
         }
 
-        // sqlsrv_query($this->_resource, 'SET NAMES utf8mb4 COLLATE utf8mb4_general_ci');
+        if (
+            !empty($this->_connectioninfo->database) &&
+            !mysqli_select_db($this->_resource, $this->_connectioninfo->database)) {
+            throw new SphinxException(mysqli_error($this->_resource));
+        }
 
         return true;
     }
 
     /**
-     * Reopens the MsSql database connection.
+     * Reopens the MySQL database connection.
      *
      * This method is an alias for Open().
      *
@@ -132,7 +135,7 @@ final class Connection implements IConnection
     }
 
     /**
-     * Closes the MsSql database connection.
+     * Closes the MySQL database connection.
      *
      * @return void
      *
@@ -140,7 +143,7 @@ final class Connection implements IConnection
     public function Close(): void
     {
         if (is_resource($this->_resource)) {
-            \sqlsrv_close($this->_resource);
+            mysqli_close($this->_resource);
         }
     }
 
@@ -176,50 +179,44 @@ final class Connection implements IConnection
     }
 
     public function Ping(): bool {
-        return sqlsrv_query($this->_resource, 'SELECT true') !== false;
+        return mysqli_ping($this->_resource);
     }
 
     public static function AllowedTypes(): array
     {
         return [
-            'bool' => ['length' => false, 'generic' => 'bool'],
-            'int' => ['length' => true, 'generic' => 'int'],
-            'bigint' => ['length' => false, 'generic' => 'int'],
-            'float' => ['length' => true, 'generic' => 'float'],
-            'double' => ['length' => true, 'generic' => 'float'],
-            'date' => ['length' => false, 'generic' => 'DateField'],
-            'datetime' => ['length' => false, 'generic' => 'DateTimeField'],
-            'varchar' => ['length' => true, 'generic' => 'string'],
-            'text' => ['length' => false, 'generic' => 'string'],
-            'longtext' => ['length' => false, 'generic' => 'string'],
-            'mediumtext' => ['length' => false, 'generic' => 'string'],
-            'tinytext' => ['length' => true, 'generic' => 'string'],
-            'enum' => ['length' => false, 'generic' => 'ValueField'],
-            'json' => ['length' => false, 'generic' => ['Object' => 'ObjectField', 'Array' => 'ArrayField']]
+            'bigint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
+            'bool' => ['length' => false, 'generic' => 'bool', 'component' => 'Colibri.UI.Forms.Checkbox'],
+            'uint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
+            'float' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
+            'timestamp' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
+            'string' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
+            'field' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
+            'field_string' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
         ];
     }
 
     public static function HasIndexes(): bool
     {
-        return true;
+        return false;
     }
-    
+
     public static function FieldsHasPrefix(): bool
     {
-        return true;
+        return false;
     }
-    
+
     public function ExtractFieldInformation(array|object $field): object
     {
         $field = (object)$field;
         return (object) [
-            'Field' => $field->COLUMN_NAME,
-            'Type' => $field->COLUMN_TYPE,
-            'Null' => $field->IS_NULLABLE,
-            'Key' => $field->COLUMN_KEY,
-            'Default' => $field->COLUMN_DEFAULT,
-            'Extra' => $field->EXTRA ?? '',
-            'Expression' => $field->GENERATION_EXPRESSION ?? ''
+            'Field' => $field->Field,
+            'Type' => $field->Type,
+            'Null' => 'YES',
+            'Key' => $field->Key,
+            'Default' => null,
+            'Extra' => '',
+            'Expression' => ''
         ];
 
     }
@@ -227,13 +224,13 @@ final class Connection implements IConnection
     public function ExtractIndexInformation(array|object $index): object
     {
         return (object)[
-            'Name' => $index->Key_name,
-            'Columns' => $index->Column_name,
-            'Collation' => $index->Collaction,
-            'Null' => $index->Null,
-            'NonUnique' => $index->Non_unique,
-            'Type' => $index->Index_type,
-            'Primary' => $index->Key_name === 'PRIMARY'
+            'Name' => $index->IndexName,
+            'Columns' => $index->AttrName,
+            'Collation' => 'A',
+            'Null' => 1,
+            'NonUnique' => 1,
+            'Type' => $index->Type,
+            'Primary' => $index->IndexName === 'PRIMARY'
         ];
 
 

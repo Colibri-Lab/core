@@ -10,6 +10,8 @@
 
 namespace Colibri\Data\SqlClient;
 
+use Colibri\Utils\Logs\Logger;
+
 /**
  * Represents a database command abstraction.
  *
@@ -172,4 +174,7 @@ abstract class Command
      * @return string The prepared query string.
      */
     abstract public function PrepareQueryString(): string;
+
+    abstract public function Migrate(Logger $logger, string $storage, array $xstorage): void;
+
 }

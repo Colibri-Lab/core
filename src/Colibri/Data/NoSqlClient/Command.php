@@ -10,6 +10,8 @@
 
 namespace Colibri\Data\NoSqlClient;
 
+use Colibri\Utils\Logs\Logger;
+
 /**
  * Represents a database command abstraction.
  *
@@ -135,5 +137,6 @@ abstract class Command
      */
     abstract public static function Execute(IConnection $connection, string $type, string $command, array $arguments): ICommandResult;
 
-
+    abstract public function Migrate(Logger $logger, string $storage, array $xstorage): void;
+    
 }

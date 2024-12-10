@@ -171,11 +171,11 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
     
                 // формируем данные для инициализации точки доступа
                 $accessPointInit = (object)[
-                    'host' => $this->_accessPoints->connections->$accessPointConnection->host,
-                    'port' => $this->_accessPoints->connections->$accessPointConnection->port,
-                    'user' => $this->_accessPoints->connections->$accessPointConnection->user,
-                    'password' => $this->_accessPoints->connections->$accessPointConnection->password,
-                    'persistent' => (isset($this->_accessPoints->connections->$accessPointConnection->persistent) ? $this->_accessPoints->connections->$accessPointConnection->persistent : false),
+                    'host' => $this->_accessPoints->connections->$accessPointConnection?->host,
+                    'port' => $this->_accessPoints->connections->$accessPointConnection?->port,
+                    'user' => $this->_accessPoints->connections->$accessPointConnection?->user ?? null,
+                    'password' => $this->_accessPoints->connections->$accessPointConnection?->password ?? null,
+                    'persistent' => (isset($this->_accessPoints->connections->$accessPointConnection?->persistent) ? $this->_accessPoints->connections->$accessPointConnection?->persistent : false),
                     'database' => $accessPointData?->database ?? '',
                     'logqueries' => $logqueries,
                     'mindelay' => $mindelay,

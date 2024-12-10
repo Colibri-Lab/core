@@ -19,6 +19,7 @@ use Colibri\Data\NoSqlClient\QueryInfo;
 use Colibri\Data\MongoDb\Exception as MongoDbException;
 use Colibri\IO\Request\Encryption;
 use Colibri\IO\Request\Request;
+use Colibri\Utils\Logs\Logger;
 use MongoDB\Builder\Expression\Variable;
 use MongoDB\Collection;
 use MongoDB\Database;
@@ -301,6 +302,14 @@ final class Command extends NoSqlCommand
     public function ReplaceField(string $collectionName, string $fieldName, string $fieldType, bool $required, bool $indexed, mixed $default = null): ?CommandResult
     {
         return null;
+    }
+
+    public function Migrate(Logger $logger, string $storage, array $xstorage): void
+    {
+        if(!$this->CollectionExists($storage)) {
+            $this->CreateCollection($storage);
+        }
+        
     }
 
 }

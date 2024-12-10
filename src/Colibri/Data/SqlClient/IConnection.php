@@ -47,4 +47,11 @@ interface IConnection
 
     public static function AllowedTypes(): array;
 
+    public static function HasIndexes(): bool;
+
+    public static function FieldsHasPrefix(): bool;
+
+    public function ExtractFieldInformation(array|object $field): object;
+    public function ExtractIndexInformation(array|object $index): object;
+    
 }

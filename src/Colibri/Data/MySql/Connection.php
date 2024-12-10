@@ -203,4 +203,48 @@ final class Connection implements IConnection
             'json' => ['length' => false, 'generic' => ['Colibri.UI.Forms.Object' => 'ObjectField', 'Colibri.UI.Forms.Array' => 'ArrayField'], 'component' => 'Colibri.UI.Forms.Object']
         ];
     }
+
+    public static function HasIndexes(): bool
+    {
+        return true;
+    }
+
+    public static function FieldsHasPrefix(): bool
+    {
+        return true;
+    }
+
+    public function ExtractFieldInformation(array|object $field): object
+    {
+        $field = (object)$field;
+        return (object) [
+            'Field' => $field->COLUMN_NAME,
+            'Type' => $field->COLUMN_TYPE,
+            'Null' => $field->IS_NULLABLE,
+            'Key' => $field->COLUMN_KEY,
+            'Default' => $field->COLUMN_DEFAULT,
+            'Extra' => $field->EXTRA ?? '',
+            'Expression' => $field->GENERATION_EXPRESSION ?? ''
+        ];
+
+    }
+
+    
+    public function ExtractIndexInformation(array|object $index): object
+    {
+        return (object)[
+            'Name' => $index->Key_name,
+            'ColumnPosition' => $index->Seq_in_index,
+            'Columns' => [$index->Column_name],
+            'Collation' => $index->Collation,
+            'Null' => $index->Null,
+            'NonUnique' => $index->Non_unique,
+            'Type' => $index->Index_type,
+            'Primary' => $index->Key_name === 'PRIMARY'
+        ];
+
+
+
+    }
+
 }

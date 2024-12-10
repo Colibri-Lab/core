@@ -19,6 +19,7 @@ use Colibri\Data\NoSqlClient\QueryInfo;
 use Colibri\Data\Solr\Exception as SolrException;
 use Colibri\IO\Request\Encryption;
 use Colibri\IO\Request\Request;
+use Colibri\Utils\Logs\Logger;
 
 /**
  * Class for executing commands at the access point.
@@ -352,6 +353,62 @@ final class Command extends NoSqlCommand
         $return = Command::Execute($this->_connection, 'post', '/' . $collectionName . '/schema', ['replace-field' => $replaceFieldParams]);
         $return->SetCollectionName($collectionName);
         return $return;
+    }
+
+    public function Migrate(Logger $logger, string $storage, array $xstorage): void
+    {
+        if(!$this->CollectionExists($storage)) {
+            $this->CreateCollection($storage);
+        }
+
+        $this->CreateCustomFields($storage);
+
+        // надо создать поля
+        $ofields = $this->GetFields($storage);
+        if(!$ofields) {
+            return;
+        }
+
+        $xfields = $xstorage['fields'] ?? [];
+        foreach ($xfields as $fieldName => $xfield) {
+
+            $fname = $fieldName;
+            $fparams = $xfield['params'] ?? [];
+            
+            $fieldFound = VariableHelper::FindInArray($ofields->ResultData(), 'name', $fname);
+            if (!$fieldFound) {
+                $logger->error($storage . ': ' . $fname . ': Field destination not found: creating');
+                $this->AddField(
+                    $storage,
+                    $fname,
+                    $xfield['type'],
+                    $fparams['required'] ?? false,
+                    $xfield['indexed'] ?? true,
+                    $xfield['default'] ?? null
+                );
+            } else {
+                $required = $fparams['required'] ?? false;
+                $default = $xfield['default'] ?? null;
+
+                $orType = $fieldFound->type != $xfield['type'];
+                $orDefault = ($fieldFound?->default ?? null) != $default;
+                $orRequired = ($fieldFound?->required ?? false) != $required;
+
+                if ($orType || $orDefault || $orRequired) {
+                    $logger->error($storage . ': ' . $fname . ': Field destination changed: updating');
+                    // проверить на соответствие
+                    $this->ReplaceField(
+                        $storage,
+                        $fname,
+                        $xfield['type'],
+                        $required,
+                        $xfield['indexed'] ?? true,
+                        $default
+                    );
+                }
+            }
+        
+        }
     }
 
 }

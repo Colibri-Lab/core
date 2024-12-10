@@ -10,6 +10,7 @@
 
 namespace Colibri\Data\Storages;
 
+use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\Storages\Models\DataTable;
 use Colibri\Data\Storages\Fields\Field;
 use Colibri\App;
@@ -291,7 +292,7 @@ class Storage
      */
     public function GetRealFieldName($name)
     {
-        if($this->_dataPoint->dbms === DataAccessPoint::DBMSTypeRelational) {
+        if($this->_dataPoint->fieldsHasPrefix) {
             return $this->name . '_' . $name;
         } else {
             return $name;
@@ -306,7 +307,7 @@ class Storage
      */
     public function GetFieldName($name)
     {
-        if($this->_dataPoint->dbms === DataAccessPoint::DBMSTypeRelational) {
+        if($this->_dataPoint->fieldsHasPrefix) {
             return str_replace($this->name . '_', '', $name);
         } else {
             return $name;
@@ -558,8 +559,32 @@ class Storage
     public function GetStatus(): object
     {
         if($this->accessPoint->dbms === DataAccessPoint::DBMSTypeRelational) {
-            $reader = $this->accessPoint->Query('SHOW TABLE STATUS LIKE \''.$this->table.'\'');
-            return $reader->Read();
+            $reader = $this->accessPoint->Status($this->table);
+            if($reader instanceof IDataReader) {
+                return $reader->Read();
+            } else {
+                return (object)[
+                    'Name' => $this->table,
+                    'Engine' => 'NoSql', 
+                    'Version' => 0, 
+                    'Row_Format' => 'Dynamic', 
+                    'Rows' => 0, 
+                    'Avg_row_length' => 0, 
+                    'Data_length' => 0, 
+                    'Max_data_length' => 0, 
+                    'Index_length' => 0, 
+                    'Data_free' => 0, 
+                    'Auto_increment' => 0, 
+                    'Create_time' => 0, 
+                    'Update_time' => null, 
+                    'Check_time' => 0,
+                    'Collection' => 'utf8mb3_general_ci',
+                    'Checksum' => null, 
+                    'Create_options' => null,
+                    'Comment' => null 
+                ];
+    
+            }
         } else {
             return (object)[
                 'Name' => $this->table,

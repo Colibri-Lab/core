@@ -237,6 +237,15 @@ class QueryBuilder implements IQueryBuilder
         return 'SELECT * FROM information_schema.columns WHERE '.($database ? 'table_schema = \''.$database.'\' AND ' : '').'table_name = \''.$table.'\'';
     }
 
+    public function CreateShowStatus(string $table): string
+    {
+        return 'SHOW TABLE STATUS LIKE \''.$table.'\'';
+    }
+
+    public function CreateDrop($table): string
+    {
+        return 'drop table ' . $table;
+    }
 
     /**
      * Creates a BEGIN transaction query.
@@ -267,6 +276,23 @@ class QueryBuilder implements IQueryBuilder
     public function CreateRollback(): string
     {
         return 'rollback';
+    }
+
+    
+    public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string
+    {
+        return '
+            create table `' . ($prefix ? $prefix . '_' : '') . $table . '`(
+                `' . $table . '_id` bigint unsigned auto_increment, 
+                `' . $table . '_datecreated` timestamp not null default CURRENT_TIMESTAMP, 
+                `' . $table . '_datemodified` timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP, 
+                `' . $table . '_datedeleted` timestamp null, 
+                primary key ' . $table . '_primary (`' . $table . '_id`), 
+                key `' . $table . '_datecreated_idx` (`' . $table . '_datecreated`),
+                key `' . $table . '_datemodified_idx` (`' . $table . '_datemodified`),
+                key `' . $table . '_datedeleted_idx` (`' . $table . '_datedeleted`)
+            ) DEFAULT CHARSET=utf8
+        ';
     }
 
 }

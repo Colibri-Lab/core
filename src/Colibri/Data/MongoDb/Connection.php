@@ -178,5 +178,15 @@ final class Connection implements IConnection
         ];
     }
 
+    public static function HasIndexes(): bool
+    {
+        return false;
+    }
+
+    public static function FieldsHasPrefix(): bool
+    {
+        return false;
+    }
+
 
 }
