@@ -82,7 +82,7 @@ final class Command extends SqlCommand
         if ($this->page > 0 && $info) {
 
             // выполняем запрос для получения количества результатов без limit-ов
-            $limitQuery = 'SHOW META like \'total\'';
+            $limitQuery = 'SHOW META like \'total_found\'';
             $ares = mysqli_query($this->_connection->resource, $limitQuery);
             if (!($ares instanceof \mysqli_result)) {
                 throw new SphinxException(
