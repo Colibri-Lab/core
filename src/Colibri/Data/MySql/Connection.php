@@ -248,7 +248,6 @@ final class Connection implements IConnection
             'Null' => $field->IS_NULLABLE,
             'Key' => $field->COLUMN_KEY,
             'Default' => $field->COLUMN_DEFAULT,
-            'Extra' => $field->EXTRA ?? '',
             'Expression' => $field->GENERATION_EXPRESSION ?? ''
         ];
 

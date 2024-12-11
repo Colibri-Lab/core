@@ -218,7 +218,7 @@ class QueryBuilder implements IQueryBuilder
      */
     public function CreateShowTables(?string $tableFilter = null, ?string $database = null): string
     {
-        return 'SELECT * FROM pg_catalog.pg_tables WHERE true' . ($tableFilter ? ' and tablename=\''.$tableFilter.'\'' : '') . ($tableFilter ? ' and schemaname=\''.$database.'\'' : '');
+        return 'SELECT * FROM pg_catalog.pg_tables WHERE true' . ($tableFilter ? ' and tablename=\''.$tableFilter.'\'' : '') . ' and schemaname=\'public\'';
     }
 
     /**
@@ -228,7 +228,7 @@ class QueryBuilder implements IQueryBuilder
      */
     public function CreateShowIndexes(string $table, ?string $database = null): string
     {
-        return 'SELECT * FROM pg_catalog.pg_indexes WHERE true' . ($table ? ' and tablename=\''.$table.'\'' : '') . ($table ? ' and schemaname=\''.$database.'\'' : '');
+        return 'SELECT * FROM pg_catalog.pg_indexes WHERE true' . ($table ? ' and tablename=\''.$table.'\'' : '') . ($table ? ' and schemaname=\'public\'' : '');
     }
 
     /**
@@ -239,7 +239,7 @@ class QueryBuilder implements IQueryBuilder
      */
     public function CreateShowField(string $table, ?string $database = null): string
     {
-        return 'SELECT * FROM information_schema.columns WHERE '.($database ? 'table_schema = \''.$database.'\' AND ' : '').'table_name = \''.$table.'\'';
+        return 'SELECT * FROM information_schema.columns WHERE '.($database ? 'table_catalog = \''.$database.'\' AND ' : '').'table_name = \''.$table.'\'';
     }
 
     public function CreateShowStatus(string $table): string
@@ -294,20 +294,21 @@ class QueryBuilder implements IQueryBuilder
         return $this->CreateFieldForQuery($softDeleteField, $table) . ' is null';
     }
     
-    public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string
+    public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array
     {
-        return '
-            create table `' . ($prefix ? $prefix . '_' : '') . $table . '`(
-                `' . $table . '_id` bigint unsigned auto_increment, 
-                `' . $table . '_datecreated` timestamp not null default CURRENT_TIMESTAMP, 
-                `' . $table . '_datemodified` timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP, 
-                `' . $table . '_datedeleted` timestamp null, 
-                primary key ' . $table . '_primary (`' . $table . '_id`), 
-                key `' . $table . '_datecreated_idx` (`' . $table . '_datecreated`),
-                key `' . $table . '_datemodified_idx` (`' . $table . '_datemodified`),
-                key `' . $table . '_datedeleted_idx` (`' . $table . '_datedeleted`)
-            ) DEFAULT CHARSET=utf8
-        ';
+        return ['
+            create table "' . ($prefix ? $prefix . '_' : '') . $table . '"(
+                "' . $table . '_id" int8 NOT NULL GENERATED ALWAYS AS IDENTITY, 
+                "' . $table . '_datecreated" timestamp not null default CURRENT_TIMESTAMP, 
+                "' . $table . '_datemodified" timestamp not null default CURRENT_TIMESTAMP, 
+                "' . $table . '_datedeleted" timestamp null,
+                PRIMARY KEY ("' . $table . '_id")
+            )
+        ', 
+        'create index if not exists "' . $table . '_datecreated_idx" on "'.$table.'"("' . $table . '_datecreated")',
+        'create index if not exists "' . $table . '_datemodified_idx" on "'.$table.'"("' . $table . '_datemodified")',
+        'create index if not exists "' . $table . '_datedeleted_idx" on "'.$table.'"("' . $table . '_datedeleted")',
+        ];
     }
 
 }

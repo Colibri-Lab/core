@@ -118,7 +118,7 @@ interface IQueryBuilder
      */
     public function CreateRollback(): string;
 
-    public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string;
+    public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array;
 
     public function CreateDrop($table): string;
 

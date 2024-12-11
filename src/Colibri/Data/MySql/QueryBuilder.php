@@ -297,7 +297,7 @@ class QueryBuilder implements IQueryBuilder
         return 'rollback';
     }
 
-    public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string
+    public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array
     {
         return '
             create table `' . ($prefix ? $prefix . '_' : '') . $table . '`(

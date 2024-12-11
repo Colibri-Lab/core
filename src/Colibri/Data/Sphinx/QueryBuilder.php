@@ -256,7 +256,7 @@ class QueryBuilder implements IQueryBuilder
         return 'rollback';
     }
 
-    public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string
+    public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array
     {
         $options = $this->_connection->options;
         $tableOptions = (array)$options['table'];

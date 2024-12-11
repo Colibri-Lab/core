@@ -207,17 +207,14 @@ final class Connection implements IConnection
     {
         return [
             'bool' => ['length' => false, 'generic' => 'bool', 'component' => 'Colibri.UI.Forms.Checkbox'],
-            'int' => ['length' => true, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
-            'bigint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
-            'float' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
-            'double' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
+            'int4' => ['length' => true, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
+            'int8' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
+            'float4' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
+            'float8' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
             'date' => ['length' => false, 'generic' => 'DateField', 'component' => 'Colibri.UI.Forms.Date'],
-            'datetime' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
             'timestamp' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
             'varchar' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
             'text' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
-            'longtext' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
-            'mediumtext' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
             'tinytext' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
             'enum' => ['length' => false, 'generic' => 'ValueField', 'component' => 'Colibri.UI.Forms.Select'],
             'json' => ['length' => false, 'generic' => ['Colibri.UI.Forms.Object' => 'ObjectField', 'Colibri.UI.Forms.Array' => 'ArrayField'], 'component' => 'Colibri.UI.Forms.Object']
@@ -254,28 +251,33 @@ final class Connection implements IConnection
     {
         $field = (object)$field;
         return (object) [
-            'Field' => $field->COLUMN_NAME,
-            'Type' => $field->COLUMN_TYPE,
-            'Null' => $field->IS_NULLABLE,
-            'Key' => $field->COLUMN_KEY,
-            'Default' => $field->COLUMN_DEFAULT,
-            'Extra' => $field->EXTRA ?? '',
-            'Expression' => $field->GENERATION_EXPRESSION ?? ''
+            'Field' => $field->column_name,
+            'Type' => $field->udt_name . ($field?->character_maximum_length ? '('.$field->character_maximum_length.')' : ''),
+            'Null' => $field->is_nullable,
+            'Key' => $field->is_identity,
+            'Default' => $field->column_default,
+            'Expression' => $field->generation_expression ?? ''
         ];
+
 
     }
 
     
     public function ExtractIndexInformation(array|object $index): object
     {
+        $def = strtolower($index->indexdef);
+        preg_match('/\((.*)\)/i', $def, $matches);
+        $colList = $matches[1];
+        $columns = explode(',', $colList);
         return (object)[
-            'Name' => $index->Key_name,
-            'Columns' => $index->Column_name,
-            'Collation' => $index->Collaction,
-            'Null' => $index->Null,
-            'NonUnique' => $index->Non_unique,
-            'Type' => $index->Index_type,
-            'Primary' => $index->Key_name === 'PRIMARY'
+            'Name' => $index->indexname,
+            'Columns' => $columns,
+            'ColumnPosition' => 1,
+            'Collation' => 'utf8',
+            'Null' => 'YES',
+            'NonUnique' => strstr($def, 'unique') !== false ? 'YES' : 'NO',
+            'Type' => 'BTREE',
+            'Primary' => strstr($index->indexname, '_pkey') !== false
         ];
 
 

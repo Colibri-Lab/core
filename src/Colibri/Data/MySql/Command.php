@@ -470,8 +470,9 @@ final class Command extends SqlCommand
             if (!isset($indices[$indexName])) {
                 $logger->error($storage . ': ' . $indexName . ': Index not found: creating');
                 
+                $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
                 $method = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
-                if ($type === 'FULLTEXT') {
+                if ($xtype === 'FULLTEXT') {
                     $method = '';
                 }
         
