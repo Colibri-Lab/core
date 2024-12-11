@@ -24,6 +24,11 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder implements IQueryBuilder
 {
+    private Connection $_connection;
+    public function __construct(Connection $connection) 
+    {
+        $this->_connection = $connection;
+    }
     /**
      * Creates an INSERT query.
      *
@@ -220,6 +225,17 @@ class QueryBuilder implements IQueryBuilder
     public function CreateShowIndexes(string $table, ?string $database = null): string
     {
         return 'SHOW INDEX FROM ' . $table;
+    }
+
+    public function CreateFieldForQuery(string $field, string $table): string
+    {
+        return '`' . $table . '`.`' . $field . '`';
+    }
+
+    
+    public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): string
+    {
+        return $this->CreateFieldForQuery($softDeleteField, $table) . ' is null';
     }
 
     /**

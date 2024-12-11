@@ -159,6 +159,7 @@ final class Connection implements IConnection
             'float' => ['length' => false, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
             'date' => ['length' => false, 'generic' => 'DateField', 'component' => 'Colibri.UI.Forms.Date'],
             'datetime' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
+            'timestamp' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime', 'db' => 'datetime'],
             'varchar' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
             'longtext' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea']
         ];
@@ -175,4 +176,18 @@ final class Connection implements IConnection
         return false;
     }
 
+    public static function HasVirtual(): bool
+    {
+        return false;
+    }
+
+    public static function HasMultiFieldIndexes(): bool
+    {
+        return false;
+    }    
+    
+    public static function HasAutoincrement(): bool
+    {
+        return false;
+    }
 }

@@ -22,6 +22,8 @@ use PgSql\Connection as PgSqlConnection;
  * @property-read resource $resource The PostgreSql connection resource.
  * @property-read resource $raw The raw PostgreSql connection resource.
  * @property-read resource $connection Alias for $resource.
+ * @property-read object $info Connection information.
+ * @property-read array $options Connection options.
  * @property-read bool $isAlive Indicates whether the connection to the PostgreSql server is alive.
  *
  */
@@ -55,7 +57,8 @@ final class Connection implements IConnection
         string $user,
         string $password,
         bool $persistent = false,
-        string $database = null
+        string $database = null,
+        array|object $options = []
     ) {
         $this->_connectioninfo = (object) [
             'host' => $host,
@@ -63,7 +66,8 @@ final class Connection implements IConnection
             'user' => $user,
             'password' => $password,
             'persistent' => $persistent,
-            'database' => $database
+            'database' => $database,
+            'options' => (array)$options
         ];
     }
 
@@ -76,7 +80,8 @@ final class Connection implements IConnection
             $connectionInfo->user,
             $connectionInfo->password,
             $connectionInfo->persistent,
-            $connectionInfo->database
+            $connectionInfo->database,
+            $connectionInfo?->options ?? []
         );
     }
 
@@ -184,6 +189,10 @@ final class Connection implements IConnection
                 return $this->_connectioninfo->port;
             case 'symbol':
                 return '"';
+            case 'info':
+                return $this->_connectioninfo;
+            case 'options':
+                return $this->_connectioninfo->options;
             default:
                 return null;
         }
@@ -204,6 +213,7 @@ final class Connection implements IConnection
             'double' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
             'date' => ['length' => false, 'generic' => 'DateField', 'component' => 'Colibri.UI.Forms.Date'],
             'datetime' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
+            'timestamp' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
             'varchar' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
             'text' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
             'longtext' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
@@ -225,6 +235,20 @@ final class Connection implements IConnection
         return true;
     }
 
+    public static function HasVirtual(): bool
+    {
+        return true;
+    }
+
+    public static function HasMultiFieldIndexes(): bool
+    {
+        return true;
+    }    
+    
+    public static function HasAutoincrement(): bool
+    {
+        return true;
+    }
     
     public function ExtractFieldInformation(array|object $field): object
     {

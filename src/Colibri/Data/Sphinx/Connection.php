@@ -21,6 +21,8 @@ use Colibri\Data\Sphinx\Exception as SphinxException;
  * @property-read resource $resource The Sphinx connection resource.
  * @property-read resource $raw The raw Sphinx connection resource.
  * @property-read resource $connection Alias for $resource.
+ * @property-read object $info Connection information.
+ * @property-read array $options Connection options.
  * @property-read bool $isAlive Indicates whether the connection to the Sphinx server is alive.
  *
  */
@@ -48,7 +50,7 @@ final class Connection implements IConnection
      * @param bool $persistent Whether to use a persistent connection (true) or not (false).
      * @param string|null $database (Optional) The name of the default database to connect to.
      */
-    public function __construct(string $host, string $port, ?string $user, ?string $password, ?bool $persistent = false, ?string $database = null)
+    public function __construct(string $host, string $port, ?string $user, ?string $password, ?bool $persistent = false, ?string $database = null, array|object $options = [])
     {
         $this->_connectioninfo = (object) [
             'host' => $host,
@@ -56,7 +58,8 @@ final class Connection implements IConnection
             'user' => $user,
             'password' => $password,
             'persistent' => $persistent,
-            'database' => $database
+            'database' => $database,
+            'options' => (array)$options
         ];
     }
 
@@ -69,7 +72,8 @@ final class Connection implements IConnection
             $connectionInfo->user,
             $connectionInfo->password,
             $connectionInfo?->persistent ?? false,
-            $connectionInfo?->database ?? null
+            $connectionInfo?->database ?? null,
+            $connectionInfo?->options ?? []
         );
     }
 
@@ -173,6 +177,10 @@ final class Connection implements IConnection
                 return $this->_connectioninfo->port;
             case 'symbol':
                 return '`';
+            case 'info':
+                return $this->_connectioninfo;
+            case 'options':
+                return $this->_connectioninfo->options;
             default:
                 return null;
         }
@@ -185,18 +193,33 @@ final class Connection implements IConnection
     public static function AllowedTypes(): array
     {
         return [
-            'bigint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
-            'bool' => ['length' => false, 'generic' => 'bool', 'component' => 'Colibri.UI.Forms.Checkbox'],
-            'uint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
-            'float' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
-            'timestamp' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
-            'string' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
-            'field' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
-            'field_string' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
+            'bigint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number', 'index' => true],
+            'bool' => ['length' => false, 'generic' => 'bool', 'component' => 'Colibri.UI.Forms.Checkbox', 'db' => 'uint', 'index' => true],
+            'uint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number', 'index' => true],
+            'float' => ['length' => false, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number', 'index' => true],
+            'timestamp' => ['length' => false, 'generic' => 'DateTimeToIntField', 'component' => 'Colibri.UI.Forms.DateTime', 'db' => 'bigint', 'index' => true],
+            'string' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text', 'index' => false],
+            'field' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text', 'index' => false],
+            'field_string' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text', 'index' => false],
         ];
     }
 
     public static function HasIndexes(): bool
+    {
+        return false;
+    }
+
+    public static function HasMultiFieldIndexes(): bool
+    {
+        return false;
+    }
+
+    public static function HasVirtual(): bool
+    {
+        return false;
+    }
+
+    public static function HasAutoincrement(): bool
     {
         return false;
     }
@@ -225,7 +248,8 @@ final class Connection implements IConnection
     {
         return (object)[
             'Name' => $index->IndexName,
-            'Columns' => $index->AttrName,
+            'Columns' => [$index->AttrName],
+            'ColumnPosition' => 1,
             'Collation' => 'A',
             'Null' => 1,
             'NonUnique' => 1,

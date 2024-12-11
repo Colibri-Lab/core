@@ -140,7 +140,7 @@ class DataTable extends BaseDataTable
         $filter = $filter ? ['('.$filter.')'] : [];
         if(!self::$fullSelection &&
             (isset($storage?->{'params'}['softdeletes']) && $storage?->{'params'}['softdeletes'])) {
-            $filter[] = $storage->table . '.' . $storage->name . '_datedeleted is null';
+            $filter[] = $storage->accessPoint->SoftDeleteCheck('datedeleted', $storage->table);
         }
         $additionalParams['type'] = $calculateAffected ?
             DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
@@ -187,10 +187,21 @@ class DataTable extends BaseDataTable
 
         $params = (object)$storage?->{'params'};
         if($params?->{'softdeletes'} === true) {
+            
+            $allowedTypes = $storage->accessPoint->allowedTypes;
+            $timestamp = $allowedTypes['timestamp'];
+            $timestampGeneric = 'Colibri\\Data\\Storages\\Fields\\' . $timestamp['generic'];
+            $now = new $timestampGeneric('now');
+            $timestampType = 'string';
+            if(method_exists($timestampGeneric, 'ParamTypeName')) {
+                eval('$timestampType = ' . $timestampGeneric . '::ParamTypeName();');
+            }
+
             $res = $storage->accessPoint->Update(
                 $storage->table,
-                [$storage->name . '_datedeleted' => DateHelper::ToDbString()],
-                $filter
+                [$storage->GetRealFieldName('datedeleted') => '[[datedeleted:'.$timestampType.']]'],
+                $filter,
+                ['datedeleted' => (string)$now]
             );
             if (!$res->error) {
                 return true;
@@ -219,10 +230,21 @@ class DataTable extends BaseDataTable
 
         $params = (object)$storage?->{'params'};
         if($params?->{'softdeletes'} === true) {
+            
+            $allowedTypes = $storage->accessPoint->allowedTypes;
+            $timestamp = $allowedTypes['timestamp'];
+            $timestampGeneric = 'Colibri\\Data\\Storages\\Fields\\' . $timestamp['generic'];
+            $timestampType = 'string';
+            $nullValue = null;
+            if(method_exists($timestampGeneric, 'ParamTypeName')) {
+                eval('$timestampType = ' . $timestampGeneric . '::ParamTypeName();');
+                eval('$nullValue = ' . $timestampGeneric . '::Null();');
+            }
             $res = $storage->accessPoint->Update(
                 $storage->table,
-                [$storage->name . '_datedeleted' => null],
-                $filter
+                [$storage->GetRealFieldName('datedeleted') => '[[datedeleted:'.$timestampType.']]'],
+                $filter,
+                ['datedeleted' => $nullValue]
             );
             if (!$res->error) {
                 return true;
@@ -286,63 +308,45 @@ class DataTable extends BaseDataTable
         $idm = $this->_storage->GetRealFieldName('datemodified');
         $id = $row->id;
 
-        // получаем сконвертированные данные
-        $data = $row->GetData();
+        $isNewRow = !$id;
 
-        unset($data[$idf]);
-        $data[$idm] = DateHelper::ToDBString(time());
-
-        $params = [];
-        $fieldValues = [];
-        foreach ($data as $key => $value) {
-            if (!$id || $row->IsPropertyChanged($key)) {
-                $fieldName = $this->_storage->GetFieldName($key);
-                /** @var \Colibri\Data\Storages\Fields\Field $field */
-                $field = $this->_storage->fields->$fieldName ?? null;
-                $paramType = 'string';
-                if ($field && in_array($field->{'type'}, ['blob', 'tinyblob', 'longblob'])) {
-                    $paramType = 'blob';
-                } elseif ($field && in_array($field->{'type'}, [
-                    'integer',
-                    'int',
-                    'smallint',
-                    'tinyint',
-                    'medium',
-                    'bigint',
-                    'decimal',
-                    'numeric'
-                ])) {
-                    $paramType = 'integer';
-                } elseif ($field && in_array($field->{'type'}, ['double', 'float'])) {
-                    $paramType = 'double';
-                } elseif ($field && in_array($field->{'type'}, ['bool', 'boolean'])) {
-                    $paramType = 'integer';
-                    $value = $value === true ? 1 : 0;
-                }
-
-                $params[$key] = $value;
-                $fieldValues[$key] = '[[' . $key . ':' . $paramType . ']]';
+        if($isNewRow) {
+            if(!$this->_storage->accessPoint->hasAutoincrement) {
+                // need to emulate
+                $reader = $this->_storage->accessPoint->Query('select '.$this->_storage->accessPoint->symbol.$idf.$this->_storage->accessPoint->symbol.' as id 
+                    from '.$this->_storage->accessPoint->symbol.$this->_storage->table.$this->_storage->accessPoint->symbol.' 
+                    order by '.$this->_storage->accessPoint->symbol.$idf.$this->_storage->accessPoint->symbol.' desc', ['page' => 1, 'pagesize' => 1]);
+                $maxId = $reader->Read()?->id ?? 0;
+                $row->id = ((int)$maxId + 1);
             }
         }
 
-        if (empty($fieldValues)) {
-            return $id != 0;
+        // получаем сконвертированные данные
+        if(! ([$fieldValues, $params] = $row->DataToChange($isNewRow)) ) {
+            return true;
         }
 
-        if (!$id) {
+        if ($isNewRow) {
+
             $res = $this->_storage->accessPoint->Insert(
                 $this->_storage->table,
                 $fieldValues,
                 '',
                 $params
             );
+
+            if(!$this->_storage->accessPoint->hasAutoincrement) {
+                // need to emulate
+                $res->insertid = $params['id'];
+            }
+
             if ($res->insertid == 0) {
                 App::$log->debug($res->error . ' query: ' . $res->query);
                 return $res;
             }
             $row->$idf = $res->insertid;
-            $row->$idc = DateHelper::ToDBString(time());
-            $row->$idm = DateHelper::ToDBString(time());
+            $row->$idc = $params[$idc];
+            $row->$idm = $params[$idm];
         } else {
             $res = $this->_storage->accessPoint->Update(
                 $this->_storage->table,
@@ -354,6 +358,7 @@ class DataTable extends BaseDataTable
                 App::$log->debug($res->error . ' query: ' . $res->query);
                 return $res;
             }
+            $row->$idm = $params[$idm];
         }
 
         return true;

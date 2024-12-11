@@ -22,6 +22,11 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder
 {
+    private Connection $_connection;
+    public function __construct(Connection $connection) 
+    {
+        $this->_connection = $connection;
+    }
 
     public const MutationInsert = 'insert';
     public const MutationUpdate = 'update';
@@ -175,7 +180,16 @@ class QueryBuilder
 
     }
 
+    public function CreateFieldForQuery(string $field, string $table): string
+    {
+        return $field;
+    }   
+
     
+    public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): array
+    {
+        return [$this->CreateFieldForQuery($softDeleteField, $table) => null];
+    }
 
 
 }

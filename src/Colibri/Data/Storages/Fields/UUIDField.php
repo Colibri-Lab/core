@@ -9,7 +9,7 @@ class UUIDField implements JsonSerializable
 
     private string $_value;
 
-    public function __construct(string $value, mixed $dummy1 = null, mixed $dummy2 = null)
+    public function __construct(?string $value = null, mixed $dummy1 = null, mixed $dummy2 = null)
     {
         $this->_value = $value;
     }
@@ -66,6 +66,16 @@ class UUIDField implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return (string) $this;
+    }
+    
+    public static function ParamTypeName(): string
+    {
+        return 'string';
+    } 
+
+    public static function Null(): mixed
+    {
+        return null;
     }
 
 }

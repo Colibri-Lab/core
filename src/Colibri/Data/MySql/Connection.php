@@ -21,6 +21,8 @@ use Colibri\Data\MySql\Exception as MySqlException;
  * @property-read resource $resource The MySQL connection resource.
  * @property-read resource $raw The raw MySQL connection resource.
  * @property-read resource $connection Alias for $resource.
+ * @property-read object $info Connection information.
+ * @property-read array $options Connection options.
  * @property-read bool $isAlive Indicates whether the connection to the MySQL server is alive.
  *
  */
@@ -48,7 +50,7 @@ final class Connection implements IConnection
      * @param bool $persistent Whether to use a persistent connection (true) or not (false).
      * @param string|null $database (Optional) The name of the default database to connect to.
      */
-    public function __construct(string $host, string $port, string $user, string $password, ?bool $persistent = false, ?string $database = null)
+    public function __construct(string $host, string $port, string $user, string $password, ?bool $persistent = false, ?string $database = null, array|object $options = [])
     {
         $this->_connectioninfo = (object) [
             'host' => $host,
@@ -56,7 +58,8 @@ final class Connection implements IConnection
             'user' => $user,
             'password' => $password,
             'persistent' => $persistent,
-            'database' => $database
+            'database' => $database,
+            'options' => (array)$options
         ];
     }
 
@@ -69,7 +72,8 @@ final class Connection implements IConnection
             $connectionInfo->user,
             $connectionInfo->password,
             $connectionInfo?->persistent ?? false,
-            $connectionInfo?->database ?? null
+            $connectionInfo?->database ?? null,
+            $connectionInfo?->options ?? []
         );
     }
 
@@ -175,6 +179,10 @@ final class Connection implements IConnection
                 return $this->_connectioninfo->port;
             case 'symbol':
                 return '`';
+            case 'info':
+                return $this->_connectioninfo;
+            case 'options':
+                return $this->_connectioninfo->options;
             default:
                 return null;
         }
@@ -194,6 +202,7 @@ final class Connection implements IConnection
             'double' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
             'date' => ['length' => false, 'generic' => 'DateField', 'component' => 'Colibri.UI.Forms.Date'],
             'datetime' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
+            'timestamp' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
             'varchar' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
             'text' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
             'longtext' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
@@ -210,6 +219,22 @@ final class Connection implements IConnection
     }
 
     public static function FieldsHasPrefix(): bool
+    {
+        return true;
+    }
+
+    public static function HasMultiFieldIndexes(): bool
+    {
+        return true;
+    }    
+
+
+    public static function HasVirtual(): bool
+    {
+        return true;
+    }
+    
+    public static function HasAutoincrement(): bool
     {
         return true;
     }

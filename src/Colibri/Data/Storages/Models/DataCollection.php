@@ -140,6 +140,8 @@ class DataCollection extends BaseDataTable
         if (is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
         }
+        
+        // TODO добавить запрос на проверку удаленных записей
 
         [, $rowClass] = $storage->GetModelClasses();
 

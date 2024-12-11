@@ -54,6 +54,7 @@ class ClosureField implements JsonSerializable
     public function Invoke(mixed...$params): mixed
     {
         try {
+            $function = new Closure();
             eval('$function = ' . $this->_value . ';');
             $function = Closure::fromCallable($function);
             return $function->call($this, ...$params);
@@ -71,6 +72,16 @@ class ClosureField implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return (string) $this;
+    }
+
+    public static function ParamTypeName(): string
+    {
+        return 'string';
+    } 
+
+    public static function Null(): mixed
+    {
+        return null;
     }
 
 }

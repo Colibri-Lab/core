@@ -69,4 +69,13 @@ class FileListField extends ArrayList
         return array_map(fn($item) => $item->ToArray(), $this->ToArray());
     }
 
+    public static function ParamTypeName(): string
+    {
+        return 'string';
+    } 
+
+    public static function Null(): mixed
+    {
+        return null;
+    }
 }

@@ -103,8 +103,12 @@ use DateTime;
  *
  * @property-read string $name
  * @property-read string $dbms
+ * @property-read array $allowedTypes
  * @property-read bool $hasIndexes
  * @property-read bool $fieldsHasPrefix
+ * @property-read bool $hasVirtual
+ * @property-read bool $hasMultiFieldIndexes
+ * @property-read bool $hasAutoincrement
  * @property-read ISqlClientConnection|INoSqlClientConnection $connection
  * @property-read object $point
  *
@@ -196,6 +200,15 @@ class DataAccessPoint
         } elseif ($property == 'fieldsHasPrefix') {
             $connectionClass = $this->_accessPointData->driver->connection;
             return $connectionClass::FieldsHasPrefix();
+        } elseif ($property == 'hasVirtual') {
+            $connectionClass = $this->_accessPointData->driver->connection;
+            return $connectionClass::HasVirtual();
+        } elseif ($property == 'hasMultiFieldIndexes') {
+            $connectionClass = $this->_accessPointData->driver->connection;
+            return $connectionClass::HasMultiFieldIndexes();
+        } elseif ($property == 'hasAutoincrement') {
+            $connectionClass = $this->_accessPointData->driver->connection;
+            return $connectionClass::HasAutoincrement();
         } else {
             if($this->dbms === self::DBMSTypeRelational) {
                 return $this->Query('select * from ' . $property);
@@ -322,7 +335,7 @@ class DataAccessPoint
 
     public function CreateQuery(string $method, array $attributes) {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
-        $queryBuilder = new $querybuilderClassObject();
+        $queryBuilder = new $querybuilderClassObject($this->_connection);
         return $queryBuilder->$method(...$attributes);
     }
 
@@ -504,6 +517,17 @@ class DataAccessPoint
             return $this->Query($this->CreateQuery('CreateRollback', []), ['type' => DataAccessPoint::QueryTypeNonInfo]);
         }
         return null;
+    }
+
+    public function ForQuery(string $field, string $table) : string
+    {
+        return $this->CreateQuery('CreateFieldForQuery', [$field, $table]);
+    }
+
+    
+    public function SoftDeleteCheck(string $field, string $table) : string
+    {
+        return $this->CreateQuery('CreateSoftDeleteQuery', [$field, $table]);
     }
 
     public function ProcessFilters(Storage $storage, string $fullTextSearchTerms, array $filters, string $sortField, string $sortOrder): array

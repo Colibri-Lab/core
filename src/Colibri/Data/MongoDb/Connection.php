@@ -27,6 +27,7 @@ use MongoDB\Database as MongoDbDatabase;
  * @property-read MongoDbClient $connection Alias for $resource.
  * @property-read MongoDbDatabase $database Alias for $resource.
  * @property-read object $info Alias for $resource.
+ * @property-read array $options Alias for $resource.
  * @property-read bool $isAlive Indicates whether the connection to the MySQL server is alive.
  *
  */
@@ -147,6 +148,8 @@ final class Connection implements IConnection
                 return $this->_connectioninfo->port;
             case 'info':
                 return $this->_connectioninfo;
+            case 'options':
+                return $this->_connectioninfo->options;
             default:
                 return null;
         }
@@ -172,6 +175,7 @@ final class Connection implements IConnection
             'float' => ['length' => false, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
             'date' => ['length' => false, 'generic' => 'DateField', 'component' => 'Colibri.UI.Forms.Date'],
             'datetime' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
+            'timestamp' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime', 'db' => 'datetime'],
             'varchar' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
             'longtext' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
             'json' => ['length' => false, 'generic' => 'ObjectField', 'component' => 'Colibri.UI.Forms.Object']
@@ -188,5 +192,19 @@ final class Connection implements IConnection
         return false;
     }
 
+    public static function HasMultiFieldIndexes(): bool
+    {
+        return false;
+    }    
+
+    public static function HasVirtual(): bool
+    {
+        return false;
+    }
+
+    public static function HasAutoincrement(): bool
+    {
+        return false;
+    }
 
 }

@@ -209,6 +209,11 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
         $formats = $validator->parser()->getFilterResolver();
         $isDbDateTime = function (string $value): bool {
+            if (is_numeric($value)) {
+                $d = new \DateTime();
+                $d->setTimestamp((int)$value);
+                $value = $d->format(\DateTime::W3C);
+            }
             if (preg_match('/^(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])[T|\s]([01][0-9]|2[0-3]):'.
                 '([0-5][0-9]):([0-5][0-9]|60)(\.[0-9]+)?(Z|(\+|-)([01][0-9]|2[0-3]):([0-5][0-9]))?$/i', $value, $m)) {
                 return checkdate($m[2], $m[3], $m[1]);

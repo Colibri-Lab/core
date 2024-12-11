@@ -54,6 +54,10 @@ class ValueField implements JsonSerializable
         return $this->__toString();
     }
 
+    public static function ParamTypeName(): string
+    {
+        return 'string';
+    } 
 
 
 }

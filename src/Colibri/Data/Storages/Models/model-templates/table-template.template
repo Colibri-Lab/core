@@ -122,7 +122,7 @@ class [[table-class-name]] extends BaseModelDataTable
      */
     public static function LoadEmpty() : [[row-class-name]]
     {
-        $table = self::LoadByFilter(-1, 20, 'false', null, [], false);
+        $table = self::LoadByFilter(-1, 20, 'id=0', null, [], false);
         return $table->CreateEmptyRow();
     }
 
@@ -144,7 +144,7 @@ class [[table-class-name]] extends BaseModelDataTable
     public static function RestoreAllByIds(array $ids): bool
     {
         $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
-        return self::RestoreByFilter($storage, ['id' => array_map(fn($v) => (int)$v, $ids)]);
+        return self::RestoreByFilter($storage, '{id} in ('.implode(',', $ids).')');
     }
 
     /**

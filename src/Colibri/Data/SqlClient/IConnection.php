@@ -51,6 +51,11 @@ interface IConnection
 
     public static function FieldsHasPrefix(): bool;
 
+    public static function HasMultiFieldIndexes(): bool;
+
+    public static function HasVirtual(): bool;
+    public static function HasAutoincrement(): bool;
+
     public function ExtractFieldInformation(array|object $field): object;
     public function ExtractIndexInformation(array|object $index): object;
     

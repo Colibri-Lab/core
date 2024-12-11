@@ -20,5 +20,14 @@ class DateField extends DateTimeField
         return (string)$this->format('yyyy-MM-dd');
     }
 
+    public static function ParamTypeName(): string
+    {
+        return 'string';
+    } 
+
+    public static function Null(): mixed
+    {
+        return null;
+    }
 
 }

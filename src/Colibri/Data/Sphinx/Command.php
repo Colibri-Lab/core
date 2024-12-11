@@ -31,73 +31,32 @@ final class Command extends SqlCommand
      * @return mysqli_stmt The prepared statement.
      * @throws SphinxException If no parameters are provided or if there's an issue with the query.
      */
-    private function _prepareStatement(string $query): mysqli_stmt
+    private function _prepareStatement(string $query): string
     {
 
         if (!$this->_params) {
             throw new SphinxException('no params', 0);
         }
 
-        $res = preg_match_all('/\[\[([^\]]+)\]\]/', $query, $matches);
-        if ($res == 0) {
-            throw new SphinxException('no params', 0);
-        }
-
-        $typesAliases = ['integer' => 'i', 'double' => 'd', 'string' => 's', 'blob' => 'b'];
-
-        $types = [];
-        $values = [];
-        foreach ($matches[1] as $match) {
-
-            // если тип не указан то берем string
+        $params = $this->_params;
+        return preg_replace_callback('/\[\[([^\]]+)\]\]/', function($match) use($params) {
+            $match = $match[1];
             if (strstr($match, ':') === false) {
                 $match = $match . ':string';
             }
 
             $matching = explode(':', $match);
-            if (!is_array($this->_params[$matching[0]])) {
-                $types[] = $typesAliases[$matching[1]];
-                $values[] = $this->_params[$matching[0]];
-                $query = str_replace('[[' . $match . ']]', '?', $query);
-            } else {
-                $types = array_merge(
-                    $types,
-                    array_fill(
-                        0,
-                        count($this->_params[$matching[0]]),
-                        $typesAliases[$matching[1]]
-                    )
-                );
-                $values = array_merge(
-                    $values,
-                    $this->_params[$matching[0]]
-                );
-                $query = str_replace(
-                    '[[' . $match . ']]',
-                    implode(',', array_fill(0, count($this->_params[$matching[0]]), '?')),
-                    $query
-                );
+            switch($matching[1]) {
+                case 'integer': 
+                case 'double': 
+                    return $params[$matching[0]];
+                case 'string':
+                case 'blob':
+                default:
+                    return '\'' . $params[$matching[0]] . '\'';
             }
-        }
-
-        $stmt = mysqli_prepare($this->_connection->resource, $query);
-        if (!$stmt) {
-            throw new SphinxException(
-                mysqli_error($this->_connection->resource),
-                mysqli_errno($this->_connection->resource)
-            );
-        }
-
-        // чертов бред!
-        // ! поменять когда будет php7
-        $params = [&$stmt, implode('', $types)];
-        for ($i = 0; $i < count($values); $i++) {
-            $params[] = & $values[$i];
-        }
-
-        call_user_func_array('mysqli_stmt_bind_param', $params);
-
-        return $stmt;
+        }, $query);
+        
     }
 
     /**
@@ -110,22 +69,21 @@ final class Command extends SqlCommand
     public function ExecuteReader(bool $info = true): IDataReader
     {
 
-        // выбираем базу данныx, с которой работает данный линк
-        mysqli_select_db($this->_connection->resource, $this->_connection->database);
+        // добавляем к тексту запроса limit-ы
+        $preparedQuery = $this->PrepareQueryString();
 
-        // если нужно посчитать количество результатов
+        // выполняем запрос
+        if ($this->_params) {
+            $preparedQuery = $this->_prepareStatement($preparedQuery);
+        }
+        $res = mysqli_query($this->_connection->resource, $preparedQuery);
+        
         $affected = null;
         if ($this->page > 0 && $info) {
 
             // выполняем запрос для получения количества результатов без limit-ов
-            $limitQuery = 'select count(*) as affected from (' . $this->query . ') tbl';
-            if ($this->_params) {
-                $stmt = $this->_prepareStatement($limitQuery);
-                mysqli_stmt_execute($stmt);
-                $ares = mysqli_stmt_get_result($stmt);
-            } else {
-                $ares = mysqli_query($this->_connection->resource, $limitQuery);
-            }
+            $limitQuery = 'SHOW META like \'total\'';
+            $ares = mysqli_query($this->_connection->resource, $limitQuery);
             if (!($ares instanceof \mysqli_result)) {
                 throw new SphinxException(
                     mysqli_error($this->_connection->resource) . ' query: ' . $limitQuery,
@@ -133,24 +91,10 @@ final class Command extends SqlCommand
                 );
             }
             if (mysqli_num_rows($ares) > 0) {
-                $affected = mysqli_fetch_object($ares)->affected;
+                $affected = mysqli_fetch_object($ares)->Value;
             }
 
         }
-
-        // добавляем к тексту запроса limit-ы
-        $preparedQuery = $this->PrepareQueryString();
-
-        // выполняем запрос
-        if ($this->_params) {
-            $stmt = $this->_prepareStatement($preparedQuery);
-            mysqli_stmt_execute($stmt);
-            $res = mysqli_stmt_get_result($stmt);
-        } else {
-            $res = mysqli_query($this->_connection->resource, $preparedQuery);
-        }
-        
-
         if (!($res instanceof \mysqli_result)) {
             throw new SphinxException(
                 mysqli_error($this->_connection->resource) . ' query: ' . $preparedQuery,
@@ -171,28 +115,19 @@ final class Command extends SqlCommand
      */
     public function ExecuteNonQuery(?string $dummy = null): QueryInfo
     {
-        mysqli_select_db($this->_connection->resource, $this->_connection->database);
-
+        $query = $this->query;
         if ($this->_params) {
-            $stmt = $this->_prepareStatement($this->query);
-            mysqli_stmt_execute($stmt);
-            return new QueryInfo(
-                $this->type,
-                mysqli_stmt_insert_id($stmt),
-                mysqli_stmt_affected_rows($stmt),
-                mysqli_stmt_error($stmt),
-                $this->query
-            );
-        } else {
-            mysqli_query($this->_connection->resource, $this->query);
-            return new QueryInfo(
-                $this->type,
-                mysqli_insert_id($this->connection->resource),
-                mysqli_affected_rows($this->connection->resource),
-                mysqli_error($this->connection->resource),
-                $this->query
-            );
+            $query = $this->_prepareStatement($query);
         }
+        
+        mysqli_query($this->_connection->resource, $query);
+        return new QueryInfo(
+            $this->type,
+            mysqli_insert_id($this->connection->resource),
+            mysqli_affected_rows($this->connection->resource),
+            mysqli_error($this->connection->resource),
+            $this->query
+        );
     }
 
     /**
@@ -215,7 +150,7 @@ final class Command extends SqlCommand
         $prefix = isset($xstorage['prefix']) ? $xstorage['prefix'] : '';
         $table = $prefix ? $prefix . '_' . $storage : $storage;
 
-        $queryBuilder = new QueryBuilder();
+        $queryBuilder = new QueryBuilder($this->_connection);
 
         $CreateReader = function(string $query, $connection) {
             $tableCommand = new Command($query, $connection);
@@ -227,33 +162,14 @@ final class Command extends SqlCommand
             return $tableCommand->ExecuteNonQuery();
         };
 
-        $UpdateDefaultAndLength = function(
-            string $field,
-            string $type,
-            bool $required,
-            ?int $length,
-            mixed $default
-        ): array {
-    
-            if (\is_bool($default)) {
-                $default = $default ? 'TRUE' : 'FALSE';
-            }
-    
-            if ($type == 'json') {
-                $default = $default ? '(' . $default . ')' : null;
-                $required = false;
-            } elseif (strstr($type, 'enum') !== false) {
-                $default = $default ? "'" . $default . "'" : null;
-            } elseif (strstr($type, 'char') !== false) {
-                $default = $default ? "'" . $default . "'" : null;
-            }
-    
-            if ($type == 'varchar' && !$length) {
-                $length = 255;
-            }
-    
-            return [$required, $length, $default];
-    
+        $CreateIndex = function($connection, $exec, $indexName, $table, $fields) {
+            $res = $exec('CREATE INDEX `' . $indexName . '` ON `'.$table.'`(`'.implode('`,`', $fields).'`)', $connection);
+            return $res->error;
+        };
+
+        $DropIndex = function($connection, $exec, $indexName, $table) {
+            $res = $exec('DROP INDEX `' . $indexName . '` ON `'.$table.'`', $connection);
+            return $res->error;
         };
 
         $reader = $CreateReader($queryBuilder->CreateShowTables($table), $this->_connection);
@@ -266,6 +182,23 @@ final class Command extends SqlCommand
                 $logger->error($table . ': Can not create destination: ' . $res->query);
                 throw new Exception('Can not create destination: ' . $res->query);
             }
+
+            $error = $CreateIndex($this->_connection, $Exec, $table . '_datecreated_idx', $table, ['datecreated']);
+            if ($error) {
+                $logger->error($table . ': Can not create index: ' . $error);
+                throw new Exception('Can not create index: ' . $error);
+            }
+            $error = $CreateIndex($this->_connection, $Exec, $table . '_datemodified_idx', $table, ['datemodified']);
+            if ($error) {
+                $logger->error($table . ': Can not create index: ' . $error);
+                throw new Exception('Can not create index: ' . $error);
+            }
+            $error = $CreateIndex($this->_connection, $Exec, $table . '_datedeleted_idx', $table, ['datedeleted']);
+            if ($error) {
+                $logger->error($table . ': Can not create index: ' . $error);
+                throw new Exception('Can not create index: ' . $error);
+            }
+
         }
 
         try {
@@ -295,67 +228,30 @@ final class Command extends SqlCommand
             $logger->error($table . ' does not exists');
         }
 
-        $virutalFields = [];
+
+        $types = $this->_connection->AllowedTypes();
+        $hasPrefix = $this->_connection->FieldsHasPrefix();
+        $hasMultiFieldIndexes = $this->_connection->HasMultiFieldIndexes();
 
         $xfields = $xstorage['fields'] ?? [];
         $logger->error($table . ': Checking fields');
         foreach ($xfields as $fieldName => $xfield) {
-            $fname = $storage . '_' . $fieldName;
-            $fparams = $xfield['params'] ?? [];
+            $fname = $hasPrefix ? $storage . '_' . $fieldName : $fieldName;
 
+            $typeInfo = $types[$xfield['type']];
+            if(isset($typeInfo['db'])) {
+                $xfield['type'] = $typeInfo['db'];
+            }
             
-            if ($xfield['type'] == 'enum') {
-                $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '(' . implode(',', array_map(function ($v) {
-                    return '\'' . $v['value'] . '\'';
-                }, $xfield['values'])) . ')' : '';
-            } elseif ($xfield['type'] === 'bool' || $xfield['type'] === 'boolean') {
-                $xfield['type'] = 'tinyint';
-                $xfield['length'] = 1;
-                if(isset($xfield['default'])) {
-                    $xfield['default'] = $xfield['default'] === 'true' ? 1 : 0;
-                }
-            } elseif ($xfield['type'] === 'json') {
-                $fparams['required'] = false;
-            }
-
-            if (($xfield['virtual'] ?? false) === true) {
-                $virutalFields[$fieldName] = $xfield;
-                continue;
-            }
-
-
             $xdesc = isset($xfield['desc']) ? json_encode($xfield['desc'], JSON_UNESCAPED_UNICODE) : '';
             if (!isset($ofields[$fname])) {
                 $logger->error($storage . ': ' . $fieldName . ': Field destination not found: creating');
 
-                $length = isset($xfield['length']) ? $xfield['length'] : null;
-                $default = isset($xfield['default']) ? $xfield['default'] : null;
-                $required = isset($fparams['required']) ? $fparams['required'] : false;
-                $type = $xfield['type'];
-
-                [$required, $length, $default] = $UpdateDefaultAndLength($fieldName, $type, $required, $length, $default);
-
-                // ! специфика UUID нужно выключить параметр sql_log_bin
-                $sqlLogBinVal = 0;
-                if (strstr($default, 'UUID') !== false) {
-
-                    $reader = $CreateReader('SELECT @@sql_log_bin as val', $this->_connection);
-                    $sqlLogBinVal = $reader->Read()->val;
-                    if ($sqlLogBinVal == 1) {
-                        $Exec('set sql_log_bin=0', $this->_connection);
-                    }
-                }
-
                 $res = $Exec('
                     ALTER TABLE `' . $table . '` 
-                    ADD COLUMN `' . $storage . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
-                    ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''), 
+                    ADD COLUMN `' . $fname . '` ' . $xfield['type'], 
                     $this->_connection
                 );
-
-                if ($sqlLogBinVal == 1) {
-                    $Exec('set sql_log_bin=1', $this->_connection);
-                }
 
                 if ($res->error) {
                     $logger->error($table . ': Can not save field: ' . $res->query);
@@ -365,159 +261,96 @@ final class Command extends SqlCommand
             } else {
                 // проверить на соответствие
                 $ofield = $ofields[$fname];
-
-                $required = isset($fparams['required']) ? $fparams['required'] : false;
-                $default = isset($xfield['default']) ? $xfield['default'] : null;
-                [, $length,] = $UpdateDefaultAndLength($fieldName, $xfield['type'], $required, $xfield['length'] ?? null, $default);
-
-                $orType = $ofield->Type != $xfield['type'] . ($length ? '(' . $length . ')' : '');
-                $orDefault = $ofield->Default != $default;
-                $orRequired = $required != ($ofield->Null == 'NO');
-
-                $length = isset($xfield['length']) ? $xfield['length'] : null;
-                $default = isset($xfield['default']) ? $xfield['default'] : null;
-                $required = isset($fparams['required']) ? $fparams['required'] : false;
-                $type = $xfield['type'];
-
-                if ($orType || $orDefault || $orRequired) {
+                if ($ofield->Type != $xfield['type']) {
                     $logger->error($storage . ': ' . $fieldName . ': Field destination changed: updating');
-
-                    [$required, $length, $default] = $UpdateDefaultAndLength($fieldName, $type, $required, $length, $default);
 
                     $res = $Exec(
                         'ALTER TABLE `' . $table . '` 
-                        MODIFY COLUMN `' . $storage . '_' . $fieldName . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' ' . 
-                        (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? 'COMMENT \'' . $xdesc . '\'' : ''),
+                        DROP COLUMN `' . $fname . '`',
                         $this->_connection
                     );
                     if ($res->error) {
-                        $logger->error($table . ': Can not save field: ' . $res->query);
-                        throw new Exception('Can not save field: ' . $res->query);
+                        $logger->error($table . ': Can not remove field: ' . $res->query);
+                        throw new Exception('Can not remove field: ' . $res->query);
+                    }
+
+                    $res = $Exec(
+                        'ALTER TABLE `' . $table . '` 
+                        Add COLUMN `' . $fname . '` ' . $xfield['type'],
+                        $this->_connection
+                    );
+                    if ($res->error) {
+                        $logger->error($table . ': Can not add field: ' . $res->query);
+                        throw new Exception('Can not add field: ' . $res->query);
                     }
 
                 }
             }
         }
 
-        foreach ($virutalFields as $fieldName => $xVirtualField) {
-            $fname = $storage . '_' . $fieldName;
-            $fparams = $xVirtualField['params'] ?? [];
-            $xdesc = isset($xVirtualField['desc']) ? json_encode($xVirtualField['desc'], JSON_UNESCAPED_UNICODE) : '';
-            if (!isset($ofields[$fname])) {
-                $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
-                $res = $Exec('
-                    ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
-                    ADD COLUMN `' . $table . '_' . $fieldName . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
-                    GENERATED ALWAYS AS (' . $xVirtualField['expression'] . ') STORED ' .
-                    ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''), $this->_connection);
-
-                if ($res->error) {
-                    $logger->error($table . ': Can not save field: ' . $res->query);
-                    throw new Exception('Can not save field: ' . $res->query);
-                }
-                
-            } else {
-                $ofield = $ofields[$fname];
-
-                $required = isset($fparams['required']) ? $fparams['required'] : false;
-                $expression = isset($xVirtualField['expression']) ? $xVirtualField['expression'] : null;
-
-                $orType = $ofield->Type != $xVirtualField['type'] . ($length ? '(' . $length . ')' : '');
-                $orExpression = $ofield->Expression != $expression;
-                $orRequired = $required != ($ofield->Null == 'NO');
-
-                if ($orType || $orExpression || $orRequired) {
-                    $logger->error($storage . ': ' . $fieldName . ': Field destination changed: updating');
-
-                    $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
-                    
-                    $res = $Exec(
-                        'ALTER TABLE `' . $table . '` 
-                        MODIFY COLUMN `' . $storage . '_' . $fieldName . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') .
-                        ' GENERATED ALWAYS AS (' . $expression . ') STORED ' .
-                        ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''),
-                        $this->_connection
-                    );
-                    if ($res->error) {
-                        $logger->error($table . ': Can not save field: ' . $res->query);
-                        throw new Exception('Can not save field: ' . $res->query);
-                    }
-
-                }
-
-            }
-        }
 
         $xindexes = isset($xstorage['indices']) ? $xstorage['indices'] : [];
         $logger->error($storage . ': Checking indices');
         foreach ($xindexes as $indexName => $xindex) {
-            if (!isset($indices[$indexName])) {
-                $logger->error($storage . ': ' . $indexName . ': Index not found: creating');
-                
-                $method = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
-                if ($type === 'FULLTEXT') {
-                    $method = '';
-                }
-        
-                $res = $Exec('
-                    ALTER TABLE `' . $table . '` 
-                    ADD' . ($xindex['type'] !== 'NORMAL' ? ' ' . $xindex['type'] : '') . ' INDEX `' . $indexName . '` (`' . 
-                        $table . '_' . implode('`,`' . $table . '_', $xindex['fields']) . '`) ' . 
-                    ($method ? ' USING ' . $method : '') . '
-                ', $this->_connection);
-                if ($res->error) {
-                    $logger->error($table . ': Can not create index: ' . $res->query);
-                    throw new Exception('Can not create index: ' . $res->query);
-                }
-            } else {
-                $oindex = $indices[$indexName];
-                $fields1 = $storage . '_' . implode(',' . $storage . '_', $xindex['fields']);
-                $fields2 = implode(',', $oindex->Columns);
-
-                $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
-                $xmethod = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
-                if ($xtype === 'FULLTEXT') {
-                    $xmethod = '';
-                }
-
-                $otype = 'NORMAL';
-                $omethod = 'BTREE';
-                if ($oindex->Type == 'FULLTEXT') {
-                    $otype = 'FULLTEXT';
-                    $omethod = '';
-                }
-                if ($oindex->NonUnique == 0) {
-                    $otype = 'UNIQUE';
-                    $omethod = $oindex->Type;
-                }
-
-                if ($fields1 != $fields2 || $xtype != $otype || $xmethod != $omethod) {
-                    $logger->error($storage . ': ' . $indexName . ': Index changed: updating');
-
-                    $res = $Exec('
-                        ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
-                        DROP INDEX `' . $indexName . '`
-                    ', $this->_connection);
-                    if ($res->error) {
-                        $logger->error($table . ': Can not delete index: ' . $res->query);
-                        throw new Exception('Can not delete index: ' . $res->query);
-                    }
-
-                    $res = $Exec('
-                        ALTER TABLE `' . $table . '` 
-                        ADD' . ($xtype !== 'NORMAL' ? ' ' . $xtype : '') . ' INDEX `' . $indexName . 
-                        '` (`' . $table . '_' . implode('`,`' . $table . '_', $xindex['fields']) . '`) ' . 
-                            ($xmethod ? ' USING ' . $xmethod : '') . '
-                    ', $this->_connection);
-                    if ($res->error) {
-                        $logger->error($table . ': Can not create index: ' . $res->query);
-                        throw new Exception('Can not create index: ' . $res->query);
-                    }
-
+            
+            $canBeIndexed = true;
+            foreach($xindex['fields'] as $field) {
+                $xfield = $xfields[$field];
+                $typeInfo = $types[$xfield['type']];
+                if(!isset($typeInfo['index']) || !$typeInfo['index']) {
+                    $canBeIndexed = false;
+                    break;
                 }
             }
+
+            if(!$hasMultiFieldIndexes && count($xindex['fields']) > 1) {
+                $canBeIndexed = false;
+            }
+
+            if($canBeIndexed) {
+
+                $xindex['fields'] = array_map(fn ($v) => $hasPrefix ? $storage . '_' . $v : $v, $xindex['fields']);
+
+                if (!isset($indices[$indexName])) {
+                    $logger->error($storage . ': ' . $indexName . ': Index not found: creating');
+                    $error = $CreateIndex($this->_connection, $Exec, $indexName, $table, $xindex['fields']);
+                    if ($error && strstr($error, 'allready exists') !== false) {
+                        $DropIndex($this->_connection, $Exec, $indexName, $table);
+                        $error = $CreateIndex($this->_connection, $Exec, $indexName, $table, $xindex['fields']);
+                        if(!$error) {
+                            $logger->error($table . ': Can not create index: ' . $error);
+                            throw new Exception('Can not create index: ' . $error);    
+                        }
+                    } elseif ($error) {
+                        $logger->error($table . ': Can not create index: ' . $error);
+                        throw new Exception('Can not create index: ' . $error);
+                    }
+                } else {
+                    $oindex = $indices[$indexName];
+
+                    $fields1 = implode(',', $xindex['fields']);
+                    $fields2 = implode(',', $oindex->Columns);
+
+                    if($fields1 != $fields2) {
+                        $error = $DropIndex($this->_connection, $Exec, $indexName, $table);
+                        if ($error) {
+                            $logger->error($table . ': Can not drop index: ' . $error);
+                            throw new Exception('Can not drop index: ' . $error);
+                        }
+
+                        $error = $CreateIndex($this->_connection, $Exec, $indexName, $table, $xindex['fields']);
+                        if ($error) {
+                            $logger->error($table . ': Can not create index: ' . $error);
+                            throw new Exception('Can not create index: ' . $error);
+                        }
+                    }
+                }
+            } else {
+                $logger->error($table . ': one or more fields can not be indexed. ' . implode(',', $xindex['fields']));
+            }
+
         }
     }
 
-    
+
 }

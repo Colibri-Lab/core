@@ -10,6 +10,7 @@
 
 namespace Colibri\Data\Storages\Fields;
 
+use Colibri\Collections\ArrayList;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Storages\Storage;
 use Colibri\Data\Storages\Models\DataRow;
@@ -346,4 +347,13 @@ class ObjectField extends ExtendedObject
         return $newArray;
     }
 
+    public static function ParamTypeName(): string
+    {
+        return 'string';
+    } 
+
+    public static function Null(): mixed
+    {
+        return null;
+    }
 }

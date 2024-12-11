@@ -124,4 +124,15 @@ class ArrayField extends ArrayList
         return $ret;
     }
 
+    public static function ParamTypeName(): string
+    {
+        return 'string';
+    } 
+
+    public static function Null(): mixed
+    {
+        return null;
+    }
+
+
 }

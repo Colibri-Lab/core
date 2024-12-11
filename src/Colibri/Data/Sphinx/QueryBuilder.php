@@ -24,6 +24,12 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder implements IQueryBuilder
 {
+    private Connection $_connection;
+    public function __construct(Connection $connection) 
+    {
+        $this->_connection = $connection;
+    }
+
     /**
      * Creates an INSERT query.
      *
@@ -32,9 +38,10 @@ class QueryBuilder implements IQueryBuilder
      * @param string $returning (optional) The returning clause for the query. Default is empty string.
      * @return string The generated INSERT query.
      */
-    public function CreateInsert(string $table, array |object $data, string $returning = ''): string
+    public function CreateInsert(string $table, array|object $data, string $returning = ''): string
     {
         $data = (array) $data;
+
         foreach ($data as $key => $value) {
             if (is_null($value)) {
                 $value = 'null';
@@ -91,39 +98,13 @@ class QueryBuilder implements IQueryBuilder
      *
      * @param string $table The name of the table.
      * @param array|object $data The data to insert or update.
-     * @param array $exceptFields (optional) The fields to exclude from the update statement. Default is an empty array.
+     * @param array $exceptFields Not used!
      * @param string $returning (optional) The returning clause for the query. Default is empty string.
      * @return string The generated INSERT INTO ... ON DUPLICATE KEY UPDATE query.
      */
     public function CreateInsertOrUpdate(string $table, array |object $data, array $exceptFields = array(), string $returning = ''): string
     {
-        $data = (array) $data;
-        $keys = array_keys($data);
-        $fields = '(`' . implode("`, `", $keys) . '`)';
-
-        $vals = array_values($data);
-        $vs = [];
-        foreach ($vals as $val) {
-            if (is_null($val)) {
-                $val = 'null';
-            } elseif (is_bool($val)) {
-                $val = '\'' . ($val ? 1 : 0) . '\'';
-            } elseif (strstr($val, '[[') === false || strstr($val, ']]') === false) {
-                $val = '\'' . addslashes($val) . '\'';
-            }
-            $vs[] = $val;
-        }
-        $values = "(" . implode(",", $vs) . ")";
-
-        $updateStatement = '';
-        foreach ($data as $k => $v) {
-            if (!in_array($k, $exceptFields)) {
-                $updateStatement .= ',`' . $k . '`=' . ($v == null ? 'null' : '\'' . addslashes($v) . '\'');
-            }
-        }
-
-        return "insert into `" . $table . '`' . $fields . ' values ' . $values .
-            ' on duplicate key update ' . substr($updateStatement, 1);
+        return $this->CreateReplace($table, $data, $returning);
     }
 
     /**
@@ -277,14 +258,18 @@ class QueryBuilder implements IQueryBuilder
 
     public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string
     {
+        $options = $this->_connection->options;
+        $tableOptions = (array)$options['table'];
+        $tableOptionsString = VariableHelper::ToString($tableOptions, ', ', '=');
+        $ttable = ($prefix ? $prefix . '_' : '') . $table;
         return '
-            create table `' . ($prefix ? $prefix . '_' : '') . $table . '`(
+            create table `' . $ttable . '`(
                 id BIGINT, 
                 content FIELD,
                 datecreated bigint, 
                 datemodified bigint, 
                 datedeleted bigint
-            ) OPTION rt_mem_limit=256M, min_prefix_len=3
+            ) OPTION '.($tableOptionsString ? $tableOptionsString : 'rt_mem_limit=256M, min_prefix_len=3').'
         ';
     }    
     public function CreateShowStatus(string $table): string
@@ -431,6 +416,18 @@ class QueryBuilder implements IQueryBuilder
 
         return [implode(' and ', $filters), $sortField . ' ' . $sortOrder, $params];
 
+    }
+
+    
+    
+    public function CreateFieldForQuery(string $field, string $table): string
+    {
+        return $field;
+    }   
+
+    public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): string
+    {
+        return $this->CreateFieldForQuery($softDeleteField, $table) . '=0';
     }
 
 }

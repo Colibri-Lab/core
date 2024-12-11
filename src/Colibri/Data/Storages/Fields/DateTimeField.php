@@ -112,4 +112,14 @@ class DateTimeField extends DateTime implements JsonSerializable
         return (string) $this;
     }
 
+    public static function ParamTypeName(): string
+    {
+        return 'string';
+    } 
+
+    public static function Null(): mixed
+    {
+        return null;
+    }
+    
 }

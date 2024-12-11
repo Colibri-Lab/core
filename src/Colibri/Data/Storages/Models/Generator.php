@@ -162,15 +162,15 @@ class Generator
                             '], \'properties\' => [' . implode('', str_replace("\t\t\t", "", $sb)) . ']]]]],';
                     }
                 }
-            } elseif ($schemaType === 'DateField::JsonSchema' || $schemaType === 'DateTimeField::JsonSchema') {
+            } elseif ($schemaType === 'DateField::JsonSchema' || $schemaType === 'DateTimeField::JsonSchema' || $schemaType === 'DateTimeToIntField::JsonSchema') {
                 if ($field->params['required'] ?? false) {
                     $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => '.
                         '[\'type\' => \'string\', \'format\' => \'' .
-                        ($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date') . '\'],';
+                        ($schemaType === 'DateTimeField::JsonSchema' || $schemaType === 'DateTimeToIntField::JsonSchema' ? 'db-date-time' : 'date') . '\'],';
                 } else {
                     $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => '.
                         '[ \'anyOf\' => [ [\'type\' => [\'string\', \'null\'], \'format\' => \'' .
-                        ($schemaType === 'DateTimeField::JsonSchema' ? 'db-date-time' : 'date') . '\'], '.
+                        ($schemaType === 'DateTimeField::JsonSchema' || $schemaType === 'DateTimeToIntField::JsonSchema' ? 'db-date-time' : 'date') . '\'], '.
                             '[\'type\' => [\'string\', \'null\'], \'maxLength\' => 0] ] ],';
                 }
             } elseif ($schemaType === 'ValueField::JsonSchema') {
@@ -287,7 +287,12 @@ class Generator
             $desc = $desc[$langModule->Default()] ?? $desc;
         }
 
-        $generic = self::$typeToGeneric[$field->{'type'}];
+        $allowedTypes = $storage->accessPoint->allowedTypes;
+        try {
+            $generic = $allowedTypes[$field->{'type'}]['generic'];
+        } catch(\Throwable $e) {
+            $generic = self::$typeToGeneric[$field->{'type'}];
+        }
         if(is_array($generic)) {
             $generic = $generic[$class] ?? null;
         }

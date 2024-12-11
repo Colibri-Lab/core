@@ -122,4 +122,6 @@ interface IQueryBuilder
 
     public function CreateDrop($table): string;
 
+    public function CreateFieldForQuery(string $field, string $table): string;
+
 }

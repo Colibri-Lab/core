@@ -69,14 +69,17 @@ class DataRow extends BaseDataRow
         }
 
         if (empty($data)) {
-            $dt = new \DateTime();
+            $allowedTypes = $this->Storage()->accessPoint->allowedTypes;
+            $timestamp = $allowedTypes['timestamp'];
+            $timestampGeneric = 'Colibri\\Data\\Storages\\Fields\\' . $timestamp['generic'];
+            $dt = new $timestampGeneric('now');
             $data = [
                 $this->_storage->GetRealFieldName('id') => 0,
-                $this->_storage->GetRealFieldName('datecreated') => $dt->format('Y-m-d H:i:s'),
-                $this->_storage->GetRealFieldName('datemodified') => $dt->format('Y-m-d H:i:s')
+                $this->_storage->GetRealFieldName('datecreated') => (string)$dt,
+                $this->_storage->GetRealFieldName('datemodified') => (string)$dt
             ];
         }
-        parent::__construct($table, $data, $storage->accessPoint->dbms === DataAccessPoint::DBMSTypeNoSql ? '' : $storage->name);
+        parent::__construct($table, $data, !$storage->accessPoint->fieldsHasPrefix ? '' : $storage->name);
         $this->_processDefaultValues();
     }
 
@@ -131,8 +134,10 @@ class DataRow extends BaseDataRow
             if ($mode == 'get') {
                 if ($fieldName == 'id') {
                     return (int) $rowValue;
-                } elseif (in_array($fieldName, ['datecreated', 'datemodified'])) {
-                    return new DateTimeField($rowValue);
+                } elseif (in_array($fieldName, ['datecreated', 'datemodified', 'datedeleted'])) {
+                    $allowedTypes = $this->Storage()->accessPoint->allowedTypes;
+                    $timestamp = 'Colibri\\Data\\Storages\\Fields\\' . $allowedTypes['timestamp']['generic'];
+                    return new $timestamp($rowValue);
                 }
                 return $rowValue;
             } else {
@@ -542,6 +547,89 @@ class DataRow extends BaseDataRow
         } else {
             return $this->table->DeleteRow($this);
         }
+    }
+
+    public function Changed(bool $returnAll = false): array
+    {
+        $data = $this->GetData();
+        if($this->_storage->accessPoint->hasAutoincrement) {
+            unset($data[$this->Storage()->GetRealFieldName('id')]);
+        }
+        foreach ($data as $key => $value) {
+            if (!$returnAll && !$this->IsPropertyChanged($key)) {
+                unset($data[$key]);
+            }
+        }
+        return $data;
+    }
+
+    public function DataToChange(bool $saveAll = false): ?array
+    {
+        $data = $this->Changed($saveAll);
+        if(empty($data)) {
+            // nothing to save
+            return null;
+        }
+
+        $allowedTypes = $this->Storage()->accessPoint->allowedTypes;
+        
+        $params = [];
+        $fieldValues = [];
+        foreach ($data as $key => $value) {
+            $fieldName = $this->_storage->GetFieldName($key);
+            if($fieldName === 'id') {
+                $params[$key] = $value;
+                $fieldValues[$key] = '[[id:integer]]';
+                continue;
+            }
+            /** @var \Colibri\Data\Storages\Fields\Field $field */
+            $field = $this->_storage->fields->$fieldName ?? null;
+            $className = $field ? $field->{'class'} : 'string';
+            
+            $paramType = 'string';
+            if ($field && in_array($field->{'type'}, ['blob', 'tinyblob', 'longblob'])) {
+                $paramType = 'blob';
+            } elseif ($field && in_array($className, [
+                'int'
+            ])) {
+                $paramType = 'integer';
+            } elseif ($field && in_array($className, ['float'])) {
+                $paramType = 'double';
+            } elseif ($field && in_array($className, ['bool'])) {
+                $paramType = 'integer';
+                $value = $value === true ? 1 : 0;
+            } else {
+                $className = 'Colibri\\Data\\Storages\\Fields\\' . $className;
+                if(method_exists($className, 'ParamTypeName')) {
+                    eval('$paramType = ' . $className . '::ParamTypeName();');
+                }    
+            }
+
+            $params[$key] = $value;
+            $fieldValues[$key] = '[[' . $key . ':' . $paramType . ']]';
+        }
+
+        $timestamp = $allowedTypes['timestamp'];
+        $timestampGeneric = 'Colibri\\Data\\Storages\\Fields\\' . $timestamp['generic'];
+        $now = new $timestampGeneric('now');
+        $timestampType = 'string';
+        if(method_exists($timestampGeneric, 'ParamTypeName')) {
+            eval('$timestampType = ' . $timestampGeneric . '::ParamTypeName();');
+        }
+
+        // set the modified date
+        $idm = $this->_storage->GetRealFieldName('datemodified');
+        $fieldValues[$idm] = '[[' . $idm . ':' . $timestampType . ']]';
+        $params[$idm] = (string)$now;
+        if($saveAll) {
+            // update created date
+            $idc = $this->_storage->GetRealFieldName('datecreated');
+            $fieldValues[$idc] = '[[' . $idc . ':' . $timestampType . ']]';
+            $params[$idc] = (string)$now;
+        }
+
+        return [$fieldValues, $params];
+
     }
 
 }

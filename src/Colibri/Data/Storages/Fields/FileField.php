@@ -256,4 +256,13 @@ class FileField implements JsonSerializable
         return ['path' => $this->_path];
     }
 
+    public static function ParamTypeName(): string
+    {
+        return 'string';
+    } 
+
+    public static function Null(): mixed
+    {
+        return null;
+    }
 }

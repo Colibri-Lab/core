@@ -182,4 +182,18 @@ class QueryBuilder
 
     }
 
+    
+    public function CreateFieldForQuery(string $field, string $table): string
+    {
+        return $field;
+    }   
+
+    
+    
+    public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): array
+    {
+        return [$this->CreateFieldForQuery($softDeleteField, $table) => null];
+    }
+
+
 }

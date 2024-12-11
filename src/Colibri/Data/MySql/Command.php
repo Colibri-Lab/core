@@ -215,7 +215,7 @@ final class Command extends SqlCommand
         $prefix = isset($xstorage['prefix']) ? $xstorage['prefix'] : '';
         $table = $prefix ? $prefix . '_' . $storage : $storage;
 
-        $queryBuilder = new QueryBuilder();
+        $queryBuilder = new QueryBuilder($this->_connection);
 
         $CreateReader = function(string $query, $connection) {
             $tableCommand = new Command($query, $connection);
