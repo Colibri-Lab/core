@@ -348,7 +348,7 @@ final class Command extends SqlCommand
 
                 $res = $Exec('
                     ALTER TABLE `' . $table . '` 
-                    ADD COLUMN `' . $storage . '_' . $field . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
+                    ADD COLUMN `' . $fname . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
                     ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''), 
                     $this->_connection
                 );
@@ -386,7 +386,7 @@ final class Command extends SqlCommand
 
                     $res = $Exec(
                         'ALTER TABLE `' . $table . '` 
-                        MODIFY COLUMN `' . $storage . '_' . $fieldName . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' ' . 
+                        MODIFY COLUMN `' . $fname . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' ' . 
                         (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? 'COMMENT \'' . $xdesc . '\'' : ''),
                         $this->_connection
                     );
@@ -407,7 +407,7 @@ final class Command extends SqlCommand
                 $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
                 $res = $Exec('
                     ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
-                    ADD COLUMN `' . $table . '_' . $fieldName . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
+                    ADD COLUMN `' . $fname . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
                     GENERATED ALWAYS AS (' . $xVirtualField['expression'] . ') STORED ' .
                     ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''), $this->_connection);
 
@@ -433,7 +433,7 @@ final class Command extends SqlCommand
                     
                     $res = $Exec(
                         'ALTER TABLE `' . $table . '` 
-                        MODIFY COLUMN `' . $storage . '_' . $fieldName . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') .
+                        MODIFY COLUMN `' . $fname . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') .
                         ' GENERATED ALWAYS AS (' . $expression . ') STORED ' .
                         ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''),
                         $this->_connection

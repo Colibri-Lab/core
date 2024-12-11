@@ -257,7 +257,7 @@ class QueryBuilder implements IQueryBuilder
     
     public function CreateDrop($table): string
     {
-        return 'drop table ' . $table;
+        return 'drop table `' . $table . '`';
     }
 
     /**
