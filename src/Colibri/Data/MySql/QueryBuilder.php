@@ -224,7 +224,7 @@ class QueryBuilder implements IQueryBuilder
      */
     public function CreateShowIndexes(string $table, ?string $database = null): string
     {
-        return 'SHOW INDEX FROM ' . $table;
+        return 'SHOW INDEX FROM `' . $table . '`';
     }
 
     public function CreateFieldForQuery(string $field, string $table): string
