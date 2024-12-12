@@ -166,56 +166,5 @@ final class Connection implements IConnection
     }
 
     
-    public static function AllowedTypes(): array
-    {
-        return [
-            'bool' => ['length' => false, 'generic' => 'bool', 'component' => 'Colibri.UI.Forms.Checkbox'],
-            'int' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
-            'bigint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
-            'float' => ['length' => false, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
-            'date' => ['length' => false, 'generic' => 'DateField', 'component' => 'Colibri.UI.Forms.Date'],
-            'datetime' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime'],
-            'timestamp' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime', 'db' => 'datetime'],
-            'varchar' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
-            'longtext' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
-            'json' => ['length' => false, 'generic' => 'ObjectField', 'component' => 'Colibri.UI.Forms.Object']
-        ];
-    }
-
-    public static function HasIndexes(): bool
-    {
-        return false;
-    }
-
-    public static function FieldsHasPrefix(): bool
-    {
-        return false;
-    }
-
-    public static function HasMultiFieldIndexes(): bool
-    {
-        return false;
-    }    
-
-    public static function HasVirtual(): bool
-    {
-        return false;
-    }
-
-    public static function HasAutoincrement(): bool
-    {
-        return false;
-    }
-
-    public static function IndexTypes(): array
-    {
-        return [];
-    }
-
-    public static function IndexMethods(): array
-    {
-        return [];
-    }
-    
 
 }

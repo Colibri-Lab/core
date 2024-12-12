@@ -206,14 +206,14 @@ final class Command extends SqlCommand
             $fieldsReader = $CreateReader($queryBuilder->CreateShowField($table, $this->_connection->database), $this->_connection);
             $ofields = [];
             while($field = $fieldsReader->Read()) {
-                $f = $this->_connection->ExtractFieldInformation($field);
+                $f = self::ExtractFieldInformation($field);
                 $ofields[$f->Field] = $f;
             }
 
             $indexesReader = $CreateReader($queryBuilder->CreateShowIndexes($table), $this->_connection);
             $indices = [];
             while ($index = $indexesReader->Read()) {
-                $i = $this->_connection->ExtractIndexInformation($index);
+                $i = self::ExtractIndexInformation($index);
                 
                 if (!isset($indices[$i->Name])) {
                     $i->Columns = [($i->ColumnPosition - 1) => $i->Columns[0]];
@@ -229,9 +229,9 @@ final class Command extends SqlCommand
         }
 
 
-        $types = $this->_connection->AllowedTypes();
-        $hasPrefix = $this->_connection->FieldsHasPrefix();
-        $hasMultiFieldIndexes = $this->_connection->HasMultiFieldIndexes();
+        $types = Config::AllowedTypes();
+        $hasPrefix = Config::FieldsHasPrefix();
+        $hasMultiFieldIndexes = Config::HasMultiFieldIndexes();
 
         $xfields = $xstorage['fields'] ?? [];
         $logger->error($table . ': Checking fields');
@@ -352,5 +352,38 @@ final class Command extends SqlCommand
         }
     }
 
+    
+
+    public static function ExtractFieldInformation(array|object $field): object
+    {
+        $field = (object)$field;
+        return (object) [
+            'Field' => $field->Field,
+            'Type' => $field->Type,
+            'Null' => 'YES',
+            'Key' => $field->Key,
+            'Default' => null,
+            'Extra' => '',
+            'Expression' => ''
+        ];
+
+    }
+
+    public static function ExtractIndexInformation(array|object $index): object
+    {
+        return (object)[
+            'Name' => $index->IndexName,
+            'Columns' => [$index->AttrName],
+            'ColumnPosition' => 1,
+            'Collation' => 'A',
+            'Null' => 1,
+            'NonUnique' => 1,
+            'Type' => $index->Type,
+            'Primary' => $index->IndexName === 'PRIMARY'
+        ];
+
+
+
+    }
 
 }

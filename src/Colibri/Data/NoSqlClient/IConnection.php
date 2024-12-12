@@ -45,17 +45,5 @@ interface IConnection
      */
     public function Ping(): bool;
 
-    
-    public static function AllowedTypes(): array;
-
-    public static function HasIndexes(): bool;
-    
-    public static function FieldsHasPrefix(): bool;
-
-    public static function HasMultiFieldIndexes(): bool;
-    
-    public static function HasVirtual(): bool;
-    public static function IndexTypes(): array;
-    public static function IndexMethods(): array;
 
 }

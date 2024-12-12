@@ -182,40 +182,34 @@ class DataAccessPoint
         } elseif ($property == 'point') {
             return $this->_accessPointData;
         } elseif ($property == 'symbol') {
-            return $this->_connection->symbol;
+            $connectionClass = $this->_accessPointData->driver->config;
+            return $connectionClass::Symbol();
         } elseif ($property == 'dbms') {
-            $dbms = 'relational';
-            if($this->_accessPointData->driver?->dbms) {
-                if(strstr($this->_accessPointData->driver?->dbms, 'DataAccessPoint') !== false) {
-                    eval('$dbms = '.$this->_accessPointData->driver?->dbms.';');
-                } else {
-                    $dbms = $this->_accessPointData->driver?->dbms;
-                }
-            }
-            return $dbms;
+            $connectionClass = $this->_accessPointData->driver->config;
+            return $connectionClass::DbmsType();
         } elseif ($property == 'allowedTypes') {
-            $connectionClass = $this->_accessPointData->driver->connection;
+            $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::AllowedTypes();
         } elseif ($property == 'hasIndexes') {
-            $connectionClass = $this->_accessPointData->driver->connection;
+            $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::HasIndexes();
         } elseif ($property == 'fieldsHasPrefix') {
-            $connectionClass = $this->_accessPointData->driver->connection;
+            $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::FieldsHasPrefix();
         } elseif ($property == 'hasVirtual') {
-            $connectionClass = $this->_accessPointData->driver->connection;
+            $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::HasVirtual();
         } elseif ($property == 'hasMultiFieldIndexes') {
-            $connectionClass = $this->_accessPointData->driver->connection;
+            $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::HasMultiFieldIndexes();
         } elseif ($property == 'hasAutoincrement') {
-            $connectionClass = $this->_accessPointData->driver->connection;
+            $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::HasAutoincrement();
         } elseif ($property == 'indexTypes') {
-            $connectionClass = $this->_accessPointData->driver->connection;
+            $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::IndexTypes();
         } elseif ($property == 'indexMethods') {
-            $connectionClass = $this->_accessPointData->driver->connection;
+            $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::IndexMethods();
         } else {
             if($this->dbms === self::DBMSTypeRelational) {
@@ -462,7 +456,8 @@ class DataAccessPoint
         $fields = [];
         $return = $this->Query($this->CreateQuery('CreateShowField', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
         while($field = $return->Read()) {
-            $f = $this->_connection->ExtractFieldInformation($field);
+            $configClass = $this->_accessPointData->driver->config;
+            $f = $configClass::ExtractFieldInformation($field);
             $fields[$f->Field] = $f;
         }
         return $fields;
@@ -478,7 +473,8 @@ class DataAccessPoint
         $return = $this->Query($this->CreateQuery('CreateShowIndexes', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
         $indices = [];
         while ($index = $return->Read()) {
-            $i = $this->_connection->ExtractIndexInformation($index);
+            $configClass = $this->_accessPointData->driver->config;
+            $i = $configClass::ExtractIndexInformation($index);
             
             if (!isset($indices[$i->Name])) {
                 $i->Columns = [($i->ColumnPosition - 1) => $i->Columns[0]];

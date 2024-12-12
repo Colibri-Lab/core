@@ -273,14 +273,14 @@ final class Command extends SqlCommand
             $fieldsReader = $CreateReader($queryBuilder->CreateShowField($table, $this->_connection->database), $this->_connection);
             $ofields = [];
             while($field = $fieldsReader->Read()) {
-                $f = $this->_connection->ExtractFieldInformation($field);
+                $f = self::ExtractFieldInformation($field);
                 $ofields[$f->Field] = $f;
             }
 
             $indexesReader = $CreateReader($queryBuilder->CreateShowIndexes($table), $this->_connection);
             $indices = [];
             while ($index = $indexesReader->Read()) {
-                $i = $this->_connection->ExtractIndexInformation($index);
+                $i = self::ExtractIndexInformation($index);
                 
                 if (!isset($indices[$i->Name])) {
                     $i->Columns = [($i->ColumnPosition - 1) => $i->Columns[0]];
@@ -525,6 +525,39 @@ final class Command extends SqlCommand
                 }
             }
         }
+    }
+
+    
+    public static function ExtractFieldInformation(array|object $field): object
+    {
+        $field = (object)$field;
+        return (object) [
+            'Field' => $field->COLUMN_NAME,
+            'Type' => $field->COLUMN_TYPE,
+            'Null' => $field->IS_NULLABLE,
+            'Key' => $field->COLUMN_KEY,
+            'Default' => $field->COLUMN_DEFAULT,
+            'Expression' => $field->GENERATION_EXPRESSION ?? ''
+        ];
+
+    }
+
+    
+    public static function ExtractIndexInformation(array|object $index): object
+    {
+        return (object)[
+            'Name' => $index->Key_name,
+            'ColumnPosition' => $index->Seq_in_index,
+            'Columns' => [$index->Column_name],
+            'Collation' => $index->Collation,
+            'Null' => $index->Null,
+            'NonUnique' => $index->Non_unique,
+            'Type' => $index->Index_type,
+            'Primary' => $index->Key_name === 'PRIMARY'
+        ];
+
+
+
     }
 
 }

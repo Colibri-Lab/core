@@ -176,5 +176,9 @@ abstract class Command
     abstract public function PrepareQueryString(): string;
 
     abstract public function Migrate(Logger $logger, string $storage, array $xstorage): void;
+    
+    abstract public static function ExtractFieldInformation(array|object $field): object;
+    
+    abstract public static function ExtractIndexInformation(array|object $index): object;
 
 }

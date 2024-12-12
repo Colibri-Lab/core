@@ -207,14 +207,14 @@ final class Command extends SqlCommand
             $fieldsReader = $CreateReader($queryBuilder->CreateShowField($table, $this->_connection->database), $this->_connection);
             $ofields = [];
             while($field = $fieldsReader->Read()) {
-                $f = $this->_connection->ExtractFieldInformation($field);
+                $f = self::ExtractFieldInformation($field);
                 $ofields[$f->Field] = $f;
             }
 
             $indexesReader = $CreateReader($queryBuilder->CreateShowIndexes($table), $this->_connection);
             $indices = [];
             while ($index = $indexesReader->Read()) {
-                $i = $this->_connection->ExtractIndexInformation($index);
+                $i = self::ExtractIndexInformation($index);
                 $indices[$i->Name] = $i;
             }
 
@@ -483,6 +483,41 @@ final class Command extends SqlCommand
                 }
             }
         }
+    }
+
+    
+    public static function ExtractFieldInformation(array|object $field): object
+    {
+        $field = (object)$field;
+        return (object) [
+            'Field' => $field->column_name,
+            'Type' => $field->udt_name . ($field?->character_maximum_length ? '('.$field->character_maximum_length.')' : ''),
+            'Null' => $field->is_nullable,
+            'Key' => $field->is_identity,
+            'Default' => $field->column_default,
+            'Expression' => $field->generation_expression ?? ''
+        ];
+    }
+
+    public static function ExtractIndexInformation(array|object $index): object
+    {
+        $def = strtolower($index->indexdef);
+        preg_match('/\((.*)\)/i', $def, $matches);
+        $colList = $matches[1];
+        $columns = array_map(fn($v) => trim($v), explode(',', $colList));
+        return (object)[
+            'Name' => $index->indexname,
+            'Columns' => $columns,
+            'ColumnPosition' => 1,
+            'Collation' => 'utf8',
+            'Null' => 'YES',
+            'NonUnique' => strstr($def, 'unique') === false ? 1 : 0,
+            'Type' => 'BTREE',
+            'Primary' => strstr($index->indexname, '_pkey') !== false
+        ];
+
+
+
     }
 
 }
