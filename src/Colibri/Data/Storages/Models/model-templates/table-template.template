@@ -122,7 +122,7 @@ class [[table-class-name]] extends BaseModelDataTable
      */
     public static function LoadEmpty() : [[row-class-name]]
     {
-        $table = self::LoadByFilter(-1, 20, 'id=0', null, [], false);
+        $table = self::LoadByFilter(-1, 20, '{id}=0', null, [], false);
         return $table->CreateEmptyRow();
     }
 

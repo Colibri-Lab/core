@@ -140,7 +140,7 @@ class DataTable extends BaseDataTable
         $filter = $filter ? ['('.$filter.')'] : [];
         if(!self::$fullSelection &&
             (isset($storage?->{'params'}['softdeletes']) && $storage?->{'params'}['softdeletes'])) {
-            $filter[] = $storage->accessPoint->SoftDeleteCheck('datedeleted', $storage->table);
+            $filter[] = $storage->accessPoint->SoftDeleteCheck($storage->GetRealFieldName('datedeleted'), $storage->table);
         }
         $additionalParams['type'] = $calculateAffected ?
             DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
@@ -331,7 +331,7 @@ class DataTable extends BaseDataTable
             $res = $this->_storage->accessPoint->Insert(
                 $this->_storage->table,
                 $fieldValues,
-                '',
+                $idf,
                 $params
             );
 

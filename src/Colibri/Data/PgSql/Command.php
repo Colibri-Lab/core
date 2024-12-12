@@ -36,7 +36,7 @@ final class Command extends SqlCommand
     private function _prepareStatement(string $query): string
     {
         $params = $this->_params;
-        preg_replace_callback('/\[\[([^\]]+)\]\]/', function ($match) use ($params) {
+        $query = preg_replace_callback('/\[\[([^\]]+)\]\]/', function ($match) use ($params) {
 
             $match = $match[1];
             $type = 'string';
@@ -120,7 +120,7 @@ final class Command extends SqlCommand
         return new QueryInfo(
             $this->type,
             $insertId,
-            pg_affected_rows($res),
+            !$res ? 0 : pg_affected_rows($res),
             pg_last_error($this->connection->resource),
             $this->query
         );
@@ -135,7 +135,7 @@ final class Command extends SqlCommand
     {
         $query = $this->query;
         if ($this->_page > 0) { //  && strstr($query, "limit") === false
-            $query .= ' limit ' . (($this->_page - 1) * $this->_pagesize) . ', ' . $this->_pagesize;
+            $query .= ' limit ' . $this->_pagesize . ' offset ' . (($this->_page - 1) * $this->_pagesize);
         }
         return $query;
     }
@@ -243,8 +243,8 @@ final class Command extends SqlCommand
             }
 
             if ($xfield['type'] === 'bool' || $xfield['type'] === 'boolean') {
-                $xfield['type'] = 'bit';
-                $xfield['length'] = 1;
+                $xfield['type'] = 'int2';
+                $xfield['length'] = null;
                 if(isset($xfield['default'])) {
                     $xfield['default'] = $xfield['default'] === 'true' ? 1 : 0;
                 }
@@ -308,14 +308,42 @@ final class Command extends SqlCommand
 
                     $res = $Exec(
                         'ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
-                        MODIFY COLUMN "' . $fname . '" ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' ' . 
-                        (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? 'COMMENT \'' . $xdesc . '\'' : ''),
+                        ALTER COLUMN "' . $fname . '" TYPE ' . $type . ($length ? '(' . $length . ')' : '') . ' USING "' . $fname . '"::' . $type,
                         $this->_connection
                     );
                     if ($res->error) {
                         $logger->error($table . ': Can not save field: ' . $res->query);
                         throw new Exception('Can not save field: ' . $res->query);
                     }
+
+                    $res = $Exec(
+                        'ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
+                        ALTER COLUMN "' . $fname . '" '.($required ? 'SET' : 'DROP').' NOT NULL',
+                        $this->_connection
+                    );
+                    if ($res->error) {
+                        $logger->error($table . ': Can not save field: ' . $res->query);
+                        throw new Exception('Can not save field: ' . $res->query);
+                    }
+
+                    $res = $Exec(
+                        'ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
+                        ALTER COLUMN "' . $fname . '" '.(!is_null($default) ? 'SET DEFAULT ' . $default : 'DROP DEFAULT'),
+                        $this->_connection
+                    );
+                    if ($res->error) {
+                        $logger->error($table . ': Can not save field: ' . $res->query);
+                        throw new Exception('Can not save field: ' . $res->query);
+                    }
+
+                    if($xdesc) {
+                        $res = $Exec('COMMENT ON COLUMN "' . ($prefix ? $prefix . '_' : '') . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
+                        if ($res->error) {
+                            $logger->error($table . ': Can not save field: ' . $res->query);
+                            throw new Exception('Can not save field: ' . $res->query);
+                        }
+                    }
+
 
                 }
             }
@@ -330,13 +358,21 @@ final class Command extends SqlCommand
                 $res = $Exec('
                     ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
                     ADD COLUMN "' . $fname . '" ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
-                    GENERATED ALWAYS AS (' . $xVirtualField['expression'] . ') STORED ' .
-                    ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''), $this->_connection);
+                    GENERATED ALWAYS AS (' . $xVirtualField['expression'] . ') STORED ', $this->_connection);
 
                 if ($res->error) {
                     $logger->error($table . ': Can not save field: ' . $res->query);
                     throw new Exception('Can not save field: ' . $res->query);
                 }
+
+                if($xdesc) {
+                    $res = $Exec('COMMENT ON COLUMN "' . ($prefix ? $prefix . '_' : '') . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not save field: ' . $res->query);
+                        throw new Exception('Can not save field: ' . $res->query);
+                    }
+                }
+
                 
             } else {
                 $ofield = $ofields[$fname];
@@ -355,14 +391,21 @@ final class Command extends SqlCommand
                     
                     $res = $Exec(
                         'ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
-                        MODIFY COLUMN "' . $fname . '" ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') .
-                        ' GENERATED ALWAYS AS (' . $expression . ') STORED ' .
-                        ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''),
+                        ALTER COLUMN "' . $fname . '" ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') .
+                        ' GENERATED ALWAYS AS (' . $expression . ') STORED ',
                         $this->_connection
                     );
                     if ($res->error) {
                         $logger->error($table . ': Can not save field: ' . $res->query);
                         throw new Exception('Can not save field: ' . $res->query);
+                    }
+
+                    if($xdesc) {
+                        $res = $Exec('COMMENT ON COLUMN "' . ($prefix ? $prefix . '_' : '') . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
+                        if ($res->error) {
+                            $logger->error($table . ': Can not save field: ' . $res->query);
+                            throw new Exception('Can not save field: ' . $res->query);
+                        }
                     }
 
                 }

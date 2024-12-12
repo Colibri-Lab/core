@@ -207,7 +207,8 @@ final class Connection implements IConnection
     {
         return [
             'bool' => ['length' => false, 'generic' => 'bool', 'component' => 'Colibri.UI.Forms.Checkbox'],
-            'int4' => ['length' => true, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
+            'int2' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
+            'int4' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
             'int8' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number'],
             'float4' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],
             'float8' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number'],

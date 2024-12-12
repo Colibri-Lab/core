@@ -102,7 +102,7 @@ interface IQueryBuilder
      *
      * @return string The generated BEGIN transaction query.
      */
-    public function CreateBegin(): string;
+    public function CreateBegin(?string $type = null): string;
 
     /**
      * Creates an SQL COMMIT transaction query.

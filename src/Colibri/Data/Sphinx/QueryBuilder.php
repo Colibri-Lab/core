@@ -225,7 +225,7 @@ class QueryBuilder implements IQueryBuilder
      * @param string|null $type (optional) The type of transaction (e.g., 'readonly', 'readwrite'). Default is null.
      * @return string The generated BEGIN transaction query.
      */
-    public function CreateBegin(string $type = null): string
+    public function CreateBegin(?string $type = null): string
     {
         if($type === 'readonly') {
             return 'start transaction READ ONLY';
