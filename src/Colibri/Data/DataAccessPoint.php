@@ -227,8 +227,9 @@ class DataAccessPoint
 
     public function ExecuteCommand(string $command, ...$arguments):  mixed
     {
+        $configClassObject = $this->_accessPointData->driver->config;
         $commandClassObject = $this->_accessPointData->driver->command;
-        if($this->_accessPointData->driver->dbms === self::DBMSTypeRelational) {
+        if($configClassObject::DbmsType() === self::DBMSTypeRelational) {
             $cmd = new $commandClassObject('', $this->_connection);
         } else {
             $cmd = new $commandClassObject($this->_connection);
