@@ -239,6 +239,23 @@ final class Connection implements IConnection
         return true;
     }
 
+    public static function IndexTypes(): array
+    {
+        return [
+            'NORMAL',
+            'SPATIAL',
+            'UNIQUE',
+            'FULLTEXT'
+        ];
+    }
+
+    public static function IndexMethods(): array
+    {
+        return [
+            'BTREE', 'HASH'
+        ];
+    }
+
     public function ExtractFieldInformation(array|object $field): object
     {
         $field = (object)$field;

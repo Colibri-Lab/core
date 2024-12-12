@@ -217,7 +217,6 @@ final class Connection implements IConnection
             'varchar' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
             'text' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
             'tinytext' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
-            'enum' => ['length' => false, 'generic' => 'ValueField', 'component' => 'Colibri.UI.Forms.Select'],
             'json' => ['length' => false, 'generic' => ['Colibri.UI.Forms.Object' => 'ObjectField', 'Colibri.UI.Forms.Array' => 'ArrayField'], 'component' => 'Colibri.UI.Forms.Object']
         ];
     }
@@ -247,6 +246,26 @@ final class Connection implements IConnection
     {
         return true;
     }
+
+    public static function IndexTypes(): array
+    {
+        return [
+            'NORMAL',
+            'UNIQUE'
+        ];
+    }
+
+    public static function IndexMethods(): array
+    {
+        return [
+            'BTREE', 
+            'HASH', 
+            // 'GIST', 
+            // 'SPGIST', 
+            // 'GIN', 
+            // 'BRIN'
+        ];
+    }
     
     public function ExtractFieldInformation(array|object $field): object
     {
@@ -269,14 +288,14 @@ final class Connection implements IConnection
         $def = strtolower($index->indexdef);
         preg_match('/\((.*)\)/i', $def, $matches);
         $colList = $matches[1];
-        $columns = explode(',', $colList);
+        $columns = array_map(fn($v) => trim($v), explode(',', $colList));
         return (object)[
             'Name' => $index->indexname,
             'Columns' => $columns,
             'ColumnPosition' => 1,
             'Collation' => 'utf8',
             'Null' => 'YES',
-            'NonUnique' => strstr($def, 'unique') !== false ? 'YES' : 'NO',
+            'NonUnique' => strstr($def, 'unique') === false ? 1 : 0,
             'Type' => 'BTREE',
             'Primary' => strstr($index->indexname, '_pkey') !== false
         ];

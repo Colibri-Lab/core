@@ -207,4 +207,15 @@ final class Connection implements IConnection
         return false;
     }
 
+    public static function IndexTypes(): array
+    {
+        return [];
+    }
+
+    public static function IndexMethods(): array
+    {
+        return [];
+    }
+    
+
 }

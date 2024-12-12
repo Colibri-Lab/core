@@ -215,14 +215,7 @@ final class Command extends SqlCommand
             $indices = [];
             while ($index = $indexesReader->Read()) {
                 $i = $this->_connection->ExtractIndexInformation($index);
-                
-                if (!isset($indices[$i->Name])) {
-                    $i->Columns = [($i->ColumnPosition - 1) => $i->Columns[0]];
-                    $indices[$i->Name] = $i;
-                } else {
-                    $indices[$i->Name]->Columns[$i->ColumnPosition - 1] = $i->Columns[0];
-                }
-                
+                $indices[$i->Name] = $i;
             }
 
         } catch(\Throwable $e) {
@@ -391,10 +384,14 @@ final class Command extends SqlCommand
                     
                     $res = $Exec(
                         'ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
-                        ALTER COLUMN "' . $fname . '" ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') .
-                        ' GENERATED ALWAYS AS (' . $expression . ') STORED ',
+                        DROP COLUMN "' . $fname . '"',
                         $this->_connection
                     );
+                    $res = $Exec('
+                        ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
+                        ADD COLUMN "' . $fname . '" ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
+                        GENERATED ALWAYS AS (' . $xVirtualField['expression'] . ') STORED 
+                    ', $this->_connection);
                     if ($res->error) {
                         $logger->error($table . ': Can not save field: ' . $res->query);
                         throw new Exception('Can not save field: ' . $res->query);
@@ -413,23 +410,42 @@ final class Command extends SqlCommand
             }
         }
 
+        $createIndex = function($Exec, $connection, $indexName, $prefix, $table, $type, $method, $xindex) {
+            return $Exec('
+                CREATE '.($type === 'NORMAL' ? '' : $type).' INDEX "' . $indexName . '" ON "' . ($prefix ? $prefix . '_' : '') . $table . '" '.($method ? 'USING ' . $method : '') . ' (
+                    "' . $table . '_' . implode('","' . $table . '_', $xindex['fields']) . '"
+                )
+            ', $connection);
+        };
+
+        $dropIndex = function($Exec, $connection, $indexName) {
+            return $Exec('DROP INDEX IF EXISTS "' . $indexName . '"', $connection);
+        };
+
         $xindexes = isset($xstorage['indices']) ? $xstorage['indices'] : [];
         $logger->error($storage . ': Checking indices');
         foreach ($xindexes as $indexName => $xindex) {
             if (!isset($indices[$indexName])) {
                 $logger->error($storage . ': ' . $indexName . ': Index not found: creating');
                 
+                $type = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
                 $method = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
-                if ($type === 'FULLTEXT') {
-                    $method = '';
-                }
         
-                $res = $Exec('
-                    ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
-                    ADD' . ($xindex['type'] !== 'NORMAL' ? ' ' . $xindex['type'] : '') . ' INDEX "' . $indexName . '" ("' . 
-                        $table . '_' . implode('","' . $table . '_', $xindex['fields']) . '") ' . 
-                    ($method ? ' USING ' . $method : '') . '
-                ', $this->_connection);
+                $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $table, $type, $method, $xindex);
+                if ($res->error && strstr($res->error, 'already exists') !== false) {
+                    $res = $dropIndex($Exec, $this->_connection, $indexName);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not delete index: ' . $res->query);
+                        throw new Exception('Can not delete index: ' . $res->query);
+                    }
+
+                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $table, $type, $method, $xindex);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not create index: ' . $res->query);
+                        throw new Exception('Can not create index: ' . $res->query);
+                    }
+                }
+                
                 if ($res->error) {
                     $logger->error($table . ': Can not create index: ' . $res->query);
                     throw new Exception('Can not create index: ' . $res->query);
@@ -441,16 +457,9 @@ final class Command extends SqlCommand
 
                 $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
                 $xmethod = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
-                if ($xtype === 'FULLTEXT') {
-                    $xmethod = '';
-                }
 
                 $otype = 'NORMAL';
                 $omethod = 'BTREE';
-                if ($oindex->Type == 'FULLTEXT') {
-                    $otype = 'FULLTEXT';
-                    $omethod = '';
-                }
                 if ($oindex->NonUnique == 0) {
                     $otype = 'UNIQUE';
                     $omethod = $oindex->Type;
@@ -459,21 +468,13 @@ final class Command extends SqlCommand
                 if ($fields1 != $fields2 || $xtype != $otype || $xmethod != $omethod) {
                     $logger->error($storage . ': ' . $indexName . ': Index changed: updating');
 
-                    $res = $Exec('
-                        ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
-                        DROP INDEX "' . $indexName . '"
-                    ', $this->_connection);
+                    $res = $dropIndex($Exec, $this->_connection, $indexName);
                     if ($res->error) {
                         $logger->error($table . ': Can not delete index: ' . $res->query);
                         throw new Exception('Can not delete index: ' . $res->query);
                     }
 
-                    $res = $Exec('
-                        ALTER TABLE "' . $table . '" 
-                        ADD' . ($xtype !== 'NORMAL' ? ' ' . $xtype : '') . ' INDEX "' . $indexName . 
-                        '" ("' . $table . '_' . implode('","' . $table . '_', $xindex['fields']) . '") ' . 
-                            ($xmethod ? ' USING ' . $xmethod : '') . '
-                    ', $this->_connection);
+                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $table, $xtype, $xmethod, $xindex);
                     if ($res->error) {
                         $logger->error($table . ': Can not create index: ' . $res->query);
                         throw new Exception('Can not create index: ' . $res->query);

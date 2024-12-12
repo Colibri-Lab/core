@@ -109,6 +109,8 @@ use DateTime;
  * @property-read bool $hasVirtual
  * @property-read bool $hasMultiFieldIndexes
  * @property-read bool $hasAutoincrement
+ * @property-read array $indexTypes
+ * @property-read array $indexMethods
  * @property-read ISqlClientConnection|INoSqlClientConnection $connection
  * @property-read object $point
  *
@@ -209,6 +211,12 @@ class DataAccessPoint
         } elseif ($property == 'hasAutoincrement') {
             $connectionClass = $this->_accessPointData->driver->connection;
             return $connectionClass::HasAutoincrement();
+        } elseif ($property == 'indexTypes') {
+            $connectionClass = $this->_accessPointData->driver->connection;
+            return $connectionClass::IndexTypes();
+        } elseif ($property == 'indexMethods') {
+            $connectionClass = $this->_accessPointData->driver->connection;
+            return $connectionClass::IndexMethods();
         } else {
             if($this->dbms === self::DBMSTypeRelational) {
                 return $this->Query('select * from ' . $property);

@@ -55,5 +55,7 @@ interface IConnection
     public static function HasMultiFieldIndexes(): bool;
     
     public static function HasVirtual(): bool;
+    public static function IndexTypes(): array;
+    public static function IndexMethods(): array;
 
 }
