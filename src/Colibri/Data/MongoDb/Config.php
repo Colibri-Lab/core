@@ -82,4 +82,9 @@ final class Config implements IConfig
     {
         return '';
     }
+    public static function JsonIndexes(): bool
+    {
+        return false;
+    }
+
 }

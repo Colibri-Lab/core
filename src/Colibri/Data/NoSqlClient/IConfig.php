@@ -63,5 +63,7 @@ interface IConfig
      * @return array
      */
     public static function IndexMethods(): array;
+    
+    public static function JsonIndexes(): bool;
 
 }

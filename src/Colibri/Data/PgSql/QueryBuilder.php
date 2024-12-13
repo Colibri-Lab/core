@@ -313,6 +313,7 @@ class QueryBuilder implements IQueryBuilder
         ];
     }
 
+    
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
     {
         
@@ -361,19 +362,13 @@ class QueryBuilder implements IQueryBuilder
             } else {
                 $field = $storage->GetField($fieldName);
             }
-            if($field->type === 'json') {
+            if($field->type === 'json' || $field->type === 'jsonb') {
                 foreach($fieldParams as $path => $value) {
                     $joinTables[] = '
                         inner join (
                             select
-                                {id} as t_'.$fieldIndex.'_id, t_'.$fieldIndex.'.json_field_'.$fieldIndex.'
-                            from '.$storage->table.', json_table(
-                                {'.$fieldName.'},
-                                \''.$path.'\'
-                                columns (
-                                    json_field_'.$fieldIndex.' varchar(1024) path \'$\'
-                                )
-                            ) t_'.$fieldIndex.'
+                                {id} as t_'.$fieldIndex.'_id, t_'.$fieldIndex.' #>> \'{}\' as json_field_'.$fieldIndex.'
+                            from '.$storage->table.', jsonb_path_query({'.$fieldName.'}, \''.$path.'\') t_'.$fieldIndex.'
                         ) json_table_'.$fieldIndex.' on '.
                         'json_table_'.$fieldIndex.'.t_'.$fieldIndex.'_id='.$storage->table.'.{id}';
 

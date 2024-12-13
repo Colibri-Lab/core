@@ -76,4 +76,11 @@ interface IConfig
      */
     public static function Symbol(): string;
 
+    /**
+     * Can index json fields
+     * @return bool
+     */
+    public static function JsonIndexes(): bool;
+
+
 }

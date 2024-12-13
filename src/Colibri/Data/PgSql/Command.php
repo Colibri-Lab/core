@@ -170,7 +170,7 @@ final class Command extends SqlCommand
                 $default = $default ? 'TRUE' : 'FALSE';
             }
     
-            if ($type == 'json') {
+            if ($type == 'json' || $type == 'jsonb') {
                 $default = $default ? '(' . $default . ')' : null;
                 $required = false;
             } elseif (strstr($type, 'enum') !== false) {
@@ -223,12 +223,18 @@ final class Command extends SqlCommand
         }
 
         $virutalFields = [];
+        $types = Config::AllowedTypes();
 
         $xfields = $xstorage['fields'] ?? [];
         $logger->error($table . ': Checking fields');
         foreach ($xfields as $fieldName => $xfield) {
             $fname = $storage . '_' . $fieldName;
             $fparams = $xfield['params'] ?? [];
+
+            $typeInfo = $types[$xfield['type']];
+            if(isset($typeInfo['db'])) {
+                $xfield['type'] = $typeInfo['db'];
+            }
 
             if (($xfield['virtual'] ?? false) === true) {
                 $virutalFields[$fieldName] = $xfield;
@@ -241,7 +247,7 @@ final class Command extends SqlCommand
                 if(isset($xfield['default'])) {
                     $xfield['default'] = $xfield['default'] === 'true' ? 1 : 0;
                 }
-            } elseif ($xfield['type'] === 'json') {
+            } elseif ($xfield['type'] === 'json' || $xfield['type'] === 'jsonb') {
                 $fparams['required'] = false;
             }
 
@@ -345,6 +351,12 @@ final class Command extends SqlCommand
         foreach ($virutalFields as $fieldName => $xVirtualField) {
             $fname = $storage . '_' . $fieldName;
             $fparams = $xVirtualField['params'] ?? [];
+
+            $typeInfo = $types[$xVirtualField['type']];
+            if(isset($typeInfo['db'])) {
+                $xVirtualField['type'] = $typeInfo['db'];
+            }
+
             $xdesc = isset($xVirtualField['desc']) ? json_encode($xVirtualField['desc'], JSON_UNESCAPED_UNICODE) : '';
             if (!isset($ofields[$fname])) {
                 $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;

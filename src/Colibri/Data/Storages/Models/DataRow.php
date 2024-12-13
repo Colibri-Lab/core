@@ -296,7 +296,7 @@ class DataRow extends BaseDataRow
 
             /** @var Field */
             $field = $storage->fields->$fieldName ?? null;
-            if ($field) {
+            if ($field && !$field->virtual) {
 
                 // подбираем значение по умолчанию
                 if (is_null($value) && !is_null($field->default)) {

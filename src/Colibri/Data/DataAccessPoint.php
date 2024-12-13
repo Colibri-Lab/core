@@ -111,6 +111,7 @@ use DateTime;
  * @property-read bool $hasAutoincrement
  * @property-read array $indexTypes
  * @property-read array $indexMethods
+ * @property-read array $jsonIndexes
  * @property-read ISqlClientConnection|INoSqlClientConnection $connection
  * @property-read object $point
  *
@@ -211,6 +212,9 @@ class DataAccessPoint
         } elseif ($property == 'indexMethods') {
             $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::IndexMethods();
+        } elseif ($property == 'jsonIndexes') {
+            $connectionClass = $this->_accessPointData->driver->config;
+            return $connectionClass::JsonIndexes();
         } else {
             if($this->dbms === self::DBMSTypeRelational) {
                 return $this->Query('select * from ' . $property);

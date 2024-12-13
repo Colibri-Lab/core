@@ -39,7 +39,7 @@ final class Config implements IConfig
             'varchar' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text'],
             'text' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
             'tinytext' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea'],
-            'json' => ['length' => false, 'generic' => ['Colibri.UI.Forms.Object' => 'ObjectField', 'Colibri.UI.Forms.Array' => 'ArrayField'], 'component' => 'Colibri.UI.Forms.Object']
+            'json' => ['length' => false, 'db' => 'jsonb', 'generic' => ['Colibri.UI.Forms.Object' => 'ObjectField', 'Colibri.UI.Forms.Array' => 'ArrayField'], 'component' => 'Colibri.UI.Forms.Object']
         ];
     }
 
@@ -93,5 +93,11 @@ final class Config implements IConfig
     {
         return '"';
     }
+
+    public static function JsonIndexes(): bool
+    {
+        return true;
+    }
+
 
 }
