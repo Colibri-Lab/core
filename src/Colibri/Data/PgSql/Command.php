@@ -173,6 +173,7 @@ final class Command extends SqlCommand
             if ($type == 'json' || $type == 'jsonb') {
                 $default = $default ? '(' . $default . ')' : null;
                 $required = false;
+                $length = null;
             } elseif (strstr($type, 'enum') !== false) {
                 $default = $default ? "'" . $default . "'" : null;
             } elseif (strstr($type, 'char') !== false) {
@@ -249,6 +250,7 @@ final class Command extends SqlCommand
                 }
             } elseif ($xfield['type'] === 'json' || $xfield['type'] === 'jsonb') {
                 $fparams['required'] = false;
+                $xfield['length'] = null;
             }
 
             $xdesc = isset($xfield['desc']) ? json_encode($xfield['desc'], JSON_UNESCAPED_UNICODE) : '';

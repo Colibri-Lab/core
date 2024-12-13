@@ -91,7 +91,7 @@ class Storages
 
                 $tablePrefix = $moduleConfig->Query('config.databases.table-prefix', '')->GetValue();
                 $config = $moduleConfig->Query('config.databases.storages');
-                $storagesConfig = $config->AsArray();
+                $storagesConfig = $config instanceof Config ? $config->AsArray() : [];
                 foreach ($storagesConfig as $name => $storage) {
                     $storagesConfig[$name] = $moduleConfig->Query('config.databases.storages.' . $name)->AsArray();
                     if ($name === '__global_types') {
