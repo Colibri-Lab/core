@@ -1134,4 +1134,9 @@ class StringHelper
         return (object)$object;
     }
 
+    public static function ClearPhone(string $phoneString): string
+    {
+        return preg_replace('/[^0-9]/', '', $phoneString);
+    }
+
 }
