@@ -261,7 +261,7 @@ final class Command extends SqlCommand
             $logger->error($table . ': Storage destination not found: creating');
 
             // create the table
-            $res = $Exec($queryBuilder->CreateDefaultStorageTable($table, $prefix), $this->_connection);
+            $res = $Exec($queryBuilder->CreateDefaultStorageTable($storage, $prefix), $this->_connection);
             if ($res->error) {
                 $logger->error($table . ': Can not create destination: ' . $res->query);
                 throw new Exception('Can not create destination: ' . $res->query);
@@ -406,7 +406,7 @@ final class Command extends SqlCommand
             if (!isset($ofields[$fname])) {
                 $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
                 $res = $Exec('
-                    ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
+                    ALTER TABLE `' . $table . '` 
                     ADD COLUMN `' . $fname . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
                     GENERATED ALWAYS AS (' . $xVirtualField['expression'] . ') STORED ' .
                     ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''), $this->_connection);
@@ -448,9 +448,9 @@ final class Command extends SqlCommand
             }
         }
 
-        $createIndex = function($Exec, $table, $xindex, $indexName, $method, $connection) {
+        $createIndex = function($Exec, $prefix, $table, $xindex, $indexName, $method, $connection) {
             return $Exec('
-                ALTER TABLE `' . $table . '` 
+                ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
                 ADD' . ($xindex['type'] !== 'NORMAL' ? ' ' . $xindex['type'] : '') . ' INDEX `' . $indexName . '` (`' . 
                     $table . '_' . implode('`,`' . $table . '_', $xindex['fields']) . '`) ' . 
                 ($method ? ' USING ' . $method : '') . '
@@ -476,10 +476,10 @@ final class Command extends SqlCommand
                     $method = '';
                 }
         
-                $res = $createIndex($Exec, $table, $xindex, $indexName, $method, $this->_connection);
+                $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, $method, $this->_connection);
                 if ($res->error && strstr($res->error, 'Duplicate key name') !== false) {
-                    $res = $dropIndex($Exec, $prefix, $table, $indexName);
-                    $res = $createIndex($Exec, $table, $xindex, $indexName, $method, $this->_connection);
+                    $res = $dropIndex($Exec, $prefix, $storage, $indexName);
+                    $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, $method, $this->_connection);
                 }
                 if($res->error) {
                     $logger->error($table . ': Can not create index: ' . $res->query);
@@ -510,13 +510,13 @@ final class Command extends SqlCommand
                 if ($fields1 != $fields2 || $xtype != $otype || $xmethod != $omethod) {
                     $logger->error($storage . ': ' . $indexName . ': Index changed: updating');
 
-                    $res = $dropIndex($Exec, $prefix, $table, $indexName);
+                    $res = $dropIndex($Exec, $prefix, $storage, $indexName);
                     if ($res->error) {
                         $logger->error($table . ': Can not delete index: ' . $res->query);
                         throw new Exception('Can not delete index: ' . $res->query);
                     }
 
-                    $res = $createIndex($Exec, $table, $xindex, $indexName, ($xmethod ? ' USING ' . $xmethod : ''), $this->_connection);
+                    $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, ($xmethod ? ' USING ' . $xmethod : ''), $this->_connection);
                     if ($res->error) {
                         $logger->error($table . ': Can not create index: ' . $res->query);
                         throw new Exception('Can not create index: ' . $res->query);

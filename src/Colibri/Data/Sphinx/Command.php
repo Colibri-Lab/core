@@ -177,23 +177,23 @@ final class Command extends SqlCommand
             $logger->error($table . ': Storage destination not found: creating');
 
             // create the table
-            $res = $Exec($queryBuilder->CreateDefaultStorageTable($table, $prefix), $this->_connection);
+            $res = $Exec($queryBuilder->CreateDefaultStorageTable($storage, $prefix), $this->_connection);
             if ($res->error) {
                 $logger->error($table . ': Can not create destination: ' . $res->query);
                 throw new Exception('Can not create destination: ' . $res->query);
             }
 
-            $error = $CreateIndex($this->_connection, $Exec, $table . '_datecreated_idx', $table, ['datecreated']);
+            $error = $CreateIndex($this->_connection, $Exec, $storage . '_datecreated_idx', $table, ['datecreated']);
             if ($error) {
                 $logger->error($table . ': Can not create index: ' . $error);
                 throw new Exception('Can not create index: ' . $error);
             }
-            $error = $CreateIndex($this->_connection, $Exec, $table . '_datemodified_idx', $table, ['datemodified']);
+            $error = $CreateIndex($this->_connection, $Exec, $storage . '_datemodified_idx', $table, ['datemodified']);
             if ($error) {
                 $logger->error($table . ': Can not create index: ' . $error);
                 throw new Exception('Can not create index: ' . $error);
             }
-            $error = $CreateIndex($this->_connection, $Exec, $table . '_datedeleted_idx', $table, ['datedeleted']);
+            $error = $CreateIndex($this->_connection, $Exec, $storage . '_datedeleted_idx', $table, ['datedeleted']);
             if ($error) {
                 $logger->error($table . ': Can not create index: ' . $error);
                 throw new Exception('Can not create index: ' . $error);

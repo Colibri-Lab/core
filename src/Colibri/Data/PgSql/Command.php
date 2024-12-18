@@ -193,7 +193,7 @@ final class Command extends SqlCommand
             $logger->error($table . ': Storage destination not found: creating');
 
             // create the table
-            $createCommands = $queryBuilder->CreateDefaultStorageTable($table, $prefix);
+            $createCommands = $queryBuilder->CreateDefaultStorageTable($storage, $prefix);
             foreach($createCommands as $query) {
                 $res = $Exec($query, $this->_connection);
                 if ($res->error) {
@@ -265,7 +265,7 @@ final class Command extends SqlCommand
                 [$required, $length, $default] = $UpdateDefaultAndLength($fieldName, $type, $required, $length, $default);
 
                 $res = $Exec('
-                    ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
+                    ALTER TABLE "' . $table . '" 
                     ADD COLUMN "' . $fname . '" ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
                     ' . ($default ? 'DEFAULT ' . $default . ' ' : ''), 
                     $this->_connection
@@ -308,7 +308,7 @@ final class Command extends SqlCommand
                     [$required, $length, $default] = $UpdateDefaultAndLength($fieldName, $type, $required, $length, $default);
 
                     $res = $Exec(
-                        'ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
+                        'ALTER TABLE "' . $table . '" 
                         ALTER COLUMN "' . $fname . '" TYPE ' . $type . ($length ? '(' . $length . ')' : '') . ' USING "' . $fname . '"::' . $type,
                         $this->_connection
                     );
@@ -318,7 +318,7 @@ final class Command extends SqlCommand
                     }
 
                     $res = $Exec(
-                        'ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
+                        'ALTER TABLE "' . $table . '" 
                         ALTER COLUMN "' . $fname . '" '.($required ? 'SET' : 'DROP').' NOT NULL',
                         $this->_connection
                     );
@@ -328,7 +328,7 @@ final class Command extends SqlCommand
                     }
 
                     $res = $Exec(
-                        'ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
+                        'ALTER TABLE "' . $table . '" 
                         ALTER COLUMN "' . $fname . '" '.(!is_null($default) ? 'SET DEFAULT ' . $default : 'DROP DEFAULT'),
                         $this->_connection
                     );
@@ -338,7 +338,7 @@ final class Command extends SqlCommand
                     }
 
                     if($xdesc) {
-                        $res = $Exec('COMMENT ON COLUMN "' . ($prefix ? $prefix . '_' : '') . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
+                        $res = $Exec('COMMENT ON COLUMN "' . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
                         if ($res->error) {
                             $logger->error($table . ': Can not save field: ' . $res->query);
                             throw new Exception('Can not save field: ' . $res->query);
@@ -363,7 +363,7 @@ final class Command extends SqlCommand
             if (!isset($ofields[$fname])) {
                 $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
                 $res = $Exec('
-                    ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
+                    ALTER TABLE "' . $table . '" 
                     ADD COLUMN "' . $fname . '" ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
                     GENERATED ALWAYS AS (' . $xVirtualField['expression'] . ') STORED ', $this->_connection);
 
@@ -373,7 +373,7 @@ final class Command extends SqlCommand
                 }
 
                 if($xdesc) {
-                    $res = $Exec('COMMENT ON COLUMN "' . ($prefix ? $prefix . '_' : '') . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
+                    $res = $Exec('COMMENT ON COLUMN "' . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
                     if ($res->error) {
                         $logger->error($table . ': Can not save field: ' . $res->query);
                         throw new Exception('Can not save field: ' . $res->query);
@@ -397,12 +397,12 @@ final class Command extends SqlCommand
                     $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
                     
                     $res = $Exec(
-                        'ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
+                        'ALTER TABLE "' . $table . '" 
                         DROP COLUMN "' . $fname . '"',
                         $this->_connection
                     );
                     $res = $Exec('
-                        ALTER TABLE "' . ($prefix ? $prefix . '_' : '') . $table . '" 
+                        ALTER TABLE "' . $table . '" 
                         ADD COLUMN "' . $fname . '" ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
                         GENERATED ALWAYS AS (' . $xVirtualField['expression'] . ') STORED 
                     ', $this->_connection);
@@ -412,7 +412,7 @@ final class Command extends SqlCommand
                     }
 
                     if($xdesc) {
-                        $res = $Exec('COMMENT ON COLUMN "' . ($prefix ? $prefix . '_' : '') . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
+                        $res = $Exec('COMMENT ON COLUMN "' . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
                         if ($res->error) {
                             $logger->error($table . ': Can not save field: ' . $res->query);
                             throw new Exception('Can not save field: ' . $res->query);
@@ -445,7 +445,7 @@ final class Command extends SqlCommand
                 $type = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
                 $method = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
         
-                $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $table, $type, $method, $xindex);
+                $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $type, $method, $xindex);
                 if ($res->error && strstr($res->error, 'already exists') !== false) {
                     $res = $dropIndex($Exec, $this->_connection, $indexName);
                     if ($res->error) {
@@ -453,7 +453,7 @@ final class Command extends SqlCommand
                         throw new Exception('Can not delete index: ' . $res->query);
                     }
 
-                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $table, $type, $method, $xindex);
+                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $type, $method, $xindex);
                     if ($res->error) {
                         $logger->error($table . ': Can not create index: ' . $res->query);
                         throw new Exception('Can not create index: ' . $res->query);
@@ -488,7 +488,7 @@ final class Command extends SqlCommand
                         throw new Exception('Can not delete index: ' . $res->query);
                     }
 
-                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $table, $xtype, $xmethod, $xindex);
+                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $xtype, $xmethod, $xindex);
                     if ($res->error) {
                         $logger->error($table . ': Can not create index: ' . $res->query);
                         throw new Exception('Can not create index: ' . $res->query);
