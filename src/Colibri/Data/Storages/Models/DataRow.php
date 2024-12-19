@@ -159,7 +159,7 @@ class DataRow extends BaseDataRow
             }
         }
 
-        if ($mode == 'get') {
+        if ($mode === 'get') {
             if ($field->isLookup) {
                 return $field->lookup->Selected($rowValue);
             } elseif ($field->isValues) {
@@ -254,9 +254,15 @@ class DataRow extends BaseDataRow
                 }
                 $value = $this->_data[$property];
             } else {
-
+                
                 if ($rowValue instanceof $class) {
-                    $this->_data[$property] = (string) $rowValue;
+                    if ($field->isLookup) {
+                        $valueField = $field->lookup->GetValueField();
+                        $this->_data[$property] = $rowValue->$valueField;
+                    } else {
+                        $this->_data[$property] = (string) $rowValue;
+                    }
+
                 } elseif (!is_null($rowValue)) {
 
                     try {
@@ -266,7 +272,12 @@ class DataRow extends BaseDataRow
                         } else {
                             $c = new $class($rowValue, $this->_storage, $field, $this);
                         }
-                        $this->_data[$property] = (string) $c;
+                        if ($field->isLookup) {
+                            $valueField = $field->lookup->GetValueField();
+                            $this->_data[$property] = $c->$valueField;
+                        } else {
+                            $this->_data[$property] = (string) $c;
+                        }
                     } catch (\Throwable $e) {
                         $this->_data[$property] = $rowValue;
                     }

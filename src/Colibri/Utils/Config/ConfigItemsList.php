@@ -48,4 +48,10 @@ class ConfigItemsList extends ArrayList
     {
         return new Config($this->data[$index], false, $this->_file);
     }
+
+    public function AsArray(): array
+    {
+        return $this->ToArray();
+    }
+
 }
