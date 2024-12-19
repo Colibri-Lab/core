@@ -484,7 +484,7 @@ class Response
      * @param string $filecontent file content
      * @return void
      */
-    public function DownloadFile(string $filename, string $filecontent): void
+    public function DownloadFile(string $filename, string $filecontent, bool $isPath = false): void
     {
         $mime = MimeType::Create($filename);
         $this->FileTransfer();
@@ -492,8 +492,13 @@ class Response
         $this->ContentTransferEncoding('binary');
         $this->ExpiresAt(0);
         $this->CacheControl('must-revalidate');
-        $this->ContentLength(strlen($filecontent));
-        $this->Close(200, $filecontent, $mime->data ?: 'application/octet-stream', 'utf-8');
+        if($isPath) {
+            $this->ContentType($mime->data ?: 'application/octet-stream', 'utf-8');
+            readfile($filecontent);
+        } else {
+            $this->ContentLength(strlen($filecontent));
+            $this->Close(200, $filecontent, $mime->data ?: 'application/octet-stream', 'utf-8');
+        }
     }
 
     /**
