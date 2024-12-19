@@ -112,11 +112,22 @@ final class Command extends SqlCommand
     {
         $query = $this->_prepareStatement($this->query);
         $res = pg_query($this->_connection->resource, $query . ($returning ? ' returning ' . $returning : ''));
+        if(!$res) {
+            return new QueryInfo(
+                $this->type,
+                0,
+                0,
+                pg_last_error($this->connection->resource),
+                $this->query
+            );
+        }
+
         $insertId = 0;
         if($returning) {
             $object = pg_fetch_object($res);
             $insertId = $object->$returning;
         }
+        
         return new QueryInfo(
             $this->type,
             $insertId,
