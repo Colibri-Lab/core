@@ -516,7 +516,7 @@ final class Command extends SqlCommand
                         throw new Exception('Can not delete index: ' . $res->query);
                     }
 
-                    $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, ($xmethod ? ' USING ' . $xmethod : ''), $this->_connection);
+                    $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, $xmethod, $this->_connection);
                     if ($res->error) {
                         $logger->error($table . ': Can not create index: ' . $res->query);
                         throw new Exception('Can not create index: ' . $res->query);

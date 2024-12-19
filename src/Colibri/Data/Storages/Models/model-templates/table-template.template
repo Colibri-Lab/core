@@ -107,7 +107,7 @@ class [[table-class-name]] extends BaseModelDataTable
 
     /**
      * Returns row model by ID
-     * @param int $id ID строки
+     * @param int $id ID of the row to fetch
      * @return [[row-class-name]]|null
      */
     public static function LoadById(int $id) : [[row-class-name]]|null 
