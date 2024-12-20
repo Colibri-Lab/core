@@ -258,7 +258,11 @@ class DataRow extends BaseDataRow
                 if ($rowValue instanceof $class) {
                     if ($field->isLookup) {
                         $valueField = $field->lookup->GetValueField();
-                        $this->_data[$property] = $rowValue->$valueField;
+                        if(!$valueField) {
+                            $this->_data[$property] = (string) $rowValue;
+                        } else {
+                            $this->_data[$property] = $rowValue->$valueField;
+                        }
                     } else {
                         $this->_data[$property] = (string) $rowValue;
                     }
@@ -274,7 +278,11 @@ class DataRow extends BaseDataRow
                         }
                         if ($field->isLookup) {
                             $valueField = $field->lookup->GetValueField();
-                            $this->_data[$property] = $c->$valueField;
+                            if($valueField) {
+                                $this->_data[$property] = $c->$valueField;
+                            } else {
+                                $this->_data[$property] = (string) $c;
+                            }
                         } else {
                             $this->_data[$property] = (string) $c;
                         }
@@ -390,24 +398,24 @@ class DataRow extends BaseDataRow
                         if (is_object($value) && method_exists($value, 'GetValidationData')) {
                             $ret[] = $value->GetValidationData();
                         } else {
-                            $ret[] = $value->{$fieldData->lookup->GetValueField()};
+                            $ret[] = $value->{$fieldData->lookup->GetValueField() ?: 'id'};
                         }
                     }
                     $return[$fieldName] = $ret;
                 } else {
                     if (is_object($fieldValue) && method_exists($fieldValue, 'GetValidationData')) {
                         if($fieldData->{'class'} === 'string') {
-                            $ret = (string)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
+                            $ret = (string)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField() ?: 'id'};
                         } elseif($fieldData->{'class'} === 'float') {
-                            $ret = (float)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
+                            $ret = (float)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField() ?: 'id'};
                         } elseif($fieldData->{'class'} === 'int') {
-                            $ret = (int)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
+                            $ret = (int)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField() ?: 'id'};
                         } else {
                             $ret = $fieldValue->GetValidationData();
                         }
                         $return[$fieldName] = $ret;
                     } else {
-                        $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField()};
+                        $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField() ?: 'id'};
                     }
                 }
             } elseif ($fieldData->{'class'} === 'string') {
