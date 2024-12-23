@@ -135,6 +135,9 @@ class DataRow extends BaseDataRow
                 if ($fieldName == 'id') {
                     return (int) $rowValue;
                 } elseif (in_array($fieldName, ['datecreated', 'datemodified', 'datedeleted'])) {
+                    if(is_null($rowValue) || (!is_null($rowValue) && is_numeric($rowValue) && $rowValue === 0)) {
+                        return null;
+                    }
                     $allowedTypes = $this->Storage()->accessPoint->allowedTypes;
                     $timestamp = 'Colibri\\Data\\Storages\\Fields\\' . $allowedTypes['timestamp']['generic'];
                     return new $timestamp($rowValue);
