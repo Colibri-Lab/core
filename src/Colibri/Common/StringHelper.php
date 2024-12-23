@@ -658,6 +658,18 @@ class StringHelper
     }
 
     /**
+     * Converts a string to a GUID (Globally Unique Identifier).
+     *
+     * @param string $string The input string to convert.
+     *
+     * @return string The generated GUID.
+     */
+    public static function Md5ToGUID(string $md5): string
+    {
+        return substr($md5, 0, 8) . '-' . substr($md5, 8, 4) . '-' . substr($md5, 12, 4) . '-' . substr($md5, 16, 4) . '-' . substr($md5, 20);
+    }
+
+    /**
      * Generates a globally unique identifier (GUID).
      *
      * @param bool $showSeparator Whether to include hyphens as separators (default: true).
