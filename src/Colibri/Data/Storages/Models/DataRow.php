@@ -223,7 +223,7 @@ class DataRow extends BaseDataRow
             } else {
                 $this->_data[$property] = $value instanceof UUIDField ? $value : new UUIDField($value);
             }
-        } elseif ($field->{'class'} === 'array') {
+        } elseif ($field->{'class'} === 'array' || $field->{'class'} === 'object') {
             if ($mode == 'get') {
                 $this->_data[$property] = is_string($rowValue) ? json_decode($rowValue) : $rowValue;
                 $value = $this->_data[$property];
@@ -273,13 +273,8 @@ class DataRow extends BaseDataRow
                 } elseif (!is_null($rowValue)) {
 
                     try {
-                        $reflection = new ReflectionClass($class);
-                        if ($reflection->isSubclassOf(BaseDataRow::class)) {
-                            $c = $class::Create($rowValue);
-                        } else {
-                            $c = new $class($rowValue, $this->_storage, $field, $this);
-                        }
                         if ($field->isLookup) {
+                            $c = $field->lookup->Selected($rowValue);
                             $valueField = $field->lookup->GetValueField();
                             if($valueField) {
                                 $this->_data[$property] = $c->$valueField;
@@ -287,6 +282,12 @@ class DataRow extends BaseDataRow
                                 $this->_data[$property] = (string) $c;
                             }
                         } else {
+                            $reflection = new ReflectionClass($class);
+                            if ($reflection->isSubclassOf(BaseDataRow::class)) {
+                                $c = $class::Create($rowValue);
+                            } else {
+                                $c = new $class($rowValue, $this->_storage, $field, $this);
+                            }
                             $this->_data[$property] = (string) $c;
                         }
                     } catch (\Throwable $e) {
@@ -431,6 +432,8 @@ class DataRow extends BaseDataRow
                 $return[$fieldName] = (bool) $fieldValue;
             } elseif ($fieldData->{'class'} === 'array') {
                 $return[$fieldName] = (array) $fieldValue;
+            } elseif ($fieldData->{'class'} === 'object') {
+                $return[$fieldName] = (object) $fieldValue;
             } elseif (strstr($fieldData->{'class'}, 'ValueField') !== false) {
                 $type = $fieldData->{'type'};
                 if (in_array($type, ['int', 'float', 'double', 'decimal'])) {

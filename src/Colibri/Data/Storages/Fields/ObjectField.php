@@ -142,7 +142,7 @@ class ObjectField extends ExtendedObject
                 $this->_data[$property] = $field->required ?
                     ($rowValue === "" ? 0 : $rowValue) : ($rowValue === "" ? null : $rowValue);
             }
-        } elseif ($field->{'class'} === 'array') {
+        } elseif ($field->{'class'} === 'array' || $field->{'class'} === 'object') {
             if ($mode == 'get') {
                 $value = $rowValue == "" ? "" :
                     (is_array($rowValue) || is_object($rowValue) ? (array)$rowValue : explode(',', $rowValue));
@@ -245,6 +245,8 @@ class ObjectField extends ExtendedObject
                 $return[$fieldName] = (bool) $fieldValue;
             } elseif ($fieldData->{'class'} === 'array') {
                 $return[$fieldName] = (array) $fieldValue;
+            } elseif ($fieldData->{'class'} === 'object') {
+                $return[$fieldName] = (object) $fieldValue;
             } elseif (strstr($fieldData->{'class'}, 'ValueField') !== false) {
                 $return[$fieldName] = (string) $fieldValue;
             } elseif (strstr($fieldData->{'class'}, 'UUIDField') !== false) {
