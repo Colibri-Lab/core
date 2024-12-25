@@ -174,7 +174,7 @@ class Field
             case 'required':
                 return $this->_xfield['params']['required'] ?? $this->_xfield['required'] ?? null;
             case 'islookup':
-                return $this->_lookup && ($this->_lookup->accessPoint !== null || $this->_lookup->storage !== null);
+                return $this->_lookup && ($this->_lookup->accesspoint !== null || $this->_lookup->storage !== null);
             case 'isvalues':
                 return count((array) $this->_values) > 0;
             case 'hasdefault':

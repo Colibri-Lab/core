@@ -193,6 +193,39 @@ class QueryBuilder implements IQueryBuilder
     }
 
     /**
+     * Creates a SELECT query.
+     * @param string $table The name of the table.
+     * @param array|string $fields The fields to select.
+     * @param array|string $filter The filter for selecting the records. 
+     * @param array|string $order The order for selecting the records.
+     * @return string
+     */
+    public function CreateSelect(string $table, array|string $fields, array|string $filter, array|string $order): string
+    {
+        $filters = [];
+        if(is_array($filter)) {
+            foreach($filter as $field => $data) {
+                $filters[] = '`' . $field . '` ' . $data[0] . ' ' . $data[1];
+            }
+        } else {
+            $filters[] = $filter;
+        }
+        
+        $orders = [];
+        if(is_array($order)) {
+            foreach($order as $key => $direction) {
+                $orders[] = '`' . $key . '` ' . $direction;
+            }
+        } else {
+            $orders[] = $order;
+        }
+        return 'select '.(is_array($fields) ? '`' . implode('`,`', $fields) . '`' : $fields).' from `' . $table . '` '.
+            (!empty($filters) ? 'where ' . implode(' and ', $filters) : '') . ' '.
+            (!empty($orders) ? 'order by ' . implode(',', $orders) : '');
+    }
+
+
+    /**
      * Creates a DELETE query.
      *
      * @param string $table The name of the table.

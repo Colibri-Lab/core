@@ -88,26 +88,19 @@ class Lookup
                 ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]
             );
             return new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
-        } elseif ($this->accessPoint) {
+        } elseif ($this->accesspoint) {
 
-            $data = (object) $this->accessPoint;
-            $accessPoint = App::$dataAccessPoints->Get($data->name);
+            $data = (object) $this->accesspoint;
+            $accessPoint = App::$dataAccessPoints->Get($data->point);
+            $sqlQuery = $accessPoint->CreateQuery('CreateSelect', [$data->table, $data->fields, $data->filter, $data->order]);
+            $params = ['type' => DataAccessPoint::QueryTypeBigData];
             if ($page > 0) {
-                $reader = $accessPoint->Query(
-                    'select ' . $data->fields . ' from ' . $data->table .
-                    ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') .
-                    ($data->order && $data->order != '' ? ' order by ' . $data->order : ''),
-                    ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]
-                );
-            } else {
-                $reader = $accessPoint->Query(
-                    'select ' . $data->fields . ' from ' . $data->table .
-                    ($data->filter && $data->filter != '' ? ' where ' . $data->filter : '') .
-                    ($data->order && $data->order != '' ? ' order by ' . $data->order : ''),
-                    ['type' => DataAccessPoint::QueryTypeBigData]
-                );
+                $params = ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize];
             }
-
+            $reader = $accessPoint->Query(
+                $sqlQuery,
+                $params
+            );
             return new DataTable($accessPoint, $reader);
         }
 
@@ -133,7 +126,11 @@ class Lookup
                 $value = is_string($value) ? json_decode($value) : $value;
             }
             $accessPoint = $storage->accessPoint;
-            if (!is_array($value)) {
+            if (is_null($value)) {
+                $filter = $storage->GetRealFieldName(
+                    $data->value ?? 'id'
+                ) . ' is null';
+            } elseif (!is_array($value)) {
                 $filter = $storage->GetRealFieldName(
                     $data->value ?? 'id'
                 ) . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
@@ -144,9 +141,10 @@ class Lookup
                     return is_object($v) ? $v->value : $v;
                 }, (array) $value)) . '\')';
             }
+            $symbol = $storage->accessPoint->symbol;
             /** @var IDataReader */
             $reader = $accessPoint->Query(
-                'select * from ' . $storage->table . ($filter && $filter != '' ? ' where ' . $filter : ''),
+                'select * from ' . $symbol . $storage->table . $symbol . ($filter && $filter != '' ? ' where ' . $filter : ''),
                 [
                     'type' => DataAccessPoint::QueryTypeBigData,
                     'page' => 1,
@@ -179,14 +177,13 @@ class Lookup
                 }
                 return $ret;
             }
-        } elseif ($this->accessPoint) {
-            $data = (object) $this->accessPoint;
-            $accessPoint = App::$dataAccessPoints->Get($data->name);
-            $filter = $data->value . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
+        } elseif ($this->accesspoint) {
+            $data = (object) $this->accesspoint;
+            $accessPoint = App::$dataAccessPoints->Get($data->point);
+            $sqlQuery = $accessPoint->CreateQuery('CreateSelect', [$data->table, $data->fields, [$data->value => ['=', (is_object($value) ? $value->value : $value)]], $data->order]);
             /** @var IDataReader */
             $reader = $accessPoint->Query(
-                'select * from (select ' . $data->fields . ' from ' . $data->table . ') t where ' .
-                    $filter . ($data->order ? ' order by ' . $data->order : ''),
+                $sqlQuery,
                 ['type' => DataAccessPoint::QueryTypeBigData]
             );
             if ($reader->Count() == 0) {
