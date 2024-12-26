@@ -84,6 +84,9 @@ class ArrayListIterator implements \Iterator
      */
     public function valid(): bool
     {
-        return $this->_current >= 0 && $this->_current < $this->_class->Count();
+        if(method_exists($this->_class, 'Count')) {
+            return $this->_current >= 0 && $this->_current < $this->_class->Count();
+        }
+        return true;
     }
 }
