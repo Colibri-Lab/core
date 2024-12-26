@@ -19,9 +19,9 @@ class CollectionIterator implements \Iterator
     /**
      * Обьект коллекции
      *
-     * @var mixed
+     * @var ICollection
      */
-    private $_class;
+    private ?\IteratorAggregate $_class;
     /**
      * Текущая позиция
      *
@@ -34,7 +34,7 @@ class CollectionIterator implements \Iterator
      *
      * @param mixed $class - коллекция
      */
-    public function __construct(mixed $class = null)
+    public function __construct(\IteratorAggregate $class = null)
     {
         $this->_class = $class;
     }
@@ -43,17 +43,16 @@ class CollectionIterator implements \Iterator
      * Перескопить на первую запись
      *
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->_current = 0;
-        return $this->_class->Key($this->_current);
     }
 
     /**
      * Вернуть текущее значение
      *
      */
-    public function current()
+    public function current(): mixed
     {
         if ($this->valid()) {
             return $this->_class->ItemAt($this->_current);
@@ -66,7 +65,7 @@ class CollectionIterator implements \Iterator
      * Вернуть ключ текущего положения
      *
      */
-    public function key()
+    public function key(): string|null
     {
         return $this->_class->Key($this->_current);
     }
@@ -75,14 +74,14 @@ class CollectionIterator implements \Iterator
      * Вернуть следующее значение
      *
      */
-    public function next()
+    public function next(): void
     {
         $this->_current++;
-        if ($this->valid()) {
-            return $this->_class->ItemAt($this->_current);
-        } else {
-            return null;
-        }
+        // if ($this->valid()) {
+        //     return $this->_class->ItemAt($this->_current);
+        // } else {
+        //     return null;
+        // }
     }
 
     /**

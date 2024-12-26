@@ -10,7 +10,6 @@
 
 namespace Colibri\Collections;
 
-use IteratorAggregate;
 
 /**
  * Array list iterator
@@ -21,7 +20,7 @@ class ArrayListIterator implements \Iterator
     /**
      * Iterator data
      */
-    private ?IteratorAggregate $_class = null;
+    private ?\IteratorAggregate $_class = null;
 
     /**
      * Current position
@@ -31,7 +30,7 @@ class ArrayListIterator implements \Iterator
     /**
      * Constructor
      */
-    public function __construct(IteratorAggregate $class = null)
+    public function __construct(\IteratorAggregate $class = null)
     {
         $this->_class = $class;
     }
@@ -39,17 +38,16 @@ class ArrayListIterator implements \Iterator
     /**
      * Rewinds an iterator to the first item
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->_current = 0;
-        return $this->_current;
     }
 
     /**
      * Returns item on current position
      * @suppress PHP0418
      */
-    public function current()
+    public function current(): mixed
     {
         if ($this->valid() && method_exists($this->_class, 'Item')) {
             return $this->_class->Item($this->_current);
@@ -70,14 +68,14 @@ class ArrayListIterator implements \Iterator
      * Returns next item and moves internal position
      * @suppress PHP0418
      */
-    public function next()
+    public function next(): void
     {
         $this->_current++;
-        if ($this->valid()) {
-            return $this->_class->Item($this->_current);
-        } else {
-            return null;
-        }
+        // if ($this->valid()) {
+        //     return $this->_class->Item($this->_current);
+        // } else {
+        //     return null;
+        // }
     }
 
     /**

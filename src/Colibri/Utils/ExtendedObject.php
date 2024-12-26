@@ -545,7 +545,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @return ExtendedObjectIterator An iterator for the data of the ExtendedObject.
      */
-    public function getIterator()
+    public function getIterator(): ExtendedObjectIterator
     {
         return new ExtendedObjectIterator($this->GetData());
     }
@@ -561,7 +561,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @return void
      * @throws InvalidArgumentException If the offset is not a string or an integer.
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (!VariableHelper::IsString($offset)) {
             throw new InvalidArgumentException();
@@ -579,7 +579,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @return bool True if a value exists at the specified offset, false otherwise.
      * @throws InvalidArgumentException If the offset is not a string or an integer.
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         if (!VariableHelper::IsString($offset)) {
             throw new InvalidArgumentException();
@@ -597,7 +597,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @return void
      * @throws InvalidArgumentException If the offset is not a string or an integer.
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         if (!VariableHelper::IsString($offset)) {
             throw new InvalidArgumentException();
@@ -615,7 +615,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @return mixed|null The value at the specified offset, or null if the offset does not exist.
      * @throws InvalidArgumentException If the offset is not a string or an integer.
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         if (!VariableHelper::IsString($offset)) {
             throw new InvalidArgumentException();
@@ -631,7 +631,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @return array The serializable representation of the object.
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->ToArray(true);
     }

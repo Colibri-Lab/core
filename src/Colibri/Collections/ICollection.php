@@ -64,10 +64,17 @@ interface ICollection
      * @return string
      */
     public function ToString(array $splitters = null): string;
+    
     /**
      * Return the data as a regular array.
      * @return array
      */
     public function ToArray(): array;
+    
+    /**
+     * Return the number of elements in the array.
+     * @return int
+     */
+    public function Count(): int;
     
 }
