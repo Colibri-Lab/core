@@ -44,6 +44,7 @@ class Server
     public const JSON = 'json';
     public const XML = 'xml';
     public const HTML = 'html';
+    public const Text = 'txt';
     public const CSS = 'css';
     public const JS = 'js';
     public const Stream = 'stream';
@@ -107,13 +108,13 @@ class Server
             App::$response->DownloadFile($result->message, $result->result);
         }
 
-        $content = $result?->message ?? HtmlHelper::Encode($result?->result ?? []);
+        $content = $result?->message ?: $result?->result;
         if ($type == Server::JSON || $type == Server::Stream) {
             $content = json_encode($result?->result ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         } elseif ($type === Server::XML) {
             $content = XmlHelper::Encode($result?->result ?? []);
         } elseif ($type == Server::HTML) {
-            $content = $result?->message ?? HtmlHelper::Encode($result?->result ?? []);
+            $content = $result?->message ?: HtmlHelper::Encode($result?->result ?? []);
         } elseif ($type == Server::CSS) {
             $content = $result?->message ?? [];
         }
@@ -200,6 +201,7 @@ class Server
         $cmd = explode('?', $cmd);
         $cmd = reset($cmd);
 
+        $isRequestTyped = true;
         $method = 'index';
         $type = Server::HTML;
         $class = $cmd;
@@ -211,12 +213,13 @@ class Server
             $method = $matches[1];
             $type = Server::JSON;
             $class = preg_replace('/' . $method . '$/', '', $cmd);
+            $isRequestTyped = false;
         }
 
         $class = $this->_getControllerFullName($class);
         $method = StringHelper::ToCamelCaseAttr($method, true);
 
-        return [$type, $class, $method];
+        return [$type, $class, $method, $isRequestTyped];
     }
 
     /**
@@ -233,11 +236,11 @@ class Server
     {
 
         // /namespace[/namespace]/command[.type]
-        list($type, $class, $method) = $this->__parseCommand($cmd);
+        list($type, $class, $method, $isRequestTyped) = $this->__parseCommand($cmd);
 
         if (!VariableHelper::IsNull($default) && (!class_exists($class) || !method_exists($class, $method))) {
             // если не нашли чего делать то пробуем по умолчанию
-            list($type, $class, $method) = $this->__parseCommand($default);
+            list($type, $class, $method, $isRequestTyped) = $this->__parseCommand($default);
         }
 
         $requestMethod = App::$request->server->{'request_method'};
@@ -324,7 +327,7 @@ class Server
             App::$monitoring->StartTimer('web-request');
 
             try {
-                $obj = new $class($type);
+                $obj = new $class($type, $isRequestTyped);
                 $result = (object) $obj->Invoke($method, $get, $post, $payload);
             } catch (\Throwable $e) {
 
@@ -386,18 +389,18 @@ class Server
                 'post' => $post,
                 'payload' => $payload,
                 'result' => $result,
-                'type' => $type
+                'type' => $result->type ?: $type
             ];
             $this->DispatchEvent(EventsContainer::RpcRequestProcessed, $args);
 
-            if($type !== self::Stream) {
+            if(($result->type ?: $type) !== self::Stream) {
                 // на случай, если не включен модуль языков
                 $args->result = NoLangHelper::ParseArray($args->result);
             }
 
             App::$monitoring->EndTimer('web-request');
 
-            $this->Finish($type, $args->result);
+            $this->Finish(($result->type ?: $type), $args->result);
         }
 
     }

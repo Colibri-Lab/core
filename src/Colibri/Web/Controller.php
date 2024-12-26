@@ -68,6 +68,7 @@ use Colibri\App;
 class Controller
 {
     protected ?string $_type = null;
+    protected ?bool $_isUserTypedACommand = true;
 
     protected bool $_cache = false;
     protected int $_lifetime = 600;
@@ -77,9 +78,10 @@ class Controller
      *
      * @param string|null $type The type of response (e.g., json, xml, html).
      */
-    public function __construct(?string $type = null)
+    public function __construct(?string $type = null, ?bool $isUserTypedACommand = true)
     {
         $this->_type = $type;
+        $this->_isUserTypedACommand = $isUserTypedACommand;
     }
 
     /**
@@ -101,7 +103,8 @@ class Controller
         string $charset = 'utf-8',
         array $headers = [],
         array $cookies = [],
-        bool $forceNoCache = false
+        bool $forceNoCache = false,
+        ?string $type = null
     ): object {
         $res = (object) [];
         $res->code = $code;
@@ -111,6 +114,9 @@ class Controller
         $res->headers = $headers;
         $res->cookies = $cookies;
         $res->forceNoCache = $forceNoCache;
+        if(!$this->_isUserTypedACommand) {
+            $res->type = $type;
+        }
         return $res;
     }
 

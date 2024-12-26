@@ -261,15 +261,7 @@ class ObjectField extends ExtendedObject
         return (object) $return;
     }
 
-    /**
-     * Геттер
-     * @param string $prop свойство
-     * @return mixed значение
-     */
-    public function __get(string $prop): mixed
-    {
-        return $this->_typeExchange('get', $prop);
-    }
+    
 
     public function Field(): Field
     {
