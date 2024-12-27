@@ -58,29 +58,29 @@ class Attributes
         $return = null;
         switch ($property) {
             case 'created': {
-                    if (!array_key_exists('created', $this->attributes)) {
-                        $this->attributes['created'] = filectime($this->source->path);
-                    }
-
-                    $return = $this->attributes['created'];
-                    break;
+                if (!array_key_exists('created', $this->attributes)) {
+                    $this->attributes['created'] = filectime($this->source->path);
                 }
+
+                $return = $this->attributes['created'];
+                break;
+            }
             case 'modified': {
-                    if (!array_key_exists('created', $this->attributes)) {
-                        $this->attributes['created'] = filemtime($this->source->path);
-                    }
-
-                    $return = $this->attributes['created'];
-                    break;
+                if (!array_key_exists('created', $this->attributes)) {
+                    $this->attributes['created'] = filemtime($this->source->path);
                 }
+
+                $return = $this->attributes['created'];
+                break;
+            }
             case 'lastaccess': {
-                    if (!array_key_exists('created', $this->attributes)) {
-                        $this->attributes['created'] = fileatime($this->source->path);
-                    }
-
-                    $return = $this->attributes['created'];
-                    break;
+                if (!array_key_exists('created', $this->attributes)) {
+                    $this->attributes['created'] = fileatime($this->source->path);
                 }
+
+                $return = $this->attributes['created'];
+                break;
+            }
             default:
                 if (array_key_exists($property, $this->attributes)) {
                     $return = $this->attributes[$property];

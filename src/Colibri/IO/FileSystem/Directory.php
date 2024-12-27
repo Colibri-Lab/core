@@ -48,7 +48,7 @@ class Directory extends Node
      *
      * @var Directory
      */
-    private ? Directory $_parent = null;
+    private ?Directory $_parent = null;
 
     /**
      * Path represented as an array.
@@ -85,47 +85,47 @@ class Directory extends Node
         switch (strtolower($property)) {
             case 'current':
             case 'size': {
-                    $return = null;
-                    break;
-                }
+                $return = null;
+                break;
+            }
             case 'attributes': {
-                    $return = $this->getAttributesObject();
-                    break;
-                }
+                $return = $this->getAttributesObject();
+                break;
+            }
             case 'patharray': {
-                    if (!$this->_pathArray) {
-                        $this->_pathArray = explode('/', $this->path);
-                    }
-                    $return = $this->_pathArray;
-                    break;
+                if (!$this->_pathArray) {
+                    $this->_pathArray = explode('/', $this->path);
                 }
+                $return = $this->_pathArray;
+                break;
+            }
             case 'name': {
-                    $return = $this->pathArray[count($this->pathArray) - 1];
-                    break;
-                }
+                $return = $this->pathArray[count($this->pathArray) - 1];
+                break;
+            }
             case 'parent': {
-                    if (!$this->_parent) {
-                        $pathParts = $this->pathArray;
-                        unset($pathParts[count($pathParts) - 1]);
-                        $this->_parent = new Directory(implode('/', $pathParts) . '/');
-                    }
-                    $return = $this->_parent;
-                    break;
+                if (!$this->_parent) {
+                    $pathParts = $this->pathArray;
+                    unset($pathParts[count($pathParts) - 1]);
+                    $this->_parent = new Directory(implode('/', $pathParts) . '/');
                 }
+                $return = $this->_parent;
+                break;
+            }
             case 'path': {
-                    $return = $this->path . '/';
-                    break;
-                }
+                $return = $this->path . '/';
+                break;
+            }
             case 'dotfile': {
-                    $return = substr($this->name, 0, 1) == '.';
-                    break;
-                }
+                $return = substr($this->name, 0, 1) == '.';
+                break;
+            }
             case 'access': {
                 return $this->getSecurityObject();
             }
             default: {
-                    break;
-                }
+                break;
+            }
         }
         return $return;
     }

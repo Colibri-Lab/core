@@ -794,7 +794,7 @@ class VariableHelper
      * allowing for custom filtering or transformation of the object.
      *
      * @param mixed $object The object to be filtered. This can be any type of data.
-     * @param \Closure|null $closure A closure function that defines the filtering logic. 
+     * @param \Closure|null $closure A closure function that defines the filtering logic.
      *                               If null, no filtering is applied.
      * @return mixed The filtered object. The returned type depends on the closure's logic.
      */
@@ -920,11 +920,11 @@ class VariableHelper
     }
 
     /**
-     * Finds an object in array with key equals to value 
+     * Finds an object in array with key equals to value
      * @param array $array
      * @param string $innerObjectKey
      * @param string $innerObjectValue
-     * @return mixed 
+     * @return mixed
      */
     public static function FindInArray(array $array, string $innerObjectKey, string $innerObjectvalue): mixed
     {
@@ -933,7 +933,7 @@ class VariableHelper
             if(isset($obj[$innerObjectKey]) && $obj[$innerObjectKey] == $innerObjectvalue) {
                 return $object;
             }
-        }        
+        }
         return null;
     }
 

@@ -26,7 +26,7 @@ class Encoding
 
     /**
      * Converts a string, array, or object from one encoding to another.
-     * 
+     *
      * ```
      * Enconding::Convert('халлоу', Encoding::CP1251) returns 'халлоу' in windows-1251 encoding
      * Enconding::Convert(['халлоу','hello'], Encoding::CP1251) returns ['халлоу','hello'] in windows-1251 encoding
@@ -79,7 +79,7 @@ class Encoding
 
     /**
      * Checks whether a given string is valid in the specified encoding.
-     * 
+     *
      * ```
      * Encoding::Check('халлоу', Encoding::CP1251) returns false
      * Encoding::Check('халлоу', Encoding::UTF8) returns true
@@ -97,7 +97,7 @@ class Encoding
 
     /**
      * Detects the encoding of a given string.
-     * 
+     *
      * ՝՝՝
      * Encoding::Detect('hello') returns 'utf8'
      * ՝՝՝

@@ -2,12 +2,13 @@
 
 /**
  * Logs
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Logs
- * 
+ *
  */
+
 namespace Colibri\Utils\Logs;
 
 use Colibri\Utils\Config\Config;
@@ -17,30 +18,29 @@ use Colibri\Events\EventsContainer;
 
 /**
  * Represents a logger for logging messages.
- * 
+ *
  * This abstract class provides a structure for logging messages. It implements the PSR-3 LoggerInterface and uses an event dispatcher to handle logging events.
  */
 abstract class Logger implements LoggerInterface
 {
-
     use TEventDispatcher;
 
-     /** @var int Emergency level constant. */
-    const Emergency = 0;
+    /** @var int Emergency level constant. */
+    public const Emergency = 0;
     /** @var int Alert level constant. */
-    const Alert = 1;
+    public const Alert = 1;
     /** @var int Critical level constant. */
-    const Critical = 2;
+    public const Critical = 2;
     /** @var int Error level constant. */
-    const Error = 3;
+    public const Error = 3;
     /** @var int Warning level constant. */
-    const Warning = 4;
+    public const Warning = 4;
     /** @var int Notice level constant. */
-    const Notice = 5;
+    public const Notice = 5;
     /** @var int Informational level constant. */
-    const Informational = 6;
+    public const Informational = 6;
     /** @var int Debug level constant. */
-    const Debug = 7;
+    public const Debug = 7;
 
     /**
      * The name of the log file.

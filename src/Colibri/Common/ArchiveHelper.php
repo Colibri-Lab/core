@@ -86,7 +86,7 @@ class ArchiveHelper
 
     public static function ExtractTo(string $path, string $directoryPath): void
     {
-        
+
         if(!Directory::Exists($directoryPath)) {
             Directory::Create($directoryPath, true, '777');
         }
@@ -95,7 +95,7 @@ class ArchiveHelper
         $arch->open($path);
         $arch->extractTo($directoryPath);
         $arch->close();
-        
+
     }
 
 }

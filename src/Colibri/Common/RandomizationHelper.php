@@ -15,7 +15,6 @@ namespace Colibri\Common;
  */
 class RandomizationHelper
 {
-
     /**
      * Generates a random seed value.
      *
@@ -112,5 +111,5 @@ class RandomizationHelper
 
         return $tmp;
     }
-    
+
 }

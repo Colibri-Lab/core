@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
+
 namespace Colibri\Common;
 
 use Colibri\App;
@@ -17,7 +18,6 @@ use Colibri\IO\FileSystem\File;
  */
 class FileStreaming
 {
-
     /**
      * Converts a file to its Base64-encoded representation.
      *

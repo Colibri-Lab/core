@@ -6,19 +6,19 @@
  * @package Colibri\Utils\Performance
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
- * 
+ *
  */
+
 namespace Colibri\Utils;
 
 /**
  * Singleton
- * 
+ *
  * This abstract class represents the Singleton design pattern.
  * It ensures that only one instance of a class is created and provides a global access point to that instance.
  */
 abstract class Singleton
 {
-
     /**
      * The singleton instance.
      *
@@ -40,5 +40,5 @@ abstract class Singleton
         }
         return static::$instance;
     }
-    
+
 }

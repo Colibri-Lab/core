@@ -8,6 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\MySql
  */
+
 namespace Colibri\Data\MySql;
 
 use Colibri\Data\SqlClient\IConnection;
@@ -188,7 +189,8 @@ final class Connection implements IConnection
         }
     }
 
-    public function Ping(): bool {
+    public function Ping(): bool
+    {
         return mysqli_ping($this->_resource);
     }
 

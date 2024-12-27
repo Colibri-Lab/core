@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
+
 namespace Colibri\Common;
 
 use Colibri\Xml\Serialization\XmlSerialized;
@@ -17,7 +18,6 @@ use Colibri\Xml\XmlNode;
  */
 class XmlHelper
 {
-
     /**
      * Encodes an object, string, or array into a string representation.
      *

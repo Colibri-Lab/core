@@ -30,7 +30,7 @@ interface IArrayList
      * @return mixed The updated collection after adding the item.
      */
     public function Add(mixed $value): mixed;
-    
+
     /**
      * Appends one or many items to the end of list.
      *
@@ -79,14 +79,14 @@ interface IArrayList
 
     /**
      * Returns the first item in the list.
-     * @return mixed 
+     * @return mixed
      */
     public function First(): mixed;
 
     /**
      * Returns the last item in the list.
-     * @return mixed 
+     * @return mixed
      */
     public function Last(): mixed;
-    
+
 }

@@ -8,6 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\Solr
  */
+
 namespace Colibri\Data\Solr;
 
 use Colibri\Data\DataAccessPointsException;

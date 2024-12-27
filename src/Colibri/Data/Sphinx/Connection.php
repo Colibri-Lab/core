@@ -8,6 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\Sphinx
  */
+
 namespace Colibri\Data\Sphinx;
 
 use Colibri\Data\SqlClient\IConnection;
@@ -186,7 +187,8 @@ final class Connection implements IConnection
         }
     }
 
-    public function Ping(): bool {
+    public function Ping(): bool
+    {
         return mysqli_ping($this->_resource);
     }
 

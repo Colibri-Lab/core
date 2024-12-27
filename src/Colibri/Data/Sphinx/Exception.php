@@ -8,6 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\MySql
  */
+
 namespace Colibri\Data\Sphinx;
 
 use Colibri\Data\DataAccessPointsException;

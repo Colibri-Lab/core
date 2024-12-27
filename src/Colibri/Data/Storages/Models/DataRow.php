@@ -257,7 +257,7 @@ class DataRow extends BaseDataRow
                 }
                 $value = $this->_data[$property];
             } else {
-                
+
                 if ($rowValue instanceof $class) {
                     if ($field->isLookup) {
                         $valueField = $field->lookup->GetValueField();
@@ -597,7 +597,7 @@ class DataRow extends BaseDataRow
         }
 
         $allowedTypes = $this->Storage()->accessPoint->allowedTypes;
-        
+
         $params = [];
         $fieldValues = [];
         foreach ($data as $key => $value) {
@@ -610,7 +610,7 @@ class DataRow extends BaseDataRow
             /** @var \Colibri\Data\Storages\Fields\Field $field */
             $field = $this->_storage->fields->$fieldName ?? null;
             $className = $field ? $field->{'class'} : 'string';
-            
+
             $paramType = 'string';
             if ($field && in_array($field->{'type'}, ['blob', 'tinyblob', 'longblob'])) {
                 $paramType = 'blob';
@@ -627,7 +627,7 @@ class DataRow extends BaseDataRow
                 $className = 'Colibri\\Data\\Storages\\Fields\\' . $className;
                 if(method_exists($className, 'ParamTypeName')) {
                     eval('$paramType = ' . $className . '::ParamTypeName();');
-                }    
+                }
             }
 
             $params[$key] = $value;

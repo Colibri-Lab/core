@@ -7,8 +7,9 @@
  *
  * @package Colibri\Web
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web;
 
 use Colibri\Collections\ReadonlyCollection;
@@ -22,7 +23,6 @@ use Colibri\Collections\ReadonlyCollection;
  */
 class RequestCollection extends ReadonlyCollection
 {
-
     /** @var bool Whether to strip slashes from the data. */
     private bool $_stripSlashes = true;
 

@@ -293,13 +293,13 @@ class ValidationHelper
     }
 
     /**
-	 * Validates a Social Security Number (SNILS) in Russia.
-	 *
-	 * @param string $snils The SNILS to validate.
-	 * @param mixed &$error_message (Optional) A reference to store an error message if validation fails.
-	 * @param mixed &$error_code (Optional) A reference to store an error code if validation fails.
-	 * @return bool True if the SNILS is valid, false otherwise.
-	 */
+     * Validates a Social Security Number (SNILS) in Russia.
+     *
+     * @param string $snils The SNILS to validate.
+     * @param mixed &$error_message (Optional) A reference to store an error message if validation fails.
+     * @param mixed &$error_code (Optional) A reference to store an error code if validation fails.
+     * @return bool True if the SNILS is valid, false otherwise.
+     */
     public static function ValidateSnils(
         string $snils,
         mixed &$error_message = null,

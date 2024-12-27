@@ -85,33 +85,33 @@ abstract class Command
             case 'query':
             case 'commandtext':
             case 'text': {
-                    $return = $this->_commandtext;
-                    break;
-                }
+                $return = $this->_commandtext;
+                break;
+            }
             case 'connection': {
-                    $return = $this->_connection;
-                    break;
-                }
+                $return = $this->_connection;
+                break;
+            }
             case 'type': {
-                    $parts = explode(' ', $this->query);
-                    $return = strtolower($parts[0]);
-                    break;
-                }
+                $parts = explode(' ', $this->query);
+                $return = strtolower($parts[0]);
+                break;
+            }
             case 'page': {
-                    $return = $this->_page;
-                    break;
-                }
+                $return = $this->_page;
+                break;
+            }
             case 'pagesize': {
-                    $return = $this->_pagesize;
-                    break;
-                }
+                $return = $this->_pagesize;
+                break;
+            }
             case 'params': {
-                    $return = $this->_params;
-                    break;
-                }
+                $return = $this->_params;
+                break;
+            }
             default: {
-                    $return = null;
-                }
+                $return = null;
+            }
         }
         return $return;
     }
@@ -129,25 +129,25 @@ abstract class Command
             case 'query':
             case 'commandtext':
             case 'text': {
-                    $this->_commandtext = $value;
-                    break;
-                }
+                $this->_commandtext = $value;
+                break;
+            }
             case 'connection': {
-                    $this->_connection = $value;
-                    break;
-                }
+                $this->_connection = $value;
+                break;
+            }
             case "page": {
-                    $this->_page = $value;
-                    break;
-                }
+                $this->_page = $value;
+                break;
+            }
             case "pagesize": {
-                    $this->_pagesize = $value;
-                    break;
-                }
+                $this->_pagesize = $value;
+                break;
+            }
             case 'params': {
-                    $this->_params = $value;
-                    break;
-                }
+                $this->_params = $value;
+                break;
+            }
             default:
         }
     }
@@ -176,9 +176,9 @@ abstract class Command
     abstract public function PrepareQueryString(): string;
 
     abstract public function Migrate(Logger $logger, string $storage, array $xstorage): void;
-    
+
     abstract public static function ExtractFieldInformation(array|object $field): object;
-    
+
     abstract public static function ExtractIndexInformation(array|object $index): object;
 
 }

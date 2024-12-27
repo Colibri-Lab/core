@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Graphics
  */
+
 namespace Colibri\Graphics;
 
 /**
@@ -22,7 +23,6 @@ namespace Colibri\Graphics;
  */
 class Font
 {
-
     /**
      * The font name.
      *
@@ -89,28 +89,28 @@ class Font
         $return = null;
         switch ($prop) {
             case "file": {
-                    $return = $this->_file;
-                    break;
-                }
+                $return = $this->_file;
+                break;
+            }
             case "path": {
-                    $return = $this->_path;
-                    break;
-                }
+                $return = $this->_path;
+                break;
+            }
             case "angle": {
-                    $return = $this->_angle;
-                    break;
-                }
+                $return = $this->_angle;
+                break;
+            }
             case "src": {
-                    $return = $this->_path . "/" . $this->_file;
-                    break;
-                }
+                $return = $this->_path . "/" . $this->_file;
+                break;
+            }
             case "size": {
-                    $return = $this->_fontSize;
-                    break;
-                }
+                $return = $this->_fontSize;
+                break;
+            }
             default: {
-                    break;
-                }
+                break;
+            }
         }
         return $return;
     }

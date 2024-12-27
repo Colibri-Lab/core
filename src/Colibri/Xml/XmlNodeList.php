@@ -10,6 +10,7 @@
  * @package Colibri\Xml
  *
  */
+
 namespace Colibri\Xml;
 
 /**
@@ -23,7 +24,6 @@ namespace Colibri\Xml;
  */
 class XmlNodeList implements \IteratorAggregate
 {
-
     /**
      * The list of values.
      *
@@ -67,7 +67,7 @@ class XmlNodeList implements \IteratorAggregate
      * @return XmlNode|null The node, or null if not found.
      *
      */
-    public function Item(int $index): ? XmlNode
+    public function Item(int $index): ?XmlNode
     {
         if ($this->_data->item($index)) {
             return new XmlNode($this->_data->item($index), $this->_document);

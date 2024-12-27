@@ -8,7 +8,6 @@
  * @package Colibri\IO\FileSystem
  */
 
-
 namespace Colibri\IO\FileSystem;
 
 /**
@@ -16,20 +15,19 @@ namespace Colibri\IO\FileSystem;
  */
 class Node
 {
-
     /**
      * Attributes
      *
      * @var Attributes
      */
-    protected ? Attributes $attributes = null;
+    protected ?Attributes $attributes = null;
 
     /**
      * Access rights
      *
      * @var Security
      */
-    protected ? Security $access = null;
+    protected ?Security $access = null;
 
     /**
      * Setter
@@ -53,8 +51,8 @@ class Node
                 $this->getAttributesObject()->hidden = $value;
                 break;
             default: {
-                    break;
-                }
+                break;
+            }
         }
     }
 

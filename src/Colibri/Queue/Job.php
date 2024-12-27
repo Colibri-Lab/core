@@ -163,8 +163,8 @@ abstract class Job extends ExtendedObject implements IJob
      */
     public function Commit(array|object $result, bool $stopProcess = false): bool
     {
-        
-        
+
+
         /** @var Manager */
         $manager = Manager::Create();
         if(!$manager->SuccessJob($this, $result)) {
@@ -206,7 +206,7 @@ abstract class Job extends ExtendedObject implements IJob
         if($isLastAttempt && !$manager->DeleteJob($this)) {
             return false;
         }
-        
+
         // killing a process if exists
         if($stopProcess && $this->IsParallel()) {
             $parallelWorkerKey = $this->Key();

@@ -7,8 +7,9 @@
  *
  * @package Colibri\Web
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web;
 
 use Colibri\Common\XmlHelper;
@@ -39,7 +40,6 @@ use Colibri\Common\VariableHelper;
  */
 class Request
 {
-
     // Event dispatcher trait
     use TEventDispatcher;
 
@@ -48,12 +48,12 @@ class Request
      *
      * @var Request|null
      */
-    static ? Request $instance = null;
+    public static ?Request $instance = null;
 
     /** @var string Type of payload: JSON */
-    const PAYLOAD_TYPE_JSON = 'json';
+    public const PAYLOAD_TYPE_JSON = 'json';
     /** @var string Type of payload: XML */
-    const PAYLOAD_TYPE_XML = 'xml';
+    public const PAYLOAD_TYPE_XML = 'xml';
 
     private bool $_encodedAsJson = false;
 
@@ -132,105 +132,105 @@ class Request
         $return = null;
         switch ($prop) {
             case 'get': {
-                    $return = new RequestCollection($_GET);
-                    break;
-                }
+                $return = new RequestCollection($_GET);
+                break;
+            }
             case 'post': {
-                    $return = new RequestCollection($_POST, !$this->_encodedAsJson);
-                    break;
-                }
+                $return = new RequestCollection($_POST, !$this->_encodedAsJson);
+                break;
+            }
             case 'files': {
-                    $return = new RequestFileCollection($_FILES);
-                    break;
-                }
+                $return = new RequestFileCollection($_FILES);
+                break;
+            }
             case 'session': {
-                    if (isset($_SESSION)) {
-                        $return = new RequestCollection($_SESSION);
-                    } else {
-                        $return = new RequestCollection([]);
-                    }
-                    break;
+                if (isset($_SESSION)) {
+                    $return = new RequestCollection($_SESSION);
+                } else {
+                    $return = new RequestCollection([]);
                 }
+                break;
+            }
             case 'server': {
-                    $return = new RequestCollection($_SERVER);
-                    break;
-                }
+                $return = new RequestCollection($_SERVER);
+                break;
+            }
             case 'cookie': {
-                    $return = new RequestCollection($_COOKIE);
-                    break;
-                }
+                $return = new RequestCollection($_COOKIE);
+                break;
+            }
             case 'utm': {
-                    $utm = [];
-                    if ($this->get->{'utm_medium'} ? $this->get->{'utm_medium'} : $this->cookie->{'utm_medium'}) {
-                        $utm['utm_medium'] = $this->get->{'utm_medium'} ? $this->get->{'utm_medium'} : $this->cookie->{'utm_medium'};
-                    }
-                    if ($this->get->{'utm_source'} ? $this->get->{'utm_source'} : $this->cookie->{'utm_source'}) {
-                        $utm['utm_source'] = $this->get->{'utm_source'} ? $this->get->{'utm_source'} : $this->cookie->{'utm_source'};
-                    }
-                    if ($this->get->{'utm_term'} ? $this->get->{'utm_term'} : $this->cookie->{'utm_term'}) {
-                        $utm['utm_term'] = $this->get->{'utm_term'} ? $this->get->{'utm_term'} : $this->cookie->{'utm_term'};
-                    }
-                    if ($this->get->{'utm_content'} ? $this->get->{'utm_content'} : $this->cookie->{'utm_content'}) {
-                        $utm['utm_content'] = $this->get->{'utm_content'} ? $this->get->{'utm_content'} : $this->cookie->{'utm_content'};
-                    }
-                    if ($this->get->{'utm_campaign'} ? $this->get->{'utm_medium'} : $this->cookie->{'utm_campaign'}) {
-                        $utm['utm_campaign'] = $this->get->{'utm_campaign'} ? $this->get->{'utm_medium'} : $this->cookie->{'utm_campaign'};
-                    }
-                    $return = new RequestCollection($utm);
-                    break;
+                $utm = [];
+                if ($this->get->{'utm_medium'} ? $this->get->{'utm_medium'} : $this->cookie->{'utm_medium'}) {
+                    $utm['utm_medium'] = $this->get->{'utm_medium'} ? $this->get->{'utm_medium'} : $this->cookie->{'utm_medium'};
                 }
+                if ($this->get->{'utm_source'} ? $this->get->{'utm_source'} : $this->cookie->{'utm_source'}) {
+                    $utm['utm_source'] = $this->get->{'utm_source'} ? $this->get->{'utm_source'} : $this->cookie->{'utm_source'};
+                }
+                if ($this->get->{'utm_term'} ? $this->get->{'utm_term'} : $this->cookie->{'utm_term'}) {
+                    $utm['utm_term'] = $this->get->{'utm_term'} ? $this->get->{'utm_term'} : $this->cookie->{'utm_term'};
+                }
+                if ($this->get->{'utm_content'} ? $this->get->{'utm_content'} : $this->cookie->{'utm_content'}) {
+                    $utm['utm_content'] = $this->get->{'utm_content'} ? $this->get->{'utm_content'} : $this->cookie->{'utm_content'};
+                }
+                if ($this->get->{'utm_campaign'} ? $this->get->{'utm_medium'} : $this->cookie->{'utm_campaign'}) {
+                    $utm['utm_campaign'] = $this->get->{'utm_campaign'} ? $this->get->{'utm_medium'} : $this->cookie->{'utm_campaign'};
+                }
+                $return = new RequestCollection($utm);
+                break;
+            }
             case 'remoteip': {
-                    if ($this->server->{'HTTP_X_FORWARDED_FOR'}) {
-                        $return = $this->server->{'HTTP_X_FORWARDED_FOR'};
-                    } elseif ($this->server->{'REMOTE_ADDR'}) {
-                        $return = $this->server->{'REMOTE_ADDR'};
-                    } elseif ($this->server->{'X_REAL_IP'}) {
-                        $return = $this->server->{'X_REAL_IP'};
-                    } elseif ($this->server->{'HTTP_FORWARDED'}) {
-                        $return = $this->server->{'HTTP_FORWARDED'};
-                    } else {
-                        $return = '';
-                    }
-                    break;
+                if ($this->server->{'HTTP_X_FORWARDED_FOR'}) {
+                    $return = $this->server->{'HTTP_X_FORWARDED_FOR'};
+                } elseif ($this->server->{'REMOTE_ADDR'}) {
+                    $return = $this->server->{'REMOTE_ADDR'};
+                } elseif ($this->server->{'X_REAL_IP'}) {
+                    $return = $this->server->{'X_REAL_IP'};
+                } elseif ($this->server->{'HTTP_FORWARDED'}) {
+                    $return = $this->server->{'HTTP_FORWARDED'};
+                } else {
+                    $return = '';
                 }
+                break;
+            }
             case 'uri': {
-                    $return = $this->server->{'request_uri'} ? $this->server->{'request_uri'} : '';
-                    break;
-                }
+                $return = $this->server->{'request_uri'} ? $this->server->{'request_uri'} : '';
+                break;
+            }
             case 'host': {
-                    $return = $this->server->{'http_host'} ? $this->server->{'http_host'} : '';
-                    break;
-                }
+                $return = $this->server->{'http_host'} ? $this->server->{'http_host'} : '';
+                break;
+            }
             case 'address': {
-                    $proto = $this->server->{'https'} ? 'https://' : 'http://';
-                    $return = $this->server->{'http_host'} ? $proto . $this->server->{'http_host'} : '';
-                    break;
-                }
+                $proto = $this->server->{'https'} ? 'https://' : 'http://';
+                $return = $this->server->{'http_host'} ? $proto . $this->server->{'http_host'} : '';
+                break;
+            }
             case 'insecure': {
-                    $return = !$this->server->{'https'};
-                    break;
-                }
+                $return = !$this->server->{'https'};
+                break;
+            }
             case 'headers': {
-                    if (function_exists('apache_request_headers')) {
-                        $headers = apache_request_headers();
-                    } else {
-                        $headers = [];
-                        foreach ($this->server as $key => $value) {
-                            if (strpos($key, 'http_') === 0) {
-                                $headers[substr($key, 5)] = $value;
-                            }
+                if (function_exists('apache_request_headers')) {
+                    $headers = apache_request_headers();
+                } else {
+                    $headers = [];
+                    foreach ($this->server as $key => $value) {
+                        if (strpos($key, 'http_') === 0) {
+                            $headers[substr($key, 5)] = $value;
                         }
                     }
-                    $return = new RequestCollection($headers);
-                    break;
                 }
+                $return = new RequestCollection($headers);
+                break;
+            }
             case 'type': {
-                    $return = $this->server->{'request_method'} ? $this->server->{'request_method'} : 'get';
-                    break;
-                }
+                $return = $this->server->{'request_method'} ? $this->server->{'request_method'} : 'get';
+                break;
+            }
             default: {
-                    return null;
-                }
+                return null;
+            }
         }
         return $return;
     }

@@ -85,7 +85,7 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Returns iterator 
+     * Returns iterator
      *
      * @return DataTableIterator
      */
@@ -220,7 +220,7 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param DataRow $row The DataRow object to be saved.
      * @param string|null $idField (optional) The name of the field representing the primary key. Default is null.
      * @param bool|null $convert (optional) Whether to convert data before saving. Default is true.
-     * @return ICommandResult|bool A QueryInfo object containing information about the executed query, 
+     * @return ICommandResult|bool A QueryInfo object containing information about the executed query,
      *                        or boolean true if successful, false otherwise.
      */
     public function SaveRow(DataRow $row, string $idField = 'id', ?bool $convert = true): ICommandResult|bool
@@ -398,5 +398,5 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
     {
         return $this->Item($offset);
     }
-    
+
 }

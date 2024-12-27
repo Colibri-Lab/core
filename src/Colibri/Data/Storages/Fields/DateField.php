@@ -9,7 +9,6 @@ namespace Colibri\Data\Storages\Fields;
  */
 class DateField extends DateTimeField
 {
-
     /**
      * Return Date in ISO8601 format
      *
@@ -23,9 +22,9 @@ class DateField extends DateTimeField
     public static function ParamTypeName(): string
     {
         return 'string';
-    } 
+    }
 
-    public static function Null(): mixed
+    public static function null(): mixed
     {
         return null;
     }

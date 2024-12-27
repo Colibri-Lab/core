@@ -34,8 +34,8 @@ use MongoDB\Database;
  */
 final class Command extends NoSqlCommand
 {
-
-    public function EscapeQuery(string $input):string {
+    public function EscapeQuery(string $input): string
+    {
         $specialChars = ['\\', '+', '-', '&&', '||', '!', '(', ')', '{', '}', '[', ']', '^', '"', '~', '*', '?', ':', '/'];
         foreach ($specialChars as $char) {
             $input = str_replace($char, '\\' . $char, $input);
@@ -74,7 +74,7 @@ final class Command extends NoSqlCommand
     {
         /** @var Connection $connection */
         $connection = $this->_connection;
-        
+
         $found = false;
         $collections = $connection->database->listCollectionNames();
         foreach($collections as $collection) {
@@ -82,7 +82,7 @@ final class Command extends NoSqlCommand
                 $found = true;
             }
         }
-        
+
         return $found;
     }
 
@@ -157,7 +157,7 @@ final class Command extends NoSqlCommand
         $return->SetCollectionName($collectionName);
         $return->SetReturnedId($id);
         return $return;
-        
+
     }
 
     public function UpdateDocuments(string $collectionName, array $filter, array $update): CommandResult
@@ -166,7 +166,7 @@ final class Command extends NoSqlCommand
         $db = $this->_connection->database;
         /** @var Collection */
         $collection = $db->getCollection($collectionName);
-        
+
         try {
             $result = $collection->updateMany($filter, $update);
             $return = new CommandResult((object)['responseHeader' => (object)['affected' => $result->getModifiedCount(), 'count' => $result->getModifiedCount()], 'response' => (object)[]]);
@@ -179,7 +179,7 @@ final class Command extends NoSqlCommand
 
     public function DeleteDocuments(string $collectionName, array $filter): CommandResult
     {
-        
+
         /** @var Database */
         $db = $this->_connection->database;
         /** @var Collection */
@@ -209,7 +209,7 @@ final class Command extends NoSqlCommand
      */
     public function SelectDocuments(string $collectionName, ?array $select = null, ?array $filters = null, ?array $faset = null, ?array $fields = null, ?array $sort = null, int $page = -1, int $pagesize = 20): CommandResult
     {
-        
+
         $options = [];
         if($sort) {
             $options['sort'] = $sort;
@@ -264,12 +264,12 @@ final class Command extends NoSqlCommand
                 $docArray = (object)(array)$document;
                 $rows[] = $docArray;
             }
-            
+
             $affected = count($rows);
             if($page >= 0) {
                 $affected = $collection->countDocuments($filters ?? []);
             }
-    
+
             $return = new CommandResult((object)['responseHeader' => (object)[], 'response' => (object)['docs' => $rows, 'numFound' => $affected]]);
             $return->SetCollectionName($collectionName);
         } catch(\Throwable $e) {
@@ -309,7 +309,7 @@ final class Command extends NoSqlCommand
         if(!$this->CollectionExists($storage)) {
             $this->CreateCollection($storage);
         }
-        
+
     }
 
 }

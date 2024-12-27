@@ -27,7 +27,6 @@ use Colibri\Collections\ICollection;
  */
 class Security
 {
-
     /**
      * The source (File or Directory).
      *
@@ -48,7 +47,7 @@ class Security
      * @param File|Directory|null $source The source.
      * @param mixed $flags The flags.
      */
-    function __construct(File|Directory|null $source, mixed $flags = null)
+    public function __construct(File|Directory|null $source, mixed $flags = null)
     {
         $this->source = $source;
         if ($flags === null) {
@@ -70,7 +69,7 @@ class Security
      * @param string $property The flag
      * @return mixed
      */
-    function __get(string $property): mixed
+    public function __get(string $property): mixed
     {
         return $this->flags[$property];
     }
@@ -81,7 +80,7 @@ class Security
      * @param string $property The flag
      * @param mixed $value The value.
      */
-    function __set(string $property, mixed $value): void
+    public function __set(string $property, mixed $value): void
     {
         $this->flags[$property] = $value;
     }

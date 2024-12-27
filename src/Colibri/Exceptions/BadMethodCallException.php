@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Exceptions
  */
+
 namespace Colibri\Exceptions;
 
 /**
@@ -14,5 +15,4 @@ namespace Colibri\Exceptions;
  */
 class BadMethodCallException extends \Exception
 {
-
 }

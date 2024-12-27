@@ -15,16 +15,15 @@ namespace Colibri\IO\Request;
  */
 class Encryption
 {
-
     /** Multipart */
-    const Multipart = 'multipart/form-data';
+    public const Multipart = 'multipart/form-data';
 
     /** URL Encoded */
-    const UrlEncoded = 'application/x-www-form-urlencoded';
+    public const UrlEncoded = 'application/x-www-form-urlencoded';
 
     /** Request with XML payload */
-    const XmlEncoded = 'application/x-www-form-xmlencoded';
+    public const XmlEncoded = 'application/x-www-form-xmlencoded';
 
     /** Request with JSON payload */
-    const JsonEncoded = 'application/json';
+    public const JsonEncoded = 'application/json';
 }

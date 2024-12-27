@@ -16,7 +16,6 @@ namespace Colibri\Events;
  */
 trait TEventDispatcher
 {
-
     /**
      * Dispatches an event.
      *

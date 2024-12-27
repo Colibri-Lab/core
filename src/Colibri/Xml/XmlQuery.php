@@ -10,6 +10,7 @@
  * @package Colibri\Xml
  *
  */
+
 namespace Colibri\Xml;
 
 use DOMXPath;
@@ -26,20 +27,19 @@ use DOMXPath;
  */
 class XmlQuery
 {
-
     /**
      * The context node for the query.
      *
      * @var XmlNode
      */
-    private ? XmlNode $_contextNode;
+    private ?XmlNode $_contextNode;
 
     /**
      * The XPath operator.
      *
      * @var DOMXPath
      */
-    private ? DOMXPath $_operator;
+    private ?DOMXPath $_operator;
 
     /**
      * Indicates whether to return results as a named map or a simple list.

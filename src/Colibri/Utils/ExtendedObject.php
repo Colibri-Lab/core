@@ -6,8 +6,9 @@
  * @package Colibri\Utils\Performance
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
- * 
+ *
  */
+
 namespace Colibri\Utils;
 
 use ArrayAccess;
@@ -157,7 +158,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * such as arrays, objects, or ExtendedObject instances.
      *
      * @param mixed $data The data to set for the object.
-     * 
+     *
      * @return void
      */
     public function SetData($data)

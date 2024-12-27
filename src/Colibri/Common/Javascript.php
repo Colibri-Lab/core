@@ -2,12 +2,12 @@
 
 /**
  * Common
- * 
+ *
  * @author Ваган Григорян <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
  * @package Colibri\Common
  * @version 1.0.0
- * 
+ *
  */
 
 namespace Colibri\Common;
@@ -17,7 +17,6 @@ namespace Colibri\Common;
  */
 class Javascript
 {
-
     /**
      * Shrinks a given input javascript string.
      *
@@ -65,5 +64,5 @@ class Javascript
             return $result;
         }, "$input\n");
     }
-    
+
 }

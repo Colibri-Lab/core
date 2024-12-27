@@ -6,8 +6,9 @@
  * @package Colibri\Utils\Performance
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
- * 
+ *
  */
+
 namespace Colibri\Utils\Performance;
 
 use Colibri\Common\DateHelper;
@@ -19,10 +20,9 @@ use Colibri\Utils\Logs\Logger;
  */
 class Monitoring
 {
-
-    const EveryTimer = 0;
-    const FullStackOnly = 1;
-    const Never = 2;
+    public const EveryTimer = 0;
+    public const FullStackOnly = 1;
+    public const Never = 2;
 
     /**
      * @var array Holds timers data
@@ -52,7 +52,7 @@ class Monitoring
 
     /**
      * Constructor
-     * 
+     *
      * @param Logger $logger The logger instance
      * @param int $logLevel The log level
      * @param mixed $logging The logging frequency
@@ -70,7 +70,7 @@ class Monitoring
 
     /**
      * Destructor
-     * 
+     *
      * @return void
      */
     public function __destruct()
@@ -83,7 +83,7 @@ class Monitoring
 
     /**
      * Collects additional data
-     * 
+     *
      * @return mixed
      */
     private function _collectAditionalData()
@@ -97,7 +97,7 @@ class Monitoring
 
     /**
      * Starts a timer
-     * 
+     *
      * @param string $name The name of the timer
      * @return void
      */
@@ -115,7 +115,7 @@ class Monitoring
 
     /**
      * Ends a timer
-     * 
+     *
      * @param string $name The name of the timer
      * @return void
      */
@@ -134,7 +134,7 @@ class Monitoring
 
     /**
      * Logs performance data
-     * 
+     *
      * @param int $logLevel The log level
      * @param string|null $name The name of the timer
      * @return void
@@ -153,7 +153,7 @@ class Monitoring
 
     /**
      * Generates a log message
-     * 
+     *
      * @param string $name The name of the timer
      * @param mixed $timer The timer data
      * @return string The log message

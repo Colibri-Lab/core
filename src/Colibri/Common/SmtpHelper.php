@@ -18,7 +18,6 @@ use Colibri\AppException;
  */
 class SmtpHelper
 {
-    
     /**
      * Sends an email with the specified configuration and parameters.
      *

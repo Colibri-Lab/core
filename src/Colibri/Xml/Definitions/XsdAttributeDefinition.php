@@ -29,20 +29,19 @@ use Colibri\Xml\XmlNode;
  */
 class XsdAttributeDefinition implements \JsonSerializable
 {
-
     /**
      * The attribute node.
      *
      * @var XmlNode
      */
-    private ? XmlNode $_node;
+    private ?XmlNode $_node;
 
     /**
      * The schema.
      *
      * @var XsdSchemaDefinition
      */
-    private ? XsdSchemaDefinition $_schema;
+    private ?XsdSchemaDefinition $_schema;
 
     /**
      * Constructor.

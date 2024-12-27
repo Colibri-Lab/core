@@ -74,24 +74,24 @@ abstract class Command
         $return = null;
         switch (strtolower($property)) {
             case 'connection': {
-                    $return = $this->_connection;
-                    break;
-                }
+                $return = $this->_connection;
+                break;
+            }
             case 'page': {
-                    $return = $this->_page;
-                    break;
-                }
+                $return = $this->_page;
+                break;
+            }
             case 'pagesize': {
-                    $return = $this->_pagesize;
-                    break;
-                }
+                $return = $this->_pagesize;
+                break;
+            }
             case 'params': {
-                    $return = $this->_params;
-                    break;
-                }
+                $return = $this->_params;
+                break;
+            }
             default: {
-                    $return = null;
-                }
+                $return = null;
+            }
         }
         return $return;
     }
@@ -107,21 +107,21 @@ abstract class Command
     {
         switch (strtolower($property)) {
             case 'connection': {
-                    $this->_connection = $value;
-                    break;
-                }
+                $this->_connection = $value;
+                break;
+            }
             case "page": {
-                    $this->_page = $value;
-                    break;
-                }
+                $this->_page = $value;
+                break;
+            }
             case "pagesize": {
-                    $this->_pagesize = $value;
-                    break;
-                }
+                $this->_pagesize = $value;
+                break;
+            }
             case 'params': {
-                    $this->_params = $value;
-                    break;
-                }
+                $this->_params = $value;
+                break;
+            }
             default:
         }
     }
@@ -138,5 +138,5 @@ abstract class Command
     abstract public static function Execute(IConnection $connection, string $type, string $command, array $arguments): ICommandResult;
 
     abstract public function Migrate(Logger $logger, string $storage, array $xstorage): void;
-    
+
 }

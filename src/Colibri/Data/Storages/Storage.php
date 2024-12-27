@@ -35,7 +35,7 @@ use Colibri\Utils\Config\Config;
  * @property-read DataAccessPoint $accessPoint The DataAccessPoint object associated with the storage.
  * @property-read bool $isSoftDelete Indicates whether the rows is not deleted but marked as deleted
  * @property-read bool $isShowDeletedRows Indicates whether the deleted rows must be shown or not
- * 
+ *
  */
 class Storage
 {
@@ -565,46 +565,46 @@ class Storage
             } else {
                 return (object)[
                     'Name' => $this->table,
-                    'Engine' => 'NoSql', 
-                    'Version' => 0, 
-                    'Row_Format' => 'Dynamic', 
-                    'Rows' => 0, 
-                    'Avg_row_length' => 0, 
-                    'Data_length' => 0, 
-                    'Max_data_length' => 0, 
-                    'Index_length' => 0, 
-                    'Data_free' => 0, 
-                    'Auto_increment' => 0, 
-                    'Create_time' => 0, 
-                    'Update_time' => null, 
+                    'Engine' => 'NoSql',
+                    'Version' => 0,
+                    'Row_Format' => 'Dynamic',
+                    'Rows' => 0,
+                    'Avg_row_length' => 0,
+                    'Data_length' => 0,
+                    'Max_data_length' => 0,
+                    'Index_length' => 0,
+                    'Data_free' => 0,
+                    'Auto_increment' => 0,
+                    'Create_time' => 0,
+                    'Update_time' => null,
                     'Check_time' => 0,
                     'Collection' => 'utf8mb3_general_ci',
-                    'Checksum' => null, 
+                    'Checksum' => null,
                     'Create_options' => null,
-                    'Comment' => null 
+                    'Comment' => null
                 ];
-    
+
             }
         } else {
             return (object)[
                 'Name' => $this->table,
-                'Engine' => 'NoSql', 
-                'Version' => 0, 
-                'Row_Format' => 'Dynamic', 
-                'Rows' => 0, 
-                'Avg_row_length' => 0, 
-                'Data_length' => 0, 
-                'Max_data_length' => 0, 
-                'Index_length' => 0, 
-                'Data_free' => 0, 
-                'Auto_increment' => 0, 
-                'Create_time' => 0, 
-                'Update_time' => null, 
+                'Engine' => 'NoSql',
+                'Version' => 0,
+                'Row_Format' => 'Dynamic',
+                'Rows' => 0,
+                'Avg_row_length' => 0,
+                'Data_length' => 0,
+                'Max_data_length' => 0,
+                'Index_length' => 0,
+                'Data_free' => 0,
+                'Auto_increment' => 0,
+                'Create_time' => 0,
+                'Update_time' => null,
                 'Check_time' => 0,
                 'Collection' => 'utf8mb3_general_ci',
-                'Checksum' => null, 
+                'Checksum' => null,
                 'Create_options' => null,
-                'Comment' => null 
+                'Comment' => null
             ];
         }
     }

@@ -5,8 +5,9 @@
  *
  * @package Colibri\Web
  * @author K. Tigay
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web;
 
 use Colibri\App;
@@ -17,13 +18,12 @@ use Colibri\Common\VariableHelper;
 
 /**
  * Class Router
- * 
+ *
  * This abstract class represents a template for web content generation.
- * 
+ *
  */
 class Router
 {
-
     /**
      * @var array Holds the configuration array for routes.
      */

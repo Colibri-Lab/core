@@ -17,11 +17,11 @@ use resource;
 
 /**
  * Class responsible for working with query results.
- * 
+ *
  * @property-read bool $hasRows Indicates whether the result set has any rows.
  * @property int $affected Number of affected rows.
  * @property-read int $count Number of rows in the result set.
- * 
+ *
  */
 final class DataReader implements IDataReader
 {
@@ -137,7 +137,7 @@ final class DataReader implements IDataReader
             // $field->flags = $this->_flags2txt($f->flags);
             $field->escaped = '`' . $field->originalTable . '`.`' . $field->originalName . '`';
             $fields[pg_field_name($this->_results, $i)] = $field;
-            
+
         }
         return $fields;
     }
@@ -154,20 +154,20 @@ final class DataReader implements IDataReader
         $property = strtolower($property);
         switch ($property) {
             case 'hasrows': {
-                    $return = $this->_results && pg_num_rows($this->_results) > 0;
-                    break;
-                }
+                $return = $this->_results && pg_num_rows($this->_results) > 0;
+                break;
+            }
             case 'affected': {
-                    $return = $this->_affected;
-                    break;
-                }
+                $return = $this->_affected;
+                break;
+            }
             case 'count': {
-                    if (is_null($this->_count)) {
-                        $this->_count = pg_num_rows($this->_results);
-                    }
-                    $return = $this->_count;
-                    break;
+                if (is_null($this->_count)) {
+                    $this->_count = pg_num_rows($this->_results);
                 }
+                $return = $this->_count;
+                break;
+            }
             default:
                 $return = null;
         }

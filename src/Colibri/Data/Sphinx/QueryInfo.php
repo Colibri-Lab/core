@@ -8,8 +8,8 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\Sphinx
  */
-namespace Colibri\Data\Sphinx;
 
+namespace Colibri\Data\Sphinx;
 
 use Colibri\Data\SqlClient\QueryInfo as SqlQueryInfo;
 

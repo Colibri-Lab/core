@@ -32,11 +32,11 @@ class Module
     // Include event dispatcher trait.
     use TEventDispatcher;
 
-     /**
-     * Config object.
-     *
-     * @var Config
-     */
+    /**
+    * Config object.
+    *
+    * @var Config
+    */
     protected $_config;
 
     /**

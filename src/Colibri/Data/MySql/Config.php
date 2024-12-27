@@ -8,8 +8,8 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\MySql
  */
-namespace Colibri\Data\MySql;
 
+namespace Colibri\Data\MySql;
 
 use Colibri\Data\SqlClient\IConfig;
 
@@ -20,7 +20,6 @@ use Colibri\Data\SqlClient\IConfig;
  */
 final class Config implements IConfig
 {
-    
     public static function DbmsType(): string
     {
         return 'relational';
@@ -60,14 +59,14 @@ final class Config implements IConfig
     public static function HasMultiFieldIndexes(): bool
     {
         return true;
-    }    
+    }
 
 
     public static function HasVirtual(): bool
     {
         return true;
     }
-    
+
     public static function HasAutoincrement(): bool
     {
         return true;

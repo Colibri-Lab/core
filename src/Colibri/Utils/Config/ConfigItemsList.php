@@ -2,29 +2,29 @@
 
 /**
  * Config
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Config
- * 
+ *
  */
+
 namespace Colibri\Utils\Config;
 
 use Colibri\Collections\ArrayList;
 
 /**
  * Represents a node in a configuration file.
- * 
+ *
  * This class extends the ArrayList class and provides functionality to represent a node in a configuration file.
  */
 class ConfigItemsList extends ArrayList
 {
-
     private string $_file = '';
 
     /**
      * Constructor
-     * 
+     *
      * Initializes a new instance of the ConfigItemsList class.
      *
      * @param array $data The data for the configuration items list.
@@ -38,7 +38,7 @@ class ConfigItemsList extends ArrayList
 
     /**
      * Get Item by Index
-     * 
+     *
      * Retrieves the configuration item at the specified index.
      *
      * @param integer $index The index of the configuration item to retrieve.

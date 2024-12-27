@@ -6,20 +6,20 @@
  * @package Colibri\Utils\Performance
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
- * 
+ *
  */
+
 namespace Colibri\Utils;
 
 use Colibri\App;
 
 /**
  * Class Debug
- * 
+ *
  * Methods for outputting debug information.
  */
 class Debug
 {
-
     /**
      * Converts arguments into a human-readable format.
      *
@@ -56,7 +56,10 @@ class Debug
         if (App::$request->server->{'commandline'}) {
             echo str_replace("<", "&lt;", str_replace(">", "&gt;", implode(" : ", $result))) . "\n";
             // закрываем ob
-            try { @ob_flush(); } catch(\Throwable $e) {  }
+            try {
+                @ob_flush();
+            } catch(\Throwable $e) {
+            }
         } else {
             echo "<pre>\n" . str_replace("<", "&lt;", str_replace(">", "&gt;", implode(" : ", $result))) . "\n</pre>";
         }

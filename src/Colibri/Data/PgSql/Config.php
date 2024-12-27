@@ -8,8 +8,8 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\PgSql
  */
-namespace Colibri\Data\PgSql;
 
+namespace Colibri\Data\PgSql;
 
 use Colibri\Data\SqlClient\IConfig;
 
@@ -24,7 +24,7 @@ final class Config implements IConfig
     {
         return 'relational';
     }
-    
+
     public static function AllowedTypes(): array
     {
         return [
@@ -42,7 +42,7 @@ final class Config implements IConfig
         ];
     }
 
-    
+
     public static function HasIndexes(): bool
     {
         return true;
@@ -61,8 +61,8 @@ final class Config implements IConfig
     public static function HasMultiFieldIndexes(): bool
     {
         return true;
-    }    
-    
+    }
+
     public static function HasAutoincrement(): bool
     {
         return true;
@@ -79,11 +79,11 @@ final class Config implements IConfig
     public static function IndexMethods(): array
     {
         return [
-            'BTREE', 
-            'HASH', 
-            // 'GIST', 
-            // 'SPGIST', 
-            // 'GIN', 
+            'BTREE',
+            'HASH',
+            // 'GIST',
+            // 'SPGIST',
+            // 'GIN',
             // 'BRIN'
         ];
     }

@@ -8,8 +8,8 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\Solr
  */
-namespace Colibri\Data\Solr;
 
+namespace Colibri\Data\Solr;
 
 use Colibri\Data\SqlClient\IConfig;
 
@@ -20,7 +20,6 @@ use Colibri\Data\SqlClient\IConfig;
  */
 final class Config implements IConfig
 {
-    
     public static function DbmsType(): string
     {
         return 'nosql';
@@ -41,12 +40,12 @@ final class Config implements IConfig
         ];
     }
 
-    
+
     public static function HasIndexes(): bool
     {
         return false;
     }
-    
+
     public static function FieldsHasPrefix(): bool
     {
         return false;
@@ -60,8 +59,8 @@ final class Config implements IConfig
     public static function HasMultiFieldIndexes(): bool
     {
         return false;
-    }    
-    
+    }
+
     public static function HasAutoincrement(): bool
     {
         return false;
@@ -78,7 +77,7 @@ final class Config implements IConfig
     {
         return '';
     }
-    
+
     public static function JsonIndexes(): bool
     {
         return false;

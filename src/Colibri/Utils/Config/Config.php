@@ -2,12 +2,13 @@
 
 /**
  * Config
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Config
- * 
+ *
  */
+
 namespace Colibri\Utils\Config;
 
 use Colibri\App;
@@ -23,7 +24,6 @@ use Colibri\Collections\ArrayListIterator;
  */
 class Config implements IteratorAggregate
 {
-
     private string $_file = '';
 
     /**

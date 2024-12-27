@@ -6,7 +6,6 @@ use JsonSerializable;
 
 class ValueField implements JsonSerializable
 {
-
     private string $_value;
     private string|array |object $_title;
 
@@ -35,7 +34,8 @@ class ValueField implements JsonSerializable
         }
     }
 
-    public function ToString(): string {
+    public function ToString(): string
+    {
         return $this->_value ?: '';
     }
 
@@ -57,7 +57,7 @@ class ValueField implements JsonSerializable
     public static function ParamTypeName(): string
     {
         return 'string';
-    } 
+    }
 
 
 }

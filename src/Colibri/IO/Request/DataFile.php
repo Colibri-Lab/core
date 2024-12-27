@@ -23,7 +23,6 @@ use Colibri\IO\FileSystem\File;
  */
 class DataFile extends DataItem
 {
-
     /**
      * Constructor.
      *

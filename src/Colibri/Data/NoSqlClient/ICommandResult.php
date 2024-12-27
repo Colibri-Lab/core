@@ -15,7 +15,6 @@ namespace Colibri\Data\NoSqlClient;
  */
 interface ICommandResult
 {
-
     public function Error(): ?object;
 
     public function QueryInfo(): object;

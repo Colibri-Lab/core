@@ -17,7 +17,6 @@ namespace Colibri\Common;
  */
 class ObjectHelper
 {
-
     /**
      * @deprecated
      */

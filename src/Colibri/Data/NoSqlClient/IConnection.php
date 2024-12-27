@@ -15,9 +15,8 @@ namespace Colibri\Data\NoSqlClient;
  */
 interface IConnection
 {
-
     public static function FromConnectionInfo(object|array $connectionInfo): static;
-    
+
     /**
      * Opens a connection to the database.
      *

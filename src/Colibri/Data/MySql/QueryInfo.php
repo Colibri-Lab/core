@@ -8,8 +8,8 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\MySql
  */
-namespace Colibri\Data\MySql;
 
+namespace Colibri\Data\MySql;
 
 use Colibri\Data\SqlClient\QueryInfo as SqlQueryInfo;
 

@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Events\Handlers
  */
+
 namespace Colibri\Events\Handlers;
 
 /**
@@ -16,5 +17,4 @@ namespace Colibri\Events\Handlers;
  */
 class LocalClosureException extends \Exception
 {
-    
 }

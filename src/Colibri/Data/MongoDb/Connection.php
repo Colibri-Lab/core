@@ -8,6 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\MongoDb
  */
+
 namespace Colibri\Data\MongoDb;
 
 use Colibri\Common\StringHelper;
@@ -64,7 +65,7 @@ final class Connection implements IConnection
     {
         return new static((object)$connectionInfo);
     }
-    
+
 
     /**
      * Opens a connection to the MySQL database server.
@@ -85,7 +86,7 @@ final class Connection implements IConnection
 
             $this->_resource = new MongoDbClient('mongodb://'.$this->_connectioninfo->host.':' . $this->_connectioninfo->port, );
             $this->_database = $this->_resource->getDatabase($this->_connectioninfo->database);
-            
+
         } catch (\Throwable $e) {
             throw new Exception(
                 'Connection: ' . $this->_connectioninfo->host . ' ' .
@@ -165,6 +166,6 @@ final class Connection implements IConnection
         }
     }
 
-    
+
 
 }

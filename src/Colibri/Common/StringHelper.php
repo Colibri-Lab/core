@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
+
 namespace Colibri\Common;
 
 use Colibri\Collections\Collection;

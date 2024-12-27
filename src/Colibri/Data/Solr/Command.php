@@ -31,8 +31,8 @@ use Colibri\Utils\Logs\Logger;
  */
 final class Command extends NoSqlCommand
 {
-
-    public function EscapeQuery(string $input):string {
+    public function EscapeQuery(string $input): string
+    {
         $specialChars = ['\\', '+', '-', '&&', '||', '!', '(', ')', '{', '}', '[', ']', '^', '"', '~', '*', '?', ':', '/'];
         foreach ($specialChars as $char) {
             $input = str_replace($char, '\\' . $char, $input);
@@ -186,7 +186,7 @@ final class Command extends NoSqlCommand
      */
     public function SelectDocuments(string $collectionName, array $select, ?array $filters = null, ?array $faset = null, ?array $fields = null, ?array $sort = null, int $page = -1, int $pagesize = 20): CommandResult
     {
-     
+
         $params = ['wt' => 'json'];
         $q = [];
         foreach($select as $key => $value) {
@@ -374,7 +374,7 @@ final class Command extends NoSqlCommand
 
             $fname = $fieldName;
             $fparams = $xfield['params'] ?? [];
-            
+
             $fieldFound = VariableHelper::FindInArray($ofields->ResultData(), 'name', $fname);
             if (!$fieldFound) {
                 $logger->error($storage . ': ' . $fname . ': Field destination not found: creating');
@@ -407,7 +407,7 @@ final class Command extends NoSqlCommand
                     );
                 }
             }
-        
+
         }
     }
 

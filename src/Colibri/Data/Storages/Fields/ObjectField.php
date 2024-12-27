@@ -261,7 +261,7 @@ class ObjectField extends ExtendedObject
         return (object) $return;
     }
 
-    
+
 
     public function Field(): Field
     {
@@ -344,9 +344,9 @@ class ObjectField extends ExtendedObject
     public static function ParamTypeName(): string
     {
         return 'string';
-    } 
+    }
 
-    public static function Null(): mixed
+    public static function null(): mixed
     {
         return null;
     }

@@ -9,6 +9,7 @@
  */
 
 namespace Colibri\Common;
+
 use Colibri\App;
 use Colibri\IO\FileSystem\File;
 
@@ -35,11 +36,11 @@ class MimeType
      */
     protected static array $mime_types = [];
 
-     /**
-     * List of types compatible with browsers.
-     *
-     * @var array
-     */
+    /**
+    * List of types compatible with browsers.
+    *
+    * @var array
+    */
     protected static array $browserCapableTypes = array(
         "jpg",
         "png",
@@ -80,7 +81,8 @@ class MimeType
         File::Write($runtimePath . 'mime.types', $content, true, '777');
     }
 
-    private function _loadMimeTypes() {
+    private function _loadMimeTypes()
+    {
         $runtimePath = App::$appRoot . App::$config->Query('runtime')->GetValue();
         if(File::Exists($runtimePath . 'mime.types')) {
             $file = new File($runtimePath . 'mime.types');
@@ -110,7 +112,7 @@ class MimeType
                 $filetypes = explode(' ', $filetypes);
 
                 foreach($filetypes as $filetype) {
-                    self::$mime_types[$filetype] = $mimetype;                    
+                    self::$mime_types[$filetype] = $mimetype;
                 }
             }
         }
@@ -135,7 +137,7 @@ class MimeType
     }
 
     /**
-     * Returns if the file type is valid 
+     * Returns if the file type is valid
      * @return bool
      */
     protected function getPropertyIsValid(): bool
@@ -215,45 +217,45 @@ class MimeType
         $return = null;
         switch ($field) {
             case "data": {
-                    $return = $this->getPropertyData();
-                    break;
-                }
+                $return = $this->getPropertyData();
+                break;
+            }
             case "isCapable": {
-                    $return = $this->getPropertyIsCapable();
-                    break;
-                }
+                $return = $this->getPropertyIsCapable();
+                break;
+            }
             case "isValid": {
-                    $return = $this->getPropertyIsValid();
-                    break;
-                }
+                $return = $this->getPropertyIsValid();
+                break;
+            }
             case "isImage": {
-                    $return = $this->getPropertyIsImage();
-                    break;
-                }
+                $return = $this->getPropertyIsImage();
+                break;
+            }
             case "isAudio": {
-                    $return = $this->getPropertyIsAudio();
-                    break;
-                }
+                $return = $this->getPropertyIsAudio();
+                break;
+            }
             case "isVideo": {
-                    $return = $this->getPropertyIsVideo();
-                    break;
-                }
+                $return = $this->getPropertyIsVideo();
+                break;
+            }
             case "isViewable": {
-                    $return = $this->getPropertyIsViewable();
-                    break;
-                }
+                $return = $this->getPropertyIsViewable();
+                break;
+            }
             case "isFlashVideo": {
-                    $return = $this->getPropertyIsFlashVideo();
-                    break;
-                }
+                $return = $this->getPropertyIsFlashVideo();
+                break;
+            }
             case "isFlash": {
-                    $return = $this->getPropertyIsFlash();
-                    break;
-                }
+                $return = $this->getPropertyIsFlash();
+                break;
+            }
             case "type": {
-                    $return = $this->getPropertyType();
-                    break;
-                }
+                $return = $this->getPropertyType();
+                break;
+            }
             default:
         }
         return $return;

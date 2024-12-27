@@ -2,12 +2,13 @@
 
 /**
  * Config
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Cache
- * 
+ *
  */
+
 namespace Colibri\Utils\Cache;
 
 use Colibri\App;
@@ -19,7 +20,6 @@ use Colibri\IO\FileSystem\File;
  */
 class CacheManager
 {
-
     /**
      * Gets the cache file path.
      *

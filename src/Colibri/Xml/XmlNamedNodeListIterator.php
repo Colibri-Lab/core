@@ -10,15 +10,16 @@
  * @package Colibri\Xml
  *
  */
+
 namespace Colibri\Xml;
 
 use Colibri\Collections\CollectionIterator;
 
 /**
  * XmlNamedNodeListIterator
- * 
+ *
  * This class represents an iterator for XmlNodeList.
- * 
+ *
  * @method XmlNode current()
  * @method XmlNode next()
  */

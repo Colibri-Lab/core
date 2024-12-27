@@ -2,12 +2,13 @@
 
 /**
  * Logs
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Logs
- * 
+ *
  */
+
 namespace Colibri\Utils\Logs;
 
 use Colibri\App;
@@ -18,13 +19,12 @@ use DateTime;
 
 /**
  * Represents a logger for logging messages to a file.
- * 
+ *
  * This class extends the abstract Logger class and provides functionality to log messages to a file.
- * 
+ *
  */
 class FileLogger extends Logger
 {
-
     /**
      * Current position in the log file.
      *

@@ -7,6 +7,7 @@
  * @copyright 2019 Colibri
  * @package Colibri\Data\Storages\Fields
  */
+
 namespace Colibri\Data\Storages\Fields;
 
 use Colibri\App;
@@ -80,7 +81,7 @@ class FileField implements JsonSerializable
      * @param string $data путь к файлу
      * @return void
      */
-    public function __construct($data, ? Storage $storage = null, ? Field $field = null)
+    public function __construct($data, ?Storage $storage = null, ?Field $field = null)
     {
         $this->_path = is_array($data) || is_object($data) ? ((array)$data)['path'] : $data;
         $this->_name = basename($this->_path);
@@ -96,63 +97,63 @@ class FileField implements JsonSerializable
     {
         switch ($nm) {
             case "isOnline": {
-                    return strstr($this->_path, strlen('://')) !== false;
-                }
+                return strstr($this->_path, strlen('://')) !== false;
+            }
             case "isValid": {
-                    if (strstr($this->_path, strlen('://')) !== false) {
-                        return true;
-                    }
-                    if ($this->_path) {
-                        return File::Exists(App::$webRoot . $this->_path);
-                    }
-                    return false;
+                if (strstr($this->_path, strlen('://')) !== false) {
+                    return true;
                 }
+                if ($this->_path) {
+                    return File::Exists(App::$webRoot . $this->_path);
+                }
+                return false;
+            }
             case 'path': {
-                    return $this->_path;
-                }
+                return $this->_path;
+            }
             case "mimetype": {
-                    return new MimeType($this->_ext);
-                }
+                return new MimeType($this->_ext);
+            }
             case "extension":
             case "ext":
             case "type": {
-                    return $this->_ext;
-                }
+                return $this->_ext;
+            }
             case "binary":
             case "content":
             case "data": {
-                    if (is_null($this->_content)) {
-                        $this->_content = File::Read(App::$webRoot . $this->_path);
-                    }
-                    return $this->_content;
+                if (is_null($this->_content)) {
+                    $this->_content = File::Read(App::$webRoot . $this->_path);
                 }
+                return $this->_content;
+            }
             case "size": {
-                    if ($this->mimetype->isImage && !$this->isOnline) {
-                        if ($this->isValid) {
-                            $info = Graphics::Info(App::$webRoot . $this->_path);
-                        } else {
-                            return new Size();
-                        }
-                        return $info->size;
+                if ($this->mimetype->isImage && !$this->isOnline) {
+                    if ($this->isValid) {
+                        $info = Graphics::Info(App::$webRoot . $this->_path);
                     } else {
-                        return null;
+                        return new Size();
                     }
+                    return $info->size;
+                } else {
+                    return null;
                 }
+            }
             case "id":
             case "name":
             case "filename": {
-                    return $this->_name;
-                }
+                return $this->_name;
+            }
             case "filesize": {
-                    if ($this->isOnline) {
-                        return 0;
-                    }
-                    $f = new File(App::$webRoot . $this->_path);
-                    return $f->size;
+                if ($this->isOnline) {
+                    return 0;
                 }
+                $f = new File(App::$webRoot . $this->_path);
+                return $f->size;
+            }
             default: {
-                    return null;
-                }
+                return null;
+            }
         }
     }
 
@@ -259,9 +260,9 @@ class FileField implements JsonSerializable
     public static function ParamTypeName(): string
     {
         return 'string';
-    } 
+    }
 
-    public static function Null(): mixed
+    public static function null(): mixed
     {
         return null;
     }

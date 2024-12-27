@@ -10,6 +10,7 @@
  * @package App
  * @version 1.0.0
  */
+
 namespace Colibri;
 
 use Colibri\Web\Request;
@@ -136,7 +137,7 @@ final class App
      */
     public function Initialize(): void
     {
-        
+
         // try to get system timezone
         self::$systemTimezone = trim(shell_exec('cat /etc/timezone'), "\r\t\n ");
         date_default_timezone_set(self::$systemTimezone);

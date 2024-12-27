@@ -202,6 +202,6 @@ final class Connection implements IConnection
     {
         return pg_ping($this->_resource);
     }
-    
-    
+
+
 }

@@ -9,6 +9,7 @@
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml\Serialization
  */
+
 namespace Colibri\Xml\Serialization;
 
 /**
@@ -19,7 +20,6 @@ namespace Colibri\Xml\Serialization;
  */
 class XmlCData implements \JsonSerializable
 {
-
     /**
      * The value of the CDATA element.
      *

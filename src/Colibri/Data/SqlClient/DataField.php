@@ -98,5 +98,5 @@ class DataField
      * @var int
      */
     public int $decimals;
-    
+
 }

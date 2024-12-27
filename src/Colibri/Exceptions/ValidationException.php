@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Exceptions
  */
+
 namespace Colibri\Exceptions;
 
 use Colibri\App;

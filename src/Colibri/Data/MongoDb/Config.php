@@ -8,8 +8,8 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\MongoDb
  */
-namespace Colibri\Data\MongoDb;
 
+namespace Colibri\Data\MongoDb;
 
 use Colibri\Data\SqlClient\IConfig;
 
@@ -20,13 +20,12 @@ use Colibri\Data\SqlClient\IConfig;
  */
 final class Config implements IConfig
 {
-    
     public static function DbmsType(): string
     {
         return 'nosql';
     }
-    
-    
+
+
     public static function AllowedTypes(): array
     {
         return [
@@ -56,7 +55,7 @@ final class Config implements IConfig
     public static function HasMultiFieldIndexes(): bool
     {
         return false;
-    }    
+    }
 
     public static function HasVirtual(): bool
     {
@@ -77,7 +76,7 @@ final class Config implements IConfig
     {
         return [];
     }
-    
+
     public static function Symbol(): string
     {
         return '';

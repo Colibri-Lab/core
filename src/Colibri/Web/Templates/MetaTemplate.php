@@ -7,8 +7,9 @@
  *
  * @package Colibri\Web\Templates
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web\Templates;
 
 use Colibri\Events\EventsContainer;
@@ -23,9 +24,8 @@ use Colibri\Utils\ExtendedObject;
  */
 class MetaTemplate extends Template
 {
-
-    const JS = 'js';
-    const PHP = 'php';
+    public const JS = 'js';
+    public const PHP = 'php';
 
     /**
      * Constructor

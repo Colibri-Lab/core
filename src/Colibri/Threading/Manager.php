@@ -18,7 +18,6 @@ use Colibri\App;
  */
 class Manager
 {
-
     /**
      * Singleton instance.
      *

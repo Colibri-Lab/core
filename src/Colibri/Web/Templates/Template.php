@@ -7,8 +7,9 @@
  *
  * @package Colibri\Web\Templates
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web\Templates;
 
 use Colibri\App;
@@ -28,10 +29,9 @@ use Colibri\Utils\ExtendedObject;
  */
 abstract class Template
 {
-
     use TEventDispatcher;
 
-    const Dummy = 'dummy';
+    public const Dummy = 'dummy';
 
     /**
      * The path to the template file.
@@ -120,7 +120,7 @@ abstract class Template
      * @param mixed $args Additional arguments for rendering.
      * @return string The rendered output.
      */
-    static function Run(string $code, mixed $args): string
+    public static function Run(string $code, mixed $args): string
     {
         $dummy = new static (Template::Dummy);
         return $dummy->RenderCode($code, $args);

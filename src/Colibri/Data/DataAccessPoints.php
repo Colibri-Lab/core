@@ -8,7 +8,6 @@
  * @package Colibri\Data
  */
 
-
 namespace Colibri\Data;
 
 use Colibri\App;
@@ -20,15 +19,14 @@ use Colibri\Utils\Config\ConfigException;
  *
  * @property-read object $accessPoints The access points.
  * @property-read array $pool The pool.
- * 
+ *
  * @method DataAccessPoint[] getIterator() Returns an iterator for DataAccessPoint objects.
  * @method DataAccessPoint offsetGet(mixed $offset) Returns the DataAccessPoint object at the specified offset.
  * @method DataAccessPoint offsetExists(mixed $offset) Checks if a DataAccessPoint object exists at the specified offset.
- * 
+ *
  */
 class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
 {
-
     /**
      * @var DataAccessPoints
      */
@@ -53,7 +51,7 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
      */
     public function __construct()
     {
- 
+
         $this->_accessPointsPool = [];
         try {
             $this->_accessPoints = App::$config->Query('databases.access-points', (object)[])->AsObject();
@@ -62,27 +60,25 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
                 $point->name = $name;
                 $point->module = 'application';
             }
-        }
-        catch(ConfigException $e) {
-            $this->_accessPoints = []; 
+        } catch(ConfigException $e) {
+            $this->_accessPoints = [];
         }
 
         try {
             $modules = App::$config->Query('modules.entries');
-        }
-        catch(ConfigException $e) {
+        } catch(ConfigException $e) {
             $modules = [];
         }
-        
+
         foreach($modules as $moduleConfig) {
             if(!$moduleConfig->Query('enabled')->GetValue()) {
                 continue;
             }
-            
+
             /** @var \Colibri\Utils\Config\Config $moduleConfig */
             try {
 
-                $keysArray = $moduleConfig->Query('for', [])->ToArray(); 
+                $keysArray = $moduleConfig->Query('for', [])->ToArray();
                 if(!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
                     continue;
                 }
@@ -94,8 +90,7 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
                     $point->module = $moduleConfig->Query('name')->GetValue();
                 }
                 $this->_accessPoints = VariableHelper::Extend($this->_accessPoints, $databasesConfig, true);
-            }
-            catch(ConfigException $e) {
+            } catch(ConfigException $e) {
 
             }
         }
@@ -163,12 +158,12 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
 
             $logqueries = $accessPointData->logqueries ?? null;
             $mindelay = $accessPointData->mindelay ?? null;
-    
+
 
 
             if($dbmsType == DataAccessPoint::DBMSTypeRelational) {
 
-    
+
                 // формируем данные для инициализации точки доступа
                 $accessPointInit = (object)[
                     'host' => $this->_accessPoints->connections->$accessPointConnection?->host,
@@ -181,10 +176,10 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
                     'mindelay' => $mindelay,
                     'driver' => $driver
                 ];
-    
+
             } else {
                 $accessPointInit = VariableHelper::Extend(
-                    (array)$this->_accessPoints->connections->$accessPointConnection, 
+                    (array)$this->_accessPoints->connections->$accessPointConnection,
                     [
                         'driver' => $driver,
                         'logqueries' => $logqueries,
@@ -300,7 +295,7 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
     {
         foreach($this as $accessPoint) {
             $accessPoint->Reopen();
-        } 
+        }
     }
 
 }

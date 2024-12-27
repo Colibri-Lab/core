@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Graphics
  */
+
 namespace Colibri\Graphics;
 
 /**
@@ -16,33 +17,32 @@ namespace Colibri\Graphics;
  */
 class Rect
 {
-
     /**
      * The bottom-left corner.
      *
      * @var Point|null
      */
-    public ? Point $lowerleft = null;
+    public ?Point $lowerleft = null;
 
     /**
      * The bottom-right corner.
      *
      * @var Point|null
      */
-    public ? Point $lowerright = null;
+    public ?Point $lowerright = null;
 
     /**
      * The top-left corner.
      *
      * @var Point|null
      */
-    public ? Point $upperleft = null;
+    public ?Point $upperleft = null;
 
     /**
      * The top-right corner.
      *
      * @var Point|null
      */
-    public ? Point $upperright = null;
+    public ?Point $upperright = null;
 
 }

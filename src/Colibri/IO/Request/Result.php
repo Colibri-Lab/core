@@ -15,7 +15,6 @@ namespace Colibri\IO\Request;
  */
 class Result
 {
-
     /**
      * Status of the request.
      *
@@ -43,7 +42,7 @@ class Result
      * @var object|array
      */
     public object|array $headers;
-    
+
     /**
      * Array or object containing HTTP headers.
      *

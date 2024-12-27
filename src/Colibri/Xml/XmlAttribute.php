@@ -10,6 +10,7 @@
  * @package Colibri\Xml
  *
  */
+
 namespace Colibri\Xml;
 
 /**
@@ -25,7 +26,6 @@ namespace Colibri\Xml;
  */
 class XmlAttribute
 {
-
     /**
      * The object containing the DOMNode of the attribute.
      *

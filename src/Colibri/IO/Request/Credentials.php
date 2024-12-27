@@ -15,7 +15,6 @@ namespace Colibri\IO\Request;
  */
 class Credentials
 {
-
     /**
      * Login
      *

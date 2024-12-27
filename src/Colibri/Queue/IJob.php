@@ -41,7 +41,7 @@ interface IJob
      * @return string
      */
     public function Key(): string;
-    
+
     /**
      * Handles the job.
      *

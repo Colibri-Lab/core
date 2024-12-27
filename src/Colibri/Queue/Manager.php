@@ -476,7 +476,7 @@ class Manager
      * @param string $class The job class
      * @param ?string $payloadClass The job payload class
      * @param array|object|null $payloadFilter object of payload to check
-     * @return boolean true if the job exists and running, false if job exists 
+     * @return boolean true if the job exists and running, false if job exists
      *                 and not running, and null if job does not exists
      */
     public function JobIsRunning(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?bool
@@ -522,7 +522,7 @@ class Manager
         if(!$data) {
             return null;
         }
-        
+
         return $data->reservation_key !== null;
     }
 
@@ -532,7 +532,7 @@ class Manager
      * @param string $class The job class
      * @param ?string $payloadClass The job payload class
      * @param array|object|null $payloadFilter object of payload to check
-     * @return [IJob]|null 
+     * @return [IJob]|null
      */
     public function FindJob(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?array
     {
@@ -587,7 +587,7 @@ class Manager
                 $data->id
             );
         }
-        
+
         return $ret;
     }
 
@@ -753,7 +753,7 @@ class Manager
         return $ret;
     }
 
-    
+
     /**
      * Retrieves when queue is running
      *

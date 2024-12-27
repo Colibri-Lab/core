@@ -6,8 +6,9 @@
  * @package Colibri\Utils\Menu
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
- * 
+ *
  */
+
 namespace Colibri\Utils\Menu;
 
 /**
@@ -15,10 +16,9 @@ namespace Colibri\Utils\Menu;
  */
 class Item implements \JsonSerializable
 {
-
     private ?object $_data = null;
 
-    public ? Item $parent = null;
+    public ?Item $parent = null;
 
     /**
      * Constructor for creating a new menu item.
@@ -55,7 +55,7 @@ class Item implements \JsonSerializable
      * @param string $execute The action to execute when the item is clicked.
      * @return self The newly created menu item.
      */
-    static function Create(string $name, string $title, string $description, string $icon = '', string $execute = ''): self
+    public static function Create(string $name, string $title, string $description, string $icon = '', string $execute = ''): self
     {
         return new self($name, $title, $description, $icon, $execute);
     }
@@ -66,7 +66,7 @@ class Item implements \JsonSerializable
      * @param array $array The array containing item data.
      * @return self The newly created menu item.
      */
-    static function FromArray(array $array): self
+    public static function FromArray(array $array): self
     {
         $item = new self($array['name'] ?? '', $array['title'] ?? '', $array['description'] ?? '', $array['icon'] ?? '', $array['execute'] ?? '');
         if (!empty($array['children'] ?? []) && is_array($array['children'])) {

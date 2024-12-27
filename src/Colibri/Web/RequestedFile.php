@@ -7,11 +7,12 @@
  *
  * @package Colibri\Web
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * Requested File Class
@@ -25,7 +26,6 @@ use \InvalidArgumentException;
  */
 class RequestedFile
 {
-
     /** @var string The name of the file. */
     public string $name;
     /** @var string The extension of the file. */
@@ -44,7 +44,7 @@ class RequestedFile
      *
      * @param array|object $arrFILE The $_FILE array or object.
      */
-    function __construct(array |object $arrFILE)
+    public function __construct(array |object $arrFILE)
     {
 
         if (!$arrFILE) {
@@ -87,7 +87,7 @@ class RequestedFile
     /**
      * Destructor.
      */
-    function __destruct()
+    public function __destruct()
     {
         // if (file_exists($this->temporary)) {
         //     unlink($this->temporary);
@@ -102,7 +102,7 @@ class RequestedFile
      * @return void
      *
      */
-    function MoveTo(string $path, int $mode = 0777): void
+    public function MoveTo(string $path, int $mode = 0777): void
     {
         rename($this->temporary, $path);
         chmod($path, $mode);

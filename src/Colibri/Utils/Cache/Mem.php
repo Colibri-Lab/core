@@ -2,12 +2,13 @@
 
 /**
  * Config
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Cache
- * 
+ *
  */
+
 namespace Colibri\Utils\Cache;
 
 /**
@@ -16,13 +17,12 @@ namespace Colibri\Utils\Cache;
  */
 class Mem
 {
-
     /**
      * Static variable to ensure singleton mechanism.
      *
      * @var \Memcached
      */
-    static $instance;
+    public static $instance;
 
     /**
      * Creates a singleton Memcached object.
@@ -42,7 +42,7 @@ class Mem
             Mem::$instance = new \Memcached();
             Mem::$instance->addServer($host, $port);
             // Mem::$instance->connect($host, $port);
-            
+
         }
         return Mem::$instance;
     }
@@ -160,7 +160,7 @@ class Mem
         if (!Mem::$instance) {
             return [];
         }
-        
+
         $return = Mem::$instance->getAllKeys();
         if(!$filter) {
             return $return;

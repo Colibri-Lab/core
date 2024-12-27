@@ -13,16 +13,28 @@ namespace Colibri\Collections;
 use ArrayAccess;
 use Countable;
 use JsonSerializable;
-use Colibri\Utils\Debug;
 
 /**
  * Base class for array lists
  */
+/**
+ * Class ArrayList
+ *
+ * This class implements a list of elements with array-like functionality.
+ * It provides methods to manipulate and access the elements in the list.
+ *
+ * @implements IArrayList, \IteratorAggregate, JsonSerializable, ArrayAccess, Countable
+ *
+ */
 class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, ArrayAccess, Countable
 {
-
     /**
-     * JSON schema
+     * JSON schema definition for the ArrayList class.
+     *
+     * This constant holds the JSON schema that defines the structure and
+     * validation rules for the ArrayList class.
+     *
+     * @var array
      */
     public const JsonSchema = [
         'type' => 'array',
@@ -37,23 +49,21 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     ];
 
     /**
-     * Data
-     *
-     * @var mixed
+     * @var array|null $data The internal storage for the elements of the ArrayList.
      */
     protected $data = null;
 
     /**
      * Constructor
      * Creates an array list from array|object or else
-     * 
+     *
      * @example
      * ```
      * $array1 = new ArrayList([1, 2, 3]);
      * or copy existing array
      * $array2 = new ArrayList($array1);
      * ```
-     * 
+     *
      */
     public function __construct(mixed $data = array())
     {
@@ -69,19 +79,19 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
     }
 
     /**
-     * Gets an interator     
-     * 
+     * Gets an interator
+     *
      * @example
      * ```
      * For example
-     * 
+     *
      * $array = new ArrayList();
      * foreach($array as $item) { ... }
-     * 
-     * or 
-     * 
+     *
+     * or
+     *
      * foreach($array->getIterator() as $item) { ... }
-     * 
+     *
      * ```
      */
     public function getIterator(): ArrayListIterator
@@ -91,7 +101,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Check when item contains in internal array
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -106,14 +116,14 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Returns index by item
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
      * $array->IndexOf(3) returns 2
      * $array->IndexOf(5) returns -1
      * ```
-     * 
+     *
      */
     public function IndexOf(mixed $item): int
     {
@@ -122,7 +132,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Returns item by index
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -146,7 +156,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      * $array = new ArrayList([1,2,3]);
      * $array->Add(5) and ArrayList then will contain [1,2,3,5]
      * ```
-     * 
+     *
      */
     public function Add(mixed $value): mixed
     {
@@ -156,7 +166,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Sets an item to specified place in array list
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -171,7 +181,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Appends an items to array list
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -189,7 +199,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Inserts an item to specified index
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -203,7 +213,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Deletes an item
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -222,7 +232,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Deletes an item by index
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -236,11 +246,11 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Clears an array list
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
-     * $array->Clear() and ArrayList then will not contain any item 
+     * $array->Clear() and ArrayList then will not contain any item
      * ```
      */
     public function Clear(): void
@@ -250,12 +260,12 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Returns string representation of array list
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
-     * $array->ToString() returns '1,2,3' 
-     * $array->ToString(';') returns '1;2;3' 
+     * $array->ToString() returns '1,2,3'
+     * $array->ToString(';') returns '1;2;3'
      * ```
      */
     public function ToString(string $splitter = ','): string
@@ -265,11 +275,11 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Returns internal array
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
-     * $array->ToArray() returns [1,2,3] 
+     * $array->ToArray() returns [1,2,3]
      * ```
      */
     public function ToArray(): array
@@ -279,14 +289,14 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Sorts an array using sort function
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([3,2,1]);
      * $array->SortByClosure(fn($a, $b) => $a <=> $b) returns [1,2,3]
-     *  
+     *
      * $array = new ArrayList([1,3,2]);
-     * $array->SortByClosure(fn($a, $b) => $a > $b ? -1 : 1) returns [3,2,1] 
+     * $array->SortByClosure(fn($a, $b) => $a > $b ? -1 : 1) returns [3,2,1]
      * ```
      */
     public function SortByClosure(\Closure $closure): self
@@ -297,11 +307,11 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
         $this->Append($array);
         return $this;
     }
-    
+
     /**
      * Sorts an array list by using internal object field by key
-     * 
-     * 
+     *
+     *
      * @example
      * ```
      * $array = new ArrayList([
@@ -311,9 +321,9 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      *   (object)['field1' => 7, 'field2' => 1],
      *   (object)['field1' => 2, 'field2' => 3],
      * ]);
-     * 
-     * $array->Sort('field1', SORT_ASC) returns 
-     * 
+     *
+     * $array->Sort('field1', SORT_ASC) returns
+     *
      * ArrayList([
      *   (object)['field1' => 1, 'field2' => 2],
      *   (object)['field1' => 2, 'field2' => 3],
@@ -321,9 +331,9 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      *   (object)['field1' => 5, 'field2' => 1],
      *   (object)['field1' => 7, 'field2' => 1],
      * ])
-     * 
+     *
      * $array->Sort('field1', SORT_DESC) returns
-     * 
+     *
      * ArrayList([
      *   (object)['field1' => 7, 'field2' => 1],
      *   (object)['field1' => 5, 'field2' => 1],
@@ -331,7 +341,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
      *   (object)['field1' => 2, 'field2' => 3],
      *   (object)['field1' => 1, 'field2' => 2],
      * ])
-     *  
+     *
      * ```
      */
     public function Sort(string $k = null, int $sorttype = SORT_ASC): void
@@ -363,7 +373,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Returns internal array count
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -377,7 +387,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Returns first item of array list
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -391,7 +401,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Returns last item of array list
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -405,7 +415,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Return internal array for json conversion
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -419,7 +429,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Filters an array list by closure
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -439,7 +449,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Finds an item by closure
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -459,7 +469,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Executes an closure for every item and returns new array list
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
@@ -477,13 +487,13 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Sets an item by index (used for ArrayAccess)
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
      * $array->offsetSet(2,4) returns [1,4,3]
      * ```
-     * 
+     *
      * @param int $offset
      * @param mixed $value
      * @return void
@@ -499,14 +509,14 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Checks if offset exists in array list (used for ArrayAccess)
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
      * $array->offsetExists(2) returns true
      * $array->offsetExists(4) returns false
      * ```
-     * 
+     *
      * @param int $offset
      * @return bool
      */
@@ -517,13 +527,13 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Deletes an item from array list by index (used for ArrayAccess)
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);
      * $array->offsetUnset(1) array goes to be [1,3]
      * ```
-     * 
+     *
      * @param int $offset
      * @return void
      */
@@ -534,7 +544,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * Returns an item at offset position
-     * 
+     *
      * @example
      * ```
      * $array = new ArrayList([1,2,3]);

@@ -8,6 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\MongoDb
  */
+
 namespace Colibri\Data\MongoDb;
 
 use Colibri\Data\DataAccessPointsException;

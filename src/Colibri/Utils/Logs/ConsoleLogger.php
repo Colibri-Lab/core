@@ -2,12 +2,13 @@
 
 /**
  * Logs
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Utils\Logs
- * 
+ *
  */
+
 namespace Colibri\Utils\Logs;
 
 use Colibri\Utils\Debug;
@@ -15,13 +16,12 @@ use DateTime;
 
 /**
  * Represents a logger for logging messages to the console.
- * 
+ *
  * This class extends the abstract Logger class and provides functionality to log messages to the console.
- * 
+ *
  */
 class ConsoleLogger extends Logger
 {
-
     /**
      * Constructor.
      *

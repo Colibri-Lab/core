@@ -10,6 +10,7 @@
  * @package Colibri\Xml
  *
  */
+
 namespace Colibri\Xml;
 
 use Colibri\Collections\ArrayListIterator;

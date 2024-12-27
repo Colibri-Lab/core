@@ -23,18 +23,17 @@ use Colibri\Utils\Debug;
  */
 class Request
 {
-
     /** Separator */
-    const Boundary = '---------------------------';
+    public const Boundary = '---------------------------';
     /** Ending */
-    const BoundaryEnd = '--';
+    public const BoundaryEnd = '--';
 
     /**
      * Logins and passwords
      *
      * @var Credentials|null
      */
-    public ? Credentials $credentials;
+    public ?Credentials $credentials;
 
     /**
      * Target address
@@ -173,8 +172,7 @@ class Request
         string $encryption = Encryption::UrlEncoded,
         mixed $postData = null,
         string $boundary = ''
-    )
-    {
+    ) {
 
         if (!self::__checkWebRequest()) {
             throw new Exception('Can not load module curl.', 500);
@@ -238,7 +236,7 @@ class Request
             return $this->_createMultipartRequestBody($this->boundary, $this->postData);
         } elseif ($this->encryption == Encryption::XmlEncoded) {
             $return = VariableHelper::IsString($this->postData) ?
-                $this->postData : XmlHelper::Encode($this->postData, null);
+                $this->postData : XmlHelper::Encode($this->postData);
         } elseif ($this->encryption == Encryption::JsonEncoded) {
             $return = VariableHelper::IsString($this->postData) ?
                 $this->postData : json_encode($this->postData, JSON_UNESCAPED_UNICODE);
@@ -343,7 +341,7 @@ class Request
         );
 
         if ($this->cookies) {
-            $_headers[] = "Cookie: " . is_array($this->cookies) ? 
+            $_headers[] = "Cookie: " . is_array($this->cookies) ?
                 http_build_query($this->cookies, '', '; ') : $this->cookies;
         }
 
@@ -429,8 +427,7 @@ class Request
         int $timeout = 0,
         bool $sslVerify = true,
         array $headers = []
-    ): Result
-    {
+    ): Result {
         $req = new Request($target, Type::Get);
         $req->timeout = $timeout;
         $req->sslVerify = $sslVerify;

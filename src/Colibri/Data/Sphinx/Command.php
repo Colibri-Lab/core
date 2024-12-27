@@ -39,7 +39,7 @@ final class Command extends SqlCommand
         }
 
         $params = $this->_params;
-        return preg_replace_callback('/\[\[([^\]]+)\]\]/', function($match) use($params) {
+        return preg_replace_callback('/\[\[([^\]]+)\]\]/', function ($match) use ($params) {
             $match = $match[1];
             if (strstr($match, ':') === false) {
                 $match = $match . ':string';
@@ -47,8 +47,8 @@ final class Command extends SqlCommand
 
             $matching = explode(':', $match);
             switch($matching[1]) {
-                case 'integer': 
-                case 'double': 
+                case 'integer':
+                case 'double':
                     return $params[$matching[0]];
                 case 'string':
                 case 'blob':
@@ -56,7 +56,7 @@ final class Command extends SqlCommand
                     return '\'' . $params[$matching[0]] . '\'';
             }
         }, $query);
-        
+
     }
 
     /**
@@ -77,7 +77,7 @@ final class Command extends SqlCommand
             $preparedQuery = $this->_prepareStatement($preparedQuery);
         }
         $res = mysqli_query($this->_connection->resource, $preparedQuery);
-        
+
         $affected = null;
         if ($this->page > 0 && $info) {
 
@@ -119,7 +119,7 @@ final class Command extends SqlCommand
         if ($this->_params) {
             $query = $this->_prepareStatement($query);
         }
-        
+
         mysqli_query($this->_connection->resource, $query);
         return new QueryInfo(
             $this->type,
@@ -152,22 +152,22 @@ final class Command extends SqlCommand
 
         $queryBuilder = new QueryBuilder($this->_connection);
 
-        $CreateReader = function(string $query, $connection) {
+        $CreateReader = function (string $query, $connection) {
             $tableCommand = new Command($query, $connection);
             return $tableCommand->ExecuteReader();
         };
 
-        $Exec = function(string $query, $connection) {
+        $Exec = function (string $query, $connection) {
             $tableCommand = new Command($query, $connection);
             return $tableCommand->ExecuteNonQuery();
         };
 
-        $CreateIndex = function($connection, $exec, $indexName, $table, $fields) {
+        $CreateIndex = function ($connection, $exec, $indexName, $table, $fields) {
             $res = $exec('CREATE INDEX `' . $indexName . '` ON `'.$table.'`(`'.implode('`,`', $fields).'`)', $connection);
             return $res->error;
         };
 
-        $DropIndex = function($connection, $exec, $indexName, $table) {
+        $DropIndex = function ($connection, $exec, $indexName, $table) {
             $res = $exec('DROP INDEX `' . $indexName . '` ON `'.$table.'`', $connection);
             return $res->error;
         };
@@ -214,14 +214,14 @@ final class Command extends SqlCommand
             $indices = [];
             while ($index = $indexesReader->Read()) {
                 $i = self::ExtractIndexInformation($index);
-                
+
                 if (!isset($indices[$i->Name])) {
                     $i->Columns = [($i->ColumnPosition - 1) => $i->Columns[0]];
                     $indices[$i->Name] = $i;
                 } else {
                     $indices[$i->Name]->Columns[$i->ColumnPosition - 1] = $i->Columns[0];
                 }
-                
+
             }
 
         } catch(\Throwable $e) {
@@ -242,14 +242,15 @@ final class Command extends SqlCommand
             if(isset($typeInfo['db'])) {
                 $xfield['type'] = $typeInfo['db'];
             }
-            
+
             $xdesc = isset($xfield['desc']) ? json_encode($xfield['desc'], JSON_UNESCAPED_UNICODE) : '';
             if (!isset($ofields[$fname])) {
                 $logger->error($storage . ': ' . $fieldName . ': Field destination not found: creating');
 
-                $res = $Exec('
+                $res = $Exec(
+                    '
                     ALTER TABLE `' . $table . '` 
-                    ADD COLUMN `' . $fname . '` ' . $xfield['type'], 
+                    ADD COLUMN `' . $fname . '` ' . $xfield['type'],
                     $this->_connection
                 );
 
@@ -292,7 +293,7 @@ final class Command extends SqlCommand
         $xindexes = isset($xstorage['indices']) ? $xstorage['indices'] : [];
         $logger->error($storage . ': Checking indices');
         foreach ($xindexes as $indexName => $xindex) {
-            
+
             $canBeIndexed = true;
             foreach($xindex['fields'] as $field) {
                 $xfield = $xfields[$field];
@@ -319,7 +320,7 @@ final class Command extends SqlCommand
                         $error = $CreateIndex($this->_connection, $Exec, $indexName, $table, $xindex['fields']);
                         if(!$error) {
                             $logger->error($table . ': Can not create index: ' . $error);
-                            throw new Exception('Can not create index: ' . $error);    
+                            throw new Exception('Can not create index: ' . $error);
                         }
                     } elseif ($error) {
                         $logger->error($table . ': Can not create index: ' . $error);
@@ -352,7 +353,7 @@ final class Command extends SqlCommand
         }
     }
 
-    
+
 
     public static function ExtractFieldInformation(array|object $field): object
     {

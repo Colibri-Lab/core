@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Graphics
  */
+
 namespace Colibri\Graphics;
 
 /**
@@ -16,7 +17,6 @@ namespace Colibri\Graphics;
  */
 class Point
 {
-
     /**
      * The X coordinate position.
      *

@@ -120,7 +120,7 @@ class DataAccessPoint
 {
     /** Type of DBMS is relational */
     public const DBMSTypeRelational = 'relational';
-    
+
     /** Type of DBMS is nosql */
     public const DBMSTypeNoSql = 'nosql';
 
@@ -223,13 +223,13 @@ class DataAccessPoint
             }
         }
     }
-    
-    public function Reopen() 
+
+    public function Reopen()
     {
         $this->_connection->Reopen();
     }
 
-    public function ExecuteCommand(string $command, ...$arguments):  mixed
+    public function ExecuteCommand(string $command, ...$arguments): mixed
     {
         $configClassObject = $this->_accessPointData->driver->config;
         $commandClassObject = $this->_accessPointData->driver->command;
@@ -267,7 +267,7 @@ class DataAccessPoint
      * ! select * from test where id=1 and stringfield like '%brbrbr%'
      * ! Queries can be put into a collection and executed with different parameters.
      * ```
-     * 
+     *
      * @param string $query The query string.
      * @param object|array $commandParams [
      *                          page, pagesize, params, type = bigdata|noninfo|reader (default reader),
@@ -340,7 +340,8 @@ class DataAccessPoint
 
     }
 
-    public function CreateQuery(string $method, array $attributes) {
+    public function CreateQuery(string $method, array $attributes)
+    {
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject($this->_connection);
         return $queryBuilder->$method(...$attributes);
@@ -445,7 +446,7 @@ class DataAccessPoint
      * Returns a list of tables in the database.
      *
      * @return IDataReader|null Returns an IDataReader object or null.
-     */    
+     */
     public function Tables(?string $table = null): IDataReader|QueryInfo
     {
         return $this->Query($this->CreateQuery('CreateShowTables', [$table]), ['type' => self::QueryTypeReader]);
@@ -455,7 +456,7 @@ class DataAccessPoint
      * Returns a list of fields in the database table.
      *
      * @return array Returns an IDataReader object or null.
-     */    
+     */
     public function Fields(string $table, ?string $database = null): array
     {
         $fields = [];
@@ -467,12 +468,12 @@ class DataAccessPoint
         }
         return $fields;
     }
-    
+
     /**
      * Returns a list of indexes in the database table.
      *
      * @return array Returns an IDataReader object or null.
-     */    
+     */
     public function Indexes(string $table, ?string $database = null): array
     {
         $return = $this->Query($this->CreateQuery('CreateShowIndexes', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
@@ -480,14 +481,14 @@ class DataAccessPoint
         while ($index = $return->Read()) {
             $configClass = $this->_accessPointData->driver->config;
             $i = $configClass::ExtractIndexInformation($index);
-            
+
             if (!isset($indices[$i->Name])) {
                 $i->Columns = [($i->ColumnPosition - 1) => $i->Columns[0]];
                 $indices[$i->Name] = $i;
             } else {
                 $indices[$i->Name]->Columns[$i->ColumnPosition - 1] = $i->Columns[0];
             }
-            
+
         }
         return $indices;
     }
@@ -528,13 +529,13 @@ class DataAccessPoint
         return null;
     }
 
-    public function ForQuery(string $field, string $table) : string
+    public function ForQuery(string $field, string $table): string
     {
         return $this->CreateQuery('CreateFieldForQuery', [$field, $table]);
     }
 
-    
-    public function SoftDeleteCheck(string $field, string $table) : string
+
+    public function SoftDeleteCheck(string $field, string $table): string
     {
         return $this->CreateQuery('CreateSoftDeleteQuery', [$field, $table]);
     }

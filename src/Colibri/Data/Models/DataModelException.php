@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\Models
  */
+
 namespace Colibri\Data\Models;
 
 use Colibri\AppException;

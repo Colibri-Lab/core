@@ -8,6 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\MySql
  */
+
 namespace Colibri\Data\Solr;
 
 use Colibri\Common\DateHelper;
@@ -22,14 +23,13 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder
 {
-
     public const MutationInsert = 'insert';
     public const MutationUpdate = 'update';
     public const MutationDelete = 'delete';
-    
+
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
     {
-        
+
         $filterFields = VariableHelper::ToJsonFilters($filterFields);
 
         $searchFilters = [];
@@ -81,7 +81,7 @@ class QueryBuilder
         foreach($fields as $fieldName => $fieldData) {
             $field = $fieldData[0];
             $value = $fieldData[1];
-            
+
             $fieldName = $storage->GetRealFieldName($fieldName);
 
             if(in_array($field->type, [
@@ -94,17 +94,17 @@ class QueryBuilder
             ])) {
                 if($fieldName === 'id') {
                     if(is_array($value)) {
-                        $value = array_map(fn($v) => StringHelper::Expand($v, 20, '0'), $value);
+                        $value = array_map(fn ($v) => StringHelper::Expand($v, 20, '0'), $value);
                     } else {
                         $value = StringHelper::Expand($value, 20, '0');
                     }
                 }
-                
+
                 $filters[$fieldName] = [];
                 if(count($value) == 2) {
                     $filters[$fieldName] = '['.($value[0] ? $value[0] : '*').' TO '.($value[1] ? $value[1] : '*').']';
                 } elseif(count($value) > 1) {
-                    $filters[$fieldName] = '(' . implode(' or ', array_map(fn($v) => $storage->accessPoint->EscapeQuery($v), $value)) . ')';
+                    $filters[$fieldName] = '(' . implode(' or ', array_map(fn ($v) => $storage->accessPoint->EscapeQuery($v), $value)) . ')';
                 } else {
                     $filters[$fieldName] = $value[0];
                 }
@@ -120,7 +120,7 @@ class QueryBuilder
                 if(!is_array($value)) {
                     $filters[$fieldName] = '*' . $storage->accessPoint->EscapeQuery($value) . '*';
                 } else {
-                    $filters[$fieldName] = '(' . implode(' or ', array_map(fn($v) => '*' . $storage->accessPoint->EscapeQuery($v) . '*', $value)) . ')';
+                    $filters[$fieldName] = '(' . implode(' or ', array_map(fn ($v) => '*' . $storage->accessPoint->EscapeQuery($v) . '*', $value)) . ')';
                 }
             }
 
@@ -182,14 +182,14 @@ class QueryBuilder
 
     }
 
-    
+
     public function CreateFieldForQuery(string $field, string $table): string
     {
         return $field;
-    }   
+    }
 
-    
-    
+
+
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): array
     {
         return [$this->CreateFieldForQuery($softDeleteField, $table) => null];

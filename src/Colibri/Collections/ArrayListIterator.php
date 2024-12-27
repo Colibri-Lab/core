@@ -10,13 +10,11 @@
 
 namespace Colibri\Collections;
 
-
 /**
  * Array list iterator
  */
 class ArrayListIterator implements \Iterator
 {
-
     /**
      * Iterator data
      */

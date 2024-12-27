@@ -6,7 +6,6 @@ use JsonSerializable;
 
 class UUIDField implements JsonSerializable
 {
-
     private string $_value;
 
     public function __construct(?string $value = null, mixed $dummy1 = null, mixed $dummy2 = null)
@@ -49,14 +48,14 @@ class UUIDField implements JsonSerializable
         return $this->_unpack();
     }
 
-    static function Pack(string $uuidInString): string
+    public static function Pack(string $uuidInString): string
     {
         $uuid = new static (null);
         $uuid->string = $uuidInString;
         return $uuid->binary;
     }
 
-    static function Unpack(string $uuidInBinary): string
+    public static function Unpack(string $uuidInBinary): string
     {
         $uuid = new static (null);
         $uuid->binary = $uuidInBinary;
@@ -67,13 +66,13 @@ class UUIDField implements JsonSerializable
     {
         return (string) $this;
     }
-    
+
     public static function ParamTypeName(): string
     {
         return 'string';
-    } 
+    }
 
-    public static function Null(): mixed
+    public static function null(): mixed
     {
         return null;
     }

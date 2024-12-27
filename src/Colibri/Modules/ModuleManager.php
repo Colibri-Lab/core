@@ -7,6 +7,7 @@
  *
  * @package Colibri\Modules
  */
+
 namespace Colibri\Modules;
 
 use Colibri\App;
@@ -19,7 +20,6 @@ use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
 use Colibri\Web\Templates\PhpTemplate;
 
-
 /**
  * Module Manager
  *
@@ -31,7 +31,6 @@ use Colibri\Web\Templates\PhpTemplate;
  */
 class ModuleManager
 {
-
     // Includes functionality of event dispatcher.
     use TEventDispatcher;
 
@@ -129,7 +128,7 @@ class ModuleManager
      * @return Module|null The initialized module instance, or null if initialization fails.
      *
      */
-    public function InitModule(Config $configNode): ? Module
+    public function InitModule(Config $configNode): ?Module
     {
         $moduleEntry = $configNode->Query('entry')->GetValue();
 
@@ -223,7 +222,7 @@ class ModuleManager
                 $p = array_merge($p, $extendArray);
             }
             $paths[] = $p;
-        } 
+        }
         return $paths;
     }
 

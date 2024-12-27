@@ -23,9 +23,9 @@ use Colibri\Utils\Debug;
  * Worker
  *
  * Represents a worker class for managing processes.
- * 
+ *
  * This abstract class serves as a base for defining specific actions to be performed in separate processes.
- * 
+ *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @package Colibri\Threading
  */
@@ -98,7 +98,7 @@ abstract class Worker
 
     /**
      * Runs the worker process.
-     * 
+     *
      * This method must be implemented in subclasses to define specific actions.
      *
      * @return void

@@ -9,11 +9,11 @@
  */
 
 namespace Colibri\Events\Handlers;
+
 use Colibri\App;
 use Colibri\Common\VariableHelper;
 use Colibri\Events\Event;
 use Colibri\Threading\Process;
-
 
 /**
  * Class LocalClosure
@@ -22,7 +22,6 @@ use Colibri\Threading\Process;
  */
 class LocalClosure implements IClosure
 {
-
     /**
      * @var mixed The callable object or function.
      */
@@ -39,7 +38,7 @@ class LocalClosure implements IClosure
      * @param mixed $callable The callable object or function.
      * @param object|null $object The object associated with the closure.
      */
-    public function __construct(mixed $callable, ?object $object = null) 
+    public function __construct(mixed $callable, ?object $object = null)
     {
         $this->_callable = $callable;
         $this->_object = $object;
@@ -85,7 +84,7 @@ class LocalClosure implements IClosure
         $process->Run((object) ['event' => $event, 'args' => $args, 'closure' => $this->Serialize()]);
         return $process;
     }
-    
+
     /**
      * Serializes the closure.
      *

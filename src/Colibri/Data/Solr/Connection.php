@@ -8,6 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\Solr
  */
+
 namespace Colibri\Data\Solr;
 
 use Colibri\Common\StringHelper;
@@ -56,7 +57,7 @@ final class Connection implements IConnection
     {
         return new static((object)$connectionInfo);
     }
-    
+
 
     /**
      * Opens a connection to the MySQL database server.
@@ -74,7 +75,7 @@ final class Connection implements IConnection
         }
 
         try {
-            
+
             if(!$this->Ping()) {
                 throw new Exception('Can not connect to host or host is not alive', 418);
             }

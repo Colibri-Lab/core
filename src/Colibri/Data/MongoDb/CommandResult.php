@@ -18,13 +18,12 @@ use Colibri\Data\NoSqlClient\QueryInfo;
  * Class for executing commands at the access point.
  *
  * This class extends SqlCommand and provides methods for preparing and executing queries.
- * 
+ *
  * @inheritDoc
  *
  */
 final class CommandResult implements ICommandResult
 {
-
     private ?object $_response = null;
 
     public function __construct(object $response)
@@ -93,7 +92,7 @@ final class CommandResult implements ICommandResult
 
     public function SetCollectionName(string $name): void
     {
-        if(! ($this->_response?->responseHeader ?? null) ) {
+        if(! ($this->_response?->responseHeader ?? null)) {
             $this->_response->responseHeader = (object)[];
         }
         $this->_response->responseHeader->name = $name;
@@ -104,7 +103,7 @@ final class CommandResult implements ICommandResult
         if(!$this->_response->responseHeader) {
             $this->_response->responseHeader = (object)[];
         }
-        if(! ($this->_response?->responseHeader?->returned ?? false) ) {
+        if(! ($this->_response?->responseHeader?->returned ?? false)) {
             $this->_response->responseHeader->returned = [];
         }
         if(!is_array($id)) {
@@ -114,7 +113,7 @@ final class CommandResult implements ICommandResult
             [...$this->_response->responseHeader->returned, ...$id];
     }
 
-    
+
 
     public function MergeWith(ICommandResult $result): void
     {
@@ -123,5 +122,3 @@ final class CommandResult implements ICommandResult
     }
 
 }
-
-?>

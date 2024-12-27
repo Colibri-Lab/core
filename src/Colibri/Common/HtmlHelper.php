@@ -2,12 +2,12 @@
 
 /**
  * Common
- * 
+ *
  * @author Ваган Григорян <vahan.grigoryan@gmail.com>
  * @copyright 2019 Colibri
  * @package Colibri\Common
  * @version 1.0.0
- * 
+ *
  */
 
 namespace Colibri\Common;
@@ -19,7 +19,6 @@ use Colibri\Xml\XmlNode;
  */
 class HtmlHelper
 {
-
     /**
      * Encodes an array or object to a HTML string representation.
      *

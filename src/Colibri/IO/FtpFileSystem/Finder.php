@@ -9,6 +9,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\IO\FtpFileSystem
  */
+
 namespace Colibri\IO\FtpFileSystem;
 
 use Colibri\Collections\ArrayList;

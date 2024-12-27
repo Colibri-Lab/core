@@ -18,8 +18,7 @@ use DateTimeZone;
  */
 class DateTimeToIntField extends DateTimeField
 {
-
-    public function __construct(mixed $data, ? Storage $storage = null, ? Field $field = null)
+    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
     {
         $dt = new DateTime();
         if(is_numeric($data)) {
@@ -42,9 +41,9 @@ class DateTimeToIntField extends DateTimeField
     public static function ParamTypeName(): string
     {
         return 'integer';
-    } 
+    }
 
-    public static function Null(): mixed
+    public static function null(): mixed
     {
         return 0;
     }

@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\Models
  */
+
 namespace Colibri\Data\Models;
 
 use Colibri\Utils\ExtendedObject;
@@ -26,7 +27,6 @@ use Colibri\Common\Encoding;
  */
 class DataRow extends ExtendedObject
 {
-
     /**
      * Data Table object
      *

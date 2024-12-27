@@ -16,9 +16,9 @@ use Colibri\Utils\ExtendedObject;
 
 /**
  * Handles image manipulation.
- * 
+ *
  * This class provides functionalities for working with images.
- * 
+ *
  * @property-read bool $isValid Indicates whether the image is valid.
  * @property-read Size $size The size of the image.
  * @property string $type The type of the image.
@@ -251,7 +251,7 @@ class Graphics
      * This method crops the image to the specified size, starting from the optional start point.
      *
      * @param Size $size The size of the cropped area.
-     * @param Point|null $start The starting point for cropping. If null, (0,0) is assumed. 
+     * @param Point|null $start The starting point for cropping. If null, (0,0) is assumed.
      * @return void
      */
     public function Crop(Size $size, ?Point $start = null): void

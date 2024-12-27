@@ -7,8 +7,9 @@
  *
  * @package Colibri\Web
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web;
 
 use Colibri\Common\VariableHelper;
@@ -23,7 +24,6 @@ use Colibri\Web\Templates\Template;
  */
 class View
 {
-
     /**
      * Constructor
      *
@@ -55,7 +55,7 @@ class View
      * @param ExtendedObject|null $args Additional arguments for rendering.
      * @return string The rendered output.
      */
-    public function Render(Template $template, ? ExtendedObject $args = null)
+    public function Render(Template $template, ?ExtendedObject $args = null)
     {
 
         if (VariableHelper::IsNull($args)) {

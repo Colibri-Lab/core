@@ -15,7 +15,6 @@ namespace Colibri\IO\FileSystem;
  */
 abstract class Stream
 {
-
     /**
      * The length of the stream.
      *
@@ -117,5 +116,5 @@ abstract class Stream
      * @return void
      */
     abstract public function close(): void;
-    
+
 }

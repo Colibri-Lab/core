@@ -18,7 +18,7 @@ class ErrorCodes
     /**
      * Error code for unknown property.
      */
-    const UnknownProperty = 1;
+    public const UnknownProperty = 1;
 
     /**
      * Returns the textual representation of an error based on its code.

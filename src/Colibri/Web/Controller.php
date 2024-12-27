@@ -7,8 +7,9 @@
  *
  * @package Colibri\Web
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web;
 
 use Colibri\Common\StringHelper;
@@ -23,7 +24,7 @@ use Colibri\App;
  *
  * @example
  * ```php
- * 
+ *
  * class PageController extends Colibri\Web\Controller {
  *
  *     public function Method1($get, $post, $payload) {

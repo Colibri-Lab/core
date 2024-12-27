@@ -127,9 +127,9 @@ class ArrayField extends ArrayList
     public static function ParamTypeName(): string
     {
         return 'string';
-    } 
+    }
 
-    public static function Null(): mixed
+    public static function null(): mixed
     {
         return null;
     }

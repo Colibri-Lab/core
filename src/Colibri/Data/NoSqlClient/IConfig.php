@@ -15,7 +15,6 @@ namespace Colibri\Data\NoSqlClient;
  */
 interface IConfig
 {
-
     /**
      * Driver allowed types
      * @return array
@@ -63,7 +62,7 @@ interface IConfig
      * @return array
      */
     public static function IndexMethods(): array;
-    
+
     public static function JsonIndexes(): bool;
 
 }

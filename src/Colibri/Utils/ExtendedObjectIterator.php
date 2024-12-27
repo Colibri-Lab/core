@@ -6,8 +6,9 @@
  * @package Colibri\Utils\Performance
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
- * 
+ *
  */
+
 namespace Colibri\Utils;
 
 /**
@@ -15,7 +16,6 @@ namespace Colibri\Utils;
  */
 class ExtendedObjectIterator implements \Iterator
 {
-
     /**
      * The object collection.
      *
@@ -90,14 +90,14 @@ class ExtendedObjectIterator implements \Iterator
      *
      * @return mixed
      */
-    public function next(): mixed
+    public function next(): void
     {
         $this->_current++;
-        if ($this->valid()) {
-            return $this->_data[$this->_keys[$this->_current]];
-        } else {
-            return false;
-        }
+        // if ($this->valid()) {
+        //     return $this->_data[$this->_keys[$this->_current]];
+        // } else {
+        //     return false;
+        // }
     }
 
     /**

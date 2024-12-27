@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Events\Handlers
  */
+
 namespace Colibri\Events\Handlers;
 
 use Colibri\Threading\Worker;
@@ -18,7 +19,6 @@ use Colibri\Threading\Worker;
  */
 class LocalClosureAsyncWorker extends Worker
 {
-    
     /**
      * Runs the asynchronous worker task.
      */
@@ -45,7 +45,7 @@ class LocalClosureAsyncWorker extends Worker
         if($result && ($args?->result ?? null)) {
             $this->WriteResults($args->result);
         }
-        
+
         $this->_log->debug('Complete...');
 
     }

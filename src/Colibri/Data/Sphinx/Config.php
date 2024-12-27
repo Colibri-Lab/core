@@ -8,8 +8,8 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\Sphinx
  */
-namespace Colibri\Data\Sphinx;
 
+namespace Colibri\Data\Sphinx;
 
 use Colibri\Data\SqlClient\IConfig;
 
@@ -20,12 +20,11 @@ use Colibri\Data\SqlClient\IConfig;
  */
 final class Config implements IConfig
 {
-    
     public static function DbmsType(): string
     {
         return 'relational';
     }
-    
+
     public static function AllowedTypes(): array
     {
         return [
@@ -83,7 +82,7 @@ final class Config implements IConfig
     {
         return '`';
     }
-    
+
     public static function JsonIndexes(): bool
     {
         return false;

@@ -11,6 +11,7 @@
  */
 
 namespace Colibri\Queue;
+
 use Colibri\App;
 use Colibri\Common\RandomizationHelper;
 use Colibri\Threading\Worker;
@@ -22,11 +23,10 @@ use Colibri\Utils\Logs\Logger;
  */
 class JobParallelWorker extends Worker
 {
-
     private ?Logger $_logger = null;
 
     private ?IJob $_job = null;
-    
+
     /**
      * Runs the job routine.
      *
@@ -34,7 +34,7 @@ class JobParallelWorker extends Worker
      */
     public function Run(): void
     {
-        
+
         $queue = $this->_params->queue;
         $id = $this->_params->id;
 

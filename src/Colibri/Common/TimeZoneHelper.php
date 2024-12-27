@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
+
 namespace Colibri\Common;
 
 /**
@@ -14,7 +15,6 @@ namespace Colibri\Common;
  */
 class TimeZoneHelper
 {
-
     /**
      * TimeZone by default
      */
@@ -104,5 +104,5 @@ class TimeZoneHelper
         $format = preg_replace('/(f)/', $decimal, $format);
         return date($format, (int)$microtime);
     }
-    
+
 }

@@ -187,7 +187,7 @@ class DataTable extends BaseDataTable
 
         $params = (object)$storage?->{'params'};
         if($params?->{'softdeletes'} === true) {
-            
+
             $allowedTypes = $storage->accessPoint->allowedTypes;
             $timestamp = $allowedTypes['timestamp'];
             $timestampGeneric = 'Colibri\\Data\\Storages\\Fields\\' . $timestamp['generic'];
@@ -230,7 +230,7 @@ class DataTable extends BaseDataTable
 
         $params = (object)$storage?->{'params'};
         if($params?->{'softdeletes'} === true) {
-            
+
             $allowedTypes = $storage->accessPoint->allowedTypes;
             $timestamp = $allowedTypes['timestamp'];
             $timestampGeneric = 'Colibri\\Data\\Storages\\Fields\\' . $timestamp['generic'];
@@ -249,7 +249,7 @@ class DataTable extends BaseDataTable
             if (!$res->error) {
                 return true;
             }
-        } 
+        }
 
 
         App::$log->debug('Error: ' . $res->error . ', query: ' . $res->query);
@@ -322,7 +322,7 @@ class DataTable extends BaseDataTable
         }
 
         // получаем сконвертированные данные
-        if(! ([$fieldValues, $params] = $row->DataToChange($isNewRow)) ) {
+        if(! ([$fieldValues, $params] = $row->DataToChange($isNewRow))) {
             return true;
         }
 

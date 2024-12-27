@@ -10,6 +10,7 @@
  * @package Colibri\Xml\Definitions
  *
  */
+
 namespace Colibri\Xml\Definitions;
 
 /**
@@ -22,7 +23,6 @@ namespace Colibri\Xml\Definitions;
  */
 class XsdBaseTypeDefinition implements \JsonSerializable
 {
-
     /**
      * The base type.
      *

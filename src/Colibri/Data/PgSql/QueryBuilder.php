@@ -26,7 +26,7 @@ use Colibri\Utils\Debug;
 class QueryBuilder implements IQueryBuilder
 {
     private Connection $_connection;
-    public function __construct(Connection $connection) 
+    public function __construct(Connection $connection)
     {
         $this->_connection = $connection;
     }
@@ -192,7 +192,7 @@ class QueryBuilder implements IQueryBuilder
             }
             $q .= ',"' . $k . '"=' . $val;
         }
-        
+
         $table = '"'. implode('"."', explode('.', $table)) . '"';
         return 'update ' . $table . ' set ' . substr($q, 1) . ' where ' . $condition;
     }
@@ -237,13 +237,13 @@ class QueryBuilder implements IQueryBuilder
      * Creates a SELECT query.
      * @param string $table The name of the table.
      * @param array|string $fields The fields to select.
-     * @param array|string $filter The filter for selecting the records. 
+     * @param array|string $filter The filter for selecting the records.
      * @param array|string $order The order for selecting the records.
      * @return string
      */
     public function CreateSelect(string $table, array|string $fields, array|string $filter, array|string $order): string
     {
-        
+
         $filters = [];
         if(is_array($filter)) {
             foreach($filter as $field => $data) {
@@ -262,8 +262,8 @@ class QueryBuilder implements IQueryBuilder
             $orders[] = $order;
         }
 
-        return 'select '.(is_array($fields) ? '"' . implode('","', $fields) . '"' : $fields).' from "' . $table . '"' . 
-            (!empty($filters) ? ' where ' . implode(' and ', $filters) : '') . 
+        return 'select '.(is_array($fields) ? '"' . implode('","', $fields) . '"' : $fields).' from "' . $table . '"' .
+            (!empty($filters) ? ' where ' . implode(' and ', $filters) : '') .
             (!empty($orders) ? ' order by ' . implode(',', $orders) : '');
     }
 
@@ -325,12 +325,12 @@ class QueryBuilder implements IQueryBuilder
         return '"' . $table . '"."' . $field . '"';
     }
 
-    
+
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): string
     {
         return $this->CreateFieldForQuery($softDeleteField, $table) . ' is null';
     }
-    
+
     public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array
     {
         return ['
@@ -341,17 +341,17 @@ class QueryBuilder implements IQueryBuilder
                 "' . $table . '_datedeleted" timestamp null,
                 PRIMARY KEY ("' . $table . '_id")
             )
-        ', 
+        ',
         'create index if not exists "' . $table . '_datecreated_idx" on "'.$table.'"("' . $table . '_datecreated")',
         'create index if not exists "' . $table . '_datemodified_idx" on "'.$table.'"("' . $table . '_datemodified")',
         'create index if not exists "' . $table . '_datedeleted_idx" on "'.$table.'"("' . $table . '_datedeleted")',
         ];
     }
 
-    
+
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
     {
-        
+
         $filterFields = VariableHelper::ToJsonFilters($filterFields);
 
         $searchFilters = [];

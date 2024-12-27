@@ -10,13 +10,11 @@
 
 namespace Colibri\Collections;
 
- /**
-  * Collection with read-only capability.
-  */
+/**
+ * Collection with read-only capability.
+ */
 class ReadonlyCollection extends Collection
 {
-
-
     /**
      * Prevents adding values to the collection.
      *
@@ -44,7 +42,7 @@ class ReadonlyCollection extends Collection
 
     /**
      * Prevents appending values to the collection.
-     * 
+     *
      * @param mixed $from
      */
     public function Append(mixed $from): void
@@ -54,7 +52,7 @@ class ReadonlyCollection extends Collection
 
     /**
      * Prevents inserting values to the collection.
-     * 
+     *
      * @param mixed $from
      */
     public function Insert(mixed $index, mixed $key, mixed $value): mixed

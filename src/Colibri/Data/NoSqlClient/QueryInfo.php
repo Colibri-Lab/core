@@ -67,5 +67,5 @@ class QueryInfo
         $this->error = $error;
         $this->query = $query;
     }
-    
+
 }

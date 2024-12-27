@@ -149,7 +149,7 @@ final class Command extends SqlCommand
         } else {
             $res = mysqli_query($this->_connection->resource, $preparedQuery);
         }
-        
+
 
         if (!($res instanceof \mysqli_result)) {
             throw new MySqlException(
@@ -217,28 +217,28 @@ final class Command extends SqlCommand
 
         $queryBuilder = new QueryBuilder($this->_connection);
 
-        $CreateReader = function(string $query, $connection) {
+        $CreateReader = function (string $query, $connection) {
             $tableCommand = new Command($query, $connection);
             return $tableCommand->ExecuteReader();
         };
 
-        $Exec = function(string $query, $connection) {
+        $Exec = function (string $query, $connection) {
             $tableCommand = new Command($query, $connection);
             return $tableCommand->ExecuteNonQuery();
         };
 
-        $UpdateDefaultAndLength = function(
+        $UpdateDefaultAndLength = function (
             string $field,
             string $type,
             bool $required,
             ?int $length,
             mixed $default
         ): array {
-    
+
             if (\is_bool($default)) {
                 $default = $default ? 'TRUE' : 'FALSE';
             }
-    
+
             if ($type == 'json') {
                 $default = $default ? '(' . $default . ')' : null;
                 $required = false;
@@ -247,13 +247,13 @@ final class Command extends SqlCommand
             } elseif (strstr($type, 'char') !== false) {
                 $default = $default ? "'" . $default . "'" : null;
             }
-    
+
             if ($type == 'varchar' && !$length) {
                 $length = 255;
             }
-    
+
             return [$required, $length, $default];
-    
+
         };
 
         $reader = $CreateReader($queryBuilder->CreateShowTables($table), $this->_connection);
@@ -281,14 +281,14 @@ final class Command extends SqlCommand
             $indices = [];
             while ($index = $indexesReader->Read()) {
                 $i = self::ExtractIndexInformation($index);
-                
+
                 if (!isset($indices[$i->Name])) {
                     $i->Columns = [($i->ColumnPosition - 1) => $i->Columns[0]];
                     $indices[$i->Name] = $i;
                 } else {
                     $indices[$i->Name]->Columns[$i->ColumnPosition - 1] = $i->Columns[0];
                 }
-                
+
             }
 
         } catch(\Throwable $e) {
@@ -303,7 +303,7 @@ final class Command extends SqlCommand
             $fname = $storage . '_' . $fieldName;
             $fparams = $xfield['params'] ?? [];
 
-            
+
             if ($xfield['type'] == 'enum') {
                 $xfield['type'] .= isset($xfield['values']) && $xfield['values'] ? '(' . implode(',', array_map(function ($v) {
                     return '\'' . $v['value'] . '\'';
@@ -346,10 +346,11 @@ final class Command extends SqlCommand
                     }
                 }
 
-                $res = $Exec('
+                $res = $Exec(
+                    '
                     ALTER TABLE `' . $table . '` 
                     ADD COLUMN `' . $fname . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
-                    ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''), 
+                    ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''),
                     $this->_connection
                 );
 
@@ -386,7 +387,7 @@ final class Command extends SqlCommand
 
                     $res = $Exec(
                         'ALTER TABLE `' . $table . '` 
-                        MODIFY COLUMN `' . $fname . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' ' . 
+                        MODIFY COLUMN `' . $fname . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' ' .
                         (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? 'COMMENT \'' . $xdesc . '\'' : ''),
                         $this->_connection
                     );
@@ -415,7 +416,7 @@ final class Command extends SqlCommand
                     $logger->error($table . ': Can not save field: ' . $res->query);
                     throw new Exception('Can not save field: ' . $res->query);
                 }
-                
+
             } else {
                 $ofield = $ofields[$fname];
 
@@ -430,7 +431,7 @@ final class Command extends SqlCommand
                     $logger->error($storage . ': ' . $fieldName . ': Field destination changed: updating');
 
                     $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
-                    
+
                     $res = $Exec(
                         'ALTER TABLE `' . $table . '` 
                         MODIFY COLUMN `' . $fname . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') .
@@ -448,16 +449,16 @@ final class Command extends SqlCommand
             }
         }
 
-        $createIndex = function($Exec, $prefix, $table, $xindex, $indexName, $method, $connection) {
+        $createIndex = function ($Exec, $prefix, $table, $xindex, $indexName, $method, $connection) {
             return $Exec('
                 ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
-                ADD' . ($xindex['type'] !== 'NORMAL' ? ' ' . $xindex['type'] : '') . ' INDEX `' . $indexName . '` (`' . 
-                    $table . '_' . implode('`,`' . $table . '_', $xindex['fields']) . '`) ' . 
+                ADD' . ($xindex['type'] !== 'NORMAL' ? ' ' . $xindex['type'] : '') . ' INDEX `' . $indexName . '` (`' .
+                    $table . '_' . implode('`,`' . $table . '_', $xindex['fields']) . '`) ' .
                 ($method ? ' USING ' . $method : '') . '
             ', $connection);
         };
 
-        $dropIndex = function($Exec, $prefix, $table, $indexName) {
+        $dropIndex = function ($Exec, $prefix, $table, $indexName) {
             return $Exec('
                 ALTER TABLE `' . ($prefix ? $prefix . '_' : '') . $table . '` 
                 DROP INDEX `' . $indexName . '`
@@ -469,13 +470,13 @@ final class Command extends SqlCommand
         foreach ($xindexes as $indexName => $xindex) {
             if (!isset($indices[$indexName])) {
                 $logger->error($storage . ': ' . $indexName . ': Index not found: creating');
-                
+
                 $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
                 $method = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
                 if ($xtype === 'FULLTEXT') {
                     $method = '';
                 }
-        
+
                 $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, $method, $this->_connection);
                 if ($res->error && strstr($res->error, 'Duplicate key name') !== false) {
                     $res = $dropIndex($Exec, $prefix, $storage, $indexName);
@@ -527,7 +528,7 @@ final class Command extends SqlCommand
         }
     }
 
-    
+
     public static function ExtractFieldInformation(array|object $field): object
     {
         $field = (object)$field;
@@ -542,7 +543,7 @@ final class Command extends SqlCommand
 
     }
 
-    
+
     public static function ExtractIndexInformation(array|object $index): object
     {
         return (object)[

@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Exceptions
  */
+
 namespace Colibri\Exceptions;
 
 /**
@@ -16,7 +17,6 @@ namespace Colibri\Exceptions;
  */
 class JobAllreadyRunningException extends \Exception
 {
-
     /**
      * The error code for the application error.
      */

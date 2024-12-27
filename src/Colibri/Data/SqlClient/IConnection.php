@@ -15,7 +15,6 @@ namespace Colibri\Data\SqlClient;
  */
 interface IConnection
 {
-    
     public static function FromConnectionInfo(object|array $connectionInfo): static;
 
     /**
@@ -38,7 +37,7 @@ interface IConnection
      * @return void
      */
     public function Close(): void;
-    
+
     /**
      * Check that the service alive
      * @return bool

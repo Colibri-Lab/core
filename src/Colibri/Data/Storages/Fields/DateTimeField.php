@@ -18,10 +18,9 @@ use DateTimeZone;
  */
 class DateTimeField extends DateTime implements JsonSerializable
 {
+    public static $defaultLocale = null;
 
-    static $defaultLocale = null;
-
-    public function __construct(mixed $data, ? Storage $storage = null, ? Field $field = null)
+    public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
     {
         parent::__construct($data, new DateTimeZone(App::$systemTimezone));
     }
@@ -42,7 +41,7 @@ class DateTimeField extends DateTime implements JsonSerializable
      * @param DateTime|string $now
      * @return \DateInterval
      */
-    public function diff(DateTimeInterface|string $object, bool $absolute = NULL): DateInterval
+    public function diff(DateTimeInterface|string $object, bool $absolute = null): DateInterval
     {
         if (!($object instanceof DateTime)) {
             $object = new DateTime($object);
@@ -115,11 +114,11 @@ class DateTimeField extends DateTime implements JsonSerializable
     public static function ParamTypeName(): string
     {
         return 'string';
-    } 
+    }
 
-    public static function Null(): mixed
+    public static function null(): mixed
     {
         return null;
     }
-    
+
 }

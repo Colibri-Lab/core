@@ -58,7 +58,7 @@ class NestedSet
      */
     private $_table_left;
     /**
-     * Правый индекс 
+     * Правый индекс
      *
      * @var string
      */
@@ -114,7 +114,7 @@ class NestedSet
         $this->ERRORS[] = array(2, 'SQL query error.', $file . '::' . $class . '::' . $function . '::' . $line, 'SQL QUERY: ' . $sql, 'SQL ERROR: ' . $error);
         $this->ERRORS_MES[] = extension_loaded('gettext') ? _('internal_error') : 'internal_error';
     }
-        
+
     /**
      * Геттер
      *
@@ -125,7 +125,7 @@ class NestedSet
     {
         return $this->{'_table_'.$property};
     }
-        
+
     /**
      * Очищает данные
      *
@@ -150,7 +150,7 @@ class NestedSet
                     $data[$this->_table_right] = 2;
                     $data[$this->_table_level] = 0;
                     $data[$this->_table_parent] = 0;
-                    
+
                     $res = $this->dataPoint->Insert($this->_table, $data, $this->_table_id);
                     if ($res->insertid == -1) {
                         $this->_setError(__FILE__, __CLASS__, __FUNCTION__, __LINE__, $sql, $res->error);
@@ -183,7 +183,7 @@ class NestedSet
             return null;
         }
     }
-        
+
     /**
      * Receives left, right and level for unit with number id.
      *
@@ -194,7 +194,7 @@ class NestedSet
     private function GetNodeInfo($section_id)
     {
         $sql = 'SELECT * FROM ' . $this->_table . ' WHERE ' . $this->_table_id . ' = ' . (int)$section_id;
-            
+
         try {
             $res = $this->dataPoint->Query($sql);
             if ($res->Count() == 0) {
@@ -237,7 +237,7 @@ class NestedSet
             return false;
         }
     }
-        
+
     /**
      * Возвращает данные корневой ноды
      *
@@ -264,7 +264,7 @@ class NestedSet
             return null;
         }
     }
-        
+
     /**
      * Receives parent left, right and level for unit with number $id.
      *
@@ -278,13 +278,13 @@ class NestedSet
         if (!$node_info) {
             return null;
         }
-            
+
         list($leftId, $rightId, $level) = $node_info;
         $level--;
         if (!VariableHelper::IsEmpty($condition)) {
             $condition = $this->_PrepareCondition($condition);
         }
-            
+
         $sql = 'SELECT * FROM ' . $this->_table
                 . ' WHERE ' . $this->_table_left . ' < ' . $leftId
                 . ' AND ' . $this->_table_right . ' > ' . $rightId
@@ -300,7 +300,7 @@ class NestedSet
             return null;
         }
     }
-        
+
     /**
      * Add a new element in the tree to element with number $section_id.
      *
@@ -314,16 +314,16 @@ class NestedSet
         if (!$node_info) {
             return null;
         }
-            
+
         list(, $rightId, $level) = $node_info;
-            
+
         $data[$this->_table_left] = $rightId;
         $data[$this->_table_right] = ($rightId + 1);
         $data[$this->_table_level] = ($level + 1);
         $data[$this->_table_parent] = $section_id;
 
         $this->dataPoint->Query('BEGIN', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
-            
+
         $sql = 'UPDATE ' . $this->_table . ' SET '
                 . $this->_table_left . '=CASE WHEN ' . $this->_table_left . '>' . $rightId . ' THEN ' . $this->_table_left . '+2 ELSE ' . $this->_table_left . ' END, '
                 . $this->_table_right . '=CASE WHEN ' . $this->_table_right . '>=' . $rightId . ' THEN ' . $this->_table_right . '+2 ELSE ' . $this->_table_right . ' END '
@@ -345,10 +345,10 @@ class NestedSet
                 $return = $res->insertid;
             }
         }
-            
+
         return $return;
     }
-        
+
     /**
      * Add a new element in the tree near element with number id.
      *
@@ -363,9 +363,9 @@ class NestedSet
         if (!$node_info) {
             return null;
         }
-            
+
         list(, $rightId, $level, $parent) = $node_info;
-            
+
         $data[$this->_table_left] = ($rightId + 1);
         $data[$this->_table_right] = ($rightId + 2);
         $data[$this->_table_level] = ($level);
@@ -374,7 +374,7 @@ class NestedSet
         if (!VariableHelper::IsEmpty($condition)) {
             $condition = $this->_PrepareCondition($condition);
         }
-            
+
         $this->dataPoint->Query('BEGIN', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
 
         $sql = 'UPDATE ' . $this->_table . ' SET '
@@ -400,7 +400,7 @@ class NestedSet
         }
         return $return;
     }
-        
+
     /**
      * Assigns a node with all its children to another parent.
      *
@@ -415,13 +415,13 @@ class NestedSet
         if (!$node_info) {
             return false;
         }
-            
+
         list($leftId, $rightId, $level) = $node_info;
         $node_info = $this->GetNodeInfo($newParentId);
         if (!$node_info) {
             return false;
         }
-            
+
         list($leftIdP, $rightIdP, $levelP) = $node_info;
         if ($id == $newParentId || $leftId == $leftIdP || ($leftIdP >= $leftId && $leftIdP <= $rightId) || ($level == $levelP+1 && $leftId > $leftIdP && $rightId < $rightIdP)) {
             $this->_setError(__FILE__, __CLASS__, __FUNCTION__, __LINE__, 'moving sql', 'cant_move_tree');
@@ -468,7 +468,7 @@ class NestedSet
         $this->dataPoint->Query('COMMIT', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
         return true;
     }
-        
+
     /**
      * Change items position.
      *
@@ -503,7 +503,7 @@ class NestedSet
             $this->dataPoint->Query('ROLLBACK', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
             return false;
         }
-            
+
         $sql = 'UPDATE ' . $this->_table . ' SET '
                 . $this->_table_parent . ' = ' . $parent1 .', '
                 . $this->_table_left . ' = ' . $leftId1 .', '
@@ -519,7 +519,7 @@ class NestedSet
         $this->dataPoint->Query('COMMIT', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
         return true;
     }
-        
+
     /**
      * Swapping nodes within the same level and limits of one parent with all its children: $id1 placed before or after $id2.
      *
@@ -596,7 +596,7 @@ class NestedSet
         $this->dataPoint->Query('COMMIT', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
         return true;
     }
-        
+
     /**
      * Delete element with number $id from the tree wihtout deleting it's children.
      *
@@ -610,12 +610,12 @@ class NestedSet
         if (!$node_info) {
             return false;
         }
-            
+
         list($leftId, $rightId) = $node_info;
         if (!VariableHelper::IsEmpty($condition)) {
             $condition = $this->_PrepareCondition($condition);
         }
-            
+
         $this->dataPoint->Query('BEGIN', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
 
         $sql = 'DELETE FROM ' . $this->_table . ' WHERE ' . $this->_table_id . ' = ' . (int)$id;
@@ -625,7 +625,7 @@ class NestedSet
             $this->dataPoint->Query('ROLLBACK', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
             return false;
         }
-            
+
         $sql = 'UPDATE ' . $this->_table . ' SET '
                 . $this->_table_level . ' = CASE WHEN ' . $this->_table_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_table_level . ' - 1 ELSE ' . $this->_table_level . ' END, '
                 . $this->_table_right . ' = CASE WHEN ' . $this->_table_right . ' BETWEEN ' . $leftId . ' AND ' . $rightId . ' THEN ' . $this->_table_right . ' - 1 '
@@ -643,7 +643,7 @@ class NestedSet
         $this->dataPoint->Query('COMMIT', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
         return true;
     }
-        
+
     /**
      * Delete element with number $id from the tree and all it childret.
      *
@@ -657,12 +657,12 @@ class NestedSet
         if (!$node_info) {
             return false;
         }
-            
+
         list($leftId, $rightId) = $node_info;
         if (!VariableHelper::IsEmpty($condition)) {
             $condition = $this->_PrepareCondition($condition);
         }
-            
+
         $this->dataPoint->Query('BEGIN', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
 
         $sql = 'DELETE FROM ' . $this->_table . ' WHERE ' . $this->_table_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId;
@@ -687,7 +687,7 @@ class NestedSet
         $this->dataPoint->Query('COMMIT', (object)['type' => DataAccessPoint::QueryTypeNonInfo]);
         return true;
     }
-        
+
     /**
      * Counts element with number $id from the tree and all it childret.
      *
@@ -701,12 +701,12 @@ class NestedSet
         if (!$node_info) {
             return false;
         }
-            
+
         list($leftId, $rightId) = $node_info;
         if (!VariableHelper::IsEmpty($condition)) {
             $condition = $this->_PrepareCondition($condition);
         }
-            
+
         $sql = 'SELECT count(*) as c FROM ' . $this->_table . ' WHERE ' . $this->_table_left . ' BETWEEN ' . $leftId . ' AND ' . $rightId;
         try {
             $res = $this->dataPoint->Query($sql);
@@ -718,7 +718,7 @@ class NestedSet
         $r = $res->Read();
         return $r->c;
     }
-        
+
     /**
      * Returns all elements of the tree sortet by left.
      *
@@ -734,21 +734,21 @@ class NestedSet
         if (!VariableHelper::IsEmpty($condition)) {
             $condition = $this->_PrepareCondition($condition, true);
         }
-            
+
         if (!VariableHelper::IsEmpty($joinWith)) {
             $joinWith = $this->_PrepareJoin($joinWith);
         }
-            
+
         if (VariableHelper::IsArray($fields)) {
             $fields = implode(', ', $fields);
         } else {
             $fields = '*';
         }
-            
+
         $sql = 'SELECT ' . $fields . ' FROM ' . $this->_table.' '.$joinWith;
         $sql .= $condition;
         $sql .= ' ORDER BY ' . $this->_table_left;
-            
+
         try {
             $res = $this->dataPoint->Query($sql, (object)['page' => $page, 'pagesize' => $pagesize]);
         } catch (DataAccessPointsException $e) {
@@ -758,7 +758,7 @@ class NestedSet
 
         return $res;
     }
-        
+
     /**
      * Gets a position number
      *
@@ -772,13 +772,13 @@ class NestedSet
         if (!VariableHelper::IsEmpty($condition)) {
             $condition = $this->_PrepareCondition($condition, false);
         }
-            
+
         $sql = 'select count(*) as c from '.$this->_table.' where '.$this->_table_left.' < '.$node[0].$condition.' order by '.$this->_table_left;
         $r = $this->dataPoint->Query($sql);
         $rr = $r->Read();
         return $rr->c;
     }
-        
+
     /**
      * Returns all elements of a branch starting from an element with number $id.
      *
@@ -795,7 +795,7 @@ class NestedSet
         if (VariableHelper::IsArray($fields)) {
             $fields[] = "*";
             $fields = 'A.' . implode(', A.', $fields);
-                
+
             $fields = str_replace('A.(', '(', $fields);
             $fields = str_replace('A.exists(', 'exists(', $fields);
             $fields = str_replace('A.count(', 'count(', $fields);
@@ -805,25 +805,25 @@ class NestedSet
         } else {
             $fields = 'A.*';
         }
-            
-            
+
+
         if (!VariableHelper::IsEmpty($condition)) {
             $condition = $this->_PrepareCondition($condition, false, 'A.');
         }
-            
-            
+
+
         // removes a 0 leveled row
         $condition .= ' and A.'.$this->_table_level.' > 0';
-                
+
         if (!VariableHelper::IsEmpty($joinWith)) {
             $joinWith = $this->_PrepareJoin($joinWith, 'A.');
         }
-            
-            
+
+
         $sql = 'SELECT ' . $fields . ', CASE WHEN A.' . $this->_table_left . ' + 1 < A.' . $this->_table_right . ' THEN 1 ELSE 0 END AS nflag FROM ' . $this->_table . ' A '.$joinWith.', ' . $this->_table . ' B WHERE B.' . $this->_table_id . ' = ' . (int)$id . ' AND A.' . $this->_table_left . ' >= B.' . $this->_table_left . ' AND A.' . $this->_table_right . ' <= B.' . $this->_table_right;
         $sql .= $condition;
         $sql .= ' ORDER BY A.' . $this->_table_left;
-                                            
+
         try {
             $res = $this->dataPoint->Query($sql, (object)['page' => $page, 'pagesize' => $pagesize]);
         } catch (DataAccessPointsException $e) {
@@ -833,7 +833,7 @@ class NestedSet
 
         return $res;
     }
-        
+
     /**
      * Returns all parents of element with number $id.
      *
@@ -847,7 +847,7 @@ class NestedSet
     {
         if (VariableHelper::IsArray($fields)) {
             $fields = 'A.' . implode(', A.', $fields);
-                
+
             $fields = str_replace('A.(', '(', $fields);
             $fields = str_replace('A.exists(', 'exists(', $fields);
             $fields = str_replace('A.count(', 'count(', $fields);
@@ -857,7 +857,7 @@ class NestedSet
         } else {
             $fields = 'A.*';
         }
-            
+
         if (!VariableHelper::IsEmpty($condition)) {
             $condition = $this->_PrepareCondition($condition, false, 'A.');
         }
@@ -868,7 +868,7 @@ class NestedSet
         $sql = 'SELECT ' . $fields . ', CASE WHEN A.' . $this->_table_left . ' + 1 < A.' . $this->_table_right . ' THEN 1 ELSE 0 END AS nflag FROM ' . $this->_table . ' A '.$joinWith.', ' . $this->_table . ' B WHERE B.' . $this->_table_id . ' = ' . (int)$id . ' AND B.' . $this->_table_left . ' BETWEEN A.' . $this->_table_left . ' AND A.' . $this->_table_right;
         $sql .= $condition;
         $sql .= ' ORDER BY A.' . $this->_table_left;
-            
+
         try {
             $res = $this->dataPoint->Query($sql);
         } catch (DataAccessPointsException $e) {
@@ -878,7 +878,7 @@ class NestedSet
 
         return $res;
     }
-        
+
     /**
      * Returns a slightly opened tree from an element with number $id.
      *
@@ -893,7 +893,7 @@ class NestedSet
     {
         if (VariableHelper::IsArray($fields)) {
             $fields = 'A.' . implode(', A.', $fields);
-                
+
             $fields = str_replace('A.(', '(', $fields);
             $fields = str_replace('A.exists(', 'exists(', $fields);
             $fields = str_replace('A.count(', 'count(', $fields);
@@ -903,29 +903,29 @@ class NestedSet
         } else {
             $fields = 'A.*';
         }
-            
+
         $condition1 = '';
         if (!VariableHelper::IsEmpty($condition)) {
             $condition1 = $this->_PrepareCondition($condition, false, 'B.');
         }
-            
+
         $sql = 'SELECT A.' . $this->_table_left . ', A.' . $this->_table_right . ', A.' . $this->_table_level . ' FROM ' . $this->_table . ' A, ' . $this->_table . ' B '
                 . 'WHERE B.' . $this->_table_id . ' = ' . (int)$id . ' AND B.' . $this->_table_left . ' BETWEEN A.' . $this->_table_left . ' AND A.' . $this->_table_right;
         $sql .= $condition1;
         $sql .= ' ORDER BY A.' . $this->_table_left;
-            
+
         try {
             $res = $this->dataPoint->Query($sql);
         } catch (DataAccessPointsException $e) {
             $this->_setError($e->getFile(), __CLASS__, __FUNCTION__, $e->getLine(), $sql, $e->getMessage());
             return null;
         }
-            
+
         if ($res->Count() == 0) {
             $this->_setError(__FILE__, __CLASS__, __FUNCTION__, __LINE__, $sql, 'no_element_in_tree');
             return null;
         }
-            
+
         $alen = $res->Count();
         $i = 0;
         if (VariableHelper::IsArray($fields)) {
@@ -933,11 +933,11 @@ class NestedSet
         } else {
             $fields = '*';
         }
-            
+
         if (!VariableHelper::IsEmpty($condition)) {
             $condition1 = $this->_PrepareCondition($condition, false);
         }
-            
+
         $sql = 'SELECT ' . $fields . ' FROM ' . $this->_table . ' A WHERE (' . $this->_table_level . ' = 1';
         while ($row = $res->Read()) {
             if ((++$i == $alen) && ($row->{$this->_table_left} + 1) == $row->{$this->_table_right}) {
@@ -949,8 +949,8 @@ class NestedSet
         }
         $sql .= ') ' . $condition1;
         $sql .= ' ORDER BY ' . $this->_table_left;
-            
-            
+
+
         try {
             $res = $this->dataPoint->Query($sql, (object)['page' => $page, 'pagesize' => $pagesize]);
         } catch (DataAccessPointsException $e) {
@@ -960,7 +960,7 @@ class NestedSet
 
         return $res;
     }
-        
+
     /**
      * Transform array with conditions to SQL query
      * Array structure:
@@ -996,7 +996,7 @@ class NestedSet
         $sql = str_replace('A. concat(', 'concat(', $sql);
         return str_replace('A. (', '(', $sql);
     }
-        
+
     /**
      * Transform array with conditions to SQL query
      * Array structure:

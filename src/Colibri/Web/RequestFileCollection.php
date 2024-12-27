@@ -7,8 +7,9 @@
  *
  * @package Colibri\Web
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web;
 
 /**
@@ -21,7 +22,6 @@ namespace Colibri\Web;
  */
 class RequestFileCollection extends RequestCollection
 {
-
     /**
      * Constructor.
      *

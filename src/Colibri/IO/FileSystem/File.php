@@ -35,15 +35,14 @@ use JsonSerializable;
  */
 class File extends Node implements JsonSerializable
 {
-
     /** Read mode */
-    const MODE_READ = "rb9";
+    public const MODE_READ = "rb9";
     /** Write mode */
-    const MODE_WRITE = "wb9";
+    public const MODE_WRITE = "wb9";
     /** Append mode */
-    const MODE_APPEND = "ab9";
+    public const MODE_APPEND = "ab9";
     /** Create mode for writing */
-    const MODE_CREATEWRITE = "wb9";
+    public const MODE_CREATEWRITE = "wb9";
 
     /**
      * File path information.
@@ -88,72 +87,72 @@ class File extends Node implements JsonSerializable
         $return = null;
         switch (strtolower($property)) {
             case 'attributes': {
-                    $return = $this->getAttributesObject();
-                    break;
-                }
+                $return = $this->getAttributesObject();
+                break;
+            }
             case 'filename': {
-                    $return = $this->info['filename'];
-                    break;
-                }
+                $return = $this->info['filename'];
+                break;
+            }
             case 'name': {
-                    $return = $this->info['basename'];
-                    break;
-                }
+                $return = $this->info['basename'];
+                break;
+            }
             case 'extension': {
-                    if (array_key_exists('extension', $this->info)) {
-                        $return = strtolower($this->info['extension']);
-                    } else {
-                        $return = '';
-                    }
-                    break;
+                if (array_key_exists('extension', $this->info)) {
+                    $return = strtolower($this->info['extension']);
+                } else {
+                    $return = '';
                 }
+                break;
+            }
             case 'directory': {
-                    if ($this->info['dirname'] !== '') {
-                        if (!($this->info['dirname'] instanceof Directory)) {
-                            $this->info['dirname'] = new Directory($this->info['dirname'] . '/');
-                        }
-                        $return = $this->info['dirname'];
+                if ($this->info['dirname'] !== '') {
+                    if (!($this->info['dirname'] instanceof Directory)) {
+                        $this->info['dirname'] = new Directory($this->info['dirname'] . '/');
                     }
-                    break;
+                    $return = $this->info['dirname'];
                 }
+                break;
+            }
             case 'dotfile': {
-                    $return = substr($this->name, 0, 1) == '.';
-                    break;
-                }
+                $return = substr($this->name, 0, 1) == '.';
+                break;
+            }
             case 'path': {
-                    $dirname = $this->info['dirname'] instanceof Directory ? $this->info['dirname']->path : $this->info['dirname'];
-                    $return = $dirname . ($dirname ? '/' : '') . $this->info['basename'];
-                    break;
-                }
+                $dirname = $this->info['dirname'] instanceof Directory ? $this->info['dirname']->path : $this->info['dirname'];
+                $return = $dirname . ($dirname ? '/' : '') . $this->info['basename'];
+                break;
+            }
             case 'size': {
-                    if ($this->_size == 0) {
-                        $this->_size = filesize($this->path);
-                    }
-                    $return = $this->_size;
-                    break;
+                if ($this->_size == 0) {
+                    $this->_size = filesize($this->path);
                 }
+                $return = $this->_size;
+                break;
+            }
             case 'exists': {
-                    $return = self::exists($this->path);
-                    break;
-                }
+                $return = self::exists($this->path);
+                break;
+            }
             case 'access': {
-                    $return = $this->getSecurityObject();
-                    break;
-                }
+                $return = $this->getSecurityObject();
+                break;
+            }
             case 'binary':
             case 'content': {
-                    if (self::exists($this->path)) {
-                        $return = file_get_contents($this->path);
-                    }
-                    break;
+                if (self::exists($this->path)) {
+                    $return = file_get_contents($this->path);
                 }
+                break;
+            }
             default: {
-                    if (strstr(strtolower($property), 'attr_') !== false) {
-                        $p = str_replace('attr_', '', strtolower($property));
-                        $return = $this->getAttributesObject()->$p;
-                    }
-                    break;
+                if (strstr(strtolower($property), 'attr_') !== false) {
+                    $p = str_replace('attr_', '', strtolower($property));
+                    $return = $this->getAttributesObject()->$p;
                 }
+                break;
+            }
         }
         return $return;
     }
@@ -249,7 +248,7 @@ class File extends Node implements JsonSerializable
      * @param string $path The path to the file.
      * @return FileStream|null Returns FileStream object if file exists, otherwise returns null.
      */
-    public static function Open(string $path): ? FileStream
+    public static function Open(string $path): ?FileStream
     { //ireader
         if (self::Exists($path)) {
             return new FileStream($path);

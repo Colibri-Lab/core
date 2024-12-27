@@ -9,7 +9,6 @@ use Colibri\IO\Request\Type;
 
 class ErrorHelper
 {
-    
     public static function Telegram(string $channel, string $message)
     {
         $botToken = App::$config->Query('errors.telegram', '')->GetValue();

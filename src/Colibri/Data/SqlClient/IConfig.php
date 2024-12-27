@@ -15,7 +15,6 @@ namespace Colibri\Data\SqlClient;
  */
 interface IConfig
 {
-
     /**
      * Returns an DBMS type, i.e. relational or nosql
      * @return string

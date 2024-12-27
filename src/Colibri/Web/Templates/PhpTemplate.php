@@ -7,8 +7,9 @@
  *
  * @package Colibri\Web\Templates
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web\Templates;
 
 use Colibri\App;
@@ -22,7 +23,6 @@ use Colibri\Utils\ExtendedObject;
 
 class PhpTemplate extends Template
 {
-
     /**
      * Constructor
      *

@@ -2,13 +2,14 @@
 
 /**
  * Threading
- * 
+ *
  * This class manages processes for multithreading.
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
  * @package Colibri\Threading
  */
+
 namespace Colibri\Threading;
 
 use Colibri\App;
@@ -18,7 +19,7 @@ use Colibri\Utils\Debug;
 
 /**
  * Manages processes for multithreading.
- * 
+ *
  * Attention: For proper functionality, ensure the presence of php_cli, memcached, and permissions to execute scripts using shell_exec and exec.
  * Before use, verify the existence of the php_cli handler in the folder specified by the Handler constant. If your handler is elsewhere, modify this variable accordingly.
  *
@@ -57,9 +58,8 @@ use Colibri\Utils\Debug;
  */
 class Process
 {
- 
     public static bool $useSudo = false;
-    
+
     /**
      * Process ID (PID) of the worker process.
      *
@@ -298,7 +298,7 @@ class Process
         }
     }
 
-    
+
     /**
      * Retrieves a Process instance id by name
      *
@@ -329,7 +329,7 @@ class Process
 
     }
 
-    
+
     /**
      * Retrieves a Process instance by worker name.
      *

@@ -18,12 +18,12 @@ class Crypt
     /**
      * Encryption algorithm: Base64 encoding.
      */
-    const EncryptionAlgBase64 = 'base64';
+    public const EncryptionAlgBase64 = 'base64';
 
     /**
      * Encryption algorithm: Hexadecimal encoding.
      */
-    const EncryptionAlgHex = 'hex';
+    public const EncryptionAlgHex = 'hex';
 
     /**
      * Encrypts data.
@@ -33,7 +33,7 @@ class Crypt
      * @param string $stringifyMethod The method for converting to string.
      * @return string The encrypted data.
      */
-    static function Encrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): string
+    public static function Encrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): string
     {
         if (!is_string($data) || !is_string($key)) {
             return null;
@@ -52,7 +52,7 @@ class Crypt
      * @param string $stringifyMethod The method for converting to string.
      * @return string The decrypted data.
      */
-    static function Decrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): string
+    public static function Decrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): string
     {
         if (!is_string($data) || !is_string($key)) {
             return null;

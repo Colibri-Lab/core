@@ -22,7 +22,6 @@ use Colibri\Web\RequestedFile;
  */
 class Data extends ArrayList
 {
-
     /**
      * Create data from an array.
      *
@@ -31,7 +30,7 @@ class Data extends ArrayList
      * @param Data|null &$d Optional Data object reference.
      * @return Data The created data.
      */
-    public static function FromArray(array $array, ?string $keyBefore = null, ? Data &$d = null)
+    public static function FromArray(array $array, ?string $keyBefore = null, ?Data &$d = null)
     {
         if (!$d) {
             $d = new Data();

@@ -9,6 +9,7 @@
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml\Serialization
  */
+
 namespace Colibri\Xml\Serialization;
 
 use Colibri\Common\VariableHelper;
@@ -17,14 +18,13 @@ use Colibri\Common\VariableHelper;
  * Serialization
  *
  * This class represents a deserialized object from XML.
- * 
+ *
  * @property string $name
  * @property array $attributes - аттрибуты
  * @property mixed $content - данные
  */
 class XmlSerialized implements \JsonSerializable
 {
-
     /**
      * The name of the element.
      *
@@ -129,7 +129,7 @@ class XmlSerialized implements \JsonSerializable
             if ($className == 'XmlCData') {
                 return new XmlCData($object['value']);
             } else {
-                $class = new $className;
+                $class = new $className();
                 foreach ($object as $key => $value) {
                     if ($key !== 'class') {
                         $class->$key = XmlSerialized::jsonUnserialize(json_encode($value));

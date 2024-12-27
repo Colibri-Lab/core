@@ -7,6 +7,7 @@
  *
  * @package Colibri\Queue
  */
+
 namespace Colibri\Queue;
 
 /**
@@ -14,4 +15,6 @@ namespace Colibri\Queue;
  *
  * Exception class for queues.
  */
-class Exception extends \Exception {}
+class Exception extends \Exception
+{
+}

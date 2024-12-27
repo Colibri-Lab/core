@@ -140,7 +140,7 @@ class DataCollection extends BaseDataTable
         if (is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
         }
-        
+
         // TODO добавить запрос на проверку удаленных записей
 
         [, $rowClass] = $storage->GetModelClasses();
@@ -270,7 +270,7 @@ class DataCollection extends BaseDataTable
             $row->$idc = $data['datecreated'];
             $row->$idm = $data['datemodified'];
         } else {
-            
+
             $res = $this->_storage->accessPoint->ExecuteCommand(
                 'UpdateDocument',
                 $this->_storage->table,

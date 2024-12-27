@@ -15,7 +15,6 @@ namespace Colibri\Encryption;
  */
 class Rc4Crypt
 {
-
     /**
      * Encrypts data using RC4 algorithm.
      *
@@ -23,7 +22,7 @@ class Rc4Crypt
      * @param string $data The data to encrypt.
      * @return string The encrypted data.
      */
-    static function Encrypt(string $pwd, string $data): string
+    public static function Encrypt(string $pwd, string $data): string
     {
         $key[] = '';
         $box[] = '';
@@ -64,7 +63,7 @@ class Rc4Crypt
      * @param string $data The data to decrypt.
      * @return string The decrypted data.
      */
-    static function Decrypt(string $pwd, string $data): string
+    public static function Decrypt(string $pwd, string $data): string
     {
         return rc4crypt::encrypt($pwd, $data);
     }

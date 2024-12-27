@@ -10,6 +10,7 @@
  * @package Colibri\Xml
  *
  */
+
 namespace Colibri\Xml;
 
 use Colibri\Collections\ReadonlyCollection;
@@ -23,11 +24,10 @@ use DOMDocument;
  * @property-read DOMDocument $document The document.
  *
  * @method XmlNode offsetGet(mixed $offset)
- * 
+ *
  */
 class XmlNamedNodeList extends ReadonlyCollection
 {
-
     /**
      * The document.
      *
@@ -103,8 +103,7 @@ class XmlNamedNodeList extends ReadonlyCollection
     {
         if (strtolower($property) == 'document') {
             return $this->_document;
-        }
-        else {
+        } else {
             return parent::__get($property);
         }
     }

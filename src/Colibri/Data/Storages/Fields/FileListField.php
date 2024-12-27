@@ -7,6 +7,7 @@
  * @copyright 2019 Colibri
  * @package Colibri\Data\Storages\Fields
  */
+
 namespace Colibri\Data\Storages\Fields;
 
 use Colibri\Collections\ArrayList;
@@ -18,7 +19,6 @@ use Colibri\Collections\ArrayList;
  */
 class FileListField extends ArrayList
 {
-
     /**
      * Конструктор
      * @param string $data данные из поля
@@ -66,15 +66,15 @@ class FileListField extends ArrayList
 
     public function GetValidationData(): mixed
     {
-        return array_map(fn($item) => $item->ToArray(), $this->ToArray());
+        return array_map(fn ($item) => $item->ToArray(), $this->ToArray());
     }
 
     public static function ParamTypeName(): string
     {
         return 'string';
-    } 
+    }
 
-    public static function Null(): mixed
+    public static function null(): mixed
     {
         return null;
     }

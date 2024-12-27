@@ -222,7 +222,8 @@ class Field
         return $this->_xfield;
     }
 
-    public function Path(): array {
+    public function Path(): array
+    {
         $path = [];
         $parent = $this;
         while($parent) {

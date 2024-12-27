@@ -8,6 +8,7 @@
  * @package Colibri\Xml\Definitions
  *
  */
+
 namespace Colibri\Xml\Definitions;
 
 use Colibri\Xml\XmlNode;

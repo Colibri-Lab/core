@@ -18,20 +18,19 @@ namespace Colibri\Events;
  */
 class EventsContainer
 {
-
     #region Application events
 
     /**
      * Triggered after the application initialization is complete.
      * No parameters.
      */
-    const AppReady = 'app.ready';
+    public const AppReady = 'app.ready';
 
     /**
      * Start of application initialization.
      * No parameters.
      */
-    const AppInitializing = 'app.initializing';
+    public const AppInitializing = 'app.initializing';
 
     #endregion
 
@@ -41,7 +40,7 @@ class EventsContainer
      * When the Request object is ready.
      * No parameters.
      */
-    const RequestReady = 'request.ready';
+    public const RequestReady = 'request.ready';
 
     #endregion
 
@@ -51,27 +50,27 @@ class EventsContainer
      * When the Response object is ready.
      * No parameters.
      */
-    const ResponseReady = 'response.ready';
+    public const ResponseReady = 'response.ready';
 
     #endregion
 
-    #region ModuleManager events 
+    #region ModuleManager events
 
     /**
      * Triggered after all modules have been loaded.
      * No parameters.
      */
-    const ModuleManagerReady = 'modulemanager.ready';
+    public const ModuleManagerReady = 'modulemanager.ready';
 
     #endregion
 
-    #region SecurityManager events 
+    #region SecurityManager events
 
     /**
      * Triggered after the SecurityManager has been initialized.
      * No parameters.
      */
-    const SecurityManagerReady = 'securitymanager.ready';
+    public const SecurityManagerReady = 'securitymanager.ready';
 
     #endregion
 
@@ -82,42 +81,42 @@ class EventsContainer
      * Parameters: string $type, string $name, string[] $blocks
      * Used part of the result: string[] $blocks
      */
-    const AssetsCompiling = 'assets.compiling';
+    public const AssetsCompiling = 'assets.compiling';
 
     /**
      * Completion of assets compilation.
      * Parameters: string $type, string $name, string $cacheUrl
      * The result is not used.
      */
-    const AssetsCompiled = 'assets.compiled';
+    public const AssetsCompiled = 'assets.compiled';
 
     /**
      * Completion of block assets compilation.
      * Parameters: string $type, string $name, string $content
      * Used part of the result: string $content
      */
-    const AssetsBlock = 'assets.block';
+    public const AssetsBlock = 'assets.block';
 
     /**
      * Completion of file compilation in the bundle.
      * Parameters: string $content, string $file
      * Used part of the result: string $content
      */
-    const BundleFile = 'bundle.file';
+    public const BundleFile = 'bundle.file';
 
     /**
      * Start of bundle compilation.
      * Parameters: string[] $exts
      * Used part of the result: string $content
      */
-    const BundleStart = 'bundle.start';
+    public const BundleStart = 'bundle.start';
 
     /**
      * Completion of bundle compilation.
      * Parameters: string $content, string[] $exts
      * Used part of the result: string $content
      */
-    const BundleComplete = 'bundle.complete';
+    public const BundleComplete = 'bundle.complete';
 
     #endregion
 
@@ -128,21 +127,21 @@ class EventsContainer
      * Parameters: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload
      * Result: boolean $cancel, stdClass $result
      */
-    const RpcGotRequest = 'rpc.request';
+    public const RpcGotRequest = 'rpc.request';
 
     /**
      * Request processed.
      * Parameters: mixed $object, string $method, stdClass $get, stdClass $post, stdClass $payload
      * The result is not used.
      */
-    const RpcRequestProcessed = 'rpc.complete';
+    public const RpcRequestProcessed = 'rpc.complete';
 
     /**
      * RPC request error.
      * Parameters: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload, string $message
      * Result: boolean $cancel, stdClass $result
      */
-    const RpcRequestError = 'rpc.error';
+    public const RpcRequestError = 'rpc.error';
 
     #endregion
 
@@ -153,14 +152,14 @@ class EventsContainer
      * Parameters: Template $template, ExtendedObject $args
      * The result is not used.
      */
-    const TemplateRendering = 'template.rendering';
+    public const TemplateRendering = 'template.rendering';
 
     /**
      * Template has been rendered.
      * Parameters: Template $template, string $content
      * The result is not used.
      */
-    const TemplateRendered = 'template.rendered';
+    public const TemplateRendered = 'template.rendered';
 
     #endregion
 
@@ -171,13 +170,13 @@ class EventsContainer
      * Parameters: int $type = Logger::*, string $message, mixed $context
      * The result is not used.
      */
-    const LogWriten = 'logger.writen';
+    public const LogWriten = 'logger.writen';
 
     #endregion
 
     #region JobParallelProcesses
 
-    const ParallelJobIsEnded = 'job.parallel.ended';
+    public const ParallelJobIsEnded = 'job.parallel.ended';
 
     #endregion
 

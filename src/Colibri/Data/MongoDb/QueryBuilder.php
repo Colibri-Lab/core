@@ -8,6 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\MySql
  */
+
 namespace Colibri\Data\MongoDb;
 
 use Colibri\Common\DateHelper;
@@ -23,7 +24,7 @@ use Colibri\Data\Storages\Storage;
 class QueryBuilder
 {
     private Connection $_connection;
-    public function __construct(Connection $connection) 
+    public function __construct(Connection $connection)
     {
         $this->_connection = $connection;
     }
@@ -31,10 +32,10 @@ class QueryBuilder
     public const MutationInsert = 'insert';
     public const MutationUpdate = 'update';
     public const MutationDelete = 'delete';
-    
+
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
     {
-        
+
         $filterFields = VariableHelper::ToJsonFilters($filterFields);
 
         $searchFilters = [];
@@ -74,7 +75,8 @@ class QueryBuilder
         $filters = [];
         $query = [];
         if($term) {
-            function getFieldQuery($term, $fields, $parent, $storage, &$query) {
+            function getFieldQuery($term, $fields, $parent, $storage, &$query)
+            {
                 foreach ($fields as $field) {
                     if ($field->class === 'string') {
                         $query[($parent ? $parent.'.' : '').$storage->GetRealFieldName($field->name)] = '/' . $storage->accessPoint->EscapeQuery($term) . '/i';
@@ -83,7 +85,7 @@ class QueryBuilder
                     }
                 }
             }
-            
+
             getFieldQuery($term, $storage->fields, '', $storage, $query);
 
         }
@@ -91,7 +93,7 @@ class QueryBuilder
         foreach($fields as $fieldName => $fieldData) {
             $field = $fieldData[0];
             $value = $fieldData[1];
-            
+
             $fieldName = $storage->GetRealFieldName($fieldName);
 
             if(in_array($field->component, [
@@ -163,7 +165,7 @@ class QueryBuilder
                 } else {
                     $fieldValues['$set'][$key] = $value;
                 }
-                
+
             }
             return $fieldValues;
         } elseif ($mutationType === self::MutationDelete) {
@@ -183,9 +185,9 @@ class QueryBuilder
     public function CreateFieldForQuery(string $field, string $table): string
     {
         return $field;
-    }   
+    }
 
-    
+
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): array
     {
         return [$this->CreateFieldForQuery($softDeleteField, $table) => null];

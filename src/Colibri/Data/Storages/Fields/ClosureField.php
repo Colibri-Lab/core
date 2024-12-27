@@ -11,24 +11,23 @@ use Closure;
 
 class ClosureField implements JsonSerializable
 {
-
     private string $_value;
 
-    protected ? DataRow $_datarow = null;
+    protected ?DataRow $_datarow = null;
 
     /**
      * Поле
      * @var Field
      */
-    protected ? Field $_field = null;
+    protected ?Field $_field = null;
 
     /**
      * Хранилище
      * @var Storage
      */
-    protected ? Storage $_storage = null;
+    protected ?Storage $_storage = null;
 
-    public function __construct(string $value, ? Storage $storage = null, ? Field $field = null, ? DataRow $datarow = null)
+    public function __construct(string $value, ?Storage $storage = null, ?Field $field = null, ?DataRow $datarow = null)
     {
         $this->_value = $value;
         $this->_storage = $storage;
@@ -77,9 +76,9 @@ class ClosureField implements JsonSerializable
     public static function ParamTypeName(): string
     {
         return 'string';
-    } 
+    }
 
-    public static function Null(): mixed
+    public static function null(): mixed
     {
         return null;
     }

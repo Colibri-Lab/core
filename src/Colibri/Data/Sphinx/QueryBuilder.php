@@ -8,6 +8,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Data\Sphinx
  */
+
 namespace Colibri\Data\Sphinx;
 
 use Colibri\Common\StringHelper;
@@ -25,7 +26,7 @@ use Colibri\Data\Storages\Storage;
 class QueryBuilder implements IQueryBuilder
 {
     private Connection $_connection;
-    public function __construct(Connection $connection) 
+    public function __construct(Connection $connection)
     {
         $this->_connection = $connection;
     }
@@ -172,7 +173,7 @@ class QueryBuilder implements IQueryBuilder
      * Creates a SELECT query.
      * @param string $table The name of the table.
      * @param array|string $fields The fields to select.
-     * @param array|string $filter The filter for selecting the records. 
+     * @param array|string $filter The filter for selecting the records.
      * @param array|string $order The order for selecting the records.
      * @return string
      */
@@ -195,7 +196,7 @@ class QueryBuilder implements IQueryBuilder
         } else {
             $orders[] = $order;
         }
-        return 'select '.(is_array($fields) ? '`' . implode('`,`', $fields) . '`' : $fields).' from `' . $table . '`' . 
+        return 'select '.(is_array($fields) ? '`' . implode('`,`', $fields) . '`' : $fields).' from `' . $table . '`' .
             (!empty($filters) ? 'where ' . implode(' and ', $filters) : '') . ' '.
             (!empty($orders) ? 'order by ' . implode(',', $orders) : '');
     }
@@ -303,7 +304,7 @@ class QueryBuilder implements IQueryBuilder
                 datedeleted bigint
             ) OPTION '.($tableOptionsString ? $tableOptionsString : 'rt_mem_limit=256M, min_prefix_len=3').'
         ';
-    }    
+    }
     public function CreateShowStatus(string $table): string
     {
         return 'SHOW INDEX '.$table.' AGENT STATUS';
@@ -311,7 +312,7 @@ class QueryBuilder implements IQueryBuilder
 
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
     {
-        
+
         $filterFields = VariableHelper::ToJsonFilters($filterFields);
 
         $searchFilters = [];
@@ -450,12 +451,12 @@ class QueryBuilder implements IQueryBuilder
 
     }
 
-    
-    
+
+
     public function CreateFieldForQuery(string $field, string $table): string
     {
         return $field;
-    }   
+    }
 
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): string
     {

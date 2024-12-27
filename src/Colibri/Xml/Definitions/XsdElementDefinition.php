@@ -18,7 +18,7 @@ use Colibri\Xml\XmlNode;
  * XsdElementDefinition
  *
  * Represents the definition of an XML element.
- * 
+ *
  * @property-read string $annotation The annotation of the element.
  * @property-read string $name The name of the element.
  * @property-read \stdClass $occurs An object defining the minimum and maximum occurrences of the element.
@@ -31,20 +31,19 @@ use Colibri\Xml\XmlNode;
  */
 class XsdElementDefinition implements \JsonSerializable
 {
-
     /**
      * The XML node.
      *
      * @var XmlNode
      */
-    private ? XmlNode $_node;
+    private ?XmlNode $_node;
 
     /**
      * The schema definition.
      *
      * @var XsdSchemaDefinition
      */
-    private ? XsdSchemaDefinition $_schema;
+    private ?XsdSchemaDefinition $_schema;
 
     /**
      * Constructor.

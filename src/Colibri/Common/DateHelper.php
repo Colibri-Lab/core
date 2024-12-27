@@ -7,6 +7,7 @@
  * @copyright 2019 ColibriLab
  * @package Colibri\Common
  */
+
 namespace Colibri\Common;
 
 use Colibri\Utils\Debug;
@@ -20,21 +21,21 @@ use Colibri\Data\Storages\Fields\DateTimeField;
 class DateHelper
 {
     private const NBSP = '&nbsp;';
-    
+
     private const DATEFORMAT = 'Y-m-d 00:00:00';
 
     /** Seconds in year */
     public const YEAR = 31556926;
-    
+
     /** Seconds in month */
     public const MONTH = 2629744;
-    
+
     /** Seconds in week */
     public const WEEK = 604800;
-    
+
     /** Seconds in day */
     public const DAY = 86400;
-    
+
     /** Seconds in hour */
     public const HOUR = 3600;
 
@@ -43,7 +44,7 @@ class DateHelper
 
     /**
      * Creates a date object based on the provided year, month, and day.
-     * 
+     *
      * @example
      * ```
      * DateHelper::Create(2024,1,1) returns 1704067200
@@ -52,7 +53,7 @@ class DateHelper
      * @param int $year The year (e.g., 2024).
      * @param int $month The month (1 to 12).
      * @param int $day The day of the month (1 to 31).
-     * @return int 
+     * @return int
      */
     public static function Create(int $year, int $month, int $day): bool|int
     {
@@ -61,7 +62,7 @@ class DateHelper
 
     /**
      * Calculates the last day of the month for the given date.
-     * 
+     *
      * @example
      * ```
      * DateHelper::LastDayOfMonth(1704067200) returns 31
@@ -78,7 +79,7 @@ class DateHelper
 
     /**
      * Generates an RFC 2822 formatted date string based on the provided timestamp.
-     * 
+     *
      * @example
      * ```
      * DateHelper::RFC() today returns Fri, 15 Mar 2024 03:57:55 +0000
@@ -98,7 +99,7 @@ class DateHelper
 
     /**
      * Converts a timestamp or date string to a database-friendly formatted string.
-     * 
+     *
      * @example
      * ```
      * DateHelper::ToDbString(1704067200) returns 2024-01-01 00:00:00
@@ -120,7 +121,7 @@ class DateHelper
 
     /**
      * Converts a timestamp to a human-readable date string.
-     * 
+     *
      * @example
      * ```
      * DateHelper::ToHumanDate() returns today 15 марта 2024
@@ -143,7 +144,7 @@ class DateHelper
 
     /**
      * Converts a human-readable date string to timestamp.
-     * 
+     *
      * @example
      * ```
      * DateHelper::FromHumanDate('23 марта 2024 года') returns 123123123
@@ -168,7 +169,7 @@ class DateHelper
 
     /**
      * Converts a timestamp or date string to a human-readable quarter representation.
-     * 
+     *
      * @example
      * ```
      * DateHelper::ToQuarter() returns today 1 квартал 2024
@@ -207,7 +208,7 @@ class DateHelper
 
     /**
      * Converts a date string to a Unix timestamp.
-     * 
+     *
      * @example
      * ```
      * DateHelper::ToUnixTime('2024-01-01') returns 1704067200
@@ -223,7 +224,7 @@ class DateHelper
 
     /**
      * Calculates the age based on the provided timestamp.
-     * 
+     *
      * @example
      * ```
      * DateHelper::Age(1704067200) returns 2 месяца назад
@@ -264,11 +265,11 @@ class DateHelper
 
     /**
      * Calculates the age in years based on the provided timestamp or date string.
-     * 
+     *
      * @example
      * ```
-     * DateHelper::AgeYears(1704067200) returns 0     
-     * DateHelper::AgeYears(1602062200) returns 3   
+     * DateHelper::AgeYears(1704067200) returns 0
+     * DateHelper::AgeYears(1602062200) returns 3
      * ```
      *
      * @param int|string $time The timestamp (as an integer) or date string.
@@ -300,7 +301,7 @@ class DateHelper
 
     /**
      * Converts a numeric timestamp to a human-readable time string formated as HH:MM:SS
-     * 
+     *
      * @example
      * ```
      * DateHelper::TimeToString(1602062200) returns 57:16:40
@@ -352,7 +353,7 @@ class DateHelper
 
     /**
      * Calculates the difference between two timestamps.
-     * 
+     *
      * @example
      * ```
      * DateHelper::Diff(1602062200, 1704067200) returns (object)["years" => 3,"months" => 2,"days" => 25]
@@ -417,7 +418,7 @@ class DateHelper
 
     /**
      * Calculates the difference between two timestamps in terms of full tokens (years, months, and days).
-     * 
+     *
      * @example
      * ```
      * DateHelper::DiffFullTokens(1602062200, 1704067200) returns "3 года 2 месяца25 дней"
@@ -462,7 +463,7 @@ class DateHelper
 
     /**
      * Converts a date string in the format "DD.MM.YYYY" to a correctly formatted string.
-     * 
+     *
      * @example
      * ```
      * DateHelper::FromDDMMYYYY('01.01.2024') returns 2024-01-01
@@ -504,7 +505,7 @@ class DateHelper
 
     /**
      * Calculates the number of days in the month for the given DateTime object.
-     * 
+     *
      * @example
      * ```
      * DateHelper::DaysInMonth(new DateTime('now')) today returns 31

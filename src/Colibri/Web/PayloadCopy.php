@@ -7,8 +7,9 @@
  *
  * @package Colibri\Web
  * @author Vahan P. Grigoryan
- * @copyright 2020 ColibriLab 
+ * @copyright 2020 ColibriLab
  */
+
 namespace Colibri\Web;
 
 use Colibri\Common\XmlHelper;
@@ -24,7 +25,6 @@ use RuntimeException;
  */
 class PayloadCopy implements ArrayAccess, Countable
 {
-
     private string $_type;
     private mixed $_payloadData = null;
 

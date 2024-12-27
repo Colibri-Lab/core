@@ -8,7 +8,6 @@
  * @package Colibri\IO\FileSystem
  */
 
-
 namespace Colibri\IO\FileSystem;
 
 use Colibri\AppException;

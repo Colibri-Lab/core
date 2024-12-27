@@ -15,7 +15,6 @@ namespace Colibri\IO\FileSystem;
  */
 class FileStream extends Stream
 {
-
     /**
      * Indicates if the file is virtual.
      *

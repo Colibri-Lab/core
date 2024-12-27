@@ -22,7 +22,6 @@ use InvalidArgumentException;
  */
 class Event
 {
-
     /**
      * The sender of the event.
      *

@@ -10,6 +10,7 @@
  * @package Colibri\Xml
  *
  */
+
 namespace Colibri\Xml;
 
 use Colibri\Common\StringHelper;
@@ -26,7 +27,6 @@ use Colibri\Utils\Debug;
  */
 class XmlNodeAttributeList implements \IteratorAggregate, \Countable, \ArrayAccess
 {
-
     /**
      * The document.
      *

@@ -6,8 +6,9 @@
  * @package Colibri\Utils\Minifiers
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
- * 
+ *
  */
+
 namespace Colibri\Utils\Minifiers;
 
 use Colibri\App;
@@ -19,7 +20,6 @@ use Colibri\IO\FileSystem\File;
  */
 class Javascript
 {
-
     private ?object $_config = null;
 
     /**
@@ -55,7 +55,8 @@ class Javascript
         return $names;
     }
 
-    private function _getAdditionalObjectNames() {
+    private function _getAdditionalObjectNames()
+    {
         $return = [];
         foreach (App::$moduleManager->list as $module) {
             $p = $module->Config()->Query('config.paths.ui', [])->ToArray();
@@ -63,7 +64,7 @@ class Javascript
                 foreach($p as $object) {
                     if(is_object($object)) {
                         $return[] = $object->root;
-                    } else if(is_array($object)) {
+                    } elseif(is_array($object)) {
                         $return[] = $object['root'];
                     }
                 }
@@ -90,7 +91,7 @@ class Javascript
         $content = preg_replace('/console\.dir/s', '_c_', $content);
         $content = preg_replace('/console\.error/s', '_c_', $content);
 
-        preg_match_all('/\n(Colibri|App'.(!empty($roots) ? '|'.implode('|',$roots):'').')[^\[\(]*?\s\=\s/s', $content, $matches);
+        preg_match_all('/\n(Colibri|App'.(!empty($roots) ? '|'.implode('|', $roots) : '').')[^\[\(]*?\s\=\s/s', $content, $matches);
         $matches[0] = array_map(function ($v) {
             $v = trim(str_replace(' = ', '', $v), "\r\n\t ");
             if ($v === 'Colibri.UI.AddTemplate' || $v === 'Colibri.UI.Forms.Field.RegisterFieldComponent' || $v === 'Colibri.UI.Viewer.Register') {
@@ -114,7 +115,7 @@ class Javascript
         }
         $content = $content . implode(',', $ret);
 
-        // надо заменить 
+        // надо заменить
 
         return $content;
     }
@@ -147,7 +148,7 @@ class Javascript
 
             File::Delete($cacheFileIn);
             File::Delete($cacheFileOut);
-        } elseif ($this->_config?->type === 'webpack')  {
+        } elseif ($this->_config?->type === 'webpack') {
             $commandline = $this->_config->command;
             $time = microtime(true);
             $runtime = App::$config->Query('runtime')->GetValue();
