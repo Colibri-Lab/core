@@ -106,13 +106,14 @@ class Generator
             }
 
             if ($field->values) {
-                foreach ($field->values as $value => $title) {
-                    if(in_array($field->type, ['varchar', 'text', 'tinytext', 'mediumtext', 'longtext'])) {
-                        $schemaEnum[] = '\'' . $value . '\'';
-                    } else {
-                        $schemaEnum[] = is_string($value) ? '\'' . $value . '\'' : $value;
-                    }
-                }
+                $schemaType = StringHelper::ToCamelCaseVar(($classPrefix ? $classPrefix . '_' : '') .$field->name. '_enum', true) . '::JsonSchema';
+                // foreach ($field->values as $value => $title) {
+                //     if(in_array($field->type, ['varchar', 'text', 'tinytext', 'mediumtext', 'longtext'])) {
+                //         $schemaEnum[] = '\'' . $value . '\'';
+                //     } else {
+                //         $schemaEnum[] = is_string($value) ? '\'' . $value . '\'' : $value;
+                //     }
+                // }
             }
 
             if (is_array($schemaType) && in_array('boolean', $schemaType) && empty($schemaEnum)) {
@@ -120,12 +121,19 @@ class Generator
                 $schemaEnum = ['true', 'false', '0', '1'];
             }
 
-            if ($schemaType === $rowClass . '::JsonSchema') {
+            if (!is_array($schemaType) && strstr($schemaType, 'Enum') !== false) {
+                if ($field->params['required'] ?? false) {
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => '.$schemaType.', ';
+                } else {
+                    $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [ \'oneOf\' => '.
+                        '[ [ \'type\' => \'null\' ], '.$schemaType.' ] ], ';
+                }
+            } elseif ($schemaType === $rowClass . '::JsonSchema') {
                 if ($field->params['required'] ?? false) {
                     $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => ObjectField::JsonSchema, ';
                 } else {
                     $schemaProperties[] = "\t\t\t" . '\'' . $field->{'name'} . '\' => [ \'oneOf\' => '.
-                        '[ [ \'type\' => \'null\' ], ObjectField::JsonSchema ] ], '; // [\'$ref\' => \'#\']
+                        '[ [ \'type\' => \'null\' ], ObjectField::JsonSchema ] ], ';
                 }
             } elseif ($schemaType === 'ObjectField::JsonSchema') {
                 if(!empty((array)$field->fields)) {
@@ -258,6 +266,12 @@ class Generator
                 $casts[$field->{'name'}] = $class . '::class';
             }
 
+        }
+        
+        if (count($field->values) > 0) {
+            [$class, $fullSubClassName] = self::GenerateEnumFieldClass($storage, $field, $classPrefix);
+            $uses[] = 'use ' . $fullSubClassName . ';';
+            $casts[$field->{'name'}] = $class . '::class';
         }
 
         if($class === 'ValueField') {
@@ -526,6 +540,91 @@ class Generator
                 function ($match) use ($schemaProperties) {
                     return '# region SchemaProperties:' . "\n" . implode("\n", $schemaProperties) . "\n\t\t\t"
                         . '# endregion SchemaProperties;';
+                },
+                $rowModelContent
+            );
+            File::Write($rootPath . $fileName . '.php', $rowModelContent);
+
+        }
+
+        return [$className, $rootNamespace . $row];
+    }
+
+    public static function GenerateEnumFieldClass(Storage $storage, Field $field, string $classPrefix): array
+    {
+        $langModule = App::$moduleManager->Get('lang');
+
+        $rootPath = App::$appRoot;
+        $rootNamespace = '';
+        $module = isset($storage->settings['module']) ? $storage->settings['module'] : null;
+        if ($module) {
+            $module = StringHelper::ToLower($module);
+            if (!App::$moduleManager->$module) {
+                throw new AppException('Unknown module in storage configuration ' . $module);
+            }
+            $rootPath = App::$moduleManager->$module->modulePath;
+            $rootNamespace = App::$moduleManager->$module->moduleNamespace;
+        }
+
+        $models = $storage->{'models'};
+        $row = $models['row'];
+        $fieldName = $field->{'name'};
+        $className = StringHelper::ToCamelCaseVar(($classPrefix ? $classPrefix . '_' : '') .
+            $fieldName . '_enum', true);
+        $row = 'Models\\Fields\\' . StringHelper::ToCamelCaseVar($storage->name, true) . '\\' . $className;
+
+        $fieldDesc = $field->{'desc'};
+        if ($langModule) {
+            $fieldDesc = $fieldDesc[$langModule->Default()] ?? $fieldDesc;
+        }
+
+        $values = [];
+        $properties = [];
+        $enumType = 'string';
+        if ($field->values) {
+            foreach($field->rawvalues as $value) {
+                if($value['type'] === 'int') {
+                    $enumType = 'int';
+                }
+            }
+            foreach($field->rawvalues as $value) {
+                $values[] = "\t\t\t" . ($enumType === 'string' ? '"' . $value['value'] . '"' : $value['value']);
+                $properties[] = "\t" . '/** ' . $langModule->Translate($value['title']) . ' */' . "\n\t" . 'case ' . StringHelper::ToCamelCaseVar($value['value'], true) . ' = ' . ($enumType === 'string'  ? '\'' : '') . $value['value'] . ($enumType === 'string'  ? '\'' : '').';';
+            }
+        }
+
+        $args = [
+            'enum-name' => $className,
+            'enum-desc' => $fieldDesc,
+            'enum-type' => $enumType,
+            'namespace-path' => $rootNamespace . 'Models\\Fields\\' . StringHelper::ToCamelCaseVar($storage->name, true),
+            'properties' => implode("\n", $properties),
+            'values' => implode(",\n", $values)
+        ];
+
+        $fileName = str_replace('\\', '/', $row);
+        if (!File::Exists($rootPath . $fileName . '.php')) {
+            $templateContent = File::Read(__DIR__ . '/model-templates/enum-template.template');;
+            foreach ($args as $key => $value) {
+                $templateContent = str_replace('[[' . $key . ']]', $value, $templateContent);
+            }
+            File::Create($rootPath . $fileName . '.php', true, '777');
+            File::Write($rootPath . $fileName . '.php', $templateContent);
+        } else {
+
+            $rowModelContent = File::Read($rootPath . $fileName . '.php');
+            $rowModelContent = \preg_replace_callback(
+                '/\s\* region Values\:(.*)\s\* endregion Values;/s',
+                function ($match) use ($values) {
+                    return ' * region Values:' . "\n" .
+                        implode("\n", $values) . "\n" . ' * endregion Values;';
+                },
+                $rowModelContent
+            );
+            $rowModelContent = \preg_replace_callback(
+                '/# region Properties\:(.*)# endregion Properties;/s',
+                function ($match) use ($properties) {
+                    return '# region Properties:' . "\n" . implode("\n", $properties) . "\t\n" . '# endregion Properties;';
                 },
                 $rowModelContent
             );

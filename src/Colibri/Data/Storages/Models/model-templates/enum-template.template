@@ -1,0 +1,26 @@
+<?php
+
+namespace [[namespace-path]];
+
+/**
+ * Enum [[enum-desc]]
+ * @author <author name and email>
+ * @package [[namespace-path]]
+ */
+enum [[enum-name]]:[[enum-type]] 
+{
+
+    public const JsonSchema = [
+        'type' => '[[enum-type]]',
+        'enum' => [
+            # region Values:
+[[values]]
+            # endregion Values;
+        ]
+    ];
+
+    # region Properties:
+[[properties]]
+    # endregion Properties;
+
+}

@@ -149,6 +149,24 @@ class DataRow extends BaseDataRow
             }
         }
 
+        
+        $class = null;
+        $casts = static::$casts;
+        if(isset($casts[$field->{'name'}])) {
+            $class = $casts[$field->{'name'}];
+        }
+
+        if($class && enum_exists($class)) {
+            if($mode == 'get') {
+                if(!($rowValue instanceof \UnitEnum)) {
+                    $rowValue = $class::from($rowValue);
+                }
+            } else if($rowValue instanceof \UnitEnum) {
+                $rowValue = $rowValue->{'value'};
+            }
+        }
+
+
         if ($mode == 'get' && !isset($this->_data[$property])) {
             if ($field->default !== null) {
                 $reader = $this->_storage->accessPoint->Query(
@@ -162,7 +180,7 @@ class DataRow extends BaseDataRow
             }
         }
 
-        if ($mode === 'get') {
+        if ($mode === 'get' && !is_object($rowValue)) {
             if ($field->isLookup) {
                 return $field->lookup->Selected($rowValue);
             } elseif ($field->isValues) {
@@ -232,11 +250,7 @@ class DataRow extends BaseDataRow
             }
         } else {
 
-            $class = $storage->GetFieldClass($field);
-            $casts = static::$casts;
-            if(isset($casts[$field->{'name'}])) {
-                $class = $casts[$field->{'name'}];
-            }
+            $class = $class ?: $storage->GetFieldClass($field);
 
             if ($mode == 'get') {
                 try {
@@ -283,7 +297,9 @@ class DataRow extends BaseDataRow
                             }
                         } else {
                             $reflection = new ReflectionClass($class);
-                            if ($reflection->isSubclassOf(BaseDataRow::class)) {
+                            if($reflection->isEnum()) {
+                                $c = $class::from($rowValue);
+                            } elseif ($reflection->isSubclassOf(BaseDataRow::class)) {
                                 $c = $class::Create($rowValue);
                             } else {
                                 $c = new $class($rowValue, $this->_storage, $field, $this);
