@@ -337,6 +337,10 @@ class DataRow extends BaseDataRow
             $field = $storage->fields->$fieldName ?? null;
             if ($field && !$field->virtual) {
 
+                if($value instanceof \UnitEnum) {
+                    $value = $value->value;
+                }
+
                 // подбираем значение по умолчанию
                 if (is_null($value) && !is_null($field->default)) {
                     if ($field->{'type'} === 'json' && strstr($field->default, 'json_array') !== false) {
@@ -410,6 +414,9 @@ class DataRow extends BaseDataRow
             if (is_null($fieldValue)) {
                 $return[$fieldName] = null;
                 continue;
+            }
+            if($fieldValue instanceof \UnitEnum) {
+                $fieldValue = $fieldValue->value;
             }
             if ($fieldData->isLookup) {
                 if (is_array($fieldValue)) {

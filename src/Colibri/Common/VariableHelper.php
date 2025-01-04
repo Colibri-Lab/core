@@ -926,12 +926,17 @@ class VariableHelper
      * @param string $innerObjectValue
      * @return mixed
      */
-    public static function FindInArray(array $array, string $innerObjectKey, string $innerObjectvalue): mixed
+    public static function FindInArray(array $array, string $innerObjectKey, mixed $innerObjectvalue): mixed
     {
         foreach($array as $object) {
-            $obj = (array)$object;
-            if(isset($obj[$innerObjectKey]) && $obj[$innerObjectKey] == $innerObjectvalue) {
-                return $object;
+            if(is_array($object)) {
+                if(isset($object[$innerObjectKey]) && $object[$innerObjectKey] == $innerObjectvalue) {
+                    return $object;
+                }
+            } elseif(is_object($object)) {
+                if(isset($object->$innerObjectKey) && $object->$innerObjectKey == $innerObjectvalue) {
+                    return $object;
+                }
             }
         }
         return null;

@@ -70,6 +70,7 @@ class Controller
 {
     protected ?string $_type = null;
     protected ?bool $_isUserTypedACommand = true;
+    protected bool $_waitForAnswer = true;
 
     protected bool $_cache = false;
     protected int $_lifetime = 600;
@@ -83,6 +84,7 @@ class Controller
     {
         $this->_type = $type;
         $this->_isUserTypedACommand = $isUserTypedACommand;
+        $this->_waitForAnswer = true;
     }
 
     /**
@@ -170,7 +172,8 @@ class Controller
     {
         return match($prop) {
             'cache' => $this->_cache,
-            'lifetime' => $this->_lifetime
+            'lifetime' => $this->_lifetime,
+            'waitForAnswer' => $this->_waitForAnswer,
         };
     }
 
