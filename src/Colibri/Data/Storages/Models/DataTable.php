@@ -27,6 +27,7 @@ use Colibri\Utils\Logs\Logger;
 use Colibri\Xml\XmlNode;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Models\DataModelException;
+use Colibri\Data\NoSqlClient\ICommandResult;
 use Colibri\Data\SqlClient\QueryInfo;
 
 /**
@@ -254,6 +255,11 @@ class DataTable extends BaseDataTable
 
         App::$log->debug('Error: ' . $res->error . ', query: ' . $res->query);
         return false;
+    }
+
+    public function DeleteRow(BaseDataRow $row): QueryInfo|ICommandResult|bool
+    {
+        return self::DeleteByFilter($this->Storage(), '{id}=' . $row->id);
     }
 
     protected static function UpdateByFilter(

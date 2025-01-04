@@ -244,12 +244,14 @@ class Server
         }
 
         $requestMethod = App::$request->server->{'request_method'};
-        $waitForAnswer = ((App::$request->server?->{'http_waitforanswer'} ?? 'true') === 'true');
+        $waitForAnswer = (App::$request->server?->{'http_waitforanswer'} ?? 'true') === 'true';
         $get = App::$request->get;
         $post = App::$request->post;
         $payload = App::$request->GetPayloadCopy();
 
         if(!$waitForAnswer) {
+            $payload->Cache();
+
             header("Connection: close\r\n");
             header("Content-Encoding: none\r\n");
             header("Content-Length: 1");
@@ -329,6 +331,9 @@ class Server
             try {
                 $obj = new $class($type, $isRequestTyped);               
                 if(!$obj->waitForAnswer) {
+
+                    $payload->Cache();
+
                     header("Connection: close\r\n");
                     header("Content-Encoding: none\r\n");
                     header("Content-Length: 1");

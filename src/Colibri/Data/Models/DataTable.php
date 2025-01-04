@@ -21,6 +21,7 @@ use Colibri\Data\SqlClient\QueryInfo;
 use Colibri\Utils\ExtendedObject;
 use Countable;
 use Colibri\Collections\IArrayList;
+use Colibri\Data\NoSqlClient\ICommandResult;
 
 /**
  * Represents a data table providing functionalities like counting, array access, and iteration.
@@ -417,7 +418,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param DataRow $row The DataRow object to be deleted.
      * @return QueryInfo A QueryInfo object containing information about the executed delete query.
      */
-    public function DeleteRow(DataRow $row): QueryInfo
+    public function DeleteRow(DataRow $row): QueryInfo|ICommandResult|bool
     {
         $tables = [];
         $idFields = [];

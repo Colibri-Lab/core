@@ -34,6 +34,7 @@ final class Config implements IConfig
             'float' => ['length' => false, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number', 'index' => true],
             'timestamp' => ['length' => false, 'generic' => 'DateTimeToIntField', 'component' => 'Colibri.UI.Forms.DateTime', 'db' => 'bigint', 'index' => true],
             'string' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text', 'index' => false],
+            'json' => ['length' => false, 'generic' => ['Colibri.UI.Forms.Object' => 'ObjectField', 'Colibri.UI.Forms.Array' => 'ArrayField'], 'component' => 'Colibri.UI.Forms.Object', 'index' => false],
             'field' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text', 'index' => false],
             'field_string' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text', 'index' => false],
         ];

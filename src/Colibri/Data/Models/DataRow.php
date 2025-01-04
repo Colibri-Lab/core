@@ -22,7 +22,7 @@ use Colibri\Common\Encoding;
  *
  * @property array $properties
  * @property bool $changed
- * @property-read DataTable $table
+ * @property-read DataTable|DataCollection|null $table
  * @property int $id
  */
 class DataRow extends ExtendedObject

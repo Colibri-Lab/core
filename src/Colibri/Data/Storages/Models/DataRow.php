@@ -583,7 +583,7 @@ class DataRow extends BaseDataRow
         return $return;
     }
 
-    public function Delete(): QueryInfo
+    public function Delete(): QueryInfo|ICommandResult|bool
     {
         $params = (object)$this->_storage?->{'params'};
         if($params?->{'softdeletes'} === true) {

@@ -159,4 +159,11 @@ class PayloadCopy implements ArrayAccess, Countable
         return (array) $this->_payloadData;
     }
 
+    public function Cache(): void
+    {
+        if (empty($this->_payloadData)) {
+            $this->_loadPayload();
+        }
+    }
+
 }
