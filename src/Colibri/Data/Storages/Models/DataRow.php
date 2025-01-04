@@ -161,7 +161,7 @@ class DataRow extends BaseDataRow
                 if(!($rowValue instanceof \UnitEnum)) {
                     $rowValue = $class::from($rowValue);
                 }
-            } else if($rowValue instanceof \UnitEnum) {
+            } elseif ($rowValue instanceof \UnitEnum) {
                 $rowValue = $rowValue->{'value'};
             }
         }

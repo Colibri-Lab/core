@@ -86,7 +86,23 @@ class ObjectField extends ExtendedObject
             }
         }
 
-        if ($mode == 'get') {
+        $class = null;
+        $casts = static::$casts;
+        if(isset($casts[$field->{'name'}])) {
+            $class = $casts[$field->{'name'}];
+        }
+
+        if($class && enum_exists($class)) {
+            if($mode == 'get') {
+                if(!($rowValue instanceof \UnitEnum)) {
+                    $rowValue = $class::from($rowValue);
+                }
+            } elseif ($rowValue instanceof \UnitEnum) {
+                $rowValue = $rowValue->{'value'};
+            }
+        }
+
+        if ($mode == 'get' && !is_object($rowValue)) {
             if ($field->isLookup) {
                 return $field->lookup->Selected(isset($this->_data[$property]) ? $this->_data[$property] : 0);
             } elseif ($field->isValues) {
@@ -118,6 +134,8 @@ class ObjectField extends ExtendedObject
                 }
             }
         }
+
+
 
         if ($field->{'class'} === 'string' || !$field->{'class'}) {
             if ($mode == 'get') {
@@ -153,11 +171,7 @@ class ObjectField extends ExtendedObject
         } else {
 
 
-            $class = $this->_storage->GetFieldClass($field);
-            $casts = static::$casts;
-            if(isset($casts[$field->{'name'}])) {
-                $class = $casts[$field->{'name'}];
-            }
+            $class = $class ?: $this->_storage->GetFieldClass($field);
 
             if ($mode == 'get') {
                 try {
@@ -208,54 +222,60 @@ class ObjectField extends ExtendedObject
                 $return[$fieldName] = null;
                 continue;
             }
-            if ($fieldData->isLookup) {
-                if (is_array($fieldValue)) {
-                    $ret = [];
-                    foreach ($fieldValue as $value) {
-                        if (is_object($value) && method_exists($value, 'GetValidationData')) {
-                            $ret[] = $value->GetValidationData();
-                        } else {
-                            $ret[] = $value->{$fieldData->lookup->GetValueField()};
-                        }
-                    }
-                    $return[$fieldName] = $ret;
-                } else {
-                    if (is_object($fieldValue) && method_exists($fieldValue, 'GetValidationData')) {
-                        if($fieldData->{'class'} === 'string') {
-                            $ret = (string)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
-                        } elseif($fieldData->{'class'} === 'float') {
-                            $ret = (float)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
-                        } elseif($fieldData->{'class'} === 'int') {
-                            $ret = (int)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
-                        } else {
-                            $ret = $fieldValue->GetValidationData();
+
+            if($fieldValue instanceof \UnitEnum) {
+                $return[$fieldName] = $fieldValue->{'value'};
+            } else {
+                if ($fieldData->isLookup) {
+                    if (is_array($fieldValue)) {
+                        $ret = [];
+                        foreach ($fieldValue as $value) {
+                            if (is_object($value) && method_exists($value, 'GetValidationData')) {
+                                $ret[] = $value->GetValidationData();
+                            } else {
+                                $ret[] = $value->{$fieldData->lookup->GetValueField()};
+                            }
                         }
                         $return[$fieldName] = $ret;
                     } else {
-                        $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField()};
+                        if (is_object($fieldValue) && method_exists($fieldValue, 'GetValidationData')) {
+                            if($fieldData->{'class'} === 'string') {
+                                $ret = (string)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
+                            } elseif($fieldData->{'class'} === 'float') {
+                                $ret = (float)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
+                            } elseif($fieldData->{'class'} === 'int') {
+                                $ret = (int)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField()};
+                            } else {
+                                $ret = $fieldValue->GetValidationData();
+                            }
+                            $return[$fieldName] = $ret;
+                        } else {
+                            $return[$fieldName] = $fieldValue->{$fieldData->lookup->GetValueField()};
+                        }
                     }
+                } elseif ($fieldData->{'class'} === 'string') {
+                    $return[$fieldName] = (string) $fieldValue;
+                } elseif ($fieldData->{'class'} === 'int') {
+                    $return[$fieldName] = (int) $fieldValue;
+                } elseif ($fieldData->{'class'} === 'float') {
+                    $return[$fieldName] = (float) $fieldValue;
+                } elseif ($fieldData->{'class'} === 'bool') {
+                    $return[$fieldName] = (bool) $fieldValue;
+                } elseif ($fieldData->{'class'} === 'array') {
+                    $return[$fieldName] = (array) $fieldValue;
+                } elseif ($fieldData->{'class'} === 'object') {
+                    $return[$fieldName] = (object) $fieldValue;
+                } elseif (strstr($fieldData->{'class'}, 'ValueField') !== false) {
+                    $return[$fieldName] = (string) $fieldValue;
+                } elseif (strstr($fieldData->{'class'}, 'UUIDField') !== false) {
+                    $return[$fieldName] = (string) $fieldValue;
+                } elseif (strstr($fieldData->{'class'}, 'DateField') !== false || strstr($fieldData->{'class'}, 'DateTimeField') !== false) {
+                    $return[$fieldName] = (string) $fieldValue;
+                } elseif (method_exists($fieldValue, 'GetValidationData')) {
+                    $return[$fieldName] = $fieldValue->GetValidationData();
                 }
-            } elseif ($fieldData->{'class'} === 'string') {
-                $return[$fieldName] = (string) $fieldValue;
-            } elseif ($fieldData->{'class'} === 'int') {
-                $return[$fieldName] = (int) $fieldValue;
-            } elseif ($fieldData->{'class'} === 'float') {
-                $return[$fieldName] = (float) $fieldValue;
-            } elseif ($fieldData->{'class'} === 'bool') {
-                $return[$fieldName] = (bool) $fieldValue;
-            } elseif ($fieldData->{'class'} === 'array') {
-                $return[$fieldName] = (array) $fieldValue;
-            } elseif ($fieldData->{'class'} === 'object') {
-                $return[$fieldName] = (object) $fieldValue;
-            } elseif (strstr($fieldData->{'class'}, 'ValueField') !== false) {
-                $return[$fieldName] = (string) $fieldValue;
-            } elseif (strstr($fieldData->{'class'}, 'UUIDField') !== false) {
-                $return[$fieldName] = (string) $fieldValue;
-            } elseif (strstr($fieldData->{'class'}, 'DateField') !== false || strstr($fieldData->{'class'}, 'DateTimeField') !== false) {
-                $return[$fieldName] = (string) $fieldValue;
-            } elseif (method_exists($fieldValue, 'GetValidationData')) {
-                $return[$fieldName] = $fieldValue->GetValidationData();
             }
+
         }
 
         return (object) $return;

@@ -377,7 +377,7 @@ class Server
                     '<b>Params:</b> ' . json_encode([$get->ToArray(), $post->ToArray(), $payload->ToArray()]) . "\n" .
                     '<b>Response:</b> ' . $code . ', ' . $message . "\n" .
                     '<b>Result:</b> ' . json_encode($result) . "\n"
-                );
+                ); 
 
             }
 
@@ -389,18 +389,18 @@ class Server
                 'post' => $post,
                 'payload' => $payload,
                 'result' => $result,
-                'type' => $result->type ?: $type
+                'type' => ($result?->type ?? null) ?: $type
             ];
             $this->DispatchEvent(EventsContainer::RpcRequestProcessed, $args);
 
-            if(($result->type ?: $type) !== self::Stream) {
+            if((($result?->type ?? null) ?: $type) !== self::Stream) {
                 // на случай, если не включен модуль языков
                 $args->result = NoLangHelper::ParseArray($args->result);
             }
 
             App::$monitoring->EndTimer('web-request');
 
-            $this->Finish(($result->type ?: $type), $args->result);
+            $this->Finish((($result?->type ?? null) ?: $type), $args->result);
         }
 
     }
