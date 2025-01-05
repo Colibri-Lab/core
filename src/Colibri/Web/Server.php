@@ -329,7 +329,7 @@ class Server
             App::$monitoring->StartTimer('web-request');
 
             try {
-                $obj = new $class($type, $isRequestTyped);               
+                $obj = new $class($type, $isRequestTyped);
                 if(!$obj->waitForAnswer) {
 
                     $payload->Cache();
@@ -390,7 +390,7 @@ class Server
                     '<b>Params:</b> ' . json_encode([$get->ToArray(), $post->ToArray(), $payload->ToArray()]) . "\n" .
                     '<b>Response:</b> ' . $code . ', ' . $message . "\n" .
                     '<b>Result:</b> ' . json_encode($result) . "\n"
-                ); 
+                );
 
             }
 

@@ -11,7 +11,7 @@ enum [[enum-name]]:[[enum-type]]
 {
 
     public const JsonSchema = [
-        'type' => '[[enum-type]]',
+        'type' => '[[enum-json-type]]',
         'enum' => [
             # region Values:
 [[values]]

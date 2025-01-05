@@ -299,12 +299,14 @@ class DataRow extends BaseDataRow
                             $reflection = new ReflectionClass($class);
                             if($reflection->isEnum()) {
                                 $c = $class::from($rowValue);
+                                $this->_data[$property] = $c->value;
                             } elseif ($reflection->isSubclassOf(BaseDataRow::class)) {
                                 $c = $class::Create($rowValue);
+                                $this->_data[$property] = (string) $c;
                             } else {
                                 $c = new $class($rowValue, $this->_storage, $field, $this);
+                                $this->_data[$property] = (string) $c;
                             }
-                            $this->_data[$property] = (string) $c;
                         }
                     } catch (\Throwable $e) {
                         $this->_data[$property] = $rowValue;
@@ -459,7 +461,7 @@ class DataRow extends BaseDataRow
                 $return[$fieldName] = (object) $fieldValue;
             } elseif (strstr($fieldData->{'class'}, 'ValueField') !== false) {
                 $type = $fieldData->{'type'};
-                if (in_array($type, ['int', 'float', 'double', 'decimal'])) {
+                if (in_array($type, ['int', 'float', 'double', 'decimal', 'uint', 'bigint', 'int2', 'int4', 'int8', 'float4', 'float8'])) {
                     $return[$fieldName] = (float) ((string) $fieldValue);
                 } else {
                     $return[$fieldName] = (string) $fieldValue;

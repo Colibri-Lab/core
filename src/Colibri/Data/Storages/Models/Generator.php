@@ -581,15 +581,22 @@ class Generator
         $values = [];
         $properties = [];
         $enumType = 'string';
+        $enumJsonType = 'string';
         if ($field->values) {
             foreach($field->rawvalues as $value) {
-                if($value['type'] === 'int') {
+                if($value['type'] === 'number') {
                     $enumType = 'int';
+                    $enumJsonType = 'number';
                 }
             }
             foreach($field->rawvalues as $value) {
+                if($enumType === 'string') {
+                    $key = $value['value'];
+                } else {
+                    $key = $value['title']['en'];
+                }
                 $values[] = "\t\t\t" . ($enumType === 'string' ? '"' . $value['value'] . '"' : $value['value']);
-                $properties[] = "\t" . '/** ' . $langModule->Translate($value['title']) . ' */' . "\n\t" . 'case ' . StringHelper::ToCamelCaseVar($value['value'], true) . ' = ' . ($enumType === 'string'  ? '\'' : '') . $value['value'] . ($enumType === 'string'  ? '\'' : '').';';
+                $properties[] = "\t" . '/** ' . $langModule->Translate($value['title']) . ' */' . "\n\t" . 'case ' . StringHelper::ToCamelCaseVar($key, true) . ' = ' . ($enumType === 'string'  ? '\'' : '') . $value['value'] . ($enumType === 'string'  ? '\'' : '').';';
             }
         }
 
@@ -597,6 +604,7 @@ class Generator
             'enum-name' => $className,
             'enum-desc' => $fieldDesc,
             'enum-type' => $enumType,
+            'enum-json-type' => $enumJsonType,
             'namespace-path' => $rootNamespace . 'Models\\Fields\\' . StringHelper::ToCamelCaseVar($storage->name, true),
             'properties' => implode("\n", $properties),
             'values' => implode(",\n", $values)

@@ -143,10 +143,10 @@ class Monitoring
     {
         if ($name) {
             $timer = $this->_timers[$name];
-            $this->_logger->WriteLine($logLevel, $this->_message($name, $timer));
+            $this->_logger->WriteLine($logLevel, ['message' => $this->_message($name, $timer)]);
         } else {
             foreach ($this->_timers as $timer) {
-                $this->_logger->WriteLine($logLevel, $this->_message($name, $timer));
+                $this->_logger->WriteLine($logLevel, ['message' => $this->_message($name, $timer)]);
             }
         }
     }
