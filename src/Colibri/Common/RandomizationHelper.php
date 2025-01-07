@@ -29,14 +29,14 @@ class RandomizationHelper
     /**
      * Generates a random integer within the specified range.
      *
-     * @param int $min The minimum value (inclusive).
-     * @param int $max The maximum value (inclusive).
+     * @param int|float $min The minimum value (inclusive).
+     * @param int|float $max The maximum value (inclusive).
      *
      * @return int A randomly generated integer between $min and $max.
      */
-    public static function Integer(int $min, int $max): int
+    public static function Integer(int|float $min, int|float $max): int
     {
-        return rand($min, $max);
+        return rand((int)$min, (int)$max);
     }
 
     /**
