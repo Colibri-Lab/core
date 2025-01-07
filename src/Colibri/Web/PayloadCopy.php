@@ -50,9 +50,9 @@ class PayloadCopy implements ArrayAccess, Countable
             $payload = null;
         }
 
-        if ($this->_type == Request::PAYLOAD_TYPE_JSON) {
+        if ($payload && $this->_type == Request::PAYLOAD_TYPE_JSON) {
             $this->_payloadData = json_decode($payload);
-        } elseif ($this->_type == Request::PAYLOAD_TYPE_XML) {
+        } elseif ($payload && $this->_type == Request::PAYLOAD_TYPE_XML) {
             $this->_payloadData = XmlHelper::Decode($payload);
         }
     }
