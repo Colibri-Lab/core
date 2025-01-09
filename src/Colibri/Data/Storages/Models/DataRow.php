@@ -340,7 +340,7 @@ class DataRow extends BaseDataRow
             if ($field && !$field->virtual) {
 
                 if($value instanceof \UnitEnum) {
-                    $value = $value->value;
+                    $value = $value->{'value'};
                 }
 
                 // подбираем значение по умолчанию
@@ -418,7 +418,7 @@ class DataRow extends BaseDataRow
                 continue;
             }
             if($fieldValue instanceof \UnitEnum) {
-                $fieldValue = $fieldValue->value;
+                $fieldValue = $fieldValue->{'value'};
             }
             if ($fieldData->isLookup) {
                 if (is_array($fieldValue)) {
