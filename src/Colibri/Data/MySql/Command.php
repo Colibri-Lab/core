@@ -231,7 +231,7 @@ final class Command extends SqlCommand
             string $field,
             string $type,
             bool $required,
-            ?int $length,
+            int|float|null $length,
             mixed $default
         ): array {
 

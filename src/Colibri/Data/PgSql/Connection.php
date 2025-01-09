@@ -106,7 +106,8 @@ final class Connection implements IConnection
                 ' port='.$this->_connectioninfo->port.
                 ' dbname='.$this->_connectioninfo->database.
                 ' user='.$this->_connectioninfo->user.
-                ' password='.$this->_connectioninfo->password,
+                ' password='.$this->_connectioninfo->password. 
+                ' connect_timeout=' . ($this->_connectioninfo?->timeout ?? 5),
                 PGSQL_CONNECT_FORCE_NEW
             );
             if (!$this->_resource) {

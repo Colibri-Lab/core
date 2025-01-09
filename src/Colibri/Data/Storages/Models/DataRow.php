@@ -278,7 +278,7 @@ class DataRow extends BaseDataRow
                         if(!$valueField) {
                             $this->_data[$property] = (string) $rowValue;
                         } else {
-                            $this->_data[$property] = $rowValue->$valueField;
+                            $this->_data[$property] = $rowValue?->$valueField ?? null;
                         }
                     } else {
                         $this->_data[$property] = (string) $rowValue;
@@ -291,7 +291,7 @@ class DataRow extends BaseDataRow
                             $c = $field->lookup->Selected($rowValue);
                             $valueField = $field->lookup->GetValueField();
                             if($valueField) {
-                                $this->_data[$property] = $c->$valueField;
+                                $this->_data[$property] = $c?->$valueField ?? null;
                             } else {
                                 $this->_data[$property] = (string) $c;
                             }
