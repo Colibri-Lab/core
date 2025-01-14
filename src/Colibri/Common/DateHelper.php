@@ -527,4 +527,10 @@ class DateHelper
         return (new DateTime(trim($value)))->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d\\TH:i:s\\Z');
     }
 
+    public static function TimeToMinute(string $hourMinute): int
+    {
+        $parts = explode(':', $hourMinute);
+        return $parts[0] * 60 + $parts[1];
+    }
+
 }
