@@ -354,6 +354,10 @@ class QueryBuilder implements IQueryBuilder
 
         $searchFilters = [];
         foreach($filterFields as $key => $filterData) {
+            if($key === '_') {
+                $searchFilters[$key] = $filterData;
+                continue;
+            }
             $parts = StringHelper::Explode($key, ['[', '.']);
             $fieldName = $parts[0];
             $filterPath = substr($key, strlen($fieldName));
@@ -369,10 +373,17 @@ class QueryBuilder implements IQueryBuilder
             }
         }
 
+        $filters = [];
+        $params = [];
+        
         $joinTables = [];
         $fields = [];
         $fieldIndex = 0;
         foreach($searchFilters as $fieldName => $fieldParams) {
+            if($fieldName === '_') {
+                $filters[] = $fieldParams;
+                continue;
+            }
             if(in_array($fieldName, ['id', 'datecreated', 'datemodified'])) {
                 $field = (object)[
                     'component' => $fieldName === 'id' ? 'Colibri.UI.Forms.Number' : 'Colibri.UI.Forms.DateTime',
@@ -423,8 +434,6 @@ class QueryBuilder implements IQueryBuilder
             }
         }
 
-        $filters = [];
-        $params = [];
         if($term) {
             $termFilters = [];
             foreach ($storage->fields as $field) {
