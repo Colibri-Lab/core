@@ -622,10 +622,10 @@ class Generator
 
             $rowModelContent = File::Read($rootPath . $fileName . '.php');
             $rowModelContent = \preg_replace_callback(
-                '/\s\* region Values\:(.*)\s\* endregion Values;/s',
+                '/\s\# region Values\:(.*)\s\# endregion Values;/s',
                 function ($match) use ($values) {
-                    return ' * region Values:' . "\n" .
-                        implode("\n", $values) . "\n" . ' * endregion Values;';
+                    return ' # region Values:' . "\n" .
+                        implode(",\n", $values) . "\n\t\t\t" . ' # endregion Values;';
                 },
                 $rowModelContent
             );
