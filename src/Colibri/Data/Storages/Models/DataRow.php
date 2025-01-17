@@ -589,11 +589,15 @@ class DataRow extends BaseDataRow
     {
         $params = (object)$this->_storage?->{'params'};
         if($params?->{'softdeletes'} === true) {
-            return $this->_storage->accessPoint->Update(
+            $return = $this->_storage->accessPoint->Update(
                 $this->_storage->table,
                 [$this->_storage->name . '_datedeleted' => DateHelper::ToDbString()],
                 $this->_storage->name . '_id=' . $this->id
             );
+            if(!$return?->error) {
+                return true;
+            }
+            return $return;
         } else {
             return $this->table->DeleteRow($this);
         }
