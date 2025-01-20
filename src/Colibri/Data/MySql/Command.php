@@ -350,7 +350,7 @@ final class Command extends SqlCommand
                     '
                     ALTER TABLE `' . $table . '` 
                     ADD COLUMN `' . $fname . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' 
-                    ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''),
+                    ' . ($default ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? ' COMMENT \'' . str_replace('\'', '', $xdesc) . '\'' : ''),
                     $this->_connection
                 );
 
@@ -388,7 +388,7 @@ final class Command extends SqlCommand
                     $res = $Exec(
                         'ALTER TABLE `' . $table . '` 
                         MODIFY COLUMN `' . $fname . '` ' . $type . ($length ? '(' . $length . ')' : '') . ($required ? ' NOT NULL' : ' NULL') . ' ' .
-                        (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? 'COMMENT \'' . $xdesc . '\'' : ''),
+                        (!is_null($default) ? 'DEFAULT ' . $default . ' ' : '') . ($xdesc ? 'COMMENT \'' . str_replace('\'', '', $xdesc) . '\'' : ''),
                         $this->_connection
                     );
                     if ($res->error) {
@@ -410,7 +410,7 @@ final class Command extends SqlCommand
                     ALTER TABLE `' . $table . '` 
                     ADD COLUMN `' . $fname . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
                     GENERATED ALWAYS AS (' . $xVirtualField['expression'] . ') STORED ' .
-                    ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''), $this->_connection);
+                    ($xdesc ? ' COMMENT \'' . str_replace('\'', '', $xdesc) . '\'' : ''), $this->_connection);
 
                 if ($res->error) {
                     $logger->error($table . ': Can not save field: ' . $res->query);
@@ -436,7 +436,7 @@ final class Command extends SqlCommand
                         'ALTER TABLE `' . $table . '` 
                         MODIFY COLUMN `' . $fname . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') .
                         ' GENERATED ALWAYS AS (' . $expression . ') STORED ' .
-                        ($xdesc ? ' COMMENT \'' . $xdesc . '\'' : ''),
+                        ($xdesc ? ' COMMENT \'' . str_replace('\'', '', $xdesc) . '\'' : ''),
                         $this->_connection
                     );
                     if ($res->error) {
