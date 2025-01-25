@@ -21,6 +21,8 @@ use Colibri\Xml\XmlNode;
 use Colibri\Common\VariableHelper;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\DataAccessPoint;
+use Colibri\Data\NoSqlClient\ICommandResult;
+use Colibri\Data\SqlClient\QueryInfo;
 
 /**
  * Класс представление связи поля и таблицы
@@ -151,7 +153,7 @@ class Lookup
                     'pagesize' => is_array($value) ? count($value) : 1
                 ]
             );
-            if ($reader->Count() == 0) {
+            if (($reader instanceof QueryInfo || $reader instanceof ICommandResult) || $reader->Count() == 0) {
                 return null;
             }
             $table = new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
