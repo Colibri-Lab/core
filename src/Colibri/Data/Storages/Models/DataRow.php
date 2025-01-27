@@ -603,6 +603,25 @@ class DataRow extends BaseDataRow
         }
     }
 
+    public function Restore(): QueryInfo|ICommandResult|bool
+    {
+        $params = (object)$this->_storage?->{'params'};
+        if($params?->{'softdeletes'} === true) {
+            $return = $this->_storage->accessPoint->Update(
+                $this->_storage->table,
+                [$this->_storage->name . '_datedeleted' => null],
+                $this->_storage->name . '_id=' . $this->id
+            );
+            $this->datedeleted = null;
+            if(!$return?->error) {
+                return true;
+            }
+            return $return;
+        } else {
+            return false;
+        }
+    }
+
     public function Changed(bool $returnAll = false): array
     {
         $data = $this->GetData();
