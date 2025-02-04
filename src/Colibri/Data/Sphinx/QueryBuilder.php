@@ -213,7 +213,7 @@ class QueryBuilder implements IQueryBuilder
         if (!empty($condition)) {
             $condition = ' where ' . $condition;
         }
-        return (empty($condition) ? 'truncate table ' : 'delete from ') . '`' . $table . '`' . $condition;
+        return (empty($condition) ? 'truncate rtindex ' : 'delete from ') . '`' . $table . '`' . $condition;
     }
 
     public function CreateDrop($table): string

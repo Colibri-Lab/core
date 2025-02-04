@@ -100,8 +100,11 @@ class DataTable extends BaseDataTable
         return new $className($this, $result, $this->_storage);
     }
 
-    protected static function _replaceFields(string $value, Storage $storage): string
+    protected static function _replaceFields(?string $value, Storage $storage): ?string
     {
+        if($value === null) {
+            return $value;
+        }
         $res = preg_match_all('/\{([^\}]+)\}/', $value, $matches, \PREG_SET_ORDER);
         if ($res > 0) {
             foreach ($matches as $match) {
@@ -178,7 +181,7 @@ class DataTable extends BaseDataTable
 
     protected static function DeleteByFilter(
         Storage|string $storage,
-        string $filter
+        ?string $filter = null
     ): bool {
         if (is_string($storage)) {
             $storage = Storages::Create()->Load($storage);
@@ -201,14 +204,15 @@ class DataTable extends BaseDataTable
             $res = $storage->accessPoint->Update(
                 $storage->table,
                 [$storage->GetRealFieldName('datedeleted') => '[[datedeleted:'.$timestampType.']]'],
-                $filter,
+                !$filter ? '1=1' : $filter,
                 ['datedeleted' => (string)$now]
             );
             if (!$res->error) {
                 return true;
             }
         } else {
-            $res = $storage->accessPoint->Delete($storage->table, $filter);
+            // empty filter means truncate all
+            $res = $storage->accessPoint->Delete($storage->table, !$filter ? '' : $filter,);
             if (!$res->error) {
                 return true;
             }
