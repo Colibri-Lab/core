@@ -149,7 +149,7 @@ class DataRow extends BaseDataRow
             }
         }
 
-        
+
         $class = null;
         $casts = static::$casts;
         if(isset($casts[$field->{'name'}])) {
@@ -658,23 +658,26 @@ class DataRow extends BaseDataRow
             /** @var \Colibri\Data\Storages\Fields\Field $field */
             $field = $this->_storage->fields->$fieldName ?? null;
             $className = $field ? $field->{'class'} : 'string';
-
-            $paramType = 'string';
-            if ($field && in_array($field->{'type'}, ['blob', 'tinyblob', 'longblob'])) {
-                $paramType = 'blob';
-            } elseif ($field && in_array($className, [
-                'int'
-            ])) {
-                $paramType = 'integer';
-            } elseif ($field && in_array($className, ['float'])) {
-                $paramType = 'double';
-            } elseif ($field && in_array($className, ['bool'])) {
-                $paramType = 'integer';
-                $value = $value === true ? 1 : 0;
-            } else {
-                $className = 'Colibri\\Data\\Storages\\Fields\\' . $className;
-                if(method_exists($className, 'ParamTypeName')) {
-                    eval('$paramType = ' . $className . '::ParamTypeName();');
+            $allowedType = $allowedTypes[$field->{'type'}] ?? null;
+            $paramType = $allowedType['param'] ?? null;
+            if(!$paramType) {
+                $paramType = 'string';
+                if ($field && in_array($field->{'type'}, ['blob', 'tinyblob', 'longblob'])) {
+                    $paramType = 'blob';
+                } elseif ($field && in_array($className, [
+                    'int'
+                ])) {
+                    $paramType = 'integer';
+                } elseif ($field && in_array($className, ['float'])) {
+                    $paramType = 'double';
+                } elseif ($field && in_array($className, ['bool'])) {
+                    $paramType = 'integer';
+                    $value = $value === true ? 1 : 0;
+                } else {
+                    $className = 'Colibri\\Data\\Storages\\Fields\\' . $className;
+                    if(method_exists($className, 'ParamTypeName')) {
+                        eval('$paramType = ' . $className . '::ParamTypeName();');
+                    }
                 }
             }
 
