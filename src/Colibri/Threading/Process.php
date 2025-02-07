@@ -155,6 +155,20 @@ class Process
     }
 
     /**
+     * Clears the results obtained from the worker.
+     *
+     * @return void
+     */
+    public function ClearWorkerResults(): void
+    {
+        $workerKey = $this->_workerKey;
+        $workerDataPath = App::$appRoot . App::$config->Query('runtime')->GetValue() . 'workers/';
+        if(File::Exists($workerDataPath . $workerKey)) {
+            File::Delete($workerDataPath . $workerKey);
+        }
+    }
+
+    /**
      * Retrieves the results obtained from the worker.
      *
      * @param bool $removeResults Indicates whether to remove the results after retrieval
@@ -224,6 +238,10 @@ class Process
      */
     public function Run(?object $params = null): void
     {
+
+        // Clear the worker results just in case
+        $this->ClearWorkerResults();
+
         if ($params) {
             $this->_params = $params;
         }
