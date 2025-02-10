@@ -660,6 +660,7 @@ class DataRow extends BaseDataRow
             $className = $field ? $field->{'class'} : 'string';
             $allowedType = $allowedTypes[$field->{'type'}] ?? null;
             $paramType = $allowedType['param'] ?? null;
+            $convert = $allowedType['convert'] ?? null;
             if(!$paramType) {
                 $paramType = 'string';
                 if ($field && in_array($field->{'type'}, ['blob', 'tinyblob', 'longblob'])) {
@@ -679,6 +680,10 @@ class DataRow extends BaseDataRow
                         eval('$paramType = ' . $className . '::ParamTypeName();');
                     }
                 }
+            }
+            if($convert) {
+                eval('$convert = ' . $convert . ';');
+                $value = $convert($value);
             }
 
             $params[$key] = $value;
