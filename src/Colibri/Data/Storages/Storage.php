@@ -383,6 +383,16 @@ class Storage
         unset($storageData['name']);
         unset($storageData['file']);
         unset($storageData['prefix']);
+        unset($storageData['dbms']);
+        unset($storageData['allowedTypes']);
+        unset($storageData['hasIndexes']);
+        unset($storageData['hasVirtual']);
+        unset($storageData['hasMultiFieldIndexes']);
+        unset($storageData['fieldsHasPrefix']);
+        unset($storageData['indexTypes']);
+        unset($storageData['indexMethods']);
+        unset($storageData['jsonIndexes']);
+        unset($storageData['group_enabled']);
 
         if (isset($storageData['components'])) {
             if (!$storageData['components']['default']) {
