@@ -657,8 +657,8 @@ class DataRow extends BaseDataRow
             }
             /** @var \Colibri\Data\Storages\Fields\Field $field */
             $field = $this->_storage->fields->$fieldName ?? null;
-            $className = $field ? $field->{'class'} : 'string';
-            $allowedType = $allowedTypes[$field->{'type'}] ?? null;
+            $className = $field ? $field?->{'class'} : 'string';
+            $allowedType = $allowedTypes[$field?->{'type'}] ?? null;
             $paramType = $allowedType['param'] ?? null;
             $convert = $allowedType['convert'] ?? null;
             if(!$paramType) {
