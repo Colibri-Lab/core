@@ -81,7 +81,7 @@ final class Command extends SqlCommand
             if (!($ares instanceof Result)) {
                 throw new PgSqlException(pg_last_error(
                     $this->_connection->resource
-                ) . ' query: ' . $limitQuery, mysqli_errno($this->_connection->resource));
+                ) . ' query: ' . $limitQuery, 500);
             }
             if (pg_num_rows($ares) > 0) {
                 $affected = pg_fetch_object($ares)->affected;
