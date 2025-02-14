@@ -1,6 +1,7 @@
 <?php
 
 use Colibri\App;
+use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 
 if (!function_exists('dd')) {
@@ -138,5 +139,13 @@ if(!function_exists('app_emergency')) {
     {
         $message = Debug::ROut($args);
         App::$log->info($message);
+    }
+}
+
+if(!function_exists('file_ext')) {
+    function file_ext($pathOrName)
+    {
+        $f = new File($pathOrName);
+        return $f->extension;
     }
 }
