@@ -166,4 +166,9 @@ class PayloadCopy implements ArrayAccess, Countable
         }
     }
 
+    public function SetData(array $data) 
+    {
+        $this->_payloadData = $data;
+    }
+
 }
