@@ -56,6 +56,7 @@ class SmtpHelper
         $mailer->Host = $smtpHost;
         $mailer->Port = $smtpPort;
         $mailer->SMTPSecure = $smtpSecure;
+        $mailer->Timeout = 10;
 
         $mailer->SMTPAutoTLS = false;
         if($smtpUser) {
