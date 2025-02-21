@@ -350,6 +350,19 @@ class DateHelper
 
         return substr($txt, 0, strlen($txt) - 1);
     }
+    
+    public static function CanonicalDiff(string|int $time1, string|int $time2): object
+    {
+        $time1 = is_string($time1) ? strtotime($time1) : $time1;
+        $time2 = is_string($time2) ? strtotime($time2) : $time2;
+        $seconds = abs($time1 - $time2);
+        $minutes = floor($seconds / 60);
+        $hours = floor($minutes / 60);
+        $days = floor($hours / 24);
+        $months = floor($days / 30);
+        $years = floor($months / 12);
+        return (object) ['years' => $years, 'months' => $months, 'days' => $days, 'hours' => $hours, 'minutes' => $minutes, 'seconds' => $seconds];
+    }
 
     /**
      * Calculates the difference between two timestamps.
