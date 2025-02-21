@@ -74,6 +74,7 @@ class [[table-class-name]] extends BaseModelDataTable
      * @param ?array $filtersArray filters array|object
      * @param string $sortField sort field
      * @param string $sortOrder sort order, default asc
+     * @param bool $calculateAffected if needed to return affected, default true
      * @return ?[[table-class-name]]
      */
     public static function LoadBy(
@@ -82,12 +83,13 @@ class [[table-class-name]] extends BaseModelDataTable
         ?string $searchTerm = null,
         ?array $filtersArray = null,
         ?string $sortField = null,
-        string $sortOrder = 'asc'
+        string $sortOrder = 'asc', 
+        bool $calculateAffected = true
     ) : ?[[table-class-name]]
     {
         $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
         [$filter, $order, $params] = $storage->accessPoint->ProcessFilters($storage, $searchTerm, $filtersArray, $sortField, $sortOrder);
-        return parent::_loadByFilter($storage, $page, $pagesize, $filter, $order, $params);
+        return parent::_loadByFilter($storage, $page, $pagesize, $filter, $order, $params, $calculateAffected);
     }
 
     /**
