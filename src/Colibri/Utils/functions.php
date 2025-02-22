@@ -149,3 +149,13 @@ if(!function_exists('file_ext')) {
         return $f->extension;
     }
 }
+
+if(!function_exists('parse_ml_annotation')) {
+    function parse_ml_annotation($doc, $value){
+        preg_match_all('/@([a-z]+?):\s+(.*?)\n/i', $doc, $annotations);
+        if(!isset($annotations[1]) OR count($annotations[1]) == 0){
+            return [];
+        }
+        return array_combine(array_map("trim",$annotations[1]), array_map(fn($v) => $v . ' ' . $value, array_map("trim",$annotations[2])));
+    }
+}

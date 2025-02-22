@@ -346,13 +346,13 @@ class QueryBuilder implements IQueryBuilder
                     ][$fieldName],
                     'type' => [
                         'id' => 'int',
-                        'datecreated' => 'datetime',
-                        'datemodified' => 'datetime'
+                        'datecreated' => 'timestamp',
+                        'datemodified' => 'timestamp'
                     ][$fieldName],
                     'param' => [
                         'id' => 'integer',
-                        'datecreated' => 'string',
-                        'datemodified' => 'string'
+                        'datecreated' => 'integer',
+                        'datemodified' => 'integer'
                     ][$fieldName],
                 ];
             } else {
@@ -399,36 +399,51 @@ class QueryBuilder implements IQueryBuilder
             $params['term'] = '%' . $term . '%';
         }
 
+        $types = $storage->accessPoint->allowedTypes;
         foreach($fields as $fieldName => $fieldData) {
             $field = $fieldData[0];
             $value = $fieldData[1];
+            $type = $types[$field->type];
+            
 
             if(in_array($field->component, [
                 'Colibri.UI.Forms.Date',
                 'Colibri.UI.Forms.DateTime',
                 'Colibri.UI.Forms.Number'
             ])) {
-                $filters[] = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}').
-                    ' between [['.
-                        $fieldName . '0:' . $field->param . ']] and [[' .
-                        $fieldName . '1:' . $field->param . ']]';
-                $params[$fieldName.'0'] = $value[0];
-                $params[$fieldName.'1'] = $value[1];
+                if(isset($type['convert'])) {
+                    eval('$f = ' . $type['convert'] . ';');
+                    $value[0] = $f($value[0]);
+                    $value[1] = $f($value[1]);
+                }
+
+                if($value[0]) {
+                    $filters[] = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}').
+                        ' >= [['. $fieldName . '0:' . $field->param . ']]';
+                    $params[$fieldName.'0'] = $value[0];
+                } 
+                if($value[1]) {
+                    $filters[] = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}').
+                        ' <= [[' . $fieldName . '1:' . $field->param . ']]';
+                    $params[$fieldName.'1'] = $value[1];
+                }
+                
             } else {
                 if(!is_array($value)) {
                     $value = [$value];
                 }
                 $flts = [];
                 foreach($value as $index => $v) {
-                    $eq = '=';
-                    if($field->param === 'string') {
-                        $eq = 'like';
+                    if(isset($type['convert'])) {
+                        eval('$f = ' . $type['convert'] . ';');
+                        $value[0] = $f($v);
                     }
-                    $flts[] = (strstr($fieldName, 'json_') !== false ? $fieldName :
-                        '{' . $fieldName . '}').' '.$eq.' [['.$fieldName.$index.':'.($field->param ?: 'string').']]';
-                    $params[$fieldName.$index] = $eq === 'like' ? '%' . $v . '%' : $v;
+                    $eq = '=';
+                    $flts[] = '[['.$fieldName.$index.':'.($field->param ?: 'string').']]';
+                    $params[$fieldName.$index] = $v;
                 }
-                $filters[] = implode(' or ', $flts);
+                $filters[] = (strstr($fieldName, 'json_') !== false ? $fieldName :
+                        '{' . $fieldName . '}') . ' in (' . implode(', ', $flts) . ')';
             }
 
         }

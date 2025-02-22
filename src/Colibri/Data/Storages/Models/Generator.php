@@ -574,9 +574,9 @@ class Generator
         $row = 'Models\\Fields\\' . StringHelper::ToCamelCaseVar($storage->name, true) . '\\' . $className;
 
         $fieldDesc = $field->{'desc'};
-        if ($langModule) {
-            $fieldDesc = $fieldDesc[$langModule->Default()] ?? $fieldDesc;
-        }
+        // if ($langModule) {
+        //     $fieldDesc = $fieldDesc[$langModule->Default()] ?? $fieldDesc;
+        // }
 
         $values = [];
         $properties = [];
@@ -596,7 +596,7 @@ class Generator
                     $key = $value['title']['en'];
                 }
                 $values[] = "\t\t\t" . ($enumType === 'string' ? '"' . $value['value'] . '"' : $value['value']);
-                $properties[] = "\t" . '/** ' . $langModule->Translate($value['title']) . ' */' . "\n\t" . 'case ' . StringHelper::ToCamelCaseVar(trim($key, '-_'), true) . ' = ' . ($enumType === 'string'  ? '\'' : '') . $value['value'] . ($enumType === 'string'  ? '\'' : '').';';
+                $properties[] = "\t" . '/** ' . "\n\t * " . $langModule->AsComment($value['title'], "\n\t * ") . "\n\t" . ' */' . "\n\t" . 'case ' . StringHelper::ToCamelCaseVar(trim($key, '-_'), true) . ' = ' . ($enumType === 'string'  ? '\'' : '') . $value['value'] . ($enumType === 'string'  ? '\'' : '').';';
             }
         }
 
@@ -612,8 +612,11 @@ class Generator
 
         $fileName = str_replace('\\', '/', $row);
         if (!File::Exists($rootPath . $fileName . '.php')) {
-            $templateContent = File::Read(__DIR__ . '/model-templates/enum-template.template');;
+            $templateContent = File::Read(__DIR__ . '/model-templates/enum-template.template');
             foreach ($args as $key => $value) {
+                if(is_object($value) || is_array($value)) {
+                    $value = json_encode($value);
+                }
                 $templateContent = str_replace('[[' . $key . ']]', $value, $templateContent);
             }
             File::Create($rootPath . $fileName . '.php', true, '777');
@@ -632,7 +635,7 @@ class Generator
             $rowModelContent = \preg_replace_callback(
                 '/# region Properties\:(.*)# endregion Properties;/s',
                 function ($match) use ($properties) {
-                    return '# region Properties:' . "\n" . implode("\n", $properties) . "\t\n" . '# endregion Properties;';
+                    return '# region Properties:' . "\n" . implode("\n", $properties) . "\t\n\t" . '# endregion Properties;';
                 },
                 $rowModelContent
             );

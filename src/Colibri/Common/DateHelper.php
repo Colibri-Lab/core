@@ -219,6 +219,9 @@ class DateHelper
      */
     public static function ToUnixTime(string $datestring): int|null
     {
+        if($datestring === '') {
+            return 0;
+        }
         return strtotime($datestring);
     }
 
