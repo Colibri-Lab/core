@@ -32,7 +32,7 @@ final class Config implements IConfig
             'bool' => ['length' => false, 'generic' => 'bool', 'component' => 'Colibri.UI.Forms.Checkbox', 'db' => 'uint', 'index' => true, 'param' => 'integer', 'convert' => 'fn($v) => $v === true ? 1 : 0'],
             'uint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number', 'index' => true, 'param' => 'integer'],
             'float' => ['length' => false, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number', 'index' => true, 'param' => 'double'],
-            'timestamp' => ['length' => false, 'generic' => 'DateTimeToIntField', 'component' => 'Colibri.UI.Forms.DateTime', 'db' => 'bigint', 'index' => true, 'param' => 'integer', 'convert' => 'fn($v) => is_string($v) ? strtotime($v) : $v'],
+            'timestamp' => ['length' => false, 'generic' => 'DateTimeToIntField', 'component' => 'Colibri.UI.Forms.DateTime', 'db' => 'bigint', 'index' => true, 'param' => 'integer', 'convert' => 'fn($v) => is_numeric($v) ? $v : strtotime($v)'],
             'string' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text', 'index' => false, 'param' => 'string'],
             'json' => ['length' => false, 'generic' => ['Colibri.UI.Forms.Object' => 'ObjectField', 'Colibri.UI.Forms.Array' => 'ArrayField'], 'component' => 'Colibri.UI.Forms.Object', 'index' => false, 'param' => 'string'],
             'field' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text', 'index' => false, 'param' => 'string'],
