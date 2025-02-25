@@ -227,6 +227,8 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
             $return = $this->_accessPoints;
         } elseif  ($property == 'pool') {
             $return = $this->_accessPointsPool;
+        } elseif ($property == 'drivers') {
+            $return = $this->_accessPoints->drivers;
         } else {
             $return = $this->Get($property);
         }

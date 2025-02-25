@@ -69,11 +69,12 @@ class Storage
      * @param array|object $xstorage The data from the storage settings.
      * @param string|null $name The name of the storage.
      */
-    public function __construct(array|object $xstorage, ?string $name = null)
+    public function __construct(array|object $xstorage, ?string $name = null, ?DataAccessPoint $accessPoint = null)
     {
         $xstorage = (array) $xstorage;
         $this->_xstorage = $xstorage;
         $this->_name = $name;
+        $this->_dataPoint = $accessPoint;
         $this->_init();
     }
 
@@ -88,7 +89,9 @@ class Storage
         if (isset($this->_xstorage['name'])) {
             $this->_name = $this->_xstorage['name'];
         }
-        $this->_dataPoint = isset($this->_xstorage['access-point']) ? App::$dataAccessPoints->Get($this->_xstorage['access-point']) : null;
+        if(!$this->_dataPoint) {
+            $this->_dataPoint = isset($this->_xstorage['access-point']) ? App::$dataAccessPoints->Get($this->_xstorage['access-point']) : null;
+        }
         $this->_loadFields();
     }
 

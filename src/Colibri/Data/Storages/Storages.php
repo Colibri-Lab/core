@@ -302,12 +302,12 @@ class Storages
      *
      * @return Storage|null The loaded storage object if found, or null if not found.
      */
-    public function Load(string $name, ?string $module = null): ?Storage
+    public function Load(string $name, ?string $module = null, ?DataAccessPoint $accessPoint = null): ?Storage
     {
         if (!isset($this->_storages[$name])) {
             return null;
         }
-        return new Storage($this->_storages[$name], $name);
+        return new Storage($this->_storages[$name], $name, $accessPoint);
     }
 
 
