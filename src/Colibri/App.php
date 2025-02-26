@@ -278,6 +278,10 @@ final class App
 
         self::$monitoring->EndTimer('app');
 
+        if(self::HasCsfrInRequest() && !self::CsfrIsCorrect()) {
+            throw new AppException('CSFR token is incorrect');
+        }
+
         $this->DispatchEvent(EventsContainer::AppReady);
     }
 
@@ -323,6 +327,29 @@ final class App
         File::Copy(App::$appRoot . 'composer.lock', $path . 'composer.lock');
 
 
+    }
+
+    public static function GenerateNewCsfrToken(): string
+    {
+        session_start();
+        if(!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        session_write_close();
+        return $_SESSION['csrf_token'];
+    }
+
+    public static function CsfrIsCorrect(): bool
+    {
+        session_start();
+        $return = self::$request->headers->{'x-csrf-token'} === $_SESSION['csrf_token'];
+        session_write_close();
+        return $return;
+    }
+
+    public static function HasCsfrInRequest(): bool
+    {
+        return is_string(self::$request->headers->{'x-csrf-token'});
     }
 
 }
