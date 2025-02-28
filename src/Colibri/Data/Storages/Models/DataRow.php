@@ -156,7 +156,7 @@ class DataRow extends BaseDataRow
             $class = $casts[$field->{'name'}];
         }
 
-        if($class && enum_exists($class)) {
+        if($class && enum_exists($class) && !is_null($rowValue)) {
             if($mode == 'get') {
                 if(!($rowValue instanceof \UnitEnum)) {
                     $rowValue = $class::from($rowValue);
