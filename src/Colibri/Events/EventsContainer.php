@@ -180,4 +180,10 @@ class EventsContainer
 
     #endregion
 
+    #region Themes
+
+    public const ThemeChoosing = 'themes.choosing';
+    
+    #endregion
+
 }
