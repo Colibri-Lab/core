@@ -432,6 +432,14 @@ class Storage
             $storageData['fields'][$fname] = $field->Save();
         }
 
+        foreach($storageData['params'] as $param => $value) {
+            if($param === 'template_args') {
+                if(VariableHelper::IsObjectFieldsAreEmpty($value)) {
+                    unset($storageData['params'][$param]);
+                }
+            }
+        }
+
         $config = Config::LoadFile($file);
         $config->Set($this->name, $storageData);
         $config->Save();

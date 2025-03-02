@@ -172,7 +172,7 @@ class Field
             case 'formula':
                 return $this->_formula;
             case 'required':
-                return $this->_xfield['params']['required'] ?? $this->_xfield['required'] ?? null;
+                return $this->_xfield['params']['required'] ?? $this->_xfield['required'] ?? false;
             case 'islookup':
                 return $this->_lookup && ($this->_lookup->accesspoint !== null || $this->_lookup->storage !== null);
             case 'isvalues':
@@ -267,6 +267,21 @@ class Field
 
     }
 
+    private function _isEmptyLang($value): bool
+    {
+        if(is_string($value)) {
+            return empty($value);
+        }
+        $isEmpty = true;
+        foreach($value as $lang => $v) {
+            if(!empty($v)) {
+                $isEmpty = false;
+                break;
+            }
+        }
+        return $isEmpty;
+    }
+
     public function UpdateData($data): void
     {
         foreach ($data as $key => $value) {
@@ -274,14 +289,35 @@ class Field
                 ($key == 'lookup' && array_key_exists('none', $value)) ||
                 ($key == 'values' && empty($value)) ||
                 ($key == 'selector' && (!isset($value['ondemand']) || $value['ondemand'] === false) && (!isset($value['value']) || $value['value'] === '') && (!isset($value['title']) || $value['title'] === '') && (!isset($value['__render']) || $value['__render'] === '')) ||
-                ($key == 'note' && empty($value)) ||
-                ($key == 'desc' && empty($value))
+                ($key == 'placeholder' && (empty($value) || $this->_isEmptyLang($value))) ||
+                ($key == 'group' && (empty($value) || $this->_isEmptyLang($value))) ||
+                ($key == 'note' && (empty($value) || $this->_isEmptyLang($value))) ||
+                ($key == 'desc' && (empty($value) || $this->_isEmptyLang($value)))
             ) {
                 if (isset($this->_xfield[$key])) {
                     unset($this->_xfield[$key]);
                 }
             } elseif ($key !== 'fields') {
-                if ($key === 'selector') {
+                if ($key === 'params') {
+                    foreach($value as $k => $v) {
+                        if($k === 'addlink' && $this->_isEmptyLang($v)) {
+                            unset($value[$k]);
+                        } elseif (in_array($k, ['valuegenerator', 'onchangehandler','size','allow', 'title','displayed_columns','maxadd','generator','noteClass','simplearraywidth','simplearrayheight','fieldgenerator','mask','viewer','greed'])) {
+                            if(empty($v)) {
+                                unset($value[$k]);
+                            }
+                        } elseif ($k === 'validate') {
+                            foreach($v as $index => $validator) {
+                                if(empty($validator['message']) || $this->_isEmptyLang($validator['message'])) {
+                                    unset($value['validate'][$index]);
+                                }
+                            } 
+                            if(empty($value['validate'])) {
+                                unset($value['validate']);
+                            }
+                        }
+                    }
+                } elseif ($key === 'selector') {
                     if (!$value['title']) {
                         unset($value['title']);
                     }
@@ -294,6 +330,18 @@ class Field
                     if (!$value['ondemand']) {
                         unset($value['ondemand']);
                     }
+                    if (!$value['emptyvalue']) {
+                        unset($value['emptyvalue']);
+                    }
+                    if (!$value['group']) {
+                        unset($value['group']);
+                    }
+                    if (!$value['chooser']) {
+                        unset($value['chooser']);
+                    }
+                    if ($this->_isEmptyLang($value['emptytitle'])) {
+                        unset($value['emptytitle']);
+                    }
                 } elseif ($key === 'attrs') {
                     if (!isset($value['width']) || !$value['width']) {
                         unset($value['width']);
@@ -305,7 +353,9 @@ class Field
                         unset($value['class']);
                     }
                 }
-                $this->_xfield[$key] = $value;
+                if(!empty($value)) {
+                    $this->_xfield[$key] = $value;
+                }
             }
 
         }
