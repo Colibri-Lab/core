@@ -289,7 +289,7 @@ final class Command extends SqlCommand
                 }
 
                 if($xdesc) {
-                    $res = $Exec('COMMENT ON COLUMN "' . ($prefix ? $prefix . '_' : '') . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
+                    $res = $Exec('COMMENT ON COLUMN "' . ($prefix ? $prefix . '_' : '') . $table . '"."' . $fname . '" IS \'' . str_replace("'", "`", $xdesc) . '\';', $this->_connection);
                     if ($res->error) {
                         $logger->error($table . ': Can not save field: ' . $res->query);
                         throw new Exception('Can not save field: ' . $res->query);
@@ -350,7 +350,7 @@ final class Command extends SqlCommand
                     }
 
                     if($xdesc) {
-                        $res = $Exec('COMMENT ON COLUMN "' . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
+                        $res = $Exec('COMMENT ON COLUMN "' . $table . '"."' . $fname . '" IS \'' . str_replace("'", "`", $xdesc) . '\';', $this->_connection);
                         if ($res->error) {
                             $logger->error($table . ': Can not save field: ' . $res->query);
                             throw new Exception('Can not save field: ' . $res->query);
@@ -385,7 +385,7 @@ final class Command extends SqlCommand
                 }
 
                 if($xdesc) {
-                    $res = $Exec('COMMENT ON COLUMN "' . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
+                    $res = $Exec('COMMENT ON COLUMN "' . $table . '"."' . $fname . '" IS \'' . str_replace("'", "`", $xdesc) . '\';', $this->_connection);
                     if ($res->error) {
                         $logger->error($table . ': Can not save field: ' . $res->query);
                         throw new Exception('Can not save field: ' . $res->query);
@@ -424,7 +424,7 @@ final class Command extends SqlCommand
                     }
 
                     if($xdesc) {
-                        $res = $Exec('COMMENT ON COLUMN "' . $table . '"."' . $fname . '" IS \'' . $xdesc . '\';', $this->_connection);
+                        $res = $Exec('COMMENT ON COLUMN "' . $table . '"."' . $fname . '" IS \'' . str_replace("'", "`", $xdesc) . '\';', $this->_connection);
                         if ($res->error) {
                             $logger->error($table . ': Can not save field: ' . $res->query);
                             throw new Exception('Can not save field: ' . $res->query);
