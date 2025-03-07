@@ -260,6 +260,23 @@ class Server
             fastcgi_finish_request();
         }
 
+        
+        if(App::HasCsfrInRequest() && !App::CsfrIsCorrect()) {
+            $message = 'CSFR token is incorrect';
+            $this->DispatchEvent(EventsContainer::RpcRequestError, (object) [
+                'class' => $class,
+                'method' => $method,
+                'get' => $get,
+                'post' => $post,
+                'payload' => $payload,
+                'message' => $message
+            ]);
+            $this->Finish($type, [
+                'code' => 403,
+                'message' => $message
+            ]);
+        }
+
         $args = (object) [
             'class' => $class,
             'method' => $method,

@@ -278,10 +278,6 @@ final class App
 
         self::$monitoring->EndTimer('app');
 
-        if(self::HasCsfrInRequest() && !self::CsfrIsCorrect()) {
-            throw new AppException('CSFR token is incorrect');
-        }
-
         $this->DispatchEvent(EventsContainer::AppReady);
     }
 
