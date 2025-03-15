@@ -148,6 +148,13 @@ class Request
     public ?int $sshSecurityLevel = null;
 
     /**
+     * Before request handler
+     *
+     * @var \Closure|null
+     */
+    protected ?\Closure $beforeRequestHandler = null;
+
+    /**
      * Checks if the curl module loaded
      *
      */
@@ -391,10 +398,16 @@ class Request
         if (!$this->sslVerify) {
             curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, $this->sslVerify);
             curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, $this->sslVerify);
+        } else {
+            curl_setopt($handle, CURLOPT_SSL_OPTIONS, CURLSSLOPT_NATIVE_CA);
+        }
+
+        if($this->beforeRequestHandler) {
+            $f = $this->beforeRequestHandler;
+            $f($handle);
         }
 
         $result = new Result();
-
 
         $body = curl_exec($handle);
         $header_size = curl_getinfo($handle, CURLINFO_HEADER_SIZE);
