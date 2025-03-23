@@ -596,7 +596,7 @@ class Generator
                     $key = $value['title']['en'];
                 }
                 $values[] = "\t\t\t" . ($enumType === 'string' ? '"' . $value['value'] . '"' : $value['value']);
-                $properties[] = "\t" . '/** ' . "\n\t * " . $langModule->AsComment($value['title'], "\n\t * ") . "\n\t" . ' */' . "\n\t" . 'case ' . StringHelper::ToCamelCaseVar(trim($key, '-_'), true) . ' = ' . ($enumType === 'string'  ? '\'' : '') . $value['value'] . ($enumType === 'string'  ? '\'' : '').';';
+                $properties[] = "\t" . '/** ' . "\n\t * " . $langModule->AsComment($value['title'], "\n\t * ") . "\n\t" . ' */' . "\n\t" . 'case ' . StringHelper::ToCamelCaseVar(trim($key, '_-'), true, '[_-]') . ' = ' . ($enumType === 'string'  ? '\'' : '') . $value['value'] . ($enumType === 'string'  ? '\'' : '').';';
             }
         }
 

@@ -212,7 +212,8 @@ class StringHelper
      */
     public static function ToCamelCaseVar(
         string $str,
-        bool $firstCapital = false
+        bool $firstCapital = false,
+        string $splitter = '_'
     ): string {
         if (!is_string($str)) {
             return false;
@@ -221,7 +222,7 @@ class StringHelper
             $str = StringHelper::ToUpperFirst($str);
         }
 
-        return preg_replace_callback('/_([A-Za-z1-9])/', function ($c) {
+        return preg_replace_callback('/'.$splitter.'([A-Za-z1-9])/', function ($c) {
             return StringHelper::ToUpperFirst($c[1]);
         }, $str);
     }
