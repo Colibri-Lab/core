@@ -589,14 +589,19 @@ class Generator
                     $enumJsonType = 'number';
                 }
             }
+            $index = 1;
             foreach($field->rawvalues as $value) {
                 if($enumType === 'string') {
                     $key = $value['value'];
                 } else {
                     $key = $value['title']['en'];
                 }
+                if(!$key) {
+                    $key = 'Value' . $index;
+                }
                 $values[] = "\t\t\t" . ($enumType === 'string' ? '"' . $value['value'] . '"' : $value['value']);
                 $properties[] = "\t" . '/** ' . "\n\t * " . $langModule->AsComment($value['title'], "\n\t * ") . "\n\t" . ' */' . "\n\t" . 'case ' . StringHelper::ToCamelCaseVar(trim($key, '_-'), true, '[_-]') . ' = ' . ($enumType === 'string'  ? '\'' : '') . $value['value'] . ($enumType === 'string'  ? '\'' : '').';';
+                $index++;
             }
         }
 
