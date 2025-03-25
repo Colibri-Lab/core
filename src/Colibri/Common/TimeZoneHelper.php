@@ -91,7 +91,7 @@ class TimeZoneHelper
      * @param float $microtime
      * @return string
      */
-    public static function FTimeU(string $format, float $microtime): string
+    public static function FTimeU(string $format, float $microtime): ?string
     {
         if (!is_numeric($microtime)) {
             return null;

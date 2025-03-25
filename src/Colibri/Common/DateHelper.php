@@ -131,13 +131,13 @@ class DateHelper
      * @param bool $showTime Whether to include the time portion in the output (default is false).
      * @return string The human-readable date string.
      */
-    public static function ToHumanDate(?float $time = null, ?bool $showTime = false): string
+    public static function ToHumanDate(?float $time = null, ?bool $showTime = false, ?bool $showDay = true): string
     {
         if (is_null($time)) {
             $time = time();
         }
-        return ((int) date('d', $time)) . ' ' .
-            TimeZoneHelper::Month2(date('m', $time) - 1) . ' ' .
+        return ($showDay ? (int) date('d', $time) . ' ' : '') .
+            ($showDay ? TimeZoneHelper::Month2(date('m', $time) - 1) : TimeZoneHelper::Month(date('m', $time) - 1)) . ' ' .
             date('Y', $time) .
             ($showTime ? ' ' . date('H', $time) . ':' . date('i', $time) : '');
     }

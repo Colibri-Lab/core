@@ -23,7 +23,8 @@ class ErrorHelper
             'parse_mode' => 'HTML'
         ]);
         if($response->status != 200) {
-            throw new \Exception($response->data);
+            App::$log->emergency($message);
+            // throw new \Exception($response->data);
         }
     }
 
