@@ -599,6 +599,10 @@ class Generator
                 if(!$key) {
                     $key = 'Value' . $index;
                 }
+                if(is_numeric(substr($key, 0, 1))) {
+                    $key = 'Value' . $key;
+                }
+
                 $values[] = "\t\t\t" . ($enumType === 'string' ? '"' . $value['value'] . '"' : $value['value']);
                 $properties[] = "\t" . '/** ' . "\n\t * " . $langModule->AsComment($value['title'], "\n\t * ") . "\n\t" . ' */' . "\n\t" . 'case ' . StringHelper::ToCamelCaseVar(trim($key, '_-'), true, '[_-]') . ' = ' . ($enumType === 'string'  ? '\'' : '') . $value['value'] . ($enumType === 'string'  ? '\'' : '').';';
                 $index++;
