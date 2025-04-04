@@ -108,7 +108,7 @@ class Server
             App::$response->DownloadFile($result->message, $result->result);
         }
 
-        $content = $result?->message ?: $result?->result;
+        $content = $result?->message ?? $result?->result ?? '';
         if ($type == Server::JSON || $type == Server::Stream) {
             $content = json_encode($result?->result ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         } elseif ($type === Server::XML) {
