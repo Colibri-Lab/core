@@ -354,8 +354,8 @@ class DataTable extends BaseDataTable
                 $res->insertid = $params['id'];
             }
 
-            if ($res->insertid == 0) {
-                App::$log->debug($res->error . ' query: ' . $res->query);
+            if ($res->insertid == 0 || !!$res->error) {
+                app_debug($res->error . ' query: ' . $res->query);
                 return $res;
             }
             $row->$idf = $res->insertid;
@@ -369,7 +369,7 @@ class DataTable extends BaseDataTable
                 $params
             );
             if ($res->error) {
-                App::$log->debug($res->error . ' query: ' . $res->query);
+                app_debug($res->error . ' query: ' . $res->query);
                 return $res;
             }
             $row->$idm = $params[$idm];
