@@ -349,8 +349,8 @@ class Bundle
                             );
                             if($res > 0) {
                                 $bundle = $settings['convert']['to'];
-                                foreach($matches as $index => $match) {
-                                    $bundle = str_replace('$' . ($index + 1), $match[1], $bundle);
+                                foreach($matches[0] as $index => $match) {
+                                    $bundle = str_replace('$' . $index, $match, $bundle);
                                 }
                             }
                         }
