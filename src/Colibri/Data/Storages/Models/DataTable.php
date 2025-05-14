@@ -313,6 +313,8 @@ class DataTable extends BaseDataTable
         ?bool $convert = true
     ): QueryInfo|bool {
 
+        $this->_storage->accessPoint->Begin();
+
         $idf = $this->_storage->GetRealFieldName('id');
         $idc = $this->_storage->GetRealFieldName('datecreated');
         $idm = $this->_storage->GetRealFieldName('datemodified');
@@ -331,7 +333,7 @@ class DataTable extends BaseDataTable
                 } else {
                     $maxId = 0;
                 }
-                $row->id = ((int)$maxId + 1);
+                $row->id = ((int)$maxId + 100);
             }
         }
 
@@ -356,6 +358,7 @@ class DataTable extends BaseDataTable
 
             if ($res->insertid == 0 || !!$res->error) {
                 app_debug($res->error . ' query: ' . $res->query);
+                $this->_storage->accessPoint->Rollback();
                 return $res;
             }
             $row->$idf = $res->insertid;
@@ -370,10 +373,13 @@ class DataTable extends BaseDataTable
             );
             if ($res->error) {
                 app_debug($res->error . ' query: ' . $res->query);
+                $this->_storage->accessPoint->Rollback();
                 return $res;
             }
             $row->$idm = $params[$idm];
         }
+
+        $this->_storage->accessPoint->Commit();
 
         return true;
     }
