@@ -53,7 +53,7 @@ final class Command extends SqlCommand
                 case 'string':
                 case 'blob':
                 default:
-                    return '\'' . $params[$matching[0]] . '\'';
+                    return '\'' . addslashes($params[$matching[0]]) . '\'';
             }
         }, $query);
 

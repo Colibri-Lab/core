@@ -31,12 +31,6 @@ class QueryBuilder implements IQueryBuilder
         $this->_connection = $connection;
     }
 
-    public function excapeStringForQuery(string $string): string
-    {
-        $string = preg_replace('~[\x00\x0A\x0D\x1A\x22\x27\x5C]~u', '\\\$0', $string);
-        return $string;
-    }
-
     /**
      * Creates an INSERT query.
      *
@@ -55,7 +49,7 @@ class QueryBuilder implements IQueryBuilder
             } elseif (is_bool($value)) {
                 $value = '\'' . ($value ? 1 : 0) . '\'';
             } elseif (StringHelper::IsJsonString($value) || (strstr($value, '[[') === false || strstr($value, ']]') === false)) {
-                $value = '\'' . $this->excapeStringForQuery($value) . '\'';
+                $value = '\'' . addslashes($value) . '\'';
             }
             $data[$key] = $value;
         }
