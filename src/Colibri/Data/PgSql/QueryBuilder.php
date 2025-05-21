@@ -450,12 +450,17 @@ class QueryBuilder implements IQueryBuilder
                 'Colibri.UI.Forms.DateTime',
                 'Colibri.UI.Forms.Number'
             ])) {
-                $filters[] = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}').
-                    ' between [['.
-                        $fieldName . '0:' . $field->param . ']] and [[' .
-                        $fieldName . '1:' . $field->param . ']]';
+                $fname = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}');
+
+                $f[] = $fname . ' >= [['. $fieldName . '0:' . $field->param . ']]';
                 $params[$fieldName.'0'] = $value[0];
-                $params[$fieldName.'1'] = $value[1];
+                
+                if(isset($value[1])) {
+                    $f[] = $fname . ' <= [[' . $fieldName . '1:' . $field->param . ']]';
+                    $params[$fieldName.'1'] = $value[1];
+                }
+
+                $filters[] = implode(' and ', $f);
             } else {
                 if(!is_array($value)) {
                     $value = [$value];
