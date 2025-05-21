@@ -193,7 +193,8 @@ class Field
                     'mediumtext',
                     'longtext',
                     'date',
-                    'datetime'
+                    'datetime',
+                    'timestamp',
                 ])) {
                     return 'string';
                 } elseif (in_array($this->_xfield['type'], ['int', 'float', 'bigint', 'double','bool','tinyint'])) {
