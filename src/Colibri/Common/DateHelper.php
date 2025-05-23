@@ -549,4 +549,9 @@ class DateHelper
         return $parts[0] * 60 + $parts[1];
     }
 
+    public static function Mc(): int
+    {
+        return (int) (microtime(true) * 1000);
+    }
+
 }
