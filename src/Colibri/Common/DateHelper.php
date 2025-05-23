@@ -551,7 +551,7 @@ class DateHelper
 
     public static function Mc(): int
     {
-        return (int) (microtime(true) * 1000);
+        return hrtime(true);
     }
 
 }
