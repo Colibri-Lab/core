@@ -551,6 +551,10 @@ class DateHelper
 
     public static function Mc(): int
     {
+        return (int) (hrtime(true) / 1_000_000);
+    }
+    public static function Nc(): int
+    {
         return hrtime(true);
     }
 
