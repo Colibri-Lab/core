@@ -57,7 +57,7 @@ class DataTable extends BaseDataTable
      */
     public function __construct(
         DataAccessPoint $point,
-        IDataReader $reader = null,
+        ?IDataReader $reader = null,
         string $returnAs = 'Colibri\\Data\\Storages\\Models\\DataRow',
         ?Storage $storage = null
     ) {
@@ -301,6 +301,16 @@ class DataTable extends BaseDataTable
     }
 
     /**
+     * Creates a new auto-increment value for the row
+     * @param DataRow|BaseDataRow $row The row for which to create the auto-increment value
+     * @return mixed The new auto-increment value, typically a timestamp or a unique identifier
+     */
+    protected function _createNewAutoIncrementValue(DataRow|BaseDataRow $row): mixed
+    {
+        return DateHelper::Mc();
+    }
+
+    /**
      * Сохраняет переданную строку в базу данных
      * @param DataRow|BaseDataRow $row строка для сохранения
      * @param string|null $idField поле для автоинкремента, если не найдется в таблице
@@ -324,17 +334,7 @@ class DataTable extends BaseDataTable
 
         if($isNewRow) {
             if(!$this->_storage->accessPoint->hasAutoincrement) {
-                // need to emulate
-                $row->id = DateHelper::Mc();
-                // $reader = $this->_storage->accessPoint->Query('select '.$this->_storage->accessPoint->symbol.$idf.$this->_storage->accessPoint->symbol.' as id 
-                //     from '.$this->_storage->accessPoint->symbol.$this->_storage->table.$this->_storage->accessPoint->symbol.' 
-                //     order by '.$this->_storage->accessPoint->symbol.$idf.$this->_storage->accessPoint->symbol.' desc', ['page' => 1, 'pagesize' => 1]);
-                // if($reader instanceof IDataReader) {
-                //     $maxId = $reader?->Read()?->id ?? 0;
-                // } else {
-                //     $maxId = 0;
-                // }
-                // $row->id = ((int)$maxId + 100);
+                $row->id = $this->_createNewAutoIncrementValue($row);
             }
         }
 
