@@ -838,6 +838,10 @@ class Manager
         return false;
     }
 
+    public static function Run(string|array $queueName)
+    {
+        runx(App::$appRoot . 'bin/queue', [is_string($queueName) ? $queueName : implode(',', $queueName)]);
+    }
 
 
 }
