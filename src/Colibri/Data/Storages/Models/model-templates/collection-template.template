@@ -60,7 +60,7 @@ class [[table-class-name]] extends BaseModelDataCollection
         ?array $order = null
     ) : ?[[table-class-name]]
     {
-        $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
+        $storage = Storages::Instance()->Load('[[storage-name]]', '[[module-name]]');
         return parent::_loadByFilter($storage, $page, $pagesize, $query, $filter, $order);
     }
 
@@ -84,7 +84,7 @@ class [[table-class-name]] extends BaseModelDataCollection
         string $sortOrder = 'asc'
     ) : ?[[table-class-name]]
     {
-        $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
+        $storage = Storages::Instance()->Load('[[storage-name]]', '[[module-name]]');
         [$query, $filters, $order] = $storage->accessPoint->ProcessFilters($storage, $searchTerm, $filtersArray, $sortField, $sortOrder);
         return parent::_loadByFilter($storage, $page, $pagesize, $query, $filters, $order);
     }
@@ -141,7 +141,7 @@ class [[table-class-name]] extends BaseModelDataCollection
      */
     public static function RestoreAllByIds(array $ids): bool
     {
-        $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
+        $storage = Storages::Instance()->Load('[[storage-name]]', '[[module-name]]');
         return self::RestoreByFilter($storage, ['id' => array_map(fn($v) => (int)$v, $ids)]);
     }
 
@@ -153,7 +153,7 @@ class [[table-class-name]] extends BaseModelDataCollection
      */
     public static function DeleteAllByFilter(array $filter): bool
     {
-        $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
+        $storage = Storages::Instance()->Load('[[storage-name]]', '[[module-name]]');
         return self::DeleteByFilter($storage, $filter);
     }
 

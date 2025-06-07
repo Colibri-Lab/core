@@ -108,7 +108,7 @@ class Storage
      *
      * its equivalent of
      *
-     * $storage = Storages::Create()->Load('langs', 'lang');
+     * $storage = Storages::Instance()->Load('langs', 'lang');
      *
      * @example
      * ```

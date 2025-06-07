@@ -26,7 +26,7 @@ trait TEventDispatcher
      */
     public function DispatchEvent(string|Event $event, mixed $args = null, bool $async = false): ?object
     {
-        return EventDispatcher::Create()->Dispatch(new Event($this, $event), $args, $async);
+        return EventDispatcher::Instance()->Dispatch(new Event($this, $event), $args, $async);
     }
 
     /**
@@ -38,7 +38,7 @@ trait TEventDispatcher
      */
     public function HandleEvent(array |string $ename, mixed $listener): self
     {
-        EventDispatcher::Create()->AddEventListener($ename, $listener, $this);
+        EventDispatcher::Instance()->AddEventListener($ename, $listener, $this);
         return $this;
     }
 
@@ -51,7 +51,7 @@ trait TEventDispatcher
      */
     public function RemoveHandler(string $ename, mixed $listener): self
     {
-        EventDispatcher::Create()->RemoveEventListener($ename, $listener);
+        EventDispatcher::Instance()->RemoveEventListener($ename, $listener);
         return $this;
     }
 }

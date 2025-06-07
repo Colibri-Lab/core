@@ -163,7 +163,7 @@ class DataTable extends BaseDataTable
         array $params
     ): ?static {
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         $query = self::_replaceFields($query, $storage);
@@ -184,7 +184,7 @@ class DataTable extends BaseDataTable
         ?string $filter = null
     ): bool {
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         $filter = self::_replaceFields($filter, $storage);
@@ -228,7 +228,7 @@ class DataTable extends BaseDataTable
         string $filter
     ): bool {
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         $filter = self::_replaceFields($filter, $storage);
@@ -272,7 +272,7 @@ class DataTable extends BaseDataTable
         array $fields
     ): bool {
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         $filter = self::_replaceFields($filter, $storage);
@@ -560,7 +560,7 @@ class DataTable extends BaseDataTable
         ?array $filter = null
     ): bool {
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         $fieldsConverted = [];
@@ -597,7 +597,7 @@ class DataTable extends BaseDataTable
     ): bool {
 
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         $variables = [];

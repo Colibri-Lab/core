@@ -8,20 +8,20 @@ class ModuleManagerTest extends TestCase
 {
     public function testCreate()
     {
-        $instance = ModuleManager::Create();
+        $instance = ModuleManager::Instance();
         $this->assertInstanceOf(ModuleManager::class, $instance);
     }
 
     public function testInitialize()
     {
-        $moduleManager = ModuleManager::Create();
+        $moduleManager = ModuleManager::Instance();
         $moduleManager->Initialize();
         $this->assertNotEmpty($moduleManager->list);
     }
 
     public function testInitModule()
     {
-        $moduleManager = ModuleManager::Create();
+        $moduleManager = ModuleManager::Instance();
         $config = new Config(['entry' => 'TestModule']);
         $module = $moduleManager->InitModule($config);
         $this->assertNotNull($module);
@@ -29,42 +29,42 @@ class ModuleManagerTest extends TestCase
 
     public function testGet()
     {
-        $moduleManager = ModuleManager::Create();
+        $moduleManager = ModuleManager::Instance();
         $module = $moduleManager->Get('TestModule');
         $this->assertNotNull($module);
     }
 
     public function testConfig()
     {
-        $moduleManager = ModuleManager::Create();
+        $moduleManager = ModuleManager::Instance();
         $config = $moduleManager->Config('TestModule');
         $this->assertInstanceOf(Config::class, $config);
     }
 
     public function testGetPermissions()
     {
-        $moduleManager = ModuleManager::Create();
+        $moduleManager = ModuleManager::Instance();
         $permissions = $moduleManager->GetPermissions();
         $this->assertIsArray($permissions);
     }
 
     public function testGetPaths()
     {
-        $moduleManager = ModuleManager::Create();
+        $moduleManager = ModuleManager::Instance();
         $paths = $moduleManager->GetPaths();
         $this->assertIsArray($paths);
     }
 
     public function testGetPathsFromModuleConfig()
     {
-        $moduleManager = ModuleManager::Create();
+        $moduleManager = ModuleManager::Instance();
         $paths = $moduleManager->GetPathsFromModuleConfig();
         $this->assertIsArray($paths);
     }
 
     public function testGetTemplates()
     {
-        $moduleManager = ModuleManager::Create();
+        $moduleManager = ModuleManager::Instance();
         $templates = $moduleManager->GetTemplates();
         $this->assertIsArray($templates);
     }

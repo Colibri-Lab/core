@@ -16,6 +16,7 @@ use Colibri\Common\XmlHelper;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Events\EventsContainer;
 use Colibri\Common\VariableHelper;
+use Colibri\Utils\Singleton;
 
 /**
  * Request Class
@@ -38,17 +39,10 @@ use Colibri\Common\VariableHelper;
  * @property-read bool $insecure Whether the request is insecure (not using HTTPS).
  *
  */
-class Request
+final class Request extends Singleton
 {
     // Event dispatcher trait
     use TEventDispatcher;
-
-    /**
-     * Singleton instance.
-     *
-     * @var Request|null
-     */
-    public static ?Request $instance = null;
 
     /** @var string Type of payload: JSON */
     public const PAYLOAD_TYPE_JSON = 'json';
@@ -60,7 +54,7 @@ class Request
     /**
      * Constructor.
      */
-    private function __construct()
+    protected function __construct()
     {
         $this->DispatchEvent(EventsContainer::RequestReady);
         $this->_detectJsonEncodedData();
@@ -82,18 +76,6 @@ class Request
         }
     }
 
-    /**
-     * Static constructor to create a new instance of Request.
-     *
-     * @return Request The Request instance.
-     */
-    public static function Create(): Request
-    {
-        if (!Request::$instance) {
-            Request::$instance = new Request();
-        }
-        return Request::$instance;
-    }
 
     /**
      * Returns the URI with added or removed parameters.

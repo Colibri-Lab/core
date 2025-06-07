@@ -28,11 +28,12 @@ use Colibri\Threading\Process;
 use Colibri\Utils\ExtendedObject;
 use Colibri\Utils\Logs\FileLogger;
 use Colibri\Utils\Logs\Logger;
+use Colibri\Utils\Singleton;
 
 /**
  * Manages the job queue.
  */
-class Manager
+class Manager extends Singleton
 {
     use TEventDispatcher;
 
@@ -56,26 +57,6 @@ class Manager
      * @var array
      */
     private array $_storages = [];
-
-    /**
-     * The instance of the Manager class.
-     *
-     * @var Manager|null
-     */
-    public static ?self $instance = null;
-
-    /**
-     * Creates an instance of the Manager class.
-     *
-     * @return self The created instance of the Manager class.
-     */
-    public static function Create(): self
-    {
-        if (!self::$instance) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
 
     /**
      * Constructor for the Manager class.
@@ -718,12 +699,12 @@ class Manager
      * @return never This method never returns.
      * @suppress PHP0420
      */
-    public function ProcessJobs(string $queue): never
+    public function ProcessJobs(string $queue)
     {
         $activeParallelProcesses = [];
         while(true) {
 
-            $job = Manager::Create()->GetNextJob(explode(',', $queue));
+            $job = Manager::Instance()->GetNextJob(explode(',', $queue));
             if(!$job) {
                 foreach($activeParallelProcesses as $index => $process) {
                     if(!$process->IsRunning()) {

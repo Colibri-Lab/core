@@ -13,6 +13,7 @@ namespace Colibri\Data;
 use Colibri\App;
 use Colibri\Common\VariableHelper;
 use Colibri\Utils\Config\ConfigException;
+use Colibri\Utils\Singleton;
 
 /**
  * Factory class for creating access points.
@@ -23,14 +24,13 @@ use Colibri\Utils\Config\ConfigException;
  * @method DataAccessPoint[] getIterator() Returns an iterator for DataAccessPoint objects.
  * @method DataAccessPoint offsetGet(mixed $offset) Returns the DataAccessPoint object at the specified offset.
  * @method DataAccessPoint offsetExists(mixed $offset) Checks if a DataAccessPoint object exists at the specified offset.
+ * 
+ * @property-read object $drivers
  *
  */
-class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
+class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggregate, \Countable
 {
-    /**
-     * @var DataAccessPoints
-     */
-    public static $instance;
+
 
     /**
      * The list of access points.
@@ -99,21 +99,6 @@ class DataAccessPoints implements \ArrayAccess, \IteratorAggregate, \Countable
 
     }
 
-    /**
-     * Static constructor.
-     *
-     * @return DataAccessPoints Returns an instance of DataAccessPoints.
-     * @testFunction testDataAccessPointsCreate Used for testing DataAccessPoints creation.
-     */
-    public static function Create()
-    {
-
-        if (self::$instance) {
-            return self::$instance;
-        }
-        self::$instance = new DataAccessPoints();
-        return self::$instance;
-    }
 
     /**
      * Creates an access point.

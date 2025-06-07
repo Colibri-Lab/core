@@ -119,7 +119,7 @@ abstract class Job extends ExtendedObject implements IJob
      */
     public function Add(?string $startDate = null): bool
     {
-        return Manager::Create()->AddJob($this, $startDate);
+        return Manager::Instance()->AddJob($this, $startDate);
     }
 
     /**
@@ -130,7 +130,7 @@ abstract class Job extends ExtendedObject implements IJob
      */
     public function Update(?string $startDate = null): bool
     {
-        return Manager::Create()->UpdateJob($this, $startDate);
+        return Manager::Instance()->UpdateJob($this, $startDate);
     }
 
     /**
@@ -140,7 +140,7 @@ abstract class Job extends ExtendedObject implements IJob
      */
     public function Delete(): bool
     {
-        return Manager::Create()->DeleteJob($this);
+        return Manager::Instance()->DeleteJob($this);
     }
 
     /**
@@ -152,7 +152,7 @@ abstract class Job extends ExtendedObject implements IJob
     {
         $this->attempts ++;
         $this->datereserved = DateHelper::ToDbString();
-        return Manager::Create()->UpdateJob($this);
+        return Manager::Instance()->UpdateJob($this);
     }
 
     /**
@@ -166,7 +166,7 @@ abstract class Job extends ExtendedObject implements IJob
 
 
         /** @var Manager */
-        $manager = Manager::Create();
+        $manager = Manager::Instance();
         if(!$manager->SuccessJob($this, $result)) {
             return false;
         }
@@ -199,7 +199,7 @@ abstract class Job extends ExtendedObject implements IJob
     {
 
         /** @var Manager */
-        $manager = Manager::Create();
+        $manager = Manager::Instance();
         if(!$manager->FailJob($this, $exception)) {
             return false;
         }
@@ -233,7 +233,7 @@ abstract class Job extends ExtendedObject implements IJob
         $this->reservation_key = null;
         $this->datestart = (new \DateTime('now'))
             ->modify('+'.$delaySeconds.' seconds')->format('Y-m-d H:i:s');
-        return Manager::Create()->UpdateJob($this);
+        return Manager::Instance()->UpdateJob($this);
     }
 
     /**

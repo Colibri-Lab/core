@@ -228,7 +228,7 @@ class VariableHelper
     /**
      * Converts an array to an object.
      *
-     * @param array $array The input array to be converted.
+     * @param mixed $array The input array to be converted.
      *
      * @return mixed The resulting object.
      */
@@ -493,7 +493,7 @@ class VariableHelper
      *
      * @return mixed The unserialized PHP value (bool, int, float, string, array, or object).
      *
-     * @throws Throwable If unserialization fails due to invalid input or other errors.
+     * @throws \Throwable If unserialization fails due to invalid input or other errors.
      */
     public static function Unserialize(string $string): mixed
     {

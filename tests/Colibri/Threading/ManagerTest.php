@@ -9,13 +9,13 @@ class ManagerTest extends TestCase
 {
     public function testCreate()
     {
-        $manager = Manager::Create();
+        $manager = Manager::Instance();
         $this->assertInstanceOf(Manager::class, $manager);
     }
 
     public function testCreateProcess()
     {
-        $manager = Manager::Create();
+        $manager = Manager::Instance();
         $worker = $this->getMockForAbstractClass(Worker::class);
         $process = $manager->CreateProcess($worker, true);
         $this->assertInstanceOf(Process::class, $process);

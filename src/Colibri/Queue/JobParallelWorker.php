@@ -44,7 +44,7 @@ class JobParallelWorker extends Worker
         $this->_logger = new FileLogger(Logger::Debug, $cache . 'log/queue-' . $queue . '.log', true);
         $this->_logger->info($queue . ':' . $id . ': Begin job routine for parallel');
 
-        $this->_job = Manager::Create()->GetJobById($id);
+        $this->_job = Manager::Instance()->GetJobById($id);
         if(!$this->_job) {
             $this->_logger->info($queue . ':' . $id . ': Job not found!');
         }

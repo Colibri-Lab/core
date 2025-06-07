@@ -138,7 +138,7 @@ class DataCollection extends BaseDataTable
         int $pagesize = 20
     ): ?static {
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         // TODO добавить запрос на проверку удаленных записей
@@ -159,7 +159,7 @@ class DataCollection extends BaseDataTable
         array $filter
     ): bool {
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         $params = (object)$storage?->{'params'};
@@ -192,7 +192,7 @@ class DataCollection extends BaseDataTable
         array $filter
     ): bool {
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         $params = (object)$storage?->{'params'};
@@ -220,7 +220,7 @@ class DataCollection extends BaseDataTable
         array $fields
     ): bool {
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
         $res = $storage->accessPoint->ExecuteCommand(
             'UpdateDocuments',
@@ -464,7 +464,7 @@ class DataCollection extends BaseDataTable
         ?array $filter = null
     ): bool {
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         if($storage->accessPoint->dbms !== DataAccessPoint::DBMSTypeRelational) {
@@ -505,7 +505,7 @@ class DataCollection extends BaseDataTable
     ): bool {
 
         if (is_string($storage)) {
-            $storage = Storages::Create()->Load($storage);
+            $storage = Storages::Instance()->Load($storage);
         }
 
         if($storage->accessPoint->dbms !== DataAccessPoint::DBMSTypeRelational) {

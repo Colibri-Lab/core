@@ -80,7 +80,7 @@ class Lookup
     {
         if ($this->storage) {
             $data = (object) $this->storage;
-            $storage = Storages::Create()->Load($data->name);
+            $storage = Storages::Instance()->Load($data->name);
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
             $reader = $accessPoint->Query(
@@ -118,7 +118,7 @@ class Lookup
     {
         if ($this->storage) {
             $data = (object) $this->storage;
-            $storage = Storages::Create()->Load($data->name);
+            $storage = Storages::Instance()->Load($data->name);
             if (!$storage) {
                 return null;
             }

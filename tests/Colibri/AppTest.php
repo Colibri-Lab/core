@@ -15,20 +15,20 @@ class AppTest extends TestCase
 {
     public function testAppCreate()
     {
-        $app = App::Create();
+        $app = App::Instance();
         $this->assertInstanceOf(App::class, $app);
     }
 
     public function testAppSingleton()
     {
-        $app1 = App::Create();
-        $app2 = App::Create();
+        $app1 = App::Instance();
+        $app2 = App::Instance();
         $this->assertSame($app1, $app2);
     }
 
     public function testAppInitialization()
     {
-        $app = App::Create();
+        $app = App::Instance();
         $this->assertNotNull(App::$config);
         $this->assertNotNull(App::$log);
         $this->assertNotNull(App::$eventDispatcher);
@@ -41,7 +41,7 @@ class AppTest extends TestCase
 
     public function testGetPermissions()
     {
-        $app = App::Create();
+        $app = App::Instance();
         $permissions = $app->GetPermissions();
         $this->assertIsArray($permissions);
         $this->assertArrayHasKey('app', $permissions);

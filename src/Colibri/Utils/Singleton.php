@@ -19,13 +19,7 @@ namespace Colibri\Utils;
  */
 abstract class Singleton
 {
-    /**
-     * The singleton instance.
-     *
-     * @var static
-     */
-    public static $instance;
-
+    
     /**
      * Creates an instance of the singleton class if it does not already exist,
      * and returns the instance.
@@ -33,12 +27,14 @@ abstract class Singleton
      * @param mixed ...$arguments Arguments to be passed to the constructor, if needed.
      * @return static The singleton instance.
      */
-    public static function Create(...$arguments): static
+    final public static function Instance(...$arguments): static
     {
-        if (!static::$instance) {
-            static::$instance = new static(...$arguments);
+        static $instances = [];
+        $className = static::class;
+        if (!isset($instances[$className])) {
+            $instances[$className] = new $className(...$arguments);
         }
-        return static::$instance;
+        return $instances[$className];
     }
 
 }

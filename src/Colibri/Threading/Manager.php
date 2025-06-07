@@ -11,19 +11,14 @@
 namespace Colibri\Threading;
 
 use Colibri\App;
+use Colibri\Utils\Singleton;
 
 /**
  * Singleton for handling and creating processes.
  *
  */
-class Manager
+class Manager extends Singleton
 {
-    /**
-     * Singleton instance.
-     *
-     * @var Manager
-     */
-    public static $instance;
 
     /**
      * Constructor, initiates worker processing if specified.
@@ -33,18 +28,6 @@ class Manager
         $this->_processWorkers();
     }
 
-    /**
-     * Static function to create Singleton.
-     *
-     * @return self
-     */
-    public static function Create(): self
-    {
-        if (!self::$instance) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
 
     /**
      * Initiates worker processing.

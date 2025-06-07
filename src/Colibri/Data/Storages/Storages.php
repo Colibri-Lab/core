@@ -18,6 +18,7 @@ use Colibri\Data\Storages\Models\DataTable as StorageDataTable;
 use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
 use Colibri\Utils\Logs\Logger;
+use Colibri\Utils\Singleton;
 
 /**
  * Represents a collection of storage objects.
@@ -27,14 +28,9 @@ use Colibri\Utils\Logs\Logger;
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages
  */
-class Storages
+class Storages extends Singleton
 {
-    /**
-     * The singleton instance of the Storages class.
-     * @var Storages|null
-     */
-    private static $instance;
-
+   
     /**
      * Array of storage data.
      * @var array|null
@@ -186,18 +182,6 @@ class Storages
         return $fields;
     }
 
-    /**
-     * Singleton
-     * @return Storages
-     */
-    public static function Create()
-    {
-        if (!self::$instance) {
-            self::$instance = new Storages();
-        }
-        return self::$instance;
-    }
-
     #region "Checking"
 
     /**
@@ -273,7 +257,7 @@ class Storages
      * ```
      * If you need to check existance of storage
      *
-     * if(Storages::Create()->Exists('langs', 'lang')) { ... }
+     * if(Storages::Instance()->Exists('langs', 'lang')) { ... }
      *
      * ```
      *
@@ -293,7 +277,7 @@ class Storages
      * ```
      * For example you can get storage structure information for storage "langs" in module "lang"
      *
-     * $storage = Storages::Create()->Load('langs', 'lang');
+     * $storage = Storages::Instance()->Load('langs', 'lang');
      *
      * ```
      *

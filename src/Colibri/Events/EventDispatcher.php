@@ -14,18 +14,13 @@ use Colibri\Collections\ArrayList;
 use Colibri\Collections\Collection;
 use Colibri\Events\Handlers\IClosure;
 use Colibri\Events\Handlers\LocalClosure;
+use Colibri\Utils\Singleton;
 
 /**
  * Event manager.
  */
-class EventDispatcher
+final class EventDispatcher extends Singleton
 {
-    /**
-     * Singleton instance.
-     *
-     * @var EventDispatcher
-     */
-    public static $instance;
 
     /**
      * Array of events.
@@ -37,23 +32,11 @@ class EventDispatcher
     /**
      * Constructor.
      */
-    private function __construct()
+    protected function __construct()
     {
         $this->_events = new Collection();
     }
 
-    /**
-     * Static constructor.
-     *
-     * @return EventDispatcher The EventDispatcher instance.
-     */
-    public static function Create(): self
-    {
-        if (!self::$instance) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
 
     /**
      * Disposes the object.

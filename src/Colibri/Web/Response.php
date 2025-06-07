@@ -17,6 +17,7 @@ use Colibri\Events\TEventDispatcher;
 use Colibri\Events\EventsContainer;
 use Colibri\Common\MimeType;
 use Colibri\Common\StringHelper;
+use Colibri\Utils\Singleton;
 use IteratorAggregate;
 use Colibri\App;
 
@@ -26,17 +27,10 @@ use Colibri\App;
  * Represents a class responsible for output.
  *
  */
-class Response
+final class Response extends Singleton
 {
     // Event dispatcher functionality
     use TEventDispatcher;
-
-    /**
-     * Singleton instance.
-     *
-     * @var Response|null
-     */
-    public static ?Response $instance = null;
 
     /**
      * HTTP response status codes and their descriptions.
@@ -159,23 +153,11 @@ class Response
     /**
      * Constructor (private to enforce singleton pattern).
      */
-    private function __construct()
+    protected function __construct()
     {
         $this->DispatchEvent(EventsContainer::ResponseReady);
     }
 
-    /**
-     * Static constructor to create a singleton instance.
-     *
-     * @return Response The singleton instance.
-     */
-    public static function Create(): Response
-    {
-        if (!Response::$instance) {
-            Response::$instance = new Response();
-        }
-        return Response::$instance;
-    }
 
     /**
      * Add a header to the HTTP response.

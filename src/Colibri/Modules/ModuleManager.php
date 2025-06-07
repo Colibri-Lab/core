@@ -18,6 +18,7 @@ use Colibri\Events\TEventDispatcher;
 use Colibri\Events\EventsContainer;
 use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
+use Colibri\Utils\Singleton;
 use Colibri\Web\Templates\PhpTemplate;
 
 /**
@@ -29,17 +30,10 @@ use Colibri\Web\Templates\PhpTemplate;
  * @property-read Collection $list List of modules.
  *
  */
-class ModuleManager
+class ModuleManager extends Singleton
 {
     // Includes functionality of event dispatcher.
     use TEventDispatcher;
-
-    /**
-     * Singleton instance.
-     *
-     * @var ModuleManager
-     */
-    public static $instance;
 
     /**
      * Settings object.
@@ -63,19 +57,6 @@ class ModuleManager
         $this->_list = new Collection();
     }
 
-    /**
-     * Static constructor for creating a singleton instance.
-     *
-     * @return ModuleManager The created instance of ModuleManager.
-     *
-     */
-    public static function Create(): self
-    {
-        if (!self::$instance) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
 
     /**
      * Initializes the module manager.
@@ -142,7 +123,7 @@ class ModuleManager
             return null;
         }
 
-        return $className::Create($configNode);
+        return $className::Instance($configNode);
 
     }
 

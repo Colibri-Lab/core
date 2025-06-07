@@ -13,6 +13,7 @@
 
 namespace Colibri;
 
+use Colibri\Utils\Singleton;
 use Colibri\Web\Request;
 use Colibri\Web\Response;
 use Colibri\Utils\Config\Config;
@@ -35,7 +36,7 @@ use Colibri\IO\FileSystem\Directory;
 /**
  * Main application class.
  */
-final class App
+final class App extends Singleton
 {
     // Include event model functionality
     use TEventDispatcher;
@@ -48,9 +49,6 @@ final class App
     public const ModeTest = 'test';
     /** @var string Application mode for production */
     public const ModeRelease = 'prod';
-
-    /** @var App|null Singleton instance */
-    public static ?App $instance = null;
 
     /** @var Request|null Request object */
     public static ?Request $request = null;
@@ -109,25 +107,9 @@ final class App
     /**
      * Prevents instantiation of the class.
      */
-    private function __construct()
+    protected function __construct()
     {
         // Do nothing
-    }
-
-    /**
-     * Static constructor.
-     *
-     * @return self
-     */
-    public static function Create(): self
-    {
-
-        if (!self::$instance) {
-            self::$instance = new App();
-            self::$instance->Initialize();
-        }
-
-        return self::$instance;
     }
 
     /**
@@ -238,12 +220,12 @@ final class App
 
         // Create DAL
         if (!self::$dataAccessPoints) {
-            self::$dataAccessPoints = DataAccessPoints::Create();
+            self::$dataAccessPoints = DataAccessPoints::Instance();
         }
 
         // Start events
         if (!self::$eventDispatcher) {
-            self::$eventDispatcher = EventDispatcher::Create();
+            self::$eventDispatcher = EventDispatcher::Instance();
         }
 
         $this->DispatchEvent(EventsContainer::AppInitializing);
@@ -255,24 +237,24 @@ final class App
 
         // Start request
         if (!self::$request) {
-            self::$request = Request::Create();
+            self::$request = Request::Instance();
         }
         // Start response
         if (!self::$response) {
-            self::$response = Response::Create();
+            self::$response = Response::Instance();
         }
 
 
         self::$monitoring->StartTimer('modules');
         if (!self::$moduleManager) {
-            self::$moduleManager = ModuleManager::Create();
+            self::$moduleManager = ModuleManager::Instance();
             self::$moduleManager->Initialize();
         }
         self::$monitoring->EndTimer('modules');
 
         self::$monitoring->StartTimer('threads');
         if (!self::$threadingManager) {
-            self::$threadingManager = Manager::Create();
+            self::$threadingManager = Manager::Instance();
         }
         self::$monitoring->EndTimer('threads');
 
@@ -350,4 +332,4 @@ final class App
 
 }
 
-App::Create();
+App::Instance()->Initialize();

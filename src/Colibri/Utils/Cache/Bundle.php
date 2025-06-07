@@ -61,7 +61,7 @@ class Bundle
 
             $c = File::Read($file) . "\n";
             $args = (object) ['content' => $c, 'file' => $file];
-            $args = App::$instance->DispatchEvent(EventsContainer::BundleFile, $args);
+            $args = App::Instance()->DispatchEvent(EventsContainer::BundleFile, $args);
             if (isset($args->content)) {
                 $c = $args->content;
             }
@@ -138,7 +138,7 @@ class Bundle
 
             $c = File::Read($file) . "\n\n";
             $args = (object) ['content' => $c, 'file' => $file];
-            $args = App::$instance->DispatchEvent(EventsContainer::BundleFile, $args);
+            $args = App::Instance()->DispatchEvent(EventsContainer::BundleFile, $args);
             if (isset($args->content)) {
                 $c = $args->content;
             }
@@ -278,7 +278,7 @@ class Bundle
 
         $content = [];
 
-        $args = App::$instance->DispatchEvent(EventsContainer::BundleStart, (object) ['exts' => [$ext]]);
+        $args = App::Instance()->DispatchEvent(EventsContainer::BundleStart, (object) ['exts' => [$ext]]);
         if (isset($args['content'])) {
             $content[] = $args['content'];
         }
@@ -299,7 +299,7 @@ class Bundle
 
         $content = implode('', $content);
 
-        $args = App::$instance->DispatchEvent(EventsContainer::BundleComplete, (object) ['content' => $content, 'exts' => [$ext]]);
+        $args = App::Instance()->DispatchEvent(EventsContainer::BundleComplete, (object) ['content' => $content, 'exts' => [$ext]]);
         if (isset($args->content)) {
             $content = $args->content;
         }

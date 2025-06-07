@@ -63,7 +63,7 @@ class [[table-class-name]] extends BaseModelDataTable
         bool $calculateAffected = true
     ) : ?[[table-class-name]]
     {
-        $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
+        $storage = Storages::Instance()->Load('[[storage-name]]', '[[module-name]]');
         return parent::_loadByFilter($storage, $page, $pagesize, $filter, $order, $params, $calculateAffected);
     }
 
@@ -87,7 +87,7 @@ class [[table-class-name]] extends BaseModelDataTable
         bool $calculateAffected = true
     ) : ?[[table-class-name]]
     {
-        $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
+        $storage = Storages::Instance()->Load('[[storage-name]]', '[[module-name]]');
         [$filter, $order, $params] = $storage->accessPoint->ProcessFilters($storage, $searchTerm, $filtersArray, $sortField, $sortOrder);
         return parent::_loadByFilter($storage, $page, $pagesize, $filter, $order, $params, $calculateAffected);
     }
@@ -145,7 +145,7 @@ class [[table-class-name]] extends BaseModelDataTable
      */
     public static function RestoreAllByIds(array $ids): bool
     {
-        $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
+        $storage = Storages::Instance()->Load('[[storage-name]]', '[[module-name]]');
         return self::RestoreByFilter($storage, '{id} in ('.implode(',', $ids).')');
     }
 
@@ -156,7 +156,7 @@ class [[table-class-name]] extends BaseModelDataTable
      */
     public static function DeleteAllByFilter(string $filter): bool
     {
-        $storage = Storages::Create()->Load('[[storage-name]]', '[[module-name]]');
+        $storage = Storages::Instance()->Load('[[storage-name]]', '[[module-name]]');
         return self::DeleteByFilter($storage, $filter);
     }
 

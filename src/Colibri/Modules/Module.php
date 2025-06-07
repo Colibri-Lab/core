@@ -15,6 +15,7 @@ use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Config\Config;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Utils\Config\ConfigItemsList;
+use Colibri\Utils\Singleton;
 
 /**
  * Module
@@ -25,9 +26,8 @@ use Colibri\Utils\Config\ConfigItemsList;
  * @property-read string $moduleNamespace The namespace of the module.
  * @property-read string $moduleConfigPath The file path of the module's configuration.
  * @property-read string $moduleStoragesPath The file path of the module's storage configurations.
- * @property self $instance An instance of the Module class.
  */
-class Module
+class Module extends Singleton
 {
     // Include event dispatcher trait.
     use TEventDispatcher;
@@ -121,19 +121,6 @@ class Module
 
     }
 
-    /**
-     * Static constructor to create an instance of the Module class.
-     *
-     * @param mixed $config The configuration for the module.
-     * @return self
-     */
-    public static function Create(mixed $config): self
-    {
-        if (!static::$instance) {
-            static::$instance = new static ($config);
-        }
-        return static::$instance;
-    }
 
     /**
      * Returns the configuration object.
