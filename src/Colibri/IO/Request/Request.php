@@ -359,11 +359,20 @@ class Request
             $_headers[] = "Content-Type: application/json";
         } elseif ($this->encryption == Encryption::XmlEncoded) {
             $_headers[] = "Content-Type: " . ($this->contentType ?: "application/xml");
-        }
+        } elseif ($this->encryption == Encryption::Binary) {
+            $_headers[] = "Content-Type: application/octet-stream";
+        } else {
+            $_headers[] = "Content-Type: application/x-www-form-urlencoded";
+        }   
 
         if ($this->method == Type::Post) {
             curl_setopt($handle, CURLOPT_POST, true);
-            if (!VariableHelper::IsNull($this->postData)) {
+            if ($this->encryption == Encryption::Binary) {
+                /** @var File */
+                $postData = $this->postData;
+                curl_setopt($handle, CURLOPT_INFILE, fopen($postData->path, 'r'));
+                curl_setopt($handle, CURLOPT_INFILESIZE, $postData->size);
+            } elseif (!VariableHelper::IsNull($this->postData)) {
                 $data = $this->_joinPostData();
                 curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
             }

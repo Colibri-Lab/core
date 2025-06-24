@@ -26,4 +26,7 @@ class Encryption
 
     /** Request with JSON payload */
     public const JsonEncoded = 'application/json';
+
+    public const Binary = 'application/octet-stream';
+
 }
