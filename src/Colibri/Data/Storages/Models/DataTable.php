@@ -124,8 +124,8 @@ class DataTable extends BaseDataTable
         Storage $storage,
         int $page = -1,
         int $pagesize = 20,
-        string $filter = null,
-        string $order = null,
+        ?string $filter = null,
+        ?string $order = null,
         array $params = [],
         bool $calculateAffected = true
     ): ?static {
@@ -150,7 +150,7 @@ class DataTable extends BaseDataTable
             DataAccessPoint::QueryTypeReader : DataAccessPoint::QueryTypeBigData;
         return self::LoadByQuery(
             $storage,
-            'select '. ($selectFields ? $selectFields : '*') .' from ' . $storage->accessPoint->symbol . $storage->table . $storage->accessPoint->symbol . $joinTables .
+            'select '. ($selectFields ? $selectFields : '*') .' from ' . $storage->accessPoint->{'symbol'} . $storage->table . $storage->accessPoint->{'symbol'} . $joinTables .
                 (!empty($filter) ? ' where ' . implode(' and ', $filter) : '') .
                 ($groupBy ? ' group by ' . $groupBy : '') . ($order ? ' order by ' . $order : ''),
             $additionalParams

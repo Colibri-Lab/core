@@ -68,7 +68,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      */
     public function __construct(
         DataAccessPoint $point,
-        IDataReader $reader = null,
+        ?IDataReader $reader = null,
         string $returnAs = 'Colibri\\Data\\Models\\DataRow'
     ) {
         $this->_point = $point;
