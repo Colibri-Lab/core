@@ -81,7 +81,7 @@ class Javascript
      */
     private function _convert($content): string
     {
-        $prefix = RandomizationHelper::Character(1);
+        $prefix = RandomizationHelper::Character(3);
         $names = $this->_getNames(range('A', 'Z'), $prefix);
         $roots = $this->_getAdditionalObjectNames();
 
