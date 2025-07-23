@@ -249,15 +249,22 @@ class Server
         $post = App::$request->post;
         $payload = App::$request->GetPayloadCopy();
 
+        
         if(!$waitForAnswer) {
             $payload->Cache();
 
-            header("Connection: close\r\n");
-            header("Content-Encoding: none\r\n");
-            header("Content-Length: 1");
-            ignore_user_abort(true);
-            echo '1';
-            fastcgi_finish_request();
+            if ($requestMethod === 'OPTIONS') {
+                // если это запрос на опции то вернуть
+                $this->Finish($type, (object) ['code' => 200, 'message' => 'ok', 'options' => true]);
+            } else {
+                header("Connection: close\r\n");
+                header("Content-Encoding: none\r\n");
+                header("Content-Length: 1");
+                ignore_user_abort(true);
+                echo '1';
+                fastcgi_finish_request();
+            }
+
         }
 
         
