@@ -512,4 +512,16 @@ final class Response extends Singleton
 
     }
 
+    public function FinishRequest(): void
+    {
+        $this->_addHeaders([
+            "Connection: close",
+            "Content-Encoding: none",
+            "Content-Length: 21"
+        ]);
+        ignore_user_abort(true);
+        echo 'Finished without exit';
+        fastcgi_finish_request();
+    }
+
 }
