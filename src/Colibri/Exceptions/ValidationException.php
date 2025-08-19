@@ -35,7 +35,7 @@ class ValidationException extends \Exception
     public function __construct(
         string $message = "",
         int $code = 0,
-        \Throwable $previousException = null,
+        ?\Throwable $previousException = null,
         mixed $exceptionData = null
     ) {
         $this->_exceptionData = $exceptionData;
