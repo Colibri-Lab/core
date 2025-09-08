@@ -13,6 +13,7 @@ namespace Colibri\Data\MySql;
 
 use Colibri\Data\SqlClient\DataField;
 use Colibri\Data\SqlClient\IDataReader;
+use Throwable;
 
 /**
  * Class responsible for working with query results.
@@ -152,7 +153,11 @@ final class DataReader implements IDataReader
             }
             case 'count': {
                 if (is_null($this->_count)) {
-                    $this->_count = mysqli_num_rows($this->_results);
+                    try {
+                        $this->_count = mysqli_num_rows($this->_results);
+                    } catch(Throwable $e) {
+                        $this->_count = 0;
+                    }
                 }
                 $return = $this->_count;
                 break;
