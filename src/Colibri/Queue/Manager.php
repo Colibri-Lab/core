@@ -85,11 +85,10 @@ class Manager extends Singleton
         $logger->debug('Starting migration of queues');
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
         if($accessPoint) {
+            $accessPoint->Reopen();
             $listFound = false;
             $successFound = false;
             $errorFound = false;
-
-            $accessPoint->Begin();
 
             $tables = $accessPoint->Tables();
             while($table = $tables->Read()) {
@@ -177,7 +176,7 @@ class Manager extends Singleton
                 }
             }
 
-            $accessPoint->Commit();
+            
         }
 
         $logger->debug('All complete successfuly');
@@ -197,6 +196,7 @@ class Manager extends Singleton
     public function AddJob(IJob $job, ?string $startDate = null): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
 
         if($job->id) {
             throw new Exception('Job allready exists, please use Update method');
@@ -243,6 +243,7 @@ class Manager extends Singleton
     {
 
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
 
         if(!$job->id) {
             throw new Exception('Job does not exists, please use Add method');
@@ -273,6 +274,7 @@ class Manager extends Singleton
     public function DeleteJob(IJob $job): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
 
         if(!$job->id) {
             throw new Exception('Job does not exists, can not delete');
@@ -297,6 +299,7 @@ class Manager extends Singleton
     public function FailJob(IJob $job, \Throwable $e): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
 
         if(!$job->id) {
             throw new Exception('Job does not exists, can not delete');
@@ -339,6 +342,7 @@ class Manager extends Singleton
     public function SuccessJob(IJob $job, array|object $result): bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
 
         if(!$job->id) {
             throw new Exception('Job does not exists, can not delete');
@@ -367,6 +371,7 @@ class Manager extends Singleton
     public function UpdateSuccessedJob(int $id, object|array $result): mixed
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
         return $accessPoint->Update($this->_storages['success'], ['result' => json_encode(['result' => $result])], 'id='.$id);
     }
 
@@ -379,6 +384,7 @@ class Manager extends Singleton
     public function GetNextJob(array $queue): ?IJob
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
 
         // сначала бронируем и потом уже забираем
         $reservation_key = StringHelper::GUID(false);
@@ -428,6 +434,8 @@ class Manager extends Singleton
     public function GetJobById(int $id): ?IJob
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
+        
         $reader = $accessPoint->Query(
             'select
                 *
@@ -465,6 +473,7 @@ class Manager extends Singleton
     public function JobIsRunning(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?bool
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
 
         $pfilter = [];
         if($payloadFilter) {
@@ -520,6 +529,7 @@ class Manager extends Singleton
     public function FindJob(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?array
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
 
         $pfilter = [];
         if($payloadFilter) {
@@ -585,6 +595,7 @@ class Manager extends Singleton
     public function FindJobInQueue(string $queue, string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?array
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
 
         $pfilter = [];
         if($payloadFilter) {
@@ -643,6 +654,7 @@ class Manager extends Singleton
     public function GetSuccessed(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, object|array|null $resultFilter = null): array
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
 
         $pfilter = [];
         if($payloadFilter) {
@@ -760,6 +772,8 @@ class Manager extends Singleton
         ];
 
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
+        $accessPoint->Reopen();
+        
         $reader = $accessPoint->Query(
             'select
                 *
