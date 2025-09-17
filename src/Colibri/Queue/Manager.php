@@ -210,9 +210,10 @@ class Manager extends Singleton
 
         $jobArray = $job->ToArray();
         $jobArray['datestart'] = $startDate;
+        unset($jobArray['id']);
 
         $res = $accessPoint->Insert($this->_storages['list'], $jobArray);
-        app_debug('Added job: ', $res->insertid);
+        app_debug('Added job: ', $res->insertid, $jobArray);
         if($res->insertid !== -1) {
 
             $this->DispatchEvent('JobAdded', ['id' => $res->insertid]);
