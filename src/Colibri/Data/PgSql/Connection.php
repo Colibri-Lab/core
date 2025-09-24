@@ -57,7 +57,7 @@ final class Connection implements IConnection
         string $user,
         string $password,
         bool $persistent = false,
-        string $database = null,
+        ?string $database = null,
         array|object $options = []
     ) {
         $this->_connectioninfo = (object) [

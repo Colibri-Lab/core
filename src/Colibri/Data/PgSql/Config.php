@@ -38,6 +38,7 @@ final class Config implements IConfig
             'timestamp' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime', 'param' => 'string'],
             'varchar' => ['length' => true, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text', 'param' => 'string'],
             'text' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea', 'param' => 'string'],
+            'point' => ['length' => false, 'generic' => 'string', 'db' => 'GEOGRAPHY(POINT, 4326)', 'component' => 'Colibri.UI.Forms.Text', 'param' => 'string'],
             'json' => ['length' => false, 'db' => 'jsonb', 'generic' => ['Colibri.UI.Forms.Object' => 'ObjectField', 'Colibri.UI.Forms.Array' => 'ArrayField'], 'component' => 'Colibri.UI.Forms.Object', 'param' => 'string']
         ];
     }
@@ -81,8 +82,8 @@ final class Config implements IConfig
         return [
             'BTREE',
             'HASH',
-            // 'GIST',
-            // 'SPGIST',
+            'GIST',
+            'SPGIST',
             // 'GIN',
             // 'BRIN'
         ];
