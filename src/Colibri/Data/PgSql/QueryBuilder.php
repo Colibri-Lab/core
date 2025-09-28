@@ -233,6 +233,19 @@ class QueryBuilder implements IQueryBuilder
         return 'SELECT * FROM pg_catalog.pg_indexes WHERE true' . ($table ? ' and tablename=\''.$table.'\'' : '') . ($table ? ' and schemaname=\'public\'' : '');
     }
 
+    public function CreateShowTriggers(string $table, ?string $database): string
+    {
+        return 'SELECT 
+            tg.event_object_table AS table_name,
+            tg.trigger_name,
+            tg.event_manipulation AS event_type,
+            tg.action_timing AS when_to_fire,
+            pg_get_functiondef(tg.action_statement::regproc) AS definition
+        FROM information_schema.triggers tg
+        WHERE tg.event_object_table = \''.$table.'\'
+        AND tg.trigger_schema = \'public\'';
+    }
+
     /**
      * Creates a SELECT query.
      * @param string $table The name of the table.

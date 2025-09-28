@@ -230,6 +230,12 @@ final class Command extends SqlCommand
                 $indices[$i->Name] = $i;
             }
 
+            $triggersReader = $CreateReader($queryBuilder->CreateShowTriggers($table, $this->_connection->database), $this->_connection);
+            $triggers = [];
+            while ($trigger = $triggersReader->Read()) {
+                $triggers[$trigger->trigger_name] = $trigger;
+            }
+
         } catch(\Throwable $e) {
             $logger->error($table . ' does not exists');
         }
@@ -367,6 +373,14 @@ final class Command extends SqlCommand
             $fparams = $xVirtualField['params'] ?? [];
 
             $typeInfo = $types[$xVirtualField['type']];
+            if(!$typeInfo) {
+                foreach($types as $tname => $tinfo) {
+                    if($tinfo['db'] === $xVirtualField['type']) {
+                        $typeInfo = $tinfo;
+                        break;
+                    }
+                }
+            }
             if(isset($typeInfo['db'])) {
                 $xVirtualField['type'] = $typeInfo['db'];
             }
@@ -509,6 +523,89 @@ final class Command extends SqlCommand
                 }
             }
         }
+
+        $createTrigger = function ($Exec, $connection, $triggerName, $prefix, $table, $type, $code, $xtrigger) {
+            $Exec('
+                CREATE OR REPLACE FUNCTION '.$triggerName.'()
+                RETURNS TRIGGER AS $$
+                BEGIN
+                    '.$code.'
+                END;
+                $$ LANGUAGE plpgsql;
+            ', $connection);
+            $Exec('
+                DROP TRIGGER IF EXISTS '.$triggerName.' ON ' . $table . ';
+            ', $connection);
+            return $Exec('
+                CREATE TRIGGER '.$triggerName.'
+                '.$type.' ON '.$table.'
+                FOR EACH ROW
+                EXECUTE FUNCTION '.$triggerName.'();
+            ', $connection);
+        };
+
+        $dropTrigger = function ($Exec, $connection, $triggerName, $table) {
+            return $Exec('DROP TRIGGER IF EXISTS "' . $triggerName . '" ON  ON "' . $table . '"', $connection);
+        };
+
+        $xtriggers = isset($xstorage['triggers']) ? $xstorage['triggers'] : [];
+        $logger->error($storage . ': Creating triggers');
+        foreach ($xtriggers as $triggerName => $xtrigger) {
+            if (!isset($triggers[$triggerName])) {
+                $logger->error($storage . ': ' . $triggerName . ': Trigger not found: creating');
+
+                $type = isset($xtrigger['type']) ? $xtrigger['type'] : 'BEFORE INSERT OR UPDATE';
+                $code = isset($xtrigger['code']) ? $xtrigger['code'] : '';
+
+                $res = $createTrigger($Exec, $this->_connection, $triggerName, $prefix, $storage, $type, $code, $xtrigger);
+                if ($res->error && strstr($res->error, 'already exists') !== false) {
+                    $res = $dropTrigger($Exec, $this->_connection, $triggerName, $table);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not delete trigger: ' . $res->query);
+                        throw new Exception('Can not delete trigger: ' . $res->query);
+                    }
+
+                    $res = $createTrigger($Exec, $this->_connection, $triggerName, $prefix, $storage, $type, $code, $xtrigger);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not create trigger: ' . $res->query);
+                        throw new Exception('Can not create trigger: ' . $res->query);
+                    }
+                }
+
+                if ($res->error) {
+                    $logger->error($table . ': Can not create trigger: ' . $res->query);
+                    throw new Exception('Can not create trigger: ' . $res->query);
+                }
+            } else {
+                $otrigger = $triggers[$triggerName];
+                
+                $xtype = isset($xtrigger['type']) ? $xtrigger['type'] : 'BEFORE INSERT OR UPDATE';
+                $xcode = isset($xindex['code']) ? $xtrigger['code'] : '';
+
+                $otype = $otrigger->when_to_fire;
+                $ocode = $otrigger->definition;
+
+                if ($xtype != $otype || $xcode != $ocode) {
+                    $logger->error($storage . ': ' . $indexName . ': Trigger changed: updating');
+
+                    $res = $dropTrigger($Exec, $this->_connection, $triggerName, $table);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not delete trigger: ' . $res->query);
+                        throw new Exception('Can not delete trigger: ' . $res->query);
+                    }
+
+                    $res = $createTrigger($Exec, $this->_connection, $triggerName, $prefix, $storage, $xtype, $xcode, $xtrigger);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not create trigger: ' . $res->query);
+                        throw new Exception('Can not create trigger: ' . $res->query);
+                    }
+
+                }
+            }
+            
+
+        }
+
     }
 
 

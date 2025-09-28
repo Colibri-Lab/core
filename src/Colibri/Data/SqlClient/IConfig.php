@@ -32,6 +32,12 @@ interface IConfig
      * @return bool
      */
     public static function HasIndexes(): bool;
+    
+    /**
+     * Database has triggers
+     * @return bool
+     */
+    public static function HasTriggers(): bool;
 
     /**
      * Create prefixed fields in tables

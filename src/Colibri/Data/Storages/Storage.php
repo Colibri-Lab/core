@@ -520,6 +520,21 @@ class Storage
         }
         $this->_xstorage['indices'][$name] = $data;
     }
+    
+    /**
+     * Adds an index to the storage.
+     *
+     * @param string $name The name of the index.
+     * @param array $data The index data.
+     * @return void
+     */
+    public function AddTrigger($name, $data)
+    {
+        if (!isset($this->_xstorage['triggers'])) {
+            $this->_xstorage['triggers'] = [];
+        }
+        $this->_xstorage['triggers'][$name] = $data;
+    }
 
     /**
      * Deletes an index from the storage.
@@ -531,6 +546,19 @@ class Storage
     {
         if (isset($this->_xstorage['indices'][$name])) {
             unset($this->_xstorage['indices'][$name]);
+        }
+    }
+    
+    /**
+     * Deletes an index from the storage.
+     *
+     * @param string $name The name of the index.
+     * @return void
+     */
+    public function DeleteTrigger($name)
+    {
+        if (isset($this->_xstorage['triggers'][$name])) {
+            unset($this->_xstorage['triggers'][$name]);
         }
     }
 

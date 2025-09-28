@@ -51,6 +51,11 @@ final class Config implements IConfig
         return true;
     }
 
+    public static function HasTriggers(): bool
+    {
+        return false;
+    }
+
     public static function FieldsHasPrefix(): bool
     {
         return true;

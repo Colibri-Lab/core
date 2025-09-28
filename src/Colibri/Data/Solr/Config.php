@@ -40,7 +40,10 @@ final class Config implements IConfig
         ];
     }
 
-
+    public static function HasTriggers(): bool
+    {
+        return false;
+    }
     public static function HasIndexes(): bool
     {
         return false;

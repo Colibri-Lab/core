@@ -194,6 +194,9 @@ class DataAccessPoint
         } elseif ($property == 'hasIndexes') {
             $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::HasIndexes();
+        } elseif ($property == 'hasTriggers') {
+            $connectionClass = $this->_accessPointData->driver->config;
+            return $connectionClass::HasTriggers();
         } elseif ($property == 'fieldsHasPrefix') {
             $connectionClass = $this->_accessPointData->driver->config;
             return $connectionClass::FieldsHasPrefix();

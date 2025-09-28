@@ -41,7 +41,10 @@ final class Config implements IConfig
             'json' => ['length' => false, 'generic' => 'ObjectField', 'component' => 'Colibri.UI.Forms.Object']
         ];
     }
-
+    public static function HasTriggers(): bool
+    {
+        return false;
+    }
     public static function HasIndexes(): bool
     {
         return false;

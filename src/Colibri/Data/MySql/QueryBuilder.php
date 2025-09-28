@@ -261,6 +261,18 @@ class QueryBuilder implements IQueryBuilder
         return 'SHOW INDEX FROM `' . $table . '`';
     }
 
+    public function CreateShowTriggers(string $table, ?string $database): string
+    {
+        return 'SELECT 
+            event_object_table AS table_name,
+            trigger_name,
+            event_manipulation AS event_type,
+            action_timing AS when_to_fire,
+            action_statement AS definition
+        FROM information_schema.triggers
+        WHERE event_object_table = \''.$table.'\' AND trigger_schema = \''.$database.'\'';
+    }
+
     public function CreateFieldForQuery(string $field, string $table): string
     {
         return '`' . $table . '`.`' . $field . '`';

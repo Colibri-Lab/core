@@ -39,7 +39,10 @@ final class Config implements IConfig
             'field_string' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.Text', 'index' => false, 'param' => 'string'],
         ];
     }
-
+    public static function HasTriggers(): bool
+    {
+        return false;
+    }
     public static function HasIndexes(): bool
     {
         return false;
