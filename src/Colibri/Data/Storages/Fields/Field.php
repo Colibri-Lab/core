@@ -186,6 +186,13 @@ class Field
             case 'rawvalues':
                 return isset($this->_xfield['values']) ? $this->_xfield['values'] : null;
             case 'param':
+                $storage = $this->_storage;
+                $datapoint = $storage->accessPoint;
+                $types = $datapoint->allowedTypes;
+                if(isset($types[$this->_xfield['type']])) {
+                    return $types[$this->_xfield['type']]['param'];
+                }
+
                 if(in_array($this->_xfield['type'], [
                     'varchar',
                     'char',
