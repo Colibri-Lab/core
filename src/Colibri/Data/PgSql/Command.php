@@ -169,6 +169,9 @@ final class Command extends SqlCommand
             return $tableCommand->ExecuteNonQuery();
         };
 
+        $Exec('CREATE EXTENSION postgis', $this->_connection);
+        $Exec('CREATE EXTENSION postgis_topology', $this->_connection);
+
         $UpdateDefaultAndLength = function (
             string $field,
             string $type,
