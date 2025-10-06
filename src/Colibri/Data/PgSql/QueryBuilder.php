@@ -243,9 +243,9 @@ class QueryBuilder implements IQueryBuilder
                 pg_get_functiondef(p.oid) AS function_code,
                 n.nspname AS schema_name,
                 CASE
-                    WHEN (t.tgtype & 1) <> 0 THEN \'AFTER\'
-                    WHEN (t.tgtype & 66) <> 0 THEN \'BEFORE\'
                     WHEN (t.tgtype & 128) <> 0 THEN \'INSTEAD OF\'
+                    WHEN (t.tgtype & 66) <> 0 THEN \'BEFORE\'
+                    WHEN (t.tgtype & 1) <> 0 THEN \'AFTER\'
                 END AS trigger_timing,
                 CASE
                     WHEN (t.tgtype & 4) <> 0 AND (t.tgtype & 16) <> 0 THEN 

@@ -411,6 +411,10 @@ class DataRow extends BaseDataRow
 
         $fields = $storage->fields;
         foreach ($fields as $fieldName => $fieldData) {
+            
+            if($fieldData->virtual === true) {
+                continue;
+            }
             /** @var Field $fieldData */
             $fieldValue = $this->$fieldName;
             if (is_null($fieldValue)) {
