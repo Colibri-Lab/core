@@ -389,8 +389,9 @@ final class Command extends SqlCommand
             }
 
             $xdesc = isset($xVirtualField['desc']) ? json_encode($xVirtualField['desc'], JSON_UNESCAPED_UNICODE) : '';
+            $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
+            
             if (!isset($ofields[$fname])) {
-                $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
                 $res = $Exec('
                     ALTER TABLE "' . $table . '" 
                     ADD COLUMN "' . $fname . '" ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
@@ -416,8 +417,8 @@ final class Command extends SqlCommand
                 $required = isset($fparams['required']) ? $fparams['required'] : false;
                 $expression = isset($xVirtualField['expression']) ? $xVirtualField['expression'] : null;
 
-                $orType = $ofield->Type != $xVirtualField['type'] . ($length ? '(' . $length . ')' : '');
-                $orExpression = $ofield->Expression != $expression;
+                $orType = strtolower($ofield->Type) != strtolower($xVirtualField['type']) . ($length ? '(' . $length . ')' : '');
+                $orExpression = strtolower($ofield->Expression) != strtolower($expression);
                 $orRequired = $required != ($ofield->Null == 'NO');
 
                 if ($orType || $orExpression || $orRequired) {

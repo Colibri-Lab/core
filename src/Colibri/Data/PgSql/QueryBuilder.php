@@ -288,7 +288,40 @@ class QueryBuilder implements IQueryBuilder
      */
     public function CreateShowField(string $table, ?string $database = null): string
     {
-        return 'SELECT * FROM information_schema.columns WHERE '.($database ? 'table_catalog = \''.$database.'\' AND ' : '').'table_name = \''.$table.'\'';
+        return '
+            WITH cols AS (
+                SELECT *
+                FROM information_schema.columns
+                WHERE '.($database ? 'table_catalog = \''.$database.'\' AND ' : '').' table_name = \''.$table.'\'
+            )
+            SELECT
+                cols.table_catalog,
+                cols.table_schema,
+                cols.table_name,
+                cols.column_name,
+                cols.character_maximum_length,
+                cols.is_nullable,
+                cols.is_identity,
+                cols.column_default,
+                cols.generation_expression,                
+                CASE
+                    WHEN t.typname = \'geometry\'
+                        AND EXISTS (SELECT 1 FROM pg_proc WHERE proname = \'geometry_typmod_out\')
+                    THEN t.typname || geometry_typmod_out(a.atttypmod)
+                    WHEN t.typname = \'geography\'
+                        AND EXISTS (SELECT 1 FROM pg_proc WHERE proname = \'geography_typmod_out\')
+                    THEN t.typname || geography_typmod_out(a.atttypmod)
+                    ELSE udt_name
+                END AS udt_name,
+                cols.is_generated,
+                cols.generation_expression
+            FROM cols
+                JOIN pg_catalog.pg_namespace ns ON ns.nspname = cols.table_schema
+                JOIN pg_catalog.pg_class cls ON cls.relnamespace = ns.oid AND cls.relname = cols.table_name
+                JOIN pg_catalog.pg_attribute a ON a.attrelid = cls.oid AND a.attname = cols.column_name
+                JOIN pg_catalog.pg_type t ON a.atttypid = t.oid
+            ORDER BY cols.ordinal_position
+        ';
     }
 
     public function CreateShowStatus(string $table): string

@@ -404,8 +404,8 @@ final class Command extends SqlCommand
             $fname = $storage . '_' . $fieldName;
             $fparams = $xVirtualField['params'] ?? [];
             $xdesc = isset($xVirtualField['desc']) ? json_encode($xVirtualField['desc'], JSON_UNESCAPED_UNICODE) : '';
+            $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
             if (!isset($ofields[$fname])) {
-                $length = isset($xVirtualField['length']) ? $xVirtualField['length'] : null;
                 $res = $Exec('
                     ALTER TABLE `' . $table . '` 
                     ADD COLUMN `' . $fname . '` ' . $xVirtualField['type'] . ($length ? '(' . $length . ')' : '') . ' 
@@ -424,7 +424,7 @@ final class Command extends SqlCommand
                 $expression = isset($xVirtualField['expression']) ? $xVirtualField['expression'] : null;
 
                 $orType = $ofield->Type != $xVirtualField['type'] . ($length ? '(' . $length . ')' : '');
-                $orExpression = $ofield->Expression != $expression;
+                $orExpression = strtolower($ofield->Expression) != strtolower($expression);
                 $orRequired = $required != ($ofield->Null == 'NO');
 
                 if ($orType || $orExpression || $orRequired) {
