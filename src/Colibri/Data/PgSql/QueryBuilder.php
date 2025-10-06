@@ -235,15 +235,47 @@ class QueryBuilder implements IQueryBuilder
 
     public function CreateShowTriggers(string $table, ?string $database): string
     {
-        return 'SELECT 
-            tg.event_object_table AS table_name,
-            tg.trigger_name,
-            tg.event_manipulation AS event_type,
-            tg.action_timing AS when_to_fire,
-            pg_get_functiondef(tg.action_statement::regproc) AS definition
-        FROM information_schema.triggers tg
-        WHERE tg.event_object_table = \''.$table.'\'
-        AND tg.trigger_schema = \'public\'';
+        return '
+            SELECT
+                t.tgname AS trigger_name,
+                c.relname AS table_name,
+                p.proname AS function_name,
+                pg_get_functiondef(p.oid) AS function_code,
+                n.nspname AS schema_name,
+                CASE
+                    WHEN (t.tgtype & 1) <> 0 THEN \'AFTER\'
+                    WHEN (t.tgtype & 66) <> 0 THEN \'BEFORE\'
+                    WHEN (t.tgtype & 128) <> 0 THEN \'INSTEAD OF\'
+                END AS trigger_timing,
+                CASE
+                    WHEN (t.tgtype & 4) <> 0 AND (t.tgtype & 16) <> 0 THEN 
+                        \'INSERT OR UPDATE\' || 
+                        CASE WHEN t.tgattr IS NOT NULL AND array_length(t.tgattr, 1) > 0 THEN 
+                            \' OF \' || string_agg(a.attname, \',\') 
+                        END
+                    WHEN (t.tgtype & 4) <> 0 THEN \'INSERT\'
+                    WHEN (t.tgtype & 8) <> 0 THEN \'DELETE\'
+                    WHEN (t.tgtype & 16) <> 0 THEN 
+                        \'UPDATE\' || 
+                        CASE WHEN t.tgattr IS NOT NULL AND array_length(t.tgattr, 1) > 0 THEN 
+                            \' OF \' || string_agg(a.attname, \',\') 
+                        END
+                    WHEN (t.tgtype & 32) <> 0 THEN \'TRUNCATE\'
+                END AS event_type
+            FROM pg_trigger t
+            JOIN pg_class c       ON c.oid = t.tgrelid
+            JOIN pg_namespace n   ON n.oid = c.relnamespace
+            JOIN pg_proc p        ON p.oid = t.tgfoid
+            LEFT JOIN LATERAL (
+                SELECT attname
+                FROM pg_attribute
+                WHERE attrelid = t.tgrelid AND attnum = ANY(t.tgattr)
+                ORDER BY attnum
+            ) a ON true
+            WHERE NOT t.tgisinternal
+            AND c.relname = \''.$table.'\'
+            GROUP BY t.tgname, c.relname, p.proname, pg_get_functiondef(p.oid), n.nspname, t.tgtype, t.tgattr
+        ';
     }
 
     /**

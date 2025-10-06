@@ -169,8 +169,12 @@ final class Command extends SqlCommand
             return $tableCommand->ExecuteNonQuery();
         };
 
-        $Exec('CREATE EXTENSION postgis', $this->_connection);
-        $Exec('CREATE EXTENSION postgis_topology', $this->_connection);
+        try {
+            $Exec('CREATE EXTENSION postgis', $this->_connection);
+            $Exec('CREATE EXTENSION postgis_topology', $this->_connection);
+        } catch(\Throwable $e) {
+
+        }
 
         $UpdateDefaultAndLength = function (
             string $field,
@@ -378,7 +382,7 @@ final class Command extends SqlCommand
             $typeInfo = $types[$xVirtualField['type']];
             if(!$typeInfo) {
                 foreach($types as $tname => $tinfo) {
-                    if($tinfo['db'] === $xVirtualField['type']) {
+                    if(isset($tinfo['db']) && $tinfo['db'] === $xVirtualField['type']) {
                         $typeInfo = $tinfo;
                         break;
                     }
@@ -584,10 +588,10 @@ final class Command extends SqlCommand
                 $otrigger = $triggers[$triggerName];
                 
                 $xtype = isset($xtrigger['type']) ? $xtrigger['type'] : 'BEFORE INSERT OR UPDATE';
-                $xcode = isset($xindex['code']) ? $xtrigger['code'] : '';
+                $xcode = isset($xtrigger['code']) ? $xtrigger['code'] : '';
 
-                $otype = $otrigger->when_to_fire;
-                $ocode = $otrigger->definition;
+                $otype = $otrigger->trigger_timing . ' ' . $otrigger->event_type;
+                $ocode = trim(str_replace('END;', '', str_replace('BEGIN', '', explode('$function$', $otrigger->function_code)[1])));
 
                 if ($xtype != $otype || $xcode != $ocode) {
                     $logger->error($storage . ': ' . $indexName . ': Trigger changed: updating');
