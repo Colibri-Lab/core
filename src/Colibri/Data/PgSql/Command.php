@@ -553,7 +553,7 @@ final class Command extends SqlCommand
         };
 
         $dropTrigger = function ($Exec, $connection, $triggerName, $table) {
-            return $Exec('DROP TRIGGER IF EXISTS "' . $triggerName . '" ON  ON "' . $table . '"', $connection);
+            return $Exec('DROP TRIGGER IF EXISTS "' . $triggerName . '" ON "' . $table . '"', $connection);
         };
 
         $xtriggers = isset($xstorage['triggers']) ? $xstorage['triggers'] : [];
