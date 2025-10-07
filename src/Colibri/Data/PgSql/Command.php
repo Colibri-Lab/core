@@ -169,7 +169,7 @@ final class Command extends SqlCommand
             return $tableCommand->ExecuteNonQuery();
         };
 
-        try {
+        try { 
             $Exec('CREATE EXTENSION IF NOT EXISTS postgis', $this->_connection);
             $Exec('CREATE EXTENSION IF NOT EXISTS postgis_topology', $this->_connection);
         } catch(\Throwable $e) {
