@@ -170,8 +170,8 @@ final class Command extends SqlCommand
         };
 
         try {
-            $Exec('CREATE EXTENSION postgis', $this->_connection);
-            $Exec('CREATE EXTENSION postgis_topology', $this->_connection);
+            $Exec('CREATE EXTENSION IF NOT EXISTS postgis', $this->_connection);
+            $Exec('CREATE EXTENSION IF NOT EXISTS postgis_topology', $this->_connection);
         } catch(\Throwable $e) {
 
         }
