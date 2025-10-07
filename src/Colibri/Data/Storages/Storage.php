@@ -279,6 +279,10 @@ class Storage
             return 'Colibri\\Data\\Storages\\Fields\\' . $field->{'class'};
         } elseif (class_exists($rootNamespace . 'Models\\Fields\\' . $field->{'class'})) {
             return $rootNamespace . 'Models\\Fields\\' . $field->{'class'};
+        } elseif (class_exists($this->GetModelClasses()[1] . '\\Fields\\' . $field->{'class'})) {
+            return $this->GetModelClasses()[1] . '\\Fields\\' . $field->{'class'};
+        } elseif (class_exists($rootNamespace . 'Models\\Fields\\' . StringHelper::ToCamelCaseVar($this->name, true) . '\\' . $field->{'class'})) {
+            return $rootNamespace . 'Models\\Fields\\' . StringHelper::ToCamelCaseVar($this->name, true) . '\\' . $field->{'class'};
         } elseif (class_exists($rootNamespace . 'Models\\' . $field->{'class'})) {
             return $rootNamespace . 'Models\\' . $field->{'class'};
         } else {

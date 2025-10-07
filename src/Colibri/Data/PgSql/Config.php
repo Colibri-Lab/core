@@ -40,6 +40,7 @@ final class Config implements IConfig
             'text' => ['length' => false, 'generic' => 'string', 'component' => 'Colibri.UI.Forms.TextArea', 'param' => 'string'],
             'point' => ['length' => false, 'generic' => 'string', 'db' => 'GEOGRAPHY(POINT,4326)', 'component' => 'Colibri.UI.Forms.Text', 'param' => 'string'],
             'line' => ['length' => false, 'generic' => 'string', 'db' => 'GEOMETRY(LineString,4326)', 'component' => 'Colibri.UI.Forms.Text', 'param' => 'string'],
+            'geometry' => ['length' => false, 'generic' => 'string', 'db' => 'GEOMETRY(GEOMETRY, 4326)', 'component' => 'Colibri.UI.Forms.Text', 'param' => 'string'],
             'json' => ['length' => false, 'db' => 'jsonb', 'generic' => ['Colibri.UI.Forms.Object' => 'ObjectField', 'Colibri.UI.Forms.Array' => 'ArrayField'], 'component' => 'Colibri.UI.Forms.Object', 'param' => 'string']
         ];
     }
