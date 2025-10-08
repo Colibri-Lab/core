@@ -678,34 +678,9 @@ class StringHelper
      *
      * @return string The generated GUID.
      */
-    public static function GUID(bool $showSeparator = true, bool $lowerCase = false): string
+    public static function GUID(bool $dummy = true): string
     {
-        if (function_exists('com_create_guid') === true) {
-            $return = trim(com_create_guid(), '{}');
-            if(!$showSeparator) {
-                $return = str_replace('-', '', $return);
-            }
-            return $lowerCase ? strtolower($return) : $return;
-        }
-
-        $separator = '-';
-        if(!$showSeparator) {
-            $separator = '';
-        }
-
-        $return = sprintf(
-            '%04X%04X'.$separator.'%04X'.$separator.'%04X'.$separator.'%04X'.
-                $separator.'%04X%04X%04X',
-            mt_rand(0, 65535),
-            mt_rand(0, 65535),
-            mt_rand(0, 65535),
-            mt_rand(16384, 20479),
-            mt_rand(32768, 49151),
-            mt_rand(0, 65535),
-            mt_rand(0, 65535),
-            mt_rand(0, 65535)
-        );
-        return $lowerCase ? strtolower($return) : $return;
+        return UUIDHelper::v4();
     }
 
     /**
