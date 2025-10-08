@@ -678,9 +678,13 @@ class StringHelper
      *
      * @return string The generated GUID.
      */
-    public static function GUID(bool $dummy = true): string
+    public static function GUID(bool $showSeparator = true): string
     {
-        return UUIDHelper::v4();
+        $return = UUIDHelper::v4();
+        if(!$showSeparator) {
+            $return = str_replace('-', '', $return);
+        }
+        return $return;
     }
 
     /**
