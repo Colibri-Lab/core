@@ -444,6 +444,9 @@ class DataTable extends BaseDataTable
 
         $stream = XmlNode::LoadNode('<table></table>', 'utf-8');
         $header = [];
+        $header['datecreated'] = 'datecreated';
+        $header['datemodified'] = 'datemodified';
+        $header['datedeleted'] = 'datedeleted';
         foreach ($this->_storage->fields as $field) {
             if($langModule) {
                 $header[$field->name] = $langModule->Translate($field->desc);
@@ -455,8 +458,15 @@ class DataTable extends BaseDataTable
 
         foreach ($this->getIterator() as $row) {
             $r = [];
+            $r['datecreated'] = (string)$row->{'datecreated'};
+            $r['datemodified'] = (string)$row->{'datemodified'};
+            $r['datedeleted'] = (string)$row->{'datedeleted'};
             foreach ($this->_storage->fields as $field) {
-                $r[$field->name] = (string)$row->{$field->name};
+                if(is_object($row->{$field->name}) && method_exists($row->{$field->name}, 'ToString')) {
+                    $r[$field->name] = (string)$row->{$field->name}->ToString();
+                } else {
+                    $r[$field->name] = (string)$row->{$field->name};
+                }
             }
             $stream->Append(XmlNode::LoadNode(XmlHelper::Encode($r, 'row')));
         }
