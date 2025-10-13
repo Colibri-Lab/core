@@ -107,7 +107,7 @@ final class Connection implements IConnection
                 ' dbname='.$this->_connectioninfo->database.
                 ' user='.$this->_connectioninfo->user.
                 ' password='.$this->_connectioninfo->password. 
-                ' connect_timeout=' . ($this->_connectioninfo?->timeout ?? 5),
+                ' connect_timeout=' . ($this->_connectioninfo?->timeout ?? 50),
                 PGSQL_CONNECT_FORCE_NEW
             );
             if (!$this->_resource) {
@@ -115,7 +115,7 @@ final class Connection implements IConnection
                     'Connection: ' . $this->_connectioninfo->host . ' ' .
                     $this->_connectioninfo->port . ' ' .
                     $this->_connectioninfo->user . ': ' .
-                    pg_last_error()
+                    error_get_last()['message'], error_get_last()['type']
                 );
             }
         } catch (\Throwable $e) {
