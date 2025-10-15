@@ -523,13 +523,20 @@ class QueryBuilder implements IQueryBuilder
             $field = $fieldData[0];
             $value = $fieldData[1];
 
-            if(in_array($field->component, [
+            $isMaxMin = in_array($field->component, [
                 'Colibri.UI.Forms.Date',
                 'Colibri.UI.Forms.DateTime',
                 'Colibri.UI.Forms.Number'
-            ])) {
-                $fname = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}');
+            ]);
+            if(!$isMaxMin && $field->virtual) {
+                if(in_array($field->class, ['float','int'])) {
+                    $isMaxMin = true;
+                }
+            }
 
+            if($isMaxMin) {
+                $fname = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}');
+                $f = [];
                 $f[] = $fname . ' >= [['. $fieldName . '0:' . $field->param . ']]';
                 $params[$fieldName.'0'] = $value[0];
                 
