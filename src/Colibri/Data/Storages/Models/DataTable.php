@@ -497,6 +497,51 @@ class DataTable extends BaseDataTable
 
     }
 
+    
+    public function ExportSQL(string $file, array $exceptFields = [], string $primaryKeyName = 'id', array $typeExchange = []): void
+    {
+        
+        $fields = [];
+        $createTable = ['DROP TABLE IF EXISTS ' . $this->Storage()->name . ';', 'CREATE TABLE IF NOT EXISTS ' . $this->Storage()->name . ' ('];
+        foreach($this->Storage()->fields as $field) {
+            if(in_array($field->name, $exceptFields)) {
+                continue;
+            }
+            $fields[] = $field->name;
+            $type = isset($typeExchange[$field->type]) ? $typeExchange[$field->type] : strtoupper($field->type);
+            $createTable[] = '    ' . $field->name . ' ' . $type . ($field->length ? '('.$field->length.')' : '') . ',';
+        }
+        $createTable[] = '    datecreated DATETIME,';
+        $createTable[] = '    datemodified DATETIME,';
+        $createTable[] = '    PRIMARY KEY ('.$primaryKeyName.')';
+        $createTable[] = ');' . "\n";
+        File::Append($file, implode("\n", $createTable));
+
+        foreach($this as $result) {
+            /** @var DataRow $result  */
+            $data = $result->DataToChange(true);
+            File::Append($file, 'INSERT INTO '.$this->Storage()->name.'(datecreated, datemodified, '.implode(', ', $fields).') VALUES (');
+            $values = ['\'' . (string)$result->datecreated . '\'', ($result->modified === null ? 'null' : '\'' . (string)$result->modified . '\'')];
+            foreach($fields as $field) {
+                if(in_array($field, $exceptFields)) {
+                    continue;
+                }
+                $realField = $this->Storage()->GetRealFieldName($field);
+                if($data[1][$realField] === null || $data[1][$realField] === 'null') {
+                    $values[] = 'null';
+                } elseif (strstr($data[0][$realField], ':string') !== false) {
+                    $values[] = '\'' . (string)$data[1][$realField] . '\'';
+                } else {
+                    $values[] = (string)$data[1][$realField];
+                }
+            }
+            File::Append($file, implode(',', $values));
+            File::Append($file, ');' . "\n");
+        }
+        File::Append($file, "\n" . "\n");
+        
+    }
+
     /**
      * Импортировать из CSV
      * @param string $file файл источник
