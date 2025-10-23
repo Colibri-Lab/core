@@ -223,6 +223,26 @@ class ModuleManager extends Singleton
     }
 
     /**
+     * Retrieves external script urls of modules from module configurations.
+     *
+     * @param array|null $extendArray Additional elements to append to each path.
+     * @return string[] Paths of modules.
+     */
+    public function GetExternalScriptsFromModuleConfig(?array $extendArray = null): array
+    {
+        $paths = [];
+        foreach ($this->list as $module) {
+            $o = $module->GetExternalScriptsFromModuleConfig($extendArray);
+            foreach($o as $name => $array) {
+                foreach($array as $url) {
+                    $paths[$url] = $name;
+                }
+            }
+        }
+        return $paths;
+    }
+
+    /**
      * Retrieves templates of modules.
      *
      * @param string $templateName The name of the template.

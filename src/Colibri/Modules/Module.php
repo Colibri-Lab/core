@@ -232,4 +232,16 @@ class Module extends Singleton
         return $paths;
     }
 
+    /**
+     * Retrieves paths from the module configuration.
+     *
+     * @param array|null $extendArray Additional array to extend the result.
+     * @return array
+     */
+    public function GetExternalScriptsFromModuleConfig(): array
+    {
+        return $this->Config('external', [])->ToArray();
+
+    }
+
 }

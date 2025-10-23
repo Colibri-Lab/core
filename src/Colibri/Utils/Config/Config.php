@@ -228,6 +228,16 @@ class Config implements IteratorAggregate
     }
 
     /**
+     * Return the internal data as an array.
+     *
+     * @return array|null
+     */
+    public function ToArray(): ?array
+    {
+        return (array) $this->AsArray();
+    }
+
+    /**
      * Return the stored value.
      * Warning! If the current data is an array or object, null will be returned.
      *
