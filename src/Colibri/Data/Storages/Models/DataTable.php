@@ -323,8 +323,6 @@ class DataTable extends BaseDataTable
         ?bool $convert = true
     ): QueryInfo|bool {
 
-        $this->_storage->accessPoint->Begin();
-
         $idf = $this->_storage->GetRealFieldName('id');
         $idc = $this->_storage->GetRealFieldName('datecreated');
         $idm = $this->_storage->GetRealFieldName('datemodified');
@@ -343,6 +341,7 @@ class DataTable extends BaseDataTable
             return true;
         }
 
+        $this->_storage->accessPoint->Begin();
         if ($isNewRow) {
 
             $res = $this->_storage->accessPoint->Insert(
