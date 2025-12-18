@@ -252,6 +252,10 @@ final class Command extends SqlCommand
                 $length = 255;
             }
 
+            if(is_float($length)) {
+                $length = str_replace('.', ',', (string)$length);
+            }
+
             return [$required, $length, $default];
 
         };

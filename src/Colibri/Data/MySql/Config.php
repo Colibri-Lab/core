@@ -33,6 +33,7 @@ final class Config implements IConfig
             'bigint' => ['length' => false, 'generic' => 'int', 'component' => 'Colibri.UI.Forms.Number', 'param' => 'integer'],
             'float' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number', 'param' => 'double'],
             'double' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number', 'param' => 'double'],
+            'decimal' => ['length' => true, 'generic' => 'float', 'component' => 'Colibri.UI.Forms.Number', 'param' => 'double'],
             'date' => ['length' => false, 'generic' => 'DateField', 'component' => 'Colibri.UI.Forms.Date', 'param' => 'string'],
             'datetime' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime', 'param' => 'string'],
             'timestamp' => ['length' => false, 'generic' => 'DateTimeField', 'component' => 'Colibri.UI.Forms.DateTime', 'param' => 'string'],
