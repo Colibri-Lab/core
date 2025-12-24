@@ -379,7 +379,7 @@ final class Command extends SqlCommand
             $fname = $storage . '_' . $fieldName;
             $fparams = $xVirtualField['params'] ?? [];
 
-            $typeInfo = $types[$xVirtualField['type']];
+            $typeInfo = isset($types[$xVirtualField['type']]) ? $types[$xVirtualField['type']] : null;
             if(!$typeInfo) {
                 foreach($types as $tname => $tinfo) {
                     if(isset($tinfo['db']) && $tinfo['db'] === $xVirtualField['type']) {
