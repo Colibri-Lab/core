@@ -183,10 +183,12 @@ final class App extends Singleton
 
             foreach ($domains as $key => $patterns) {
                 foreach ($patterns as $pattern) {
-
-                    $pattern = preg_quote($pattern);
-                    $pattern = str_replace('\\*', '.*', $pattern);
-                    $res = preg_match('/' . $pattern . '/', $host, $matches);
+                    if(!str_starts_with($pattern, '/') || !str_ends_with($pattern, '/')) {
+                        $pattern = preg_quote($pattern);
+                        $pattern = str_replace('\\*', '.*', $pattern);
+                        $pattern = '/' . $pattern . '/';
+                    }
+                    $res = preg_match($pattern, $host, $matches);
                     if ($res > 0) {
                         // нашли
                         self::$domainKey = $key;
