@@ -301,7 +301,8 @@ class StringHelper
         $knownTlds = [
             'com','net','org','edu','gov','mil',
             'io','ai','app','dev','info','biz',
-            'ru','am','us','uk','de','fr','it','es'
+            'ru','am','us','uk','de','fr','it','es',
+            'group','tech','online'
         ];
 
         return in_array($tld, $knownTlds, true);
