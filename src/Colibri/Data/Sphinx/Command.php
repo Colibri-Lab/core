@@ -379,7 +379,7 @@ final class Command extends SqlCommand
             'Collation' => 'A',
             'Null' => 1,
             'NonUnique' => 1,
-            'Type' => $index->Type,
+            'Type' => $index?->Type ?? 'BTREE',
             'Primary' => $index->IndexName === 'PRIMARY'
         ];
 
