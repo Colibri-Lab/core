@@ -274,6 +274,40 @@ class StringHelper
     }
 
     /**
+     * Checks if a string represents a valid email address.
+     *
+     * @param string $email The email address to validate.
+     *
+     * @return bool True if the email address is valid, false otherwise.
+     */
+    public static function IsEmail2(string $email): bool
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+
+        if (!preg_match('/^[^@]+@([a-z-]+)\.([a-z.]{2,})$/i', $email, $m)) {
+            return false;
+        }
+
+        $mainDomain = $m[1];
+        $tldParts = explode('.', $m[2]);
+        $tld = strtolower(end($tldParts));
+
+        if (preg_match('/\d/', $mainDomain)) {
+            return false;
+        }
+
+        $knownTlds = [
+            'com','net','org','edu','gov','mil',
+            'io','ai','app','dev','info','biz',
+            'ru','am','us','uk','de','fr','it','es'
+        ];
+
+        return in_array($tld, $knownTlds, true);
+    }
+
+    /**
      * Checks if a string represents a valid URL.
      *
      * @param string $address The URL to validate.
