@@ -22,7 +22,7 @@ class DateTimeField extends DateTime implements JsonSerializable
 
     public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
     {
-        parent::__construct($data, new DateTimeZone(App::$systemTimezone ?? 'UTC'));
+        parent::__construct($data, new DateTimeZone(App::$systemTimezone));
     }
 
     /**
