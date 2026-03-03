@@ -122,6 +122,12 @@ final class App extends Singleton
 
         // try to get system timezone
         self::$systemTimezone = trim(shell_exec('cat /etc/timezone'), "\r\t\n ");
+        if(!self::$systemTimezone) {
+            self::$systemTimezone = trim(shell_exec('timedatectl show -p Timezone --value'), "\r\t\n ");
+        }
+        if(!self::$systemTimezone) {
+            self::$systemTimezone = 'UTC';
+        }
         date_default_timezone_set(self::$systemTimezone);
 
         // PHP CLI support block
