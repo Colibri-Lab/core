@@ -121,7 +121,7 @@ final class App extends Singleton
     {
 
         // try to get system timezone
-        self::$systemTimezone = trim(shell_exec('cat /etc/timezone'), "\r\t\n ");
+        self::$systemTimezone = trim(shell_exec('cat /etc/timezone 2>/dev/null'), "\r\t\n ");
         if(!self::$systemTimezone) {
             self::$systemTimezone = trim(shell_exec('timedatectl show -p Timezone --value'), "\r\t\n ");
         }

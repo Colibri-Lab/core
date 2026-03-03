@@ -205,7 +205,7 @@ class Lookup
     {
         if ($this->storage) {
             $data = (object) $this->storage;
-            return $data->value;
+            return $data?->value ?? null;
         } elseif ($this->accessPoint) {
             $data = (object) $this->accessPoint;
             return $data->value;
