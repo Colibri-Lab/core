@@ -80,7 +80,7 @@ class Lookup
     {
         if ($this->storage) {
             $data = (object) $this->storage;
-            $storage = Storages::Instance()->Load($data->name);
+            $storage = Storages::Instance()->Load($data->name, isset($this->storage['controller']['module']) ? $this->storage['controller']['module'] : null);
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
             $reader = $accessPoint->Query(
@@ -118,14 +118,14 @@ class Lookup
     {
         if ($this->storage) {
             $data = (object) $this->storage;
-            $storage = Storages::Instance()->Load($data->name);
+            $storage = Storages::Instance()->Load($data->name, isset($this->storage['controller']['module']) ? $this->storage['controller']['module'] : null);
             if (!$storage) {
                 return null;
             }
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $isMultiple = $this->_xfield['params']['multiple'] ?? false;
             if ($isMultiple) {
-                $value = is_string($value) ? json_decode($value) : $value;
+            $value = is_string($value) ? json_decode($value) : $value;
             }
             $accessPoint = $storage->accessPoint;
             if (is_null($value)) {

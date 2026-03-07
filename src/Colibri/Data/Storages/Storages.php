@@ -85,19 +85,21 @@ class Storages extends Singleton
                     continue;
                 }
 
+                $moduleName = strtolower($moduleConfig->Query('name', '')->GetValue());
                 $tablePrefix = $moduleConfig->Query('config.databases.table-prefix', '')->GetValue();
                 $config = $moduleConfig->Query('config.databases.storages');
                 $storagesConfig = $config instanceof Config ? $config->AsArray() : [];
                 foreach ($storagesConfig as $name => $storage) {
-                    $storagesConfig[$name] = $moduleConfig->Query('config.databases.storages.' . $name)->AsArray();
+                    $storagesConfig[$moduleName . '.' . $name] = $moduleConfig->Query('config.databases.storages.' . $name)->AsArray();
                     if ($name === '__global_types') {
-                        $this->_types = VariableHelper::Extend($this->_types, $storagesConfig[$name]);
-                        unset($storagesConfig[$name]);
+                        $this->_types = VariableHelper::Extend($this->_types, $storagesConfig[$moduleName . '.' . $name]);
+                        unset($storagesConfig[$moduleName . '.' . $name]);
                     } else {
-                        $storagesConfig[$name]['name'] = $name;
-                        $storagesConfig[$name]['prefix'] = $tablePrefix;
-                        $storagesConfig[$name]['file'] = $config->GetFile();
+                        $storagesConfig[$moduleName . '.' . $name]['name'] = $name;
+                        $storagesConfig[$moduleName . '.' . $name]['prefix'] = $tablePrefix;
+                        $storagesConfig[$moduleName . '.' . $name]['file'] = $config->GetFile();
                     }
+                    unset($storagesConfig[$name]);
                 }
                 $this->_storages = array_merge($this->_storages, $storagesConfig);
             } catch (ConfigException $e) {
@@ -288,24 +290,37 @@ class Storages extends Singleton
      */
     public function Load(string $name, ?string $module = null, ?DataAccessPoint $accessPoint = null): ?Storage
     {
-        if (!isset($this->_storages[$name])) {
-            return null;
+        $module = strtolower($module);
+        $name = strtolower($name);
+        if($module) {
+            if (!isset($this->_storages[$module . '.' . $name])) {
+                return null;
+            }
+            return new Storage($this->_storages[$module . '.' . $name], $name, $accessPoint);
+        } else {
+            $foundStorages = array_filter(array_keys($this->_storages), fn($x) => str_ends_with($x, '.' . $name));
+            if(empty($foundStorages)) {
+                return null;
+            }
+            $firstStorage = reset($foundStorages);
+            $n = explode('.', $firstStorage);
+            return new Storage($this->_storages[$firstStorage], $n[1], $accessPoint);
         }
-        return new Storage($this->_storages[$name], $name, $accessPoint);
+
     }
 
 
     /**
      * Retrieves an array of all storages.
      *
-     * @return array An array containing all storage objects.
+    * @return array An array containing all storage objects.
      */
     public function GetStorages(): array
     {
         $storages = [];
         foreach ($this->_storages as $xstorage) {
             $storage = new Storage($xstorage);
-            $storages[$storage->name] = $storage;
+            $storages[] = $storage;
         }
         return $storages;
     }

@@ -160,6 +160,9 @@ class Storage
             case 'name':
                 $return = $this->_name;
                 break;
+            case 'module':
+                $return = $this->GetModule()->Config()->Query('name', '')->GetValue();
+                break;
             case 'table':
                 $return = (isset($this->_xstorage['prefix']) ? $this->_xstorage['prefix'] . '_' : '') . $this->_name;
                 break;

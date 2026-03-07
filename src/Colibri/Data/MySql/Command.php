@@ -212,6 +212,7 @@ final class Command extends SqlCommand
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {
 
+        $storage = isset($xstorage['name']) ? $xstorage['name'] : $storage;
         $prefix = isset($xstorage['prefix']) ? $xstorage['prefix'] : '';
         $table = $prefix ? $prefix . '_' . $storage : $storage;
 
