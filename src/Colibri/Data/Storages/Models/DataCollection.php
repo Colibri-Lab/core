@@ -130,19 +130,13 @@ class DataCollection extends BaseDataTable
     }
 
     public static function LoadByQuery(
-        Storage|string $storage,
+        Storage $storage,
         ?array $query = null,
         ?array $filters = null,
         ?array $sort = null,
         int $page = -1,
         int $pagesize = 20
     ): ?static {
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
-
-        // TODO добавить запрос на проверку удаленных записей
-
         [, $rowClass] = $storage->GetModelClasses();
 
         $result = $storage->accessPoint->ExecuteCommand('SelectDocuments', $storage->table, $query, $filters, [], [], $sort, $page, $pagesize);
@@ -155,13 +149,10 @@ class DataCollection extends BaseDataTable
     }
 
     protected static function DeleteByFilter(
-        Storage|string $storage,
+        Storage $storage,
         array $filter
     ): bool {
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
-
+        
         $params = (object)$storage?->{'params'};
         if($params?->{'softdeletes'} === true) {
             [, $filters, ] = $storage->accessPoint->ProcessFilters($storage, '', $filter, '', '');
@@ -188,13 +179,10 @@ class DataCollection extends BaseDataTable
     }
 
     protected static function RestoreByFilter(
-        Storage|string $storage,
+        Storage $storage,
         array $filter
     ): bool {
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
-
+        
         $params = (object)$storage?->{'params'};
         if($params?->{'softdeletes'} === true) {
             [, $filters, ] = $storage->accessPoint->ProcessFilters($storage, '', $filter, '', '');
@@ -215,13 +203,11 @@ class DataCollection extends BaseDataTable
     }
 
     protected static function UpdateByFilter(
-        Storage|string $storage,
+        Storage $storage,
         array $filter,
         array $fields
     ): bool {
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
+        
         $res = $storage->accessPoint->ExecuteCommand(
             'UpdateDocuments',
             $storage->table,
@@ -458,15 +444,12 @@ class DataCollection extends BaseDataTable
     }
 
     protected static function _exportToFileJson(
-        Storage|string $storage,
+        Storage $storage,
         string|File $file,
         array $fields,
         ?array $filter = null
     ): bool {
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
-
+        
         if($storage->accessPoint->dbms !== DataAccessPoint::DBMSTypeRelational) {
             throw new DataAccessPointsException('This method works only for relational databases');
         }
@@ -497,17 +480,14 @@ class DataCollection extends BaseDataTable
     }
 
     protected static function _loadFromFileXML(
-        Storage|string $storage,
+        Storage $storage,
         string|File $file,
         string $tag,
         array $fieldsMap,
         array $additionalFields = []
     ): bool {
 
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
-
+        
         if($storage->accessPoint->dbms !== DataAccessPoint::DBMSTypeRelational) {
             throw new DataAccessPointsException('This method works only for relational databases');
         }

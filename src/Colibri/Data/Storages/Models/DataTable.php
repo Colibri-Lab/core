@@ -158,13 +158,10 @@ class DataTable extends BaseDataTable
     }
 
     public static function LoadByQuery(
-        Storage|string $storage,
+        Storage $storage,
         string $query,
         array $params
     ): ?static {
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
 
         $query = self::_replaceFields($query, $storage);
 
@@ -180,12 +177,9 @@ class DataTable extends BaseDataTable
     }
 
     protected static function DeleteByFilter(
-        Storage|string $storage,
+        Storage $storage,
         ?string $filter = null
     ): bool {
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
 
         $filter = self::_replaceFields($filter, $storage);
 
@@ -224,13 +218,10 @@ class DataTable extends BaseDataTable
     }
 
     protected static function RestoreByFilter(
-        Storage|string $storage,
+        Storage $storage,
         string $filter
     ): bool {
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
-
+        
         $filter = self::_replaceFields($filter, $storage);
 
         $params = (object)$storage?->{'params'};
@@ -267,14 +258,11 @@ class DataTable extends BaseDataTable
     }
 
     protected static function UpdateByFilter(
-        Storage|string $storage,
+        Storage $storage,
         string $filter,
         array $fields
     ): bool {
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
-
+        
         $filter = self::_replaceFields($filter, $storage);
 
 
@@ -608,15 +596,12 @@ class DataTable extends BaseDataTable
     }
 
     protected static function _exportToFileJson(
-        Storage|string $storage,
+        Storage $storage,
         string|File $file,
         array $fields,
         ?array $filter = null
     ): bool {
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
-
+        
         $fieldsConverted = [];
         foreach($fields as $field) {
             $fieldsConverted[] = self::_replaceFields($field, $storage);
@@ -643,17 +628,14 @@ class DataTable extends BaseDataTable
     }
 
     protected static function _loadFromFileXML(
-        Storage|string $storage,
+        Storage $storage,
         string|File $file,
         string $tag,
         array $fieldsMap,
         array $additionalFields = []
     ): bool {
 
-        if (is_string($storage)) {
-            $storage = Storages::Instance()->Load($storage);
-        }
-
+        
         $variables = [];
         $values = [];
         foreach($fieldsMap as $key => $value) {
