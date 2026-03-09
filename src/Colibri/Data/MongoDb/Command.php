@@ -306,6 +306,7 @@ final class Command extends NoSqlCommand
 
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {
+        $storage = isset($xstorage['name']) ? $xstorage['name'] : $storage;
         if(!$this->CollectionExists($storage)) {
             $this->CreateCollection($storage);
         }
