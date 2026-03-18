@@ -323,21 +323,26 @@ class DataAccessPoint
             $delay = ($diff->format('%f') / 1000);
             if($delay > $minDelay) {
                 if(in_array('text', $logSetting)) {
-                    App::$log->debug('Query: ' . $delay . ' ms: ' .
+                    app_debug('Query: ' . $delay . ' ms: ' .
                         str_replace("\r", " ", str_replace("\n", " ", $query)) .
                         ' (' . $cmd->page . ', ' . $cmd->pagesize . ') - ' .
                         ', Type: ' . $commandParams->type);
                 }
                 if(in_array('params', $logSetting)) {
-                    App::$log->debug(Debug::ROut($commandParams));
+                    app_debug($commandParams);
                 }
                 if(in_array('return', $logSetting)) {
-                    App::$log->debug(Debug::Rout($return));
+                    app_debug($return);
                 }
-                App::$log->debug('--------');
+                app_debug('--------');
             }
 
         }
+
+        // app_debug('Query: ' . $delay . ' ms: ' .
+        //     str_replace("\r", " ", str_replace("\n", " ", $query)) .
+        //     ' (' . $cmd->page . ', ' . $cmd->pagesize . ') - ' .
+        //     ', Type: ' . $commandParams->type, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 5));
 
         return $return;
 
