@@ -17,10 +17,14 @@ use Colibri\App;
 use Colibri\AppException;
 use Colibri\Common\StringHelper;
 use Colibri\Common\VariableHelper;
+use Colibri\Data\Cache\TCache;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\Storages\Models\DataRow;
+use Colibri\Events\EventsContainer;
+use Colibri\Events\TEventDispatcher;
 use Colibri\Modules\Module;
 use Colibri\Utils\Config\Config;
+use Colibri\Utils\TBootable;
 
 /**
  * Storage class
@@ -39,6 +43,11 @@ use Colibri\Utils\Config\Config;
  */
 class Storage
 {
+
+    use TEventDispatcher;
+    use TBootable;
+    use TCache;
+
     /**
      * Internal storage data
      * @var array
@@ -71,6 +80,8 @@ class Storage
      */
     public function __construct(array|object $xstorage, ?string $name = null, ?DataAccessPoint $accessPoint = null)
     {
+        $this->boot();
+
         $xstorage = (array) $xstorage;
         $this->_xstorage = $xstorage;
         $this->_name = $name;
@@ -451,6 +462,8 @@ class Storage
         $config->Set($this->name, $storageData);
         $config->Save();
 
+        $this->DispatchEvent(EventsContainer::Saved, (object)['type' => 'storages', 'data' => $this->_xstorage, 'id' => $this->name, 'idf' => 'name']);
+
     }
 
     /**
@@ -464,6 +477,7 @@ class Storage
         $config = Config::LoadFile($file);
         $config->Set($this->name, null);
         $config->Save();
+        $this->DispatchEvent(EventsContainer::Deleted, (object)['type' => 'storages', 'data' => $this->_xstorage, 'id' => $this->name, 'idf' => 'name']);
     }
 
     /**

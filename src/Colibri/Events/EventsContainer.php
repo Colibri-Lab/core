@@ -10,6 +10,8 @@
 
 namespace Colibri\Events;
 
+use Colibri\Data\Storages\Storage;
+
 /**
  * Container for events.
  * This class should be inherited by the EventsContainer class in Colibri\App.
@@ -184,6 +186,34 @@ class EventsContainer
 
     public const ThemeChoosing = 'themes.choosing';
     
+    #endregion
+
+    #region Storages
+
+    /**
+     * When model is saved
+     * The result is not used.
+     */
+    public const Saved = 'saved';
+
+    /**
+     * When model is deleted
+     * The result is not used.
+     */
+    public const Deleted = 'deleted';
+
+    /**
+     * Before models loading
+     * The result is not used.
+     */
+    public const Loading = 'loading';
+
+    /**
+     * When models are loaded
+     * The result is not used.
+     */
+    public const Loaded = 'loaded';
+
     #endregion
 
 }

@@ -12,13 +12,17 @@ namespace Colibri\Data\Storages;
 
 use Colibri\App;
 use Colibri\Common\VariableHelper;
+use Colibri\Data\Cache\TCache;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\DataAccessPointsException;
 use Colibri\Data\Storages\Models\DataTable as StorageDataTable;
+use Colibri\Events\EventsContainer;
+use Colibri\Events\TEventDispatcher;
 use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
 use Colibri\Utils\Logs\Logger;
 use Colibri\Utils\Singleton;
+use Colibri\Utils\TBootable;
 
 /**
  * Represents a collection of storage objects.
@@ -30,6 +34,10 @@ use Colibri\Utils\Singleton;
  */
 class Storages extends Singleton
 {
+
+    use TEventDispatcher;
+    use TBootable;
+    use TCache;
    
     /**
      * Array of storage data.
@@ -48,6 +56,11 @@ class Storages extends Singleton
      */
     public function __construct()
     {
+
+        $this->boot();
+
+        $args = (object)['type' => 'storages'];
+        $this->DispatchEvent(EventsContainer::Loading, $args);
 
         $this->_types = [];
         try {
@@ -108,6 +121,8 @@ class Storages extends Singleton
         }
 
         $this->_storages = $this->_replaceTypes($this->_storages);
+
+        $this->DispatchEvent(EventsContainer::Loaded, (object)['type' => 'storages', 'data' => $this->_storages]);
 
 
     }

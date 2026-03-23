@@ -36,6 +36,7 @@ use Opis\JsonSchema\Errors\ValidationError;
 class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable, Countable
 {
     use TEventDispatcher;
+    use TBootable;
 
     /**
      * Contains data received during initialization.
@@ -82,6 +83,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * Validation results
      */
     protected ValidationResult $_validationResult;
+
 
     /**
      * Constructor

@@ -420,7 +420,6 @@ class Server
             $this->DispatchEvent(EventsContainer::RpcRequestProcessed, $args);
 
             if((($result?->type ?? null) ?: $type) !== self::Stream) {
-                // на случай, если не включен модуль языков
                 $args->result = NoLangHelper::ParseArray($args->result);
             }
 

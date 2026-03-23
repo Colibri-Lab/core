@@ -159,3 +159,46 @@ if(!function_exists('parse_ml_annotation')) {
         return array_combine(array_map("trim",$annotations[1]), array_map(fn($v) => $v . ' ' . $value, array_map("trim",$annotations[2])));
     }
 }
+
+if(!function_exists('class_uses_recursive')) {
+
+    function class_uses_recursive($class) {
+        $traits = [];
+    
+        // если передан объект, берем его класс
+        if (is_object($class)) {
+            $class = get_class($class);
+        }
+    
+        // собираем трейты текущего класса
+        $traits = class_uses($class) ?: [];
+    
+        // рекурсивно собираем трейты родителей
+        $parent = get_parent_class($class);
+        if ($parent) {
+            $traits = array_merge($traits, class_uses_recursive($parent));
+        }
+    
+        // рекурсивно собираем трейты внутри трейтов
+        foreach ($traits as $trait) {
+            $traits = array_merge($traits, class_uses_recursive($trait));
+        }
+    
+        return array_unique($traits);
+    }
+
+}
+
+if(!function_exists('class_basename')) {
+
+    function class_basename($class) {
+        if (is_object($class)) {
+            $class = get_class($class);
+        }
+
+        $class = trim($class, '\\'); // на случай, если namespace начинается с '\'
+        $parts = explode('\\', $class);
+        return array_pop($parts);
+    }
+
+}
