@@ -45,7 +45,7 @@ class Event
      */
     public function __construct($sender, $name)
     {
-        if (!is_object($sender) || !is_string($name)) {
+        if (!is_object($sender) && !is_string($name)) {
             throw new InvalidArgumentException();
         }
 

@@ -31,6 +31,7 @@ use Colibri\Data\NoSqlClient\ICommandResult;
  */
 class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 {
+
     /**
      * Data access point
      *
@@ -153,7 +154,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      */
     public function Count(): int
     {
-        return $this->_reader->Count();
+        return $this->_reader?->Count() ?? 0;
     }
 
     /**
@@ -163,7 +164,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      */
     public function Affected(): ?int
     {
-        return $this->_reader->affected;
+        return $this->_reader?->{'affected'} ?? 0;
     }
 
     /**
@@ -173,7 +174,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      */
     public function HasRows(): bool
     {
-        return $this->_reader->hasrows;
+        return $this->_reader?->{'hasrows'} ?? false;
     }
 
     /**

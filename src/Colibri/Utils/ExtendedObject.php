@@ -15,14 +15,12 @@ use ArrayAccess;
 use Colibri\App;
 use Colibri\AppException;
 use Colibri\Collections\ArrayList;
-use Colibri\Events\TEventDispatcher;
 use Colibri\Common\VariableHelper;
 use Colibri\Utils\Logs\Logger;
 use InvalidArgumentException;
 use IteratorAggregate;
 use Colibri\Exceptions\ValidationException;
 use Opis\JsonSchema\Errors\ErrorFormatter;
-use Traversable;
 use JsonSerializable;
 use Countable;
 use Colibri\Common\StringHelper;
@@ -35,9 +33,6 @@ use Opis\JsonSchema\Errors\ValidationError;
  */
 class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable, Countable
 {
-    use TEventDispatcher;
-    use TBootable;
-
     /**
      * Contains data received during initialization.
      *

@@ -52,6 +52,10 @@ class Config implements IteratorAggregate
                     $path = App::$appRoot . '/config/' . $fileName;
                     $this->_configData = \yaml_parse_file($path);
                     $this->_file = $fileName;
+                } elseif ($isFile && file_exists(App::$appRoot . $fileName)) {
+                    $path = App::$appRoot . $fileName;
+                    $this->_configData = \yaml_parse_file($path);
+                    $this->_file = $fileName;
                 } elseif ($isFile && file_exists($fileName)) {
                     $path = $fileName;
                     $this->_configData = \yaml_parse_file($path);

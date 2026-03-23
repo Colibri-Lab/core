@@ -429,7 +429,7 @@ class Request
         $result->headers = curl_getinfo($handle);
         $result->httpheaders = $httpheaders;
 
-        curl_close($handle);
+        // ! curl_close($handle);
 
         return $result;
 

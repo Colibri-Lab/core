@@ -12,17 +12,14 @@ namespace Colibri\Data\Storages;
 
 use Colibri\App;
 use Colibri\Common\VariableHelper;
-use Colibri\Data\Cache\TCache;
 use Colibri\Data\DataAccessPoint;
 use Colibri\Data\DataAccessPointsException;
-use Colibri\Data\Storages\Models\DataTable as StorageDataTable;
 use Colibri\Events\EventsContainer;
-use Colibri\Events\TEventDispatcher;
+use Colibri\Utils\Cache\Mem;
 use Colibri\Utils\Config\Config;
 use Colibri\Utils\Config\ConfigException;
 use Colibri\Utils\Logs\Logger;
 use Colibri\Utils\Singleton;
-use Colibri\Utils\TBootable;
 
 /**
  * Represents a collection of storage objects.
@@ -35,10 +32,6 @@ use Colibri\Utils\TBootable;
 class Storages extends Singleton
 {
 
-    use TEventDispatcher;
-    use TBootable;
-    use TCache;
-   
     /**
      * Array of storage data.
      * @var array|null
@@ -56,20 +49,14 @@ class Storages extends Singleton
      */
     public function __construct()
     {
-
-        $this->boot();
-
-        $args = (object)['type' => 'storages'];
-        $this->DispatchEvent(EventsContainer::Loading, $args);
-
-        if($args?->return) {
-            $this->_storages = $args->return;
-
-            $this->DispatchEvent(EventsContainer::Loaded, (object)['type' => 'storages', 'data' => $this->_storages]);
+        $key = 'storages' . App::$domainKey . App::$request->host;
+        if(Mem::Exists($key)) {
+            $this->_storages = VariableHelper::Unserialize(Mem::Read($key));
             return;
         }
 
         $this->_types = [];
+
         try {
             $storagesConfig = App::$config->Query('databases.storages');
             $this->_storages = $storagesConfig->AsArray();
@@ -128,9 +115,7 @@ class Storages extends Singleton
         }
 
         $this->_storages = $this->_replaceTypes($this->_storages);
-
-        $this->DispatchEvent(EventsContainer::Loaded, (object)['type' => 'storages', 'data' => $this->_storages]);
-
+        Mem::Write($key, VariableHelper::Serialize($this->_storages));
 
     }
 
