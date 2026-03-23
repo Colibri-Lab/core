@@ -11,9 +11,11 @@
 
 namespace Colibri\Data\Cache;
 
+use Colibri\App;
 use Colibri\Common\VariableHelper;
 use Colibri\Events\EventsContainer;
 use Colibri\Events\TEventDispatcher;
+use Colibri\Utils\Cache\Mem;
 use Colibri\Utils\Cache\Redis;
 
 /**
@@ -29,10 +31,8 @@ trait TCache
         $this->HandleEvent(EventsContainer::Loading, function ($event, object &$args) use ($instance) {
             $args->return = $instance->getCached($args->type);
             if($args->return) {
-                app_debug('Cache found for type: ' . $args->type);
                 return false;
             }
-            app_debug('Cache NOT found for type: ' . $args->type);
             return true;
         });
         $this->HandleEvent(EventsContainer::Loaded, function ($event, $args) use ($instance) {
@@ -52,14 +52,11 @@ trait TCache
         });
     }
 
-    public function cacheKey(string $type, mixed $data): string
-    {
-        return (string)$type . ':' . (\is_scalar($data) ? $data : md5(VariableHelper::Serialize($data)));
-    }
-
     public function getCached(mixed $key): mixed
     {
-        $readed = Redis::Read($key);
+        $appDomainKey = App::$request->host;
+
+        $readed = Mem::Read($appDomainKey . '_' . $key);
         if(!$readed) {
             return null;
         }
@@ -71,21 +68,22 @@ trait TCache
 
     public function setCached(string $key, mixed $data, ?string $idf = null, mixed $id = null): void
     {
+        $appDomainKey = App::$request->host;
         if($id && $idf) {
             $ddata = $this->getCached($key) ?? [];
-            for($i = 0; $i < count($ddata); $i++) {
-                if($ddata[$i]->$idf == $id) {
+            foreach($ddata as $index => $item) {
+                if($index == $id) {
                     if($data === null) {
-                        array_splice($ddata, $i, 1);
+                        array_splice($ddata, $index, 1);
                     } else {
-                        $ddata[$i] = $data;
+                        $ddata[$index] = $data;
                     }
                     break;
                 }
             }
-            Redis::Write($key, serialize($ddata));
+            Mem::Write($appDomainKey . '_' . $key, serialize($ddata));
         } else {
-            Redis::Write($key, serialize($data));
+            Mem::Write($appDomainKey . '_' . $key, serialize($data));
         }
     }
 

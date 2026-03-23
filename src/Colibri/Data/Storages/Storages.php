@@ -62,6 +62,13 @@ class Storages extends Singleton
         $args = (object)['type' => 'storages'];
         $this->DispatchEvent(EventsContainer::Loading, $args);
 
+        if($args?->return) {
+            $this->_storages = $args->return;
+
+            $this->DispatchEvent(EventsContainer::Loaded, (object)['type' => 'storages', 'data' => $this->_storages]);
+            return;
+        }
+
         $this->_types = [];
         try {
             $storagesConfig = App::$config->Query('databases.storages');

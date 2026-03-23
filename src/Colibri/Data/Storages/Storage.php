@@ -462,7 +462,7 @@ class Storage
         $config->Set($this->name, $storageData);
         $config->Save();
 
-        $this->DispatchEvent(EventsContainer::Saved, (object)['type' => 'storages', 'data' => $this->_xstorage, 'id' => $this->name, 'idf' => 'name']);
+        $this->DispatchEvent(EventsContainer::Saved, (object)['type' => 'storages', 'data' => $this->_xstorage, 'id' => strtolower($this->module) . '.' . $this->name, 'idf' => 'name']);
 
     }
 
@@ -477,7 +477,7 @@ class Storage
         $config = Config::LoadFile($file);
         $config->Set($this->name, null);
         $config->Save();
-        $this->DispatchEvent(EventsContainer::Deleted, (object)['type' => 'storages', 'data' => $this->_xstorage, 'id' => $this->name, 'idf' => 'name']);
+        $this->DispatchEvent(EventsContainer::Deleted, (object)['type' => 'storages', 'data' => $this->_xstorage, 'id' => strtolower($this->module) . '.' . $this->name, 'idf' => 'name']);
     }
 
     /**
