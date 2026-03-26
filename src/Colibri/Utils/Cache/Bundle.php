@@ -20,6 +20,7 @@ use Colibri\IO\FileSystem\Exception as FileSystemException;
 use Colibri\IO\FileSystem\Finder;
 use Colibri\Utils\Debug;
 use Colibri\Utils\Config\ConfigException;
+use Colibri\Xml\XmlNode;
 
 /**
  * Utility class for creating cache bundles of styles and scripts.
@@ -367,6 +368,82 @@ class Bundle
 
     }
 
+    public static function ConvertHtmlToJS(File $file, string $html): string
+    {
+
+        // компилируем html в javascript
+        $componentName = $file->filename;
+        if (preg_match('/ComponentName="([^"]*)"/i', $html, $matches) > 0) {
+            $componentName = $matches[1];
+        }
+
+        $compiledContent = str_replace(
+            ['\'', "\n", "\r", 'ComponentName="' . $componentName . '"'],
+            ['\\\'', "' + \n'", "", 'namespace="' . $componentName . '"'],
+            $html
+        );
+
+        return 'Colibri.UI.AddTemplate(\'' . $componentName . '\', ' . "\n" . '\'' . $compiledContent . '\');' . "\n";
+
+    }
+
+    public static function ConvertHtmlToJSSimple(File $file, string $html): string
+    {
+
+        // компилируем html в javascript
+        $componentName = $file->filename;
+        if (preg_match('/ComponentName="([^"]*)"/i', $html, $matches) > 0) {
+            $componentName = $matches[1];
+        }
+
+        $xml = XmlNode::LoadNode($html, 'utf-8');
+        $compiledContent = self::ConvertNode($xml);
+
+        return 'Colibri.UI.AddTemplate(\'' . $componentName . '\', ' . "\n" . '(root) => {' . "\n" . 
+            'root._element = Element.create(\'' . $xml->name . '\', {});' . "\n" . 
+            $compiledContent . "\n" . 
+        '});' . "\n";
+
+    }
+
+    public static function ConvertNode(XmlNode $parentNode): string
+    {
+        $ret = [];
+        foreach($parentNode->children as $node) {
+
+            if($node->type == 1) {
+                $name = $node->attributes->{'Component'}?->value ?? $node->attributes->{'component'}?->value ?? $node->name;
+                if($name === 'svg') {
+                    $ret[] = '\'' . str_replace(
+                        ['\'', "\n", "\r"],
+                        ['\\\'', "' + \n'", ""],
+                        $node->html
+                    ) . '\'';
+                } else {
+
+                    $attrs = [];
+                    foreach($node->attributes as $attr) {
+                        if(!in_array($attr->name, ['Component', 'component'])) {
+                            $attrs[$attr->name] = $attr->value;
+                        }
+                    }
+                    $ret[] = 'root.__(' . "\n" .
+                        '\'' . $name . '\',' . "\n" .
+                        json_encode($attrs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n" . ',' .
+                        ($node->children->Count() > 0 ? '[' . "\n" . self::ConvertNode($node) . "\n" . ']' : "\n" . '[]' . "\n") . ',' . "\n" .
+                        '\'' . str_replace(
+                            ['\'', "\n", "\r"],
+                            ['\\\'', "' + \n'", ""],
+                            $node->value
+                        ) . '\'' .
+                    ');';
+                }
+            }
+
+        }
+
+        return trim(implode("\n", $ret));
+    }
 
 
 }
