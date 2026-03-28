@@ -64,6 +64,11 @@ final class Connection implements IConnection
         ];
     }
 
+    public function __destruct()
+    {
+        $this->Close();
+    }
+
     public static function FromConnectionInfo(object|array $connectionInfo): static
     {
         $connectionInfo = (object)$connectionInfo;
