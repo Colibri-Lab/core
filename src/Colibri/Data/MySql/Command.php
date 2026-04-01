@@ -15,6 +15,7 @@ use Colibri\Data\MySql\Exception as MySqlException;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Utils\Logs\Logger;
 use mysqli_stmt;
+use Throwable;
 
 /**
  * Represents a final database command, extending SqlCommand.

@@ -51,6 +51,12 @@ class Router
             if (!$moduleConfig->Query('enabled')->GetValue()) {
                 continue;
             }
+
+            $keysArray = $moduleConfig->Query('for', [])->ToArray();
+            if (!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
+                continue;
+            }
+
             /** @var Config $moduleConfig */
             try {
 
