@@ -92,7 +92,7 @@ class NumericHelper
 
     }
 
-    public static function ToText($num)
+    public static function ToText($num, $unit = ['рубль','рубля','рублей']): string
     {
         if (!is_numeric($num) || !is_finite($num)) {
             throw new Exception("Input must be a finite number");
@@ -224,7 +224,7 @@ class NumericHelper
             $final = "минус " . $final;
         }
 
-        return $final . ' ' . $kopText;
+        return $final . ' ' . $getForm($rub, $unit) . ' ' . $kopText;
     }
 
 }
