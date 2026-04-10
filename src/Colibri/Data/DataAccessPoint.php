@@ -548,9 +548,9 @@ class DataAccessPoint
         return $this->CreateQuery('CreateSoftDeleteQuery', [$field, $table]);
     }
 
-    public function ProcessFilters(Storage $storage, string $fullTextSearchTerms, array $filters, string $sortField, string $sortOrder): array
+    public function ProcessFilters(Storage $storage, string $fullTextSearchTerms, array $filters, string $sortField, string $sortOrder, bool $useAsManageFilter = true): array
     {
-        return $this->CreateQuery('ProcessFilters', [$storage, $fullTextSearchTerms, $filters, $sortField, $sortOrder]);
+        return $this->CreateQuery('ProcessFilters', [$storage, $fullTextSearchTerms, $filters, $sortField, $sortOrder, $useAsManageFilter]);
     }
 
     public function ProcessMutationData(mixed $row, string $mutationType): array

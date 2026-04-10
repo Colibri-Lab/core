@@ -33,7 +33,7 @@ class QueryBuilder
     public const MutationUpdate = 'update';
     public const MutationDelete = 'delete';
 
-    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
+    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
     {
 
         $filterFields = VariableHelper::ToJsonFilters($filterFields);
@@ -111,17 +111,18 @@ class QueryBuilder
                 'Colibri.UI.Forms.Number'
             ])) {
                 $filters[$fieldName] = [];
-                if(count($value) == 2) {
+                if(is_array($value) && count($value) == 2 && $useAsManageFilter) {
+                    $filters[$fieldName] = [];
                     if($value[0]) {
-                        $filters[$fieldName] = ['$gte' => $value[0]];
+                        $filters[$fieldName]['$gte'] = $value[0];
                     }
                     if($value[1]) {
-                        $filters[$fieldName] = ['$lte' => $value[1]];
+                        $filters[$fieldName]['$lte'] = $value[1];
                     }
-                } elseif(count($value) > 1) {
+                } elseif(is_array($value) && count($value) > 1) {
                     $filters[$fieldName] = ['$in' => $value];
                 } else {
-                    $filters[$fieldName] = ['$eq' => $value[0]];
+                    $filters[$fieldName] = ['$eq' => is_array($value) ? $value[0] : $value];
                 }
             } else {
                 if(is_array($value)) {
@@ -150,7 +151,7 @@ class QueryBuilder
     {
 
         if(is_object($row) && method_exists($row, 'GetValidationData')) {
-            $data = (array)$row->GetValidationData();
+            $data = (array)$row->GetValidationData(false);
         } else {
             $data = (array)$row;
         }
@@ -178,6 +179,8 @@ class QueryBuilder
             unset($data['id']);
             return $data;
 
+        } else {
+            return (object)[];
         }
 
     }

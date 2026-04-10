@@ -310,7 +310,7 @@ class QueryBuilder implements IQueryBuilder
         return 'SHOW INDEX '.$table.' AGENT STATUS';
     }
 
-    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
+    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
     {
 
         $filterFields = VariableHelper::ToJsonFilters($filterFields);
@@ -412,6 +412,7 @@ class QueryBuilder implements IQueryBuilder
                 'Colibri.UI.Forms.Number'
             ])) {
                 if(isset($type['convert'])) {
+                    $f = fn($v) => $v;
                     eval('$f = ' . $type['convert'] . ';');
                     $value[0] = $f($value[0]);
                     $value[1] = $f($value[1]);

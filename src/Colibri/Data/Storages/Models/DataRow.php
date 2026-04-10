@@ -400,7 +400,7 @@ class DataRow extends BaseDataRow
         return true;
     }
 
-    public function GetValidationData(): mixed
+    public function GetValidationData(bool $expandLookups = true): mixed
     {
         $storage = $this->Storage();
 
@@ -428,15 +428,15 @@ class DataRow extends BaseDataRow
                 if (is_array($fieldValue)) {
                     $ret = [];
                     foreach ($fieldValue as $value) {
-                        if (is_object($value) && method_exists($value, 'GetValidationData')) {
-                            $ret[] = $value->GetValidationData();
+                        if (is_object($value) && method_exists($value, 'GetValidationData') && $expandLookups) {
+                            $ret[] = $value->GetValidationData($expandLookups);
                         } else {
                             $ret[] = $value->{$fieldData->lookup->GetValueField() ?: 'id'};
                         }
                     }
                     $return[$fieldName] = $ret;
                 } else {
-                    if (is_object($fieldValue)) {
+                    if (is_object($fieldValue) && $expandLookups) {
                         if(method_exists($fieldValue, 'GetValidationData')) {
                             if($fieldData->{'class'} === 'string') {
                                 $ret = (string)$fieldValue->GetValidationData()->{$fieldData->lookup->GetValueField() ?: 'id'};

@@ -359,7 +359,7 @@ class QueryBuilder implements IQueryBuilder
         ';
     }
 
-    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder)
+    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
     {
 
         $filterFields = VariableHelper::ToJsonFilters($filterFields);
@@ -463,8 +463,7 @@ class QueryBuilder implements IQueryBuilder
 
             if(in_array($field->component, [
                 'Colibri.UI.Forms.Date',
-                'Colibri.UI.Forms.DateTime',
-                'Colibri.UI.Forms.Number'
+                'Colibri.UI.Forms.DateTime'
             ])) {
                 $filters[] = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}').
                     ' between [['.
@@ -472,6 +471,23 @@ class QueryBuilder implements IQueryBuilder
                         $fieldName . '1:' . $field->param . ']]';
                 $params[$fieldName.'0'] = $value[0];
                 $params[$fieldName.'1'] = $value[1];
+            } else if($field->component === 'Colibri.UI.Forms.Number') {
+                if(is_array($value) && count($value) == 2 && $useAsManageFilter) {
+                    $filters[] = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}').
+                        ' between [['.
+                            $fieldName . '0:' . $field->param . ']] and [[' .
+                            $fieldName . '1:' . $field->param . ']]';
+                    $params[$fieldName.'0'] = $value[0];
+                    $params[$fieldName.'1'] = $value[1];
+                } else {
+                    $f = [];
+                    foreach($value as $index => $v) {
+                        $f[] = '[['.$fieldName.'.'.$index.':'.$field->param.']]';
+                        $params[$fieldName.'.'.$index] = $v;
+                    }
+                    $filters[] = (strstr($fieldName, 'json_') !== false ? $fieldName : '{' . $fieldName . '}').
+                        ' in ('.implode(',', $f).')';
+                }
             } else {
                 if(!is_array($value)) {
                     $value = [$value];

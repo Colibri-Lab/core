@@ -83,13 +83,18 @@ class Lookup
             $storage = Storages::Instance()->Load($data->name, $data?->module ?? null);
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $accessPoint = $storage->accessPoint;
-            $reader = $accessPoint->Query(
-                'select * from ' . $storage->table . ($data->filter && $this->filter != '' ?
-                    ' where ' . $data->filter : '') . ($data->order && $data->order != '' ?
-                    ' order by ' . $data->order : ''),
-                ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]
-            );
-            return new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
+            if($accessPoint->dbms == DataAccessPoint::DBMSTypeRelational) {
+                $reader = $accessPoint->Query(
+                    'select * from ' . $storage->table . ($data->filter && $this->filter != '' ?
+                        ' where ' . $data->filter : '') . ($data->order && $data->order != '' ?
+                        ' order by ' . $data->order : ''),
+                    ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]
+                );
+                return new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
+            } else if($accessPoint->dbms == DataAccessPoint::DBMSTypeNoSql) {
+                $sort = explode(' ', $data->order);
+                return $tableClass::LoadBy($page, $pagesize, '', [], $storage->GetRealFieldName($sort[0] ?? 'id'), $sort[1] ?? 'asc');
+            }
         } elseif ($this->accesspoint) {
 
             $data = (object) $this->accesspoint;
@@ -125,59 +130,104 @@ class Lookup
             list($tableClass, $rowClass) = $storage->GetModelClasses();
             $isMultiple = $this->_xfield['params']['multiple'] ?? false;
             if ($isMultiple) {
-            $value = is_string($value) ? json_decode($value) : $value;
+                $value = is_string($value) ? json_decode($value) : $value;
             }
             $accessPoint = $storage->accessPoint;
-            if (is_null($value)) {
-                $filter = $storage->GetRealFieldName(
-                    $data->value ?? 'id'
-                ) . ' is null';
-            } elseif (!is_array($value)) {
-                $filter = $storage->GetRealFieldName(
-                    $data->value ?? 'id'
-                ) . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
-            } else {
-                $filter = $storage->GetRealFieldName(
-                    $data->value ?? 'id'
-                ) . ' in (\'' . implode('\', \'', array_map(function ($v) {
-                    return is_object($v) ? $v->value : $v;
-                }, (array) $value)) . '\')';
-            }
-            $symbol = $storage->accessPoint->symbol;
-            /** @var IDataReader */
-            $reader = $accessPoint->Query(
-                'select * from ' . $symbol . $storage->table . $symbol . ($filter && $filter != '' ? ' where ' . $filter : ''),
-                [
-                    'type' => DataAccessPoint::QueryTypeBigData,
-                    'page' => 1,
-                    'pagesize' => is_array($value) ? count($value) : 1
-                ]
-            );
-            if (($reader instanceof QueryInfo || $reader instanceof ICommandResult) || $reader->Count() == 0) {
-                return null;
-            }
-            $table = new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
-            if ($table->Count() === 1 && !$isMultiple) {
-                $v = $table->First();
-                if (isset($data->value)) {
-                    $v->value = $v->{$data->value};
+            if($accessPoint->dbms == DataAccessPoint::DBMSTypeRelational) {
+                
+                if (is_null($value)) {
+                    $filter = $storage->GetRealFieldName(
+                        $data->value ?? 'id'
+                    ) . ' is null';
+                } elseif (!is_array($value)) {
+                    $filter = $storage->GetRealFieldName(
+                        $data->value ?? 'id'
+                    ) . '=\'' . (is_object($value) ? $value->value : $value) . '\'';
+                } else {
+                    $filter = $storage->GetRealFieldName(
+                        $data->value ?? 'id'
+                    ) . ' in (\'' . implode('\', \'', array_map(function ($v) {
+                        return is_object($v) ? $v->value : $v;
+                    }, (array) $value)) . '\')';
                 }
-                if (isset($v->title)) {
-                    $v->title = $v->{$data->title};
+                
+                $symbol = $accessPoint->symbol;
+                /** @var IDataReader */
+                $reader = $accessPoint->Query(
+                    'select * from ' . $symbol . $storage->table . $symbol . ($filter && $filter != '' ? ' where ' . $filter : ''),
+                    [
+                        'type' => DataAccessPoint::QueryTypeBigData,
+                        'page' => 1,
+                        'pagesize' => is_array($value) ? count($value) : 1
+                    ]
+                );
+                if (($reader instanceof QueryInfo || $reader instanceof ICommandResult) || $reader->Count() == 0) {
+                    return null;
                 }
-                return $v;
-            } else {
-                $ret = [];
-                foreach ($table as $v) {
+                $table = new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
+                if ($table->Count() === 1 && !$isMultiple) {
+                    $v = $table->First();
                     if (isset($data->value)) {
                         $v->value = $v->{$data->value};
                     }
                     if (isset($data->title)) {
                         $v->title = $v->{$data->title};
                     }
-                    $ret[] = $v;
+                    return $v;
+                } else {
+                    $ret = [];
+                    foreach ($table as $v) {
+                        if (isset($data->value)) {
+                            $v->value = $v->{$data->value};
+                        }
+                        if (isset($data->title)) {
+                            $v->title = $v->{$data->title};
+                        }
+                        $ret[] = $v;
+                    }
+                    return $ret;
                 }
-                return $ret;
+            } else if($accessPoint->dbms == DataAccessPoint::DBMSTypeNoSql) {
+
+                $filter = [];
+                if (is_null($value) || (is_array($value) && empty($value))) {
+                    $filter[$storage->GetRealFieldName($data->value ?? 'id')] = [null, null];
+                } elseif (!is_array($value)) {
+                    $filter[$storage->GetRealFieldName($data->value ?? 'id')] = is_object($value) ? $value->value : $value;
+                } else {
+                    $filter[$storage->GetRealFieldName($data->value ?? 'id')] = array_map(function ($v) {
+                        return is_object($v) ? $v->value : $v;
+                    }, (array) $value);
+                }
+                $table = $tableClass::LoadBy(-1, 0, '', $filter, $storage->GetRealFieldName($data->value ?? 'id'), 'asc', false);
+                if(!$table) {
+                    return null;
+                }
+
+                if ($table->Count() === 1 && !$isMultiple) {
+                    $v = $table->First();
+                    if (isset($data->value)) {
+                        $v->value = $v->{$data->value};
+                    }
+                    if (isset($data->title)) {
+                        $v->title = $v->{$data->title};
+                    }
+                    return $v;
+                } else {
+                    $ret = [];
+                    foreach ($table as $v) {
+                        if (isset($data->value)) {
+                            $v->value = $v->{$data->value};
+                        }
+                        if (isset($data->title)) {
+                            $v->title = $v->{$data->title};
+                        }
+                        $ret[] = $v;
+                    }
+                    return $ret;
+                }
+
+
             }
         } elseif ($this->accesspoint) {
             $data = (object) $this->accesspoint;
