@@ -341,6 +341,10 @@ class VariableHelper
     public static function ToPlane(array|object $var, string $prefix = ''): array
     {
         $ret = [];
+        if(empty($var) && !!$prefix) {
+            $ret[$prefix] = [];
+            return $ret;
+        }
         foreach($var as $key => $value) {
             $k = $prefix ? (is_string($key) ? '.' . $key : '[' . $key . ']') : $key;
             if((is_array($value) || is_object($value))) {

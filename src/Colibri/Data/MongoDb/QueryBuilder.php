@@ -126,7 +126,11 @@ class QueryBuilder
                 }
             } else {
                 if(is_array($value)) {
-                    $filters[$fieldName] = ['$in' => $value];
+                    if(empty($value)) {
+                        $filters[$fieldName] = ['$size' => 0];
+                    } else {
+                        $filters[$fieldName] = ['$in' => $value];
+                    }
                 } else {
                     $filters[$fieldName] = ['$regex' => $value, '$options' => 'i'];
                 }
@@ -166,8 +170,8 @@ class QueryBuilder
                 } else {
                     $fieldValues['$set'][$key] = $value;
                 }
-
             }
+            $fieldValues['$set']['datemodified'] = $data['datemodified'] ?? DateHelper::ToDBString();
             return $fieldValues;
         } elseif ($mutationType === self::MutationDelete) {
             return $data;

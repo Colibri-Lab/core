@@ -266,12 +266,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param DataRow $row The DataRow object to be deleted.
      * @return QueryInfo A QueryInfo object containing information about the executed delete query.
      */
-    public function DeleteRow(DataRow $row, $idField = 'id'): QueryInfo
+    public function DeleteRow(DataRow $row, $idField = 'id'): ICommandResult|QueryInfo
     {
         if (!$row->$idField) {
             throw new DataModelException('table does not have and autoincrement and can not be saved in standart mode');
         }
-        return $this->_point->ExecuteCommand('DeleteDocument', $this->_table, ['id' => $row->$idField]);
+        return $this->_point->ExecuteCommand('DeleteDocuments', $this->_table, ['id' => $row->$idField]);
     }
 
     /**
