@@ -244,8 +244,10 @@ final class Command extends SqlCommand
             if ($type == 'json') {
                 $default = $default ? '(' . $default . ')' : null;
                 $required = false;
+                $length = null;
             } elseif (strstr($type, 'enum') !== false) {
                 $default = $default ? "'" . $default . "'" : null;
+                $length = null;
             } elseif (strstr($type, 'char') !== false) {
                 $default = $default ? "'" . $default . "'" : null;
             }
@@ -297,7 +299,7 @@ final class Command extends SqlCommand
 
             }
 
-        } catch(\Throwable $e) {
+        } catch(Throwable $e) {
             $logger->error($table . ' does not exists');
         }
 
