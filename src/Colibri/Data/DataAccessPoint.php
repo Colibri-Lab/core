@@ -118,6 +118,11 @@ use DateTime;
  */
 class DataAccessPoint
 {
+    /**
+     * Indicates whether the connection is established.
+     */
+    private bool $_connected = false;
+
     /** Type of DBMS is relational */
     public const DBMSTypeRelational = 'relational';
 
@@ -166,7 +171,8 @@ class DataAccessPoint
         $connectionClassObject = $this->_accessPointData->driver->connection;
 
         $this->_connection = $connectionClassObject::FromConnectionInfo($this->_accessPointData);
-        $this->_connection->Open();
+        $this->_connected = false;
+        // $this->_connection->Open();
 
     }
 
@@ -234,6 +240,10 @@ class DataAccessPoint
 
     public function ExecuteCommand(string $command, ...$arguments): mixed
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         $configClassObject = $this->_accessPointData->driver->config;
         $commandClassObject = $this->_accessPointData->driver->command;
         if($configClassObject::DbmsType() === self::DBMSTypeRelational) {
@@ -251,6 +261,10 @@ class DataAccessPoint
 
     public function __call(string $name, array $arguments): mixed
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         if(method_exists($this, $name)) {
             return $this->$name(...$arguments);
         }
@@ -280,6 +294,11 @@ class DataAccessPoint
      */
     public function Query($query, $commandParams = []): IDataReader|QueryInfo
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
+
         // Превращаем параметры в обьект
         $commandParams = (object) $commandParams;
 
@@ -350,6 +369,11 @@ class DataAccessPoint
 
     public function CreateQuery(string $method, array $attributes)
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
+
         $querybuilderClassObject = $this->_accessPointData->driver->querybuilder;
         $queryBuilder = new $querybuilderClassObject($this->_connection);
         return $queryBuilder->$method(...$attributes);
@@ -359,12 +383,14 @@ class DataAccessPoint
      * Get status.
      *
      * @param string $table The name of the table.
-     * @param array $row The row to be inserted.
-     * @param string $returning The name of the field whose value needs to be returned. (For MySQL, this can be omitted, and the value of the identity field will be returned.)
      * @return IDataReader|QueryInfo
      */
     public function Status(string $table): IDataReader|QueryInfo
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         return $this->Query($this->CreateQuery('CreateShowStatus', [$table]));
     }
 
@@ -378,6 +404,10 @@ class DataAccessPoint
      */
     public function Insert(string $table, array $row = [], string $returning = '', ?array $params = null): QueryInfo
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         $queryParams = ['type' => self::QueryTypeNonInfo, 'returning' => $returning];
         if (!is_null($params)) {
             $queryParams['params'] = $params;
@@ -402,6 +432,10 @@ class DataAccessPoint
         array $exceptFields = [],
         string $returning = '' /* used only in postgres*/
     ): QueryInfo {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         return $this->Query($this->CreateQuery('CreateInsertOrUpdate', [
             $table,
             $row,
@@ -418,6 +452,10 @@ class DataAccessPoint
      */
     public function InsertBatch(string $table, array $rows = []): QueryInfo
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         return $this->Query($this->CreateQuery('CreateBatchInsert', [$table, $rows]), ['type' => self::QueryTypeNonInfo]);
     }
 
@@ -431,6 +469,10 @@ class DataAccessPoint
      */
     public function Update(string $table, array $row, string $condition, ?array $params = null): QueryInfo
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         $queryParams = ['type' => self::QueryTypeNonInfo];
         if (!is_null($params)) {
             $queryParams['params'] = $params;
@@ -447,6 +489,10 @@ class DataAccessPoint
      */
     public function Delete(string $table, string $condition = ''): QueryInfo
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         return $this->Query($this->CreateQuery('CreateDelete', [$table, $condition]), ['type' => self::QueryTypeNonInfo]);
     }
 
@@ -457,6 +503,10 @@ class DataAccessPoint
      */
     public function Tables(?string $table = null): IDataReader|QueryInfo
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         return $this->Query($this->CreateQuery('CreateShowTables', [$table]), ['type' => self::QueryTypeReader]);
     }
 
@@ -467,6 +517,10 @@ class DataAccessPoint
      */
     public function Fields(string $table, ?string $database = null): array
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         $fields = [];
         $return = $this->Query($this->CreateQuery('CreateShowField', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
         while($field = $return->Read()) {
@@ -484,6 +538,10 @@ class DataAccessPoint
      */
     public function Indexes(string $table, ?string $database = null): array
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         $return = $this->Query($this->CreateQuery('CreateShowIndexes', [$table, $database ?: $this->point->database]), ['type' => self::QueryTypeReader]);
         $indices = [];
         while ($index = $return->Read()) {
@@ -507,6 +565,10 @@ class DataAccessPoint
      */
     public function Begin(?string $type = null): ?QueryInfo
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         if($this->dbms === self::DBMSTypeRelational) {
             return $this->Query($this->CreateQuery('CreateBegin', [$type]), ['type' => DataAccessPoint::QueryTypeNonInfo]);
         }
@@ -519,6 +581,10 @@ class DataAccessPoint
      */
     public function Commit(): ?QueryInfo
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         if($this->dbms === self::DBMSTypeRelational) {
             return $this->Query($this->CreateQuery('CreateCommit', []), ['type' => DataAccessPoint::QueryTypeNonInfo]);
         }
@@ -531,6 +597,10 @@ class DataAccessPoint
      */
     public function Rollback(): ?QueryInfo
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         if($this->dbms === self::DBMSTypeRelational) {
             return $this->Query($this->CreateQuery('CreateRollback', []), ['type' => DataAccessPoint::QueryTypeNonInfo]);
         }
@@ -539,27 +609,47 @@ class DataAccessPoint
 
     public function ForQuery(string $field, string $table): string
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         return $this->CreateQuery('CreateFieldForQuery', [$field, $table]);
     }
 
 
     public function SoftDeleteCheck(string $field, string $table): string
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         return $this->CreateQuery('CreateSoftDeleteQuery', [$field, $table]);
     }
 
     public function ProcessFilters(Storage $storage, string $fullTextSearchTerms, array $filters, string $sortField, string $sortOrder, bool $useAsManageFilter = true): array
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         return $this->CreateQuery('ProcessFilters', [$storage, $fullTextSearchTerms, $filters, $sortField, $sortOrder, $useAsManageFilter]);
     }
 
     public function ProcessMutationData(mixed $row, string $mutationType): array
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         return $this->CreateQuery('ProcessMutationData', [$row, $mutationType]);
     }
 
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {
+        if(!$this->_connected) {
+            $this->_connection->Open();
+            $this->_connected = true;
+        }
         $this->ExecuteCommand('Migrate', $logger, $storage, $xstorage);
     }
 
