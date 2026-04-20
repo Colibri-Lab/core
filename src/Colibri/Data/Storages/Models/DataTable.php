@@ -450,10 +450,11 @@ class DataTable extends BaseDataTable
             $r['datedeleted'] = (string)$row->{'datedeleted'};
             foreach ($this->_storage->fields as $field) {
                 if(is_object($row->{$field->name}) && method_exists($row->{$field->name}, 'ToString')) {
-                    $r[$field->name] = (string)$row->{$field->name}->ToString();
+                    $r[$field->name] = preg_replace('/[^\x09\x0A\x0D\x20-\x{10FFFF}]/u', '', (string)$row->{$field->name}->ToString());
                 } else {
-                    $r[$field->name] = (string)$row->{$field->name};
+                    $r[$field->name] = preg_replace('/[^\x09\x0A\x0D\x20-\x{10FFFF}]/u', '', (string)$row->{$field->name});
                 }
+
             }
             $stream->Append(XmlNode::LoadNode(XmlHelper::Encode($r, 'row')));
         }
