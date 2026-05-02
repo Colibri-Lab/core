@@ -112,6 +112,8 @@ class FileStream extends Stream
     {
         if ($property == 'stream') {
             return $this->_stream;
+        } else if($property === 'length') {
+            return $this->_length;
         }
         return null;
     }

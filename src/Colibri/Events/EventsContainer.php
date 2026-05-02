@@ -216,4 +216,16 @@ class EventsContainer
 
     #endregion
 
+    #region Progress
+
+    /**
+     * When some progress is indicated
+     * Parameters: string $process, int $progress, mixed $data
+     * The result is not used.
+     */
+    public const Progress = 'progress';
+
+
+    #endregion
+
 }

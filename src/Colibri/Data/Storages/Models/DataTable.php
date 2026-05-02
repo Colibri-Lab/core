@@ -29,6 +29,9 @@ use Colibri\Utils\ExtendedObject;
 use Colibri\Data\Models\DataModelException;
 use Colibri\Data\NoSqlClient\ICommandResult;
 use Colibri\Data\SqlClient\QueryInfo;
+use Colibri\Events\Event;
+use Colibri\Events\EventDispatcher;
+use Colibri\Events\EventsContainer;
 
 /**
  * Таблица, представление данных в хранилище
@@ -384,6 +387,8 @@ class DataTable extends BaseDataTable
             File::Delete($file);
         }
 
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportCSV', 'progress' => 0, 'data' => 'Starting']);
+        
         $langModule = App::$moduleManager->{'lang'};
 
         $stream = File::Create($file);
@@ -404,7 +409,10 @@ class DataTable extends BaseDataTable
         }
         fputcsv($stream->stream, $header, ';');
 
-        foreach ($this->getIterator() as $row) {
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportCSV', 'progress' => 0, 'data' => 'Header exported']);
+
+        $maxitems = $this->Count();
+        foreach ($this->getIterator() as $index => $row) {
             $ar = (array) $row->Original();
             $r = [];
             foreach ($this->_storage->fields as $field) {
@@ -412,9 +420,14 @@ class DataTable extends BaseDataTable
                 $r[] = $val ? Encoding::Convert($val, Encoding::CP1251, Encoding::UTF8) : null;
             }
             fputcsv($stream->stream, $r, ';');
+            EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportCSV', 'progress' => ($index + 1) / $maxitems * 100, 'data' => 'Row exported']);
         }
 
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportCSV', 'progress' => 100, 'data' => 'Completed']);
+
         $stream->close();
+
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportCSV', 'progress' => 100, 'data' => 'File saved']);
     }
 
     /**
@@ -427,6 +440,8 @@ class DataTable extends BaseDataTable
         if (File::Exists($file)) {
             File::Delete($file);
         }
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportXML', 'progress' => 0, 'data' => 'Starting']);
+        
         $langModule = App::$moduleManager->{'lang'};
 
         $stream = XmlNode::LoadNode('<table></table>', 'utf-8');
@@ -443,7 +458,10 @@ class DataTable extends BaseDataTable
         }
         $stream->Append(XmlNode::LoadNode(XmlHelper::Encode($header, 'row')));
 
-        foreach ($this->getIterator() as $row) {
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportXML', 'progress' => 0, 'data' => 'Header exported']);
+
+        $maxitems = $this->Count();
+        foreach ($this->getIterator() as $index => $row) {
             $r = [];
             $r['datecreated'] = (string)$row->{'datecreated'};
             $r['datemodified'] = (string)$row->{'datemodified'};
@@ -457,9 +475,14 @@ class DataTable extends BaseDataTable
 
             }
             $stream->Append(XmlNode::LoadNode(XmlHelper::Encode($r, 'row')));
+            EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportXML', 'progress' => ($index + 1) / $maxitems * 100, 'data' => 'Row exported']);
         }
 
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportXML', 'progress' => 100, 'data' => 'Completed']);
+
         $stream->Save($file);
+
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportXML', 'progress' => 100, 'data' => 'File saved']);
     }
 
     /**
@@ -474,14 +497,22 @@ class DataTable extends BaseDataTable
             File::Delete($file);
         }
 
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportJson', 'progress' => 0, 'data' => 'Starting']);
+
         File::Create($file, true);
         File::Append($file, '[' . "\n");
 
-        foreach ($this as $row) {
+        $maxitems = $this->Count();
+        foreach ($this as $index => $row) {
             File::Append($file, $row->ToJSON() . ", \n");
+            EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportJson', 'progress' => ($index + 1) / $maxitems * 100, 'data' => 'Row exported']);
         }
-
+        
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportJson', 'progress' => 100, 'data' => 'Completed']);
+        
         File::Append($file, ']');
+        
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ExportJson', 'progress' => 100, 'data' => 'File saved']);
 
     }
 
@@ -539,14 +570,27 @@ class DataTable extends BaseDataTable
     public function ImportCSV(string $file, int $firstrow = 1, ?Logger $logger = null): bool
     {
         $stream = File::Open($file);
+        $maxBytes = $stream->length;
 
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ImportCSV', 'progress' => 0, 'data' => 'Starting']);
+
+        $pos_before = ftell($stream->streamp);
         $header = fgetcsv($stream->stream, 0, ';');
+        $pos_after = ftell($stream->stream);
+
+        $readedLength = $pos_after - $pos_before;        
+
         $this->Load('select * from ' . $this->_storage->name . ' where false');
         $hasErrors = false;
+
+        $pos_before = ftell($stream->streamp);
         while ($row = fgetcsv($stream->stream, 0, ';')) {
             if ($firstrow-- > 1) {
                 continue;
             }
+
+            $pos_after = ftell($stream->stream);
+            $readedLength = $pos_after - $pos_before;        
 
             $datarow = $this->CreateEmptyRow();
             foreach ($row as $index => $v) {
@@ -560,7 +604,14 @@ class DataTable extends BaseDataTable
                 }
             }
 
+            EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ImportCSV', 'progress' => $readedLength / $maxBytes * 100, 'data' => 'Row imported']);
+
+            $pos_before = ftell($stream->streamp);
+
         }
+
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ImportCSV', 'progress' => 100, 'data' => 'Completed']);
+
         return $hasErrors;
     }
 
@@ -573,10 +624,13 @@ class DataTable extends BaseDataTable
     public function ImportXML(string $file, int $firstrow = 1, ?Logger $logger = null): bool
     {
         $xml = XmlNode::Load($file, true);
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ImportXML', 'progress' => 0, 'data' => 'Starting']);
+
         $rows = $xml->Query('//row');
         $this->Load('select * from ' . $this->_storage->table . ' where false');
         $hasErrors = false;
-        foreach ($rows as $row) {
+        $maxitems = $rows->Count();
+        foreach ($rows as $index => $row) {
             if ($firstrow-- > 1) {
                 continue;
             }
@@ -592,7 +646,13 @@ class DataTable extends BaseDataTable
                     $logger->emergency(Debug::ROut($res));
                 }
             }
+
+            EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ImportXML', 'progress' => ($index + 1) / $maxitems * 100, 'data' => 'Row imported']);
+
         }
+
+        EventDispatcher::Instance()->Dispatch(new Event($this, EventsContainer::Progress), ['process' => 'ImportXML', 'progress' => 100, 'data' => 'Completed']);
+
         return $hasErrors;
     }
 
