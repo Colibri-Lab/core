@@ -418,7 +418,10 @@ class DataTable extends BaseDataTable
             foreach ($this->_storage->fields as $field) {
                 $val = $ar[$this->_storage->GetRealFieldName($field->name)];
                 if($field?->params['transformer']) {
-                    $f = eval($field?->params['transformer']);
+                    $f = function($field, $value) { 
+                        return $value; 
+                    };
+                    eval('$f = ' . $field?->params['transformer'] . ';');
                     $val = $f($field, $val);
                 }
                 $r[] = $val ? Encoding::Convert($val, Encoding::CP1251, Encoding::UTF8) : null;
@@ -471,11 +474,14 @@ class DataTable extends BaseDataTable
             $r['datemodified'] = (string)$row->{'datemodified'};
             $r['datedeleted'] = (string)$row->{'datedeleted'};
             foreach ($this->_storage->fields as $field) {
+                $fieldValue = $row->{$field->name};
                 if($field?->params['transformer']) {
-                    $f = eval($field?->params['transformer']);
+                    $f = function($field, $value) { 
+                        return $value; 
+                    };
+                    eval('$f = ' . $field?->params['transformer'] . ';');
                     $fieldValue = $f($field, $fieldValue);
                 }
-                $fieldValue = $row->{$field->name};
                 if($fieldValue instanceof \UnitEnum) {
                     $fieldValue = $fieldValue->{'value'};
                 }
