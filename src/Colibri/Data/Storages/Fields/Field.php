@@ -310,7 +310,7 @@ class Field
                     foreach($value as $k => $v) {
                         if($k === 'addlink' && $this->_isEmptyLang($v)) {
                             unset($value[$k]);
-                        } elseif (in_array($k, ['valuegenerator', 'onchangehandler','size','allow', 'title','displayed_columns','maxadd','generator','noteClass','simplearraywidth','simplearrayheight','fieldgenerator','mask','viewer','greed'])) {
+                        } elseif (in_array($k, ['valuegenerator', 'onchangehandler','size','allow', 'title','displayed_columns','maxadd','generator','transformer','noteClass','simplearraywidth','simplearrayheight','fieldgenerator','mask','viewer','greed'])) {
                             if(empty($v)) {
                                 unset($value[$k]);
                             }

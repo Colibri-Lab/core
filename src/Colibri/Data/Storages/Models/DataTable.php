@@ -417,6 +417,10 @@ class DataTable extends BaseDataTable
             $r = [];
             foreach ($this->_storage->fields as $field) {
                 $val = $ar[$this->_storage->GetRealFieldName($field->name)];
+                if($field?->params['transformer']) {
+                    $f = eval($field?->params['transformer']);
+                    $val = $f($field, $val);
+                }
                 $r[] = $val ? Encoding::Convert($val, Encoding::CP1251, Encoding::UTF8) : null;
             }
             fputcsv($stream->stream, $r, ';');
@@ -467,10 +471,18 @@ class DataTable extends BaseDataTable
             $r['datemodified'] = (string)$row->{'datemodified'};
             $r['datedeleted'] = (string)$row->{'datedeleted'};
             foreach ($this->_storage->fields as $field) {
+                if($field?->params['transformer']) {
+                    $f = eval($field?->params['transformer']);
+                    $fieldValue = $f($field, $fieldValue);
+                }
+                $fieldValue = $row->{$field->name};
+                if($fieldValue instanceof \UnitEnum) {
+                    $fieldValue = $fieldValue->{'value'};
+                }
                 if(is_object($row->{$field->name}) && method_exists($row->{$field->name}, 'ToString')) {
-                    $r[$field->name] = preg_replace('/[^\x09\x0A\x0D\x20-\x{10FFFF}]/u', '', (string)$row->{$field->name}->ToString());
+                    $r[$field->name] = preg_replace('/[^\x09\x0A\x0D\x20-\x{10FFFF}]/u', '', (string)$fieldValue->ToString());
                 } else {
-                    $r[$field->name] = preg_replace('/[^\x09\x0A\x0D\x20-\x{10FFFF}]/u', '', (string)$row->{$field->name});
+                    $r[$field->name] = preg_replace('/[^\x09\x0A\x0D\x20-\x{10FFFF}]/u', '', (string)$fieldValue);
                 }
 
             }
