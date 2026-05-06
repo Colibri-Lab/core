@@ -265,9 +265,9 @@ class QueryBuilder implements IQueryBuilder
     {
         return 'SELECT 
             event_object_table AS table_name,
-            trigger_name,
+            TRIGGER_NAME AS trigger_name,
             event_manipulation AS event_type,
-            action_timing AS when_to_fire,
+            action_timing AS trigger_timing,
             action_statement AS definition
         FROM information_schema.triggers
         WHERE event_object_table = \''.$table.'\' AND trigger_schema = \''.$database.'\'';

@@ -299,6 +299,12 @@ final class Command extends SqlCommand
 
             }
 
+            $triggersReader = $CreateReader($queryBuilder->CreateShowTriggers($table, $this->_connection->database), $this->_connection);
+            $triggers = [];
+            while ($trigger = $triggersReader->Read()) {
+                $triggers[$trigger->trigger_name] = $trigger;
+            }
+
         } catch(Throwable $e) {
             $logger->error($table . ' does not exists');
         }
@@ -533,6 +539,80 @@ final class Command extends SqlCommand
 
                 }
             }
+        }
+
+        $createTrigger = function ($Exec, $connection, $triggerName, $prefix, $table, $type, $code, $xtrigger) {
+            $Exec('
+                DROP TRIGGER IF EXISTS '.$triggerName.'
+            ', $connection);
+            return $Exec('
+                CREATE TRIGGER '.$triggerName.'
+                '.$type.' ON '.$table.'
+                FOR EACH ROW
+                '.$code.'
+            ', $connection);
+        };
+
+        $dropTrigger = function ($Exec, $connection, $triggerName, $table) {
+            return $Exec('DROP TRIGGER IF EXISTS '.$triggerName.'', $connection);
+        };
+
+        $xtriggers = isset($xstorage['triggers']) ? $xstorage['triggers'] : [];
+        $logger->error($storage . ': Creating triggers');
+        foreach ($xtriggers as $triggerName => $xtrigger) {
+            if (!isset($triggers[$triggerName])) {
+                $logger->error($storage . ': ' . $triggerName . ': Trigger not found: creating');
+
+                $type = isset($xtrigger['type']) ? $xtrigger['type'] : 'BEFORE INSERT OR UPDATE';
+                $code = isset($xtrigger['code']) ? $xtrigger['code'] : '';
+
+                $res = $createTrigger($Exec, $this->_connection, $triggerName, $prefix, $storage, $type, $code, $xtrigger);
+                if ($res->error && strstr($res->error, 'already exists') !== false) {
+                    $res = $dropTrigger($Exec, $this->_connection, $triggerName, $table);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not delete trigger: ' . $res->query);
+                        throw new Exception('Can not delete trigger: ' . $res->query);
+                    }
+
+                    $res = $createTrigger($Exec, $this->_connection, $triggerName, $prefix, $storage, $type, $code, $xtrigger);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not create trigger: ' . $res->query);
+                        throw new Exception('Can not create trigger: ' . $res->query);
+                    }
+                }
+
+                if ($res->error) {
+                    $logger->error($table . ': Can not create trigger: ' . $res->query);
+                    throw new Exception('Can not create trigger: ' . $res->query);
+                }
+            } else {
+                $otrigger = $triggers[$triggerName];
+                
+                $xtype = isset($xtrigger['type']) ? $xtrigger['type'] : 'BEFORE INSERT OR UPDATE';
+                $xcode = isset($xtrigger['code']) ? $xtrigger['code'] : '';
+
+                $otype = $otrigger->trigger_timing . ' ' . $otrigger->event_type;
+                $ocode = trim($otrigger->definition);
+
+                if ($xtype != $otype || $xcode != $ocode) {
+                    $logger->error($storage . ': ' . $indexName . ': Trigger changed: updating');
+
+                    $res = $dropTrigger($Exec, $this->_connection, $triggerName, $table);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not delete trigger: ' . $res->query);
+                        throw new Exception('Can not delete trigger: ' . $res->query);
+                    }
+
+                    $res = $createTrigger($Exec, $this->_connection, $triggerName, $prefix, $storage, $xtype, $xcode, $xtrigger);
+                    if ($res->error) {
+                        $logger->error($table . ': Can not create trigger: ' . $res->query);
+                        throw new Exception('Can not create trigger: ' . $res->query);
+                    }
+
+                }
+            }
+            
+
         }
     }
 
