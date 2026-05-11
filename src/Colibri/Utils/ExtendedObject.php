@@ -296,8 +296,15 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @return object An object containing the original data provided during initialization.
      */
-    public function Original(): object
+    public function Original(bool $noPrefix = false): object
     {
+        if ($noPrefix) {
+            $original = [];
+            foreach ($this->_original as $key => $value) {
+                $original[substr($key, strlen($this->_prefix))] = $value;
+            }
+            return (object) $original;
+        }
         return (object) $this->_original;
     }
 
