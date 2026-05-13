@@ -234,14 +234,39 @@ class StringHelper
      *
      * @return string The converted variable name.
      */
-    public static function FromCamelCaseVar(string $str): string
+    public static function FromCamelCaseVar(string $str, bool $detectAbb = false): string
     {
         if (!is_string($str)) {
             return false;
         }
-        return trim(preg_replace_callback('/([A-Z])/', function ($c) {
-            return '_' . StringHelper::ToLower($c[1]);
-        }, $str), '_');
+        if(!$detectAbb) {
+            return trim(preg_replace_callback('/([A-Z])/', function ($c) {
+                return '_' . StringHelper::ToLower($c[1]);
+            }, $str), '_');
+        } else {
+
+            if (!is_string($str)) {
+                return false;
+            }
+
+            $str = preg_replace(
+                '/([a-z0-9])([A-Z])/',
+                '$1_$2',
+                $str
+            );
+
+            $str = preg_replace(
+                '/([A-Z]+)([A-Z][a-z])/',
+                '$1_$2',
+                $str
+            );
+
+            return trim(
+                StringHelper::ToLower($str),
+                '_'
+            );
+
+        }
     }
 
     /**
