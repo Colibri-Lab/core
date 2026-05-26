@@ -52,6 +52,12 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
     public function __construct()
     {
 
+    }
+
+    public function Initialize(): void
+    {
+        $this->_accessPoints = (object)[];
+
         $this->_accessPointsPool = [];
         try {
             $this->_accessPoints = App::$config->Query('databases.access-points', (object)[])->AsObject();
@@ -78,10 +84,10 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
             /** @var \Colibri\Utils\Config\Config $moduleConfig */
             try {
 
-                $keysArray = $moduleConfig->Query('for', [])->ToArray();
-                if(!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
-                    continue;
-                }
+                // $keysArray = $moduleConfig->Query('for', [])->ToArray();
+                // if(!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
+                //     continue;
+                // }
 
                 $databasesConfig = $moduleConfig->Query('config.databases.access-points')->AsObject();
                 $points = $databasesConfig->points ?? [];
@@ -96,7 +102,6 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
         }
 
         $this->_accessPoints = VariableHelper::ArrayToObject($this->_accessPoints);
-
     }
 
 

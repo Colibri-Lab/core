@@ -93,9 +93,13 @@ final class Command extends SqlCommand
         $preparedQuery = $this->PrepareQueryString();
         $preparedQuery = $this->_prepareStatement($preparedQuery);
         // выполняем запрос
-        $res = pg_query($this->connection->resource, $preparedQuery);
-        if (!($res instanceof Result)) {
-            throw new PgSqlException(pg_last_error($this->_connection->resource) . ' query: ' . $preparedQuery);
+        try {
+            $res = @pg_query($this->connection->resource, $preparedQuery);
+            if (!($res instanceof Result)) {
+                throw new PgSqlException(pg_last_error($this->_connection->resource) . ' query: ' . $preparedQuery);
+            }
+        } catch(\Throwable $e) {
+            throw new PgSqlException($e->getMessage() . ' query: ' . $preparedQuery, 500);
         }
 
         return new DataReader($res, $affected, $preparedQuery);

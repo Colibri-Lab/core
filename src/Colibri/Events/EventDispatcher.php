@@ -37,13 +37,17 @@ final class EventDispatcher extends Singleton
         $this->_events = new Collection();
     }
 
+    public function Clear(): void
+    {
+        $this->_events->Clear();
+    }
 
     /**
      * Disposes the object.
      */
     public function Dispose(): void
     {
-        $this->_events->Clear();
+        $this->Clear();
     }
 
     /**
@@ -137,7 +141,7 @@ final class EventDispatcher extends Singleton
      * @param bool $async Whether to dispatch asynchronously.
      * @return object|null The result of the event dispatching.
      */
-    public function Dispatch(string|Event $event, mixed $args = null, bool $async = false): ?object
+    public function Dispatch(Event $event, mixed $args = null, bool $async = false): ?object
     {
         if (!($event instanceof Event) || !$this->_events->Exists($event->name)) {
             return null;

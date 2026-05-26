@@ -32,10 +32,12 @@ class PayloadCopy implements ArrayAccess, Countable
      * Constructor.
      *
      * @param string $type The type of payload data (e.g., json, xml).
+     * @param string|null $payloadData The raw payload data as a string (optional).
      */
-    public function __construct($type)
+    public function __construct($type, string $payloadData = null)
     {
         $this->_type = $type;
+        $this->_payloadData = $payloadData;
     }
 
     /**
@@ -45,7 +47,7 @@ class PayloadCopy implements ArrayAccess, Countable
      */
     private function _loadPayload(): void
     {
-        $payload = file_get_contents('php://input');
+        $payload = $this->_payloadData ?? file_get_contents('php://input');
         if (!$payload) {
             $payload = null;
         }

@@ -68,6 +68,7 @@ class ModuleManager extends Singleton
     {
 
         try {
+            $this->_list = new Collection();
             $this->_settings = App::$config->Query('modules');
             $entities = $this->_settings->Query('entries');
             $domainKey = App::$domainKey;

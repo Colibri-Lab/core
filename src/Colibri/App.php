@@ -32,6 +32,7 @@ use Colibri\Xml\XmlNode;
 use Colibri\Utils\Config\ConfigException;
 use Colibri\Web\Router;
 use Colibri\IO\FileSystem\Directory;
+use Colibri\Web\Session;
 
 /**
  * Main application class.
@@ -49,6 +50,12 @@ final class App extends Singleton
     public const ModeTest = 'test';
     /** @var string Application mode for production */
     public const ModeRelease = 'prod';
+
+    /**
+     * Session object
+     * @var Session|null Session object
+     */
+    public static ?Session $session = null;
 
     /** @var Request|null Request object */
     public static ?Request $request = null;
@@ -117,7 +124,7 @@ final class App extends Singleton
      *
      * @return void
      */
-    public function Initialize(): void
+    public function Initialize(?Request $request = null, ?Response $response = null, ?string $webRootPath = null, bool $forceReinitializeAll = false): void
     {
 
         // try to get system timezone
@@ -131,7 +138,7 @@ final class App extends Singleton
         date_default_timezone_set(self::$systemTimezone);
 
         // PHP CLI support block
-        if (isset($_SERVER['argv']) && !isset($_SERVER['REQUEST_METHOD'])) {
+        if (!$request && isset($_SERVER['argv']) && !isset($_SERVER['REQUEST_METHOD'])) {
 
             if (File::Exists(realpath(getcwd() . '/../config/app.yaml'))) {
                 $_SERVER['DOCUMENT_ROOT'] = realpath(getcwd() . '/');
@@ -155,7 +162,7 @@ final class App extends Singleton
         if (!self::$appRoot) {
 
             // пробуем получить DOCUMENT_ROOT
-            self::$webRoot = $_SERVER['DOCUMENT_ROOT'] . '/';
+            self::$webRoot = ($webRootPath ?? $_SERVER['DOCUMENT_ROOT']) . '/';
 
             // корень приложения должен находится на уровень выше
             self::$appRoot = realpath(self::$webRoot . '/../') . '/';
@@ -184,7 +191,7 @@ final class App extends Singleton
 
         // Define domain and domain key based on the host
         try {
-            $host = $_SERVER['HTTP_HOST'];
+            $host = $request ? $request->host : $_SERVER['HTTP_HOST'];
             $domains = self::$config->Query('hosts.domains')->AsObject();
 
             foreach ($domains as $key => $patterns) {
@@ -229,11 +236,13 @@ final class App extends Singleton
         // Create DAL
         if (!self::$dataAccessPoints) {
             self::$dataAccessPoints = DataAccessPoints::Instance();
+            self::$dataAccessPoints->Initialize();
         }
 
         // Start events
-        if (!self::$eventDispatcher) {
+        if (!self::$eventDispatcher || $forceReinitializeAll) {
             self::$eventDispatcher = EventDispatcher::Instance();
+            self::$eventDispatcher->Clear();
         }
 
         $this->DispatchEvent(EventsContainer::AppInitializing);
@@ -243,18 +252,24 @@ final class App extends Singleton
             self::$router->UpdateRequest();
         }
 
-        // Start request
-        if (!self::$request) {
+        if($request) {
+            self::$request = $request;
+        } else if (!self::$request) {
             self::$request = Request::Instance();
         }
-        // Start response
-        if (!self::$response) {
+        if ($response) {
+            self::$response = $response;
+        } else if (!self::$response) {
             self::$response = Response::Instance();
         }
 
+        if(!self::$session) {
+            $sessionTtl = self::$config->Query('session.ttl', 86400)->GetValue();
+            self::$session = new Session($sessionTtl);
+        }
 
         self::$monitoring->StartTimer('modules');
-        if (!self::$moduleManager) {
+        if (!self::$moduleManager || $forceReinitializeAll) {
             self::$moduleManager = ModuleManager::Instance();
             self::$moduleManager->Initialize();
         }
@@ -269,6 +284,13 @@ final class App extends Singleton
         self::$monitoring->EndTimer('app');
 
         $this->DispatchEvent(EventsContainer::AppReady);
+    }
+
+    public function Clone(Request $request, Response $response): App
+    {
+        $app = new App();
+        $app->Initialize($request, $response);
+        return $app;
     }
 
     /**
@@ -317,27 +339,28 @@ final class App extends Singleton
 
     public static function GenerateNewCsfrToken(): string
     {
-        session_start();
-        if(!isset($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        if(!self::$session->csrf_token) {
+            self::$session->csrf_token = bin2hex(random_bytes(32));
         }
-        session_write_close();
-        return $_SESSION['csrf_token'];
+        return self::$session->csrf_token;
     }
 
-    public static function CsfrIsCorrect(): bool
+    public static function CsfrIsCorrect($headers = null): bool
     {
-        session_start();
-        $return = self::$request->headers->{'x-csrf-token'} === $_SESSION['csrf_token'];
-        session_write_close();
+        if(!$headers) {
+            $headers = self::$request->headers;
+        }
+        $return = $headers->{'x-csrf-token'} === self::$session->csrf_token;
         return $return;
     }
 
-    public static function HasCsfrInRequest(): bool
+    public static function HasCsfrInRequest($headers = null): bool
     {
-        return is_string(self::$request->headers->{'x-csrf-token'});
+        if(!$headers) {
+            $headers = self::$request->headers;
+        }   
+        return is_string($headers->{'x-csrf-token'});
     }
 
 }
 
-App::Instance()->Initialize();

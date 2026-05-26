@@ -87,10 +87,10 @@ class Storages extends Singleton
             /** @var Config $moduleConfig */
             try {
 
-                $keysArray = $moduleConfig->Query('for', [])->ToArray();
-                if (!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
-                    continue;
-                }
+                // $keysArray = $moduleConfig->Query('for', [])->ToArray();
+                // if (!empty($keysArray) && !in_array(App::$domainKey, $keysArray)) {
+                //     continue;
+                // }
 
                 $moduleName = strtolower($moduleConfig->Query('name', '')->GetValue());
                 $tablePrefix = $moduleConfig->Query('config.databases.table-prefix', '')->GetValue();

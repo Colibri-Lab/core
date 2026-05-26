@@ -153,7 +153,7 @@ final class Response extends Singleton
     /**
      * Constructor (private to enforce singleton pattern).
      */
-    protected function __construct()
+    public function __construct()
     {
         $this->DispatchEvent(EventsContainer::ResponseReady);
     }
@@ -440,6 +440,16 @@ final class Response extends Singleton
                 }
             }
 
+            $cookies[] = (object)[
+                'name' => App::$config->Query('session.name', 'sid')->GetValue(),
+                'value' => App::$session->sid,
+                'expire' => time() + App::$session->ttl,
+                'domain' => App::$request->host,
+                'path' => '/',
+                'secure' => true,
+                'samesite' => 'None'
+            ];
+
             foreach ($cookies as $cookie) {
                 $cookie = (object) $cookie;
                 // (object)['name' => 'ss-jwt', 'value' => $session->jwt, 'expire' => time() + 365 * 86400, 'domain' => Request::$i->server->host, 'path' => '/', 'secure' => true]
@@ -485,6 +495,32 @@ final class Response extends Singleton
     }
 
     /**
+     * Complex method to return a file
+     *
+     * @param string $filename a file name
+     * @param string $filecontent file content
+     * @return void
+     */
+    public function DownloadFileToResponse(string $filename, string $filecontent, bool $isPath = false): void
+    {
+        $mime = MimeType::Create($filename);
+
+        $this->FileTransfer();
+        $this->ContentDisposition('attachment', $filename);
+        $this->ContentTransferEncoding('binary');
+        $this->ExpiresAt(0);
+        $this->CacheControl('must-revalidate');
+        if($isPath) {
+            $this->ContentType($mime->data ?: 'application/octet-stream', 'utf-8');
+            readfile($filecontent);
+        } else {
+            $this->ContentLength(strlen($filecontent));
+            $this->Close(200, $filecontent, $mime->data ?: 'application/octet-stream', 'utf-8');
+        }
+
+    }
+
+    /**
      * Echo function analogue
      *
      * @return void
@@ -519,9 +555,10 @@ final class Response extends Singleton
             "Content-Encoding: none",
             "Content-Length: 1"
         ]);
-        ignore_user_abort(true);
         echo '1';
+        ignore_user_abort(true);
         fastcgi_finish_request();
     }
+
 
 }

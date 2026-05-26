@@ -324,7 +324,7 @@ class Request
         if (!empty($this->referer)) {
             curl_setopt($handle, CURLOPT_REFERER, $this->referer);
         } else {
-            curl_setopt($handle, CURLOPT_REFERER, $_SERVER['SERVER_NAME']);
+            curl_setopt($handle, CURLOPT_REFERER, App::$request->server->server_name);
         }
         if (!empty($this->cookieFile)) {
             if (!file_exists($this->cookieFile)) {

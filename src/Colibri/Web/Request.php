@@ -12,11 +12,13 @@
 
 namespace Colibri\Web;
 
+use Colibri\App;
 use Colibri\Common\XmlHelper;
 use Colibri\Events\TEventDispatcher;
 use Colibri\Events\EventsContainer;
 use Colibri\Common\VariableHelper;
 use Colibri\Utils\Singleton;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Request Class
@@ -51,11 +53,36 @@ final class Request extends Singleton
 
     private bool $_encodedAsJson = false;
 
+    private ?ServerRequestInterface $_psrRequest = null;
+
+    private ?array $_post = null;
+    private ?array $_get = null;
+    private ?array $_files = null;
+    private ?array $_server = null;
+    private ?array $_cookie = null;
+
     /**
      * Constructor.
      */
-    protected function __construct()
+    public function __construct(?ServerRequestInterface $request = null)
     {
+        $this->_psrRequest = $request;
+        $this->_post = $this->_psrRequest ? $this->_psrRequest->getParsedBody() : $_POST;
+        $this->_get = $this->_psrRequest ? $this->_psrRequest->getQueryParams() : $_GET;
+        $this->_files = $this->_psrRequest ? $this->_psrRequest->getUploadedFiles() : $_FILES;
+        
+        $server = $this->_psrRequest ? $this->_psrRequest->getServerParams() : $_SERVER;
+        if($this->_psrRequest) {
+            $server['request_method'] = $this->_psrRequest->getMethod();
+            $server['request_uri'] = $this->_psrRequest->getUri()->getPath();
+            $server['document_uri'] = '/index.php';
+            $server['server_protocol'] = 'HTTP/2.0';
+            $server['document_root'] = App::$webRoot;
+            $server['http_host'] = $this->_psrRequest->getUri()->getHost();
+            $server['https'] = $this->_psrRequest->getUri()->getScheme() === 'https';
+        }
+        $this->_server = $server;
+        $this->_cookie = $this->_psrRequest ? $this->_psrRequest->getCookieParams() : $_COOKIE;
         $this->DispatchEvent(EventsContainer::RequestReady);
         $this->_detectJsonEncodedData();
     }
@@ -67,11 +94,11 @@ final class Request extends Singleton
      */
     private function _detectJsonEncodedData(): void
     {
-        if (isset($_POST['json_encoded_data'])) {
-            $json = $_POST['json_encoded_data'];
+        if (isset($this->_post['json_encoded_data'])) {
+            $json = $this->_post['json_encoded_data'];
             $data = json_decode(base64_decode($json), true);
-            $_POST = VariableHelper::Extend($_POST, $data);
-            unset($_POST['json_encoded_data']);
+            unset($this->_post['json_encoded_data']);
+            $this->_post = VariableHelper::Extend($this->_post, $data);
             $this->_encodedAsJson = true;
         }
     }
@@ -114,31 +141,27 @@ final class Request extends Singleton
         $return = null;
         switch ($prop) {
             case 'get': {
-                $return = new RequestCollection($_GET);
+                $return = new RequestCollection($this->_get);
                 break;
             }
             case 'post': {
-                $return = new RequestCollection($_POST, !$this->_encodedAsJson);
+                $return = new RequestCollection($this->_post, !$this->_encodedAsJson);
                 break;
             }
             case 'files': {
-                $return = new RequestFileCollection($_FILES);
+                $return = new RequestFileCollection($this->_files);
                 break;
             }
             case 'session': {
-                if (isset($_SESSION)) {
-                    $return = new RequestCollection($_SESSION);
-                } else {
-                    $return = new RequestCollection([]);
-                }
+                $return = self::$session;
                 break;
             }
             case 'server': {
-                $return = new RequestCollection($_SERVER);
+                $return = new RequestCollection($this->_server);
                 break;
             }
             case 'cookie': {
-                $return = new RequestCollection($_COOKIE);
+                $return = new RequestCollection($this->_cookie);
                 break;
             }
             case 'utm': {
@@ -180,12 +203,16 @@ final class Request extends Singleton
                 break;
             }
             case 'host': {
-                $return = $this->server->{'http_host'} ? $this->server->{'http_host'} : '';
+                if($this->_psrRequest) {
+                    $return = $this->_psrRequest->getUri()->getHost();
+                } else {
+                    $return = $this->server->{'http_host'} ? $this->server->{'http_host'} : '';
+                }
                 break;
             }
             case 'address': {
                 $proto = $this->server->{'https'} ? 'https://' : 'http://';
-                $return = $this->server->{'http_host'} ? $proto . $this->server->{'http_host'} : '';
+                $return = $proto . $this->host;
                 break;
             }
             case 'insecure': {
@@ -193,13 +220,20 @@ final class Request extends Singleton
                 break;
             }
             case 'headers': {
-                if (function_exists('apache_request_headers')) {
-                    $headers = apache_request_headers();
-                } else {
-                    $headers = [];
-                    foreach ($this->server as $key => $value) {
-                        if (strpos($key, 'http_') === 0) {
-                            $headers[substr($key, 5)] = $value;
+                if($this->_psrRequest) {
+                    $headers = $this->_psrRequest->getHeaders();
+                    foreach($headers as $k => $v) {
+                        $headers[$k] = implode(', ', $v);
+                    }
+                } else {    
+                    if (function_exists('apache_request_headers')) {
+                        $headers = apache_request_headers();
+                    } else {
+                        $headers = [];
+                        foreach ($this->server as $key => $value) {
+                            if (strpos($key, 'http_') === 0) {
+                                $headers[substr($key, 5)] = $value;
+                            }
                         }
                     }
                 }
@@ -207,7 +241,11 @@ final class Request extends Singleton
                 break;
             }
             case 'type': {
-                $return = $this->server->{'request_method'} ? $this->server->{'request_method'} : 'get';
+                if($this->_psrRequest) {
+                    $return = $this->_psrRequest->getMethod();
+                } else {    
+                    $return = $this->server->{'request_method'} ? $this->server->{'request_method'} : 'get';
+                }
                 break;
             }
             default: {
@@ -239,7 +277,7 @@ final class Request extends Singleton
 
         $requestData = [
             $_GET,
-            $_POST,
+            $this->_post,
             $_COOKIE
         ];
 

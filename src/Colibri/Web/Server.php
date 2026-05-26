@@ -24,6 +24,7 @@ use Colibri\Common\StringHelper;
 use Colibri\Common\VariableHelper;
 use Colibri\Common\NoLangHelper;
 use Colibri\Utils\Debug;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Web server
@@ -86,7 +87,7 @@ class Server
      * @param mixed $result The result to send.
      * @return void
      */
-    protected function Finish(string $type, mixed $result)
+    protected function Finish(string $type, mixed $result): void
     {
         $result = (object) $result;
         if (!isset($result->headers)) {
@@ -106,6 +107,7 @@ class Server
             (is_string($result->result) && is_string($result->message))
         ) {
             App::$response->DownloadFile($result->message, $result->result);
+            return;
         }
 
         $content = $result?->message ?? $result?->result ?? '';
@@ -119,6 +121,7 @@ class Server
             $content = $result?->message ?? [];
         }
 
+    
         App::$response->Close(
             $result->code ?: 500,
             $content,
@@ -127,6 +130,7 @@ class Server
             $result?->headers ?? [],
             $result?->cookies ?? []
         );
+
 
     }
 

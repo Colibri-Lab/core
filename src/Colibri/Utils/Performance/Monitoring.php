@@ -11,6 +11,7 @@
 
 namespace Colibri\Utils\Performance;
 
+use Colibri\App;
 use Colibri\Common\DateHelper;
 use Colibri\Common\StringHelper;
 use Colibri\Utils\Logs\Logger;
@@ -88,11 +89,11 @@ class Monitoring
      */
     private function _collectAditionalData()
     {
-        return [
-            'uri' => $_SERVER['REQUEST_URI'],
-            'file' => $_SERVER['SCRIPT_FILENAME'],
-            'time' => $_SERVER['REQUEST_TIME_FLOAT']
-        ];
+        return App::$request ? [
+            'uri' => App::$request->host,
+            'file' => App::$request->server->{'SCRIPT_FILENAME'},
+            'time' => App::$request->server->{'REQUEST_TIME_FLOAT'}
+        ] : [];
     }
 
     /**
@@ -160,12 +161,13 @@ class Monitoring
      */
     private function _message($name, $timer)
     {
-        return DateHelper::ToDbString($this->_aditionalData['time']) . '. ' .
+        $this->_collectAditionalData();
+        return DateHelper::ToDbString(($this->_aditionalData['time'] ?? time())) . '. ' .
             'Timer «' . $name . '». ' . "\t" .
             'Time: ' . DateHelper::TimeToString((int)$timer->start) . ' - ' . DateHelper::TimeToString((int)$timer->end) . '. ' . "\t" .
             'Delta: ' . $timer->interval . ' ms, ' . "\t" .
             'Мemory: ' . StringHelper::FormatFileSize((int)$timer->memoryBefore) . ' - ' . StringHelper::FormatFileSize((int)$timer->memoryAfter) . "\t" .
-            'Uri: ' . $this->_aditionalData['uri'] . '.';
+            'Uri: ' . ($this->_aditionalData['uri'] ?? '') . '.';
     }
 
 }
