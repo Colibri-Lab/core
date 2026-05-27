@@ -362,5 +362,11 @@ class Storages extends Singleton
         return $return;
     }
 
+    public function ClearCache(): void
+    {
+        $key = 'storages' . App::$domainKey . App::$request->host;
+        Mem::Delete($key);
+    }
+
 
 }
