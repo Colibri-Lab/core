@@ -31,7 +31,7 @@ class Session implements \ArrayAccess
         } else {
             $this->_sid = $requestedSessionCookie;
         }
-        $data = Mem::Read('session:' . $this->_sid);
+        $data = Mem::Read($this->_sid);
         if(!$data) {
             $this->_data = [];
         } else {
@@ -41,9 +41,9 @@ class Session implements \ArrayAccess
 
     private function _save() {
         Mem::Write(
-            (string)'session:' . $this->_sid,
+            (string)$this->_sid,
             json_encode($this->_data),
-            time() + $this->_ttl
+            $this->_ttl
         );
     }
 
