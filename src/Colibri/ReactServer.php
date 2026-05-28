@@ -40,8 +40,7 @@ use React\Socket\SocketServer;
 
 class ReactServer
 {
-
-    public  static function HandleRequest(ServerRequestInterface $psrRequest): MessageResponse
+    public static function HandleRequest(ServerRequestInterface $psrRequest): MessageResponse
     {
         $request = new Request($psrRequest);
         $response = new Response();
@@ -271,10 +270,8 @@ class ReactServer
             $result->cookies = [];
         }
 
-        $serverParams = new RequestCollection($request->getServerParams());
-
         $headers = [
-            'Access-Control-Allow-Origin' => $serverParams->{'http_origin'} ?? '*',
+            'Access-Control-Allow-Origin' =>  $request->getHeaderLine('Origin') ?? '*',
             'Access-Control-Allow-Credentials' => 'true',
             'Access-Control-Allow-Headers' => $request->getHeaderLine('access-control-request-headers') ?: '*',
             'Access-Control-Allow-Method' => $request->getHeaderLine('access-control-request-method') ?: '*'
@@ -460,7 +457,7 @@ class ReactServer
             } catch(\Throwable $e) {
                 echo "Error: " . $e->getMessage() . ' ' . $e->getTraceAsString() . "\n";
                 flush();
-                
+
                 app_debug('Error in request handler: ' . $e->getMessage());
                 app_debug($e->getTraceAsString());
                 return new MessageResponse(500, ['Content-Type' => 'text/plain'], 'Internal Server Error');
