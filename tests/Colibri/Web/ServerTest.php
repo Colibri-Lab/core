@@ -1,5 +1,6 @@
 <?php
 
+use Colibri\Web\WebUtils;
 use PHPUnit\Framework\TestCase;
 use Colibri\Web\Server;
 use Colibri\App;
@@ -10,16 +11,16 @@ class ServerTest extends TestCase
     {
         $server = new Server();
         $this->expectOutputString('{"result":[]}', 'Expected JSON output');
-        $server->Finish(Server::JSON, (object)['result' => []]);
+        $server->Finish(WebUtils::JSON, (object)['result' => []]);
     }
 
     public function testRun()
     {
-        $server = $this->getMockBuilder(Server::class)
+        $server = $this->getMockBuilder(WebUtils::class)
             ->onlyMethods(['__parseCommand', 'Finish'])
             ->getMock();
 
-        $server->method('__parseCommand')->willReturn([Server::JSON, 'SomeClass', 'someMethod', true]);
+        $server->method('__parseCommand')->willReturn([WebUtils::JSON, 'SomeClass', 'someMethod', true]);
         $server->expects($this->once())->method('Finish');
 
         App::$request = (object)[

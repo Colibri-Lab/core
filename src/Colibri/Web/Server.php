@@ -34,50 +34,11 @@ class Server
     use TEventDispatcher;
 
     /**
-    * List of errors
-    */
-    public const IncorrectCommandObject = 1;
-    public const UnknownMethodInObject = 2;
-
-    /**
-     * List of types
-     */
-    public const JSON = 'json';
-    public const XML = 'xml';
-    public const HTML = 'html';
-    public const Text = 'txt';
-    public const CSS = 'css';
-    public const JS = 'js';
-    public const Stream = 'stream';
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         // Do nothing
-    }
-
-    /**
-     * Converts data to specified charset recursively.
-     *
-     * @param mixed $data The data to convert.
-     * @param string $charset The charset to convert to.
-     * @return mixed The converted data.
-     */
-    private function _convertDataToCharset(mixed $data, string $charset): mixed
-    {
-        $data = (array) $data;
-        foreach ($data as $key => $value) {
-            if (is_object($value) || is_array($value)) {
-                $data[$key] = $this->_convertDataToCharset($value, $charset);
-            } else {
-                $data[$key] = Encoding::Convert($value, $charset);
-            }
-        }
-
-        return $data;
-
     }
 
     /**
@@ -103,7 +64,7 @@ class Server
 
         // if we responsing with file
         if (
-            $type == Server::Stream && $result?->result &&
+            $type == WebUtils::Stream && $result?->result &&
             (is_string($result->result) && is_string($result->message))
         ) {
             App::$response->DownloadFile($result->message, $result->result);
@@ -111,13 +72,13 @@ class Server
         }
 
         $content = $result?->message ?? $result?->result ?? '';
-        if ($type == Server::JSON || $type == Server::Stream) {
+        if ($type == WebUtils::JSON || $type == WebUtils::Stream) {
             $content = json_encode($result?->result ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        } elseif ($type === Server::XML) {
+        } elseif ($type === WebUtils::XML) {
             $content = XmlHelper::Encode($result?->result ?? []);
-        } elseif ($type == Server::HTML) {
+        } elseif ($type == WebUtils::HTML) {
             $content = $result?->message ?: HtmlHelper::Encode($result?->result ?? []);
-        } elseif ($type == Server::CSS) {
+        } elseif ($type == WebUtils::CSS) {
             $content = $result?->message ?? [];
         }
 
@@ -170,63 +131,6 @@ class Server
     }
 
     /**
-     * Gets the full controller class name with namespace.
-     *
-     * @param string $class The class name.
-     * @return string The full class name.
-     */
-    protected function _getControllerFullName(string $class): string
-    {
-        $class = StringHelper::UrlToNamespace($class);
-        if (strpos($class, 'Modules') === 0) {
-
-            // это модуль, значит должно быть modules/«название модуля»[/«название контроллера»]
-            $parts = explode('\\', $class);
-            if (count($parts) >= 3) {
-                array_splice($parts, 2, 0, 'Controllers');
-            } else {
-                $parts[] = 'Controllers\\';
-            }
-            $class = implode('\\', $parts);
-
-            return '\\App\\' . $class . 'Controller';
-        }
-        return '\\App\\Controllers\\' . $class . 'Controller';
-    }
-
-    /**
-     * Parses command URL to determine type, class, and method.
-     *
-     * @param string $cmd The command URL.
-     * @return array An array containing type, class, and method.
-     */
-    private function __parseCommand(string $cmd): array
-    {
-        $cmd = explode('?', $cmd);
-        $cmd = reset($cmd);
-
-        $isRequestTyped = true;
-        $method = 'index';
-        $type = Server::HTML;
-        $class = $cmd;
-        if (preg_match('/\/([^\/]+)\.([^\?]+)/', $cmd, $matches) > 0) {
-            $method = $matches[1];
-            $type = $matches[2];
-            $class = str_replace($method . '.' . $type, '', $cmd);
-        } elseif (preg_match('/\/([^\/]+)$/', $cmd, $matches) > 0) {
-            $method = $matches[1];
-            $type = Server::JSON;
-            $class = preg_replace('/' . $method . '$/', '', $cmd);
-            $isRequestTyped = false;
-        }
-
-        $class = $this->_getControllerFullName($class);
-        $method = StringHelper::ToCamelCaseAttr($method, true);
-
-        return [$type, $class, $method, $isRequestTyped];
-    }
-
-    /**
      * Runs the specified command.
      *
      * The command should be in the following format:
@@ -240,11 +144,11 @@ class Server
     {
 
         // /namespace[/namespace]/command[.type]
-        list($type, $class, $method, $isRequestTyped) = $this->__parseCommand($cmd);
+        list($type, $class, $method, $isRequestTyped) = WebUtils::ParseCommand($cmd);
 
         if (!VariableHelper::IsNull($default) && (!class_exists($class) || !method_exists($class, $method))) {
             // если не нашли чего делать то пробуем по умолчанию
-            list($type, $class, $method, $isRequestTyped) = $this->__parseCommand($default);
+            list($type, $class, $method, $isRequestTyped) = WebUtils::ParseCommand($default);
         }
 
         $requestMethod = App::$request->server->{'request_method'};
@@ -303,9 +207,9 @@ class Server
                 'message' => $message
             ]);
 
-            $this->_responseWithError($type, $message, Server::IncorrectCommandObject, $cmd, [
+            $this->_responseWithError($type, $message, WebUtils::IncorrectCommandObject, $cmd, [
                 'message' => $message,
-                'code' => Server::IncorrectCommandObject,
+                'code' => WebUtils::IncorrectCommandObject,
                 'get' => $get,
                 'post' => $post,
                 'payload' => $payload
@@ -327,11 +231,11 @@ class Server
             $this->_responseWithError(
                 $type,
                 $message,
-                Server::UnknownMethodInObject,
+                WebUtils::UnknownMethodInObject,
                 $cmd,
                 [
                     'message' => $message,
-                    'code' => Server::UnknownMethodInObject,
+                    'code' => WebUtils::UnknownMethodInObject,
                     'get' => $get,
                     'post' => $post,
                     'payload' => $payload
@@ -423,7 +327,7 @@ class Server
             ];
             $this->DispatchEvent(EventsContainer::RpcRequestProcessed, $args);
 
-            if((($result?->type ?? null) ?: $type) !== self::Stream) {
+            if((($result?->type ?? null) ?: $type) !== WebUtils::Stream) {
                 $args->result = NoLangHelper::ParseArray($args->result);
             }
 
