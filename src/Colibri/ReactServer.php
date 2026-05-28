@@ -123,9 +123,9 @@ class ReactServer
                 'message' => $message
             ]);
 
-            return self::ResponseWithError($psrRequest, $type, $message, IncorrectCommandObject, $cmd, [
+            return self::ResponseWithError($psrRequest, $type, $message, WebUtils::IncorrectCommandObject, $cmd, [
                 'message' => $message,
-                'code' => IncorrectCommandObject,
+                'code' => WebUtils::IncorrectCommandObject,
                 'get' => $get,
                 'post' => $post,
                 'payload' => $payload
@@ -426,8 +426,9 @@ class ReactServer
 
         $loop = Loop::get();
 
-        $http = new HttpServer(function (ServerRequestInterface $psrRequest) use ($webPath): MessageResponse {
+        $http = new HttpServer(function (ServerRequestInterface $psrRequest) use ($webPath): ?MessageResponse {
             try {
+                $return = null;
 
                 $microtime = microtime(true);
 
