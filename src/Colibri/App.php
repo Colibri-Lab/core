@@ -109,7 +109,11 @@ final class App extends Singleton
     public static ?Router $router = null;
 
     /** @var string System timezone */
-    public static string $systemTimezone = 'UTC';
+    public static ?string $systemTimezone = 'UTC';
+    /** @var string System locale */
+    public static ?string $systemLocale = 'en_US';
+    /** @var string System charset */
+    public static ?string $systemCharset = 'UTF-8';
 
     /**
      * Prevents instantiation of the class.
@@ -136,6 +140,15 @@ final class App extends Singleton
             self::$systemTimezone = 'UTC';
         }
         date_default_timezone_set(self::$systemTimezone);
+
+        $locale = str_replace('System Locale: LANG=', '', trim(shell_exec('localectl status | grep "System Locale"')));
+        if($locale) {
+            $locale = trim($locale, "\r\t\n ");
+            $locale = explode('.', $locale);
+            $charset = $locale[1] ?? 'UTF-8';
+            self::$systemLocale = $locale[0];
+            self::$systemCharset = $charset;
+        }
 
         // PHP CLI support block
         if (!$request && isset($_SERVER['argv']) && !isset($_SERVER['REQUEST_METHOD'])) {

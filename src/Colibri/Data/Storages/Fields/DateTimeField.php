@@ -63,7 +63,7 @@ class DateTimeField extends DateTime implements JsonSerializable
     public function format(string $format, ?string $locale = null): string
     {
 
-        $loc = ($locale ?: static::$defaultLocale);
+        $loc = ($locale ?: static::$defaultLocale ?: App::$systemLocale ?: 'en_US');
 
         if (class_exists('\IntlDateFormatter') && $loc) {
             $intlFormatter = new \IntlDateFormatter($loc, \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT);
