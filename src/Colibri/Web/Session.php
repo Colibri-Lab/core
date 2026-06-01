@@ -26,6 +26,7 @@ class Session implements \ArrayAccess
 
     private function _load() {
         $requestedSessionCookie = App::$request->cookie->{'sid'};
+        app_debug($requestedSessionCookie);
         if(!$requestedSessionCookie) {
             $this->_sid = $this->_create();
         } else {
@@ -45,6 +46,9 @@ class Session implements \ArrayAccess
             json_encode($this->_data),
             $this->_ttl
         );
+
+        app_debug(Mem::Read($this->_sid));
+
     }
 
     public function __get(string $name): mixed

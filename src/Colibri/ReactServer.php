@@ -365,8 +365,8 @@ class ReactServer
         $cookies[] = (object)[
             'name' => App::$config->Query('session.name', 'sid')->GetValue(),
             'value' => App::$session->sid,
-            'expire' => time() + 365 * 86400,
-            'domain' => App::$session->ttl,
+            'expire' => time() + App::$session->ttl,
+            'domain' => App::$request->host,
             'path' => '/',
             'secure' => true,
             'samesite' => 'None'
@@ -436,7 +436,7 @@ class ReactServer
                 $response = new Response();
                 App::Instance()->Initialize($request, $response, $webPath, true);
 
-                app_debug("New request received: " . App::$request->address . ' ' . App::$request->uri);
+                //app_debug("New request received: " . App::$request->address . ' ' . App::$request->uri);
 
                 echo "New request received: " . App::$request->address . ' ' . App::$request->uri . "\n";
                 flush();
@@ -449,7 +449,7 @@ class ReactServer
                     $return = self::HandleRequest($psrRequest);
                 }
 
-                app_debug("Response time: " . ((int)((microtime(true) - $microtime) * 1000)) . "ms");
+                //app_debug("Response time: " . ((int)((microtime(true) - $microtime) * 1000)) . "ms");
                 echo "Response time: " . ((int)((microtime(true) - $microtime) * 1000)) . "ms\n";
                 flush();
 
