@@ -425,9 +425,12 @@ class ReactServer
     {
 
         $loop = Loop::get();
+        
+        $connectionCount = 0;
 
-        $http = new HttpServer(function (ServerRequestInterface $psrRequest) use ($webPath): ?MessageResponse {
+        $http = new HttpServer(function (ServerRequestInterface $psrRequest) use ($webPath, &$connectionCount): ?MessageResponse {
             try {
+                $connectionCount ++;
                 $return = null;
 
                 $microtime = microtime(true);
@@ -442,11 +445,13 @@ class ReactServer
                 flush();
                 $waitForAnswer = (App::$server->{'http_waitforanswer'} ?? 'true') === 'true';
                 if(!$waitForAnswer) {
-                    Loop::futureTick(function () use ($psrRequest) {
+                    Loop::futureTick(function () use ($psrRequest, &$connectionCount) {
                         self::HandleRequest($psrRequest);
+                        $connectionCount--;
                     });
                 } else {
                     $return = self::HandleRequest($psrRequest);
+                    $connectionCount--;
                 }
 
                 //app_debug("Response time: " . ((int)((microtime(true) - $microtime) * 1000)) . "ms");
@@ -465,6 +470,7 @@ class ReactServer
             }
         });
 
+
         if(isset($config['secure']) && \is_array($config['secure'])) {
             $socket = new SocketServer($config['secure']['listen'], [], $loop); // listen - ip:port
             $secure = new SecureServer($socket, $loop, [
@@ -479,6 +485,41 @@ class ReactServer
         if(isset($config['nonsecure']) && \is_array($config['nonsecure'])) {
             $socket80 = new SocketServer($config['nonsecure']['listen'], [], $loop);
             $http->listen($socket80);
+        }
+
+        if(isset($config['status']) && \is_array($config['status'])) {
+            $httpStatus = new HttpServer(function (ServerRequestInterface $psrRequest) use (&$connectionCount): ?MessageResponse {
+                try {
+                    $result = [];
+                    $load = sys_getloadavg();
+                    $result['load'] = [
+                        'last_1_minute' => $load[0],
+                        'last_5_minutes' => $load[1],
+                        'last_15_minutes' => $load[2]
+                    ];
+                    $result['memory'] = [
+                        'internal' => memory_get_usage(false),
+                        'real' => memory_get_usage(true)
+                    ];
+                    $result['connections'] = $connectionCount;
+
+                    return new MessageResponse(
+                        200,
+                        ['Content-Type' => 'application/json'],
+                        json_encode($result)
+                    );
+
+                } catch(\Throwable $e) {
+                    echo "Error: " . $e->getMessage() . ' ' . $e->getTraceAsString() . "\n";
+                    flush();
+
+                    app_debug('Error in request handler: ' . $e->getMessage());
+                    app_debug($e->getTraceAsString());
+                    return new MessageResponse(500, ['Content-Type' => 'text/plain'], 'Internal Server Error');
+                }
+            });
+            $socketStatus = new SocketServer($config['status']['listen'], [], $loop);
+            $httpStatus->listen($socketStatus);
         }
 
 
