@@ -258,11 +258,15 @@ class Bundle
                     if (!isset($settings['path']) || !$settings['path']) {
                         continue;
                     }
+                    $extsToCheck = isset($settings['exts']) ? $settings['exts'] : [$ext];
+                    if( in_array('html', $extsToCheck) || in_array('js', $extsToCheck) ) {
+                        $extsToCheck[] = 'lang';
+                    }
                     $lastModified = max(
                         $lastModified,
                         self::LastModified(
                             isset($settings['name']) ? $settings['name'] : '',
-                            isset($settings['exts']) ? $settings['exts'] : [$ext],
+                            $extsToCheck,
                             $settings['path'],
                             isset($settings['exception']) ? $settings['exception'] : array(),
                             isset($settings['preg']) ? $settings['preg'] : false
