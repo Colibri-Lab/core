@@ -77,6 +77,19 @@ class ReactServer
         $get = App::$request->get;
         $post = App::$request->post;
         $payload = App::$request->GetPayloadCopy();
+        
+        if($requestMethod === 'OPTIONS') {
+            return new MessageResponse(
+                200,
+                [
+                    'Access-Control-Allow-Origin' =>  $headers->origin ?? '*',
+                    'Access-Control-Allow-Credentials' => 'true',
+                    'Access-Control-Allow-Headers' => $headers->{'access-control-request-headers'} ?? '*',
+                    'Access-Control-Allow-Method' => $headers->{'access-control-request-method'} ?? '*'
+                ],
+                ''
+            );
+        }
 
         if(App::HasCsfrInRequest($headers) && !App::CsfrIsCorrect($headers)) {
 
@@ -269,6 +282,7 @@ class ReactServer
         if (!isset($result->cookies)) {
             $result->cookies = [];
         }
+        
 
         $headers = [
             'Access-Control-Allow-Origin' =>  $request->getHeaderLine('Origin') ?? '*',
@@ -277,6 +291,7 @@ class ReactServer
             'Access-Control-Allow-Method' => $request->getHeaderLine('access-control-request-method') ?: '*'
         ];
 
+        
         $mime = new MimeType($type);
 
         // if we responsing with file
