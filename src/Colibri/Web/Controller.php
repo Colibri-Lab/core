@@ -177,6 +177,14 @@ class Controller
         };
     }
 
+    private static function _cacheName(string $method, RequestCollection $get, RequestCollection $post, PayloadCopy $payload) {
+        $md5 = md5(App::$request->host);
+        return 'controller-' .
+            str_replace('\\', '_', strtolower(static::class . '_' . $method)) . '-' .
+            md5(json_encode($get->ToArray()) . json_encode($post->ToArray()) . json_encode($payload->ToArray()) . '-' .
+            $md5);
+    }
+
     /**
      * Invokes the specified method and handles caching if enabled.
      *
@@ -189,11 +197,7 @@ class Controller
     public function Invoke(string $method, RequestCollection $get, RequestCollection $post, PayloadCopy $payload)
     {
         if($this->_cache) {
-            $md5 = md5(App::$request->host);
-            $cacheName = 'controller-' .
-                str_replace('\\', '_', strtolower(static::class . '_' . $method)) . '-' .
-                md5(json_encode($get->ToArray()) . json_encode($post->ToArray()) . json_encode($payload->ToArray()) . '-' .
-                $md5);
+            $cacheName = self::_cacheName($method, $get, $post, $payload);
             if(Mem::Exists($cacheName)) {
                 $return = Mem::Read($cacheName);
             } else {
@@ -207,6 +211,21 @@ class Controller
         }
 
         return $return;
+    }
+
+    public static function ClearCache(string $method): bool
+    {
+        $cacheSearch = 'controller-' . str_replace('\\', '_', strtolower(static::class . '_' . $method)) . '-';
+        $cacheList = Mem::List($cacheSearch);
+        if($cacheList) {
+            foreach($cacheList as $item) {
+                Mem::Delete($item);
+            }
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }

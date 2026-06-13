@@ -35,6 +35,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use React\EventLoop\Loop;
 use React\Http\HttpServer;
 use React\Http\Message\Response as MessageResponse;
+use React\Http\Middleware\LimitConcurrentRequestsMiddleware;
+use React\Http\Middleware\RequestBodyBufferMiddleware;
+use React\Http\Middleware\RequestBodyParserMiddleware;
+use React\Http\Middleware\StreamingRequestMiddleware;
 use React\Socket\SecureServer;
 use React\Socket\SocketServer;
 
@@ -442,48 +446,65 @@ class ReactServer
         $loop = Loop::get();
         
         $connectionCount = 0;
+        if(!isset($config['limits'])) {
+            $config['limits'] = [
+                'concurent_connections' => 100,
+                'body_buffer_size' => 1073741824,
+                'body_parser' => [
+                    'max_size' => 1073741824,
+                    'max_files' => 100
+                ]
+            ];
+        }
 
-        $http = new HttpServer(function (ServerRequestInterface $psrRequest) use ($webPath, &$connectionCount): ?MessageResponse {
-            try {
-                $connectionCount ++;
-                $return = null;
+        $http = new HttpServer(
+            new StreamingRequestMiddleware(),
+            new LimitConcurrentRequestsMiddleware($config['limits']['concurent_connections'] ?? 100), 
+            new RequestBodyBufferMiddleware($config['limits']['body_buffer_size'] ?? 1073741824), 
+            new RequestBodyParserMiddleware($config['limits']['body_parser']['max_size'] ?? 1073741824, $config['limits']['body_parser']['max_files'] ?? 100),
+            function (ServerRequestInterface $psrRequest) use ($webPath, &$connectionCount): ?MessageResponse {
+                try {
 
-                $microtime = microtime(true);
+                    $connectionCount ++;
+                    $return = null;
 
-                $request = new Request($psrRequest);
-                $response = new Response();
-                App::Instance()->Initialize($request, $response, $webPath, true);
+                    $microtime = microtime(true);
 
-                //app_debug("New request received: " . App::$request->address . ' ' . App::$request->uri);
+                    $request = new Request($psrRequest);
+                    $response = new Response();
+                    App::Instance()->Initialize($request, $response, $webPath, true);
 
-                echo "New request received: " . App::$request->address . ' ' . App::$request->uri . "\n";
-                flush();
-                $waitForAnswer = (App::$server->{'http_waitforanswer'} ?? 'true') === 'true';
-                if(!$waitForAnswer) {
-                    Loop::futureTick(function () use ($psrRequest, &$connectionCount) {
-                        self::HandleRequest($psrRequest);
+                    //app_debug("New request received: " . App::$request->address . ' ' . App::$request->uri);
+
+                    echo "New request received: " . App::$request->address . ' ' . App::$request->uri . "\n";
+                    flush();
+                    $waitForAnswer = (App::$server->{'http_waitforanswer'} ?? 'true') === 'true';
+                    if(!$waitForAnswer) {
+                        Loop::futureTick(function () use ($psrRequest, &$connectionCount) {
+                            self::HandleRequest($psrRequest);
+                            $connectionCount--;
+                        });
+                    } else {
+                        $return = self::HandleRequest($psrRequest);
                         $connectionCount--;
-                    });
-                } else {
-                    $return = self::HandleRequest($psrRequest);
-                    $connectionCount--;
+                    }
+
+                    //app_debug("Response time: " . ((int)((microtime(true) - $microtime) * 1000)) . "ms");
+                    echo "Response time: " . ((int)((microtime(true) - $microtime) * 1000)) . "ms\n";
+                    flush();
+
+                    return $return;
+
+                } catch(\Throwable $e) {
+                    echo "Error: " . $e->getMessage() . ' ' . $e->getTraceAsString() . "\n";
+                    flush();
+
+                    app_debug('Error in request handler: ' . $e->getMessage());
+                    app_debug($e->getTraceAsString());
+                    return new MessageResponse(500, ['Content-Type' => 'text/plain'], 'Internal Server Error');
                 }
-
-                //app_debug("Response time: " . ((int)((microtime(true) - $microtime) * 1000)) . "ms");
-                echo "Response time: " . ((int)((microtime(true) - $microtime) * 1000)) . "ms\n";
-                flush();
-
-                return $return;
-
-            } catch(\Throwable $e) {
-                echo "Error: " . $e->getMessage() . ' ' . $e->getTraceAsString() . "\n";
-                flush();
-
-                app_debug('Error in request handler: ' . $e->getMessage());
-                app_debug($e->getTraceAsString());
-                return new MessageResponse(500, ['Content-Type' => 'text/plain'], 'Internal Server Error');
             }
-        });
+        );
 
 
         if(isset($config['secure']) && \is_array($config['secure'])) {

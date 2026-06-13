@@ -49,6 +49,10 @@ class Storages extends Singleton
      */
     public function __construct()
     {
+        $this->_load();
+    }
+
+    private function _load(bool $force = false) {
         $key = 'storages' . App::$domainKey . App::$request->host;
         if(Mem::Exists($key)) {
             $this->_storages = VariableHelper::Unserialize(Mem::Read($key));
@@ -116,8 +120,7 @@ class Storages extends Singleton
 
         $this->_storages = $this->_replaceTypes($this->_storages);
         Mem::Write($key, VariableHelper::Serialize($this->_storages));
-
-    }
+    } 
 
     /**
      * Extracts a short field record
@@ -324,6 +327,9 @@ class Storages extends Singleton
      */
     public function GetStorages(): array
     {
+        
+        $this->_load();
+
         $storages = [];
         foreach ($this->_storages as $xstorage) {
             $storage = new Storage($xstorage);

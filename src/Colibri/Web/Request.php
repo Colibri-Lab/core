@@ -19,6 +19,7 @@ use Colibri\Events\EventsContainer;
 use Colibri\Common\VariableHelper;
 use Colibri\Utils\Singleton;
 use Psr\Http\Message\ServerRequestInterface;
+use Clue\React\Multicast\Factory;
 
 /**
  * Request Class
@@ -67,10 +68,11 @@ final class Request extends Singleton
     public function __construct(?ServerRequestInterface $request = null)
     {
         $this->_psrRequest = $request;
+
         $this->_post = $this->_psrRequest ? $this->_psrRequest->getParsedBody() : $_POST;
         $this->_get = $this->_psrRequest ? $this->_psrRequest->getQueryParams() : $_GET;
-        $this->_files = $this->_psrRequest ? $this->_psrRequest->getUploadedFiles() : $_FILES;
-        
+        $this->_files = $this->_psrRequest ? $this->_parseFilesFromPsrRequest($this->_psrRequest) : $_FILES;
+
         $server = $this->_psrRequest ? $this->_psrRequest->getServerParams() : $_SERVER;
         if($this->_psrRequest) {
             $server['request_method'] = $this->_psrRequest->getMethod();
@@ -86,6 +88,53 @@ final class Request extends Singleton
         $this->DispatchEvent(EventsContainer::RequestReady);
         $this->_detectJsonEncodedData();
     }
+
+    private function _parseFilesFromPsrRequest(ServerRequestInterface $request): array
+    {
+        $files = [];
+        foreach ($request->getUploadedFiles() as $key => $uploadedFile) {
+            if (is_array($uploadedFile)) {
+                $files[$key] = [];
+                foreach ($uploadedFile as $subKey => $subFile) {
+                    $tmpName = $this->_saveUploadedFileToTemp($subFile);
+                    $files[$key][$subKey] = [
+                        'ext' => pathinfo($subFile->getClientFilename(), PATHINFO_EXTENSION),
+                        'name' => $subFile->getClientFilename(),
+                        'type' => $subFile->getClientMediaType(),
+                        'tmp_name' => $tmpName,
+                        'error' => $subFile->getError(),
+                        'size' => $subFile->getSize()
+                    ];
+                }
+            } else {
+                $tmpName = $this->_saveUploadedFileToTemp($uploadedFile);
+                $files[$key] = [
+                    'ext' => pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION),
+                    'name' => $uploadedFile->getClientFilename(),
+                    'type' => $uploadedFile->getClientMediaType(),
+                    'tmp_name' => $tmpName,
+                    'error' => $uploadedFile->getError(),
+                    'size' => $uploadedFile->getSize()
+                ];
+            }
+        }
+        return $files;
+    }
+
+    private function _saveUploadedFileToTemp($uploadedFile): string
+    {
+        $tmpName = tempnam(sys_get_temp_dir(), 'colibri_');
+        if ($tmpName === false) {
+            return '';
+        }
+
+        $stream = $uploadedFile->getStream();
+        $stream->rewind();
+        file_put_contents($tmpName, $stream->getContents());
+
+        return $tmpName;
+    }
+
 
     /**
      * Detects if the request payload is JSON encoded.
@@ -225,7 +274,7 @@ final class Request extends Singleton
                     foreach($headers as $k => $v) {
                         $headers[$k] = implode(', ', $v);
                     }
-                } else {    
+                } else {
                     if (function_exists('apache_request_headers')) {
                         $headers = apache_request_headers();
                     } else {
@@ -243,7 +292,7 @@ final class Request extends Singleton
             case 'type': {
                 if($this->_psrRequest) {
                     $return = $this->_psrRequest->getMethod();
-                } else {    
+                } else {
                     $return = $this->server->{'request_method'} ? $this->server->{'request_method'} : 'get';
                 }
                 break;
