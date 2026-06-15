@@ -48,6 +48,12 @@ class DataCollection extends BaseDataTable
 
     protected static $fullSelection = false;
 
+    protected mixed $_isLookupOf = null;
+
+    public function isLookUpOf(mixed $parentObject) {
+        $this->_isLookupOf = $parentObject;
+    }
+
     /**
      * Конструктор
      * @param DataAccessPoint $point
@@ -98,7 +104,9 @@ class DataCollection extends BaseDataTable
             $className = $className($this, $result);
         }
 
-        return new $className($this, $result, $this->_storage);
+        $return = new $className($this, $result, $this->_storage);
+        $return->isLookUpOf($this->_isLookupOf);
+        return $return;
     }
 
     protected static function _replaceFields(string $value, Storage $storage): string
@@ -268,7 +276,7 @@ class DataCollection extends BaseDataTable
                 return $res;
             }
 
-            $row->$idm = $data['datemodified'];
+            $row->$idm = $data['$set']['datemodified'];
 
         }
 

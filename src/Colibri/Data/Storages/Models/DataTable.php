@@ -50,6 +50,12 @@ class DataTable extends BaseDataTable
 
     protected static $fullSelection = false;
 
+    protected mixed $_isLookupOf = null;
+
+    public function isLookUpOf(mixed $parentObject) {
+        $this->_isLookupOf = $parentObject;
+    }
+
     /**
      * Конструктор
      * @param DataAccessPoint $point точка доступа
@@ -100,7 +106,9 @@ class DataTable extends BaseDataTable
             $className = $className($this, $result);
         }
 
-        return new $className($this, $result, $this->_storage);
+        $return = new $className($this, $result, $this->_storage);
+        $return->isLookupOf($this->_isLookupOf);
+        return $return;
     }
 
     protected static function _replaceFields(?string $value, Storage $storage): ?string

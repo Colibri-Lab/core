@@ -76,7 +76,7 @@ class Lookup
      * @param int $pagesize размер страницы, по умолачнию 20
      * @return DataTable|null данные по связке
      */
-    public function Load(int $page = -1, int $pagesize = 50): ?DataTable
+    public function Load(int $page = -1, int $pagesize = 50, mixed $parentObject = null): ?DataTable
     {
         if ($this->storage) {
             $data = (object) $this->storage;
@@ -90,11 +90,13 @@ class Lookup
                         ' order by ' . $data->order : ''),
                     ['type' => DataAccessPoint::QueryTypeBigData, 'page' => $page, 'pagesize' => $pagesize]
                 );
-                return new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
+                $return = new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
             } else if($accessPoint->dbms == DataAccessPoint::DBMSTypeNoSql) {
                 $sort = explode(' ', $data->order);
-                return $tableClass::LoadBy($page, $pagesize, '', [], $storage->GetRealFieldName($sort[0] ?? 'id'), $sort[1] ?? 'asc');
+                $return = $tableClass::LoadBy($page, $pagesize, '', [], $storage->GetRealFieldName($sort[0] ?? 'id'), $sort[1] ?? 'asc');
             }
+            $return->isLookupOf($parentObject);
+            return $return;
         } elseif ($this->accesspoint) {
 
             $data = (object) $this->accesspoint;
@@ -119,7 +121,7 @@ class Lookup
      * @param mixed $value значение
      * @return mixed
      */
-    public function Selected(mixed $value): mixed
+    public function Selected(mixed $value, mixed $parentObject = null): mixed
     {
         if ($this->storage) {
             $data = (object) $this->storage;
@@ -165,8 +167,13 @@ class Lookup
                     return null;
                 }
                 $table = new $tableClass($storage->accessPoint, $reader, $rowClass, $storage);
+                $table->isLookupOf($parentObject);
+
                 if ($table->Count() === 1 && !$isMultiple) {
                     $v = $table->First();
+                    // if( ($lookupParent = $this->isRecursiveLookup($v, $value)) !== null ) {
+                    //     return $lookupParent;
+                    // }
                     if (isset($data->value)) {
                         $v->value = $v->{$data->value};
                     }
@@ -177,6 +184,9 @@ class Lookup
                 } else {
                     $ret = [];
                     foreach ($table as $v) {
+                        // if( ($lookupParent = $this->isRecursiveLookup($v, $value)) !== null ) {
+                        //     return $lookupParent;
+                        // }
                         if (isset($data->value)) {
                             $v->value = $v->{$data->value};
                         }
@@ -204,8 +214,14 @@ class Lookup
                     return null;
                 }
 
+                $table->isLookupOf($parentObject);
+
                 if ($table->Count() === 1 && !$isMultiple) {
                     $v = $table->First();
+                    // if( ($lookupParent = $this->isRecursiveLookup($v, $value)) !== null ) {
+                    //     return $lookupParent;
+                    // }
+
                     if (isset($data->value)) {
                         $v->value = $v->{$data->value};
                     }
@@ -216,6 +232,9 @@ class Lookup
                 } else {
                     $ret = [];
                     foreach ($table as $v) {
+                        // if( ($lookupParent = $this->isRecursiveLookup($v, $value)) !== null ) {
+                        //     return $lookupParent;
+                        // }
                         if (isset($data->value)) {
                             $v->value = $v->{$data->value};
                         }
@@ -260,6 +279,35 @@ class Lookup
             $data = (object) $this->accessPoint;
             return $data->value;
         }
+        return null;
+    }
+
+    public function GetLookupParents(mixed $row): array 
+    {
+        $ret = [];
+        while($row && $row instanceof DataRow) {
+            if($row->lookupParent) {
+                $ret[] = $row->lookupParent;
+                $row = $row->lookupParent;
+            } else {
+                break;
+            }
+        }
+        return $ret;
+    }
+
+    public function isRecursiveLookup(mixed $row, mixed $value): mixed
+    {
+        $parents = $this->GetLookupParents($row);
+        foreach($parents as $parent) {
+            if($parent instanceof DataRow) {
+                $valueField = $this->GetValueField();
+                if($valueField && $parent->$valueField == $value) {
+                    return $parent;
+                }
+            }
+        }
+        
         return null;
     }
 

@@ -298,7 +298,7 @@ class VariableHelper
      * parent-child relationships defined by specific keys.
      *
      * @param array $array The flat input array to be transformed into a tree.
-     * @param int $parent The default parent ID (usually 0 for the root).
+     * @param mixed $parent The default parent ID (usually 0 for the root).
      * @param string $parentName The key representing the parent ID in the array (default: 'parent').
      * @param string $childrenName The key to store child nodes (default: 'children').
      * @param string $keyName The key representing the unique identifier (default: 'id').
@@ -307,7 +307,7 @@ class VariableHelper
      */
     public static function ArrayToTree(
         array $array,
-        int $parent = 0,
+        mixed $parent = 0,
         string $parentName = 'parent',
         string $childrenName = 'children',
         string $keyName = 'id'
@@ -315,8 +315,8 @@ class VariableHelper
         $array = array_combine(array_column($array, $keyName), array_values($array));
 
         foreach ($array as $k => &$v) {
-            if (isset($array[(int) $v[$parentName]])) {
-                $array[(int) $v[$parentName]][$childrenName][(int) $k] = & $v;
+            if (isset($v[$parentName]) && isset($array[$v[$parentName]])) {
+                $array[$v[$parentName]][$childrenName][$k] = & $v;
             }
             unset($v);
         }

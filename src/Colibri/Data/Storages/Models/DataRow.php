@@ -50,6 +50,8 @@ class DataRow extends BaseDataRow
 
     protected static array $casts = [];
 
+    protected mixed $_isLookupOf = null;
+
     /**
      * Конструктор
      *
@@ -83,6 +85,10 @@ class DataRow extends BaseDataRow
         $this->_processDefaultValues();
     }
 
+    public function isLookUpOf(mixed $parentObject) {
+        $this->_isLookupOf = $parentObject;
+    }
+    
     /**
      * Заполняет строку из обьекта
      * @param mixed $obj обьект или массив
@@ -182,7 +188,7 @@ class DataRow extends BaseDataRow
 
         if ($mode === 'get' && !is_object($rowValue)) {
             if ($field->isLookup) {
-                return $field->lookup->Selected($rowValue);
+                return $field->lookup->Selected($rowValue, $this);
             } elseif ($field->isValues) {
                 if (!$field->{'multiple'}) {
                     $v = $field->{'type'} == 'numeric' ? (float) $rowValue : $rowValue;
@@ -288,7 +294,7 @@ class DataRow extends BaseDataRow
 
                     try {
                         if ($field->isLookup) {
-                            $c = $field->lookup->Selected($rowValue);
+                            $c = $field->lookup->Selected($rowValue, $this);
                             $valueField = $field->lookup->GetValueField();
                             if($valueField) {
                                 $this->_data[$property] = $c?->$valueField ?? null;
@@ -528,14 +534,15 @@ class DataRow extends BaseDataRow
             $value = $this->{$field->name};
 
             if (VariableHelper::IsObject($value)) {
-                $ref = new ReflectionClass($value);
-                $hasToString = $ref->hasMethod('ToString');
-
-                if ($hasToString) {
-                    $value = $value->ToString();
+                $value = $value?->ToString() ?? (string)$value;
+            } elseif (\is_array($value)) {
+                $vv = [];
+                foreach($value as $v) {
+                    $vv[] = $v?->ToString() ?? (string)$v;
                 }
+                $value = implode(' ', $vv);
             } else {
-                $string[] = (string) $value;
+                $value = (string) $value;
             }
             $string[] = StringHelper::StripHTML($value ?: '');
         }

@@ -260,11 +260,6 @@ final class App extends Singleton
 
         $this->DispatchEvent(EventsContainer::AppInitializing);
 
-        if (!self::$router) {
-            self::$router = new Router();
-            self::$router->UpdateRequest();
-        }
-
         if($request) {
             self::$request = $request;
         } else if (!self::$request) {
@@ -275,6 +270,11 @@ final class App extends Singleton
         } else if (!self::$response) {
             self::$response = Response::Instance();
         }
+
+        if (!self::$router) {
+            self::$router = new Router();
+        }
+        self::$router->UpdateRequest();
 
         if(!self::$session) {
             $sessionTtl = self::$config->Query('session.ttl', 86400)->GetValue();

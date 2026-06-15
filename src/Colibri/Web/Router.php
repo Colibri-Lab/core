@@ -74,8 +74,8 @@ class Router
      */
     public function UpdateRequest()
     {
-        $command = $_SERVER['REQUEST_URI'] ?? '';
-        $_SERVER['REQUESTED_URI'] = $command;
+        $command = App::$request->server->request_uri ?: '';
+        App::$request->UpdateServerVariable('REQUESTED_URI', $command);
         $command = str_contains($command, '?') ? substr($command, 0, strpos($command, '?')) : $command;
 
         foreach ($this->_configArray as $rule => $route) {
@@ -103,11 +103,11 @@ class Router
                     parse_str($query, $params);
                     array_walk($params, function ($param, $key) {
                         //put params to $_GET and $_REQUEST
-                        $_GET[$key] = $_REQUEST[$key] = $param;
+                        App::$request->UpdateGetParam($key, $param);
                     });
                 }
 
-                foreach ($_SERVER as $key => $value) {
+                foreach (App::$request->server as $key => $value) {
                     $command = str_replace('{' . strtolower($key) . '}', $value, $command);
                 }
 
@@ -116,7 +116,7 @@ class Router
         }
 
         $command = str_contains($command, '?') ? substr($command, 0, strpos($command, '?')) : $command;
-        $_SERVER['REQUEST_URI'] = $command;
+        App::$request->UpdateServerVariable('REQUEST_URI', $command);
     }
 
     /**
@@ -153,11 +153,11 @@ class Router
                     parse_str($query, $params);
                     array_walk($params, function ($param, $key) {
                         //put params to $_GET and $_REQUEST
-                        $_GET[$key] = $_REQUEST[$key] = $param;
+                        App::$request->UpdateGetParam($key, $param);
                     });
                 }
 
-                foreach ($_SERVER as $key => $value) {
+                foreach (App::$request->server as $key => $value) {
                     if (!is_string($value)) {
                         continue;
                     }

@@ -110,6 +110,9 @@ final class Command extends SqlCommand
      */
     public function ExecuteReader(bool $info = true): IDataReader
     {
+        if(!$this->_connection->Ping()) {
+            $this->_connection->Reopen();
+        }
 
         // выбираем базу данныx, с которой работает данный линк
         mysqli_select_db($this->_connection->resource, $this->_connection->database);
@@ -172,6 +175,10 @@ final class Command extends SqlCommand
      */
     public function ExecuteNonQuery(?string $dummy = null): QueryInfo
     {
+        if(!$this->_connection->Ping()) {
+            $this->_connection->Reopen();
+        }
+
         mysqli_select_db($this->_connection->resource, $this->_connection->database);
 
         if ($this->_params) {

@@ -33,6 +33,18 @@ class QueryBuilder
     public const MutationUpdate = 'update';
     public const MutationDelete = 'delete';
 
+    private function _getFieldQuery($term, $fields, $parent, $storage, &$query)
+    {
+        foreach ($fields as $field) {
+            if ($field->class === 'string') {
+                $query[($parent ? $parent.'.' : '').$storage->GetRealFieldName($field->name)] = '/' . $storage->accessPoint->EscapeQuery($term) . '/i';
+            } elseif ($field->fields) {
+                $this->_getFieldQuery($term, $field->fields, $field->name, $storage, $query);
+            }
+        }
+    }
+
+
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
     {
 
@@ -75,19 +87,7 @@ class QueryBuilder
         $filters = [];
         $query = [];
         if($term) {
-            function getFieldQuery($term, $fields, $parent, $storage, &$query)
-            {
-                foreach ($fields as $field) {
-                    if ($field->class === 'string') {
-                        $query[($parent ? $parent.'.' : '').$storage->GetRealFieldName($field->name)] = '/' . $storage->accessPoint->EscapeQuery($term) . '/i';
-                    } elseif ($field->fields) {
-                        getFieldQuery($term, $field->fields, $field->name, $storage, $query);
-                    }
-                }
-            }
-
-            getFieldQuery($term, $storage->fields, '', $storage, $query);
-
+            $this->_getFieldQuery($term, $storage->fields, '', $storage, $query);
         }
 
         foreach($fields as $fieldName => $fieldData) {

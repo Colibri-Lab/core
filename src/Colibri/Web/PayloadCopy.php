@@ -34,7 +34,7 @@ class PayloadCopy implements ArrayAccess, Countable
      * @param string $type The type of payload data (e.g., json, xml).
      * @param string|null $payloadData The raw payload data as a string (optional).
      */
-    public function __construct($type, string $payloadData = null)
+    public function __construct($type, ?string $payloadData = null)
     {
         $this->_type = $type;
         $this->_payloadData = $payloadData;

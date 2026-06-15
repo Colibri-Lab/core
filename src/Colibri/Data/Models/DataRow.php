@@ -68,6 +68,8 @@ class DataRow extends ExtendedObject
             $return = $this->_changed;
         } elseif ($property == 'table') {
             $return = $this->_table;
+        } elseif ($property == 'lookupparent') {
+            $return = $this->_isLookupOf;
         } else {
             $return = parent::__get($property);
         }

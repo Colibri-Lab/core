@@ -42,7 +42,7 @@ class ExtendedObjectIterator implements \Iterator
      *
      * @param array|null $data The collection
      */
-    public function __construct(array $data = null)
+    public function __construct(?array $data = null)
     {
         $this->_data = (array) $data;
         $this->_keys = array_keys((array) $data);
@@ -75,9 +75,9 @@ class ExtendedObjectIterator implements \Iterator
     /**
      * Return the key of the current position.
      *
-     * @return string
+     * @return ?string
      */
-    public function key(): string
+    public function key(): ?string
     {
         if ($this->valid()) {
             return $this->_keys[$this->_current];

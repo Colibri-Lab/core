@@ -74,6 +74,9 @@ final class Command extends NoSqlCommand
     {
         /** @var Connection $connection */
         $connection = $this->_connection;
+        if(!$connection->Ping()) {
+            $connection->Reopen();
+        }
 
         $found = false;
         $collections = $connection->database->listCollectionNames();
@@ -90,6 +93,9 @@ final class Command extends NoSqlCommand
     {
         /** @var Connection $connection */
         $connection = $this->_connection;
+        if(!$connection->Ping()) {
+            $connection->Reopen();
+        }
         $collection = $connection->database->createCollection($collectionName);
         return true;
     }
@@ -107,6 +113,10 @@ final class Command extends NoSqlCommand
 
     public function InsertDocument(string $collectionName, object $document): CommandResult
     {
+        if(!$this->_connection->Ping()) {
+            $this->_connection->Reopen();
+        }
+        
         $maxId = $this->MaxId($collectionName);
         $document->id = $maxId + 1;
 
@@ -143,6 +153,10 @@ final class Command extends NoSqlCommand
 
     public function UpdateDocument(string $collectionName, int $id, object $partOfDocument): CommandResult
     {
+        if(!$this->_connection->Ping()) {
+            $this->_connection->Reopen();
+        }
+
         /** @var Database */
         $db = $this->_connection->database;
         /** @var Collection */
@@ -162,6 +176,10 @@ final class Command extends NoSqlCommand
 
     public function UpdateDocuments(string $collectionName, array $filter, array $update): CommandResult
     {
+        if(!$this->_connection->Ping()) {
+            $this->_connection->Reopen();
+        }
+
         /** @var Database */
         $db = $this->_connection->database;
         /** @var Collection */
@@ -178,7 +196,10 @@ final class Command extends NoSqlCommand
     }
 
     public function DeleteDocuments(string $collectionName, array $filter): CommandResult
-    {
+    {   
+        if(!$this->_connection->Ping()) {
+            $this->_connection->Reopen();
+        }
 
         /** @var Database */
         $db = $this->_connection->database;
@@ -209,6 +230,9 @@ final class Command extends NoSqlCommand
      */
     public function SelectDocuments(string $collectionName, ?array $select = null, ?array $filters = null, ?array $faset = null, ?array $fields = null, ?array $sort = null, int $page = -1, int $pagesize = 20): CommandResult
     {
+        if(!$this->_connection->Ping()) {
+            $this->_connection->Reopen();
+        }
 
         $options = [];
         if($sort) {
@@ -260,7 +284,7 @@ final class Command extends NoSqlCommand
             $rows = [];
             $cursor = $collection->find($filters ?? [], $options);
             foreach ($cursor as $document) {
-                /** @var $document \MongoDB\Model\BSONDocument  */
+                /** @var \MongoDB\Model\BSONDocument $document  */
                 $docArray = (object)(array)$document;
                 $rows[] = $docArray;
             }

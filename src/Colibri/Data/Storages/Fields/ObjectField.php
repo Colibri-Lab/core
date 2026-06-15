@@ -104,7 +104,7 @@ class ObjectField extends ExtendedObject
 
         if ($mode == 'get' && !is_object($rowValue)) {
             if ($field->isLookup) {
-                return $field->lookup->Selected(isset($this->_data[$property]) ? $this->_data[$property] : 0);
+                return $field->lookup->Selected(isset($this->_data[$property]) ? $this->_data[$property] : 0, $this);
             } elseif ($field->isValues) {
                 if (!$field->{'multiple'}) {
                     if (isset($this->_data[$property])) {

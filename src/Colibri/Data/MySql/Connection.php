@@ -196,7 +196,11 @@ final class Connection implements IConnection
 
     public function Ping(): bool
     {
-        return mysqli_ping($this->_resource);
+        try {
+            return mysqli_ping($this->_resource);
+        } catch(\Throwable $e) {
+            return false;
+        }
     }
 
 

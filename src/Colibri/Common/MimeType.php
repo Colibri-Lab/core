@@ -76,14 +76,14 @@ class MimeType
 
     private function _loadAndSave(): void
     {
-        $runtimePath = App::$appRoot . App::$config->Query('runtime')->GetValue();
+        $runtimePath = App::$appRoot . App::$config?->Query('runtime')?->GetValue();
         $content = file_get_contents('http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types');
         File::Write($runtimePath . 'mime.types', $content, true, '777');
     }
 
     private function _loadMimeTypes()
     {
-        $runtimePath = App::$appRoot . App::$config->Query('runtime')->GetValue();
+        $runtimePath = App::$appRoot . (App::$config?->Query('runtime')->GetValue() ?? 'runtime/');
         if(File::Exists($runtimePath . 'mime.types')) {
             $file = new File($runtimePath . 'mime.types');
             $modified = $file->attr_modified;

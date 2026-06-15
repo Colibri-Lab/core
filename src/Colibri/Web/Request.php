@@ -20,6 +20,7 @@ use Colibri\Common\VariableHelper;
 use Colibri\Utils\Singleton;
 use Psr\Http\Message\ServerRequestInterface;
 use Clue\React\Multicast\Factory;
+use Colibri\Common\MimeType;
 
 /**
  * Request Class
@@ -302,6 +303,26 @@ final class Request extends Singleton
             }
         }
         return $return;
+    }
+
+    public function UpdateServerVariable(string $name, string $value) {
+        $this->_server[$name] = $value;
+        $_SERVER[$name] = $value;
+    }
+
+    public function UpdateGetParam(string $name, string $value) {
+        $this->_get[$name] = $value;
+        $_GET[$name] = $value;
+    }
+
+    public function UpdatePostParam(string $name, string $value) {
+        $this->_post[$name] = $value;
+        $_POST[$name] = $value;
+    }
+
+    public function UpdateFilesParam(string $name, array $value) {
+        $this->_files[$name] = $value;
+        $_FILES[$name] = $value;
     }
 
     /**

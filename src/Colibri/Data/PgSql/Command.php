@@ -67,6 +67,10 @@ final class Command extends SqlCommand
     public function ExecuteReader(bool $info = true): IDataReader
     {
 
+        if(!$this->_connection->Ping()) {
+            $this->_connection->Reopen();
+        }
+
         // выбираем базу данныx, с которой работает данный линк
         // mysqli_select_db($this->_connection->resource, $this->_connection->database);
 
@@ -114,6 +118,10 @@ final class Command extends SqlCommand
      */
     public function ExecuteNonQuery(?string $returning = null): QueryInfo
     {
+        if(!$this->_connection->Ping()) {
+            $this->_connection->Reopen();
+        }
+
         $query = $this->_prepareStatement($this->query);
         $res = pg_query($this->_connection->resource, $query . ($returning ? ' returning ' . $returning : ''));
         if(!$res) {

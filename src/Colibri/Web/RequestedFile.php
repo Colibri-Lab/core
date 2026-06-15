@@ -12,6 +12,7 @@
 
 namespace Colibri\Web;
 
+use Colibri\Common\MimeType;
 use InvalidArgumentException;
 
 /**
@@ -58,7 +59,7 @@ class RequestedFile
         if (count($ret) > 1) {
             $this->ext = strtolower($ret[count($ret) - 1]);
         }
-        $this->mimetype = $arrFILE["type"];
+        $this->mimetype = $arrFILE["type"] ?: MimeType::Create($this->name)->data;
         $this->temporary = $arrFILE["tmp_name"];
         $this->error = $arrFILE["error"];
         $this->size = $arrFILE["size"];

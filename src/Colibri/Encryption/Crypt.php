@@ -52,9 +52,9 @@ class Crypt
      * @param string $stringifyMethod The method for converting to string.
      * @return string The decrypted data.
      */
-    public static function Decrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): string
+    public static function Decrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): ?string
     {
-        if (!is_string($data) || !is_string($key)) {
+        if (!\is_string($data) || !\is_string($key)) {
             return null;
         }
 
