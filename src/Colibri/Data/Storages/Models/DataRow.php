@@ -584,8 +584,11 @@ class DataRow extends BaseDataRow
         if(is_string($originalValue) && StringHelper::IsJsonString($originalValue)) {
             $originalValue = json_decode($originalValue);
         }
-
-        return $originalValue != $newValue;
+        try {
+            return $originalValue != $newValue;
+        } catch(\Throwable $e) {
+            return true;
+        }
     }
 
     /**
