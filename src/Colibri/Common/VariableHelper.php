@@ -322,7 +322,7 @@ class VariableHelper
         }
 
         return array_filter($array, function ($v) use ($parent, $parentName) {
-            return $v[$parentName] == $parent;
+            return isset($v[$parentName]) && $v[$parentName] == $parent;
         });
     }
 
