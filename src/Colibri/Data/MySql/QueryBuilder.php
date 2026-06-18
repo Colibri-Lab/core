@@ -451,6 +451,8 @@ class QueryBuilder implements IQueryBuilder
             foreach ($storage->fields as $field) {
                 if ($field->class === 'string') {
                     $termFilters[] = '{' . $field->name . '} like [[term:string]]';
+                } else if($field->fields) {
+                    $termFilters[] = '{' . $field->name . '} like [[term:string]]';
                 }
             }
             $filters[] = '(' . implode(' or ', $termFilters) . ')';
