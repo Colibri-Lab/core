@@ -96,7 +96,9 @@ final class Command extends NoSqlCommand
         if(!$connection->Ping()) {
             $connection->Reopen();
         }
-        $collection = $connection->database->createCollection($collectionName);
+        
+        $connection->database->createCollection($collectionName);
+
         return true;
     }
 
@@ -335,6 +337,28 @@ final class Command extends NoSqlCommand
             $this->CreateCollection($storage);
         }
 
+        if(!$this->IndexExists($storage, '$**', 'text')) {
+            $this->CreateIndex($storage, '$**', 'text');    
+        }
+        
+
+    }
+
+    public function IndexExists(string $collectionName, string $fieldName, string $value = '1') {
+        
+        $collection = $this->_connection->database->getCollection($collectionName);
+        $indexes = $collection->listIndexes();
+        foreach ($indexes as $index) {
+            if((string)$index === $fieldName . '_' . $value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function CreateIndex(string $collectionName, string $fieldName, string $value = '1') {
+        $collection = $this->_connection->database->getCollection($collectionName);
+        $collection->createIndex([$fieldName => $value]);
     }
 
 }

@@ -334,7 +334,13 @@ final class Request extends Singleton
      */
     public function GetPayloadCopy(string $type = Request::PAYLOAD_TYPE_JSON): PayloadCopy
     {
-        return new PayloadCopy($type);
+        if($this->_psrRequest) {
+            $body = (string)$this->_psrRequest->getBody();
+            $data = json_decode($body, true);
+        } else {
+            $data = null;
+        }
+        return new PayloadCopy($type, $data);
     }
 
     /**

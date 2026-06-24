@@ -34,6 +34,12 @@ class Router
      */
     public function __construct()
     {
+        $this->_loadConfig();
+
+    }
+
+    private function _loadConfig() 
+    {
         $this->_configArray = [];
         try {
             $this->_configArray = App::$config->Query('routes', (object) [])->AsArray();
@@ -66,7 +72,6 @@ class Router
                 // do nothing
             }
         }
-
     }
 
     /**
@@ -74,6 +79,7 @@ class Router
      */
     public function UpdateRequest()
     {
+        $this->_loadConfig();
         $command = App::$request->server->request_uri ?: '';
         App::$request->UpdateServerVariable('REQUESTED_URI', $command);
         $command = str_contains($command, '?') ? substr($command, 0, strpos($command, '?')) : $command;

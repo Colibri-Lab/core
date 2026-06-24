@@ -34,7 +34,7 @@ class PayloadCopy implements ArrayAccess, Countable
      * @param string $type The type of payload data (e.g., json, xml).
      * @param string|null $payloadData The raw payload data as a string (optional).
      */
-    public function __construct($type, ?string $payloadData = null)
+    public function __construct($type, string|array|object|null $payloadData = null)
     {
         $this->_type = $type;
         $this->_payloadData = $payloadData;
@@ -52,11 +52,14 @@ class PayloadCopy implements ArrayAccess, Countable
             $payload = null;
         }
 
-        if ($payload && $this->_type == Request::PAYLOAD_TYPE_JSON) {
-            $this->_payloadData = json_decode($payload);
-        } elseif ($payload && $this->_type == Request::PAYLOAD_TYPE_XML) {
-            $this->_payloadData = XmlHelper::Decode($payload);
+        if($payload && \is_string($payload)) {
+            if ($this->_type == Request::PAYLOAD_TYPE_JSON) {
+                $this->_payloadData = json_decode($payload);
+            } elseif ($this->_type == Request::PAYLOAD_TYPE_XML) {
+                $this->_payloadData = XmlHelper::Decode($payload);
+            }
         }
+
     }
 
     /**

@@ -38,7 +38,7 @@ class QueryBuilder
         foreach ($fields as $field) {
             if ($field->class === 'string') {
                 $query[($parent ? $parent.'.' : '').$storage->GetRealFieldName($field->name)] = '/' . $storage->accessPoint->EscapeQuery($term) . '/i';
-            } elseif ($field->fields) {
+            } elseif (!empty($field->fields)) {
                 $this->_getFieldQuery($term, $field->fields, $field->name, $storage, $query);
             }
         }
