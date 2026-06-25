@@ -498,6 +498,14 @@ final class Command extends SqlCommand
                     $method = '';
                 }
 
+                if(isset($xstorage['params']['softdeletes']) && $xstorage['params']['softdeletes'] === true) {
+                    // нужно в любой уникальный индекс добавить поле datedeleted в самом начале
+                    if($xtype === 'UNIQUE') {
+                        array_unshift($xindex['fields'], 'datedeleted');
+                    }
+                    
+                }
+
                 $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, $method, $this->_connection);
                 if ($res->error && strstr($res->error, 'Duplicate key name') !== false) {
                     $res = $dropIndex($Exec, $prefix, $storage, $indexName);
