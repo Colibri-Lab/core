@@ -393,4 +393,13 @@ class File extends Node implements JsonSerializable
         return $this->ToArray();
     }
 
+    public static function Md5($path): string
+    {
+        if (!self::Exists($path)) {
+            throw new Exception('file not exists: ' . $path);
+        }
+
+        return md5_file($path);
+    }
+
 }

@@ -62,13 +62,41 @@ class ReactServer
 
             // if the request is not exists and it's a file in web root then return it as file
             if(File::Exists(App::$webRoot . $cmd)) {
+                $path = App::$webRoot . $cmd;
+                $md5 = File::Md5($path);
+
+                // ETag = md5 от файла
+                $etag = '"etag' . $md5 . '"';
+
+                // Проверка If-None-Match
+                $ifNoneMatch = $request->headers->{'If-None-Match'};
+                if ($ifNoneMatch === $etag) {
+                    return static::ServerFinish(
+                        $psrRequest,
+                        WebUtils::Stream,
+                        [
+                            'code' => 304,
+                            'result' => File::Read($path),
+                            'message' => basename($cmd),
+                            'headers' => [
+                                'ETag' => $etag,
+                                'Cache-Control' => 'private',
+                                'Access-Control-Allow-Origin' => '*',
+                            ]
+                        ]
+                    );
+                }
+
                 return static::ServerFinish(
                     $psrRequest,
                     WebUtils::Stream,
                     [
                         'code' => 200,
-                        'result' => File::Read(App::$webRoot . $cmd),
-                        'message' => basename($cmd)
+                        'result' => File::Read($path),
+                        'message' => basename($cmd),
+                        'headers' => [
+                            'ETag' => $etag
+                        ]
                     ]
                 );
             }
@@ -295,6 +323,8 @@ class ReactServer
             'Access-Control-Allow-Method' => $request->getHeaderLine('access-control-request-method') ?: '*'
         ];
 
+        $headers = VariableHelper::Extend($headers, $result->headers ?? []);
+
         
         $mime = new MimeType($type);
 
@@ -303,9 +333,19 @@ class ReactServer
             $type == WebUtils::Stream && $result?->result &&
             (\is_string($result->result) && \is_string($result->message))
         ) {
-
             $ext = strtolower(pathinfo($result->message, PATHINFO_EXTENSION));
             $mime = MimeType::Create($result->message);
+
+            $headers = VariableHelper::Extend($headers, [
+                'Content-Description' => 'File Transfer',
+                'Content-Disposition' => 'attachment; filename="' . $result->message . '"',
+                'Content-Transfer-Encoding' => 'binary',
+                'Expires' => '0',
+                'Cache-Control' => 'must-revalidate',
+                'Content-Length' => \strlen($result->result),
+                'Content-Type' => $mime->data ?: 'application/octet-stream'
+            ]);
+
             $staticExtensions = [
                 'jpg', 'jpeg', 'gif', 'png', 'ico',
                 'mp3', 'css', 'zip', 'tgz', 'gz',
@@ -314,24 +354,19 @@ class ReactServer
                 'tar', 'mid', 'midi', 'wav', 'bmp',
                 'rtf', 'wmv', 'mpeg', 'mpg', 'tbz',
                 'js', 'woff', 'ttf', 'eot', 'svg',
-                'swf', 'webp'
+                'swf', 'webp', 'wasm'
             ];
 
             if (in_array($ext, $staticExtensions, true)) {
 
-                // expires modified +168h
                 $expires = gmdate(
                     'D, d M Y H:i:s',
                     time() + (168 * 3600)
                 ) . ' GMT';
 
                 $headers['Expires'] = $expires;
+                $headers['Cache-Control'] = 'public';
 
-                // add_header Cache-Control private
-                $headers['Cache-Control'] = 'private';
-
-                // add_header Access-Control-Allow-Origin *
-                $headers['Access-Control-Allow-Origin'] = '*';
             }
 
             $gzipExtensions = [
@@ -356,15 +391,7 @@ class ReactServer
 
             }
 
-            return new MessageResponse($result->code ?: 200, VariableHelper::Extend($headers, [
-                'Content-Description' => 'File Transfer',
-                'Content-Disposition' => 'attachment; filename="' . $result->message . '"',
-                'Content-Transfer-Encoding' => 'binary',
-                'Expires' => '0',
-                'Cache-Control' => 'must-revalidate',
-                'Content-Length' => \strlen($result->result),
-                'Content-Type' => $mime->data ?: 'application/octet-stream'
-            ]), new StringStream($result->result));
+            return new MessageResponse($result->code ?: 200, $headers, new StringStream($result->result));
 
         }
 
