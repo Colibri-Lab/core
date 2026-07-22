@@ -46,6 +46,14 @@ class ReactServer
 {
     public static function HandleRequest(ServerRequestInterface $psrRequest): MessageResponse
     {
+
+        $accessControlHeaders = [
+            'Access-Control-Allow-Origin' =>  $psrRequest->getHeaderLine('Origin') ?? '*',
+            'Access-Control-Allow-Credentials' => 'true',
+            'Access-Control-Allow-Headers' => $psrRequest->getHeaderLine('access-control-request-headers') ?: '*',
+            'Access-Control-Allow-Method' => $psrRequest->getHeaderLine('access-control-request-method') ?: '*'
+        ];
+
         $request = new Request($psrRequest);
         $response = new Response();
         App::Instance()->Initialize($request, $response, true);
@@ -57,6 +65,8 @@ class ReactServer
             $method,
             $isRequestTyped
         ] = WebUtils::ParseCommand($cmd);
+
+        $headers = App::$request->headers;
 
         if ((!class_exists($class) || !method_exists($class, $method))) {
 
@@ -78,11 +88,10 @@ class ReactServer
                             'code' => 304,
                             'result' => File::Read($path),
                             'message' => basename($cmd),
-                            'headers' => [
+                            'headers' => VariableHelper::Extend([
                                 'ETag' => $etag,
                                 'Cache-Control' => 'private',
-                                'Access-Control-Allow-Origin' => '*',
-                            ]
+                            ], $accessControlHeaders)
                         ]
                     );
                 }
@@ -104,7 +113,6 @@ class ReactServer
             [$type, $class, $method, $isRequestTyped] = WebUtils::ParseCommand('/');
         }
 
-        $headers = App::$request->headers;
         $requestMethod = App::$request->server->{'request_method'} ?? 'GET';
         $get = App::$request->get;
         $post = App::$request->post;
@@ -113,12 +121,7 @@ class ReactServer
         if($requestMethod === 'OPTIONS') {
             return new MessageResponse(
                 200,
-                [
-                    'Access-Control-Allow-Origin' =>  $headers->origin ?? '*',
-                    'Access-Control-Allow-Credentials' => 'true',
-                    'Access-Control-Allow-Headers' => $headers->{'access-control-request-headers'} ?? '*',
-                    'Access-Control-Allow-Method' => $headers->{'access-control-request-method'} ?? '*'
-                ],
+                $accessControlHeaders,
                 ''
             );
         }
@@ -351,7 +354,7 @@ class ReactServer
                 'tar', 'mid', 'midi', 'wav', 'bmp',
                 'rtf', 'wmv', 'mpeg', 'mpg', 'tbz',
                 'js', 'woff', 'ttf', 'eot', 'svg',
-                'swf', 'webp', 'wasm'
+                'swf', 'webp', 'wasm','glb'
             ];
 
             if (in_array($ext, $staticExtensions, true)) {
