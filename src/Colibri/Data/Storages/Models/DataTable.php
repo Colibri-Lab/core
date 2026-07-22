@@ -195,7 +195,7 @@ class DataTable extends BaseDataTable
         $filter = self::_replaceFields($filter, $storage);
 
         $params = (object)$storage?->{'params'};
-        if($params?->{'softdeletes'} === true) {
+        if(($params?->{'softdeletes'} ?? false) === true) {
 
             $allowedTypes = $storage->accessPoint->allowedTypes;
             $timestamp = $allowedTypes['timestamp'];

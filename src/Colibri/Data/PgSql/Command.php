@@ -486,13 +486,18 @@ final class Command extends SqlCommand
         $xindexes = isset($xstorage['indices']) ? $xstorage['indices'] : [];
         $logger->error($storage . ': Checking indices');
         foreach ($xindexes as $indexName => $xindex) {
+
+            $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
+            $xmethod = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
+            // нужно в любой уникальный индекс добавить поле datedeleted в самом начале
+            if(isset($xstorage['params']['softdeletes']) && $xstorage['params']['softdeletes'] === true && $xtype === 'UNIQUE') {
+                array_unshift($xindex['fields'], 'datedeleted');
+            }
+
             if (!isset($indices[$indexName])) {
                 $logger->error($storage . ': ' . $indexName . ': Index not found: creating');
 
-                $type = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
-                $method = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
-
-                $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $type, $method, $xindex);
+                $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $xtype, $xmethod, $xindex);
                 if ($res->error && strstr($res->error, 'already exists') !== false) {
                     $res = $dropIndex($Exec, $this->_connection, $indexName);
                     if ($res->error) {
@@ -500,7 +505,7 @@ final class Command extends SqlCommand
                         throw new Exception('Can not delete index: ' . $res->query);
                     }
 
-                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $type, $method, $xindex);
+                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $xtype, $xmethod, $xindex);
                     if ($res->error) {
                         $logger->error($table . ': Can not create index: ' . $res->query);
                         throw new Exception('Can not create index: ' . $res->query);
@@ -515,12 +520,9 @@ final class Command extends SqlCommand
                 $oindex = $indices[$indexName];
                 $fields1 = $storage . '_' . implode(',' . $storage . '_', $xindex['fields']);
                 $fields2 = implode(',', $oindex->Columns);
-
-                $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
-                $xmethod = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
-
                 $otype = 'NORMAL';
                 $omethod = 'BTREE';
+
                 if ($oindex->NonUnique == 0) {
                     $otype = 'UNIQUE';
                     $omethod = $oindex->Type;

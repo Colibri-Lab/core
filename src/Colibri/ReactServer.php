@@ -337,9 +337,6 @@ class ReactServer
             $mime = MimeType::Create($result->message);
 
             $headers = VariableHelper::Extend($headers, [
-                'Content-Description' => 'File Transfer',
-                'Content-Disposition' => 'attachment; filename="' . $result->message . '"',
-                'Content-Transfer-Encoding' => 'binary',
                 'Expires' => '0',
                 'Cache-Control' => 'must-revalidate',
                 'Content-Length' => \strlen($result->result),
@@ -364,8 +361,13 @@ class ReactServer
                     time() + (168 * 3600)
                 ) . ' GMT';
 
-                $headers['Expires'] = $expires;
-                $headers['Cache-Control'] = 'public';
+                $headers = VariableHelper::Extend($headers, [
+                    'Content-Description' => 'File Transfer',
+                    'Content-Disposition' => 'attachment; filename="' . $result->message . '"',
+                    'Content-Transfer-Encoding' => 'binary',
+                    'Expires' => $expires,
+                    'Cache-Control' => 'public'
+                ]);
 
             }
 

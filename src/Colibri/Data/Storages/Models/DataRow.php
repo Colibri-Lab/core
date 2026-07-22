@@ -608,7 +608,7 @@ class DataRow extends BaseDataRow
     public function Delete(): QueryInfo|ICommandResult|bool
     {
         $params = (object)$this->_storage?->{'params'};
-        if($params?->{'softdeletes'} === true) {
+        if(($params?->{'softdeletes'} ?? false) === true) {
             $return = $this->_storage->accessPoint->Update(
                 $this->_storage->table,
                 [$this->_storage->name . '_datedeleted' => DateHelper::ToDbString()],
@@ -626,7 +626,7 @@ class DataRow extends BaseDataRow
     public function Restore(): QueryInfo|ICommandResult|bool
     {
         $params = (object)$this->_storage?->{'params'};
-        if($params?->{'softdeletes'} === true) {
+        if(($params?->{'softdeletes'} ?? false) === true) {
             $return = $this->_storage->accessPoint->Update(
                 $this->_storage->table,
                 [$this->_storage->name . '_datedeleted' => null],

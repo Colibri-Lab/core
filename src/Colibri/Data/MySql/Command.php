@@ -489,45 +489,34 @@ final class Command extends SqlCommand
         $xindexes = isset($xstorage['indices']) ? $xstorage['indices'] : [];
         $logger->error($storage . ': Checking indices');
         foreach ($xindexes as $indexName => $xindex) {
+            $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
+            $xmethod = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
+            if ($xtype === 'FULLTEXT') {
+                $xmethod = '';
+            }
+            // нужно в любой уникальный индекс добавить поле datedeleted в самом начале
+            if(isset($xstorage['params']['softdeletes']) && $xstorage['params']['softdeletes'] === true && $xtype === 'UNIQUE') {
+                array_unshift($xindex['fields'], 'datedeleted');
+            }            
             if (!isset($indices[$indexName])) {
                 $logger->error($storage . ': ' . $indexName . ': Index not found: creating');
-
-                $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
-                $method = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
-                if ($xtype === 'FULLTEXT') {
-                    $method = '';
-                }
-
-                if(isset($xstorage['params']['softdeletes']) && $xstorage['params']['softdeletes'] === true) {
-                    // нужно в любой уникальный индекс добавить поле datedeleted в самом начале
-                    if($xtype === 'UNIQUE') {
-                        array_unshift($xindex['fields'], 'datedeleted');
-                    }
-                    
-                }
-
-                $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, $method, $this->_connection);
+                $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, $xmethod, $this->_connection);
                 if ($res->error && strstr($res->error, 'Duplicate key name') !== false) {
                     $res = $dropIndex($Exec, $prefix, $storage, $indexName);
-                    $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, $method, $this->_connection);
+                    $res = $createIndex($Exec, $prefix, $storage, $xindex, $indexName, $xmethod, $this->_connection);
                 }
                 if($res->error) {
                     $logger->error($table . ': Can not create index: ' . $res->query);
                     throw new Exception('Can not create index: ' . $res->query);
                 }
             } else {
+                
                 $oindex = $indices[$indexName];
                 $fields1 = $storage . '_' . implode(',' . $storage . '_', $xindex['fields']);
                 $fields2 = implode(',', $oindex->Columns);
-
-                $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
-                $xmethod = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
-                if ($xtype === 'FULLTEXT') {
-                    $xmethod = '';
-                }
-
                 $otype = 'NORMAL';
                 $omethod = 'BTREE';
+                
                 if ($oindex->Type == 'FULLTEXT') {
                     $otype = 'FULLTEXT';
                     $omethod = '';

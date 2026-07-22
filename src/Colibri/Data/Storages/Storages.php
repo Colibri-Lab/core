@@ -300,7 +300,7 @@ class Storages extends Singleton
      */
     public function Load(string $name, ?string $module = null, ?DataAccessPoint $accessPoint = null): ?Storage
     {
-        $module = strtolower($module);
+        $module = strtolower($module ?? '');
         $name = strtolower($name);
         if($module) {
             if (!isset($this->_storages[$module . '.' . $name])) {
