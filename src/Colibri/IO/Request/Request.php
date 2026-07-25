@@ -155,6 +155,13 @@ class Request
     protected ?\Closure $beforeRequestHandler = null;
 
     /**
+     * Chunk read function
+     * Function params: (Request $request, string $chunk): int
+     * @var \Closure|null
+     */
+    protected ?\Closure $writeFunction = null;
+
+    /**
      * Checks if the curl module loaded
      *
      */
@@ -288,6 +295,11 @@ class Request
 
     }
 
+    public function WriteFunction(\Closure $handler): void
+    {
+        $this->writeFunction = $handler;
+    }
+
     /**
      * Executes the request.
      *
@@ -414,6 +426,10 @@ class Request
         if($this->beforeRequestHandler) {
             $f = $this->beforeRequestHandler;
             $f($handle);
+        }
+
+        if($this->writeFunction) {
+            curl_setopt($handle, CURLOPT_WRITEFUNCTION, fn($handle, $chunk) => ($this->writeFunction)($this, $chunk));
         }
 
         $result = new Result();
