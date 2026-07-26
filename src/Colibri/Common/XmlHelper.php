@@ -97,7 +97,14 @@ class XmlHelper
 
         $ret = [];
         foreach($xml->Query('./*') as $node) {
-            $ret[$node->name] = self::ToObject($node);
+            if(isset($ret[$node->name]) && !\is_array($ret[$node->name])) {
+                $ret[$node->name] = [$ret[$node->name]];
+            }
+            if(\is_array($ret[$node->name])) {
+                $ret[$node->name][] = self::ToObject($node);
+            } else {
+                $ret[$node->name] = self::ToObject($node);
+            }
         }
         return (object)$ret;
 
