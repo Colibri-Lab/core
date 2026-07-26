@@ -100,7 +100,7 @@ class XmlHelper
             if(isset($ret[$node->name]) && !\is_array($ret[$node->name])) {
                 $ret[$node->name] = [$ret[$node->name]];
             }
-            if(\is_array($ret[$node->name])) {
+            if(\is_array($ret[$node->name] ?? null)) {
                 $ret[$node->name][] = self::ToObject($node);
             } else {
                 $ret[$node->name] = self::ToObject($node);
