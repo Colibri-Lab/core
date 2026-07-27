@@ -1,0 +1,27 @@
+var classColibri_1_1Web_1_1Response =
+[
+    [ "__construct", "classColibri_1_1Web_1_1Response.html#a3c77a618f7afaa707b1e1c1176b3a8e1", null ],
+    [ "Cache", "classColibri_1_1Web_1_1Response.html#a00e2c8f285af35dabe84b48e741a0adf", null ],
+    [ "CacheControl", "classColibri_1_1Web_1_1Response.html#a8093414c97856a5bac94478d5517b84f", null ],
+    [ "Close", "classColibri_1_1Web_1_1Response.html#a7471da78f4bc51277e18762cbe4b6c5a", null ],
+    [ "ContentDisposition", "classColibri_1_1Web_1_1Response.html#a79acca9de504ea9ab17889233ed3f5c4", null ],
+    [ "ContentLength", "classColibri_1_1Web_1_1Response.html#a1df478e047d25b0883da35402e73d062", null ],
+    [ "ContentTransferEncoding", "classColibri_1_1Web_1_1Response.html#abadec134597bf65dad278cb7c4be5dad", null ],
+    [ "ContentType", "classColibri_1_1Web_1_1Response.html#a981b5fdab61eeb0d5ab056ab1e0ea8fa", null ],
+    [ "Cookie", "classColibri_1_1Web_1_1Response.html#a9718291527dc2896fe51ed4454318a43", null ],
+    [ "DownloadFile", "classColibri_1_1Web_1_1Response.html#a4ad3e35c80071f4b298837be55fac7ef", null ],
+    [ "DownloadFileToResponse", "classColibri_1_1Web_1_1Response.html#a2ad8fe12d63aa178f78b4e6dc0297db3", null ],
+    [ "Error404", "classColibri_1_1Web_1_1Response.html#ae8b7e31acd1e004d8f26091b3195d919", null ],
+    [ "ExpiresAfter", "classColibri_1_1Web_1_1Response.html#a05364499c3b8dc9b1562650217db4f26", null ],
+    [ "ExpiresAt", "classColibri_1_1Web_1_1Response.html#a0a802f440dda465ac62d7f0446f37266", null ],
+    [ "FileTransfer", "classColibri_1_1Web_1_1Response.html#af728ec36ef6cdeed3d9ba9ce43235a21", null ],
+    [ "FinishRequest", "classColibri_1_1Web_1_1Response.html#a1f437d46cdc47ac3bf4464a8480ff8d8", null ],
+    [ "NoCache", "classColibri_1_1Web_1_1Response.html#adea9e431c0a527050ff245b8e928ff03", null ],
+    [ "Origin", "classColibri_1_1Web_1_1Response.html#a55e15df81b2668a69e007a453cad9cd3", null ],
+    [ "P3P", "classColibri_1_1Web_1_1Response.html#aa75a1d181185ec6a15e2675665b9415f", null ],
+    [ "Pragma", "classColibri_1_1Web_1_1Response.html#af05f7ab1eac20c12ba20a24b1e07ca1d", null ],
+    [ "Redirect", "classColibri_1_1Web_1_1Response.html#ae3fe1c14d41f6a7e018523401bb6497b", null ],
+    [ "Refresh", "classColibri_1_1Web_1_1Response.html#a8e3799522a7b9c353c0409a936c93943", null ],
+    [ "SaveUTMCookies", "classColibri_1_1Web_1_1Response.html#af19ed8a7c49f122a50d648bede49c4de", null ],
+    [ "Write", "classColibri_1_1Web_1_1Response.html#a6360f7d70d46fdc022e190be35de5508", null ]
+];

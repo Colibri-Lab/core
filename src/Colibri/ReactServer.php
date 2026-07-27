@@ -42,8 +42,17 @@ use React\Http\Middleware\StreamingRequestMiddleware;
 use React\Socket\SecureServer;
 use React\Socket\SocketServer;
 
+/**
+ * ReactServer class for handling HTTP requests using ReactPHP.
+ */
 class ReactServer
 {
+    /**
+     * Handles an incoming HTTP request and returns a response.
+     *
+     * @param ServerRequestInterface $psrRequest The incoming PSR-7 request.
+     * @return MessageResponse The response to be sent back to the client.
+     */
     public static function HandleRequest(ServerRequestInterface $psrRequest): MessageResponse
     {
 
@@ -446,6 +455,17 @@ class ReactServer
 
     }
 
+    /**
+     * Returns a response with an error message.
+     *
+     * @param ServerRequestInterface $request The incoming PSR-7 request.
+     * @param string $type The response type.
+     * @param string $message The error message.
+     * @param int $code The error code.
+     * @param string $cmd The command that caused the error.
+     * @param mixed|null $data Additional data related to the error.
+     * @return MessageResponse The response containing the error message.
+     */
     public static function ResponseWithError(
         ServerRequestInterface $request,
         string $type,
@@ -472,6 +492,13 @@ class ReactServer
         ]);
     }
 
+    /**
+     * Initializes the ReactPHP server with the provided configuration.
+     *
+     * @param array $config The server configuration.
+     * @param string $webPath The web root path.
+     * @return void
+     */
     public static function Initialize(array $config, string $webPath)
     {
 

@@ -116,7 +116,7 @@ abstract class Template
     /**
      * Runs template based on the current template's directory path.
      *
-     * @param string $file The sub-template file.
+     * @param string $code The code to execute.
      * @param mixed $args Additional arguments for rendering.
      * @return string The rendered output.
      */
@@ -129,7 +129,7 @@ abstract class Template
     /**
      * Runs code in a dummy template.
      *
-     * @param string $code The code to execute.
+     * @param string $file The sub-template file.
      * @param mixed $args The arguments for the code.
      * @return string The rendered output.
      */

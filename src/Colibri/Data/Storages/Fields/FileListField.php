@@ -13,15 +13,15 @@ namespace Colibri\Data\Storages\Fields;
 use Colibri\Collections\ArrayList;
 
 /**
- * Класс поле список файлов
+ * Class file list field
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Fields
  */
 class FileListField extends ArrayList
 {
     /**
-     * Конструктор
-     * @param string $data данные из поля
+     * Constructor
+     * @param string $data data from the field
      * @return void
      */
     public function __construct($data)
@@ -41,9 +41,9 @@ class FileListField extends ArrayList
     }
 
     /**
-     * Возвращает строку для записи в поле
-     * @param string $splitter разделитель
-     * @return string собранная строка из путей файлов
+     * Returns the string for writing to the field
+     * @param string $splitter delimiter
+     * @return string concatenated string of file paths
      */
     public function ToString(string $splitter = ';'): string
     {
@@ -55,7 +55,7 @@ class FileListField extends ArrayList
     }
 
     /**
-     * Return string value of this object
+     * Returns string value of this object
      *
      * @return string
      */
@@ -64,16 +64,30 @@ class FileListField extends ArrayList
         return $this->ToString();
     }
 
+    /**
+     * Returns the parameter type name for this file list field.
+     *
+     * @return string The parameter type name.
+     */
     public function GetValidationData(): mixed
     {
         return array_map(fn ($item) => $item->ToArray(), $this->ToArray());
     }
 
+    /**
+     * Returns parameter type name for this file list field.
+     * @return string The parameter type name.
+     */
     public static function ParamTypeName(): string
     {
         return 'string';
     }
 
+    /**
+     * Returns null value for the field.
+     *
+     * @return mixed Always returns null.
+     */
     public static function null(): mixed
     {
         return null;

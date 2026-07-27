@@ -1179,6 +1179,14 @@ class StringHelper
         return preg_replace('/^['.$trim_chars.']*(?U)(.*)['.$trim_chars.']*$/u', '\\1', $string);
     }
 
+    /**
+     * Replaces occurrences of a search string with a replacement string in all properties of an object.
+     *
+     * @param object $object The object whose properties will be searched and replaced.
+     * @param string $search The search string.
+     * @param string $replace The replacement string.
+     * @return object The object with replaced values.
+     */
     public static function ReplaceInObject($object, $search, $replace): object
     {
         $object = (array)$object;
@@ -1188,6 +1196,12 @@ class StringHelper
         return (object)$object;
     }
 
+    /**
+     * Clears a phone number string by removing all non-numeric characters.
+     *
+     * @param string $phoneString The phone number string to clear.
+     * @return string The cleared phone number string.
+     */
     public static function ClearPhone(string $phoneString): string
     {
         return preg_replace('/[^0-9]/', '', $phoneString);

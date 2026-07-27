@@ -548,6 +548,11 @@ final class Response extends Singleton
 
     }
 
+    /**
+     * Finishes the request and sends the response to the client.
+     *
+     * @return void
+     */
     public function FinishRequest(): void
     {
         $this->_addHeaders([

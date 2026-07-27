@@ -299,6 +299,13 @@ final class App extends Singleton
         $this->DispatchEvent(EventsContainer::AppReady);
     }
 
+    /**
+     * Clones the application instance with a new request and response.
+     *
+     * @param Request $request The new request object.
+     * @param Response $response The new response object.
+     * @return App A new instance of the application with the provided request and response.
+     */
     public function Clone(Request $request, Response $response): App
     {
         $app = new App();
@@ -350,6 +357,11 @@ final class App extends Singleton
 
     }
 
+    /**
+     * Generates a new CSRF token and stores it in the session.
+     *
+     * @return string The generated CSRF token.
+     */
     public static function GenerateNewCsfrToken(): string
     {
         if(!self::$session->csrf_token) {
@@ -358,6 +370,12 @@ final class App extends Singleton
         return self::$session->csrf_token;
     }
 
+    /**
+     * Checks if the CSRF token in the request headers matches the one stored in the session.
+     *
+     * @param object|null $headers Optional headers object. If not provided, uses the request headers.
+     * @return bool True if the CSRF token is correct, false otherwise.
+     */
     public static function CsfrIsCorrect($headers = null): bool
     {
         if(!$headers) {
@@ -367,6 +385,12 @@ final class App extends Singleton
         return $return;
     }
 
+    /**
+     * Checks if the CSRF token is present in the request headers.
+     *
+     * @param object|null $headers Optional headers object. If not provided, uses the request headers.
+     * @return bool True if the CSRF token is present, false otherwise.
+     */
     public static function HasCsfrInRequest($headers = null): bool
     {
         if(!$headers) {

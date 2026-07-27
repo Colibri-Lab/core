@@ -52,19 +52,26 @@ final class Request extends Singleton
     public const PAYLOAD_TYPE_JSON = 'json';
     /** @var string Type of payload: XML */
     public const PAYLOAD_TYPE_XML = 'xml';
-
+    /** @var bool Indicates whether the request payload is encoded as JSON. */
     private bool $_encodedAsJson = false;
 
+    /** @var ServerRequestInterface|null The PSR-7 server request instance. */
     private ?ServerRequestInterface $_psrRequest = null;
 
+    /** @var array|null The POST parameters. */
     private ?array $_post = null;
+    /** @var array|null The GET parameters. */
     private ?array $_get = null;
+    /** @var array|null The uploaded files. */
     private ?array $_files = null;
+    /** @var array|null The server parameters. */
     private ?array $_server = null;
+    /** @var array|null The cookie parameters. */
     private ?array $_cookie = null;
 
     /**
      * Constructor.
+     * @param ServerRequestInterface|null $request The PSR-7 server request instance (optional).
      */
     public function __construct(?ServerRequestInterface $request = null)
     {
@@ -90,6 +97,12 @@ final class Request extends Singleton
         $this->_detectJsonEncodedData();
     }
 
+    /**
+     * Sets the PSR-7 server request instance.
+     *
+     * @param ServerRequestInterface $request The PSR-7 server request instance.
+     * @return void
+     */
     private function _parseFilesFromPsrRequest(ServerRequestInterface $request): array
     {
         $files = [];
@@ -122,6 +135,12 @@ final class Request extends Singleton
         return $files;
     }
 
+    /**
+     * Saves an uploaded file to a temporary location and returns the temporary file path.
+     *
+     * @param \Psr\Http\Message\UploadedFileInterface $uploadedFile The uploaded file instance.
+     * @return string The path to the temporary file.
+     */
     private function _saveUploadedFileToTemp($uploadedFile): string
     {
         $tmpName = tempnam(sys_get_temp_dir(), 'colibri_');
@@ -305,22 +324,54 @@ final class Request extends Singleton
         return $return;
     }
 
-    public function UpdateServerVariable(string $name, string $value) {
+    /**
+     * Updates a server variable and the corresponding $_SERVER superglobal.
+     *
+     * @param string $name The name of the server variable.
+     * @param string $value The value to set for the server variable.
+     * @return void
+     */
+    public function UpdateServerVariable(string $name, string $value)
+    {
         $this->_server[$name] = $value;
         $_SERVER[$name] = $value;
     }
 
-    public function UpdateGetParam(string $name, string $value) {
+    /**
+     * Updates a cookie variable and the corresponding $_COOKIE superglobal.
+     *
+     * @param string $name The name of the cookie variable.
+     * @param string $value The value to set for the cookie variable.
+     * @return void
+     */
+    public function UpdateGetParam(string $name, string $value)
+    {
         $this->_get[$name] = $value;
         $_GET[$name] = $value;
     }
 
-    public function UpdatePostParam(string $name, string $value) {
+    /**
+     * Updates a POST variable and the corresponding $_POST superglobal.
+     *
+     * @param string $name The name of the POST variable.
+     * @param string $value The value to set for the POST variable.
+     * @return void
+     */
+    public function UpdatePostParam(string $name, string $value)
+    {
         $this->_post[$name] = $value;
         $_POST[$name] = $value;
     }
 
-    public function UpdateFilesParam(string $name, array $value) {
+    /**
+     * Updates a cookie variable and the corresponding $_COOKIE superglobal.
+     *
+     * @param string $name The name of the cookie variable.
+     * @param string $value The value to set for the cookie variable.
+     * @return void
+     */
+    public function UpdateFilesParam(string $name, array $value)
+    {
         $this->_files[$name] = $value;
         $_FILES[$name] = $value;
     }
@@ -363,6 +414,12 @@ final class Request extends Singleton
 
     }
 
+    /**
+     * Modifies the request headers by adding or updating specified headers.
+     *
+     * @param array $headers An associative array of headers to modify (header name => header value).
+     * @return void
+     */
     public function ModifyHeaders(array $headers = [])
     {
         foreach($headers as $headerName => $headerValue) {
@@ -370,6 +427,12 @@ final class Request extends Singleton
         }
     }
 
+    /**
+     * Extracts files from the request based on specified file keys.
+     *
+     * @param array $fileKeys An array of file keys to extract.
+     * @return array An array of extracted RequestedFile objects.
+     */
     public function ExtractFiles(array $fileKeys): array
     {
         $files = [];
@@ -383,6 +446,12 @@ final class Request extends Singleton
         return $files;
     }
 
+    /**
+     * Extracts a single file from the request based on the specified file key.
+     *
+     * @param string $fileKey The file key to extract.
+     * @return RequestedFile|null The extracted RequestedFile object or null if not found.
+     */
     public function ExtractFile(string $fileKey): ?RequestedFile
     {
         if($this->files->$fileKey) {

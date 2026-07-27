@@ -35,8 +35,18 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      */
     protected ?DataAccessPoint $_point = null;
 
+    /**
+     * Command result
+     *
+     * @var ICommandResult|null
+     */
     protected ?ICommandResult $_result = null;
 
+    /**
+     * Rows of data
+     *
+     * @var array
+     */
     protected array $_rows = [];
 
     /**
@@ -46,6 +56,11 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      */
     protected ?string $_returnAs = null;
 
+    /**
+     * Table name
+     *
+     * @var string|null
+     */
     protected ?string $_table = null;
 
     /**

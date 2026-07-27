@@ -16,6 +16,13 @@ use Exception;
  */
 class NumberToText
 {
+    /**
+     * Converts a number to its textual representation in the specified language.
+     *
+     * @param float $num The number to convert.
+     * @param string $lang The language code (e.g., 'ru', 'en').
+     * @return string The textual representation of the number.
+     */
     public static function convert($num, $lang = 'ru'): string
     {
         switch ($lang) {
@@ -35,7 +42,12 @@ class NumberToText
         }
     }
 
-    // ================= RU =================
+    /**
+     * Converts a number to its textual representation in Russian, including rubles and kopeks.
+     *
+     * @param float $num The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function ru($num): string
     {
         $unit = ['рубль','рубля','рублей'];
@@ -151,7 +163,12 @@ class NumberToText
             $getForm($kop, $kopeksForms);
     }
 
-    // ================= EN =================
+    /**
+     * Converts a number to its textual representation in English, including dollars and cents.
+     *
+     * @param float $num The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function en($num): string
     {
         $units = ["zero","one","two","three","four","five","six","seven","eight","nine"];
@@ -174,19 +191,85 @@ class NumberToText
         return $toWords($int) . " dollars " . str_pad($frac,2,'0',STR_PAD_LEFT) . " cents";
     }
 
-    // ===== остальные языки (базово, без сложной морфологии) =====
+    /**
+     * Converts a number to its textual representation in other languages (basic, without complex morphology).
+     *
+     * @param float $n The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function hy($n){ return self::simple($n,"դրամ","լումա"); }
+
+    /**
+     * Converts a number to its textual representation in Italian, Spanish, Kazakh, Uzbek, Czech, German, Persian, Chinese, and Turkish (basic, without complex morphology).
+     * 
+     * @param float $n The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function it($n){ return self::simple($n,"euro","centesimi"); }
+
+    /**
+     * Converts a number to its textual representation in Spanish, Kazakh, Uzbek, Czech, German, Persian, Chinese, and Turkish (basic, without complex morphology).
+     * @param float $n The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function es($n){ return self::simple($n,"euros","centavos"); }
+
+    /**
+     * Converts a number to its textual representation in Kazakh, Uzbek, Czech, German, Persian, Chinese, and Turkish (basic, without complex morphology).
+     * @param float $n The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function kk($n){ return self::simple($n,"теңге","тиын"); }
+
+    /**
+     * Converts a number to its textual representation in Uzbek, Czech, German, Persian, Chinese, and Turkish (basic, without complex morphology).
+     * @param float $n The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function uz($n){ return self::simple($n,"so‘m","tiyin"); }
+
+    /**
+     * Converts a number to its textual representation in Czech, German, Persian, Chinese, and Turkish (basic, without complex morphology).
+     * @param float $n The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function cz($n){ return self::simple($n,"korun","haléřů"); }
+
+    /**
+     * Converts a number to its textual representation in German (basic, without complex morphology).
+     * @param float $n The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function de($n){ return self::simple($n,"euro","cent"); }
+
+    /**
+     * Converts a number to its textual representation in Persian (basic, without complex morphology).
+     * @param float $n The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function fa($n){ return self::simple($n,"ریال",""); }
+
+    /**
+     * Converts a number to its textual representation in Chinese (basic, without complex morphology).
+     * @param float $n The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function zh($n){ return self::simple($n,"元","分"); }
+
+    /**
+     * Converts a number to its textual representation in Turkish (basic, without complex morphology).
+     * @param float $n The number to convert.
+     * @return string The textual representation of the number.
+     */
     public static function tr($n){ return self::simple($n,"lira","kuruş"); }
 
-    // упрощённая реализация
+    /**
+     * Converts a number to its textual representation in a simple format with specified currency and fraction.
+     * @param float $num The number to convert.
+     * @param string $currency The currency name.
+     * @param string $fraction The fraction name.
+     * @return string The textual representation of the number.
+     */
     private static function simple($num, $currency, $fraction): string
     {
         $int = (int)$num;

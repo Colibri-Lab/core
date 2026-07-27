@@ -34,7 +34,7 @@ interface IArrayList
     /**
      * Appends one or many items to the end of list.
      *
-     * @param mixed $nodes The node(s) to append.
+     * @param mixed $values The value(s) to append.
      * @return void
      */
     public function Append(mixed $values): void;

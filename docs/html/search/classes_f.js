@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['querybuilder_1344',['QueryBuilder',['../classColibri_1_1Data_1_1MongoDb_1_1QueryBuilder.html',1,'Colibri\Data\MongoDb\QueryBuilder'],['../classColibri_1_1Data_1_1MySql_1_1QueryBuilder.html',1,'Colibri\Data\MySql\QueryBuilder'],['../classColibri_1_1Data_1_1PgSql_1_1QueryBuilder.html',1,'Colibri\Data\PgSql\QueryBuilder'],['../classColibri_1_1Data_1_1Solr_1_1QueryBuilder.html',1,'Colibri\Data\Solr\QueryBuilder'],['../classColibri_1_1Data_1_1Sphinx_1_1QueryBuilder.html',1,'Colibri\Data\Sphinx\QueryBuilder']]],
+  ['queryinfo_1345',['QueryInfo',['../classColibri_1_1Data_1_1MySql_1_1QueryInfo.html',1,'Colibri\Data\MySql\QueryInfo'],['../classColibri_1_1Data_1_1NoSqlClient_1_1QueryInfo.html',1,'Colibri\Data\NoSqlClient\QueryInfo'],['../classColibri_1_1Data_1_1PgSql_1_1QueryInfo.html',1,'Colibri\Data\PgSql\QueryInfo'],['../classColibri_1_1Data_1_1Sphinx_1_1QueryInfo.html',1,'Colibri\Data\Sphinx\QueryInfo'],['../classColibri_1_1Data_1_1SqlClient_1_1QueryInfo.html',1,'Colibri\Data\SqlClient\QueryInfo']]]
+];

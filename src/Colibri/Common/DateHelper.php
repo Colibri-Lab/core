@@ -20,8 +20,10 @@ use Colibri\Data\Storages\Fields\DateTimeField;
  */
 class DateHelper
 {
+    /** Non-breaking space */
     private const NBSP = '&nbsp;';
 
+    /** Date format */
     private const DATEFORMAT = 'Y-m-d 00:00:00';
 
     /** Seconds in year */
@@ -354,6 +356,12 @@ class DateHelper
         return substr($txt, 0, strlen($txt) - 1);
     }
     
+    /**
+     * Calculates the canonical difference between two timestamps, returning the difference in years, months, days, hours, minutes, and seconds.
+     * @param string|int $time1 The first timestamp or date string.
+     * @param string|int $time2 The second timestamp or date string.
+     * @return object An object representing the canonical time difference (e.g., years, months, days, hours, minutes, seconds).
+     */
     public static function CanonicalDiff(string|int $time1, string|int $time2): object
     {
         $time1 = is_string($time1) ? strtotime($time1) : $time1;
@@ -535,6 +543,11 @@ class DateHelper
         return cal_days_in_month(CAL_GREGORIAN, $dt->format('M'), $dt->format('yyyy'));
     }
 
+    /**
+     * Converts a date string to an ISO 8601 formatted date string in UTC.
+     * @param string|null $value The date string to convert (default is 'now').
+     * @return string The ISO 8601 formatted date string in UTC (e.g., "2024-03-15T12:30:45Z"). 
+     */
     public static function ToISODate(?string $value = 'now'): string
     {
         if(!$value) {
@@ -543,16 +556,28 @@ class DateHelper
         return (new DateTime(trim($value)))->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d\\TH:i:s\\Z');
     }
 
+    /**
+     * Converts a time string in the format "HH:MM" to the total number of minutes.
+     * @param string $hourMinute The time string in "HH:MM" format.
+     * @return int The total number of minutes represented by the time string.
+     */
     public static function TimeToMinute(string $hourMinute): int
     {
         $parts = explode(':', $hourMinute);
         return $parts[0] * 60 + $parts[1];
     }
 
+    /** 
+     * Calculates the current time in milliseconds since the Unix epoch.
+     */
     public static function Mc(): int
     {
         return (int) (hrtime(true) / 1_000_000);
     }
+
+    /**
+     * Calculates the current time in nanoseconds since the Unix epoch.
+     */
     public static function Nc(): int
     {
         return hrtime(true);

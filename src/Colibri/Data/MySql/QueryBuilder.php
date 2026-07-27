@@ -25,7 +25,14 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder implements IQueryBuilder
 {
+    /** @var Connection The MySQL connection instance. */
     private Connection $_connection;
+
+    /**
+     * Initializes a new instance of the QueryBuilder class with the specified MySQL connection.
+     *
+     * @param Connection $connection The MySQL connection instance.
+     */
     public function __construct(Connection $connection)
     {
         $this->_connection = $connection;
@@ -273,12 +280,24 @@ class QueryBuilder implements IQueryBuilder
         WHERE event_object_table = \''.$table.'\' AND trigger_schema = \''.$database.'\'';
     }
 
+    /**
+     * Creates a SHOW CREATE TABLE query for a specific table.
+     *
+     * @param string $table The name of the table.
+     * @return string The generated SHOW CREATE TABLE query.
+     */
     public function CreateFieldForQuery(string $field, string $table): string
     {
         return '`' . $table . '`.`' . $field . '`';
     }
 
-
+    /**
+     * Creates a query for soft deletion, checking if the specified soft delete field is null.
+     *
+     * @param string $softDeleteField The name of the soft delete field. Default is 'datedeleted'.
+     * @param string $table The name of the table. Default is an empty string.
+     * @return string The generated soft delete query.
+     */
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): string
     {
         return $this->CreateFieldForQuery($softDeleteField, $table) . ' is null';
@@ -295,12 +314,24 @@ class QueryBuilder implements IQueryBuilder
         return "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='" . $database . "' and TABLE_NAME='" . $table . "'";
     }
 
+    /**
+     * Creates a SHOW TABLE STATUS query for a specific table.
+     *
+     * @param string $table The name of the table.
+     * @return string The generated SHOW TABLE STATUS query.
+     */
     public function CreateShowStatus(string $table): string
     {
         return 'SHOW TABLE STATUS LIKE \''.$table.'\'';
     }
 
 
+    /**
+     * Creates a DROP TABLE query for a specific table.
+     *
+     * @param string $table The name of the table.
+     * @return string The generated DROP TABLE query.
+     */
     public function CreateDrop($table): string
     {
         return 'drop table `' . $table . '`';
@@ -343,6 +374,12 @@ class QueryBuilder implements IQueryBuilder
         return 'rollback';
     }
 
+    /**
+     * Creates a query to check if a table exists in the database.
+     *
+     * @param string $table The name of the table.
+     * @return string The generated query to check if the table exists.
+     */
     public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array
     {
         return '
@@ -359,6 +396,12 @@ class QueryBuilder implements IQueryBuilder
         ';
     }
 
+    /**
+     * Creates a query to check if a table exists in the database.
+     *
+     * @param string $table The name of the table.
+     * @return array The generated query to check if the table exists.
+     */
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
     {
 

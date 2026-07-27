@@ -217,6 +217,15 @@ final class Command extends SqlCommand
         return $query;
     }
 
+    /** 
+     * Migrates the database schema based on the provided storage and configuration.
+     *
+     * @param Logger $logger The logger instance.
+     * @param string $storage The storage name.
+     * @param array $xstorage The storage configuration.
+     * @return void
+     * @throws Exception If there's an issue during migration.
+     */
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {
 
@@ -620,7 +629,12 @@ final class Command extends SqlCommand
         }
     }
 
-
+    /**
+     * Extracts field information from the provided field array or object.
+     *
+     * @param array|object $field The field array or object.
+     * @return object The extracted field information.
+     */
     public static function ExtractFieldInformation(array|object $field): object
     {
         $field = (object)$field;
@@ -635,7 +649,12 @@ final class Command extends SqlCommand
 
     }
 
-
+    /**
+     * Extracts index information from the provided index array or object.
+     *
+     * @param array|object $index The index array or object.
+     * @return object The extracted index information.
+     */
     public static function ExtractIndexInformation(array|object $index): object
     {
         return (object)[

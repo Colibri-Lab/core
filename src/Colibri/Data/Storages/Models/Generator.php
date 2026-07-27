@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Models
+ *
+ * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
+ * @copyright 2019 Colibri
+ * @package Colibri\Data\Storages\Models
+ */
+
 namespace Colibri\Data\Storages\Models;
 
 use Colibri\App;
@@ -11,8 +19,17 @@ use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 use Colibri\Data\Storages\Fields\Field;
 
+/**
+ * Storage model generator
+ * @author Vahan P. Grigoryan
+ * @package Colibri\Data\Storages\Models
+ */
 class Generator
 {
+    /**
+     * List of basic data types.
+     * @var array
+     */
     public static $types = [
         'bool',
         'int',
@@ -26,6 +43,10 @@ class Generator
         'resource'
     ];
 
+    /**
+     * Mapping of storage types to generic types.
+     * @var array
+     */
     public static $typeToGeneric = [
         'bool' => 'bool',
         'int' => 'int',
@@ -47,6 +68,14 @@ class Generator
         ]
     ];
 
+    /**
+     * Converts table and row names to a structured format.
+     *
+     * @param string $rootNamespace The root namespace.
+     * @param string $table The table name.
+     * @param string $row The row name.
+     * @return array An array containing the namespace, table class name, and row name.
+     */
     private static function _convertNames(string $rootNamespace, string $table, string $row): array
     {
 
@@ -60,7 +89,14 @@ class Generator
         return [$rootNamespace . $namespaceName, $tableClassName, $row];
     }
 
-    public static function GetSchemaObject($fields, string $rowClass, string $classPrefix): array
+    /**
+     * Get the schema object
+     * @param array|object|null $fields The fields of the storage model.
+     * @param string $rowClass The class name of the row.
+     * @param string $classPrefix The prefix for the class.
+     * @return array The schema object as an array.
+     */
+    public static function GetSchemaObject(array|object|null $fields, string $rowClass, string $classPrefix): array
     {
         $jsonTypeMap = [
             'bool' => ['boolean', 'number'],
@@ -234,6 +270,20 @@ class Generator
 
     }
 
+    /**
+     * Generates a field for the storage model.
+     *
+     * @param Storage $storage The storage instance.
+     * @param Field $field The field to generate.
+     * @param string $rootNamespace The root namespace.
+     * @param string $row The row name.
+     * @param array &$uses An array to store the used classes.
+     * @param array &$properties An array to store the properties of the field.
+     * @param array &$consts An array to store the constants of the field.
+     * @param array &$casts An array to store the casts of the field.
+     * @param string $classPrefix The prefix for the class.
+     * @return void
+     */
     private static function GenerateField(
         Storage $storage,
         Field $field,
@@ -339,6 +389,14 @@ class Generator
         }
     }
 
+    /**
+     * Generates an array field class for the storage model.
+     *
+     * @param Storage $storage The storage instance.
+     * @param Field $field The field to generate.
+     * @param string $classPrefix The prefix for the class.
+     * @return array An array containing the class name and full subclass name.
+     */
     public static function GenerateArrayFieldClass(Storage $storage, Field $field, string $classPrefix): array
     {
 
@@ -408,6 +466,14 @@ class Generator
 
     }
 
+    /**
+     * Generates an object field class for the storage model.
+     *
+     * @param Storage $storage The storage instance.
+     * @param Field $field The field to generate.
+     * @param string $classPrefix The prefix for the class.
+     * @return array An array containing the class name and full subclass name.
+     */
     public static function GenerateObjectFieldClass(Storage $storage, Field $field, string $classPrefix): array
     {
         $langModule = App::$moduleManager->Get('lang');
@@ -550,6 +616,14 @@ class Generator
         return [$className, $rootNamespace . $row];
     }
 
+    /**
+     * Generates an enum field class for the storage model.
+     *
+     * @param Storage $storage The storage instance.
+     * @param Field $field The field to generate.
+     * @param string $classPrefix The prefix for the class.
+     * @return array An array containing the class name and full subclass name.
+     */
     public static function GenerateEnumFieldClass(Storage $storage, Field $field, string $classPrefix): array
     {
         $langModule = App::$moduleManager->Get('lang');
@@ -655,6 +729,12 @@ class Generator
         return [$className, $rootNamespace . $row];
     }
 
+    /**
+     * Generates model classes for the given storage.
+     *
+     * @param Storage $storage The storage instance.
+     * @return void
+     */
     public static function GenerateModelClasses(Storage $storage): void
     {
 
@@ -816,6 +896,12 @@ class Generator
 
     }
 
+    /**
+     * Generates model templates for the given storage.
+     *
+     * @param Storage $storage The storage instance.
+     * @return void
+     */
     public static function GenerateModelTemplates(Storage $storage)
     {
 

@@ -84,6 +84,13 @@ class ArchiveHelper
         return '504b0304' === bin2hex($bytes);
     }
 
+    /**
+     * Extracts a zip archive to the specified directory.
+     *
+     * @param string $path The path to the zip archive.
+     * @param string $directoryPath The path to the directory where the archive will be extracted.
+     * @return void
+     */
     public static function ExtractTo(string $path, string $directoryPath): void
     {
 

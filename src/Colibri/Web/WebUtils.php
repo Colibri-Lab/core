@@ -10,22 +10,46 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class WebUtils
 {
-    /**
-     * List of types
+    /** 
+     * Type JSON 
+     * @const string 
      */
     public const JSON = 'json';
+    /** 
+     * Type XML 
+     * @const string 
+     */
     public const XML = 'xml';
+    /** 
+     * Type HTML 
+     * @const string 
+     */
     public const HTML = 'html';
+    /** 
+     * Type Text 
+     * @const string 
+     */
     public const Text = 'txt';
+    /** 
+     * Type CSS 
+     * @const string 
+     */
     public const CSS = 'css';
+    /** 
+     * Type JS 
+     * @const string 
+     */
     public const JS = 'js';
+    /** 
+     * Type Stream 
+     * @const string 
+     */
     public const Stream = 'stream';
 
 
-    /**
-    * List of errors
-    */
+    /** Incorrect command */
     public const IncorrectCommandObject = 1;
+    /** Unknown method in object */
     public const UnknownMethodInObject = 2;
 
     /**

@@ -38,9 +38,7 @@ class XmlReader
     /**
      * Constructor.
      *
-     * @param XmlNode $node The context node.
-     * @param bool $returnAsNamedMap Whether to return as a named map.
-     * @param array $namespaces Optional array of namespace prefixes and URIs.
+     * @param string $filePath The path to the XML file to read.
      */
     public function __construct(string $filePath)
     {
@@ -48,6 +46,11 @@ class XmlReader
         $this->_reader->open($filePath);
     }
 
+    /**
+     * Executes a callback for each XML element in the document.
+     *
+     * @param callable $callback The callback function to execute for each element.
+     */
     public function Each(callable $callback): void
     {
         while ($this->_reader->read()) {

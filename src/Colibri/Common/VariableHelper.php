@@ -927,7 +927,7 @@ class VariableHelper
      * Finds an object in array with key equals to value
      * @param array $array
      * @param string $innerObjectKey
-     * @param string $innerObjectValue
+     * @param mixed $innerObjectvalue
      * @return mixed
      */
     public static function FindInArray(array $array, string $innerObjectKey, mixed $innerObjectvalue): mixed
@@ -947,9 +947,10 @@ class VariableHelper
     }
 
     /**
-     * Checks the string is valid regexp
-     * @param string $value
-     * @return bool
+     * Checks if the string is a valid regular expression.
+     *
+     * @param string $value The string to check.
+     * @return bool True if the string is a valid regular expression, false otherwise.
      */
     public static function IsValidRegExp(string $value): bool
     {

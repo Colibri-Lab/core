@@ -32,34 +32,52 @@ use Colibri\Data\NoSqlClient\ICommandResult;
 use Colibri\Data\SqlClient\QueryInfo;
 
 /**
- * Таблица, представление данных в хранилище
+ * Class representing a collection of data rows in a storage system.
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Models
  */
 class DataCollection extends BaseDataTable
 {
     /**
-     * Хранилише
+     * The storage associated with this data collection.
      * @var Storage
      */
     protected ?Storage $_storage = null;
 
+    /**
+     * The class name to return for each data row in the collection.
+     * @var string
+     */
     protected string $_returnAsExtended;
 
+    /**
+     * Indicates whether to perform a full selection of fields in the query.
+     * @var bool
+     */
     protected static $fullSelection = false;
 
+    /**
+     * The parent object for lookup relationships, if applicable.
+     * @var mixed
+     */
     protected mixed $_isLookupOf = null;
 
-    public function isLookUpOf(mixed $parentObject) {
+    /**
+     * Sets the parent object for lookup relationships.
+     *
+     * @param mixed $parentObject The parent object to set.
+     * @return void
+     */
+    public function isLookUpOf(mixed $parentObject): void {
         $this->_isLookupOf = $parentObject;
     }
 
     /**
-     * Конструктор
+     * Constructs a new DataCollection instance.
      * @param DataAccessPoint $point
      * @param ?ICommandResult $result
      * @param string $returnAs
-     * @param Storage|null $storage хранилище
+     * @param Storage|null $storage
      * @return void
      */
     public function __construct(
@@ -74,8 +92,8 @@ class DataCollection extends BaseDataTable
     }
 
     /**
-     * Возвращает итератор
-     * @return DataTableIterator итератор
+     * Returns the storage associated with this data collection.
+     * @return DataTableIterator The iterator for the data collection.
      */
     public function getIterator(): DataTableIterator
     {
@@ -83,7 +101,7 @@ class DataCollection extends BaseDataTable
     }
 
     /**
-     * Возвращает обьект хранилище
+     * Returns the storage associated with this data collection.
      * @return Storage
      */
     public function Storage(): Storage
@@ -92,7 +110,7 @@ class DataCollection extends BaseDataTable
     }
 
     /**
-     * Создает обьект данных представления строки
+     * Creates a new data row object based on the provided result.
      *
      * @param ExtendedObject $result
      * @return mixed
@@ -109,6 +127,12 @@ class DataCollection extends BaseDataTable
         return $return;
     }
 
+    /**
+     * Replaces field placeholders in the given value with their corresponding real field names from the storage.
+     * @param string $value The value containing field placeholders.
+     * @param Storage $storage The storage to retrieve real field names from.
+     * @return string The value with field placeholders replaced by real field names.
+     */
     protected static function _replaceFields(string $value, Storage $storage): string
     {
         $res = preg_match_all('/\{([^\}]+)\}/', $value, $matches, \PREG_SET_ORDER);
@@ -126,6 +150,17 @@ class DataCollection extends BaseDataTable
         return $value;
     }
 
+    /**
+     * Loads data from the storage based on the provided filter and other parameters.
+     *
+     * @param Storage $storage The storage to load data from.
+     * @param int $page The page number for pagination (default: -1, no pagination).
+     * @param int $pagesize The number of items per page for pagination (default: 20).
+     * @param array|null $query The query parameters for filtering (default: null).
+     * @param array|null $filter The filter parameters for filtering (default: null).
+     * @param array|null $order The order parameters for sorting (default: null).
+     * @return static|null Returns an instance of the DataCollection or null if an error occurs.
+     */
     protected static function _loadByFilter(
         Storage $storage,
         int $page = -1,
@@ -156,6 +191,13 @@ class DataCollection extends BaseDataTable
         }
     }
 
+    /**
+     * Deletes documents from the storage based on the provided filter.
+     *
+     * @param Storage $storage The storage to delete documents from.
+     * @param array $filter The filter parameters for selecting documents to delete.
+     * @return bool Returns true if the deletion was successful, false otherwise.
+     */
     protected static function DeleteByFilter(
         Storage $storage,
         array $filter
@@ -186,6 +228,13 @@ class DataCollection extends BaseDataTable
         return false;
     }
 
+    /**
+     * Restores documents in the storage based on the provided filter.
+     *
+     * @param Storage $storage The storage to restore documents in.
+     * @param array $filter The filter parameters for selecting documents to restore.
+     * @return bool Returns true if the restoration was successful, false otherwise.
+     */
     protected static function RestoreByFilter(
         Storage $storage,
         array $filter
@@ -210,6 +259,14 @@ class DataCollection extends BaseDataTable
         return false;
     }
 
+    /**
+     * Updates documents in the storage based on the provided filter and fields.
+     *
+     * @param Storage $storage The storage to update documents in.
+     * @param array $filter The filter parameters for selecting documents to update.
+     * @param array $fields The fields and their new values to update.
+     * @return bool Returns true if the update was successful, false otherwise.
+     */
     protected static function UpdateByFilter(
         Storage $storage,
         array $filter,
@@ -230,9 +287,9 @@ class DataCollection extends BaseDataTable
     }
 
     /**
-     * Сохраняет переданную строку в базу данных
-     * @param DataRow|BaseDataRow $row строка для сохранения
-     * @param string|null $idField поле для автоинкремента, если не найдется в таблице
+     * Saves a data row to the storage, either by inserting a new row or updating an existing one.
+     * @param DataRow|BaseDataRow $row The data row to save.
+     * @param string|null $idField The auto-increment field, if not found in the table.
      * @return ICommandResult|bool
      * @throws DataModelException
      */
@@ -285,8 +342,8 @@ class DataCollection extends BaseDataTable
 
 
     /**
-     * Экспорт в csv
-     * @param string $file файл, куда выгружать
+     * Exports the data collection to a CSV file.
+     * @param string $file The file to export to.
      * @return void
      */
     public function ExportCSV(string $file): void
@@ -329,8 +386,8 @@ class DataCollection extends BaseDataTable
     }
 
     /**
-     * Выгрузить в XML
-     * @param string $file файл, куда выгружать
+     * Exports the data collection to an XML file.
+     * @param string $file The file to export to.
      * @return void
      */
     public function ExportXML(string $file): void
@@ -363,8 +420,8 @@ class DataCollection extends BaseDataTable
     }
 
     /**
-     * Выгрузить в XML
-     * @param string $file файл, куда выгружать
+     * Exports the data collection to a JSON file.
+     * @param string $file The file to export to.
      * @return void
      */
     public function ExportJson(string $file): void
@@ -386,9 +443,9 @@ class DataCollection extends BaseDataTable
     }
 
     /**
-     * Импортировать из CSV
-     * @param string $file файл источник
-     * @param int $firstrow номер строки, с которой начинаются данные
+     * Imports data from a CSV file.
+     * @param string $file The source file.
+     * @param int $firstrow The row number where the data starts.
      * @return void
      */
     public function ImportCSV(string $file, int $firstrow = 1, ?Logger $logger = null): bool
@@ -420,9 +477,9 @@ class DataCollection extends BaseDataTable
     }
 
     /**
-     * Импортировать из XML
-     * @param string $file файл источник
-     * @param int $firstrow номер строки, с которой начинаются данные
+     * Imports data from an XML file.
+     * @param string $file The source file.
+     * @param int $firstrow The row number where the data starts.
      * @return void
      */
     public function ImportXML(string $file, int $firstrow = 1, ?Logger $logger = null): bool
@@ -451,6 +508,14 @@ class DataCollection extends BaseDataTable
         return $hasErrors;
     }
 
+    /**
+     * Exports the data to json file
+     * @param Storage $storage
+     * @param string|File $file
+     * @param array $fields
+     * @param array|null $filter
+     * @return bool
+     */
     protected static function _exportToFileJson(
         Storage $storage,
         string|File $file,
@@ -487,6 +552,17 @@ class DataCollection extends BaseDataTable
         return true;
     }
 
+    /**
+     * Imports from XML file to storage
+     * @param Storage $storage
+     * @param string|File $file
+     * @param string $tag
+     * @param array $fieldsMap
+     * @param array $additionalFields
+     * @return bool
+     * @throws DataAccessPointsException
+     * @throws DataModelException
+     */
     protected static function _loadFromFileXML(
         Storage $storage,
         string|File $file,
@@ -538,6 +614,11 @@ class DataCollection extends BaseDataTable
 
     }
 
+    /**
+     * Sets the full selection mode (with deleted items) for the data collection.
+     * @param bool $value True to enable full selection, false to disable.
+     * @return void
+     */
     public static function SetFullSelect(bool $value)
     {
         static::$fullSelection = $value;

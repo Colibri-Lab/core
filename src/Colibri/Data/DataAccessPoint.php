@@ -233,11 +233,24 @@ class DataAccessPoint
         }
     }
 
+    /**
+     * Reopens the connection to the database.
+     *
+     * @return void
+     */
     public function Reopen()
     {
         $this->_connection->Reopen();
     }
 
+    /**
+     * Executes a command in the access point.
+     *
+     * @param string $command The command to execute.
+     * @param mixed ...$arguments The arguments for the command.
+     * @return mixed The result of the command execution.
+     * @throws DataAccessPointsException If the command is not found in the driver Command object.
+     */
     public function ExecuteCommand(string $command, ...$arguments): mixed
     {
         if(!$this->_connected) {
@@ -259,6 +272,11 @@ class DataAccessPoint
 
     }
 
+    /**
+     * Closes the connection to the database.
+     *
+     * @return void
+     */
     public function __call(string $name, array $arguments): mixed
     {
         if(!$this->_connected) {
@@ -367,6 +385,13 @@ class DataAccessPoint
 
     }
 
+    /**
+     * Creates a query using the query builder.
+     *
+     * @param string $method The method name of the query builder.
+     * @param array $attributes The attributes to pass to the query builder method.
+     * @return mixed The result of the query builder method.
+     */
     public function CreateQuery(string $method, array $attributes)
     {
         if(!$this->_connected) {
@@ -607,6 +632,13 @@ class DataAccessPoint
         return null;
     }
 
+    /**
+     * Creates a query for a specific field in a table.
+     *
+     * @param string $field The field name.
+     * @param string $table The table name.
+     * @return string The generated query string.
+     */
     public function ForQuery(string $field, string $table): string
     {
         if(!$this->_connected) {
@@ -616,7 +648,13 @@ class DataAccessPoint
         return $this->CreateQuery('CreateFieldForQuery', [$field, $table]);
     }
 
-
+    /**
+     * Creates a query to check for soft deletion in a table.
+     *
+     * @param string $field The field name.
+     * @param string $table The table name.
+     * @return string The generated query string for soft deletion check.
+     */
     public function SoftDeleteCheck(string $field, string $table): string
     {
         if(!$this->_connected) {
@@ -626,6 +664,17 @@ class DataAccessPoint
         return $this->CreateQuery('CreateSoftDeleteQuery', [$field, $table]);
     }
 
+    /**
+     * Processes filters for a storage.
+     *
+     * @param Storage $storage The storage object.
+     * @param string $fullTextSearchTerms The full-text search terms.
+     * @param array $filters The filters to apply.
+     * @param string $sortField The field to sort by.
+     * @param string $sortOrder The sort order (ASC or DESC).
+     * @param bool $useAsManageFilter Whether to use as a manage filter.
+     * @return array The processed filters as an array.
+     */
     public function ProcessFilters(Storage $storage, string $fullTextSearchTerms, array $filters, string $sortField, string $sortOrder, bool $useAsManageFilter = true): array
     {
         if(!$this->_connected) {
@@ -635,6 +684,13 @@ class DataAccessPoint
         return $this->CreateQuery('ProcessFilters', [$storage, $fullTextSearchTerms, $filters, $sortField, $sortOrder, $useAsManageFilter]);
     }
 
+    /**
+     * Processes mutation data for a row.
+     *
+     * @param mixed $row The row data to process.
+     * @param string $mutationType The type of mutation (e.g., insert, update, delete).
+     * @return array The processed mutation data as an array.
+     */
     public function ProcessMutationData(mixed $row, string $mutationType): array
     {
         if(!$this->_connected) {
@@ -644,6 +700,14 @@ class DataAccessPoint
         return $this->CreateQuery('ProcessMutationData', [$row, $mutationType]);
     }
 
+    /**
+     * Migrates storage in databases by storage configuration.
+     *
+     * @param Logger $logger The logger instance for logging migration progress.
+     * @param string $storage The source storage name.
+     * @param array $xstorage The target storage configuration.
+     * @return void
+     */
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {
         if(!$this->_connected) {

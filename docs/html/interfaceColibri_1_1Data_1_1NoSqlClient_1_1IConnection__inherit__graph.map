@@ -1,0 +1,5 @@
+<map id="Colibri\Data\NoSqlClient\IConnection" name="Colibri\Data\NoSqlClient\IConnection">
+<area shape="rect" id="node1" title=" " alt="" coords="103,5,281,47"/>
+<area shape="rect" id="node2" href="$classColibri_1_1Data_1_1MongoDb_1_1Connection.html" title=" " alt="" coords="5,95,171,136"/>
+<area shape="rect" id="node3" href="$classColibri_1_1Data_1_1Solr_1_1Connection.html" title=" " alt="" coords="195,102,400,129"/>
+</map>

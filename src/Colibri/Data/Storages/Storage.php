@@ -702,6 +702,13 @@ class Storage
         }
     }
 
+    /**
+     * Recursively applies a closure to each field in the storage.
+     *
+     * @param \Closure $closure The closure to apply to each field.
+     * @param object|null $fields The fields to recurse through (optional).
+     * @return void
+     */
     public function RecurseFields(\Closure $closure, ?object $fields = null)
     {
         foreach(($fields ?: $this->_fields) as $field) {

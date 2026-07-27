@@ -74,6 +74,9 @@ class MimeType
         $this->_type = $type;
     }
 
+    /**
+     * Loads the MIME types from the mime.types file and saves it to the runtime directory if necessary.
+     */
     private function _loadAndSave(): void
     {
         $runtimePath = App::$appRoot . App::$config?->Query('runtime')?->GetValue();
@@ -81,6 +84,9 @@ class MimeType
         File::Write($runtimePath . 'mime.types', $content, true, '777');
     }
 
+    /**
+     * Loads the MIME types from the mime.types file in the runtime directory.
+     */
     private function _loadMimeTypes()
     {
         $runtimePath = App::$appRoot . (App::$config?->Query('runtime')->GetValue() ?? 'runtime/');

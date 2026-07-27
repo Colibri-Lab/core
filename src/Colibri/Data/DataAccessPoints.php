@@ -54,6 +54,11 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
 
     }
 
+    /**
+     * Initializes the access points.
+     *
+     * @return void
+     */
     public function Initialize(): void
     {
         $this->_accessPoints = (object)[];
@@ -191,12 +196,24 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
         return $return;
     }
 
+    /**
+     * Returns the key of the access point at the specified index.
+     *
+     * @param int $index The index of the access point.
+     * @return string|null The key of the access point, or null if not found.
+     */
     public function Key(int $index): ?string
     {
         $keys = array_keys($this->_accessPointsPool);
         return $keys[$index] ?? null;
     }
 
+    /**
+     * Returns the DataAccessPoint object at the specified index.
+     *
+     * @param int $index The index of the access point.
+     * @return DataAccessPoint The DataAccessPoint object at the specified index.
+     */
     public function ItemAt(int $index): DataAccessPoint
     {
         $key = $this->Key($index);
@@ -204,7 +221,7 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
     }
 
     /**
-     * Геттер
+     * Magic method to get properties of the DataAccessPoints object.
      *
      * @param string $property
      * @return void
@@ -226,7 +243,8 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
     }
 
     /**
-     * Устанавливает значение по индексу
+     * Sets the value at the specified index.
+     *
      * @param string $offset
      * @param mixed $value
      * @return void
@@ -237,7 +255,8 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
     }
 
     /**
-     * Проверяет есть ли данные по индексу
+     * Checks if there is data at the specified index.
+     *
      * @param string $offset
      * @return bool
      */
@@ -250,7 +269,8 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
     }
 
     /**
-     * удаляет данные по индексу
+     * Deletes the data at the specified index.
+     *
      * @param string $offset
      * @return void
      */
@@ -260,7 +280,7 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
     }
 
     /**
-     * Возвращает значение по индексу
+     * Returns the value at the specified index.
      *
      * @param string $offset
      * @return DataAccessPoint
@@ -273,16 +293,31 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
         return $this->pool[$offset];
     }
 
+    /**
+     * Returns an iterator for the DataAccessPoint objects.
+     *
+     * @return DataAccessPointIterator
+     */
     public function getIterator(): DataAccessPointIterator
     {
         return new DataAccessPointIterator($this);
     }
 
+    /**
+     * Returns the number of DataAccessPoint objects in the pool.
+     *
+     * @return int
+     */
     public function Count(): int
     {
         return count($this->pool);
     }
 
+    /**
+     * Reopens all access points in the pool.
+     *
+     * @return void
+     */
     public function ReopenAll()
     {
         foreach($this as $accessPoint) {

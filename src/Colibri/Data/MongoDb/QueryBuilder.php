@@ -23,16 +23,37 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder
 {
+    /** @var Connection The MongoDB connection instance. */
     private Connection $_connection;
+
+    /**
+     * Initializes a new instance of the QueryBuilder class with the specified MongoDB connection.
+     *
+     * @param Connection $connection The MongoDB connection instance.
+     */
     public function __construct(Connection $connection)
     {
         $this->_connection = $connection;
     }
 
+    /** Mutation types for MongoDB operations. */
     public const MutationInsert = 'insert';
+
+    /** Mutation type for updating documents in MongoDB. */
     public const MutationUpdate = 'update';
+
+    /** Mutation type for deleting documents in MongoDB. */
     public const MutationDelete = 'delete';
 
+    /** 
+     * Generates a query for the specified fields and term, recursively traversing nested fields.
+     *
+     * @param mixed $term The search term.
+     * @param array $fields The fields to search.
+     * @param string $parent The parent field name.
+     * @param Storage $storage The storage instance.
+     * @param array $query The query array to populate.
+     */
     private function _getFieldQuery($term, $fields, $parent, $storage, &$query)
     {
         foreach ($fields as $field) {
@@ -44,7 +65,17 @@ class QueryBuilder
         }
     }
 
-
+    /**
+     * Processes filters, search terms, and sorting options to generate a MongoDB query.
+     *
+     * @param Storage $storage The storage instance.
+     * @param string $term The search term.
+     * @param array|null $filterFields The filter fields.
+     * @param string|null $sortField The field to sort by.
+     * @param string|null $sortOrder The sort order.
+     * @param bool $useAsManageFilter Whether to use as manage filter.
+     * @return array The generated MongoDB query.
+     */
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
     {
 
@@ -151,6 +182,13 @@ class QueryBuilder
 
     }
 
+    /** 
+     * Processes mutation data for MongoDB operations (insert, update, delete) based on the provided row and mutation type.
+     *
+     * @param mixed $row The data row to process.
+     * @param string $mutationType The type of mutation (insert, update, delete).
+     * @return array|object The processed mutation data.
+     */
     public function ProcessMutationData(mixed $row, string $mutationType): array|object
     {
 
@@ -189,12 +227,25 @@ class QueryBuilder
 
     }
 
+    /** 
+     * Creates a field name for a query, optionally including the table name as a prefix.
+     *
+     * @param string $field The field name.
+     * @param string $table The table name.
+     * @return string The field name for the query.
+     */
     public function CreateFieldForQuery(string $field, string $table): string
     {
         return $field;
     }
 
-
+    /**
+     * Creates a query for soft deletion, checking if the specified soft delete field is null.
+     *
+     * @param string $softDeleteField The soft delete field name.
+     * @param string $table The table name.
+     * @return array The soft delete query.
+     */
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): array
     {
         return [$this->CreateFieldForQuery($softDeleteField, $table) => null];

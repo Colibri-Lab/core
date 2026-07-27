@@ -29,7 +29,7 @@ use Colibri\Utils\Singleton;
  */
 class Module extends Singleton
 {
-    // Include event dispatcher trait.
+    /** Include event dispatcher trait. */
     use TEventDispatcher;
 
     /**
@@ -235,7 +235,6 @@ class Module extends Singleton
     /**
      * Retrieves paths from the module configuration.
      *
-     * @param array|null $extendArray Additional array to extend the result.
      * @return array
      */
     public function GetExternalScriptsFromModuleConfig(): array

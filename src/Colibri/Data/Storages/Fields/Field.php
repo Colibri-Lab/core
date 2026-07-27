@@ -14,71 +14,75 @@ use Colibri\Data\Storages\Storage;
 use Colibri\Data\Storages\Fields\Lookup;
 
 /**
- * Модель поля хранлища
+ * Storage model
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Fields
  *
- * @property-read array $raw данные поля
- * @property-read object $fields поля внутри поля
- * @property-read bool $isLookup да, если поле связано с другой таблицей
- * @property-read bool $isValues да, если есть значения
- * @property-read Lookup $lookup связка
- * @property object<string, string> $values значения
- * @property-read mixed $default значение по умолчанию
- * @property-read bool $required да, если поле обязательное
- * @property-read bool $readonly да, если поле запрещено к редактированию
- * @property-read bool $inTemplate да, если поле должно отображаться в шаблоне
- * @property-read Field $parent
- * @property-read array $path
- * @property-read ?string $param тип поля в запросе
- * @property string $formula формула
- * @property array $rawvalues
+ * @property-read array $raw raw data
+ * @property-read object $fields fields inside the field
+ * @property-read bool $isLookup true if the field is linked to another table
+ * @property-read bool $isValues true if there are values
+ * @property-read Lookup $lookup lookup
+ * @property object<string, string> $values values
+ * @property-read mixed $default default value
+ * @property-read bool $required true if the field is required
+ * @property-read bool $readonly true if the field is read-only
+ * @property-read bool $inTemplate true if the field should be displayed in the template
+ * @property-read Field $parent parent field
+ * @property-read array $path path to the field
+ * @property-read ?string $param parameter type of the field in the query
+ * @property string $formula formula
+ * @property array $rawvalues raw values
  *
  */
 class Field
 {
     /**
-     * Хранилище
+     * Storage
      * @var Storage
      */
     private ?Storage $_storage = null;
 
     /**
-     * Список поле внутри текущего поля
+     * List of fields inside the current field
      * @var object
      */
     private $_fields;
 
     /**
-     * Данные поля
+     * Field data
      * @var array
      */
     private $_xfield;
 
     /**
-     * Данные связки
+     * Lookup data
      * @var Lookup
      */
     private $_lookup;
 
     /**
-     * Список возможных значени
+     * List of possible values
      * @var string[string]
      */
     private $_values;
 
     /**
-     * Формула
+     * Formula
      * @var string
      */
     private $_formula;
 
+    /**
+     * Parent field
+     * @var Field
+     */
     private ?Field $_parent = null;
 
     /**
-     * Конструктор
-     * @param array $xfield данные поле
-     * @param Storage $storage хранилище
+     * Constructor
+     * @param array $xfield field data
+     * @param Storage $storage storage
      * @return void
      */
     public function __construct(array $xfield, ?Storage $storage = null, ?Field $parent = null)
@@ -91,6 +95,10 @@ class Field
         $this->_init();
     }
 
+    /**
+     * Initializes the field by loading values, fields, and formula.
+     * @return void
+     */
     private function _init()
     {
         $this->_loadValues();
@@ -99,7 +107,7 @@ class Field
     }
 
     /**
-     * Загружает формулу
+     * Loads the formula
      * @return void
      */
     private function _loadFormula(): void
@@ -108,7 +116,7 @@ class Field
     }
 
     /**
-     * Загружает значения
+     * Loads the values
      * @return void
      */
     private function _loadValues(): void
@@ -133,7 +141,7 @@ class Field
     }
 
     /**
-     * Загружает поля
+     * Loads the fields
      * @return void
      */
     private function _loadFields(): void
@@ -151,9 +159,9 @@ class Field
     }
 
     /**
-     * Геттер
-     * @param string $prop свойство
-     * @return mixed значение
+     * Getter
+     * @param string $prop property
+     * @return mixed value
      */
     public function __get(string $prop): mixed
     {
@@ -217,6 +225,12 @@ class Field
         }
     }
 
+    /**
+     * Setter
+     * @param string $prop property
+     * @param mixed $value value
+     * @return void
+     */
     public function __set(string $prop, mixed $value): void
     {
         if (isset($this->_xfield[$prop])) {
@@ -225,11 +239,19 @@ class Field
         }
     }
 
+    /**
+     * Converts the field to an array representation.
+     * @return array The array representation of the field.
+     */
     public function ToArray(): array
     {
         return $this->_xfield;
     }
 
+    /**
+     * Returns the path to the field as an array of field names.
+     * @return array An array representing the path to the field.
+     */
     public function Path(): array
     {
         $path = [];
@@ -241,6 +263,11 @@ class Field
         return array_reverse($path);
     }
 
+    /**
+     * Updates the field with new data and propagates the update to the parent or storage.
+     * @param Field $field The field to update.
+     * @return void
+     */
     public function UpdateField(Field $field)
     {
         $this->_xfield['fields'][$field->{'name'}] = $field->ToArray();
@@ -251,7 +278,11 @@ class Field
         }
     }
 
-    public function Save()
+    /**
+     * Saves the field and its subfields.
+     * @return array The saved field data.
+     */
+    public function Save(): array
     {
         $xfield = $this->ToArray();
         unset($xfield['name']);
@@ -261,6 +292,10 @@ class Field
         return $xfield;
     }
 
+    /**
+     * Returns the default value of the field.
+     * @return mixed The default value of the field.
+     */
     public function AddField($name, $data): Field
     {
         if (!isset($this->_xfield['fields'])) {
@@ -275,6 +310,10 @@ class Field
 
     }
 
+    /**
+     * Returns the default value of the field.
+     * @return mixed The default value of the field.
+     */
     private function _isEmptyLang($value): bool
     {
         if(is_string($value)) {
@@ -290,6 +329,11 @@ class Field
         return $isEmpty;
     }
 
+    /**
+     * Updates the field data with the provided data and propagates the update to the parent or storage.
+     * @param array $data The data to update the field with.
+     * @return void
+     */
     public function UpdateData($data): void
     {
         foreach ($data as $key => $value) {
@@ -393,6 +437,11 @@ class Field
         }
     }
 
+    /**
+     * Deletes the field and propagates the deletion to the parent or storage.
+     * @param string $name The name of the field to delete.
+     * @return void
+     */
     public function DeleteField($name): void
     {
         unset($this->_xfield['fields'][$name]);
@@ -404,6 +453,13 @@ class Field
         }
     }
 
+    /**
+     * Moves a field relative to another field within the same parent.
+     * @param Field $field The field to move.
+     * @param Field $relative The reference field for positioning.
+     * @param string $sibling 'before' or 'after' indicating the position relative to the reference field.
+     * @return void
+     */
     public function MoveField($field, $relative, $sibling)
     {
 

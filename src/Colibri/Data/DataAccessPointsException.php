@@ -13,7 +13,7 @@ namespace Colibri\Data;
 use Colibri\AppException;
 
 /**
- * Класс исключения в точках доступа
+ * Exception class for data access points.
  */
 class DataAccessPointsException extends AppException
 {

@@ -213,6 +213,12 @@ class Controller
         return $return;
     }
 
+    /**
+     * Clears the cache for a specific method.
+     *
+     * @param string $method The method name for which to clear the cache.
+     * @return bool Returns true if the cache was cleared, false otherwise.
+     */
     public static function ClearCache(string $method): bool
     {
         $cacheSearch = 'controller-' . str_replace('\\', '_', strtolower(static::class . '_' . $method)) . '-';

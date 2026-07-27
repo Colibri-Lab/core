@@ -92,6 +92,14 @@ class NumericHelper
 
     }
 
+    /**
+     * Converts a number to its textual representation in Russian, including rubles and kopeks.
+     * 
+     * @param float $num The number to convert.
+     * @param array $unit The unit forms for rubles (e.g., ['рубль', 'рубля', 'рублей']).
+     * @return string The textual representation of the number in Russian.
+     * @throws Exception If the input is not a finite number.
+     */
     public static function ToText($num, $unit = ['рубль','рубля','рублей']): string
     {
         if (!is_numeric($num) || !is_finite($num)) {

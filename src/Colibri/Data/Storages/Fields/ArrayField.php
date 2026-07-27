@@ -17,31 +17,35 @@ use Colibri\Data\Storages\Models\DataRow;
 use Colibri\Utils\ExtendedObject;
 
 /**
- * Класс представление поля типа массив обьектов
+ * Class representing a field of type array of objects
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Fields
  */
 class ArrayField extends ArrayList
 {
+    /**
+     * Data row associated with this field.
+     * @var ExtendedObject|null
+     */
     protected ?ExtendedObject $_datarow = null;
 
     /**
-     * Поле
+     * Field associated with this array field.
      * @var Field
      */
     protected ?Field $_field = null;
 
     /**
-     * Хранилище
+     * Storage associated with this array field.
      * @var Storage
      */
     protected ?Storage $_storage = null;
 
     /**
-     * Конструктор
-     * @param string|mixed[string] $data данные
-     * @param Storage $storage хранилище
-     * @param Field $field поле
+     * Constructs a new ArrayField instance.
+     * @param string|mixed[string] $data The data.
+     * @param Storage $storage The storage.
+     * @param Field $field The field.
      * @return void
      */
     public function __construct(
@@ -61,9 +65,9 @@ class ArrayField extends ArrayList
     }
 
     /**
-     * Возвращает обьект по индексу
-     * @param int $index индекс
-     * @return ObjectField обьект
+     * Returns the object at the specified index.
+     * @param int $index The index.
+     * @return ObjectField The object.
      */
     public function Item(int $index): ObjectField|DataRow
     {
@@ -74,9 +78,9 @@ class ArrayField extends ArrayList
     }
 
     /**
-     * Возвращает значение в виде строки
-     * @param string $dummy не используется
-     * @return string результат JSON
+     * Returns the value as a string.
+     * @param string $dummy Not used.
+     * @return string The JSON result.
      */
     public function ToString(string $dummy = ''): string
     {
@@ -106,6 +110,10 @@ class ArrayField extends ArrayList
         return $this->ToString();
     }
 
+    /**
+     * Returns the validation data for this array field.
+     * @return mixed The validation data.
+     */
     public function GetValidationData(): mixed
     {
         $return = [];
@@ -115,6 +123,11 @@ class ArrayField extends ArrayList
         return $return;
     }
 
+    /**
+     * Converts the array field to an array representation.
+     * @param bool $noPrefix Whether to exclude prefixes in the array keys.
+     * @return array The array representation of the array field.
+     */
     public function ToArray(bool $noPrefix = false): array
     {
         $ret = [];
@@ -124,11 +137,19 @@ class ArrayField extends ArrayList
         return $ret;
     }
 
+    /**
+     * Returns the parameter type name for this array field.
+     * @return string The parameter type name.
+     */
     public static function ParamTypeName(): string
     {
         return 'string';
     }
 
+    /**
+     * Returns null.
+     * @return mixed Always returns null.
+     */
     public static function null(): mixed
     {
         return null;

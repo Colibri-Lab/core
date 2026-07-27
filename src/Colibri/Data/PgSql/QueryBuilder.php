@@ -25,7 +25,14 @@ use Colibri\Utils\Debug;
  */
 class QueryBuilder implements IQueryBuilder
 {
+    /** @var Connection The PostgreSql connection instance. */
     private Connection $_connection;
+
+    /**
+     * Initializes a new instance of the QueryBuilder class with the specified PostgreSql connection.
+     *
+     * @param Connection $connection The PostgreSql connection instance.
+     */
     public function __construct(Connection $connection)
     {
         $this->_connection = $connection;
@@ -356,12 +363,29 @@ class QueryBuilder implements IQueryBuilder
         ';
     }
 
+    /**
+     * Creates a SHOW CREATE TABLE query for a specific table.
+     *
+     * @param string $table The name of the table.
+     * @return string The generated SHOW CREATE TABLE query.
+     */
     public function CreateShowStatus(string $table): string
     {
         // return 'SHOW TABLE STATUS LIKE \''.$table.'\'';
         return '';
     }
 
+    /**
+     * Processes filters for a query, including sorting and filtering based on the provided parameters.
+     *
+     * @param Storage $storage The storage instance associated with the query.
+     * @param string $term The search term for filtering.
+     * @param array|null $filterFields The fields to filter on.
+     * @param string|null $sortField The field to sort by.
+     * @param string|null $sortOrder The order of sorting (asc or desc).
+     * @param bool $useAsManageFilter Whether to use the filters as management filters.
+     * @return array An array containing the processed query, filters, and sorting information.
+     */
     public function CreateDrop($table): string
     {
         return 'drop table ' . $table;
@@ -398,17 +422,36 @@ class QueryBuilder implements IQueryBuilder
         return 'rollback';
     }
 
+    /**
+     * Creates a SAVEPOINT query.
+     *
+     * @param string $name The name of the savepoint.
+     * @return string The generated SAVEPOINT query.
+     */
     public function CreateFieldForQuery(string $field, string $table): string
     {
         return '"' . $table . '"."' . $field . '"';
     }
 
-
+    /**
+     * Creates a query to check for soft deletion based on a specified field.
+     *
+     * @param string $softDeleteField The name of the soft delete field (default is 'datedeleted').
+     * @param string $table The name of the table (optional).
+     * @return string The generated query to check for soft deletion.
+     */
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): string
     {
         return $this->CreateFieldForQuery($softDeleteField, $table) . ' is null';
     }
 
+    /**
+     * Creates a default storage table with standard fields for tracking creation, modification, and deletion timestamps.
+     *
+     * @param string $table The name of the table to create.
+     * @param string|null $prefix (optional) A prefix to prepend to the table name. Default is null.
+     * @return string|array Returns an array of SQL statements to create the table and its indexes.
+     */
     public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array
     {
         return ['
@@ -426,7 +469,17 @@ class QueryBuilder implements IQueryBuilder
         ];
     }
 
-
+    /**
+     * Creates a query to check if a table exists in the database.
+     *
+     * @param Storage $storage The storage object.
+     * @param string $term The search term.
+     * @param array|null $filterFields The filter fields.
+     * @param string|null $sortField The sort field.
+     * @param string|null $sortOrder The sort order.
+     * @param bool $useAsManageFilter Whether to use as manage filter.
+     * @return array The generated query to check for table existence.
+     */
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
     {
 

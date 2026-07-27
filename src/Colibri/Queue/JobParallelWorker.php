@@ -23,8 +23,14 @@ use Colibri\Utils\Logs\Logger;
  */
 class JobParallelWorker extends Worker
 {
+    /**
+     * @var Logger|null The logger instance for logging job execution details.
+     */
     private ?Logger $_logger = null;
 
+    /**
+     * @var IJob|null The job instance being executed by the worker.
+     */
     private ?IJob $_job = null;
 
     /**

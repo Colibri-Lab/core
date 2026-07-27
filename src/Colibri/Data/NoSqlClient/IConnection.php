@@ -15,6 +15,12 @@ namespace Colibri\Data\NoSqlClient;
  */
 interface IConnection
 {
+    /**
+     * Creates a new connection instance from the provided connection information.
+     *
+     * @param object|array $connectionInfo The connection information as an object or array.
+     * @return static A new instance of the connection.
+     */
     public static function FromConnectionInfo(object|array $connectionInfo): static;
 
     /**

@@ -53,7 +53,11 @@ class ReadonlyCollection extends Collection
     /**
      * Prevents inserting values to the collection.
      *
-     * @param mixed $from
+     * @param mixed $index
+     * @param mixed $key
+     * @param mixed $value
+     * @return mixed
+     * @throws CollectionException
      */
     public function Insert(mixed $index, mixed $key, mixed $value): mixed
     {

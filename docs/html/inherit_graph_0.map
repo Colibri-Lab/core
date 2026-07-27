@@ -1,0 +1,28 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,626,92,653"/>
+<area shape="rect" id="node2" href="$classColibri_1_1AppException.html" title=" " alt="" coords="170,371,327,398"/>
+<area shape="rect" id="node19" href="$classColibri_1_1Data_1_1Storages_1_1Models_1_1DataModelException.html" title=" " alt="" coords="143,423,355,464"/>
+<area shape="rect" id="node20" href="$classColibri_1_1Events_1_1Handlers_1_1LocalClosureException.html" title=" " alt="" coords="161,488,336,529"/>
+<area shape="rect" id="node21" href="$classColibri_1_1Exceptions_1_1ApplicationErrorException.html" title=" " alt="" coords="151,553,346,595"/>
+<area shape="rect" id="node22" href="$classColibri_1_1Exceptions_1_1BadMethodCallException.html" title=" " alt="" coords="154,619,343,660"/>
+<area shape="rect" id="node23" href="$classColibri_1_1Exceptions_1_1BadRequestException.html" title=" " alt="" coords="165,684,333,725"/>
+<area shape="rect" id="node24" href="$classColibri_1_1Exceptions_1_1JobAllreadyRunningException.html" title=" " alt="" coords="140,749,357,791"/>
+<area shape="rect" id="node25" href="$classColibri_1_1Exceptions_1_1PermissionDeniedException.html" title=" " alt="" coords="145,815,353,856"/>
+<area shape="rect" id="node26" href="$classColibri_1_1Exceptions_1_1ValidationException.html" title=" " alt="" coords="171,880,326,921"/>
+<area shape="rect" id="node3" href="$classColibri_1_1Collections_1_1CollectionException.html" title=" " alt="" coords="447,71,602,112"/>
+<area shape="rect" id="node4" href="$classColibri_1_1Data_1_1DataAccessPointsException.html" title=" " alt="" coords="415,136,634,177"/>
+<area shape="rect" id="node11" href="$classColibri_1_1Data_1_1Models_1_1DataModelException.html" title=" " alt="" coords="444,201,605,243"/>
+<area shape="rect" id="node12" href="$classColibri_1_1IO_1_1FileSystem_1_1Exception.html" title=" " alt="" coords="445,267,604,308"/>
+<area shape="rect" id="node13" href="$classColibri_1_1IO_1_1FtpFileSystem_1_1Exception.html" title=" " alt="" coords="435,332,614,373"/>
+<area shape="rect" id="node14" href="$classColibri_1_1IO_1_1Request_1_1Exception.html" title=" " alt="" coords="455,397,594,439"/>
+<area shape="rect" id="node15" href="$classColibri_1_1Modules_1_1ModuleException.html" title=" " alt="" coords="405,463,644,490"/>
+<area shape="rect" id="node16" href="$classColibri_1_1Threading_1_1Exception.html" title=" " alt="" coords="424,514,625,541"/>
+<area shape="rect" id="node17" href="$classColibri_1_1Utils_1_1Config_1_1ConfigException.html" title=" " alt="" coords="453,565,596,607"/>
+<area shape="rect" id="node18" href="$classColibri_1_1Utils_1_1Logs_1_1LoggerException.html" title=" " alt="" coords="457,631,592,672"/>
+<area shape="rect" id="node5" href="$classColibri_1_1Data_1_1MongoDb_1_1Exception.html" title=" " alt="" coords="707,5,873,47"/>
+<area shape="rect" id="node7" href="$classColibri_1_1Data_1_1MySql_1_1Exception.html" title=" " alt="" coords="719,71,861,112"/>
+<area shape="rect" id="node8" href="$classColibri_1_1Data_1_1PgSql_1_1Exception.html" title=" " alt="" coords="721,136,859,177"/>
+<area shape="rect" id="node9" href="$classColibri_1_1Data_1_1Solr_1_1Exception.html" title=" " alt="" coords="692,202,888,229"/>
+<area shape="rect" id="node10" href="$classColibri_1_1Data_1_1Sphinx_1_1Exception.html" title=" " alt="" coords="717,253,863,295"/>
+<area shape="rect" id="node6" href="$classColibri_1_1Queue_1_1Exception.html" title=" " alt="" coords="936,13,1115,39"/>
+</map>

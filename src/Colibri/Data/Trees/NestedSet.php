@@ -17,6 +17,12 @@ use Colibri\Data\Models\DataRow;
 use Colibri\Data\SqlClient\IDataReader;
 use Colibri\Data\SqlClient\QueryInfo;
 
+/**
+ * Nested sets 
+ *
+ * @author Vahan P. Grigoryan
+ * @package Colibri\Data\Storages
+ */
 class NestedSet
 {
     /**

@@ -137,6 +137,14 @@ abstract class Command
      */
     abstract public static function Execute(IConnection $connection, string $type, string $command, array $arguments): ICommandResult;
 
+    /**
+     * Executes the command and returns a data results if exists.
+     *
+     * @param Logger $logger The logger instance.
+     * @param string $storage The storage name.
+     * @param array $xstorage The extended storage configuration.
+     * @return void
+     */
     abstract public function Migrate(Logger $logger, string $storage, array $xstorage): void;
 
 }

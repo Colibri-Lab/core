@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PgSql
+ * Solr
  *
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2019 ColibriLab
@@ -16,20 +16,34 @@ use Colibri\Data\NoSqlClient\QueryInfo;
 /**
  * Class for executing commands at the access point.
  *
- * This class extends SqlCommand and provides methods for preparing and executing queries.
+ * This class represents the result of a command executed against a Solr server.
  *
  * @inheritDoc
  *
  */
 final class CommandResult implements ICommandResult
 {
+    /**
+     * The response object from the Solr server.
+     * @var object|null
+     */
     private ?object $_response = null;
 
+    /**
+     * Constructor.
+     *
+     * @param object $response The response object from the Solr server.
+     */
     public function __construct(object $response)
     {
         $this->_response = $response;
     }
 
+    /**
+     * Returns the error object from the command execution, if any.
+     *
+     * @return object|null The error object, or null if there was no error.
+     */
     public function Error(): ?object
     {
         if($this->_response?->error ?? false) {
@@ -38,6 +52,11 @@ final class CommandResult implements ICommandResult
         return null;
     }
 
+    /**
+     * Returns information about the query execution.
+     *
+     * @return object An object containing query execution information.
+     */
     public function QueryInfo(): object
     {
         $affected = count($this->ResultData());
@@ -48,6 +67,11 @@ final class CommandResult implements ICommandResult
         return (object)[...(array)$this->_response->responseHeader, ...['affected' => $affected, 'count' => $count]];
     }
 
+    /**
+     * Returns the result data from the command execution.
+     *
+     * @return array The result data as an array.
+     */
     public function ResultData(): array
     {
         if($this->_response?->response ?? null) {
@@ -63,6 +87,11 @@ final class CommandResult implements ICommandResult
         return [];
     }
 
+    /**
+     * Sets the collection name for the command result.
+     *
+     * @param string $name The collection name.
+     */
     public function SetCollectionName(string $name): void
     {
         if(! ($this->_response?->responseHeader ?? null)) {
@@ -71,6 +100,11 @@ final class CommandResult implements ICommandResult
         $this->_response->responseHeader->name = $name;
     }
 
+    /**
+     * Sets the returned ID for the command result.
+     *
+     * @param int|array $id The returned ID or an array of returned IDs.
+     */
     public function SetReturnedId(int|array $id): void
     {
         if(!$this->_response->responseHeader) {
@@ -86,6 +120,11 @@ final class CommandResult implements ICommandResult
             [...$this->_response->responseHeader->returned, ...$id];
     }
 
+    /**
+     * Merges the current command result with another command result.
+     *
+     * @param ICommandResult $result The command result to merge with.
+     */
     public function MergeWith(ICommandResult $result): void
     {
         $queryInfo = $result->QueryInfo();

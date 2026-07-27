@@ -17,22 +17,22 @@ namespace Colibri\Collections;
 class CollectionIterator implements \Iterator
 {
     /**
-     * Обьект коллекции
+     * Collection object
      *
      * @var ICollection
      */
     private ?\IteratorAggregate $_class;
     /**
-     * Текущая позиция
+     * Current position
      *
      * @var mixed
      */
     private $_current = 0;
 
     /**
-     * Конструктор, передается обьект коллекция
+     * Constructor, accepts a collection object
      *
-     * @param mixed $class - коллекция
+     * @param mixed $class - collection
      */
     public function __construct(\IteratorAggregate $class = null)
     {
@@ -40,7 +40,7 @@ class CollectionIterator implements \Iterator
     }
 
     /**
-     * Перескопить на первую запись
+     * Rewind to the first record
      *
      */
     public function rewind(): void
@@ -49,7 +49,7 @@ class CollectionIterator implements \Iterator
     }
 
     /**
-     * Вернуть текущее значение
+     * Return the current value
      *
      */
     public function current(): mixed
@@ -62,7 +62,7 @@ class CollectionIterator implements \Iterator
     }
 
     /**
-     * Вернуть ключ текущего положения
+     * Return the key of the current position
      *
      */
     public function key(): string|null
@@ -71,7 +71,7 @@ class CollectionIterator implements \Iterator
     }
 
     /**
-     * Вернуть следующее значение
+     * Move to the next value
      *
      */
     public function next(): void
@@ -85,7 +85,7 @@ class CollectionIterator implements \Iterator
     }
 
     /**
-     * Проверка валидности итератора, т.е. валидно ли текущее значение
+     * Validate the iterator, i.e. whether the current value is valid
      *
      */
     public function valid(): bool

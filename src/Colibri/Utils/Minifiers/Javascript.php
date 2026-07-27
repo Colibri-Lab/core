@@ -42,6 +42,13 @@ class Javascript
         $this->_config = App::$config->Query('minifier')->AsObject();
     }
 
+    /**
+     * Generates a list of names based on the provided range and prefix.
+     *
+     * @param array|null $range The range of characters to use for generating names.
+     * @param string $prefix The prefix to prepend to each generated name.
+     * @return array An array of generated names.
+     */
     private function _getNames(array $range = null, string $prefix = ''): array
     {
         $names = [];
@@ -55,6 +62,11 @@ class Javascript
         return $names;
     }
 
+    /**
+     * Retrieves additional object names from the configuration of loaded modules.
+     *
+     * @return array An array of additional object names.
+     */
     private function _getAdditionalObjectNames()
     {
         $return = [];

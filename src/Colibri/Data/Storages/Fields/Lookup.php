@@ -25,30 +25,30 @@ use Colibri\Data\NoSqlClient\ICommandResult;
 use Colibri\Data\SqlClient\QueryInfo;
 
 /**
- * Класс представление связи поля и таблицы
+ * Class representing the relationship between a field and a table
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Fields
  */
 class Lookup
 {
     /**
-     * Хранилище
+     * Storage associated with this lookup field.
      *
      * @var Storage
      */
     private ?Storage $_storage = null;
 
     /**
-     * Данные поля
+     * Field data associated with this lookup field.
      *
      * @var array
      */
     private array $_xfield;
 
     /**
-     * Конструктор
-     * @param array $xfield данные поля
-     * @param Storage|null $storage хранилище
+     * Constructor
+     * @param array $xfield field data
+     * @param Storage|null $storage storage
      * @return void
      */
     public function __construct(array $xfield, Storage $storage)
@@ -58,9 +58,9 @@ class Lookup
     }
 
     /**
-     * Геттер
-     * @param string $prop свойство
-     * @return mixed значение
+     * Getter
+     * @param string $prop property name
+     * @return mixed value
      */
     public function __get(string $prop): mixed
     {
@@ -71,10 +71,10 @@ class Lookup
     }
 
     /**
-     * Запрашивает данные из связанной таблицы
-     * @param int $page страница, по умолчанию -1, значит все
-     * @param int $pagesize размер страницы, по умолачнию 20
-     * @return DataTable|null данные по связке
+     * Loads data from the related table.
+     * @param int $page page number, default is -1, meaning all
+     * @param int $pagesize page size, default is 50
+     * @return DataTable|null related data
      */
     public function Load(int $page = -1, int $pagesize = 50, mixed $parentObject = null): ?DataTable
     {
@@ -117,8 +117,9 @@ class Lookup
     }
 
     /**
-     * Загружает значение по связке (выбранное)
-     * @param mixed $value значение
+     * Loads the selected value from the related table.
+     * @param mixed $value the selected value
+     * @param mixed $parentObject the parent object
      * @return mixed
      */
     public function Selected(mixed $value, mixed $parentObject = null): mixed
@@ -270,6 +271,10 @@ class Lookup
         return null;
     }
 
+    /**
+     * Returns the value field associated with this lookup.
+     * @return string|null The value field name or null if not set.
+     */
     public function GetValueField(): ?string
     {
         if ($this->storage) {
@@ -282,6 +287,11 @@ class Lookup
         return null;
     }
 
+    /**
+     * Returns the parent lookup fields for a given row.
+     * @param mixed $row The row to get the parent lookups for.
+     * @return array An array of parent lookup fields.
+     */
     public function GetLookupParents(mixed $row): array 
     {
         $ret = [];
@@ -296,6 +306,12 @@ class Lookup
         return $ret;
     }
 
+    /**
+     * Checks if the given value exists in the parent lookups of the provided row.
+     * @param mixed $row The row to check for parent lookups.
+     * @param mixed $value The value to check for in the parent lookups.
+     * @return mixed The parent lookup field if found, otherwise null.
+     */
     public function isRecursiveLookup(mixed $row, mixed $value): mixed
     {
         $parents = $this->GetLookupParents($row);

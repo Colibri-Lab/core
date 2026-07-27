@@ -31,6 +31,12 @@ class TokenHelper
         return base64_encode($token . '|' . $expire);
     }
 
+    /**
+     * Validates a token
+     * @param string $token token to validate
+     * @param string $key key for token
+     * @return bool
+     */
     public static function Validate($token, $key): bool
     {
         $token = base64_decode($token);

@@ -64,11 +64,22 @@ final class Connection implements IConnection
         ];
     }
 
+    /**
+     * Destructor for the Connection class.
+     *
+     * Closes the MySQL connection when the Connection object is destroyed.
+     */
     public function __destruct()
     {
         $this->Close();
     }
 
+    /**
+     * Creates a new Connection instance from the provided connection information.
+     *
+     * @param object|array $connectionInfo The connection information as an object or array.
+     * @return static A new instance of the Connection class.
+     */
     public static function FromConnectionInfo(object|array $connectionInfo): static
     {
         $connectionInfo = (object)$connectionInfo;
@@ -194,6 +205,12 @@ final class Connection implements IConnection
         }
     }
 
+    /**
+     * Checks if the MySQL connection is alive.
+     *
+     * @return bool Returns true if the connection is alive; otherwise, false.
+     *
+     */
     public function Ping(): bool
     {
         try {

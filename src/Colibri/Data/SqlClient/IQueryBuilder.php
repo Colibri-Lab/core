@@ -118,10 +118,29 @@ interface IQueryBuilder
      */
     public function CreateRollback(): string;
 
+    /**
+     * Creates a default storage table with the specified name and optional prefix.
+     *
+     * @param string $table The name of the table to create.
+     * @param string|null $prefix (optional) The prefix for the table name. Default is null.
+     * @return string|array The generated query or queries to create the default storage table.
+     */
     public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array;
 
+    /**
+     * Creates a query to drop a table with the specified name.
+     *
+     * @param string $table The name of the table to drop.
+     * @return string The generated query to drop the table.
+     */
     public function CreateDrop($table): string;
 
+    /**
+     * Creates a query to check if a table exists in the database.
+     *
+     * @param string $table The name of the table.
+     * @return string The generated query to check for table existence.
+     */
     public function CreateFieldForQuery(string $field, string $table): string;
 
 }

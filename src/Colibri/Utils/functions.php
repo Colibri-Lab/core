@@ -119,6 +119,12 @@ if(!function_exists('pidx')) {
 }
 
 if(!function_exists('app_debug')) {
+    /**
+     * Logs debug information to the application log.
+     *
+     * @param mixed ...$args The arguments to log.
+     * @return void
+     */
     function app_debug(...$args)
     {
         $message = Debug::ROut($args);
@@ -127,6 +133,12 @@ if(!function_exists('app_debug')) {
 }
 
 if(!function_exists('app_info')) {
+    /**
+     * Logs informational messages to the application log.
+     *
+     * @param mixed ...$args The arguments to log.
+     * @return void
+     */
     function app_info(...$args)
     {
         $message = Debug::ROut($args);
@@ -135,6 +147,12 @@ if(!function_exists('app_info')) {
 }
 
 if(!function_exists('app_emergency')) {
+    /**
+     * Logs emergency messages to the application log.
+     *
+     * @param mixed ...$args The arguments to log.
+     * @return void
+     */
     function app_emergency(...$args)
     {
         $message = Debug::ROut($args);
@@ -143,6 +161,12 @@ if(!function_exists('app_emergency')) {
 }
 
 if(!function_exists('file_ext')) {
+    /**
+     * Returns the file extension from a given path or filename.
+     *
+     * @param string $pathOrName The file path or name.
+     * @return string The file extension.
+     */
     function file_ext($pathOrName)
     {
         $f = new File($pathOrName);
@@ -151,6 +175,13 @@ if(!function_exists('file_ext')) {
 }
 
 if(!function_exists('parse_ml_annotation')) {
+    /**
+     * Parses multi-line annotations from a docstring and appends a value to each annotation.
+     *
+     * @param string $doc The docstring containing annotations.
+     * @param string $value The value to append to each annotation.
+     * @return array An associative array of annotations with the appended value.
+     */
     function parse_ml_annotation($doc, $value){
         preg_match_all('/@([a-z]+?):\s+(.*?)\n/i', $doc, $annotations);
         if(!isset($annotations[1]) OR count($annotations[1]) == 0){
@@ -161,7 +192,12 @@ if(!function_exists('parse_ml_annotation')) {
 }
 
 if(!function_exists('class_uses_recursive')) {
-
+    /**
+     * Recursively retrieves all traits used by a class, including traits used by parent classes and traits used within traits.
+     *
+     * @param string|object $class The class name or object instance.
+     * @return array An array of trait names used by the class.
+     */
     function class_uses_recursive($class) {
         $traits = [];
     
@@ -190,7 +226,12 @@ if(!function_exists('class_uses_recursive')) {
 }
 
 if(!function_exists('class_basename')) {
-
+    /**
+     * Returns the "basename" of a class, which is the class name without the namespace.
+     *
+     * @param string|object $class The class name or object instance.
+     * @return string The basename of the class.
+     */
     function class_basename($class) {
         if (is_object($class)) {
             $class = get_class($class);

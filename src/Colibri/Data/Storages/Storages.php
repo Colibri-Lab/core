@@ -52,6 +52,12 @@ class Storages extends Singleton
         $this->_load();
     }
 
+    /**
+     * Loads the storage data from configuration and modules.
+     *
+     * @param bool $force Indicates whether to force reload the storage data.
+     * @return void
+     */
     private function _load(bool $force = false) {
         $key = 'storages' . App::$domainKey . App::$request->host;
         if(Mem::Exists($key)) {
@@ -368,6 +374,13 @@ class Storages extends Singleton
         return $return;
     }
 
+    /**
+     * Clears the cached storage data.
+     *
+     * This method removes the cached storage data from memory, forcing a reload of the storage data on the next access.
+     *
+     * @return void
+     */
     public function ClearCache(): void
     {
         $key = 'storages' . App::$domainKey . App::$request->host;

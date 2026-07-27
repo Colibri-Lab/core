@@ -13,11 +13,15 @@ namespace Colibri\Common;
 use InvalidArgumentException;
 
 /**
- * Two Factor Generator Helper      
+ * UUID Helper
  */
 class UUIDHelper
 {
-    // Версия 1 — на основе времени и MAC (если нет MAC, сгенерируем случайно)
+    /**
+     * Generates a version 1 UUID (time-based).
+     *
+     * @return string The generated UUID.
+     */
     public static function v1()
     {
         $time = microtime(true) * 10000000 + 0x01B21DD213814000;
@@ -36,28 +40,53 @@ class UUIDHelper
         );
     }
 
-    // Версия 3 — хэш MD5 от namespace + имя
+    /**
+     * Generates a version 3 UUID (name-based, MD5 hash).
+     *
+     * @param string $namespace The namespace UUID.
+     * @param string $name The name.
+     * @return string The generated UUID.
+     */
     public static function v3($namespace, $name)
     {
         return self::nameBasedUuid($namespace, $name, 'md5', 3);
     }
 
-    // Версия 4 — полностью случайная
+    /**
+     * Generates a version 4 UUID (random).
+     *
+     * @return string The generated UUID.
+     */
     public static function v4()
     {
         $data = random_bytes(16);
-        $data[6] = chr((ord($data[6]) & 0x0f) | 0x40); // версия 4
-        $data[8] = chr((ord($data[8]) & 0x3f) | 0x80); // вариант
+        $data[6] = chr((ord($data[6]) & 0x0f) | 0x40); 
+        $data[8] = chr((ord($data[8]) & 0x3f) | 0x80); 
         return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
     }
 
-    // Версия 5 — хэш SHA1 от namespace + имя
+    /**
+     * Generates a version 5 UUID (name-based, SHA-1 hash).
+     *
+     * @param string $namespace The namespace UUID.
+     * @param string $name The name.
+     * @return string The generated UUID.
+     */
     public static function v5($namespace, $name)
     {
         return self::nameBasedUuid($namespace, $name, 'sha1', 5);
     }
 
-    // Вспомогательная функция для v3 и v5
+    /**
+     * Helper function for generating name-based UUIDs (v3 and v5).
+     *
+     * @param string $namespace The namespace UUID.
+     * @param string $name The name.
+     * @param string $hashFunc The hash function to use ('md5' for v3, 'sha1' for v5).
+     * @param int $version The UUID version (3 or 5).
+     * @return string The generated UUID.
+     * @throws InvalidArgumentException If the namespace UUID is invalid.
+     */
     private static function nameBasedUuid($namespace, $name, $hashFunc, $version)
     {
         if (!self::isValid($namespace)) {
@@ -91,7 +120,12 @@ class UUIDHelper
         );
     }
 
-    // Проверка UUID на корректность
+    /**
+     * Validates a UUID.
+     *
+     * @param string $uuid The UUID to validate.
+     * @return bool True if the UUID is valid, false otherwise.
+     */
     public static function isValid($uuid)
     {
         return preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $uuid);

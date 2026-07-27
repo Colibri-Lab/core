@@ -17,33 +17,41 @@ use Colibri\Data\Storages\Models\DataRow;
 use ReflectionClass;
 
 /**
- * Класс представление поля типа обьект
+ * Class representing a field of type object
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Fields
  */
 class ObjectField extends ExtendedObject
 {
+    /**
+     * Data row associated with this field.
+     * @var ExtendedObject|null
+     */
     protected static array $casts = [];
 
+    /**
+     * Data row associated with this field.
+     * @var ExtendedObject|null
+     */
     protected ?ExtendedObject $_datarow = null;
 
     /**
-     * Поле
+     * Field associated with this object field.
      * @var Field
      */
     protected ?Field $_field = null;
 
     /**
-     * Хранилище
+     * Storage associated with this object field.
      * @var Storage
      */
     protected ?Storage $_storage = null;
 
     /**
-     * Конструктор
-     * @param string|mixed[string] $data данные
-     * @param Storage $storage хранилище
-     * @param Field $field поле
+     * Constructs a new ObjectField instance.
+     * @param string|mixed[string] $data The data.
+     * @param Storage $storage The storage.
+     * @param Field $field The field.
      * @return void
      */
     public function __construct(
@@ -59,11 +67,11 @@ class ObjectField extends ExtendedObject
     }
 
     /**
-     * Замена типов
-     * @param string $mode режим, get или set
-     * @param string $property свойство
-     * @param mixed $value значение
-     * @return mixed результат
+     * Change the types of the fields in the object based on the field definitions.
+     * @param string $mode Mode, either 'get' or 'set'.
+     * @param string $property The property.
+     * @param mixed $value The value.
+     * @return mixed The result.
      */
     protected function _typeExchange(string $mode, string $property, mixed $value = false): mixed
     {
@@ -209,6 +217,10 @@ class ObjectField extends ExtendedObject
         return $value;
     }
 
+    /**
+     * Returns the validation data for this object field.
+     * @return mixed The validation data.
+     */
     public function GetValidationData(): mixed
     {
 
@@ -296,22 +308,28 @@ class ObjectField extends ExtendedObject
         return (object) $return;
     }
 
-
-
+    /**
+     * Returns the field associated with this object field.
+     * @return Field The field.
+     */
     public function Field(): Field
     {
         return $this->_field;
     }
 
+    /**
+     * Returns the storage associated with this object field.
+     * @return Storage The storage.
+     */
     public function Storage(): Storage
     {
         return $this->_storage;
     }
 
     /**
-     * Сеттер
-     * @param string $property свойство
-     * @param mixed $value значение
+     * Returns the data row associated with this object field.
+     * @param string $property The property.
+     * @param mixed $value The value.
      * @return void
      */
     public function __set(string $property, mixed $value): void
@@ -320,8 +338,8 @@ class ObjectField extends ExtendedObject
     }
 
     /**
-     * Возвращает в виде строки
-     * @return string результат JSON
+     * Returns as a string.
+     * @return string JSON result.
      */
     public function ToString(): string
     {
@@ -348,6 +366,12 @@ class ObjectField extends ExtendedObject
         return $this->ToString();
     }
 
+    /**
+     * Converts the object field to an array.
+     * @param bool $noPrefix Whether to exclude the prefix from the keys.
+     * @param \Closure|null $callback Optional callback for filtering or transforming values.
+     * @return array The converted array.
+     */
     public function ToArray(bool $noPrefix = false, ?\Closure $callback = null): array
     {
         $newArray = [];
@@ -376,11 +400,20 @@ class ObjectField extends ExtendedObject
         return $newArray;
     }
 
+    /**
+     * Returns the parameter type name for this object field.
+     * @return string The parameter type name.
+     */
     public static function ParamTypeName(): string
     {
         return 'string';
     }
 
+    /**
+     * Returns null value for the field.
+     *
+     * @return mixed Always returns null.
+     */
     public static function null(): mixed
     {
         return null;

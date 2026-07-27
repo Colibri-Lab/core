@@ -34,34 +34,51 @@ use Colibri\Events\EventDispatcher;
 use Colibri\Events\EventsContainer;
 
 /**
- * Таблица, представление данных в хранилище
+ * Table representing data in the storage.
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Models
  */
 class DataTable extends BaseDataTable
 {
     /**
-     * Хранилише
+     * Storage associated with the data table.
      * @var Storage
      */
     protected ?Storage $_storage = null;
 
-    protected string $_returnAsExtended;
+    /**
+     * The class name or closure to return for each row in the data table.
+     * @var string|\Closure
+     */
+    protected string|\Closure $_returnAsExtended;
 
+    /**
+     * Indicates whether to perform a full selection of fields.
+     * @var bool
+     */
     protected static $fullSelection = false;
 
+    /**
+     * The parent object for lookup purposes.
+     * @var mixed
+     */
     protected mixed $_isLookupOf = null;
 
+    /**
+     * Sets the parent object for lookup purposes.
+     * @param mixed $parentObject The parent object.
+     * @return void
+     */
     public function isLookUpOf(mixed $parentObject) {
         $this->_isLookupOf = $parentObject;
     }
 
     /**
-     * Конструктор
-     * @param DataAccessPoint $point точка доступа
-     * @param IDataReader|null $reader ридер
-     * @param string|\Closure $returnAs возвращать в виде класса
-     * @param Storage|null $storage хранилище
+     * Constructs a new DataTable instance.
+     * @param DataAccessPoint $point The data access point.
+     * @param IDataReader|null $reader The data reader.
+     * @param string|\Closure $returnAs The class name or closure to return for each row.
+     * @param Storage|null $storage The storage instance.
      * @return void
      */
     public function __construct(
@@ -76,8 +93,8 @@ class DataTable extends BaseDataTable
     }
 
     /**
-     * Возвращает итератор
-     * @return DataTableIterator итератор
+     * Returns an iterator.
+     * @return DataTableIterator The iterator.
      */
     public function getIterator(): DataTableIterator
     {
@@ -85,7 +102,7 @@ class DataTable extends BaseDataTable
     }
 
     /**
-     * Возвращает обьект хранилище
+     * Returns the storage object.
      * @return Storage
      */
     public function Storage(): Storage
@@ -94,10 +111,10 @@ class DataTable extends BaseDataTable
     }
 
     /**
-     * Создает обьект данных представления строки
+     * Creates a data row object.
      *
-     * @param ExtendedObject $result
-     * @return mixed
+     * @param ExtendedObject $result The result object.
+     * @return mixed The data row object.
      */
     protected function _createDataRowObject(mixed $result): mixed
     {
@@ -111,6 +128,12 @@ class DataTable extends BaseDataTable
         return $return;
     }
 
+    /**
+     * Replace field placeholders in the given value with their real field names from the storage.
+     * @param string|null $value The value containing field placeholders.
+     * @param Storage $storage The storage instance.
+     * @return string|null The value with field placeholders replaced by real field names.
+     */
     protected static function _replaceFields(?string $value, Storage $storage): ?string
     {
         if($value === null) {
@@ -131,6 +154,18 @@ class DataTable extends BaseDataTable
         return $value;
     }
 
+    /**
+     * Loads data rows based on the given filter and parameters.
+     *
+     * @param Storage $storage The storage instance.
+     * @param int $page The page number for pagination.
+     * @param int $pagesize The number of items per page.
+     * @param string|null $filter The filter condition.
+     * @param string|null $order The order condition.
+     * @param array $params Additional parameters for the query.
+     * @param bool $calculateAffected Whether to calculate affected rows.
+     * @return static|null The loaded data table or null if an error occurred.
+     */
     protected static function _loadByFilter(
         Storage $storage,
         int $page = -1,
@@ -168,6 +203,14 @@ class DataTable extends BaseDataTable
         );
     }
 
+    /**
+     * Load data by string query and parameters.
+     *
+     * @param Storage $storage The storage instance.
+     * @param string $query The SQL query string.
+     * @param array $params The parameters for the query.
+     * @return static|null The loaded data table or null if an error occurred.
+     */
     public static function LoadByQuery(
         Storage $storage,
         string $query,
@@ -187,6 +230,13 @@ class DataTable extends BaseDataTable
         }
     }
 
+    /**
+     * Delete data rows based on the given filter.
+     *
+     * @param Storage $storage The storage instance.
+     * @param string|null $filter The filter condition.
+     * @return bool True if the deletion was successful, false otherwise.
+     */
     protected static function DeleteByFilter(
         Storage $storage,
         ?string $filter = null
@@ -228,6 +278,13 @@ class DataTable extends BaseDataTable
         return false;
     }
 
+    /**
+     * Restore soft-deleted data rows based on the given filter.
+     *
+     * @param Storage $storage The storage instance.
+     * @param string|null $filter The filter condition.
+     * @return bool True if the restoration was successful, false otherwise.
+     */
     protected static function RestoreByFilter(
         Storage $storage,
         string $filter
@@ -263,11 +320,23 @@ class DataTable extends BaseDataTable
         return false;
     }
 
+    /**
+     * Delete a specific data row.
+     *
+     * @param BaseDataRow $row The data row to delete.
+     * @return QueryInfo|ICommandResult|bool The result of the deletion operation.
+     */
     public function DeleteRow(BaseDataRow $row): QueryInfo|ICommandResult|bool
     {
         return self::DeleteByFilter($this->Storage(), '{id}=' . $row->id);
     }
 
+    /**
+     * Restore a specific soft-deleted data row.
+     *
+     * @param BaseDataRow $row The data row to restore.
+     * @return QueryInfo|ICommandResult|bool The result of the restoration operation.
+     */
     protected static function UpdateByFilter(
         Storage $storage,
         string $filter,
@@ -385,8 +454,9 @@ class DataTable extends BaseDataTable
 
 
     /**
-     * Экспорт в csv
-     * @param string $file файл, куда выгружать
+     * Export data to a CSV file.
+     *
+     * @param string $file The file path to export the CSV to.
      * @return void
      */
     public function ExportCSV(string $file): void
@@ -446,8 +516,9 @@ class DataTable extends BaseDataTable
     }
 
     /**
-     * Выгрузить в XML
-     * @param string $file файл, куда выгружать
+     * Export data to an XML file.
+     *
+     * @param string $file The file path to export the XML to.
      * @return void
      */
     public function ExportXML(string $file): void
@@ -512,8 +583,9 @@ class DataTable extends BaseDataTable
     }
 
     /**
-     * Выгрузить в XML
-     * @param string $file файл, куда выгружать
+     * Export data to a JSON file.
+     *
+     * @param string $file The file path to export the JSON to.
      * @return void
      */
     public function ExportJson(string $file): void
@@ -542,7 +614,15 @@ class DataTable extends BaseDataTable
 
     }
 
-    
+    /**
+     * Export data to an SQL file.
+     *
+     * @param string $file The file path to export the SQL to.
+     * @param array $exceptFields Fields to exclude from the export.
+     * @param string $primaryKeyName The name of the primary key field.
+     * @param array $typeExchange An array for type conversion.
+     * @return void
+     */
     public function ExportSQL(string $file, array $exceptFields = [], string $primaryKeyName = 'id', array $typeExchange = []): void
     {
         
@@ -588,10 +668,10 @@ class DataTable extends BaseDataTable
     }
 
     /**
-     * Импортировать из CSV
-     * @param string $file файл источник
-     * @param int $firstrow номер строки, с которой начинаются данные
-     * @return void
+     * Import data from a CSV file.
+     * @param string $file The source CSV file.
+     * @param int $firstrow The row number where the data starts.
+     * @return bool True if the import was successful, false otherwise.
      */
     public function ImportCSV(string $file, int $firstrow = 1, ?Logger $logger = null): bool
     {
@@ -642,10 +722,10 @@ class DataTable extends BaseDataTable
     }
 
     /**
-     * Импортировать из XML
-     * @param string $file файл источник
-     * @param int $firstrow номер строки, с которой начинаются данные
-     * @return void
+     * Import data from an XML file.
+     * @param string $file The source XML file.
+     * @param int $firstrow The row number where the data starts.
+     * @return bool True if the import was successful, false otherwise.
      */
     public function ImportXML(string $file, int $firstrow = 1, ?Logger $logger = null): bool
     {
@@ -682,6 +762,16 @@ class DataTable extends BaseDataTable
         return $hasErrors;
     }
 
+    /**
+     * Export data to a JSON file using a direct SQL query.
+     *
+     * @param Storage $storage The storage instance.
+     * @param string|File $file The file path or File object to export the JSON to.
+     * @param array $fields The fields to include in the export.
+     * @param array|null $filter Optional filter conditions for the export.
+     * @return bool True if the export was successful, false otherwise.
+     * @throws DataModelException If there is an error during the export process.
+     */
     protected static function _exportToFileJson(
         Storage $storage,
         string|File $file,
@@ -714,6 +804,17 @@ class DataTable extends BaseDataTable
         return true;
     }
 
+    /**
+     * Load data from an XML file into the storage.
+     *
+     * @param Storage $storage The storage instance.
+     * @param string|File $file The XML file path or File object to load data from.
+     * @param string $tag The XML tag that identifies each row of data.
+     * @param array $fieldsMap A mapping of storage fields to XML fields.
+     * @param array $additionalFields Additional fields to set during the load operation.
+     * @return bool True if the load was successful, false otherwise.
+     * @throws DataModelException If there is an error during the load process.
+     */
     protected static function _loadFromFileXML(
         Storage $storage,
         string|File $file,
@@ -761,6 +862,12 @@ class DataTable extends BaseDataTable
 
     }
 
+    /**
+     * Sets the full selection mode for data retrieval.
+     *
+     * @param bool $value True to enable full selection, false to disable.
+     * @return void
+     */
     public static function SetFullSelect(bool $value)
     {
         static::$fullSelection = $value;

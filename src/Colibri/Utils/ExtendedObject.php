@@ -125,6 +125,12 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         unset($this->_data);
     }
 
+    /**
+     * Get then schema of the object
+     * @param bool $exportAsString - if true, return schema as string
+     * @param array $addElements - additional elements to add to the schema
+     * @return object|string - schema as object or string
+     */
     public static function Schema(bool $exportAsString = false, $addElements = []): object|string
     {
 

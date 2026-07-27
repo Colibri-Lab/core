@@ -21,8 +21,11 @@ use Colibri\Utils\Logs\Logger;
  */
 class Monitoring
 {
+    /** Every time */
     public const EveryTimer = 0;
+    /** Only at the end of the stack */
     public const FullStackOnly = 1;
+    /** Never log */
     public const Never = 2;
 
     /**
@@ -43,7 +46,6 @@ class Monitoring
     /**
      * @var int Log level
      */
-
     private $_loglevel;
 
     /**

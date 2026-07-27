@@ -9,7 +9,14 @@ use Colibri\IO\Request\Type;
 
 class ErrorHelper
 {
-    public static function Telegram(string $channel, string $message)
+    /**
+     * Sends an error message to a specified Telegram channel.
+     *
+     * @param string $channel The Telegram channel ID.
+     * @param string $message The error message to send.
+     * @return void
+     */
+    public static function Telegram(string $channel, string $message): void
     {
         $botToken = App::$config->Query('errors.telegram', '')->GetValue();
         if(!$botToken) {

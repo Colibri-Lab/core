@@ -20,53 +20,56 @@ use Colibri\Data\Storages\Storage;
 use JsonSerializable;
 
 /**
- * Представление файла в хранилище
+ * Class representing a file field in a storage system.
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Fields
  *
- * @property-read bool $isOnline да, если файл - это url
- * @property-read bool $isValid да, если файл существует
- * @property-read string $path путь к файлу
- * @property-read MimeType $mimetype Майм тип для файла
- * @property-read string $type тип файла
- * @property-read string $extension тип файла
- * @property-read string $ext тип файла
- * @property-read string $data данные файла
- * @property-read string $binary данные файла
- * @property-read string $content данные файла
- * @property-read Size $size размер изображения, если это графика
- * @property-read string $id название файла, алиас на name
- * @property-read string $name название файла
- * @property-read string $filename название файла, алиас на name
- * @property-read int $filesize размер файла в байтах
+ * @property-read bool $isOnline yes, if the file is online (URL)
+ * @property-read bool $isValid yes, if the file exists
+ * @property-read string $path path to the file
+ * @property-read MimeType $mimetype MIME type of the file
+ * @property-read string $type file type
+ * @property-read string $extension file extension
+ * @property-read string $ext file extension
+ * @property-read string $data file data
+ * @property-read string $binary file data
+ * @property-read string $content file data
+ * @property-read Size $size image size if the file is an image
+ * @property-read string $id file name, alias for name
+ * @property-read string $name file name
+ * @property-read string $filename file name, alias for name
+ * @property-read int $filesize file size in bytes
  *
  */
 class FileField implements JsonSerializable
 {
     /**
-     * Путь к файлу
+     * Path to the file
      * @var string
      */
     private $_path;
 
     /**
-     * Название файла
+     * File name
      * @var string
      */
     private $_name;
 
     /**
-     * Расширение файла
+     * File extension
      * @var string
      */
     private $_ext;
 
     /**
-     * Конрент файла
+     * File content
      * @var string
      */
     private $_content;
 
+    /**
+     * JSON schema for the file field
+     */
     public const JsonSchema = [
         'type' => 'object',
         'patternProperties' => [
@@ -77,8 +80,10 @@ class FileField implements JsonSerializable
     ];
 
     /**
-     * Конструктор
-     * @param string $data путь к файлу
+     * Constructor
+     * @param mixed $data The file data, can be a string (path) or an array/object with 'path' key.
+     * @param Storage|null $storage The associated storage (optional).
+     * @param Field|null $field The associated field (optional).
      * @return void
      */
     public function __construct($data, ?Storage $storage = null, ?Field $field = null)
@@ -89,9 +94,9 @@ class FileField implements JsonSerializable
     }
 
     /**
-     * Геттер
-     * @param string $nm свойство
-     * @return mixed значение
+     * Getter
+     * @param string $nm property name
+     * @return mixed property value
      */
     public function __get($nm)
     {
@@ -158,8 +163,8 @@ class FileField implements JsonSerializable
     }
 
     /**
-     * Возвращает строку (путь)
-     * @return string путь
+     * Returns the string (path)
+     * @return string path
      */
     public function ToString()
     {
@@ -167,9 +172,9 @@ class FileField implements JsonSerializable
     }
 
     /**
-     * Возвращает наименование для кэширования
-     * @param Size $size размер
-     * @return string наименование и путь файла кэша
+     * Returns the name for caching
+     * @param Size $size size
+     * @return string name and path of the cache file
      */
     public function CacheName($size = null)
     {
@@ -183,9 +188,9 @@ class FileField implements JsonSerializable
     }
 
     /**
-     * Проверяет есть ли уже сохраненных кэш для выбранного размера
-     * @param Size $size размер
-     * @return bool да, если файл существует
+     * Checks if a cache already exists for the selected size
+     * @param Size $size size
+     * @return bool true if the cache file exists
      */
     public function CacheExists($size)
     {
@@ -193,8 +198,8 @@ class FileField implements JsonSerializable
     }
 
     /**
-     * Кэширует файл в нужном размере, если необходимо
-     * @param Size|null $size размер
+     * Caches the file in the required size if necessary
+     * @param Size|null $size size
      * @return void
      */
     public function Cache($size = null)
@@ -214,10 +219,10 @@ class FileField implements JsonSerializable
     }
 
     /**
-     * Возвращает путь к файлу с кэшом нужно размера и с нужными свойствами
-     * @param Size|null $size размер
-     * @param mixed $options Свойства
-     * @return string путь к кэшу или к файлу
+     * Returns the path to the cached file of the required size and with the required properties
+     * @param Size|null $size size
+     * @param mixed $options properties
+     * @return string path to the cache or the file
      */
     public function Source($size = null, $options = null)
     {
@@ -247,21 +252,42 @@ class FileField implements JsonSerializable
         return $this->_path ?: '';
     }
 
+    /**
+     * Returns the closure code as a string.
+     *
+     * @return string The closure code.
+     */
     public function jsonSerialize(): mixed
     {
         return (string) $this;
     }
 
+    /**
+     * Returns the field data as an array.
+     *
+     * @param bool $noPrefix Whether to exclude the prefix from the keys.
+     * @return array The field data as an associative array.
+     */
     public function ToArray(bool $noPrefix = false): array
     {
         return ['path' => $this->_path];
     }
 
+    /**
+     * Returns the parameter type name for this file field.
+     *
+     * @return string The parameter type name.
+     */
     public static function ParamTypeName(): string
     {
         return 'string';
     }
 
+    /**
+     * Returns null.
+     *
+     * @return mixed Always returns null.
+     */
     public static function null(): mixed
     {
         return null;

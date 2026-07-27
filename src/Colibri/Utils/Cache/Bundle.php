@@ -372,6 +372,13 @@ class Bundle
 
     }
 
+    /**
+     * Converts HTML content to JavaScript.
+     *
+     * @param File $file The file object
+     * @param string $html The HTML content
+     * @return string The compiled JavaScript content
+     */
     public static function ConvertHtmlToJS(File $file, string $html): string
     {
 
@@ -391,6 +398,13 @@ class Bundle
 
     }
 
+    /**
+     * Converts HTML content to JavaScript using a simplified approach.
+     *
+     * @param File $file The file object
+     * @param string $html The HTML content
+     * @return string The compiled JavaScript content
+     */
     public static function ConvertHtmlToJSSimple(File $file, string $html): string
     {
 
@@ -410,6 +424,12 @@ class Bundle
 
     }
 
+    /**
+     * Recursively converts XML nodes to JavaScript code.
+     *
+     * @param XmlNode $parentNode The parent XML node
+     * @return string The compiled JavaScript code
+     */
     public static function ConvertNode(XmlNode $parentNode): string
     {
         $ret = [];

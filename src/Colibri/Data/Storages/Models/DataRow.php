@@ -31,7 +31,7 @@ use Colibri\Data\SqlClient\QueryInfo;
 use Colibri\Data\Storages\Fields\FileListField;
 
 /**
- * Представление строки в таблице в хранилище
+ * Class representing a row of data in a data model.
  * @author Vahan P. Grigoryan
  * @package Colibri\Data\Storages\Models
  *
@@ -43,17 +43,25 @@ use Colibri\Data\Storages\Fields\FileListField;
 class DataRow extends BaseDataRow
 {
     /**
-     * Хранилище
+     * Storage
      * @var Storage
      */
     protected $_storage;
 
+    /**
+     * Casts for specific fields
+     * @var array
+     */
     protected static array $casts = [];
 
+    /**
+     * Indicates if this row is a lookup of another object.
+     * @var mixed
+     */
     protected mixed $_isLookupOf = null;
 
     /**
-     * Конструктор
+     * Constructor for the DataRow class.
      *
      * @param DataTable|DataCollection $table
      * @param mixed $data
@@ -85,13 +93,16 @@ class DataRow extends BaseDataRow
         $this->_processDefaultValues();
     }
 
+    /**
+     * Is this row a lookup of another object?
+     */
     public function isLookUpOf(mixed $parentObject) {
         $this->_isLookupOf = $parentObject;
     }
     
     /**
-     * Заполняет строку из обьекта
-     * @param mixed $obj обьект или массив
+     * Imports data from object
+     * @param mixed $obj The object to check against.
      * @return void
      */
     public function Fill(mixed $obj): void
@@ -116,11 +127,11 @@ class DataRow extends BaseDataRow
     }
 
     /**
-     * Конвертация типов
-     * @param string $mode режим, get или сет
-     * @param string $property свойство
-     * @param mixed $value значение
-     * @return mixed результат
+     * Type converter
+     * @param string $mode Mode, either 'get' or 'set'.
+     * @param string $property Property name.
+     * @param mixed $value Value to be set.
+     * @return mixed Result.
      */
     protected function _typeExchange(string $mode, string $property, mixed $value = false): mixed
     {
@@ -329,9 +340,9 @@ class DataRow extends BaseDataRow
     }
 
     /**
-     * Конвертирует данные для передачи через функцию GetData
-     * @param mixed $data данные для конвертации
-     * @return mixed сконвертированные данные
+     * Converts data for use with the GetData function.
+     * @param mixed $data Data to be converted.
+     * @return mixed Converted data.
      */
     protected function _typeToData(mixed $data): mixed
     {
@@ -395,6 +406,10 @@ class DataRow extends BaseDataRow
         return $data;
     }
 
+    /**
+     * Processes default values for the data row.
+     * @return bool True on success.
+     */
     protected function _processDefaultValues(): bool
     {
         foreach ($this->_storage->fields as $fieldName => $field) {
@@ -406,6 +421,11 @@ class DataRow extends BaseDataRow
         return true;
     }
 
+    /**
+     * Gets the validation data
+     * @param bool $expandLookups Whether to expand lookup fields.
+     * @return mixed The validation data.
+     */
     public function GetValidationData(bool $expandLookups = true): mixed
     {
         $storage = $this->Storage();
@@ -496,7 +516,7 @@ class DataRow extends BaseDataRow
     }
 
     /**
-     * Возвращает хранилище
+     * Returns the storage associated with this data row.
      * @return Storage
      */
     public function Storage(): Storage
@@ -505,8 +525,8 @@ class DataRow extends BaseDataRow
     }
 
     /**
-     * Возвращает строку в виде массива
-     * @param bool $noPrefix да - возвращать без префиксами
+     * Returns the row as an array.
+     * @param bool $noPrefix Whether to return without prefixes.
      * @return array
      */
     public function ToArray(bool $noPrefix = false, ?\Closure $callback = null): array
@@ -524,7 +544,7 @@ class DataRow extends BaseDataRow
     }
 
     /**
-     * Конвертирует в строку
+     * Converts the row to a string.
      * @return string
      */
     public function ToString(): string
@@ -554,14 +574,17 @@ class DataRow extends BaseDataRow
         return preg_replace('/\s\s+/', ' ', $string);
     }
 
-
+    /**
+     * Magic method to convert the object to a string.
+     * @return string
+     */
     public function __toString(): string
     {
         return (string)$this->id;
     }
 
     /**
-     * Поле изменено
+     * Checks if a property has changed.
      * @return bool
      */
     public function IsPropertyChanged(string $property, bool $convertData = false): bool
@@ -592,7 +615,7 @@ class DataRow extends BaseDataRow
     }
 
     /**
-     * Вызывает SaveRow у таблицы
+     * Calls SaveRow on the table.
      * @return QueryInfo|bool
      */
     public function Save(bool $performValidationBeforeSave = false): QueryInfo|ICommandResult|bool
@@ -605,6 +628,10 @@ class DataRow extends BaseDataRow
         return $return;
     }
 
+    /**
+     * Deletes the row, either soft delete or hard delete based on storage parameters.
+     * @return QueryInfo|ICommandResult|bool
+     */
     public function Delete(): QueryInfo|ICommandResult|bool
     {
         $params = (object)$this->_storage?->{'params'};
@@ -623,6 +650,10 @@ class DataRow extends BaseDataRow
         }
     }
 
+    /**
+     * Restores a soft-deleted row.
+     * @return QueryInfo|ICommandResult|bool
+     */
     public function Restore(): QueryInfo|ICommandResult|bool
     {
         $params = (object)$this->_storage?->{'params'};
@@ -642,6 +673,11 @@ class DataRow extends BaseDataRow
         }
     }
 
+    /**
+     * Returns an array of changed data.
+     * @param bool $returnAll Whether to return all data or only changed data.
+     * @return array
+     */
     public function Changed(bool $returnAll = false): array
     {
         $data = $this->GetData();
@@ -656,6 +692,11 @@ class DataRow extends BaseDataRow
         return $data;
     }
 
+    /**
+     * Prepares data for saving, including changed fields and their types.
+     * @param bool $saveAll Whether to save all fields or only changed fields.
+     * @return array|null An array containing field values and parameters, or null if nothing to save.
+     */
     public function DataToChange(bool $saveAll = false): ?array
     {
         $data = $this->Changed($saveAll);

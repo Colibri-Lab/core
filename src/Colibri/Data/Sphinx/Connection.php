@@ -64,6 +64,12 @@ final class Connection implements IConnection
         ];
     }
 
+    /**
+     * Creates a new Connection instance from the provided connection information.
+     *
+     * @param object|array $connectionInfo An object or array containing connection information.
+     * @return static A new instance of the Connection class.
+     */
     public static function FromConnectionInfo(object|array $connectionInfo): static
     {
         $connectionInfo = (object)$connectionInfo;
@@ -187,6 +193,12 @@ final class Connection implements IConnection
         }
     }
 
+    /**
+     * Checks if the connection to the Sphinx server is alive.
+     *
+     * @return bool Returns true if the connection is alive; otherwise, false.
+     *
+     */
     public function Ping(): bool
     {
         return mysqli_ping($this->_resource);

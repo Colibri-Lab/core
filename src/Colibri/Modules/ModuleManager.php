@@ -32,7 +32,7 @@ use Colibri\Web\Templates\PhpTemplate;
  */
 class ModuleManager extends Singleton
 {
-    // Includes functionality of event dispatcher.
+    /** Includes functionality of event dispatcher. */
     use TEventDispatcher;
 
     /**

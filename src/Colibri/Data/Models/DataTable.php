@@ -89,7 +89,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
         DataAccessPoint|string $point,
         string $returnAs = 'Colibri\\Data\\Models\\DataRow'
     ): DataTable {
-        if (is_string($point)) {
+        if (\is_string($point)) {
             $point = App::$dataAccessPoints->Get($point);
         }
         return new DataTable($point, null, $returnAs);

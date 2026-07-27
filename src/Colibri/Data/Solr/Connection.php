@@ -144,6 +144,14 @@ final class Connection implements IConnection
         }
     }
 
+    /**
+     * Checks if the Solr server is alive by sending a ping request.
+     *
+     * @return bool Returns true if the server is alive; otherwise, false.
+     *
+     * @throws Exception If an error occurs while sending the ping request.
+     *
+     */
     public function Ping(): bool
     {
         $result = Command::Execute($this, 'get', '/admin/cores', ['wt' => 'json'], 'status');

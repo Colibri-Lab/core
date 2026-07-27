@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['query_2079',['Query',['../classColibri_1_1Data_1_1DataAccessPoint.html#aaef45381d98f00fbf3d10d599f6b1366',1,'Colibri\Data\DataAccessPoint\Query()'],['../classColibri_1_1Utils_1_1Config_1_1Config.html#a5e459e19274e4e00c9d31ca66ea5bb31',1,'Colibri\Utils\Config\Config\Query()'],['../classColibri_1_1Xml_1_1XmlNode.html#aa653469d61ba7352333c62df7775088a',1,'Colibri\Xml\XmlNode\Query()'],['../classColibri_1_1Xml_1_1XmlQuery.html#a6fdf57cf49def66d53805598f7fc77c9',1,'Colibri\Xml\XmlQuery\Query()']]],
+  ['queryinfo_2080',['QueryInfo',['../classColibri_1_1Data_1_1MongoDb_1_1CommandResult.html#a02ce355e4c8410619388d0f9a53b796b',1,'Colibri\Data\MongoDb\CommandResult\QueryInfo()'],['../interfaceColibri_1_1Data_1_1NoSqlClient_1_1ICommandResult.html#abc5e6fd57eb8cfc1efeb8e6d6382af63',1,'Colibri\Data\NoSqlClient\ICommandResult\QueryInfo()'],['../classColibri_1_1Data_1_1Solr_1_1CommandResult.html#ade3445418d1107e6acf5b32b9fc6e6c8',1,'Colibri\Data\Solr\CommandResult\QueryInfo()']]]
+];

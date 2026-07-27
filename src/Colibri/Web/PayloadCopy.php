@@ -164,6 +164,11 @@ class PayloadCopy implements ArrayAccess, Countable
         return (array) $this->_payloadData;
     }
 
+    /**
+     * Cache the payload data.
+     *
+     * @return void
+     */
     public function Cache(): void
     {
         if (empty($this->_payloadData)) {
@@ -171,6 +176,12 @@ class PayloadCopy implements ArrayAccess, Countable
         }
     }
 
+    /**
+     * Set the payload data.
+     *
+     * @param array $data The payload data to set.
+     * @return void
+     */
     public function SetData(array $data) 
     {
         $this->_payloadData = $data;

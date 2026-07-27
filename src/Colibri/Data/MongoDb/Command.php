@@ -34,6 +34,12 @@ use MongoDB\Database;
  */
 final class Command extends NoSqlCommand
 {
+    /**
+     * Escapes special characters in a query string for MongoDB.
+     *
+     * @param string $input The input string to escape.
+     * @return string The escaped string.
+     */
     public function EscapeQuery(string $input): string
     {
         $specialChars = ['\\', '+', '-', '&&', '||', '!', '(', ')', '{', '}', '[', ']', '^', '"', '~', '*', '?', ':', '/'];
@@ -70,6 +76,12 @@ final class Command extends NoSqlCommand
 
     }
 
+    /**
+     * Checks if a collection exists in the database.
+     *
+     * @param string $collectionName The name of the collection to check.
+     * @return bool True if the collection exists, false otherwise.
+     */
     public function CollectionExists(string $collectionName): bool
     {
         /** @var Connection $connection */
@@ -89,6 +101,12 @@ final class Command extends NoSqlCommand
         return $found;
     }
 
+    /**
+     * Creates a new collection in the database.
+     *
+     * @param string $collectionName The name of the collection to create.
+     * @return bool True if the collection was created successfully, false otherwise.
+     */
     public function CreateCollection(string $collectionName): bool
     {
         /** @var Connection $connection */
@@ -102,6 +120,12 @@ final class Command extends NoSqlCommand
         return true;
     }
 
+    /**
+     * Gets the maximum ID value from a collection.
+     *
+     * @param string $collectionName The name of the collection.
+     * @return int The maximum ID value in the collection.
+     */
     public function MaxId(string $collectionName): int
     {
         $result = $this->SelectDocuments($collectionName, [], null, null, ['id'], ['id' => -1], 1, 1);
@@ -113,6 +137,13 @@ final class Command extends NoSqlCommand
         return $rows[0]->id;
     }
 
+    /**
+     * Inserts a document into a collection.
+     *
+     * @param string $collectionName The name of the collection.
+     * @param object $document The document to insert.
+     * @return CommandResult The result of the insert operation.
+     */
     public function InsertDocument(string $collectionName, object $document): CommandResult
     {
         if(!$this->_connection->Ping()) {
@@ -138,6 +169,13 @@ final class Command extends NoSqlCommand
         return $return;
     }
 
+    /**
+     * Inserts multiple documents into a collection.
+     *
+     * @param string $collectionName The name of the collection.
+     * @param array $arrayOfDocuments An array of documents to insert.
+     * @return CommandResult The result of the insert operation.
+     */
     public function InsertDocuments(string $collectionName, array $arrayOfDocuments): CommandResult
     {
         $results = [];
@@ -153,6 +191,14 @@ final class Command extends NoSqlCommand
         return $return;
     }
 
+    /**
+     * Updates a document in a collection.
+     *
+     * @param string $collectionName The name of the collection.
+     * @param int $id The ID of the document to update.
+     * @param object $partOfDocument The partial document with updated fields.
+     * @return CommandResult The result of the update operation.
+     */
     public function UpdateDocument(string $collectionName, int $id, object $partOfDocument): CommandResult
     {
         if(!$this->_connection->Ping()) {
@@ -176,6 +222,14 @@ final class Command extends NoSqlCommand
 
     }
 
+    /**
+     * Updates multiple documents in a collection based on a filter.
+     *
+     * @param string $collectionName The name of the collection.
+     * @param array $filter The filter criteria for selecting documents to update.
+     * @param array $update The update operations to apply to the selected documents.
+     * @return CommandResult The result of the update operation.
+     */
     public function UpdateDocuments(string $collectionName, array $filter, array $update): CommandResult
     {
         if(!$this->_connection->Ping()) {
@@ -197,6 +251,13 @@ final class Command extends NoSqlCommand
         return $return;
     }
 
+    /**
+     * Deletes documents from a collection based on a filter.
+     *
+     * @param string $collectionName The name of the collection.
+     * @param array $filter The filter criteria for selecting documents to delete.
+     * @return CommandResult The result of the delete operation.
+     */
     public function DeleteDocuments(string $collectionName, array $filter): CommandResult
     {   
         if(!$this->_connection->Ping()) {
@@ -305,31 +366,76 @@ final class Command extends NoSqlCommand
         return $return;
     }
 
+    /**
+     * DO NOTHING: Creates custom fields for a collection. This method is a placeholder and does not perform any operations.
+     * @param string $collectionName The name of the collection for which to create custom fields.
+     * @return void
+     * 
+     */
     public function CreateCustomFields(string $collectionName)
     {
         // do nothing
     }
 
+    /**
+     * DO NOTHING: Gets the fields of a collection. This method is a placeholder and does not perform any operations.
+     * @param string $collectionName The name of the collection for which to get fields.
+     * @return CommandResult|null The result of the get fields operation, or null if not implemented.
+     */
     public function GetFields(string $collectionName): ?CommandResult
     {
         return null;
     }
 
+    /**
+     * DO NOTHING: Adds a field to a collection. This method is a placeholder and does not perform any operations.
+     * @param string $collectionName The name of the collection to which to add the field.
+     * @param string $fieldName The name of the field to add.
+     * @param string $fieldType The type of the field to add.
+     * @param bool $required Whether the field is required.
+     * @param bool $indexed Whether the field is indexed.
+     * @param mixed|null $default The default value for the field, if any.
+     * @return CommandResult|null The result of the add field operation, or null if not implemented.
+     */
     public function AddField(string $collectionName, string $fieldName, string $fieldType, bool $required, bool $indexed, mixed $default = null): ?CommandResult
     {
         return null;
     }
 
+    /**
+     * DO NOTHING: Adds a copy of a field to a collection. This method is a placeholder and does not perform any operations.
+     * @param string $collectionName The name of the collection to which to add the copy field.
+     * @param string $source The name of the source field to copy.
+     * @param string $dest The name of the destination field to create as a copy.
+     * @return CommandResult|null The result of the add copy field operation, or null if not implemented.
+     */
     public function AddCopyField(string $collectionName, string $source, string $dest): ?CommandResult
     {
         return null;
     }
 
+    /**
+     * DO NOTHING: Replaces a field in a collection. This method is a placeholder and does not perform any operations.
+     * @param string $collectionName The name of the collection in which to replace the field.
+     * @param string $fieldName The name of the field to replace.
+     * @param string $fieldType The type of the field to replace.
+     * @param bool $required Whether the field is required.
+     * @param bool $indexed Whether the field is indexed.
+     * @param mixed|null $default The default value for the field, if any.
+     * @return CommandResult|null The result of the replace field operation, or null if not implemented.
+     */
     public function ReplaceField(string $collectionName, string $fieldName, string $fieldType, bool $required, bool $indexed, mixed $default = null): ?CommandResult
     {
         return null;
     }
 
+    /**
+     * Migrates the database schema for a given storage and its extended storage configuration.
+     * @param Logger $logger The logger instance to use for logging migration progress.
+     * @param string $storage The name of the storage to migrate.
+     * @param array $xstorage The extended storage configuration.
+     * @return void
+     */
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {
         $storage = isset($xstorage['name']) ? $xstorage['name'] : $storage;
@@ -344,6 +450,13 @@ final class Command extends NoSqlCommand
 
     }
 
+    /**
+     * Checks if an index exists on a collection for a given field and value.
+     * @param string $collectionName The name of the collection to check.
+     * @param string $fieldName The name of the field to check.
+     * @param string $value The value of the index to check.
+     * @return bool True if the index exists, false otherwise.
+     */
     public function IndexExists(string $collectionName, string $fieldName, string $value = '1') {
         
         $collection = $this->_connection->database->getCollection($collectionName);
@@ -356,6 +469,13 @@ final class Command extends NoSqlCommand
         return false;
     }
 
+    /**
+     * Creates an index on a collection for a given field and value.
+     * @param string $collectionName The name of the collection.
+     * @param string $fieldName The name of the field to index.
+     * @param string $value The value of the index.
+     * @return void
+     */
     public function CreateIndex(string $collectionName, string $fieldName, string $value = '1') {
         $collection = $this->_connection->database->getCollection($collectionName);
         $collection->createIndex([$fieldName => $value]);

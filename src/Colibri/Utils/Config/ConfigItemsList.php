@@ -49,6 +49,11 @@ class ConfigItemsList extends ArrayList
         return new Config($this->data[$index], false, $this->_file);
     }
 
+    /**
+     * Converts the configuration items list to an array.
+     *
+     * @return array An array representation of the configuration items list.
+     */
     public function AsArray(): array
     {
         return $this->ToArray();

@@ -23,10 +23,31 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder
 {
+    /**
+     * Mutation type constants.
+     */
     public const MutationInsert = 'insert';
+    /**
+     * Mutation type constants.
+     */
     public const MutationUpdate = 'update';
+    /**
+     * Mutation type constants.
+     */
     public const MutationDelete = 'delete';
 
+    /**
+     * Processes filters for a Solr query based on the provided parameters.
+     *
+     * @param Storage $storage The storage object containing field definitions.
+     * @param string $term The search term to filter results.
+     * @param array|null $filterFields An array of filter fields and their values.
+     * @param string|null $sortField The field to sort the results by.
+     * @param string|null $sortOrder The order of sorting (asc or desc).
+     * @param bool $useAsManageFilter Whether to use the filters as manage filters.
+     *
+     * @return array An array containing the processed query, filters, and sorting information.
+     */
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
     {
 
@@ -133,6 +154,14 @@ class QueryBuilder
 
     }
 
+    /**
+     * Processes mutation data for a given row based on the mutation type.
+     *
+     * @param mixed $row The row data to process.
+     * @param string $mutationType The type of mutation (insert, update, delete).
+     *
+     * @return array|object The processed mutation data.
+     */
     public function ProcessMutationData(mixed $row, string $mutationType): array|object
     {
 
@@ -184,14 +213,27 @@ class QueryBuilder
 
     }
 
-
+    /**
+     * Creates a field name for a query based on the provided field and table.
+     *
+     * @param string $field The field name.
+     * @param string $table The table name.
+     *
+     * @return string The formatted field name for the query.
+     */
     public function CreateFieldForQuery(string $field, string $table): string
     {
         return $field;
     }
 
-
-
+    /**
+     * Creates a soft delete query for a given field and table.
+     *
+     * @param string $softDeleteField The field used for soft deletion.
+     * @param string $table The table name.
+     *
+     * @return array An array representing the soft delete query.
+     */
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): array
     {
         return [$this->CreateFieldForQuery($softDeleteField, $table) => null];

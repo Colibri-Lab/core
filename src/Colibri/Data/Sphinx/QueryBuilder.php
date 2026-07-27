@@ -25,7 +25,15 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder implements IQueryBuilder
 {
+    /**
+     * The Sphinx connection instance.
+     */
     private Connection $_connection;
+    /**
+     * Initializes a new instance of the QueryBuilder class with the specified Sphinx connection.
+     *
+     * @param Connection $connection The Sphinx connection instance.
+     */
     public function __construct(Connection $connection)
     {
         $this->_connection = $connection;
@@ -305,11 +313,22 @@ class QueryBuilder implements IQueryBuilder
             ) OPTION '.($tableOptionsString ? $tableOptionsString : 'rt_mem_limit=256M, min_prefix_len=3').'
         ';
     }
+    /**
+     * Creates a query to check if a table exists in the database.
+     *
+     * @param string $table The name of the table.
+     * @return string The generated query to check for table existence.
+     */
     public function CreateShowStatus(string $table): string
     {
         return 'SHOW INDEX '.$table.' AGENT STATUS';
     }
-
+    /**
+     * Creates a query to check if a table exists in the database.
+     *
+     * @param string $table The name of the table.
+     * @return string The generated query to check for table existence.
+     */
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
     {
 
@@ -467,13 +486,25 @@ class QueryBuilder implements IQueryBuilder
 
     }
 
-
-
+    /**
+     * Creates a field representation for a query.
+     *
+     * @param string $field The name of the field.
+     * @param string $table The name of the table.
+     * @return string The field representation for the query.
+     */
     public function CreateFieldForQuery(string $field, string $table): string
     {
         return $field;
     }
 
+    /**
+     * Creates a query to check for soft-deleted records in a table.
+     *
+     * @param string $softDeleteField The name of the soft delete field. Default is 'datedeleted'.
+     * @param string $table The name of the table.
+     * @return string The generated query to check for soft-deleted records.
+     */
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): string
     {
         return $this->CreateFieldForQuery($softDeleteField, $table) . '=0';

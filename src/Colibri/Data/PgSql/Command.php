@@ -163,6 +163,14 @@ final class Command extends SqlCommand
         return $query;
     }
 
+    /**
+     * Migrates the storage to the new structure.
+     *
+     * @param Logger $logger The logger instance.
+     * @param string $storage The storage name.
+     * @param array $xstorage The extended storage configuration.
+     * @return void
+     */
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {
 
@@ -631,7 +639,12 @@ final class Command extends SqlCommand
 
     }
 
-
+    /**
+     * Extracts field information from the given field array or object.
+     *
+     * @param array|object $field The field information as an array or object.
+     * @return object An object containing the extracted field information.
+     */
     public static function ExtractFieldInformation(array|object $field): object
     {
         $field = (object)$field;
@@ -645,6 +658,12 @@ final class Command extends SqlCommand
         ];
     }
 
+    /**
+     * Extracts index information from the given index array or object.
+     *
+     * @param array|object $index The index information as an array or object.
+     * @return object An object containing the extracted index information.
+     */
     public static function ExtractIndexInformation(array|object $index): object
     {
         $def = strtolower($index->indexdef);
@@ -661,8 +680,6 @@ final class Command extends SqlCommand
             'Type' => 'BTREE',
             'Primary' => strstr($index->indexname, '_pkey') !== false
         ];
-
-
 
     }
 

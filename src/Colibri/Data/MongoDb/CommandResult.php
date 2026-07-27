@@ -24,13 +24,22 @@ use Colibri\Data\NoSqlClient\QueryInfo;
  */
 final class CommandResult implements ICommandResult
 {
+    /** @var object|null The response object from the command execution. */
     private ?object $_response = null;
 
+    /** 
+     * Constructor for the CommandResult class.
+     * @param object $response The response object from the command execution.
+     */
     public function __construct(object $response)
     {
         $this->_response = $response;
     }
 
+    /**
+     * Returns the error object from the command execution, if any.
+     * @return object|null The error object, or null if there was no error.
+     */
     public function Error(): ?object
     {
         if($this->_response?->error ?? false) {
@@ -39,6 +48,10 @@ final class CommandResult implements ICommandResult
         return null;
     }
 
+    /**
+     * Returns information about the query execution.
+     * @return object An object containing query execution information.
+     */
     public function QueryInfo(): object
     {
         $affected = count($this->ResultData());
@@ -49,6 +62,11 @@ final class CommandResult implements ICommandResult
         return (object)[...(array)$this->_response->responseHeader, ...['affected' => $affected, 'count' => $count]];
     }
 
+    /**
+     * Converts an object or array to a standardized format.
+     * @param mixed $object The object or array to convert.
+     * @return mixed The converted object or array.
+     */
     private function _convert($object)
     {
         if(is_array($object) && !VariableHelper::IsAssociativeArray($object)) {
@@ -74,6 +92,10 @@ final class CommandResult implements ICommandResult
         return $object;
     }
 
+    /**
+     * Returns the result data from the command execution.
+     * @return array The result data as an array.
+     */
     public function ResultData(): array
     {
         $return = [];
@@ -90,6 +112,11 @@ final class CommandResult implements ICommandResult
         return $return;
     }
 
+    /**
+     * Sets the name of the collection in the response header.
+     * @param string $name The name of the collection.
+     * @return void
+     */
     public function SetCollectionName(string $name): void
     {
         if(! ($this->_response?->responseHeader ?? null)) {
@@ -98,6 +125,11 @@ final class CommandResult implements ICommandResult
         $this->_response->responseHeader->name = $name;
     }
 
+    /**
+     * Sets the returned ID(s) in the response header.
+     * @param int|array $id The ID or IDs to set.
+     * @return void
+     */
     public function SetReturnedId(int|array $id): void
     {
         if(!$this->_response->responseHeader) {
@@ -113,8 +145,11 @@ final class CommandResult implements ICommandResult
             [...$this->_response->responseHeader->returned, ...$id];
     }
 
-
-
+    /**
+     * Merges the current command result with another command result.
+     * @param ICommandResult $result The command result to merge with.
+     * @return void
+     */
     public function MergeWith(ICommandResult $result): void
     {
         $queryInfo = $result->QueryInfo();

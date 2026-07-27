@@ -1,0 +1,19 @@
+<map id="Colibri\App" name="Colibri\App">
+<area shape="rect" id="node1" title=" " alt="" coords="629,293,723,320"/>
+<area shape="rect" id="node2" href="$classColibri_1_1Utils_1_1Singleton.html" title=" " alt="" coords="5,168,168,195"/>
+<area shape="rect" id="node3" href="$classColibri_1_1Modules_1_1ModuleManager.html" title=" " alt="" coords="217,269,449,296"/>
+<area shape="rect" id="node4" href="$classColibri_1_1Data_1_1DataAccessPoints.html" title=" " alt="" coords="224,421,443,448"/>
+<area shape="rect" id="node8" href="$classColibri_1_1Web_1_1Response.html" title=" " alt="" coords="252,320,415,347"/>
+<area shape="rect" id="node10" href="$classColibri_1_1Threading_1_1Manager.html" title=" " alt="" coords="236,16,431,43"/>
+<area shape="rect" id="node14" href="$classColibri_1_1Events_1_1EventDispatcher.html" title=" " alt="" coords="222,67,445,93"/>
+<area shape="rect" id="node15" href="$classColibri_1_1Web_1_1Request.html" title=" " alt="" coords="257,117,410,144"/>
+<area shape="rect" id="node5" title=" " alt="" coords="35,345,138,372"/>
+<area shape="rect" id="node17" href="$classColibri_1_1Web_1_1Session.html" title=" " alt="" coords="258,371,409,397"/>
+<area shape="rect" id="node6" title=" " alt="" coords="18,480,155,507"/>
+<area shape="rect" id="node13" href="$classColibri_1_1Utils_1_1Config_1_1Config.html" title=" " alt="" coords="262,473,405,514"/>
+<area shape="rect" id="node7" title=" " alt="" coords="43,421,131,448"/>
+<area shape="rect" id="node9" href="$classColibri_1_1Web_1_1Router.html" title=" " alt="" coords="262,219,405,245"/>
+<area shape="rect" id="node11" href="$classColibri_1_1Utils_1_1Logs_1_1Logger.html" title=" " alt="" coords="267,603,399,645"/>
+<area shape="rect" id="node12" title=" " alt="" coords="25,611,149,637"/>
+<area shape="rect" id="node16" href="$classColibri_1_1Utils_1_1Performance_1_1Monitoring.html" title=" " alt="" coords="241,538,426,579"/>
+</map>

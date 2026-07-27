@@ -20,11 +20,19 @@ use Colibri\Data\SqlClient\IConfig;
  */
 final class Config implements IConfig
 {
+    /**
+     * Returns the type of database management system (DBMS) used.
+     * @return string The type of DBMS.
+     */
     public static function DbmsType(): string
     {
         return 'relational';
     }
 
+    /**
+     * Returns the allowed data types for the database.
+     * @return array An array of allowed data types.
+     */
     public static function AllowedTypes(): array
     {
         return [
@@ -45,37 +53,64 @@ final class Config implements IConfig
         ];
     }
 
-
+    /**
+     * Indicates whether the database has indexes.
+     * @return bool True if the database has indexes, false otherwise.
+     */
     public static function HasIndexes(): bool
     {
         return true;
     }
 
+    /**
+     * Indicates whether the database has triggers.
+     * @return bool True if the database has triggers, false otherwise.
+     */
     public static function HasTriggers(): bool
     {
         return true;
     }
 
+    /**
+     * Indicates whether the database fields have a prefix.
+     * @return bool True if the database fields have a prefix, false otherwise.
+     */
     public static function FieldsHasPrefix(): bool
     {
         return true;
     }
 
+    /**
+     * Indicates whether the database has multi-field indexes.
+     * @return bool True if the database has multi-field indexes, false otherwise.
+     */
     public static function HasVirtual(): bool
     {
         return true;
     }
 
+    /**
+     * Indicates whether the database has virtual fields.
+     * @return bool True if the database has virtual fields, false otherwise.
+     */
     public static function HasMultiFieldIndexes(): bool
     {
         return true;
     }
 
+    /**
+     * Indicates whether the database has autoincrement fields.
+     * @return bool True if the database has autoincrement fields, false otherwise.
+     */
     public static function HasAutoincrement(): bool
     {
         return true;
     }
 
+    /**
+     * Returns the index types supported by the database.
+     * @return array An array of supported index types.
+     */
     public static function IndexTypes(): array
     {
         return [
@@ -84,6 +119,10 @@ final class Config implements IConfig
         ];
     }
 
+    /**
+     * Returns the index methods supported by the database.
+     * @return array An array of supported index methods.
+     */
     public static function IndexMethods(): array
     {
         return [
@@ -96,11 +135,19 @@ final class Config implements IConfig
         ];
     }
 
+    /**
+     * Returns the symbol used for quoting identifiers in the database.
+     * @return string The symbol used for quoting identifiers.
+     */
     public static function Symbol(): string
     {
         return '"';
     }
 
+    /**
+     * Indicates whether the database supports JSON indexes.
+     * @return bool True if the database supports JSON indexes, false otherwise.
+     */
     public static function JsonIndexes(): bool
     {
         return true;

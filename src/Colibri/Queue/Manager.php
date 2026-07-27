@@ -35,6 +35,9 @@ use Colibri\Utils\Singleton;
  */
 class Manager extends Singleton
 {
+    /**
+     * Includes functionality of event dispatcher.
+     */
     use TEventDispatcher;
 
     /**
@@ -651,6 +654,15 @@ class Manager extends Singleton
         return $ret;
     }
 
+    /**
+     * Retrieves successfully completed jobs from the queue based on specified criteria.
+     *
+     * @param string $class The job class to filter by.
+     * @param ?string $payloadClass The payload class to filter by (optional).
+     * @param object|array|null $payloadFilter An object or array containing payload filter criteria (optional).
+     * @param object|array|null $resultFilter An object or array containing result filter criteria (optional).
+     * @return array An array of successfully completed jobs matching the specified criteria.
+     */
     public function GetSuccessed(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, object|array|null $resultFilter = null): array
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -835,6 +847,11 @@ class Manager extends Singleton
         return false;
     }
 
+    /**
+     * Runs the queue worker for the specified queue(s).
+     *
+     * @param string|array $queueName The name of the queue or an array of queue names to run.
+     */
     public static function Run(string|array $queueName)
     {
         runx(App::$appRoot . 'bin/queue', [is_string($queueName) ? $queueName : implode(',', $queueName)]);

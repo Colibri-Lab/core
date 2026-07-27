@@ -61,6 +61,12 @@ final class Connection implements IConnection
         $this->_connectioninfo = $connectionInfoObject;
     }
 
+    /**
+     * Creates a new Connection instance from the provided connection information.
+     *
+     * @param object|array $connectionInfo The connection information as an object or array.
+     * @return static A new instance of the Connection class.
+     */
     public static function FromConnectionInfo(object|array $connectionInfo): static
     {
         return new static((object)$connectionInfo);
@@ -156,6 +162,11 @@ final class Connection implements IConnection
         }
     }
 
+    /**
+     * Pings the MongoDB server to check if the connection is alive.
+     *
+     * @return bool Returns true if the connection is alive; otherwise, false.
+     */
     public function Ping(): bool
     {
         try {

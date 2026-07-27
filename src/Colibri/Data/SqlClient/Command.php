@@ -175,10 +175,30 @@ abstract class Command
      */
     abstract public function PrepareQueryString(): string;
 
+    /**
+     * Migrates the database schema based on the provided storage and existing storage.
+     *
+     * @param Logger $logger The logger instance for logging migration information.
+     * @param string $storage The storage name.
+     * @param array $xstorage The existing storage information.
+     * @return void
+     */
     abstract public function Migrate(Logger $logger, string $storage, array $xstorage): void;
 
+    /**
+     * Extracts field information from the provided field data.
+     *
+     * @param array|object $field The field data.
+     * @return object The extracted field information.
+     */
     abstract public static function ExtractFieldInformation(array|object $field): object;
 
+    /**
+     * Extracts index information from the provided index data.
+     *
+     * @param array|object $index The index data.
+     * @return object The extracted index information.
+     */
     abstract public static function ExtractIndexInformation(array|object $index): object;
 
 }
