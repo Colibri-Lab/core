@@ -44,14 +44,15 @@ class StringStream implements StreamInterface
     /**
      * Appends content to the stream.
      */
-    public function Append(string $content) {
+    public function Append(string $content): void
+    {
         $this->content .= $content;
     }
 
     /**
      * Returns the string content of the stream.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->content;
     }
@@ -59,7 +60,9 @@ class StringStream implements StreamInterface
     /**
      * Closes the stream.
      */
-    public function close() {}
+    public function close(): void
+    {
+    }
 
     /**
      * Detaches the stream from the underlying resource.
@@ -73,7 +76,7 @@ class StringStream implements StreamInterface
      *
      * @return int The size of the stream.
      */
-    public function getSize()
+    public function getSize(): ?int
     {
         return strlen($this->content);
     }
@@ -83,7 +86,7 @@ class StringStream implements StreamInterface
      *
      * @return int The current position of the pointer.
      */
-    public function tell()
+    public function tell(): int
     {
         return $this->pointer;
     }
@@ -93,7 +96,7 @@ class StringStream implements StreamInterface
      *
      * @return bool True if the pointer is at the end, false otherwise.
      */
-    public function eof()
+    public function eof(): bool
     {
         return $this->pointer >= strlen($this->content);
     }
@@ -103,7 +106,7 @@ class StringStream implements StreamInterface
      *
      * @return bool True if the stream is seekable, false otherwise.
      */
-    public function isSeekable()
+    public function isSeekable(): bool
     {
         return true;
     }
@@ -114,7 +117,7 @@ class StringStream implements StreamInterface
      * @param int $offset The offset to seek to.
      * @param int $whence The reference point for the offset.
      */
-    public function seek($offset, $whence = SEEK_SET)
+    public function seek(int $offset, int $whence = SEEK_SET): void
     {
         if ($whence === SEEK_SET) {
             $this->pointer = $offset;
@@ -129,7 +132,7 @@ class StringStream implements StreamInterface
      * Rewinds the stream to the beginning.
      * @return void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->pointer = 0;
     }
@@ -138,7 +141,7 @@ class StringStream implements StreamInterface
      * Checks if the stream is writable.
      * @return bool True if the stream is writable, false otherwise.
      */
-    public function isWritable()
+    public function isWritable(): bool
     {
         return false;
     }
@@ -147,7 +150,7 @@ class StringStream implements StreamInterface
      * Writes data to the stream.
      * @param string $string The data to write.
      */
-    public function write($string)
+    public function write(string $string): int
     {
         return 0;
     }
@@ -155,7 +158,7 @@ class StringStream implements StreamInterface
      * Checks if the stream is readable.
      * @return bool True if the stream is readable, false otherwise.
      */
-    public function isReadable()
+    public function isReadable(): bool
     {
         return true;
     }
@@ -165,7 +168,7 @@ class StringStream implements StreamInterface
      * @param int $length The number of bytes to read.
      * @return string The data read from the stream.
      */
-    public function read($length)
+    public function read(int $length): string
     {
         $result = substr($this->content, $this->pointer, $length);
         $this->pointer += strlen($result);
@@ -176,7 +179,7 @@ class StringStream implements StreamInterface
      * Returns the remaining contents of the stream.
      * @return string The remaining contents of the stream.
      */
-    public function getContents()
+    public function getContents(): string
     {
         return substr($this->content, $this->pointer);
     }
