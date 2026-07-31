@@ -21,6 +21,11 @@ use Colibri\Data\Storages\Storage;
  *
  * This class implements the IQueryBuilder interface, providing methods to generate various types of SQL queries
  * compatible with the MySql database.
+ * 
+ * @inheritDoc
+ * 
+ * @class
+ * @implements IQueryBuilder
  *
  */
 class QueryBuilder implements IQueryBuilder

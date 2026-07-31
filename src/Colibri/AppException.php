@@ -14,6 +14,8 @@ namespace Colibri;
 
 /**
  * AppException class for handling application-specific exceptions.
+ * @class
+ * @extends \Exception
  */
 class AppException extends \Exception
 {

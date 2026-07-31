@@ -18,6 +18,7 @@ use Colibri\Utils\Logs\Logger;
 
 /**
  * Class for monitoring performance.
+ * @class
  */
 class Monitoring
 {

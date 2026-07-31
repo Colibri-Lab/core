@@ -18,6 +18,7 @@ namespace Colibri\Xml;
  *
  * This class represents an XML attribute.
  *
+ * @class
  * @property string $value The value of the attribute.
  * @property-read string $name The name of the attribute.
  * @property-read string $type The type of the attribute.

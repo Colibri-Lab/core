@@ -15,6 +15,7 @@ use Colibri\AppException;
 
 /**
  * Smtp helper
+ * @class
  */
 class SmtpHelper
 {

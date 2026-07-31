@@ -14,6 +14,8 @@ namespace Colibri\Graphics;
  * Represents a font.
  *
  * This class provides properties and methods for handling fonts.
+ * 
+ * @class
  *
  * @property-read string $file The name of the font file.
  * @property-read string $path The path to the fonts.

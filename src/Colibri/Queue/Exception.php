@@ -14,6 +14,8 @@ namespace Colibri\Queue;
  * Queue Exception
  *
  * Exception class for queues.
+ * @class
+ * @extends \Exception
  */
 class Exception extends \Exception
 {

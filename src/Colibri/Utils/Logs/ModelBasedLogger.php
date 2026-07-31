@@ -16,6 +16,9 @@ namespace Colibri\Utils\Logs;
  *
  * This class extends the abstract Logger class and provides functionality to log messages to a GrayLog server.
  *
+ * @class
+ * @extends Logger
+ * 
  */
 class ModelBasedLogger extends Logger
 {

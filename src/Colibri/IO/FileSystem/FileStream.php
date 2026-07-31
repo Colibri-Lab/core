@@ -12,6 +12,9 @@ namespace Colibri\IO\FileSystem;
 
 /**
  * Class for working with file streams.
+ * 
+ * @class
+ * @extends Stream
  */
 class FileStream extends Stream
 {

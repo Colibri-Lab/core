@@ -11,7 +11,8 @@
 namespace Colibri\Common;
 
 /**
- * Two Factor Generator Helper      
+ * Two Factor Generator Helper
+ * @class      
  */
 class TwoFactorHelper
 {

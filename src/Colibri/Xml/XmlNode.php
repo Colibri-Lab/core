@@ -26,6 +26,7 @@ use Exception;
  * Class for interacting with XML objects.
  *
  * This class provides various properties to access and manipulate XML data and elements.
+ * @class
  *
  * @property-read string $type The type of the XML object.
  * @property string $value The value of the XML object.
@@ -62,7 +63,8 @@ class XmlNode
      * This constant represents the starting string of an XML declaration,
      * including the version and encoding information.
      *
-     * @var string
+     * @public
+     * @const string
      */
     public const XmlStart = '<?xml version="1.0" encoding="%s"?>';
 
@@ -72,6 +74,7 @@ class XmlNode
      * This property holds the raw \DOMDocument object.
      *
      * @var \DOMDocument|null
+     * @private
      */
     private ?\DOMDocument $_document;
 
@@ -81,6 +84,7 @@ class XmlNode
      * This property holds the raw \DOMNode object representing an element.
      *
      * @var \DOMNode|null
+     * @private
      */
     private ?\DOMNode $_node;
 
@@ -88,7 +92,7 @@ class XmlNode
      * Additional data.
      *
      * This property holds additional data associated with the XML object.
-     *
+     * @private
      * @var object|null
      */
     private ?object $_tag;
@@ -98,6 +102,8 @@ class XmlNode
      *
      * Initializes a new instance of the XmlNode class.
      *
+     * @constructor
+     * @public
      * @param \DOMNode      $node The node.
      * @param \DOMDocument|null $dom The document.
      */
@@ -114,6 +120,8 @@ class XmlNode
      * This method creates an XmlNode object either from a string containing XML data
      * or from an XML file.
      *
+     * @public
+     * @static
      * @param string  $xmlFile The XML file path or XML string.
      * @param bool    $isFile  Indicates whether the provided argument is a file path or a string.
      * @return XmlNode The created XmlNode object.
@@ -154,6 +162,8 @@ class XmlNode
      *
      * This method creates an XmlNode object from a string containing partial XML data.
      *
+     * @public 
+     * @static
      * @param string $xmlString The XML string.
      * @param string $encoding The encoding of the string (default: utf-8).
      * @return XmlNode The created XmlNode object.
@@ -187,6 +197,8 @@ class XmlNode
      *
      * This method creates an XMLHtmlNode object from a string containing partial HTML data.
      *
+     * @public 
+     * @static
      * @param string $xmlString The HTML string.
      * @param string $encoding The encoding of the string (default: utf-8).
      * @return XmlNode The created XMLHtmlNode object.
@@ -218,6 +230,9 @@ class XmlNode
      *
      * This method creates an XmlNode object either from a string containing HTML data
      * or from an HTML file.
+     * 
+     * @public
+     * @static
      *
      * @param string  $htmlFile The HTML file path or HTML string for loading.
      * @param bool    $isFile   Indicates whether the provided argument is a file path or not.
@@ -258,6 +273,8 @@ class XmlNode
      *
      * This method either saves the XML stored in the object to a specified file
      * or returns it as a string if no filename is provided.
+     * 
+     * @public
      *
      * @param string $filename The path to the file for saving. If not specified, the XML string will be returned.
      * @return string|null The XML string if $filename is empty, otherwise null.
@@ -283,6 +300,8 @@ class XmlNode
      * This method exports the XML data with the specified document tag by creating a new XML node
      * with the provided tag and appending the current XML node to it. The method returns a new instance
      * of the XmlNode class representing the exported XML.
+     * 
+     * @public
      *
      * @param string $documentTag The document tag to use for exporting.
      * @return self A new instance of the XmlNode class representing the exported XML.
@@ -299,6 +318,8 @@ class XmlNode
      *
      * This method either saves the HTML stored in the object to a specified file
      * or returns it as a string if no filename is provided.
+     * 
+     * @public
      *
      * @param string $filename The path to the file for saving. If not specified, the HTML string will be returned.
      * @return string|null The HTML string if $filename is empty, otherwise null.
@@ -319,6 +340,9 @@ class XmlNode
      *
      * This method is called when attempting to access inaccessible properties of the object.
      * It returns the value of the requested property.
+     * 
+     * @public
+     * @magic
      *
      * @param string $property The requested property.
      * @return mixed The value of the requested property.
@@ -437,6 +461,8 @@ class XmlNode
      * Returns the path based on the query.
      *
      * This method returns the path by querying each parent for data.
+     * 
+     * @public
      *
      * @param string $query The query to each parent for returning data.
      * @return string The path determined by the query.
@@ -461,6 +487,9 @@ class XmlNode
      *
      * This method is called when attempting to set inaccessible properties of the object.
      * It sets the value of the specified property.
+     * 
+     * @public
+     * @magic
      *
      * @param string $property The property to be set.
      * @param mixed $value The value to be assigned to the property.
@@ -500,6 +529,8 @@ class XmlNode
      * Returns an XmlNode object corresponding to the child object with the name $name.
      *
      * This method returns an XmlNode object that corresponds to the child node with the specified $name.
+     * 
+     * @public
      *
      * @param string $name The name of the child node.
      * @return XmlNode|null An XmlNode object corresponding to the specified child node, or null if not found.
@@ -519,6 +550,8 @@ class XmlNode
      * Returns an XmlNodeList with the tag name $name.
      *
      * This method returns an XmlNodeList containing all child nodes with the specified tag name.
+     * 
+     * @public
      *
      * @param string $name The tag name of the child nodes.
      * @return XmlNodeList An XmlNodeList containing child nodes with the specified tag name.
@@ -533,6 +566,8 @@ class XmlNode
      * Checks if the current node is a child of the specified node.
      *
      * This method checks if the current node is a child of the specified node.
+     * 
+     * @public
      *
      * @param XmlNode $node The node to check against.
      * @return bool True if the current node is a child of the specified node, false otherwise.
@@ -554,6 +589,8 @@ class XmlNode
      * Adds the specified nodes/node to the end.
      *
      * This method adds the specified nodes or node to the end of the current node.
+     * 
+     * @public
      *
      * @param mixed $nodes The nodes or node to append.
      * @return void
@@ -627,6 +664,8 @@ class XmlNode
      * Adds the specified nodes/node before the $relation node.
      *
      * This method adds the specified nodes or node before the specified $relation node.
+     * 
+     * @public
      *
      * @param mixed $nodes The nodes or node to insert.
      * @param XmlNode $relation The node before which to insert.
@@ -652,6 +691,8 @@ class XmlNode
      * Removes the current node.
      *
      * This method removes the current node from its parent node.
+     * 
+     * @public
      *
      * @return void
      *
@@ -667,6 +708,8 @@ class XmlNode
      * Replaces the current node with the specified node.
      *
      * This method replaces the current node with the specified node.
+     * 
+     * @public
      *
      * @param XmlNode $node The node to replace with.
      * @return void
@@ -684,6 +727,8 @@ class XmlNode
      * Returns elements with an attribute @name containing the specified name.
      *
      * This method returns elements with an attribute @name containing the specified name.
+     * 
+     * @public
      *
      * @param string $name The name of the attribute.
      * @return XmlNamedNodeList The list of nodes.
@@ -699,6 +744,7 @@ class XmlNode
      *
      * This method creates a text node with the specified content.
      *
+     * @public
      * @param mixed $string The content of the text node.
      * @return XmlNode The created text node.
      */
@@ -712,6 +758,8 @@ class XmlNode
      *
      * This method executes the specified XPath query and returns the result as either
      * an XmlNodeList or an XmlNamedNodeList.
+     * 
+     * @public
      *
      * @param string $query The XPath query string.
      * @param bool $returnAsNamedMap Whether to return the result as a named map.
@@ -733,6 +781,8 @@ class XmlNode
      *
      * This method converts the current node and its children into an XmlSerialized object,
      * optionally excluding specified attributes and nodes and limiting the number of levels to be included.
+     * 
+     * @public
      *
      * @param array $exclude An array of attribute and node names to exclude.
      * @param int|null $levels The number of levels to include.
@@ -831,6 +881,8 @@ class XmlNode
      *
      * This method restores a node from the specified XmlSerialized object,
      * optionally using the provided element definition for orientation.
+     * 
+     * @public
      *
      * @param XmlSerialized $xmlSerializedObject The object to restore from.
      * @param mixed|null $elementDefinition The definition of elements to orient towards.

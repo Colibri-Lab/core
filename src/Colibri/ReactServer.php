@@ -44,12 +44,14 @@ use React\Socket\SocketServer;
 
 /**
  * ReactServer class for handling HTTP requests using ReactPHP.
+ * @class
  */
 class ReactServer
 {
     /**
      * Handles an incoming HTTP request and returns a response.
-     *
+     * @public
+     * @static
      * @param ServerRequestInterface $psrRequest The incoming PSR-7 request.
      * @return MessageResponse The response to be sent back to the client.
      */
@@ -312,6 +314,9 @@ class ReactServer
 
     /**
      * Finishes the process and sends response.
+     * 
+     * @public
+     * @static
      *
      * @param string $type The response type.
      * @param mixed $result The result to send.
@@ -458,6 +463,9 @@ class ReactServer
     /**
      * Returns a response with an error message.
      *
+     * @public
+     * @static
+     *
      * @param ServerRequestInterface $request The incoming PSR-7 request.
      * @param string $type The response type.
      * @param string $message The error message.
@@ -494,6 +502,9 @@ class ReactServer
 
     /**
      * Initializes the ReactPHP server with the provided configuration.
+     * 
+     * @public
+     * @static
      *
      * @param array $config The server configuration.
      * @param string $webPath The web root path.
@@ -621,8 +632,5 @@ class ReactServer
         $loop->run();
 
     }
-
-
-
 
 }

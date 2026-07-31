@@ -18,6 +18,9 @@ use Colibri\Utils\Singleton;
 
 /**
  * Event manager.
+ * @class
+ * @final
+ * @extends Singleton
  */
 final class EventDispatcher extends Singleton
 {

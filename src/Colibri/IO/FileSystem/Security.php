@@ -15,6 +15,8 @@ use Colibri\Collections\ICollection;
 
 /**
  * File system security properties.
+ * 
+ * @class
  *
  * @property bool $denied Indicates if access is denied.
  * @property bool $grant Indicates if access is granted.

@@ -16,6 +16,8 @@ use Colibri\AppException;
 
 /**
  * Exception for file system operations.
+ * @class
+ * @extends AppException
  */
 class Exception extends AppException
 {

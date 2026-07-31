@@ -16,6 +16,9 @@ use Colibri\Utils\Singleton;
 /**
  * Singleton for handling and creating processes.
  *
+ * @class
+ * @extends Singleton
+ * 
  */
 class Manager extends Singleton
 {

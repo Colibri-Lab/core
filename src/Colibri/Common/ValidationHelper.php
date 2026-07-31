@@ -12,6 +12,7 @@ namespace Colibri\Common;
 
 /**
  * Validate data
+ * @class
  */
 class ValidationHelper
 {

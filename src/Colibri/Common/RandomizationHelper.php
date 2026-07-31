@@ -12,6 +12,7 @@ namespace Colibri\Common;
 
 /**
  * Randomization helper
+ * @class
  */
 class RandomizationHelper
 {

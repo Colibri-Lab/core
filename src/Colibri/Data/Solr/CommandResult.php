@@ -19,6 +19,10 @@ use Colibri\Data\NoSqlClient\QueryInfo;
  * This class represents the result of a command executed against a Solr server.
  *
  * @inheritDoc
+ * 
+ * @final
+ * @class
+ * @implements ICommandResult
  *
  */
 final class CommandResult implements ICommandResult

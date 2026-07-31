@@ -3,8 +3,6 @@
 /**
  * Templates
  *
- * This abstract class represents a template for web content generation.
- *
  * @package Colibri\Web\Templates
  * @author Vahan P. Grigoryan
  * @copyright 2020 ColibriLab
@@ -21,6 +19,13 @@ use Colibri\IO\FileSystem\File;
 use Colibri\Utils\Debug;
 use Colibri\Utils\ExtendedObject;
 
+
+/**
+ * Implements a PHP template for rendering dynamic content.
+ *
+ * @class
+ * @extends Template
+ */
 class PhpTemplate extends Template
 {
     /**

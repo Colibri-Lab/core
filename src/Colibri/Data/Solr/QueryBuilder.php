@@ -19,6 +19,8 @@ use Colibri\Data\Storages\Storage;
 
 /**
  * Class for generating queries for the Solr driver.
+ * 
+ * @class
  *
  */
 class QueryBuilder

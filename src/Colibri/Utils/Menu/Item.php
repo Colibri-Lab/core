@@ -13,6 +13,8 @@ namespace Colibri\Utils\Menu;
 
 /**
  * Represents an item in a menu.
+ * @class
+ * @implements \JsonSerializable
  */
 class Item implements \JsonSerializable
 {

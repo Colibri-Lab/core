@@ -18,8 +18,8 @@ use Colibri\Utils\ExtendedObject;
 
 /**
  * Class representing a field of type array of objects
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Fields
+ * @class
+ * @extends ArrayList
  */
 class ArrayField extends ArrayList
 {

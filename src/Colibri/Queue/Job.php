@@ -22,6 +22,10 @@ use Colibri\Utils\Logs\Logger;
  * Abstract class Job
  *
  * Represents a job to be executed.
+ * 
+ * @class
+ * @implements IJob
+ * @extends ExtendedObject
  *
  * @property ExtendedObject $payload The payload object associated with the job.
  * @property array $headers The headers payload associated with the job.

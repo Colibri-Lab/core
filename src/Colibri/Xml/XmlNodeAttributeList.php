@@ -21,7 +21,10 @@ use Colibri\Utils\Debug;
  *
  * This class represents a list of attributes associated with a XML node.
  *
- * @property-read int $count The count of attributes.
+ * @class
+ * @implements \IteratorAggregate
+ * @implements \Countable
+ * @implements \ArrayAccess
  *
  * @method XmlAttribute offsetGet(mixed $offset)
  */

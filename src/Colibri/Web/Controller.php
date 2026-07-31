@@ -65,6 +65,8 @@ use Colibri\App;
  *
  * }
  * ```
+ * @class
+ * 
  */
 class Controller
 {

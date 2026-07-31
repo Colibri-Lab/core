@@ -13,8 +13,9 @@ use DateTimeZone;
 
 /**
  * Класс для работы с полями типа datatime
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Fields
+ * @class
+ * @extends DateTime
+ * @implements JsonSerializable
  */
 class DateTimeField extends DateTime implements JsonSerializable
 {

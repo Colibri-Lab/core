@@ -14,6 +14,8 @@ use Colibri\AppException;
 
 /**
  * Exception class for module-related errors.
+ * @class
+ * @extends AppException
  */
 class ModuleException extends AppException
 {

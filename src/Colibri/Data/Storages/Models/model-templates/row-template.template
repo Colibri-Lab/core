@@ -10,9 +10,9 @@ use Colibri\App;
 use Colibri\Utils\Debug;
 
 /**
- * Представление строки в таблице в хранилище [[storage-desc]]
- * @author <author name and email>
- * @package [[namespace-path]]
+ * Implements row in table [[storage-desc]]
+ * @class
+ * @extends BaseModelDataRow
  * 
  * region Properties:
 [[properties-list]]

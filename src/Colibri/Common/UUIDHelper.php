@@ -14,6 +14,7 @@ use InvalidArgumentException;
 
 /**
  * UUID Helper
+ * @class
  */
 class UUIDHelper
 {

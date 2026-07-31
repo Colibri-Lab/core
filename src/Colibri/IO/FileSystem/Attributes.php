@@ -20,6 +20,8 @@ namespace Colibri\IO\FileSystem;
  * @property int $lastaccess The last access date of the file.
  * @property int $readonly Indicates if the file is read-only.
  * @property int $hidden Indicates if the file is hidden.
+ * 
+ * @class
  */
 class Attributes
 {

@@ -22,6 +22,8 @@ use Colibri\Collections\ArrayListIterator;
  *
  * @method XmlNode current() Returns the current node.
  * @method XmlNode next() Moves to the next node.
+ * @class 
+ * @extends ArrayListIterator
  */
 class XmlNodeListIterator extends ArrayListIterator
 {

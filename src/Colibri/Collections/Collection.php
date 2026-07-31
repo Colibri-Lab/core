@@ -18,6 +18,12 @@ use JsonSerializable;
 
 /**
  * Base class for collections
+ * @class
+ * @implements ICollection
+ * @implements IteratorAggregate
+ * @implements JsonSerializable
+ * @implements ArrayAccess
+ * @implements Countable
  */
 class Collection implements ICollection, IteratorAggregate, JsonSerializable, ArrayAccess, Countable
 {
@@ -578,7 +584,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Unsets the value at the specified index.
      *
-     * @param mixed $key The index being unset.
+     * @param mixed $offset The index being unset.
      * @return void
      */
     public function offsetUnset(mixed $offset): void
@@ -593,7 +599,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
     /**
      * Retrieves the element from the collection at the specified index.
      *
-     * @param mixed $key The index to access the element.
+     * @param mixed $offset The index to access the element.
      * @return mixed|null The collection element or null if the element is not found.
      */
     public function offsetGet(mixed $offset): mixed

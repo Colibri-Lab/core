@@ -4,8 +4,7 @@ namespace [[namespace-path]];
 
 /**
  * Enum [[enum-desc]]
- * @author <author name and email>
- * @package [[namespace-path]]
+ * @enum
  */
 enum [[enum-name]]:[[enum-type]] 
 {

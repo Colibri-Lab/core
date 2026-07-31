@@ -16,6 +16,9 @@ use Colibri\Xml\XmlNode;
  * XsdAttributeDefinition
  *
  * This class represents the definition of an XML attribute.
+ * 
+ * @class
+ * @implements \JsonSerializable
  *
  * @property-read string $annotation The annotation of the attribute element.
  * @property-read string $name The name of the attribute element.

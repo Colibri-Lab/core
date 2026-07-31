@@ -18,6 +18,9 @@ use Colibri\IO\FileSystem\File as BaseFile;
  * Class for remote file operations.
  *
  * This class provides functionalities to interact with remote files via FTP.
+ * 
+ * @class
+ * @implements JsonSerializable
  *
  * @property-read string $attributes The file attributes.
  * @property-read string $filename The file name.

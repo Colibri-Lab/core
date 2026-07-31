@@ -12,6 +12,7 @@ namespace Colibri\Collections;
 
 /**
  * Interface for lists
+ * @interface
  */
 interface IArrayList
 {

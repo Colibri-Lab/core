@@ -19,6 +19,7 @@ use Colibri\Data\Storages\Storage;
 
 /**
  * Class for generating queries for the MongoDb driver.
+ * @class
  *
  */
 class QueryBuilder

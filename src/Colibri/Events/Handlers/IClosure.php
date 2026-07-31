@@ -17,6 +17,8 @@ use Colibri\Threading\Process;
  * Interface IClosure
  *
  * Represents a closure handler for events.
+ * @interface
+ * 
  */
 interface IClosure
 {

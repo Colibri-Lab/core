@@ -14,6 +14,8 @@ namespace Colibri\Events\Handlers;
  * Class LocalClosureException
  *
  * Represents an exception thrown during the execution of local closures.
+ * @class
+ * @extends \Exception
  */
 class LocalClosureException extends \Exception
 {

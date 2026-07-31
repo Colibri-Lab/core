@@ -12,6 +12,7 @@ namespace Colibri\Data\SqlClient;
 
 /**
  * Interface for managing database connections.
+ * @interface
  */
 interface IConnection
 {

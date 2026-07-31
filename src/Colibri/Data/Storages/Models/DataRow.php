@@ -32,8 +32,8 @@ use Colibri\Data\Storages\Fields\FileListField;
 
 /**
  * Class representing a row of data in a data model.
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Models
+ * @class
+ * @extends BaseDataRow
  *
  * @property int $id
  * @property DateTimeField $datecreated

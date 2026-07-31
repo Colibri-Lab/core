@@ -16,6 +16,10 @@ namespace Colibri\Utils;
  *
  * This abstract class represents the Singleton design pattern.
  * It ensures that only one instance of a class is created and provides a global access point to that instance.
+ * 
+ * @class
+ * @abstract
+ * 
  */
 abstract class Singleton
 {

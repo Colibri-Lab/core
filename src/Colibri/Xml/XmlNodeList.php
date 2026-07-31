@@ -17,15 +17,18 @@ namespace Colibri\Xml;
  * XmlNodeList
  *
  * This class represents a list of XML nodes.
+ * @class
+ * @implements \IteratorAggregate
  *
  * @property-read \DOMDocument $document The document.
- *
  * @method XmlNode offsetGet(mixed $offset)
  */
 class XmlNodeList implements \IteratorAggregate
 {
     /**
      * The list of values.
+     * 
+     * @private
      *
      * @var \DOMNodeList
      */
@@ -33,14 +36,15 @@ class XmlNodeList implements \IteratorAggregate
 
     /**
      * The document.
-     *
+     * @private
      * @var \DOMDocument
      */
     private ?\DOMDocument $_document;
 
     /**
      * Constructor
-     *
+     * @constructor
+     * @public
      * @param \DOMNodeList $nodelist The list of nodes.
      * @param \DOMDocument $dom The document.
      */
@@ -52,6 +56,7 @@ class XmlNodeList implements \IteratorAggregate
 
     /**
      * Returns an iterator for iteration using foreach.
+     * @public
      *
      * @return XmlNodeListIterator
      */
@@ -62,6 +67,7 @@ class XmlNodeList implements \IteratorAggregate
 
     /**
      * Returns the node by index.
+     * @public
      *
      * @param int $index The index.
      * @return XmlNode|null The node, or null if not found.
@@ -77,6 +83,8 @@ class XmlNodeList implements \IteratorAggregate
 
     /**
      * Getter
+     * @magic
+     * @public
      *
      * @param string $property The property.
      * @return mixed The value of the property, or null if not found.
@@ -91,6 +99,7 @@ class XmlNodeList implements \IteratorAggregate
 
     /**
      * Returns the count of nodes.
+     * @public
      *
      * @return int The count of nodes.
      */
@@ -101,6 +110,7 @@ class XmlNodeList implements \IteratorAggregate
 
     /**
      * Returns the first node.
+     * @public
      *
      * @return XmlNode The first node.
      */
@@ -111,6 +121,8 @@ class XmlNodeList implements \IteratorAggregate
 
     /**
      * Returns the last node.
+     * 
+     * @public
      *
      * @return XmlNode The last node.
      *
@@ -122,6 +134,8 @@ class XmlNodeList implements \IteratorAggregate
 
     /**
      * Removes all nodes in the collection.
+     * 
+     * @public
      *
      * @return void
      *
@@ -135,6 +149,7 @@ class XmlNodeList implements \IteratorAggregate
 
     /**
      * Returns all nodes in the collection as an object.
+     * @public
      *
      * @param array $exclude The list of attribute and node names to exclude.
      * @param int|null $levels The number of child nodes.
@@ -167,4 +182,5 @@ class XmlNodeList implements \IteratorAggregate
 
         return count($ret) == 1 ? $ret[array_keys($ret)[0]] : $ret;
     }
+    
 }

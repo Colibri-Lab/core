@@ -14,8 +14,8 @@ use Colibri\Collections\ArrayList;
 
 /**
  * Class file list field
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Fields
+ * @class
+ * @extends ArrayList
  */
 class FileListField extends ArrayList
 {

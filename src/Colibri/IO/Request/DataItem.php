@@ -15,6 +15,9 @@ use Colibri\Utils\ExtendedObject;
 /**
  * Data string in the request.
  *
+ * @class
+ * @extends ExtendedObject
+ * 
  * @property string $name The name of the data string.
  * @property string $value The value of the data string.
  */

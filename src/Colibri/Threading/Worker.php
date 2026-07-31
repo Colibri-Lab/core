@@ -26,8 +26,9 @@ use Colibri\Utils\Debug;
  *
  * This abstract class serves as a base for defining specific actions to be performed in separate processes.
  *
- * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
- * @package Colibri\Threading
+ * @class
+ * @abstract
+ * 
  */
 abstract class Worker
 {

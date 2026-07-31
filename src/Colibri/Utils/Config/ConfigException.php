@@ -15,6 +15,9 @@ use Colibri\AppException;
 
 /**
  * Exception class for configuration-related errors.
+ *
+ * @class
+ * @extends AppException
  */
 class ConfigException extends AppException
 {

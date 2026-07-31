@@ -12,6 +12,7 @@ namespace Colibri\IO\Request;
 
 /**
  * Result of a request.
+ * @class
  */
 class Result
 {

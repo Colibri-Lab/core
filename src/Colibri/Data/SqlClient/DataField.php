@@ -12,6 +12,7 @@ namespace Colibri\Data\SqlClient;
 
 /**
  * Represents a data field in a database table.
+ * @class
  */
 class DataField
 {

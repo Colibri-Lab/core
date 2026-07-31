@@ -23,6 +23,9 @@ use Colibri\Utils\ExtendedObject;
 
 /**
  * Template class
+ * 
+ * @abstract
+ * @class
  *
  * @property-read string $file The file path of the template.
  * @property-read string $path The directory path of the template.

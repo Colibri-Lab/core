@@ -13,6 +13,7 @@ use Exception;
 
 /**
  * Utility class for work with numbers
+ * @class
  */
 class NumberToText
 {

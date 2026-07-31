@@ -21,6 +21,12 @@ use SolrClient;
  * Class for connecting to the MySQL database.
  *
  * This class provides methods for establishing and managing connections to a MySQL database.
+ * 
+ * @inheritDoc
+ * 
+ * @final
+ * @class
+ * @implements IConnection
  *
  * @property-read resource $resource The MySQL connection resource.
  * @property-read resource $raw The raw MySQL connection resource.

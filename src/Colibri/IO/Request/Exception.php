@@ -14,6 +14,8 @@ use Colibri\AppException;
 
 /**
  * Exception for web requests.
+ * @class
+ * @extends AppException
  */
 class Exception extends AppException
 {

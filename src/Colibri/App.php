@@ -36,87 +36,185 @@ use Colibri\Web\Session;
 
 /**
  * Main application class.
+ * @class
+ * @extends Singleton
  */
 final class App extends Singleton
 {
     // Include event model functionality
     use TEventDispatcher;
 
-    /** @var string Application mode for local machine */
+    /** 
+     * @const string Application mode for local machine
+     * @public
+     */
     public const ModeLocal = 'local';
-    /** @var string Application mode for development */
+    /** 
+     * @const string Application mode for development
+     * @public
+     */
     public const ModeDevelopment = 'dev';
-    /** @var string Application mode for testing */
+    /** 
+     * @const string Application mode for testing
+     * @public
+     */
     public const ModeTest = 'test';
-    /** @var string Application mode for production */
+    /** 
+     * @const string Application mode for production
+     * @public
+     */
     public const ModeRelease = 'prod';
 
     /**
      * Session object
      * @var Session|null Session object
+     * @public
+     * @static
      */
     public static ?Session $session = null;
 
-    /** @var Request|null Request object */
+    /** 
+     * @var Request|null Request object
+     * @public
+     * @static
+     */
     public static ?Request $request = null;
 
-    /** @var Response|null Response object */
+    /** 
+     * @var Response|null Response object
+     * @public
+     * @static
+     */
     public static ?Response $response = null;
 
-    /** @var string Application root directory */
+    /** 
+     * @var string Application root directory
+     * @public
+     * @static
+     */
     public static string $appRoot = '';
 
-    /** @var string Public directory root */
+    /** 
+     * @var string Public directory root
+     * @public
+     * @static
+     */
     public static string $webRoot = '';
 
-    /** @var string Path to vendor folder */
+    /** 
+     * @var string Path to vendor folder
+     * @public
+     * @static
+     */
     public static string $vendorRoot = '';
 
-    /** @var string Application mode */
+    /** 
+     * @var string Application mode
+     * @public
+     * @static
+     */
     public static string $mode = 'local';
 
-    /** @var bool Indicates whether the application is in development mode */
+    /** 
+     * @var bool Indicates whether the application is in development mode
+     * @public
+     * @static
+     */
     public static bool $isDev = false;
 
-    /** @var bool Indicates whether the application is running locally */
+    /** 
+     * @var bool Indicates whether the application is running locally
+     * @public
+     * @static
+     */
     public static bool $isLocal = false;
 
-    /** @var Config|null Application configuration file */
+    /** 
+     * @var Config|null Application configuration file
+     * @public
+     * @static
+     */
     public static ?Config $config = null;
 
-    /** @var EventDispatcher|null Event dispatcher */
+    /** 
+     * @var EventDispatcher|null Event dispatcher
+     * @public
+     * @static
+     */
     public static ?EventDispatcher $eventDispatcher = null;
 
-    /** @var ModuleManager|null Module manager */
+    /** 
+     * @var ModuleManager|null Module manager
+     * @public
+     * @static
+     */
     public static ?ModuleManager $moduleManager = null;
 
-    /** @var DataAccessPoints|null Data access points */
+    /** 
+     * @var DataAccessPoints|null Data access points
+     * @public
+     * @static
+     */
     public static ?DataAccessPoints $dataAccessPoints = null;
 
-    /** @var Logger|null Logger device */
+    /** 
+     * @var Logger|null Logger device
+     * @public
+     * @static
+     */
     public static ?Logger $log = null;
 
-    /** @var Manager|null Process manager */
+    /** 
+     * @var Manager|null Process manager
+     * @public
+     * @static
+     */
     public static ?Manager $threadingManager = null;
 
-    /** @var Monitoring|null Monitoring */
+    /** 
+     * @var Monitoring|null Monitoring
+     * @public
+     * @static
+     */
     public static ?Monitoring $monitoring = null;
 
-    /** @var string|null Domain key */
+    /** 
+     * @var string|null Domain key
+     * @public
+     * @static
+     */
     public static ?string $domainKey = null;
 
-    /** @var Router|null Router */
+    /** 
+     * @var ?Router Router
+     * @public
+     * @static
+     */
     public static ?Router $router = null;
 
-    /** @var string System timezone */
+    /** 
+     * @var ?string System timezone
+     * @public
+     * @static
+     */
     public static ?string $systemTimezone = 'UTC';
-    /** @var string System locale */
+    /** 
+     * @var ?string System locale
+     * @public
+     * @static
+     */
     public static ?string $systemLocale = 'en_US';
-    /** @var string System charset */
+    /** 
+     * @var ?string System charset
+     * @public
+     * @static
+     */
     public static ?string $systemCharset = 'UTF-8';
 
     /**
      * Prevents instantiation of the class.
+     * @protected
+     * @constructor
      */
     protected function __construct()
     {
@@ -126,6 +224,11 @@ final class App extends Singleton
     /**
      * Initializes the application.
      *
+     * @public
+     * @param Request|null $request The request object (optional).
+     * @param Response|null $response The response object (optional).
+     * @param string|null $webRootPath The web root path (optional).
+     * @param bool $forceReinitializeAll Whether to force reinitialization of all components (default: false).
      * @return void
      */
     public function Initialize(?Request $request = null, ?Response $response = null, ?string $webRootPath = null, bool $forceReinitializeAll = false): void
@@ -301,6 +404,7 @@ final class App extends Singleton
 
     /**
      * Clones the application instance with a new request and response.
+     * @public
      *
      * @param Request $request The new request object.
      * @param Response $response The new response object.
@@ -315,6 +419,7 @@ final class App extends Singleton
 
     /**
      * Returns a list of permissions for the application.
+     * @public
      *
      * @return array List of permissions
      */
@@ -331,6 +436,7 @@ final class App extends Singleton
 
     /**
      * Backs up necessary files.
+     * @public
      *
      * @param Logger $logger Logger instance
      * @param string $path Path to backup location
@@ -359,6 +465,8 @@ final class App extends Singleton
 
     /**
      * Generates a new CSRF token and stores it in the session.
+     * @public
+     * @static
      *
      * @return string The generated CSRF token.
      */
@@ -372,6 +480,8 @@ final class App extends Singleton
 
     /**
      * Checks if the CSRF token in the request headers matches the one stored in the session.
+     * @static
+     * @public
      *
      * @param object|null $headers Optional headers object. If not provided, uses the request headers.
      * @return bool True if the CSRF token is correct, false otherwise.
@@ -387,6 +497,8 @@ final class App extends Singleton
 
     /**
      * Checks if the CSRF token is present in the request headers.
+     * @public
+     * @static
      *
      * @param object|null $headers Optional headers object. If not provided, uses the request headers.
      * @return bool True if the CSRF token is present, false otherwise.

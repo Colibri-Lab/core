@@ -12,6 +12,7 @@ namespace Colibri\Data\SqlClient;
 
 /**
  * Interface for driver settings
+ * @interface
  */
 interface IConfig
 {

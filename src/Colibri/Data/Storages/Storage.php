@@ -29,6 +29,8 @@ use Throwable;
  * Storage class
  *
  * This class represents a storage configuration
+ * 
+ * @class
  *
  * @property-read string $name The name of the storage.
  * @property-read string $table The name of the database table associated with the storage.

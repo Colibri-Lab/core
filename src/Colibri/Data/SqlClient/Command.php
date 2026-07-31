@@ -14,6 +14,9 @@ use Colibri\Utils\Logs\Logger;
 
 /**
  * Represents a database command abstraction.
+ * 
+ * @class
+ * @abstract
  *
  * @property-read string $query The command text.
  * @property-read IConnection|null $connection The database connection associated with the command.

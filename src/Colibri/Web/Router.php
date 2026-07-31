@@ -20,6 +20,8 @@ use Colibri\Common\VariableHelper;
  * Class Router
  *
  * This abstract class represents a template for web content generation.
+ * 
+ * @class
  *
  */
 class Router

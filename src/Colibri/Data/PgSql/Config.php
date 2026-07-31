@@ -17,6 +17,11 @@ use Colibri\Data\SqlClient\IConfig;
  * Represents query information.
  *
  * This class extends the functionality of SqlQueryInfo, providing additional features and information about a database query.
+ * 
+ * @inheritDoc
+ * @final
+ * @class
+ * @implements IConfig
  */
 final class Config implements IConfig
 {

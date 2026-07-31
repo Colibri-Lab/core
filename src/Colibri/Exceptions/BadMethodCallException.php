@@ -12,6 +12,8 @@ namespace Colibri\Exceptions;
 
 /**
  * Exception thrown if a callback refers to an undefined method or if some arguments are missing.
+ * @class
+ * @extends \Exception
  */
 class BadMethodCallException extends \Exception
 {

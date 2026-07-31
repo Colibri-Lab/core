@@ -12,6 +12,7 @@ namespace Colibri\Data\NoSqlClient;
 
 /**
  * Interface for managing database connections.
+ * @interface
  */
 interface ICommandResult
 {

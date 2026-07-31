@@ -20,7 +20,8 @@ use InvalidArgumentException;
  *
  * Represents a file sent in a request.
  * Read-only.
- *
+ * @class
+ *  
  * @property boolean $isValid Indicates whether the file is valid.
  * @property string $binary Binary content of the file.
  *

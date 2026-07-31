@@ -4,6 +4,11 @@ namespace Colibri\Data\Storages\Fields;
 
 use JsonSerializable;
 
+/**
+ * Class representing a UUID field in a storage system.
+ * @class
+ * @implements JsonSerializable
+ */
 class UUIDField implements JsonSerializable
 {
     /**

@@ -47,7 +47,7 @@ use Colibri\Utils\Debug;
  * }
  * $worker->log->Close(); // Closes the worker's log
  * ```
- *
+ * @class
  * @property-read int $pid Process ID (PID)
  * @property-read string $name Name of the process
  * @property-read string $command Command used to start the worker

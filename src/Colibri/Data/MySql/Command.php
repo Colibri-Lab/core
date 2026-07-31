@@ -22,6 +22,9 @@ use Throwable;
  *
  * This class provides functionality for executing SQL commands and preparing statements with parameters.
  * It inherits properties and methods from the SqlCommand class.
+ * @final
+ * @class
+ * @extends SqlCommand
  */
 final class Command extends SqlCommand
 {

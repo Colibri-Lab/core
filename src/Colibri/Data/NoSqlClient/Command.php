@@ -14,6 +14,9 @@ use Colibri\Utils\Logs\Logger;
 
 /**
  * Represents a database command abstraction.
+ * 
+ * @abstract
+ * @class
  *
  * @property-read string $query The command text.
  * @property-read IConnection|null $connection The database connection associated with the command.
@@ -27,6 +30,8 @@ abstract class Command
 {
     /**
      * The database connection associated with the command.
+     * 
+     * @protected
      *
      * @var IConnection|null
      */
@@ -35,12 +40,15 @@ abstract class Command
     /**
      * The page size for pagination.
      *
+     * @protected
+     * 
      * @var int
      */
     protected int $_pagesize = 10;
 
     /**
      * The current page number.
+     * @protected
      *
      * @var int
      */
@@ -48,6 +56,7 @@ abstract class Command
 
     /**
      * The parameters for the command.
+     * @protected
      *
      * @var array|null
      */
@@ -55,6 +64,7 @@ abstract class Command
 
     /**
      * Constructs a new Command object.
+     * @public
      *
      * @param IConnection|null $connection (optional) The database connection. Default is null.
      */
@@ -65,6 +75,8 @@ abstract class Command
 
     /**
      * Magic method to get properties dynamically.
+     * @magic
+     * @public
      *
      * @param string $property The name of the property.
      * @return mixed The value of the property, or null if the property does not exist.
@@ -98,6 +110,9 @@ abstract class Command
 
     /**
      * Magic method to set properties dynamically.
+     * 
+     * @magic
+     * @public
      *
      * @param string $property The name of the property.
      * @param mixed $value The value to set.
@@ -129,6 +144,9 @@ abstract class Command
     /**
      * Executes the command and returns a data results if exists.
      *
+     * @abstract
+     * @public
+     * @static
      * @param IConnection $connection
      * @param string $type request type
      * @param string $command command name
@@ -139,7 +157,8 @@ abstract class Command
 
     /**
      * Executes the command and returns a data results if exists.
-     *
+     * @abstract
+     * @public
      * @param Logger $logger The logger instance.
      * @param string $storage The storage name.
      * @param array $xstorage The extended storage configuration.

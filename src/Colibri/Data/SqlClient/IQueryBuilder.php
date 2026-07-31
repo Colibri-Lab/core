@@ -12,6 +12,7 @@ namespace Colibri\Data\SqlClient;
 
 /**
  * Interface for building SQL queries.
+ * @interface
  */
 interface IQueryBuilder
 {

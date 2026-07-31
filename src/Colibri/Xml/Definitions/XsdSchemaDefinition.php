@@ -17,6 +17,9 @@ use Colibri\Xml\XmlNode;
  * XsdSchemaDefinition
  *
  * Represents the schema definition for XML.
+ * 
+ * @class
+ * @implements \JsonSerializable
  *
  * @property-read XsdSimpleTypeDefinition[] $types The types defined in the schema.
  * @property-read XsdElementDefinition[] $elements The elements defined in the schema.

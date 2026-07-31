@@ -12,6 +12,7 @@ namespace Colibri\Encryption;
 
 /**
  * RC4 encryption.
+ * @class
  */
 class Rc4Crypt
 {

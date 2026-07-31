@@ -19,6 +19,8 @@ use Colibri\Xml\XmlNode;
  *
  * Represents the definition of an XML element.
  *
+ * @class
+ * @implements \JsonSerializable
  * @property-read string $annotation The annotation of the element.
  * @property-read string $name The name of the element.
  * @property-read \stdClass $occurs An object defining the minimum and maximum occurrences of the element.

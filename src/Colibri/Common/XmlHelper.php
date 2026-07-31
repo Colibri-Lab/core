@@ -15,6 +15,7 @@ use Colibri\Xml\XmlNode;
 
 /**
  * Convert object to xml and back
+ * @class
  */
 class XmlHelper
 {

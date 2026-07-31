@@ -16,6 +16,7 @@ use Colibri\Xml\XmlNode;
 
 /**
  * Represents a utility class for working with HTML string
+ * @class
  */
 class HtmlHelper
 {

@@ -4,8 +4,8 @@ namespace Colibri\Data\Storages\Fields;
 
 /**
  * Класс для работы с полями типа datatime
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Fields
+ * @class
+ * @extends DateTimeField
  */
 class DateField extends DateTimeField
 {

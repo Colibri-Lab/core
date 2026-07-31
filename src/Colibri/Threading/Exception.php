@@ -14,6 +14,8 @@ use Colibri\AppException;
 
 /**
  * Exception for processes and threads.
+ * @class
+ * @extends AppException
  */
 class Exception extends AppException
 {

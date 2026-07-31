@@ -30,6 +30,11 @@ use Opis\JsonSchema\Errors\ValidationError;
 
 /**
  * Base class for objects. All object-like classes and instances will inherit from this class.
+ * @class
+ * @implements ArrayAccess
+ * @implements IteratorAggregate
+ * @implements JsonSerializable
+ * @implements Countable
  */
 class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable, Countable
 {

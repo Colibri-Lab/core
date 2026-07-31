@@ -16,6 +16,8 @@ use DateTime;
 
 /**
  * Class for working with in-memory logs
+ * @class
+ * @extends Logger
  */
 class MemoryLogger extends Logger
 {

@@ -14,11 +14,12 @@ use InvalidArgumentException;
 
 /**
  * Event class.
+ * 
+ * @class
  *
  * @property-read string $name The name of the event.
  * @property-read mixed $sender The sender of the event.
  *
- * @testFunction testEvent Used for testing Event.
  */
 class Event
 {

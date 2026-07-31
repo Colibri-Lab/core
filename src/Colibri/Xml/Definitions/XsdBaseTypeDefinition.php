@@ -17,6 +17,9 @@ namespace Colibri\Xml\Definitions;
  * XsdBaseTypeDefinition
  *
  * Represents the definition of a simple type.
+ * 
+ * @class
+ * @implements \JsonSerializable
  *
  * @property-read string $name The name of the simple type.
  * @property-read object $restrictions The restrictions applied to the simple type.

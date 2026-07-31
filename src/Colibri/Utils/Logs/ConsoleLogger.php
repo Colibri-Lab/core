@@ -18,7 +18,8 @@ use DateTime;
  * Represents a logger for logging messages to the console.
  *
  * This class extends the abstract Logger class and provides functionality to log messages to the console.
- *
+ * @class
+ * @extends Logger
  */
 class ConsoleLogger extends Logger
 {

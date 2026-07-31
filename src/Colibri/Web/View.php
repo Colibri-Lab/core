@@ -21,6 +21,7 @@ use Colibri\Web\Templates\Template;
  * Class View
  *
  * This class represents a view for rendering data using templates.
+ * @class
  */
 class View
 {

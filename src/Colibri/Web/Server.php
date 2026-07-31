@@ -28,6 +28,8 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * Web server
+ * 
+ * @class
  */
 class Server
 {

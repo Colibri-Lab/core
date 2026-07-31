@@ -16,6 +16,7 @@ use Colibri\IO\FileSystem\File;
 
 /**
  * Cache Manager class.
+ * @class
  *
  */
 class CacheManager

@@ -19,6 +19,9 @@ use Colibri\Common\Encoding;
  * The DataRow class extends the ExtendedObject class and provides functionality
  * for working with individual rows of data within a data table. It typically
  * corresponds to a single record or entry in a database table.
+ * 
+ * @class
+ * @extends ExtendedObject
  *
  * @property array $properties
  * @property bool $changed

@@ -12,6 +12,7 @@ namespace Colibri\Data\SqlClient;
 
 /**
  * Represents information about a database query.
+ * @class
  */
 class QueryInfo
 {

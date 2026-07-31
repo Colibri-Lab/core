@@ -12,6 +12,7 @@ namespace Colibri\Common;
 
 /**
  * TimeZone helper
+ * @class
  */
 class TimeZoneHelper
 {

@@ -16,6 +16,8 @@ use Colibri\Utils\Debug;
 
 /**
  * Exception thrown to indicate a validation error.
+ * @class
+ * @extends \Exception
  */
 class ValidationException extends \Exception
 {

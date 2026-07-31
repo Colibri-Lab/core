@@ -35,8 +35,8 @@ use Colibri\Events\EventsContainer;
 
 /**
  * Table representing data in the storage.
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Models
+ * @class
+ * @extends BaseDataTable
  */
 class DataTable extends BaseDataTable
 {

@@ -14,6 +14,8 @@ use Colibri\AppException;
 
 /**
  * Exception for data models
+ * @class
+ * @extends AppException
  */
 class DataModelException extends AppException
 {

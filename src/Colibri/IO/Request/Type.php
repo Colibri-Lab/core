@@ -12,6 +12,7 @@ namespace Colibri\IO\Request;
 
 /**
  * Types of requests.
+ * @class
  */
 class Type
 {

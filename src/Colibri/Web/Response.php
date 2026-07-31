@@ -25,6 +25,10 @@ use Colibri\App;
  * Response Class
  *
  * Represents a class responsible for output.
+ * 
+ * @class
+ * @final
+ * @extends Singleton
  *
  */
 final class Response extends Singleton

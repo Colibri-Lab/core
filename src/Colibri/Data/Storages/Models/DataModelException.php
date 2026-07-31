@@ -11,8 +11,8 @@ namespace Colibri\Data\Storages\Models;
 
 /**
  * Class representing an exception specific to data models.
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Models
+ * @class
+ * @extends \Exception
  */
 class DataModelException extends \Exception
 {

@@ -26,8 +26,7 @@ use Colibri\Data\SqlClient\QueryInfo;
 
 /**
  * Class representing the relationship between a field and a table
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Fields
+ * @class
  */
 class Lookup
 {

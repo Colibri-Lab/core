@@ -19,6 +19,7 @@ use Throwable;
 
 /**
  * String helper
+ * @class
  */
 class StringHelper
 {
@@ -119,24 +120,23 @@ class StringHelper
         int &$count = 0
     ): string|array|bool {
         $c = 0;
-        if (!is_array($search) && is_array($replace)) {
+        if (!\is_array($search) && \is_array($replace)) {
             return false;
         }
-        if (is_array($subject)) {
-            // call mb_replace for each single string in $subject
+        if (\is_array($subject)) {
             foreach ($subject as &$string) {
-                $string = & self::Replace($search, $replace, $string, $c);
+                $string = self::Replace($search, $replace, $string, $c);
                 $count += $c;
             }
             unset($string);
-        } elseif (is_array($search)) {
-            if (!is_array($replace)) {
+        } elseif (\is_array($search)) {
+            if (!\is_array($replace)) {
                 foreach ($search as &$string) {
                     $subject = self::Replace($string, $replace, $subject, $c);
                     $count += $c;
                 }
             } else {
-                $n = max(count($search), count($replace));
+                $n = max(\count($search), \count($replace));
                 while ($n--) {
                     $subject = self::Replace(current($search), current($replace), $subject, $c);
                     $count += $c;
@@ -146,7 +146,7 @@ class StringHelper
             }
         } else {
             $parts = mb_split(preg_quote($search), $subject);
-            $count = count($parts) - 1;
+            $count = \count($parts) - 1;
             $subject = implode($replace, $parts);
         }
         return $subject;
@@ -345,7 +345,7 @@ class StringHelper
         if (function_exists('filter_var')) {
             return filter_var($address, FILTER_VALIDATE_URL) !== false;
         } else {
-            return strstr($address, 'http://') !== false || strstr($address, 'https://') !== false || substr($address, 'ftp://') !== false || substr($address, '//') === 0;
+            return strstr($address, 'http://') !== false || strstr($address, 'https://') !== false || strstr($address, 'ftp://') !== false || strstr($address, '//') === 0;
         }
     }
 
@@ -539,23 +539,23 @@ class StringHelper
      * @return string The formatted sequence with labels.
      */
     public static function FormatSequence(
-        float $secuence,
+        float $sequence,
         array $labels = ["год", "года", "лет"],
         bool $viewnumber = false
     ): string {
-        $isfloat = intval($secuence) != floatval($secuence);
-        $floatPoint = floatval($secuence) - intval($secuence);
+        $isfloat = intval($sequence) != floatval($sequence);
+        $floatPoint = floatval($sequence) - intval($sequence);
         $floatPoint = $floatPoint . '';
         $floatPoint = str_replace('0.', '', $floatPoint);
         $floatLength = strlen($floatPoint);
 
         $s = "";
         if ($viewnumber) {
-            $s = $secuence . " ";
+            $s = $sequence . " ";
         }
-        $ssecuence = strval($secuence);
-        $sIntervalLastChar = substr($ssecuence, strlen($ssecuence) - 1, 1);
-        if ((int) $secuence > 10 && (int) $secuence < 20) {
+        $ssequence = strval($sequence);
+        $sIntervalLastChar = substr($ssequence, strlen($ssequence) - 1, 1);
+        if ((int) $sequence > 10 && (int) $sequence < 20) {
             return $s . $labels[2]; //"лет"
         } else {
             if (!$isfloat || $floatLength > 1) {
@@ -722,7 +722,7 @@ class StringHelper
     /**
      * Converts a string to a GUID (Globally Unique Identifier).
      *
-     * @param string $string The input string to convert.
+     * @param string $md5 The input MD5 string to convert.
      *
      * @return string The generated GUID.
      */

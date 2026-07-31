@@ -16,6 +16,8 @@ use Colibri\IO\FileSystem\File;
 /**
  * Mime types.
  *
+ * @class
+ * 
  * @property-read string $data
  * @property-read bool $isCapable
  * @property-read bool $isValid

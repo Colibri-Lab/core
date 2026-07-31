@@ -16,14 +16,16 @@ use JsonSerializable;
 
 /**
  * Base class for array lists
- */
-/**
- * Class ArrayList
+ * @class
  *
  * This class implements a list of elements with array-like functionality.
  * It provides methods to manipulate and access the elements in the list.
  *
- * @implements IArrayList, \IteratorAggregate, JsonSerializable, ArrayAccess, Countable
+ * @implements IArrayList
+ * @implements \IteratorAggregate
+ * @implements JsonSerializable
+ * @implements ArrayAccess
+ * @implements Countable
  *
  */
 class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, ArrayAccess, Countable

@@ -23,7 +23,10 @@ use Colibri\Utils\Singleton;
 
 /**
  * Represents a collection of storage objects.
- *
+ * 
+ * @class
+ * @extends Singleton
+ * 
  * This class manages multiple storage objects and provides methods to interact with them collectively.
  *
  * @author Vahan P. Grigoryan

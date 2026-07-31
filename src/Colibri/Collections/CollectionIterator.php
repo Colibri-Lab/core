@@ -13,6 +13,8 @@ namespace Colibri\Collections;
 /**
  * Represents an iterator for a collection.
  * This class implements the \Iterator interface, allowing iteration over a collection.
+ * @class
+ * @implements \Iterator
  */
 class CollectionIterator implements \Iterator
 {

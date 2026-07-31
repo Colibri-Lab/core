@@ -20,6 +20,10 @@ use Colibri\Events\EventsContainer;
  * Represents a logger for logging messages.
  *
  * This abstract class provides a structure for logging messages. It implements the PSR-3 LoggerInterface and uses an event dispatcher to handle logging events.
+ * @class
+ * @implements LoggerInterface
+ * @uses TEventDispatcher
+ * 
  */
 abstract class Logger implements LoggerInterface
 {

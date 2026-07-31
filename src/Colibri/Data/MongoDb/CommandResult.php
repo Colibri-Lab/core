@@ -20,6 +20,10 @@ use Colibri\Data\NoSqlClient\QueryInfo;
  * This class extends SqlCommand and provides methods for preparing and executing queries.
  *
  * @inheritDoc
+ * 
+ * @class
+ * @final
+ * @implements ICommandResult
  *
  */
 final class CommandResult implements ICommandResult

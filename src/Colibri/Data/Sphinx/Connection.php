@@ -18,7 +18,13 @@ use Colibri\Data\Sphinx\Exception as SphinxException;
  * Class for connecting to the Sphinx database.
  *
  * This class provides methods for establishing and managing connections to a Sphinx database.
+ * 
+ * @inheritDoc
  *
+ * @class
+ * @final
+ * @implements IConnection
+ * 
  * @property-read resource $resource The Sphinx connection resource.
  * @property-read resource $raw The raw Sphinx connection resource.
  * @property-read resource $connection Alias for $resource.

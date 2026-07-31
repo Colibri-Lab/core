@@ -14,6 +14,9 @@ use Colibri\AppException;
 
 /**
  * Exception class for data access points.
+ * 
+ * @class
+ * @extends AppException
  */
 class DataAccessPointsException extends AppException
 {

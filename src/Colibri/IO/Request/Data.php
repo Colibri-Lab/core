@@ -18,7 +18,8 @@ use Colibri\Web\RequestedFile;
 /**
  * Request data.
  *
- * @extends ArrayList<DataItem>
+ * @class
+ * @extends ArrayList
  */
 class Data extends ArrayList
 {

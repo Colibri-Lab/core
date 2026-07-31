@@ -4,6 +4,11 @@ namespace Colibri\Data\Storages\Fields;
 
 use JsonSerializable;
 
+/**
+ * Class representing a value in field of storage
+ * @class
+ * @implements JsonSerializable
+ */
 class ValueField implements JsonSerializable
 {
     /**

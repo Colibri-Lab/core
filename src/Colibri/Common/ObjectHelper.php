@@ -14,6 +14,7 @@ namespace Colibri\Common;
  * Work with object and html strings
  * Functionality moved to class VariableHelper
  * @deprecated
+ * @class
  */
 class ObjectHelper
 {

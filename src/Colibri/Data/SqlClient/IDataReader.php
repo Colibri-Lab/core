@@ -12,6 +12,7 @@ namespace Colibri\Data\SqlClient;
 
 /**
  * Interface for reading data from a data source.
+ * @interface
  */
 interface IDataReader
 {

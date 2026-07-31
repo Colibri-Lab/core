@@ -18,6 +18,10 @@ use PgSql\Connection as PgSqlConnection;
  * Class for connecting to the PostgreSql database.
  *
  * This class provides methods for establishing and managing connections to a PostgreSql database.
+ * @inheritDoc
+ * @final
+ * @class
+ * @implements IConnection
  *
  * @property-read resource $resource The PostgreSql connection resource.
  * @property-read resource $raw The raw PostgreSql connection resource.

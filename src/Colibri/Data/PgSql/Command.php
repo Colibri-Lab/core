@@ -23,6 +23,10 @@ use PgSql\Result;
  * This class extends SqlCommand and provides methods for preparing and executing queries.
  *
  * @inheritDoc
+ * 
+ * @final
+ * @class
+ * @extends SqlCommand
  *
  */
 final class Command extends SqlCommand

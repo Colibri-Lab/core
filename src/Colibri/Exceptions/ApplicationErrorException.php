@@ -12,6 +12,8 @@ namespace Colibri\Exceptions;
 
 /**
  * Represents an exception that indicates an error in the application logic.
+ * @class
+ * @extends \Exception
  *
  * @package Colibri\Exceptions
  */

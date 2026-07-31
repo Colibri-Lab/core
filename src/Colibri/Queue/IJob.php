@@ -20,6 +20,8 @@ use Colibri\Utils\Logs\Logger;
  * Interface IJob
  *
  * Represents a job to be executed.
+ * 
+ * @interface
  *
  * @property ?int $id The ID of the job.
  * @property string $queue The queue in which the job resides.
@@ -32,7 +34,6 @@ interface IJob
 {
     /**
      * Add headers to job manager
-     * @param array $headers
      */
     public function SetHeaders(): void;
 

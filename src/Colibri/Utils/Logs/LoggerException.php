@@ -15,6 +15,8 @@ use Colibri\AppException;
 
 /**
  * Exception for the logging package
+ * @class
+ * @extends AppException
  *
  */
 class LoggerException extends AppException

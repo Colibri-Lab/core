@@ -21,6 +21,8 @@ use DateTime;
  * Represents a logger for logging messages to a file.
  *
  * This class extends the abstract Logger class and provides functionality to log messages to a file.
+ * @class
+ * @extends Logger
  *
  */
 class FileLogger extends Logger

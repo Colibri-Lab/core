@@ -13,14 +13,12 @@
 
 namespace Colibri\Xml;
 
-use DOMDocument;
-use DOMXPath;
 
 /**
  * XmlReader
  *
  * This class represents a query executor for XML documents.
- *
+ * @class
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml
@@ -30,6 +28,7 @@ class XmlReader
 {
     /**
      * The XML reader instance.
+     * @private
      *
      * @var \XMLReader
      */    
@@ -37,6 +36,8 @@ class XmlReader
 
     /**
      * Constructor.
+     * @constructor
+     * @public
      *
      * @param string $filePath The path to the XML file to read.
      */
@@ -48,6 +49,7 @@ class XmlReader
 
     /**
      * Executes a callback for each XML element in the document.
+     * @public
      *
      * @param callable $callback The callback function to execute for each element.
      */

@@ -14,6 +14,8 @@ namespace Colibri\Graphics;
  * Represents a size.
  *
  * This class encapsulates width and height dimensions.
+ * 
+ * @class
  *
  * @property-read string $style Get text for the style attribute.
  * @property-read string $attributes Get text as attributes.

@@ -12,6 +12,7 @@ namespace Colibri\Common;
 
 /**
  * Represents an encoding utility class.
+ * @class
  */
 class Encoding
 {

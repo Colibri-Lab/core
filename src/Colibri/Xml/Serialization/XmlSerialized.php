@@ -18,6 +18,9 @@ use Colibri\Common\VariableHelper;
  * Serialization
  *
  * This class represents a deserialized object from XML.
+ * 
+ * @class
+ * @implements \JsonSerializable
  *
  * @property string $name
  * @property array $attributes - аттрибуты

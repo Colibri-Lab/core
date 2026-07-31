@@ -21,6 +21,9 @@ use Colibri\Utils\Singleton;
  * Module
  *
  * Represents a base class for modules in the application.
+ * 
+ * @class
+ * @extends Singleton
  *
  * @property-read string $modulePath The path of the module.
  * @property-read string $moduleNamespace The namespace of the module.

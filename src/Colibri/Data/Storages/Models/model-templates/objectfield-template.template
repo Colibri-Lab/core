@@ -9,9 +9,9 @@ use Colibri\Data\Storages\Fields\ObjectField;
 # endregion Uses;
 
 /**
- * Представление поля в таблице в хранилище [[property-desc]]
- * @author <author name and email>
- * @package [[namespace-path]]\Fields
+ * Implements field in table [[property-desc]]
+ * @class
+ * @extends ObjectField
  * 
  * region Properties:
 [[properties-list]]

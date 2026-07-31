@@ -17,6 +17,12 @@ use Colibri\Utils\Singleton;
 
 /**
  * Factory class for creating access points.
+ * 
+ * @class
+ * @extends Singleton
+ * @implements \ArrayAccess 
+ * @implements \IteratorAggregate
+ * @implements \Countable
  *
  * @property-read object $accessPoints The access points.
  * @property-read array $pool The pool.

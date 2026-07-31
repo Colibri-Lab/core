@@ -17,6 +17,8 @@ use Colibri\Collections\ArrayList;
  * Represents a node in a configuration file.
  *
  * This class extends the ArrayList class and provides functionality to represent a node in a configuration file.
+ * @class
+ * @extends ArrayList
  */
 class ConfigItemsList extends ArrayList
 {

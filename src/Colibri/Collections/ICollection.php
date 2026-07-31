@@ -12,6 +12,7 @@ namespace Colibri\Collections;
 
 /**
  * Interface for associative arrays
+ * @interface
  */
 interface ICollection
 {

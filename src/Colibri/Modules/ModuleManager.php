@@ -28,6 +28,9 @@ use Colibri\Web\Templates\PhpTemplate;
  *
  * @property-read Config $settings Configuration settings for the module manager.
  * @property-read Collection $list List of modules.
+ * 
+ * @class
+ * @extends Singleton
  *
  */
 class ModuleManager extends Singleton

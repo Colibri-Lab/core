@@ -28,6 +28,11 @@ use Colibri\Data\NoSqlClient\ICommandResult;
  *
  * This class implements Countable, ArrayAccess, and \IteratorAggregate interfaces to provide
  * various data manipulation capabilities.
+ * 
+ * @class
+ * @implements Countable
+ * @implements ArrayAccess
+ * @implements \IteratorAggregate
  */
 class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 {

@@ -17,6 +17,7 @@ use Colibri\IO\FileSystem\File;
 
 /**
  * Class for minifying JavaScript code.
+ * @class
  */
 class Javascript
 {

@@ -14,6 +14,9 @@ use Colibri\AppException;
 
 /**
  * Exception class for collection-related errors.
+ * 
+ * @class
+ * @extends AppException
  */
 class CollectionException extends AppException
 {

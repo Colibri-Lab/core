@@ -15,6 +15,7 @@ use Colibri\IO\FileSystem\File;
 
 /**
  * Represents a class for handling file streaming operations.
+ * @class
  */
 class FileStreaming
 {

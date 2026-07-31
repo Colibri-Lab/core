@@ -12,6 +12,8 @@ namespace Colibri\Exceptions;
 
 /**
  * Exception thrown to indicate that the server understood the request, but refuses to authorize it.
+ * @class
+ * @extends \Exception
  */
 class PermissionDeniedException extends \Exception
 {

@@ -19,6 +19,7 @@ use Colibri\Utils\Debug;
 
 /**
  * Class for handling web requests.
+ * @class
  *
  */
 class Request

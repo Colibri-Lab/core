@@ -12,8 +12,8 @@ use [[namespace-path]]\[[row-class-name]];
 
 /**
  * Collection class of [[storage-desc]] storage
- * @author <author name and email>
- * @package [[namespace-path]]
+ * @class
+ * @extends BaseModelDataCollection
  * 
  * @method [[row-class-name]][] getIterator()
  * @method [[row-class-name]] _createDataRowObject()

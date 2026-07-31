@@ -8,6 +8,11 @@ use Colibri\Common\StringHelper;
 use React\Http\Message\Response as MessageResponse;
 use Psr\Http\Message\ServerRequestInterface;
 
+/**
+ * Represents a utility class for web-related operations.
+ * @class
+ *  
+ */
 class WebUtils
 {
     /** 

@@ -17,6 +17,11 @@ use resource;
 
 /**
  * Class responsible for working with query results.
+ * 
+ * @inheritDoc
+ * @final
+ * @class
+ * @implements IDataReader
  *
  * @property-read bool $hasRows Indicates whether the result set has any rows.
  * @property int $affected Number of affected rows.

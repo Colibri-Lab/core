@@ -12,6 +12,8 @@ namespace Colibri\Exceptions;
 
 /**
  * Represents an exception that indicates that job is allready running
+ * @class
+ * @extends \Exception
  *
  * @package Colibri\Exceptions
  */

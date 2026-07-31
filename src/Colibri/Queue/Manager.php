@@ -32,6 +32,8 @@ use Colibri\Utils\Singleton;
 
 /**
  * Manages the job queue.
+ * @class
+ * @extends Singleton
  */
 class Manager extends Singleton
 {

@@ -14,6 +14,7 @@ namespace Colibri\Common;
 
 /**
  * Represents a utility class for working with HTML string
+ * @class
  */
 class TokenHelper
 {

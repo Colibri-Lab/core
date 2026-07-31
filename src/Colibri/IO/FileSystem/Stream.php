@@ -12,6 +12,8 @@ namespace Colibri\IO\FileSystem;
 
 /**
  * Abstract streaming class.
+ * @class
+ * @abstract
  */
 abstract class Stream
 {

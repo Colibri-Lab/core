@@ -28,6 +28,9 @@ namespace Colibri\IO\FileSystem;
  * @property-write boolean $midified Indicates if the directory was modified.
  * @property-write boolean $readonly Indicates if the directory is read-only.
  * @property-write boolean $hidden Indicates if the directory is hidden.
+ * 
+ * @class
+ * @extends Node
  *
  */
 class Directory extends Node

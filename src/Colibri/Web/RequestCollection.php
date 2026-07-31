@@ -19,7 +19,8 @@ use Colibri\Collections\ReadonlyCollection;
  *
  * Represents a collection of data from a request.
  * Read-only.
- *
+ * @class
+ * @extends ReadonlyCollection
  */
 class RequestCollection extends ReadonlyCollection
 {

@@ -20,6 +20,8 @@ use Colibri\Collections\CollectionIterator;
  *
  * This class represents an iterator for XmlNodeList.
  *
+ * @class
+ * @extends CollectionIterator
  * @method XmlNode current()
  * @method XmlNode next()
  */

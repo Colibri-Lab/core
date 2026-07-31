@@ -12,6 +12,7 @@ namespace Colibri\Encryption;
 
 /**
  * Cryptography utility class.
+ * @class
  */
 class Crypt
 {

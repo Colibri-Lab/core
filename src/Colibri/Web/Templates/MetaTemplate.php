@@ -20,6 +20,9 @@ use Colibri\Utils\ExtendedObject;
  * Class MetaTemplate
  *
  * This class represents a meta template for generating dynamic content.
+ * 
+ * @class
+ * @extends Template
  *
  */
 class MetaTemplate extends Template

@@ -8,6 +8,9 @@ if (!function_exists('dd')) {
 
     /**
      * Prints debug information and exits
+     * @global
+     * @param mixed ...$args The arguments to debug.
+     * @return void
      */
     function dd(...$args)
     {
@@ -21,6 +24,9 @@ if (!function_exists('ddx')) {
 
     /**
      * Prints debug information without exiting from script
+     * @global
+     * @param mixed ...$args The arguments to debug.
+     * @return void
      */
     function ddx(...$args)
     {
@@ -33,6 +39,9 @@ if (!function_exists('ddd')) {
 
     /**
      * Prints collapsable debug information and exits
+     * @global
+     * @param mixed ...$args The arguments to debug.
+     * @return void
      */
     function ddd(...$args)
     {
@@ -46,6 +55,9 @@ if (!function_exists('dddx')) {
 
     /**
      * Prints collapsable debug information without exiting
+     * @global
+     * @param mixed ...$args The arguments to debug.
+     * @return void
      */
     function dddx(...$args)
     {
@@ -58,6 +70,9 @@ if (!function_exists('ddrx')) {
 
     /**
      * Prints collapsable debug information without exiting
+     * @global
+     * @param mixed ...$args The arguments to debug.
+     * @return void
      */
     function ddrx(...$args)
     {
@@ -69,6 +84,7 @@ if (!function_exists('ddrx')) {
 if(!function_exists('runx')) {
     /**
      * Runs a command in shell
+     * @global
      * @param string $command command to run
      * @param object|array $args arguments
      * @return bool|string|null
@@ -88,6 +104,7 @@ if(!function_exists('killx')) {
     /**
      * Kills a command by PID
      * @param int $pid pid of command process
+     * @global
      * @return void
      */
     function killx(int $pid)
@@ -99,6 +116,7 @@ if(!function_exists('killx')) {
 if(!function_exists('pidx')) {
     /**
      * Returns a array of pids of processes matched search string
+     * @global
      * @param string $searchKey
      * @return int|array
      */
@@ -111,7 +129,7 @@ if(!function_exists('pidx')) {
                 continue;
             }
             $k = explode(' ', $line);
-            $pids[] = (int)$k;
+            $pids[] = (int)$k[0];
         }
         return count($pids) > 1 ? $pids : (int)$pids[0];
     }
@@ -122,6 +140,7 @@ if(!function_exists('app_debug')) {
     /**
      * Logs debug information to the application log.
      *
+     * @global
      * @param mixed ...$args The arguments to log.
      * @return void
      */
@@ -136,6 +155,7 @@ if(!function_exists('app_info')) {
     /**
      * Logs informational messages to the application log.
      *
+     * @global
      * @param mixed ...$args The arguments to log.
      * @return void
      */
@@ -150,6 +170,7 @@ if(!function_exists('app_emergency')) {
     /**
      * Logs emergency messages to the application log.
      *
+     * @global
      * @param mixed ...$args The arguments to log.
      * @return void
      */
@@ -164,6 +185,7 @@ if(!function_exists('file_ext')) {
     /**
      * Returns the file extension from a given path or filename.
      *
+     * @global
      * @param string $pathOrName The file path or name.
      * @return string The file extension.
      */
@@ -178,6 +200,7 @@ if(!function_exists('parse_ml_annotation')) {
     /**
      * Parses multi-line annotations from a docstring and appends a value to each annotation.
      *
+     * @global
      * @param string $doc The docstring containing annotations.
      * @param string $value The value to append to each annotation.
      * @return array An associative array of annotations with the appended value.
@@ -195,6 +218,7 @@ if(!function_exists('class_uses_recursive')) {
     /**
      * Recursively retrieves all traits used by a class, including traits used by parent classes and traits used within traits.
      *
+     * @global
      * @param string|object $class The class name or object instance.
      * @return array An array of trait names used by the class.
      */
@@ -229,6 +253,7 @@ if(!function_exists('class_basename')) {
     /**
      * Returns the "basename" of a class, which is the class name without the namespace.
      *
+     * @global
      * @param string|object $class The class name or object instance.
      * @return string The basename of the class.
      */

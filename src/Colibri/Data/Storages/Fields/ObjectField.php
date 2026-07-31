@@ -18,8 +18,8 @@ use ReflectionClass;
 
 /**
  * Class representing a field of type object
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Fields
+ * @class
+ * @extends ExtendedObject
  */
 class ObjectField extends ExtendedObject
 {

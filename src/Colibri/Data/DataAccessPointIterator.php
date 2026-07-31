@@ -16,6 +16,8 @@ use Colibri\Collections\CollectionIterator;
  * Iterator for DataAccessPoint objects.
  *
  * This iterator extends CollectionIterator.
+ * @class
+ * @extends CollectionIterator
  */
 class DataAccessPointIterator extends CollectionIterator
 {

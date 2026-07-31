@@ -20,6 +20,9 @@ use Colibri\Collections\ArrayListIterator;
 
 /**
  * Class for working with YAML configuration files.
+ * 
+ * @class
+ * @implements IteratorAggregate
  *
  */
 class Config implements IteratorAggregate

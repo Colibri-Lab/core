@@ -12,6 +12,8 @@ namespace Colibri\Collections;
 
 /**
  * Array list iterator
+ * @class
+ * @implements \Iterator
  */
 class ArrayListIterator implements \Iterator
 {

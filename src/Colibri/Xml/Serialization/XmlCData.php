@@ -16,6 +16,9 @@ namespace Colibri\Xml\Serialization;
  * XmlCData
  *
  * This class represents a representation for a CDATA element.
+ * 
+ * @class
+ * @implements \JsonSerializable
  *
  */
 class XmlCData implements \JsonSerializable

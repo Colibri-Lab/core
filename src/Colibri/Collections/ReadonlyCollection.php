@@ -12,6 +12,8 @@ namespace Colibri\Collections;
 
 /**
  * Collection with read-only capability.
+ * @class
+ * @extends Collection
  */
 class ReadonlyCollection extends Collection
 {

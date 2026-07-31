@@ -12,6 +12,7 @@ namespace Colibri\Common;
 
 /**
  * Utility class that helps convert language #{} presentations in string, object or arrays
+ * @class
  */
 class NoLangHelper
 {
@@ -39,7 +40,7 @@ class NoLangHelper
     /**
      * Parses array or object and converts containing #{} parts to its default
      *
-     * @param array|object $value
+     * @param array|object $array
      * @return array
      */
     public static function ParseArray(array|object $array): array

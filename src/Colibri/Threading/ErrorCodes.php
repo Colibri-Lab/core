@@ -12,6 +12,8 @@ namespace Colibri\Threading;
 
 /**
  * Represents a list of error codes.
+ * @class
+ * 
  */
 class ErrorCodes
 {

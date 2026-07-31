@@ -13,8 +13,8 @@ use [[namespace-path]]\[[row-class-name]];
 
 /**
  * Table class of [[storage-desc]] storage
- * @author <author name and email>
- * @package [[namespace-path]]
+ * @class
+ * @extends BaseModelDataTable
  * 
  * @method [[row-class-name]][] getIterator()
  * @method [[row-class-name]] _createDataRowObject()

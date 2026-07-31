@@ -14,6 +14,8 @@ use Colibri\Data\DataAccessPointsException;
 
 /**
  * Exception class for using in PostgreSql driver
+ * @class
+ * @extends DataAccessPointsException
  */
 class Exception extends DataAccessPointsException
 {

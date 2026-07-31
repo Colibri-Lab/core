@@ -9,6 +9,11 @@ use ReflectionFunction;
 use JsonSerializable;
 use Closure;
 
+/**
+ * Class representing a field that holds a closure (anonymous function).
+ * @class
+ * @implements JsonSerializable
+ */
 class ClosureField implements JsonSerializable
 {
     /**

@@ -16,6 +16,9 @@ use Colibri\Threading\Worker;
  * Class LocalClosureAsyncWorker
  *
  * Represents a worker for asynchronously invoking local closures.
+ * @class
+ * @extends Worker
+ * 
  */
 class LocalClosureAsyncWorker extends Worker
 {

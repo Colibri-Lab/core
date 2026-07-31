@@ -20,6 +20,9 @@ use DOMDocument;
  * XmlNamedNodeList
  *
  * This class represents a list of nodes.
+ * 
+ * @class
+ * @extends ReadonlyCollection
  *
  * @property-read DOMDocument $document The document.
  *

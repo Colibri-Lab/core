@@ -18,6 +18,8 @@ namespace Colibri\Web;
  * Represents a collection of files sent in a request.
  * Read-only.
  *
+ * @class
+ * @extends RequestCollection
  *
  */
 class RequestFileCollection extends RequestCollection

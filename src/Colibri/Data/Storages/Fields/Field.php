@@ -15,8 +15,7 @@ use Colibri\Data\Storages\Fields\Lookup;
 
 /**
  * Storage model
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Fields
+ * @class
  *
  * @property-read array $raw raw data
  * @property-read object $fields fields inside the field
@@ -460,13 +459,13 @@ class Field
      * @param string $sibling 'before' or 'after' indicating the position relative to the reference field.
      * @return void
      */
-    public function MoveField($field, $relative, $sibling)
+    public function MoveField(Field $field, Field $relative, string $sibling)
     {
 
         // перемещает во внутреннем массиве
         $xfields = $this->_xfield['fields'];
         if (!isset($xfields[$field->name])) {
-            return false;
+            return;
         }
 
         $newxFields = [];

@@ -13,6 +13,8 @@ namespace Colibri\Utils;
 
 /**
  * An iterator for objects.
+ * @class
+ * @implements \Iterator
  */
 class ExtendedObjectIterator implements \Iterator
 {

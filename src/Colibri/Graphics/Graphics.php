@@ -18,6 +18,8 @@ use Colibri\Utils\ExtendedObject;
  * Handles image manipulation.
  *
  * This class provides functionalities for working with images.
+ * 
+ * @class
  *
  * @property-read bool $isValid Indicates whether the image is valid.
  * @property-read Size $size The size of the image.

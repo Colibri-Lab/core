@@ -100,6 +100,8 @@ use DateTime;
  * # Returns an IDataReader
  *
  * ```
+ * 
+ * @class
  *
  * @property-read string $name
  * @property-read string $dbms

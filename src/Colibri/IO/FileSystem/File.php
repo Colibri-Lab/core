@@ -31,6 +31,10 @@ use JsonSerializable;
  * @property-read int $attr_created Timestamp of file creation.
  * @property-read int $attr_modified Timestamp of last modification.
  * @property-read int $attr_lastaccess Timestamp of last access.
+ * 
+ * @class
+ * @extends Node
+ * @implements JsonSerializable
  *
  */
 class File extends Node implements JsonSerializable

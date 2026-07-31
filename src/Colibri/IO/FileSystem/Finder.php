@@ -21,6 +21,9 @@ use Throwable;
 
 /**
  * Class helping to find files and directories.
+ * 
+ * @class
+ * 
  */
 class Finder
 {

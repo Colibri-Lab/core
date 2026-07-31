@@ -20,8 +20,7 @@ use Colibri\Data\SqlClient\QueryInfo;
 /**
  * Nested sets 
  *
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages
+ * @class
  */
 class NestedSet
 {

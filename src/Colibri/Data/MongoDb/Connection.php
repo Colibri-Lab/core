@@ -19,17 +19,21 @@ use MongoDB\Client as MongoDbClient;
 use MongoDB\Database as MongoDbDatabase;
 
 /**
- * Class for connecting to the MySQL database.
+ * Class for connecting to the MongoDB database.
  *
- * This class provides methods for establishing and managing connections to a MySQL database.
+ * This class provides methods for establishing and managing connections to a MongoDB database.
+ * 
+ * @class
+ * @final
+ * @implements IConnection
  *
- * @property-read MongoDbClient $resource The MySQL connection resource.
- * @property-read MongoDbClient $raw The raw MySQL connection resource.
+ * @property-read MongoDbClient $resource The MongoDB connection resource.
+ * @property-read MongoDbClient $raw The raw MongoDB connection resource.
  * @property-read MongoDbClient $connection Alias for $resource.
  * @property-read MongoDbDatabase $database Alias for $resource.
  * @property-read object $info Alias for $resource.
  * @property-read array $options Alias for $resource.
- * @property-read bool $isAlive Indicates whether the connection to the MySQL server is alive.
+ * @property-read bool $isAlive Indicates whether the connection to the MongoDB server is alive.
  *
  */
 final class Connection implements IConnection
@@ -74,7 +78,7 @@ final class Connection implements IConnection
 
 
     /**
-     * Opens a connection to the MySQL database server.
+     * Opens a connection to the MongoDB database server.
      *
      * @return bool Returns true if the connection was successful; otherwise, false.
      *
@@ -106,7 +110,7 @@ final class Connection implements IConnection
     }
 
     /**
-     * Reopens the MySQL database connection.
+     * Reopens the MongoDB database connection.
      *
      * This method is an alias for Open().
      *
@@ -119,7 +123,7 @@ final class Connection implements IConnection
     }
 
     /**
-     * Closes the MySQL database connection.
+     * Closes the MongoDB database connection.
      *
      * @return void
      *
@@ -132,7 +136,7 @@ final class Connection implements IConnection
     /**
      * Magic getter method.
      *
-     * Allows access to read-only properties such as $resource, $raw, $connection, and $isAlive.
+     * Allows access to read-only properties such as $resource, $raw, $connection, and $isAlive for the MongoDB connection.
      *
      * @param string $property The name of the property to retrieve.
      * @return mixed Returns the value of the requested property, or null if the property does not exist.
@@ -147,7 +151,7 @@ final class Connection implements IConnection
                 return $this->_resource;
             case "database":
                 return $this->_database;
-            case "isAlive":
+            case "isalive":
                 return $this->Ping();
             case 'host':
                 return $this->_connectioninfo->host;

@@ -13,6 +13,8 @@ namespace Colibri\Events;
 
 /**
  * Basic Event Dispatcher trait.
+ * @trait
+ * 
  */
 trait TEventDispatcher
 {

@@ -20,6 +20,8 @@ use Colibri\Utils\Logs\Logger;
 
 /**
  * Worker class for parallel job execution.
+ * @class
+ * @extends Worker
  */
 class JobParallelWorker extends Worker
 {

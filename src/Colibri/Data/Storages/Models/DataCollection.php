@@ -33,8 +33,8 @@ use Colibri\Data\SqlClient\QueryInfo;
 
 /**
  * Class representing a collection of data rows in a storage system.
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Models
+ * @class
+ * @extends BaseDataTable
  */
 class DataCollection extends BaseDataTable
 {

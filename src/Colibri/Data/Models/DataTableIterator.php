@@ -14,6 +14,8 @@ use Colibri\Collections\ArrayListIterator;
 
 /**
  * DataTable iterator
+ * @class
+ * @extends ArrayListIterator
  * @method DataRow current()
  * @method DataRow next()
  */

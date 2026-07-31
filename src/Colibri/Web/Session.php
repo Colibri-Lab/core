@@ -17,8 +17,9 @@ use Colibri\Utils\Cache\Mem;
 
 /**
  * Class Session
- * @author Vahan P. Grigoryan
- * @package Colibri\Web
+ * @class
+ * @implements \ArrayAccess
+ * 
  * @property-readonly string $sid
  * @property int $ttl
  */

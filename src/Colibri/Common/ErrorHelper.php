@@ -7,6 +7,10 @@ use Colibri\IO\Request\Encryption;
 use Colibri\IO\Request\Request;
 use Colibri\IO\Request\Type;
 
+/**
+ * ErrorHelper class provides utility methods for error handling and reporting.
+ * @class
+ */
 class ErrorHelper
 {
     /**

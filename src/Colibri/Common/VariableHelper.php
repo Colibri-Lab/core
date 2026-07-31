@@ -14,6 +14,7 @@ use Colibri\App;
 
 /**
  * Helper class for work with variables
+ * @class
  */
 class VariableHelper
 {
@@ -969,6 +970,36 @@ class VariableHelper
         }
         preg_match('/\/(.*)\/([imsxUdu]+)/', $value, $matches);
         return [isset($matches[1]) ? $matches[1] : '', isset($matches[2]) ? $matches[2] : ''];
+    }
+
+    public static function DeepMerge(array $arrays): array
+    {
+        $result = [];
+
+        foreach ($arrays as $array) {
+            $result = self::MergeRecursiveDistinct($result, $array);
+        }
+
+        return $result;
+    }
+
+    public static function MergeRecursiveDistinct(array $a, array $b): array
+    {
+        foreach ($b as $key => $value) {
+            if (isset($a[$key])) {
+                if (\is_array($a[$key]) && \is_array($value)) {
+                    $a[$key] = self::MergeRecursiveDistinct($a[$key], $value);
+                } else {
+                    if (!\is_array($a[$key])) {
+                        $a[$key] = [$a[$key]];
+                    }
+                    $a[$key][] = $value;
+                }
+            } else {
+                $a[$key] = $value;
+            }
+        }
+        return $a;
     }
 
 }

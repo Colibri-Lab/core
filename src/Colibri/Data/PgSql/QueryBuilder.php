@@ -21,6 +21,9 @@ use Colibri\Utils\Debug;
  *
  * This class implements the IQueryBuilder interface, providing methods to generate various types of SQL queries
  * compatible with the PostgreSql database.
+ * 
+ * @class
+ * @implements IQueryBuilder
  *
  */
 class QueryBuilder implements IQueryBuilder

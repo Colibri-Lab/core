@@ -16,8 +16,9 @@ use Psr\Http\Message\StreamInterface;
 
 /**
  * String stream class  
- * @author Vahan P. Grigoryan
- * @package Colibri\Web
+ * @class
+ * @implements StreamInterface
+ * 
  * @property-readonly string $sid
  * @property int $ttl
  */

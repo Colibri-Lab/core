@@ -19,6 +19,10 @@ use Colibri\Data\MySql\Exception as MySqlException;
  *
  * This class provides methods for establishing and managing connections to a MySQL database.
  *
+ * @final
+ * @class
+ * @implements IConnection 
+ *
  * @property-read resource $resource The MySQL connection resource.
  * @property-read resource $raw The raw MySQL connection resource.
  * @property-read resource $connection Alias for $resource.

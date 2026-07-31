@@ -27,6 +27,10 @@ use Colibri\Utils\Logs\Logger;
  * This class extends SqlCommand and provides methods for preparing and executing queries.
  *
  * @inheritDoc
+ * 
+ * @class
+ * @final
+ * @extends NoSqlCommand
  *
  */
 final class Command extends NoSqlCommand

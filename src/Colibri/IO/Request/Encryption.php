@@ -11,7 +11,8 @@
 namespace Colibri\IO\Request;
 
 /**
- * Types of form data transmission.
+ * Types of form data transmission
+ * @class
  */
 class Encryption
 {

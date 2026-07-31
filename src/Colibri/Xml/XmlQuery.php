@@ -19,7 +19,8 @@ use DOMXPath;
  * XmlQuery
  *
  * This class represents a query executor for XML documents.
- *
+ * 
+ * @class
  * @author Vahan P. Grigoryan <vahan.grigoryan@gmail.com>
  * @copyright 2020 ColibriLab
  * @package Colibri\Xml
@@ -29,28 +30,29 @@ class XmlQuery
 {
     /**
      * The context node for the query.
-     *
+     * @private
      * @var XmlNode
      */
     private ?XmlNode $_contextNode;
 
     /**
      * The XPath operator.
-     *
+     * @private
      * @var DOMXPath
      */
     private ?DOMXPath $_operator;
 
     /**
      * Indicates whether to return results as a named map or a simple list.
-     *
+     * @private
      * @var bool
      */
     private bool $_returnAsNamedMap;
 
     /**
      * Constructor.
-     *
+     * @public
+     * @constructor
      * @param XmlNode $node The context node.
      * @param bool $returnAsNamedMap Whether to return as a named map.
      * @param array $namespaces Optional array of namespace prefixes and URIs.
@@ -69,7 +71,7 @@ class XmlQuery
 
     /**
      * Executes the XPath query.
-     *
+     * @public
      * @param string $xpathQuery The XPath query string.
      * @return XmlNodeList|XmlNamedNodeList The result node list.
      */

@@ -11,7 +11,8 @@
 namespace Colibri\IO\FileSystem;
 
 /**
- * Base class for File and Directory.
+ * Base class for File and Directory
+ * @class
  */
 class Node
 {

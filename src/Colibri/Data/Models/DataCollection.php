@@ -25,6 +25,11 @@ use Countable;
  *
  * This class implements Countable, ArrayAccess, and \IteratorAggregate interfaces to provide
  * various data manipulation capabilities.
+ * 
+ * @class
+ * @implements Countable
+ * @implements ArrayAccess
+ * @implements \IteratorAggregate 
  */
 class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
 {

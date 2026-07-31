@@ -17,6 +17,9 @@ use Colibri\Xml\XmlNode;
  * XsdSimpleTypeDefinition
  *
  * Represents a simple data type.
+ * 
+ * @class
+ * @implements \JsonSerializable
  *
  * @property-read string $name The name of the type.
  * @property-read string $annotation The annotation of the type.

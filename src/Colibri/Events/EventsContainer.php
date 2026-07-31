@@ -17,6 +17,7 @@ use Colibri\Data\Storages\Storage;
  * This class should be inherited by the EventsContainer class in Colibri\App.
  *
  * This container is used in the core, and in the application Colibri\App\EventsContainer.
+ * @class
  */
 class EventsContainer
 {

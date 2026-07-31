@@ -21,8 +21,8 @@ use JsonSerializable;
 
 /**
  * Class representing a file field in a storage system.
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Fields
+ * @class
+ * @implements JsonSerializable
  *
  * @property-read bool $isOnline yes, if the file is online (URL)
  * @property-read bool $isValid yes, if the file exists

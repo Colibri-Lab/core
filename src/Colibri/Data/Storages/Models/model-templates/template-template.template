@@ -8,8 +8,8 @@ use Colibri\Web\View;
 use [[template-class]];
 
 /**
- * Шаблон состояния [[template-key]] для харнаилища [[storage-name]]
- * @var ExtendedObject $args аргументы шаблона
+ * Template of [[template-key]] for storage [[storage-name]]
+ * @var ExtendedObject $args template arguments
  * @return string
  * 
 */

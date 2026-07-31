@@ -21,6 +21,9 @@ use Colibri\Data\Storages\Storage;
  *
  * This class implements the IQueryBuilder interface, providing methods to generate various types of SQL queries
  * compatible with the MySql database.
+ * 
+ * @class
+ * @implements IQueryBuilder
  *
  */
 class QueryBuilder implements IQueryBuilder
@@ -399,8 +402,13 @@ class QueryBuilder implements IQueryBuilder
     /**
      * Creates a query to check if a table exists in the database.
      *
-     * @param string $table The name of the table.
-     * @return array The generated query to check if the table exists.
+     * @param Storage $storage The storage object representing the table.
+     * @param string $term The search term for filtering the records.
+     * @param array|null $filterFields (optional) The fields to filter the records. Default is null.
+     * @param string|null $sortField (optional) The field to sort the records. Default is null.
+     * @param string|null $sortOrder (optional) The order to sort the records ('asc' or 'desc'). Default is null.
+     * @param bool $useAsManageFilter (optional) Whether to use the filters as manage filters. Default is true.
+     * @return array The processed filters and parameters for the query.
      */
     public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
     {

@@ -20,6 +20,7 @@ use Colibri\Data\Storages\Fields\DateTimeField;
 
 /**
  * Helper class for working with dates.
+ * @class
  */
 class ArchiveHelper
 {

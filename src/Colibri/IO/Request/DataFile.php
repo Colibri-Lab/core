@@ -15,6 +15,9 @@ use Colibri\IO\FileSystem\File;
 
 /**
  * File in the request.
+ * 
+ * @class
+ * @extends DataItem
  *
  * @property string $name The name of the file.
  * @property string $mime The MIME type of the file.

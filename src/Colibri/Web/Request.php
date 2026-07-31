@@ -26,6 +26,9 @@ use Colibri\Common\MimeType;
  * Request Class
  *
  * This class represents a web request and provides access to request parameters such as GET, POST, etc.
+ * 
+ * @class
+ * @extends Singleton
  *
  * @property-read RequestCollection $get The GET parameters.
  * @property-read RequestCollection $post The POST parameters.

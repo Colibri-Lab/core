@@ -19,6 +19,9 @@ use Colibri\Threading\Process;
  * Class LocalClosure
  *
  * Represents a local closure handler for events.
+ * @class
+ * @implements IClosure
+ * 
  */
 class LocalClosure implements IClosure
 {

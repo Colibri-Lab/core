@@ -30,6 +30,10 @@ use MongoDB\Database;
  * This class extends SqlCommand and provides methods for preparing and executing queries.
  *
  * @inheritDoc
+ * 
+ * @final
+ * @class
+ * @extends NoSqlCommand
  *
  */
 final class Command extends NoSqlCommand

@@ -21,8 +21,7 @@ use Colibri\Data\Storages\Fields\Field;
 
 /**
  * Storage model generator
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages\Models
+ * @class
  */
 class Generator
 {

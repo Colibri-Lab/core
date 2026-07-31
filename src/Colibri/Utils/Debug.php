@@ -17,6 +17,7 @@ use Colibri\App;
  * Class Debug
  *
  * Methods for outputting debug information.
+ * @class
  */
 class Debug
 {

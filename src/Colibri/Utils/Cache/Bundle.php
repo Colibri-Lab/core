@@ -24,6 +24,7 @@ use Colibri\Xml\XmlNode;
 
 /**
  * Utility class for creating cache bundles of styles and scripts.
+ * @class
  *
  */
 class Bundle

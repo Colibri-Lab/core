@@ -12,6 +12,7 @@ namespace Colibri\Data\NoSqlClient;
 
 /**
  * Interface for driver settings
+ * @interface
  */
 interface IConfig
 {

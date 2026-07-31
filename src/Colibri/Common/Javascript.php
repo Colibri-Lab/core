@@ -14,6 +14,7 @@ namespace Colibri\Common;
 
 /**
  * Shrink helper for javascript
+ * @class
  */
 class Javascript
 {

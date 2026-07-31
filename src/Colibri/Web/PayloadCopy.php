@@ -22,6 +22,9 @@ use RuntimeException;
  *
  * This class represents a copy of payload data received in a web request.
  * It implements the ArrayAccess and Countable interfaces for array-like behavior.
+ * @class
+ * @implements ArrayAccess
+ * @implements Countable
  */
 class PayloadCopy implements ArrayAccess, Countable
 {

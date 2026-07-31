@@ -12,6 +12,8 @@ namespace Colibri\Exceptions;
 
 /**
  * Exception thrown to indicate that the server cannot or will not process the request due to something that is perceived to be a client error.
+ * @class
+ * @extends \Exception
  */
 class BadRequestException extends \Exception
 {

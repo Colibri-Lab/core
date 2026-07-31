@@ -13,6 +13,7 @@ namespace Colibri\Utils\Cache;
 
 /**
  * Memcached function encapsulator class.
+ * @class
  *
  */
 class Redis

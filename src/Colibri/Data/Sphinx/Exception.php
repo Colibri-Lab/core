@@ -15,6 +15,8 @@ use Colibri\Data\DataAccessPointsException;
 
 /**
  * Exception class for using in Sphinx driver
+ * @class
+ * @extends DataAccessPointsException
  */
 class Exception extends DataAccessPointsException
 {

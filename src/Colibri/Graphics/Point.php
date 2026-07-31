@@ -14,6 +14,8 @@ namespace Colibri\Graphics;
  * Represents a point on the screen.
  *
  * This class encapsulates the coordinates of a point on the screen.
+ * 
+ * @class
  */
 class Point
 {
