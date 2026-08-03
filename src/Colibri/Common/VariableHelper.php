@@ -23,6 +23,8 @@ class VariableHelper
      *
      * @param mixed $var The variable to check.
      * @return bool True if the variable is empty, false otherwise.
+     * @public
+     * @static
      */
     public static function IsEmpty(mixed $var): bool
     {
@@ -39,6 +41,8 @@ class VariableHelper
      *
      * @param mixed $object The object to check.
      * @return bool True if all fields are empty, false otherwise.
+     * @public
+     * @static
      */
     public static function IsObjectFieldsAreEmpty(mixed $object): bool
     {
@@ -61,6 +65,8 @@ class VariableHelper
      *
      * @param mixed $var The variable to check.
      * @return bool True if the variable is null, false otherwise.
+     * @public
+     * @static
      */
     public static function IsNull(mixed $var): bool
     {
@@ -72,6 +78,8 @@ class VariableHelper
      *
      * @param mixed $var The variable to check.
      * @return bool True if the variable is an object, false otherwise.
+     * @public
+     * @static
      */
     public static function IsObject(mixed $var): bool
     {
@@ -83,6 +91,8 @@ class VariableHelper
      *
      * @param mixed $var The variable to check.
      * @return bool True if the variable is an array, false otherwise.
+     * @public
+     * @static
      */
     public static function IsArray(mixed $var): bool
     {
@@ -94,6 +104,8 @@ class VariableHelper
      *
      * @param mixed $var The variable to check.
      * @return bool True if the variable is a boolean, false otherwise.
+     * @public
+     * @static
      */
     public static function IsBool(mixed $var): bool
     {
@@ -105,6 +117,8 @@ class VariableHelper
      *
      * @param mixed $var The variable to check.
      * @return bool True if the variable is a string, false otherwise.
+     * @public
+     * @static
      */
     public static function IsString(mixed $var): bool
     {
@@ -116,6 +130,8 @@ class VariableHelper
      *
      * @param mixed $var The variable to check.
      * @return bool True if the variable is numeric, false otherwise.
+     * @public
+     * @static
      */
     public static function IsNumeric(mixed $var): bool
     {
@@ -127,6 +143,8 @@ class VariableHelper
      *
      * @param mixed $var The variable to check.
      * @return bool True if the variable represents a valid date, false otherwise.
+     * @public
+     * @static
      */
     public static function IsDate(mixed $var): bool
     {
@@ -146,6 +164,8 @@ class VariableHelper
      *
      * @param mixed $value The variable to check.
      * @return bool True if the variable represents a valid time, false otherwise.
+     * @public
+     * @static
      */
     public static function IsTime(mixed $value): bool
     {
@@ -165,6 +185,8 @@ class VariableHelper
      * @param array $array The input array.
      * @param int $case The desired case (CASE_LOWER or CASE_UPPER, default is CASE_LOWER).
      * @return array|null The modified array with value case changed, or null if input is not an array.
+     * @public
+     * @static
      */
     public static function ChangeArrayValueCase(array $array, int $case = CASE_LOWER): ?array
     {
@@ -183,6 +205,8 @@ class VariableHelper
      * @param array $array The input array.
      * @param int $case The desired case (CASE_LOWER or CASE_UPPER, default is CASE_LOWER).
      * @return array|null The modified array with keys in the specified case, or null if input is not an array.
+     * @public
+     * @static
      */
     public static function ChangeArrayKeyCase(array $array, int $case = CASE_LOWER): ?array
     {
@@ -209,6 +233,8 @@ class VariableHelper
      *
      * @param object|array $object The object or array to convert.
      * @return array An associative array representation of the input.
+     * @public
+     * @static
      */
     public static function ObjectToArray(object|array $object): array
     {
@@ -232,6 +258,8 @@ class VariableHelper
      * @param mixed $array The input array to be converted.
      *
      * @return mixed The resulting object.
+     * @public
+     * @static
      */
     public static function ArrayToObject(mixed $array): mixed
     {
@@ -270,6 +298,8 @@ class VariableHelper
      * @param array $array The input array to check.
      *
      * @return bool Returns true if the array is associative, false otherwise.
+     * @public
+     * @static
      */
     public static function IsAssociativeArray(array|object $array): bool
     {
@@ -305,6 +335,8 @@ class VariableHelper
      * @param string $keyName The key representing the unique identifier (default: 'id').
      *
      * @return array The resulting tree structure.
+     * @public
+     * @static
      */
     public static function ArrayToTree(
         array $array,
@@ -338,6 +370,8 @@ class VariableHelper
      * @param string $prefix An optional prefix to prepend to each flattened key.
      *
      * @return array The resulting flat associative array.
+     * @public
+     * @static
      */
     public static function ToPlane(array|object $var, string $prefix = ''): array
     {
@@ -368,6 +402,8 @@ class VariableHelper
      * @param string $prefix An optional prefix to prepend to each filter key.
      *
      * @return array The resulting JSON-like structure with filters.
+     * @public
+     * @static
      */
     public static function ToJsonFilters(array|object|null $var, string $prefix = ''): array
     {
@@ -408,6 +444,8 @@ class VariableHelper
      * @param string $data The binary data to be converted.
      *
      * @return string The hexadecimal representation of the input data.
+     * @public
+     * @static
      */
     public static function Bin2Hex(string $data): string
     {
@@ -426,6 +464,8 @@ class VariableHelper
      * @param string $data The hexadecimal string to be converted.
      *
      * @return string The binary representation of the input hexadecimal data.
+     * @public
+     * @static
      */
     public static function Hex2Bin(string $data): string
     {
@@ -450,6 +490,8 @@ class VariableHelper
      * @param string $v The input string to check.
      *
      * @return bool Returns true if the string is serialized, false otherwise.
+     * @public
+     * @static
      */
     public static function isSerialized(string $v): bool
     {
@@ -482,6 +524,8 @@ class VariableHelper
      * @param mixed $obj The object or value to be serialized.
      *
      * @return string The serialized representation of the input.
+     * @public
+     * @static
      */
     public static function Serialize(mixed $obj): string
     {
@@ -499,6 +543,8 @@ class VariableHelper
      * @return mixed The unserialized PHP value (bool, int, float, string, array, or object).
      *
      * @throws \Throwable If unserialization fails due to invalid input or other errors.
+     * @public
+     * @static
      */
     public static function Unserialize(string $string): mixed
     {
@@ -523,6 +569,8 @@ class VariableHelper
      * @param bool $removeEmptyValues Wheret to remove empty values from first array (default: false)
      *
      * @return mixed The extended or merged result.
+     * @public
+     * @static
      */
     public static function Extend(
         mixed $o1,
@@ -573,6 +621,8 @@ class VariableHelper
      * @param mixed $def The default value to use if $d is null.
      *
      * @return mixed The first non-null value or the default value.
+     * @public
+     * @static
      */
     public static function Coalesce(mixed $d, mixed $def): mixed
     {
@@ -595,6 +645,8 @@ class VariableHelper
      * @param string $keyPrefix An optional prefix for keys (default: '').
      *
      * @return string The formatted string representation.
+     * @public
+     * @static
      */
     public static function ToString(
         mixed $object,
@@ -635,6 +687,8 @@ class VariableHelper
      * @param string $string The input string containing PHP array data.
      *
      * @return array The resulting associative array.
+     * @public
+     * @static
      */
     public static function FromPhpArrayOutput(string $string): array
     {
@@ -664,6 +718,8 @@ class VariableHelper
      * @param array $array The input array containing numeric values.
      *
      * @return float The total sum of the array values.
+     * @public
+     * @static
      */
     public static function Sum(array $array): float
     {
@@ -684,6 +740,8 @@ class VariableHelper
      * @param mixed $expected The expected value for comparison.
      *
      * @return bool Returns true if the values are similar, false otherwise.
+     * @public
+     * @static
      */
     public static function IsSimilar(mixed $actual, mixed $expected): bool
     {
@@ -720,6 +778,8 @@ class VariableHelper
      * @param mixed $object The input value to be converted.
      *
      * @return array The resulting array representation.
+     * @public
+     * @static
      */
     public static function MixedToArray(mixed $object): mixed
     {
@@ -771,6 +831,8 @@ class VariableHelper
      * @param \Closure|null $closure The closure to apply to each element (optional).
      *
      * @return mixed The result of applying the closure to each element.
+     * @public
+     * @static
      */
     public static function Map(mixed $object, ?\Closure $closure): mixed
     {
@@ -802,6 +864,8 @@ class VariableHelper
      * @param \Closure|null $closure A closure function that defines the filtering logic.
      *                               If null, no filtering is applied.
      * @return mixed The filtered object. The returned type depends on the closure's logic.
+     * @public
+     * @static
      */
     public static function Filter(mixed $object, ?\Closure $closure): mixed
     {
@@ -828,6 +892,8 @@ class VariableHelper
      * @param mixed $callable The callable to be converted.
      *
      * @return string The string representation of the callable.
+     * @public
+     * @static
      */
     public static function CallableToString(mixed $callable): string
     {
@@ -867,6 +933,8 @@ class VariableHelper
      * @param string $field The name of the property to use for uniqueness comparison.
      *
      * @return array The filtered array with unique elements based on the specified property.
+     * @public
+     * @static
      */
     public static function UniqueByProperty(array $array, string $field): array
     {
@@ -892,8 +960,10 @@ class VariableHelper
      * @param int $partlength The desired length of each part.
      *
      * @return array An array of smaller arrays (parts).
+     * @public
+     * @static
      */
-    public static function SplitArrayToParts($array, $partlength): array
+    public static function SplitArrayToParts(array $array, int $partlength): array
     {
         $ret = [];
         while(!empty($array)) {
@@ -911,11 +981,13 @@ class VariableHelper
      *
      * @param array $array The input non-associative array.
      * @param mixed $fieldKey The field to use as keys for the associative array.
-     * @param mixed|null $fieldValue The field to use as values (optional; defaults to null).
+     * @param mixed $fieldValue The field to use as values (optional; defaults to null).
      *
      * @return array The resulting associative array.
+     * @public
+     * @static
      */
-    public static function ConvertToAssotiative($array, $fieldKey, $fieldValue = null): array
+    public static function ConvertToAssociative(array $array, mixed $fieldKey, mixed $fieldValue = null): array
     {
         $ret = [];
         foreach($array as $v) {
@@ -930,6 +1002,8 @@ class VariableHelper
      * @param string $innerObjectKey
      * @param mixed $innerObjectvalue
      * @return mixed
+     * @public
+     * @static
      */
     public static function FindInArray(array $array, string $innerObjectKey, mixed $innerObjectvalue): mixed
     {
@@ -952,6 +1026,8 @@ class VariableHelper
      *
      * @param string $value The string to check.
      * @return bool True if the string is a valid regular expression, false otherwise.
+     * @public
+     * @static
      */
     public static function IsValidRegExp(string $value): bool
     {
@@ -962,6 +1038,8 @@ class VariableHelper
      * Returns options from regexp string as array of options
      * @param string $value
      * @return array
+     * @public
+     * @static
      */
     public static function ParseRegexp(?string $value): array
     {
@@ -972,6 +1050,19 @@ class VariableHelper
         return [isset($matches[1]) ? $matches[1] : '', isset($matches[2]) ? $matches[2] : ''];
     }
 
+    /**
+     * Deeply merges multiple arrays into one.
+     *
+     * This function takes an array of arrays and merges them recursively, preserving
+     * the structure of nested arrays. If there are conflicting keys, the values from
+     * later arrays will overwrite those from earlier ones.
+     *
+     * @param array $arrays An array containing multiple arrays to be merged.
+     *
+     * @return array The resulting merged array.
+     * @public
+     * @static
+     */
     public static function DeepMerge(array $arrays): array
     {
         $result = [];
@@ -983,6 +1074,20 @@ class VariableHelper
         return $result;
     }
 
+    /**
+     * Merges two arrays recursively, preserving distinct values.
+     *
+     * This function takes two input arrays and merges them recursively. If both arrays
+     * contain the same key, their values are combined into an array. If the values are
+     * not arrays, they are converted into an array to preserve distinct values.
+     *
+     * @param array $a The first array to merge.
+     * @param array $b The second array to merge.
+     *
+     * @return array The resulting merged array with distinct values.
+     * @public
+     * @static
+     */
     public static function MergeRecursiveDistinct(array $a, array $b): array
     {
         foreach ($b as $key => $value) {

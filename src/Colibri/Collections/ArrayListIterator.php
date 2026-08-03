@@ -19,16 +19,24 @@ class ArrayListIterator implements \Iterator
 {
     /**
      * Iterator data
+     * @var \IteratorAggregate|null
+     * @private
      */
     private ?\IteratorAggregate $_class = null;
 
     /**
      * Current position
+     * @var int
+     * @private
      */
     private int $_current = 0;
 
     /**
      * Constructor
+     * @constructor
+     * @param \IteratorAggregate|null $class The class to iterate over.
+     * @return void
+     * @public
      */
     public function __construct(\IteratorAggregate $class = null)
     {
@@ -37,6 +45,8 @@ class ArrayListIterator implements \Iterator
 
     /**
      * Rewinds an iterator to the first item
+     * @public
+     * @return void
      */
     public function rewind(): void
     {
@@ -46,6 +56,8 @@ class ArrayListIterator implements \Iterator
     /**
      * Returns item on current position
      * @suppress PHP0418
+     * @public
+     * @return mixed
      */
     public function current(): mixed
     {
@@ -58,6 +70,9 @@ class ArrayListIterator implements \Iterator
 
     /**
      * Returns key (index) on current position
+     * @suppress PHP0418
+     * @public
+     * @return int
      */
     public function key(): int
     {
@@ -67,20 +82,19 @@ class ArrayListIterator implements \Iterator
     /**
      * Returns next item and moves internal position
      * @suppress PHP0418
+     * @public
+     * @return void 
      */
     public function next(): void
     {
         $this->_current++;
-        // if ($this->valid()) {
-        //     return $this->_class->Item($this->_current);
-        // } else {
-        //     return null;
-        // }
     }
 
     /**
      * Check if the current position is valid
      * @suppress PHP0418
+     * @public
+     * @return bool
      */
     public function valid(): bool
     {

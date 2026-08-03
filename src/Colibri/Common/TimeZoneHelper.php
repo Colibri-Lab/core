@@ -18,11 +18,17 @@ class TimeZoneHelper
 {
     /**
      * TimeZone by default
+     * @static
+     * @public
+     * @var string
      */
     public static string $zone = 'ru';
 
     /**
      * Strings
+     * @static
+     * @public
+     * @var array
      */
     public static array $texts = array(
         'ru' => array(
@@ -42,6 +48,8 @@ class TimeZoneHelper
      *
      * @param string $zone
      * @return bool
+     * @public
+     * @static
      */
     public static function Set(string $zone): bool
     {
@@ -57,6 +65,8 @@ class TimeZoneHelper
      *
      * @param integer $month
      * @return string
+     * @public
+     * @static
      */
     public static function Month(int $month): ?string
     {
@@ -68,6 +78,8 @@ class TimeZoneHelper
      *
      * @param integer $month
      * @return string
+     * @public
+     * @static
      */
     public static function Month2(int $month): ?string
     {
@@ -79,6 +91,8 @@ class TimeZoneHelper
      *
      * @param integer $weekday
      * @return string
+     * @public
+     * @static
      */
     public static function Weekday(int $weekday): ?string
     {
@@ -91,6 +105,8 @@ class TimeZoneHelper
      * @param string $format
      * @param float $microtime
      * @return string
+     * @public
+     * @static
      */
     public static function FTimeU(string $format, float $microtime): ?string
     {

@@ -23,6 +23,8 @@ class ValidationHelper
      * @param mixed &$error_message (Optional) A reference to store an error message if validation fails.
      * @param mixed &$error_code (Optional) A reference to store an error code if validation fails.
      * @return bool True if the BIK is valid, false otherwise.
+     * @public
+     * @static
      */
     public static function ValidateBik(
         string $bik,
@@ -53,6 +55,8 @@ class ValidationHelper
      * @param mixed &$error_message (Optional) A reference to store an error message if validation fails.
      * @param mixed &$error_code (Optional) A reference to store an error code if validation fails.
      * @return bool True if the INN is valid, false otherwise.
+     * @public
+     * @static
      */
     public static function ValidateInn(
         string $inn,
@@ -110,6 +114,8 @@ class ValidationHelper
      * @param mixed &$error_message (Optional) A reference to store an error message if validation fails.
      * @param mixed &$error_code (Optional) A reference to store an error code if validation fails.
      * @return bool True if the KPP is valid, false otherwise.
+     * @public
+     * @static
      */
     public static function ValidateKpp(
         string $kpp,
@@ -141,6 +147,8 @@ class ValidationHelper
      * @param mixed &$error_message (Optional) A reference to store an error message if validation fails.
      * @param mixed &$error_code (Optional) A reference to store an error code if validation fails.
      * @return bool True if the KS is valid for the given BIK, false otherwise.
+     * @public
+     * @static
      */
     public static function ValidateKs(
         string $ks,
@@ -184,6 +192,8 @@ class ValidationHelper
      * @param mixed &$error_message (Optional) A reference to store an error message if validation fails.
      * @param mixed &$error_code (Optional) A reference to store an error code if validation fails.
      * @return bool True if the OGRN is valid, false otherwise.
+     * @public
+     * @static
      */
     public static function ValidateOgrn(
         string $ogrn,
@@ -220,6 +230,8 @@ class ValidationHelper
      * @param mixed &$error_message (Optional) A reference to store an error message if validation fails.
      * @param mixed &$error_code (Optional) A reference to store an error code if validation fails.
      * @return bool True if the OGRNIP is valid, false otherwise.
+     * @public
+     * @static
      */
     public static function ValidateOgrnip(
         string $ogrnip,
@@ -257,6 +269,8 @@ class ValidationHelper
      * @param mixed &$error_message (Optional) A reference to store an error message if validation fails.
      * @param mixed &$error_code (Optional) A reference to store an error code if validation fails.
      * @return bool True if the RS is valid for the given BIK, false otherwise.
+     * @public
+     * @static
      */
     public static function ValidateRs(
         string $rs,
@@ -300,6 +314,8 @@ class ValidationHelper
      * @param mixed &$error_message (Optional) A reference to store an error message if validation fails.
      * @param mixed &$error_code (Optional) A reference to store an error code if validation fails.
      * @return bool True if the SNILS is valid, false otherwise.
+     * @public
+     * @static
      */
     public static function ValidateSnils(
         string $snils,

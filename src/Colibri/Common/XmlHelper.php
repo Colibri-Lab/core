@@ -30,6 +30,8 @@ class XmlHelper
      * @param string $tag The optional tag name (default: 'object') for the encoded data.
      *
      * @return string The encoded string representation.
+     * @public
+     * @static
      */
     public static function Encode(string|array|object $object, string $tag = 'object'): string
     {
@@ -68,6 +70,8 @@ class XmlHelper
      * @param string $xmlString The XML string to be decoded.
      *
      * @return XmlNode An object representing the parsed XML structure.
+     * @public
+     * @static
      */
     public static function Decode(string $xmlString): XmlNode
     {
@@ -85,6 +89,8 @@ class XmlHelper
      * @param string|XmlNode $xml The XML string or XmlNode object to be converted.
      *
      * @return object|string The resulting object or string representation.
+     * @public
+     * @static
      */
     public static function ToObject(string|XmlNode $xml): object|string
     {

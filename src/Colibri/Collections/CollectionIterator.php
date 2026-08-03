@@ -22,12 +22,14 @@ class CollectionIterator implements \Iterator
      * Collection object
      *
      * @var ICollection
+     * @private 
      */
     private ?\IteratorAggregate $_class;
     /**
      * Current position
      *
      * @var mixed
+     * @private
      */
     private $_current = 0;
 
@@ -35,6 +37,9 @@ class CollectionIterator implements \Iterator
      * Constructor, accepts a collection object
      *
      * @param mixed $class - collection
+     * @return void
+     * @public
+     * @constructor
      */
     public function __construct(\IteratorAggregate $class = null)
     {
@@ -43,7 +48,8 @@ class CollectionIterator implements \Iterator
 
     /**
      * Rewind to the first record
-     *
+     * @return void
+     * @public
      */
     public function rewind(): void
     {
@@ -52,7 +58,8 @@ class CollectionIterator implements \Iterator
 
     /**
      * Return the current value
-     *
+     * @return mixed The current element or null if not valid.
+     * @public
      */
     public function current(): mixed
     {
@@ -65,7 +72,8 @@ class CollectionIterator implements \Iterator
 
     /**
      * Return the key of the current position
-     *
+     * @return mixed The key of the current element or null if not valid.
+     * @public
      */
     public function key(): string|null
     {
@@ -74,21 +82,18 @@ class CollectionIterator implements \Iterator
 
     /**
      * Move to the next value
-     *
+     * @return void
+     * @public
      */
     public function next(): void
     {
         $this->_current++;
-        // if ($this->valid()) {
-        //     return $this->_class->ItemAt($this->_current);
-        // } else {
-        //     return null;
-        // }
     }
 
     /**
      * Validate the iterator, i.e. whether the current value is valid
-     *
+     * @return bool Returns `true` if the current position is valid, `false` otherwise.
+     * @public
      */
     public function valid(): bool
     {

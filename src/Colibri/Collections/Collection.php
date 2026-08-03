@@ -29,6 +29,8 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
 {
     /**
      * Collection internal data
+     * @var mixed
+     * @protected
      */
     protected mixed $data = null;
 
@@ -43,6 +45,9 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * ```
      *
      * @param mixed $data The data to initialize the collection.
+     * @return void
+     * @public
+     * @constructor
      */
     public function __construct(mixed $data = array())
     {
@@ -68,10 +73,13 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * $collection->Exists('a') returns true
      * $collection->Exists('g') returns false
      * ```
+     * @param string $key The key to check for existence.
+     * @return bool True if the key exists, false otherwise.
+     * @public
      */
     public function Exists(string $key): bool
     {
-        return array_key_exists($key, $this->data);
+        return array_key_exists(strtolower($key), $this->data);
     }
 
     /**
@@ -86,6 +94,8 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param mixed $item The item to search for.
      * @return bool True if the item is found, false otherwise.
+     * @public
+     * 
      */
     public function Contains(mixed $item): bool
     {
@@ -104,6 +114,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param mixed $item The item to search for.
      * @return mixed|null The index of the item if found, or null if not found.
+     * @public
      */
     public function IndexOf(mixed $item): mixed
     {
@@ -126,6 +137,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param int $index The index of the key to retrieve.
      * @return string|null The key if found, or null if the index is out of bounds.
+     * @public
      */
     public function Key(int $index): ?string
     {
@@ -153,6 +165,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param string $key The key to retrieve the value for.
      * @return mixed|null The value if found, or null if the key does not exist.
+     * @public
      */
     public function Item(string $key): mixed
     {
@@ -174,6 +187,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param int $index The index to retrieve the value from.
      * @return mixed|null The value if found, or null if the index is out of bounds.
+     * @public
      */
     public function ItemAt(int $index): mixed
     {
@@ -196,6 +210,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * ```
      *
      * @return CollectionIterator An iterator for the collection.
+     * @public
      */
     public function getIterator(): CollectionIterator
     {
@@ -214,6 +229,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * @param string $key The key to add.
      * @param mixed $value The value associated with the key.
      * @return mixed The updated collection data.
+     * @public
      */
     public function Add(string $key, mixed $value): mixed
     {
@@ -232,6 +248,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param mixed $from The data source to append.
      * @return void
+     * @public
      */
     public function Append(mixed $from): void
     {
@@ -257,6 +274,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * @param mixed $key The key to insert.
      * @param mixed $value The value associated with the key.
      * @return mixed The updated collection data.
+     * @public
      */
     public function Insert(mixed $index, mixed $key, mixed $value): mixed
     {
@@ -280,6 +298,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param string $key The key to delete.
      * @return bool True if the key was successfully deleted, false otherwise.
+     * @public
      */
     public function Delete(string $key): bool
     {
@@ -302,6 +321,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param int $index The index of the key-value pair to delete.
      * @return bool True if the key-value pair was successfully deleted, false otherwise.
+     * @public
      */
     public function DeleteAt(int $index): bool
     {
@@ -318,6 +338,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * Clears empty values.
      *
      * @return void
+     * @public
      */
     public function Clean(): void
     {
@@ -336,6 +357,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * ```
      *
      * @return void
+     * @public  
      */
     public function Clear(): void
     {
@@ -355,6 +377,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * @param array|null $splitters Optional array of splitters to join the data elements.
      * @param mixed|null $mapFunction Optional mapping function to apply to each data element.
      * @return string The string representation of the collection data.
+     * @public
      */
     public function ToString(array $splitters = null, mixed $mapFunction = null): string
     {
@@ -380,6 +403,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * @param string $string The string containing data to initialize the collection.
      * @param array|null $splitters Optional array of splitters to parse the string data.
      * @return Collection The initialized collection.
+     * @public
      */
     public static function FromString(string $string, array $splitters = null): Collection
     {
@@ -405,6 +429,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * ```
      *
      * @return array The array representation of the collection data.
+     * @public
      */
     public function ToArray(): array
     {
@@ -421,6 +446,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * ```
      *
      * @return int The count of elements in the collection.
+     * @public
      */
     public function Count(): int
     {
@@ -437,6 +463,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * ```
      *
      * @return mixed|null The first element if the collection is not empty, or null if empty.
+     * @public
      */
     public function First(): mixed
     {
@@ -453,6 +480,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * ```
      *
      * @return mixed|null The last element if the collection is not empty, or null if empty.
+     * @public
      */
     public function Last(): mixed
     {
@@ -464,6 +492,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param string $property The name of the property to retrieve.
      * @return mixed|null The value of the property if found, or null if the property does not exist.
+     * @public
      */
     public function __get(string $property): mixed
     {
@@ -476,6 +505,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * @param string $key The name of the property to set.
      * @param mixed $value The value to assign to the property.
      * @return void
+     * @public
      */
     public function __set(string $key, mixed $value): void
     {
@@ -493,6 +523,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param \Closure $closure The closure used for filtering.
      * @return Collection The filtered collection.
+     * @public
      */
     public function Filter(\Closure $closure): Collection
     {
@@ -518,6 +549,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * @param mixed $page The page to extract data from.
      * @param mixed $pagesize The size of the page.
      * @return Collection The extracted data collection.
+     * @public
      */
     public function Extract($page, $pagesize): Collection
     {
@@ -541,6 +573,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * ```
      *
      * @return mixed The serialized data, which can be of any type other than a resource.
+     * @public
      */
     public function jsonSerialize(): array
     {
@@ -553,6 +586,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      * @param mixed $offset The offset where the value should be set.
      * @param mixed $value The value to assign to the specified offset.
      * @return void
+     * @public
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -571,6 +605,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param mixed $offset The offset (index) to check for existence.
      * @return bool Returns `true` if the offset exists, and `false` otherwise.
+     * @public
      */
     public function offsetExists(mixed $offset): bool
     {
@@ -586,6 +621,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param mixed $offset The index being unset.
      * @return void
+     * @public
      */
     public function offsetUnset(mixed $offset): void
     {
@@ -601,6 +637,7 @@ class Collection implements ICollection, IteratorAggregate, JsonSerializable, Ar
      *
      * @param mixed $offset The index to access the element.
      * @return mixed|null The collection element or null if the element is not found.
+     * @public
      */
     public function offsetGet(mixed $offset): mixed
     {

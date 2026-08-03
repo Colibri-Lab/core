@@ -32,6 +32,8 @@ class [[table-class-name]] extends BaseModelDataTable
      * @param string|\Closure $returnAs return as this class
      * @param Storage|null $storage storage object
      * @return void 
+     * @constructor
+     * @public
      */
     public function __construct(
         DataAccessPoint $point, 
@@ -53,6 +55,8 @@ class [[table-class-name]] extends BaseModelDataTable
      * @param array $params params
      * @param bool $calculateAffected if needed to return affected, default true
      * @return [[table-class-name]]
+     * @public
+     * @static
      */
     public static function LoadByFilter(
         int $page = -1, 
@@ -76,6 +80,8 @@ class [[table-class-name]] extends BaseModelDataTable
      * @param string $sortOrder sort order, default asc
      * @param bool $calculateAffected if needed to return affected, default true
      * @return ?[[table-class-name]]
+     * @public
+     * @static
      */
     public static function LoadBy(
         int $page = -1, 
@@ -97,6 +103,8 @@ class [[table-class-name]] extends BaseModelDataTable
      * @param int $page page
      * @param int $pagesize page size
      * @return [[table-class-name]] 
+     * @public
+     * @static
      */
     public static function LoadAll(
         int $page = -1, 
@@ -111,6 +119,8 @@ class [[table-class-name]] extends BaseModelDataTable
      * Returns row model by ID
      * @param int $id ID of the row to fetch
      * @return [[row-class-name]]|null
+     * @public
+     * @static
      */
     public static function LoadById(int $id) : [[row-class-name]]|null 
     {
@@ -121,6 +131,8 @@ class [[table-class-name]] extends BaseModelDataTable
     /**
      * Returns an empty row object
      * @return [[row-class-name]]
+     * @public
+     * @static
      */
     public static function LoadEmpty() : [[row-class-name]]
     {
@@ -132,6 +144,8 @@ class [[table-class-name]] extends BaseModelDataTable
      * Deletes a rows by array of ID
      * @param int[] $ids ID array of ID
      * @return bool
+     * @public
+     * @static
      */
     public static function DeleteAllByIds(array $ids): bool
     {
@@ -142,6 +156,8 @@ class [[table-class-name]] extends BaseModelDataTable
      * Restores a rows by array of ID, works only in softdelete mode
      * @param int[] $ids array of ID
      * @return bool
+     * @public
+     * @static
      */
     public static function RestoreAllByIds(array $ids): bool
     {
@@ -153,6 +169,8 @@ class [[table-class-name]] extends BaseModelDataTable
      * Deletes a rows by filter
      * @param string $filter filter string, {field} form can be used
      * @return bool
+     * @public
+     * @static
      */
     public static function DeleteAllByFilter(string $filter): bool
     {
@@ -161,8 +179,10 @@ class [[table-class-name]] extends BaseModelDataTable
     }
 
     /**
-     * Migrates an object
+     * Migrates an table data
      * @param ?Logger $logger
+     * @public
+     * @static
      */
     public static function DataMigrate(?Logger $logger = null): bool
     {

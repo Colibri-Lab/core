@@ -20,11 +20,13 @@ class RandomizationHelper
      * Generates a random seed value.
      *
      * @return int A randomly generated seed.
+     * @public
+     * @static
      */
     public static function Seed(): int
     {
         list($usec, $sec) = explode(' ', microtime());
-        return (float) $sec + ((float) $usec * 100000);
+        return (int) ((float) $sec + ((float) $usec * 100000));
     }
 
     /**
@@ -34,6 +36,8 @@ class RandomizationHelper
      * @param int|float $max The maximum value (inclusive).
      *
      * @return int A randomly generated integer between $min and $max.
+     * @public
+     * @static
      */
     public static function Integer(int|float $min, int|float $max): int
     {
@@ -46,6 +50,8 @@ class RandomizationHelper
      * @param int $length The desired length of the random string.
      *
      * @return string The randomly generated mixed string.
+     * @public
+     * @static
      */
     public static function Mixed(int $length): string
     {
@@ -72,6 +78,8 @@ class RandomizationHelper
      *
      * @return string The randomly generated string containing numeric digits.
      * @testFunction testRandomizationHelperNumeric
+     * @public
+     * @static
      */
     public static function Numeric(int $length): string
     {
@@ -97,6 +105,8 @@ class RandomizationHelper
      * @param int $length The desired length of the random string.
      *
      * @return string The randomly generated string of characters.
+     * @public
+     * @static
      */
     public static function Character(int $length): string
     {

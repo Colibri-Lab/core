@@ -29,6 +29,8 @@ class SmtpHelper
      * @param array $attachments An optional array of file attachments (default is an empty array).
      *
      * @return void
+     * @public
+     * @static
      */
     public static function Send(
         array $configArray,

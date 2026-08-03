@@ -417,6 +417,9 @@ class ReactServer
         $content = $result?->message ?? $result?->result ?? '';
         if ($type == WebUtils::JSON || $type == WebUtils::Stream) {
             $content = json_encode($result?->result ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+            if(!$content) {
+                $content = json_encode(['error' => 'Failed to encode JSON: ' . json_last_error_msg()], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+            }
         } elseif ($type === WebUtils::XML) {
             $content = XmlHelper::Encode($result?->result ?? []);
         } elseif ($type == WebUtils::HTML) {

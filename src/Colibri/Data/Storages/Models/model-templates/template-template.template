@@ -11,8 +11,7 @@ use [[template-class]];
  * Template of [[template-key]] for storage [[storage-name]]
  * @var ExtendedObject $args template arguments
  * @return string
- * 
-*/
+ */
 
 /** @var [[template-class-name]] шаблон отображения */
 $template = $args->template;

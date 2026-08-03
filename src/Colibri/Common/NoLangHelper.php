@@ -21,6 +21,8 @@ class NoLangHelper
      *
      * @param string $value
      * @return string
+     * @public
+     * @static
      */
     public static function ParseString(string $value): string
     {
@@ -42,6 +44,8 @@ class NoLangHelper
      *
      * @param array|object $array
      * @return array
+     * @public
+     * @static
      */
     public static function ParseArray(array|object $array): array
     {

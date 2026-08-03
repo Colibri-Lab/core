@@ -21,6 +21,7 @@ interface IArrayList
      *
      * @param int $index The index of the item to retrieve.
      * @return mixed The item at the specified index.
+     * @public
      */
     public function Item(int $index): mixed;
 
@@ -29,6 +30,7 @@ interface IArrayList
      *
      * @param mixed $value The item to add.
      * @return mixed The updated collection after adding the item.
+     * @public 
      */
     public function Add(mixed $value): mixed;
 
@@ -37,6 +39,7 @@ interface IArrayList
      *
      * @param mixed $values The value(s) to append.
      * @return void
+     * @public
      */
     public function Append(mixed $values): void;
 
@@ -45,6 +48,7 @@ interface IArrayList
      *
      * @param mixed $value The item to delete.
      * @return bool True if the item was successfully deleted, false otherwise.
+     * @public
      */
     public function Delete(mixed $value): bool;
 
@@ -53,6 +57,7 @@ interface IArrayList
      *
      * @param int $index The index of the item to delete.
      * @return array The updated collection after removing the item.
+     * @public
      */
     public function DeleteAt(int $index): array;
 
@@ -61,6 +66,7 @@ interface IArrayList
      *
      * @param string $splitter The delimiter to use when joining elements.
      * @return string The string representation of the object.
+     * @public
      */
     public function ToString(string $splitter = ','): string;
 
@@ -68,6 +74,7 @@ interface IArrayList
      * Returns an array of values.
      *
      * @return array
+     * @public
      */
     public function ToArray(): array;
 
@@ -75,18 +82,21 @@ interface IArrayList
      * Returns the number of records in the array.
      *
      * @return int
+     * @public
      */
     public function Count(): int;
 
     /**
      * Returns the first item in the list.
      * @return mixed
+     * @public
      */
     public function First(): mixed;
 
     /**
      * Returns the last item in the list.
      * @return mixed
+     * @public
      */
     public function Last(): mixed;
 

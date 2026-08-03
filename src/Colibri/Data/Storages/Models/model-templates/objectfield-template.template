@@ -19,6 +19,12 @@ use Colibri\Data\Storages\Fields\ObjectField;
  */
 class [[class-name]] extends ObjectField
 {
+    /**
+     * Json schema for the model properties
+     * @public
+     * @const
+     * @var array
+     */
     public const JsonSchema = [
         'type' => 'object',
         'required' => [
@@ -37,6 +43,12 @@ class [[class-name]] extends ObjectField
     [[consts]]
     # endregion Consts;
 
+    /**
+     * Casts for type of model properties
+     * @public
+     * @const
+     * @var array
+     */
     protected static array $casts = [
     # region Casts:
 [[casts]]

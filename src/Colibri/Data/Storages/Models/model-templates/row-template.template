@@ -21,6 +21,12 @@ use Colibri\Utils\Debug;
 class [[row-class-name]] extends BaseModelDataRow 
 {
 
+    /**
+     * Json schema for the model properties
+     * @public
+     * @const
+     * @var array
+     */
     public const JsonSchema = [
         'type' => 'object',
         'required' => [
@@ -46,12 +52,25 @@ class [[row-class-name]] extends BaseModelDataRow
     [[consts]]
     # endregion Consts;
 
+    /**
+     * Casts for type of model properties
+     * @public
+     * @const
+     * @var array
+     */
     protected static array $casts = [
     # region Casts:
     [[casts]]
     # endregion Casts;
     ];
 
+    /**
+     * Create a new model or load by ID
+     * @param ?int $id id of model if need to load
+     * @return [[row-class-name]] loaded or created model
+     * @public
+     * @static
+     */
     public static function Create(?int $id = null): [[row-class-name]]
     {
         if(!$id) {

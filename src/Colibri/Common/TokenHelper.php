@@ -23,6 +23,8 @@ class TokenHelper
      * @param string $key key for token 
      * @param int $ttl time to live in seconds
      * @return string
+     * @public
+     * @static
      */
     public static function Generate(string $key, int $ttl = 300): string
     {
@@ -37,6 +39,8 @@ class TokenHelper
      * @param string $token token to validate
      * @param string $key key for token
      * @return bool
+     * @public
+     * @static
      */
     public static function Validate($token, $key): bool
     {

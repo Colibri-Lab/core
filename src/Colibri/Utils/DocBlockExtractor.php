@@ -2,6 +2,7 @@
 
 namespace Colibri\Utils;
 
+use Colibri\Common\Encoding;
 use Colibri\Common\StringHelper;
 use Colibri\IO\FileSystem\File;
 
@@ -223,9 +224,10 @@ class DocBlockExtractor
             }
             
             if(empty($global) && empty($prototyped)) {
-                return [
-                    'error' => 'Не найден докблок класса/enum/interface/trait (тег @class/@enum/@interface/@trait).',
-                ];
+                return null; 
+                // [
+                //     'error' => 'Не найден докблок класса/enum/interface/trait (тег @class/@enum/@interface/@trait).',
+                // ];
             }
 
             return [
@@ -357,11 +359,11 @@ class DocBlockExtractor
      */
     private function parseDocBlock(string $docComment): array
     {
-        $lines = preg_split('/\R/', $docComment);
+        $lines = preg_split('/\R/u', $docComment);
         $cleanLines = [];
 
         foreach ($lines as $line) {
-            $line = preg_replace('/^\s*\/?\*+\/?\s?/', '', $line);
+            $line = preg_replace('/^\s*\/?\*+\/?\s?/u', '', $line);
             $cleanLines[] = rtrim($line);
         }
 
@@ -369,7 +371,7 @@ class DocBlockExtractor
         $tags = [];
 
         foreach ($cleanLines as $line) {
-            if (preg_match('/^@([\w-]+)\s*(.*)$/', $line, $m)) {
+            if (preg_match('/^@([\w-]+)\s*(.*)$/u', $line, $m)) {
                 $tags[] = ['tag' => $m[1], 'raw' => trim($m[2])];
                 continue;
             }
@@ -516,10 +518,6 @@ class DocBlockExtractor
 
         return [$information, $virtualProperties, $virtualMethods];
     }
-
-    // ------------------------------------------------------------------
-    // Properties (@public/@private/@protected/@static/@final/@var + JS get/set)
-    // ------------------------------------------------------------------
 
     /**
      * @private

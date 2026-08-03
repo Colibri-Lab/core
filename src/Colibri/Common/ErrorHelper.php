@@ -19,6 +19,8 @@ class ErrorHelper
      * @param string $channel The Telegram channel ID.
      * @param string $message The error message to send.
      * @return void
+     * @public
+     * @static
      */
     public static function Telegram(string $channel, string $message): void
     {

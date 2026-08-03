@@ -24,6 +24,7 @@ class ReadonlyCollection extends Collection
      * @param mixed $value
      * @return void
      * @throws CollectionException
+     * @public
      */
     public function Add(string $key, mixed $value): mixed
     {
@@ -36,6 +37,7 @@ class ReadonlyCollection extends Collection
      * @param string $key
      * @return void
      * @throws CollectionException
+     * @public
      */
     public function Delete(string $key): bool
     {
@@ -46,6 +48,9 @@ class ReadonlyCollection extends Collection
      * Prevents appending values to the collection.
      *
      * @param mixed $from
+     * @return void
+     * @throws CollectionException
+     * @public
      */
     public function Append(mixed $from): void
     {
@@ -60,6 +65,7 @@ class ReadonlyCollection extends Collection
      * @param mixed $value
      * @return mixed
      * @throws CollectionException
+     * @public
      */
     public function Insert(mixed $index, mixed $key, mixed $value): mixed
     {
@@ -72,6 +78,7 @@ class ReadonlyCollection extends Collection
      * @param int $index
      * @return bool
      * @throws CollectionException
+     * @public
      */
     public function DeleteAt(int $index): bool
     {
@@ -83,6 +90,7 @@ class ReadonlyCollection extends Collection
      *
      * @return void
      * @throws CollectionException
+     * @public
      */
     public function Clear(): void
     {
@@ -96,6 +104,7 @@ class ReadonlyCollection extends Collection
      * @param mixed $value
      * @return void
      * @throws CollectionException
+     * @public
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -108,6 +117,7 @@ class ReadonlyCollection extends Collection
      * @param mixed $offset
      * @return void
      * @throws CollectionException
+     * @public
      */
     public function offsetUnset(mixed $offset): void
     {

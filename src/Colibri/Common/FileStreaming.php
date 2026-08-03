@@ -25,6 +25,8 @@ class FileStreaming
      * @param string $file The path to the file to be converted.
      *
      * @return string The Base64-encoded content of the file.
+     * @public
+     * @static
      */
     public static function ToBase64(string $file): string
     {
@@ -41,6 +43,8 @@ class FileStreaming
      * @param string $file The path to the file.
      *
      * @return string The text content of the file.
+     * @public
+     * @static
      */
     public static function AsText(string $file): string
     {
@@ -54,6 +58,8 @@ class FileStreaming
      * @param bool $background Whether the tag should have a background (optional, default is false).
      *
      * @return string The tag representation.
+     * @public
+     * @static
      */
     public static function AsTag(string $file, bool $background = false): string
     {

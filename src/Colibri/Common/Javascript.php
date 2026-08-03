@@ -24,6 +24,8 @@ class Javascript
      * @param string $input The input string to be shrunk.
      *
      * @return string The shrunk version of the input string.
+     * @public
+     * @static
      */
     public static function Shrink(string $input): string
     {

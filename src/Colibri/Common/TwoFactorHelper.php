@@ -21,7 +21,9 @@ class TwoFactorHelper
      *
      * @param string $data The binary data to encode.
      * @return string The Base32 encoded string.
-     */    
+     * @public
+     * @static
+     */
     private static function encode(string $data): string {
         $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
         $binary = '';
@@ -42,6 +44,8 @@ class TwoFactorHelper
      *
      * @param string $b32 The Base32 encoded string.
      * @return string The decoded binary data.
+     * @public
+     * @static
      */
     private static function decode(string $b32): string {
         $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
@@ -67,6 +71,8 @@ class TwoFactorHelper
      *
      * @param int $length The length of the secret key (default: 16).
      * @return string The generated secret key.
+     * @public
+     * @static
      */
     public static function Generate(int $length = 16) {
         $bytes = random_bytes($length);
@@ -79,6 +85,8 @@ class TwoFactorHelper
      * @param string $secret The secret key.
      * @param int|null $time_slice The time slice (default: current time slice).
      * @return string The generated OTP.
+     * @public
+     * @static
      */
     public static function Degenerate(string $secret, ?int $time_slice = null): string {
         if ($time_slice === null) {
@@ -105,6 +113,8 @@ class TwoFactorHelper
      * @param string $code The OTP code to verify.
      * @param int|null $time_slice The time slice (default: current time slice).
      * @return bool True if the OTP is valid, false otherwise.
+     * @public
+     * @static
      */
     public static function Verify(string $secret, string $code, ?int $time_slice = null): bool {
         $valid = false;

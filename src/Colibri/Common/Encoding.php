@@ -16,13 +16,25 @@ namespace Colibri\Common;
  */
 class Encoding
 {
-    /** UTF8 encoding */
+    /** 
+     * UTF8 encoding
+     * @const string
+     * @public 
+     */
     public const UTF8 = "utf-8";
 
-    /** Windows 1251 encoding */
+    /** 
+     * Windows 1251 encoding
+     * @const string
+     * @public
+     */
     public const CP1251 = "windows-1251";
 
-    /** ISO 8859-1 encoding */
+    /** 
+     * ISO 8859-1 encoding
+     * @const string
+     * @public
+     */
     public const ISO_8859_1 = 'iso-8859-1';
 
     /**
@@ -38,6 +50,8 @@ class Encoding
      * @param string|null $from The source format (optional).
      *
      * @return string|array|object The converted data.
+     * @public
+     * @static
      */
     public static function Convert(
         string|array|object $string,
@@ -90,6 +104,8 @@ class Encoding
      * @param string $encoding The target encoding to validate against.
      *
      * @return bool True if the string is valid in the specified encoding, false otherwise.
+     * @public
+     * @static
      */
     public static function Check(string $string, string $encoding): bool
     {
@@ -106,6 +122,8 @@ class Encoding
      * @param string $string The input string to analyze.
      *
      * @return string The detected format or encoding.
+     * @public
+     * @static
      */
     public static function Detect(string $string): string
     {

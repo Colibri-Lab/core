@@ -29,6 +29,8 @@ class StringHelper
      * @param string $s The input string to convert.
      *
      * @return string The lowercase version of the input string.
+     * @public
+     * @static
      */
     public static function ToLower(string $s): string
     {
@@ -40,7 +42,9 @@ class StringHelper
      *
      * @param string $s The input string to convert.
      *
-     * @return string The lowercase version of the input string.
+     * @return string The uppercase version of the input string.
+     * @public
+     * @static
      */
     public static function ToUpper(string $s): string
     {
@@ -53,6 +57,8 @@ class StringHelper
      * @param string $s The input string to check.
      *
      * @return bool True if the string contains only uppercase letters, false otherwise.
+     * @public
+     * @static
      */
     public static function IsUpper(string $s): bool
     {
@@ -67,7 +73,9 @@ class StringHelper
      *
      * @param string $s The input string to check.
      *
-     * @return bool True if the string contains only uppercase letters, false otherwise.
+     * @return bool True if the string contains only lowercase letters, false otherwise.
+     * @public
+     * @static
      */
     public static function IsLower(string $s): bool
     {
@@ -77,6 +85,15 @@ class StringHelper
         return $s == StringHelper::ToLower($s);
     }
 
+    /**
+     * Checks if a given string is a valid JSON string.
+     *
+     * @param string $s The input string to check.
+     *
+     * @return bool True if the string is a valid JSON string, false otherwise.
+     * @public
+     * @static
+     */
     public static function IsJsonString(string $s): bool
     {
         try {
@@ -93,13 +110,15 @@ class StringHelper
      * @param string $str The input string.
      *
      * @return string The string with the first character in uppercase.
+     * @public
+     * @static
      */
     public static function ToUpperFirst(string $str): string
     {
         if (!is_string($str)) {
-            return false;
+            return '';
         }
-        return mb_strtoupper(mb_substr($str, 0, 1, 'UTF-8')) . mb_substr($str, 1);
+        return mb_strtoupper(mb_substr($str, 0, 1, 'UTF-8')) . mb_substr($str, 1, null, 'UTF-8');
     }
 
     /**
@@ -112,6 +131,8 @@ class StringHelper
      * @param int &$count (Optional) A variable to store the number of replacements made (default is 0).
      *
      * @return string|array|bool The modified string or array after replacements, or false on failure.
+     * @public
+     * @static
      */
     public static function Replace(
         string|array $subject,
@@ -160,6 +181,8 @@ class StringHelper
      * @param string $splitter The character used to split words (optional, default is '-').
      *
      * @return string The converted string in camelCase attribute format.
+     * @public
+     * @static
      */
     public static function ToCamelCaseAttr(
         string $str,
@@ -187,6 +210,8 @@ class StringHelper
      * @param bool $forceLowerCase Whether to force the output to be in lowercase (optional, default is true).
      *
      * @return string The converted string in hyphen-separated attribute format.
+     * @public
+     * @static
      */
     public static function FromCamelCaseAttr(
         string $str,
@@ -209,6 +234,8 @@ class StringHelper
      * @param bool $firstCapital Whether the first letter should be capitalized (default: false).
      *
      * @return string The camel-cased version of the input string.
+     * @public
+     * @static
      */
     public static function ToCamelCaseVar(
         string $str,
@@ -233,6 +260,8 @@ class StringHelper
      * @param string $str The input string in camel case.
      *
      * @return string The converted variable name.
+     * @public
+     * @static
      */
     public static function FromCamelCaseVar(string $str, bool $detectAbb = false): string
     {
@@ -276,6 +305,8 @@ class StringHelper
      * @param bool $checkThatDomainExists Whether to verify that the domain exists (default: false).
      *
      * @return bool True if the email address is valid, false otherwise.
+     * @public
+     * @static
      */
     public static function IsEmail(string $address, bool $checkThatDomainExists = false): bool
     {
@@ -304,6 +335,8 @@ class StringHelper
      * @param string $email The email address to validate.
      *
      * @return bool True if the email address is valid, false otherwise.
+     * @public
+     * @static
      */
     public static function IsEmail2(string $email): bool
     {
@@ -339,6 +372,8 @@ class StringHelper
      * @param string $address The URL to validate.
      *
      * @return bool True if the URL is valid, false otherwise.
+     * @public
+     * @static
      */
     public static function IsUrl(string $address): bool
     {
@@ -351,6 +386,8 @@ class StringHelper
 
     /**
      * Checks if a string ends with a specified suffix.
+     * @public
+     * @static
      *
      * @param string $string The input string to check.
      * @param string $end The suffix to compare.
@@ -369,6 +406,8 @@ class StringHelper
      * @param string $start The prefix to compare.
      *
      * @return bool True if the string starts with the specified prefix, false otherwise.
+     * @public
+     * @static
      */
     public static function StartsWith(string $string, string $start): bool
     {
@@ -381,6 +420,8 @@ class StringHelper
      * @param string $url The input URL to convert.
      *
      * @return string The namespace derived from the URL.
+     * @public
+     * @static
      */
     public static function UrlToNamespace(string $url): string
     {
@@ -404,6 +445,8 @@ class StringHelper
      * @param bool $encode Whether to URL-encode the parameters (default: true).
      *
      * @return string The modified URL with added query parameters.
+     * @public
+     * @static
      */
     public static function AddToQueryString(string $url, string|array|object $params, bool $encode = true): string
     {
@@ -429,6 +472,8 @@ class StringHelper
      * @param int $length The desired length of the random string.
      *
      * @return string A randomly generated string.
+     * @public
+     * @static
      */
     public static function Randomize(int $length): string
     {
@@ -442,6 +487,8 @@ class StringHelper
      * @param bool $quoters Whether to add quotes around the attribute value (default: false).
      *
      * @return string The prepared attribute string.
+     * @public
+     * @static
      */
     public static function PrepareAttribute(string $string, bool $quoters = false): string
     {
@@ -461,6 +508,8 @@ class StringHelper
      * @param string $s The input string to unescape.
      *
      * @return string The unescaped string.
+     * @public
+     * @static
      */
     public static function Unescape(string $s): string
     {
@@ -485,6 +534,8 @@ class StringHelper
      * @param string|null $allowedTags Optional. A list of allowed HTML tags (e.g., "<p><a>").
      *
      * @return string The string with HTML tags removed.
+     * @public
+     * @static
      */
     public static function StripHTML(string $html, ?string $allowedTags = null): string
     {
@@ -499,6 +550,8 @@ class StringHelper
      * @param int|null $length Optional. The length of the substring to extract (default: until the end of the string).
      *
      * @return string The extracted substring.
+     * @public
+     * @static
      */
     public static function Substring(string $string, int $start, ?int $length = null): string
     {
@@ -519,6 +572,8 @@ class StringHelper
      * @param string $string The input string to measure.
      *
      * @return int The length of the input string.
+     * @public
+     * @static
      */
     public static function Length(string $string): int
     {
@@ -537,6 +592,8 @@ class StringHelper
      * @param bool $viewnumber Whether to include the numeric value in the output (default: false).
      *
      * @return string The formatted sequence with labels.
+     * @public
+     * @static
      */
     public static function FormatSequence(
         float $sequence,
@@ -609,6 +666,8 @@ class StringHelper
      * @param array $postfixes Optional. An array of postfixes for different size units (e.g., ["bytes", "Kb", "Mb", "Gb", "Tb"]).
      *
      * @return string The formatted file size string.
+     * @public
+     * @static
      */
     public static function FormatFileSize(
         int $number,
@@ -634,6 +693,8 @@ class StringHelper
      * @param string $ellipsis Optional. The ellipsis to add when truncating (default: "...").
      *
      * @return string|null The trimmed string or null if the input string is empty.
+     * @public
+     * @static
      */
     public static function TrimLength(
         string $str,
@@ -654,6 +715,8 @@ class StringHelper
      * @param string $ellipsis Optional. The ellipsis to add if the text is truncated (default: "...").
      *
      * @return string The extracted words.
+     * @public
+     * @static
      */
     public static function Words(string $text, int $n, string $ellipsis = "..."): string
     {
@@ -683,6 +746,8 @@ class StringHelper
      * @param int $minlen Optional. The minimum length of words to consider (default: 3).
      *
      * @return array An array containing unique words from the input string.
+     * @public
+     * @static
      */
     public static function UniqueWords(string $string, int $minlen = 3): array
     {
@@ -709,6 +774,8 @@ class StringHelper
      * @param string $c The character to repeat for expansion.
      *
      * @return string The expanded string.
+     * @public
+     * @static
      */
     public static function Expand(string $s, int $l, string $c): string
     {
@@ -725,6 +792,8 @@ class StringHelper
      * @param string $md5 The input MD5 string to convert.
      *
      * @return string The generated GUID.
+     * @public
+     * @static
      */
     public static function Md5ToGUID(string $md5): string
     {
@@ -737,6 +806,8 @@ class StringHelper
      * @param bool $showSeparator Whether to include hyphens as separators (default: true).
      *
      * @return string The generated GUID.
+     * @public
+     * @static
      */
     public static function GUID(bool $showSeparator = true): string
     {
@@ -755,6 +826,8 @@ class StringHelper
      * @param bool $addDelimiters Whether to include the delimiters in the resulting array (default: false).
      *
      * @return array|null An array of substrings obtained by splitting the input string or array.
+     * @public
+     * @static
      */
     public static function Explode(
         string|array $string,
@@ -799,6 +872,8 @@ class StringHelper
      * @param string $splitter The delimiter used to join the elements.
      *
      * @return string The resulting string after joining the array elements.
+     * @public
+     * @static
      */
     public static function Implode(array $array, string $splitter): string
     {
@@ -817,6 +892,8 @@ class StringHelper
      * @param string $keyDecorator Optional. A decorator for array keys (e.g., prefix, suffix).
      *
      * @return string The resulting string after joining keys and values.
+     * @public
+     * @static
      */
     public static function ImplodeWithKeys(
         array $array,
@@ -837,6 +914,8 @@ class StringHelper
      * @param string $url The input URL to parse.
      *
      * @return ExtendedObject An object containing components like scheme, host, path, query, etc.
+     * @public
+     * @static
      */
     public static function ParseAsUrl(string $url): ExtendedObject
     {
@@ -867,6 +946,8 @@ class StringHelper
      * @param string $string The input string to transliterate.
      *
      * @return string The transliterated string.
+     * @public
+     * @static
      */
     public static function Transliterate(string $string): string
     {
@@ -949,6 +1030,8 @@ class StringHelper
      * @param string $string The input string to reverse transliterate.
      *
      * @return string The original string before transliteration.
+     * @public
+     * @static
      */
     public static function TransliterateBack(string $string): string
     {
@@ -1029,6 +1112,8 @@ class StringHelper
      * @param bool $trans Whether to transliterate the text (default: true).
      *
      * @return string The human-readable identifier.
+     * @public
+     * @static
      */
     public static function CreateHID(string $text, bool $trans = true): string
     {
@@ -1082,6 +1167,8 @@ class StringHelper
      * @param string $domain Optional. The domain to associate with the noindex directive.
      *
      * @return string The modified text with the "noindex" directive.
+     * @public
+     * @static
      */
     public static function AddNoIndex(string $text, bool $hard = true, string $domain = ''): string
     {
@@ -1125,6 +1212,8 @@ class StringHelper
      * @param string $html The input HTML string.
      *
      * @return string The modified HTML string with the <body> tag and its content removed.
+     * @public
+     * @static
      */
     public static function StripHtmlAndBody(string $html): string
     {
@@ -1140,6 +1229,8 @@ class StringHelper
      *
      * @param string $text The input text containing emojis.
      * @return string The text with emojis removed.
+     * @public
+     * @static
      */
     public static function RemoveEmoji(string $text): string
     {
@@ -1152,6 +1243,8 @@ class StringHelper
      * @param string $string The input string to convert.
      * @param array $splitters An array of characters to split the string (default: ['&', '=']).
      * @return ExtendedObject The resulting ExtendedObject.
+     * @public
+     * @static
      */
     public static function ToObject(string $string, array $splitters = ['&', '=']): ExtendedObject
     {
@@ -1173,6 +1266,8 @@ class StringHelper
      * @param string $string The input string to trim.
      * @param string $trim_chars Characters to remove (default: '\s' which includes whitespace).
      * @return string The trimmed string.
+     * @public
+     * @static
      */
     public static function Trim(string $string, string $trim_chars = '\s'): string
     {
@@ -1186,6 +1281,8 @@ class StringHelper
      * @param string $search The search string.
      * @param string $replace The replacement string.
      * @return object The object with replaced values.
+     * @public
+     * @static
      */
     public static function ReplaceInObject($object, $search, $replace): object
     {
@@ -1201,6 +1298,8 @@ class StringHelper
      *
      * @param string $phoneString The phone number string to clear.
      * @return string The cleared phone number string.
+     * @public
+     * @static
      */
     public static function ClearPhone(string $phoneString): string
     {

@@ -17,6 +17,12 @@ use Colibri\Data\Storages\Fields\ArrayField;
  */
 class [[class-name]] extends ArrayField
 {
+    /**
+     * Json schema for the model properties
+     * @public
+     * @const
+     * @var array
+     */
     public const JsonSchema = [
         'type' => 'array',
         'items' => [[child-class-name]]::JsonSchema

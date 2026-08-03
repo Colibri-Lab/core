@@ -8,7 +8,12 @@ namespace [[namespace-path]];
  */
 enum [[enum-name]]:[[enum-type]] 
 {
-
+    /**
+     * Json schema for the model properties
+     * @public
+     * @const
+     * @var array
+     */
     public const JsonSchema = [
         'type' => '[[enum-json-type]]',
         'enum' => [

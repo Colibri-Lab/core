@@ -29,6 +29,8 @@ class ArchiveHelper
      * @property string $binary data to archive
      * @property string $file file name
      * @return string
+     * @public
+     * @static
      */
     public static function Create(string $binary, string $file): string
     {
@@ -50,6 +52,8 @@ class ArchiveHelper
      * Extract and archive from binary data
      * @property string $binary archive data
      * @return string
+     * @public
+     * @static
      */
     public static function Extract(string $binary): string
     {
@@ -76,6 +80,8 @@ class ArchiveHelper
      * Check if the file is zip archive
      * @property string $filename file name to check
      * @return bool
+     * @public
+     * @static
      */
     public static function IsArchive(string $filename): bool
     {
@@ -91,6 +97,8 @@ class ArchiveHelper
      * @param string $path The path to the zip archive.
      * @param string $directoryPath The path to the directory where the archive will be extracted.
      * @return void
+     * @public
+     * @static
      */
     public static function ExtractTo(string $path, string $directoryPath): void
     {

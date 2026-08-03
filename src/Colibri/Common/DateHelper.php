@@ -21,28 +21,60 @@ use Colibri\Data\Storages\Fields\DateTimeField;
  */
 class DateHelper
 {
-    /** Non-breaking space */
+    /** 
+     * Non-breaking space 
+     * @const string
+     * @private
+     */
     private const NBSP = '&nbsp;';
 
-    /** Date format */
+    /** 
+     * Date format
+     * @const string    
+     * @private
+     */
     private const DATEFORMAT = 'Y-m-d 00:00:00';
 
-    /** Seconds in year */
+    /** 
+     * Seconds in year
+     * @const int
+     * @private 
+     */
     public const YEAR = 31556926;
 
-    /** Seconds in month */
+    /** 
+     * Seconds in month
+     * @const int
+     * @private
+     */
     public const MONTH = 2629744;
 
-    /** Seconds in week */
+    /** 
+     * Seconds in week
+     * @const int
+     * @private
+     */
     public const WEEK = 604800;
 
-    /** Seconds in day */
+    /** 
+     * Seconds in day
+     * @const int
+     * @private
+     */
     public const DAY = 86400;
 
-    /** Seconds in hour */
+    /** 
+     * Seconds in hour
+     * @const int
+     * @private
+     */
     public const HOUR = 3600;
 
-    /** Seconds in minute */
+    /** 
+     * Seconds in minute
+     * @const int
+     * @private
+     */
     public const MINUTE = 60;
 
     /**
@@ -57,6 +89,8 @@ class DateHelper
      * @param int $month The month (1 to 12).
      * @param int $day The day of the month (1 to 31).
      * @return int
+     * @static
+     * @public
      */
     public static function Create(int $year, int $month, int $day): bool|int
     {
@@ -74,6 +108,8 @@ class DateHelper
      *
      * @param int|null $date The date (as an integer timestamp) or null for the current date.
      * @return bool|int The last day of the month (as an integer day of the month), or false if invalid input.
+     * @static
+     * @public
      */
     public static function LastDayOfMonth(?int $date = null): bool|int
     {
@@ -90,6 +126,8 @@ class DateHelper
      *
      * @param float|null $time The timestamp (as a float) or null for the current time.
      * @return string The RFC 2822 formatted date string.
+     * @static
+     * @public
      */
     public static function RFC(?float $time = null): string
     {
@@ -111,6 +149,8 @@ class DateHelper
      * @param float|string|null $time The timestamp (as a float), date string, or null for the current time.
      * @param string|null $format The desired format (default is 'Y-m-d H:i:s').
      * @return string The formatted date string suitable for database storage.
+     * @static
+     * @public
      */
     public static function ToDbString(float|string|null $time = null, ?string $format = 'Y-m-d H:i:s'): string
     {
@@ -133,6 +173,8 @@ class DateHelper
      * @param float|null $time The timestamp (as a float) or null for the current time.
      * @param bool $showTime Whether to include the time portion in the output (default is false).
      * @return string The human-readable date string.
+     * @static
+     * @public
      */
     public static function ToHumanDate(?float $time = null, ?bool $showTime = false, ?bool $showDay = true): string
     {
@@ -156,6 +198,8 @@ class DateHelper
      * @param string $time the human-readable time string
      * @param string $language a language
      * @return int timestamp
+     * @static
+     * @public
      */
     public static function FromHumanDate(string $time, string $language = 'ru'): int
     {
@@ -184,6 +228,8 @@ class DateHelper
      * @param string $quarterName The name to use for the quarter (e.g., 'quarter' or 'Q').
      * @param bool $numberOnly Whether to include only the quarter number (default is false).
      * @return string The human-readable quarter representation (e.g., 'Q1 2024' or '1st quarter 2024').
+     * @static
+     * @public
      */
     public static function ToQuarter(
         int|string|null $time = null,
@@ -201,7 +247,7 @@ class DateHelper
 
         $kv = (int)((date('n', $time)-1)/3+1);
         if ($numberOnly) {
-            return $kv;
+            return (string)$kv;
         }
 
         $year = date('Y', $time);
@@ -219,6 +265,8 @@ class DateHelper
      *
      * @param string $datestring The date string to convert.
      * @return int|null The Unix timestamp corresponding to the date string, or null if invalid input.
+     * @static
+     * @public
      */
     public static function ToUnixTime(string $datestring): int|null
     {
@@ -238,6 +286,8 @@ class DateHelper
      *
      * @param int $time The timestamp (as an integer) representing the date.
      * @return string The age in years as a string (e.g., "30 years old").
+     * @static
+     * @public
      */
     public static function Age(int $time): string
     {
@@ -279,7 +329,9 @@ class DateHelper
      * ```
      *
      * @param int|string $time The timestamp (as an integer) or date string.
-     * @return string The age in years as a string (e.g., "30 years old").
+     * @return int The age in years as an integer.
+     * @static
+     * @public
      */
     public static function AgeYears(int|string $time): int
     {
@@ -315,6 +367,8 @@ class DateHelper
      *
      * @param int $number The timestamp (as an integer).
      * @return string|null The formatted time string (e.g., "12:30:10"), or null if invalid input.
+     * @static
+     * @public
      */
     public static function TimeToString(int $number): ?string
     {
@@ -362,6 +416,8 @@ class DateHelper
      * @param string|int $time1 The first timestamp or date string.
      * @param string|int $time2 The second timestamp or date string.
      * @return object An object representing the canonical time difference (e.g., years, months, days, hours, minutes, seconds).
+     * @static
+     * @public
      */
     public static function CanonicalDiff(string|int $time1, string|int $time2): object
     {
@@ -387,6 +443,8 @@ class DateHelper
      * @param int $time1 The first timestamp.
      * @param int $time2 The second timestamp.
      * @return object An object representing the time difference (e.g., days, hours, minutes).
+     * @static
+     * @public
      */
     public static function Diff(int $time1, int $time2): object
     {
@@ -454,6 +512,8 @@ class DateHelper
      * @param string $splitter The delimiter to use between tokens (default is a space).
      * @param array $tokens An array of token names for years, months, and days (e.g., [['год', 'года', 'лет'], ...]).
      * @return string The formatted difference string (e.g., "2 года 3 месяца 15 дней").
+     * @static
+     * @public
      */
     public static function DiffFullTokens(
         $time1,
@@ -498,6 +558,8 @@ class DateHelper
      * @param string $delimiter The delimiter used in the input date string (default is '.').
      * @param string $format The desired output format (default is 'Y-m-d H:i:s').
      * @return string The formatted date string.
+     * @static
+     * @public
      */
     public static function FromDDMMYYYY(string $dateString, string $delimiter = '.', $format = 'Y-m-d H:i:s'): string
     {
@@ -516,6 +578,8 @@ class DateHelper
      *
      * @param string $date The JavaScript-style date string (e.g., "2024-03-15T12:30:45").
      * @return DateTimeField A `DateTimeField` object representing the parsed date and time.
+     * @static
+     * @public
      */
     public static function FromJSDate(string $date): DateTimeField
     {
@@ -530,6 +594,8 @@ class DateHelper
 
     /**
      * Calculates the number of days in the month for the given DateTime object.
+     * @static
+     * @public
      *
      * @example
      * ```
@@ -541,13 +607,15 @@ class DateHelper
      */
     public static function DaysInMonth(DateTime $dt): int
     {
-        return cal_days_in_month(CAL_GREGORIAN, $dt->format('M'), $dt->format('yyyy'));
+        return cal_days_in_month(CAL_GREGORIAN, $dt->format('m'), $dt->format('Y'));
     }
 
     /**
      * Converts a date string to an ISO 8601 formatted date string in UTC.
      * @param string|null $value The date string to convert (default is 'now').
      * @return string The ISO 8601 formatted date string in UTC (e.g., "2024-03-15T12:30:45Z"). 
+     * @static
+     * @public
      */
     public static function ToISODate(?string $value = 'now'): string
     {
@@ -561,6 +629,8 @@ class DateHelper
      * Converts a time string in the format "HH:MM" to the total number of minutes.
      * @param string $hourMinute The time string in "HH:MM" format.
      * @return int The total number of minutes represented by the time string.
+     * @static
+     * @public
      */
     public static function TimeToMinute(string $hourMinute): int
     {
@@ -568,8 +638,11 @@ class DateHelper
         return $parts[0] * 60 + $parts[1];
     }
 
-    /** 
+    /**
      * Calculates the current time in milliseconds since the Unix epoch.
+     * @static
+     * @public
+     * @return int The current time in milliseconds since the Unix epoch.
      */
     public static function Mc(): int
     {
@@ -578,6 +651,9 @@ class DateHelper
 
     /**
      * Calculates the current time in nanoseconds since the Unix epoch.
+     * @static
+     * @public
+     * @return int The current time in nanoseconds since the Unix epoch.
      */
     public static function Nc(): int
     {

@@ -19,7 +19,11 @@ namespace Colibri\Common;
 class ObjectHelper
 {
     /**
+     * Converts an array to an object.
+     * This function is deprecated and will be removed in future versions. Use the VariableHelper::ArrayToObject method instead.
      * @deprecated
+     * @public
+     * @static
      */
     public static function ArrayToObject(array $array): ?object
     {

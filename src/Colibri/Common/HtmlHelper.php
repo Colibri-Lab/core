@@ -27,6 +27,8 @@ class HtmlHelper
      * @param string $tag The tag to use for the encoded data (optional, default is 'object').
      *
      * @return string The encoded data as a string.
+     * @public
+     * @static
      */
     public static function Encode(array|object $object, string $tag = 'object'): string
     {
@@ -52,8 +54,10 @@ class HtmlHelper
      * @param string $xmlString The XML string to be decoded.
      *
      * @return XmlNode The parsed XML data as an XmlNode object.
+     * @public
+     * @static
      */
-    public function Decode(string $xmlString): XmlNode
+    public static function Decode(string $xmlString): XmlNode
     {
         return XmlNode::LoadHtmlNode($xmlString, 'utf-8');
     }

@@ -20,6 +20,7 @@ interface ICollection
      * Checks if a key exists in the array.
      * @param string $key
      * @return bool
+     * @public
      */
     public function Exists(string $key): bool;
 
@@ -27,6 +28,7 @@ interface ICollection
      * Return the key at the specified index.
      * @param int $index
      * @return string|null
+     * @public
      */
     public function Key(int $index): ?string;
 
@@ -34,6 +36,7 @@ interface ICollection
      * Return the value associated with the given key.
      * @param string $key
      * @return mixed
+     * @public
      */
     public function Item(string $key): mixed;
 
@@ -41,6 +44,7 @@ interface ICollection
      * Return the value at the specified index.
      * @param int $index
      * @return mixed
+     * @public
      */
     public function ItemAt(int $index): mixed;
 
@@ -49,12 +53,14 @@ interface ICollection
      * @param string $key
      * @param mixed $value
      * @return mixed
+     * @public
      */
     public function Add(string $key, mixed $value): mixed;
     /**
      * Remove a key and its associated value from the array.
      * @param string $key
      * @return bool
+     * @public
      */
     public function Delete(string $key): bool;
 
@@ -62,18 +68,21 @@ interface ICollection
      * Convert to a string with specified delimiters.
      * @param string[]|null $splitters
      * @return string
+     * @public
      */
     public function ToString(array $splitters = null): string;
 
     /**
      * Return the data as a regular array.
      * @return array
+     * @public
      */
     public function ToArray(): array;
 
     /**
      * Return the number of elements in the array.
      * @return int
+     * @public
      */
     public function Count(): int;
 

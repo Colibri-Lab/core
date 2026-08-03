@@ -24,6 +24,8 @@ class NumericHelper
      * @param float $number The numeric value to convert.
      *
      * @return string The money representation of the input value.
+     * @public 
+     * @static
      */
     public static function ToMoney(float $number): string
     {
@@ -41,6 +43,8 @@ class NumericHelper
      * @param string $thousandsSep The thousands separator (optional, default is '').
      *
      * @return string The formatted numeric value as a string.
+     * @public 
+     * @static
      */
     public static function Format(
         float $number,
@@ -55,7 +59,7 @@ class NumericHelper
 
         try {
             $return = number_format($number, $deccount, $decPoint, $thousandsSep);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $return = '0.00';
         } catch (\Error $e) {
             $return = '0.00';
@@ -66,10 +70,12 @@ class NumericHelper
 
     /**
      * @deprecated
+     * @public 
+     * @static
      */
     public static function Humanize(float $price): string
     {
-        return $price;
+        return (string)$price;
     }
 
     /**
@@ -78,6 +84,8 @@ class NumericHelper
      * @param mixed $string The input data to be normalized.
      *
      * @return float The normalized value as a floating-point number.
+     * @public 
+     * @static
      */
     public static function Normalize(mixed $string): float
     {
@@ -95,11 +103,15 @@ class NumericHelper
 
     /**
      * Converts a number to its textual representation in Russian, including rubles and kopeks.
+     * This function is deprecated and will be removed in future versions. Use the NumberToText class instead.
      * 
      * @param float $num The number to convert.
      * @param array $unit The unit forms for rubles (e.g., ['рубль', 'рубля', 'рублей']).
      * @return string The textual representation of the number in Russian.
      * @throws Exception If the input is not a finite number.
+     * @public 
+     * @static
+     * @deprecated
      */
     public static function ToText($num, $unit = ['рубль','рубля','рублей']): string
     {

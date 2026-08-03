@@ -35,6 +35,8 @@ class MimeType
      * List of MIME types.
      *
      * @var array
+     * @protected
+     * @static
      */
     protected static array $mime_types = [];
 
@@ -42,6 +44,8 @@ class MimeType
     * List of types compatible with browsers.
     *
     * @var array
+     * @protected
+     * @static
     */
     protected static array $browserCapableTypes = array(
         "jpg",
@@ -60,6 +64,8 @@ class MimeType
      * File type.
      *
      * @var string
+     * @private
+     * @static
      */
     private string $_type;
 
@@ -67,6 +73,8 @@ class MimeType
      * Constructor.
      *
      * @param string $type The file type.
+     * @public
+     * @constructor 
      */
     public function __construct(string $type)
     {
@@ -78,6 +86,8 @@ class MimeType
 
     /**
      * Loads the MIME types from the mime.types file and saves it to the runtime directory if necessary.
+     * @private
+     * @return void
      */
     private function _loadAndSave(): void
     {
@@ -88,6 +98,8 @@ class MimeType
 
     /**
      * Loads the MIME types from the mime.types file in the runtime directory.
+     * @private
+     * @return void
      */
     private function _loadMimeTypes()
     {
@@ -129,6 +141,7 @@ class MimeType
     /**
      * Returns mimetype by given file type
      * @return string
+     * @protected
      */
     protected function getPropertyData(): ?string
     {
@@ -138,6 +151,7 @@ class MimeType
     /**
      * Returns if type is compatible with browsers
      * @return bool
+     * @protected
      */
     protected function getPropertyIsCapable(): bool
     {
@@ -147,6 +161,7 @@ class MimeType
     /**
      * Returns if the file type is valid
      * @return bool
+     * @protected
      */
     protected function getPropertyIsValid(): bool
     {
@@ -156,6 +171,7 @@ class MimeType
     /**
      * Returns if the file type is image file type
      * @return bool
+     * @protected
      */
     protected function getPropertyIsImage(): bool
     {
@@ -165,6 +181,7 @@ class MimeType
     /**
      * Returns if the file type is audio file type
      * @return bool
+     * @protected
      */
     protected function getPropertyIsAudio(): bool
     {
@@ -174,6 +191,7 @@ class MimeType
     /**
      * Returns if the file type is videofile type
      * @return bool
+     * @protected
      */
     protected function getPropertyIsVideo(): bool
     {
@@ -183,6 +201,7 @@ class MimeType
     /**
      * Returns if the file type is viewable
      * @return bool
+     * @protected
      */
     protected function getPropertyIsViewable(): bool
     {
@@ -192,6 +211,7 @@ class MimeType
     /**
      * Returns if the file type is the flash video object
      * @return bool
+     * @protected
      */
     protected function getPropertyIsFlashVideo(): bool
     {
@@ -201,6 +221,7 @@ class MimeType
     /**
      * Returns if the file type is the flash object
      * @return bool
+     * @protected
      */
     protected function getPropertyIsFlash(): bool
     {
@@ -210,6 +231,7 @@ class MimeType
     /**
      * Returns if the file type in this object
      * @return bool
+     * @protected
      */
     protected function getPropertyType(): string
     {
@@ -219,6 +241,8 @@ class MimeType
     /**
      * @param string $field
      * @return mixed
+     * @protected
+     * @magic
      */
     public function __get(string $field): mixed
     {
@@ -274,6 +298,8 @@ class MimeType
      *
      * @param string $filename
      * @return MimeType
+     * @public 
+     * @static
      */
     public static function Create(string $filename): MimeType
     {
@@ -286,6 +312,8 @@ class MimeType
      *
      * @param string $mimetype
      * @return string
+     * @public 
+     * @static
      */
     public static function GetType(string $mimetype): ?string
     {
@@ -299,6 +327,10 @@ class MimeType
 
     /**
      * Returns file type by given file name
+     * @param string $filename
+     * @return string|null
+     * @public
+     * @static
      */
     public static function GetTypeFromFileName(string $filename): ?string
     {

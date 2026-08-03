@@ -22,8 +22,10 @@ class UUIDHelper
      * Generates a version 1 UUID (time-based).
      *
      * @return string The generated UUID.
+     * @public
+     * @static
      */
-    public static function v1()
+    public static function v1(): string
     {
         $time = microtime(true) * 10000000 + 0x01B21DD213814000;
         $timeHex = sprintf('%016x', (int)$time);
@@ -47,8 +49,10 @@ class UUIDHelper
      * @param string $namespace The namespace UUID.
      * @param string $name The name.
      * @return string The generated UUID.
+     * @public
+     * @static
      */
-    public static function v3($namespace, $name)
+    public static function v3(string $namespace, string $name): string
     {
         return self::nameBasedUuid($namespace, $name, 'md5', 3);
     }
@@ -57,8 +61,10 @@ class UUIDHelper
      * Generates a version 4 UUID (random).
      *
      * @return string The generated UUID.
+     * @public
+     * @static
      */
-    public static function v4()
+    public static function v4(): string
     {
         $data = random_bytes(16);
         $data[6] = chr((ord($data[6]) & 0x0f) | 0x40); 
@@ -72,8 +78,10 @@ class UUIDHelper
      * @param string $namespace The namespace UUID.
      * @param string $name The name.
      * @return string The generated UUID.
+     * @public
+     * @static
      */
-    public static function v5($namespace, $name)
+    public static function v5(string $namespace, string $name): string
     {
         return self::nameBasedUuid($namespace, $name, 'sha1', 5);
     }
@@ -86,9 +94,11 @@ class UUIDHelper
      * @param string $hashFunc The hash function to use ('md5' for v3, 'sha1' for v5).
      * @param int $version The UUID version (3 or 5).
      * @return string The generated UUID.
+     * @public
+     * @static
      * @throws InvalidArgumentException If the namespace UUID is invalid.
      */
-    private static function nameBasedUuid($namespace, $name, $hashFunc, $version)
+    private static function nameBasedUuid(string $namespace, string $name, string $hashFunc, int $version): string
     {
         if (!self::isValid($namespace)) {
             throw new InvalidArgumentException('Invalid namespace UUID');
@@ -111,7 +121,7 @@ class UUIDHelper
         $timeHi = dechex((hexdec($timeHi) & 0x0fff) | ($version << 12));
         $clockSeqHi = dechex((hexdec($clockSeqHi) & 0x3f) | 0x80);
 
-        return sprintf('%08s-%04s-%04s-%02s%02s-%012s',
+        return (string)sprintf('%08s-%04s-%04s-%02s%02s-%012s',
             $timeLow,
             $timeMid,
             $timeHi,
@@ -126,8 +136,10 @@ class UUIDHelper
      *
      * @param string $uuid The UUID to validate.
      * @return bool True if the UUID is valid, false otherwise.
+     * @public
+     * @static
      */
-    public static function isValid($uuid)
+    public static function isValid(string $uuid): bool
     {
         return preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $uuid);
     }

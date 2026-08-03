@@ -23,6 +23,8 @@ class IpHelper
      * @param string|array $patterns patterns of IP, for example: 192.*.*.*;10.5.*.*
      * @param string $checkIp
      * @return void
+     * @public
+     * @static
      */
     public static function CheckIfInPattern(string|array $patterns, string $checkIp): bool
     {
