@@ -305,7 +305,12 @@ class DocBlockExtractor
         }
 
         $cmd = $cmd . '[\''.$className.'\'] = [
-            \'type\'        => \'class\',
+            \'type\'        => \''.(match(true) {
+                !empty($enumCandidates) => 'enum',
+                !empty($interfaceCandidates) => 'interface',
+                !empty($traitCandidates) => 'trait',
+                default => 'class'
+            }).'\',
             \'information\' => $information,
             \'constructor\' => $constructor,
             \'destructor\'  => $destructor,
