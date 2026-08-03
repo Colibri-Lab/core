@@ -646,7 +646,8 @@ class Generator
             $fieldName . '_enum', true);
         $row = 'Models\\Fields\\' . StringHelper::ToCamelCaseVar($storage->name, true) . '\\' . $className;
 
-        $fieldDesc = $field->{'desc'};
+        $fieldDesc = $fieldName . ' values';
+        // $fieldDesc = $field->{'desc'};
         // if ($langModule) {
         //     $fieldDesc = $fieldDesc[$langModule->Default()] ?? $fieldDesc;
         // }
