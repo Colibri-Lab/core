@@ -36,6 +36,7 @@ final class Command extends SqlCommand
      *
      * @param string $query The query string with placeholders.
      * @return string The prepared query string with parameters replaced.
+     * @private
      */
     private function _prepareStatement(string $query): string
     {
@@ -67,6 +68,7 @@ final class Command extends SqlCommand
      *
      * @param bool $info Whether to execute a query to get the 'affected' variable.
      * @return IDataReader An instance of IDataReader containing the query results.
+     * @public
      */
     public function ExecuteReader(bool $info = true): IDataReader
     {
@@ -119,6 +121,7 @@ final class Command extends SqlCommand
      *
      * @param string|null $returning (Optional) The column name to return after executing the query.
      * @return QueryInfo A QueryInfo object containing information about the executed query.
+     * @public
      */
     public function ExecuteNonQuery(?string $returning = null): QueryInfo
     {
@@ -157,6 +160,7 @@ final class Command extends SqlCommand
      * Prepares the query string by adding pagination and other necessary modifications for the specific driver.
      *
      * @return string The prepared query string.
+     * @public
      */
     public function PrepareQueryString(): string
     {
@@ -174,6 +178,7 @@ final class Command extends SqlCommand
      * @param string $storage The storage name.
      * @param array $xstorage The extended storage configuration.
      * @return void
+     * @public
      */
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {
@@ -648,6 +653,8 @@ final class Command extends SqlCommand
      *
      * @param array|object $field The field information as an array or object.
      * @return object An object containing the extracted field information.
+     * @public
+     * @static
      */
     public static function ExtractFieldInformation(array|object $field): object
     {
@@ -667,6 +674,8 @@ final class Command extends SqlCommand
      *
      * @param array|object $index The index information as an array or object.
      * @return object An object containing the extracted index information.
+     * @public
+     * @static
      */
     public static function ExtractIndexInformation(array|object $index): object
     {

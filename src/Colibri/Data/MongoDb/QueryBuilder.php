@@ -24,26 +24,44 @@ use Colibri\Data\Storages\Storage;
  */
 class QueryBuilder
 {
-    /** @var Connection The MongoDB connection instance. */
+    /**
+     * The MongoDB connection instance. 
+     * @var Connection
+     * @private  
+     */
     private Connection $_connection;
 
     /**
      * Initializes a new instance of the QueryBuilder class with the specified MongoDB connection.
      *
      * @param Connection $connection The MongoDB connection instance.
+     * @constructor
+     * @public
      */
     public function __construct(Connection $connection)
     {
         $this->_connection = $connection;
     }
 
-    /** Mutation types for MongoDB operations. */
+    /** 
+     * Mutation types for MongoDB operations.
+     * @public
+     * @const string
+     */
     public const MutationInsert = 'insert';
 
-    /** Mutation type for updating documents in MongoDB. */
+    /** 
+     * Mutation type for updating documents in MongoDB. 
+     * @public
+     * @const string
+     */
     public const MutationUpdate = 'update';
 
-    /** Mutation type for deleting documents in MongoDB. */
+    /** 
+     * Mutation type for deleting documents in MongoDB.
+     * @public
+     * @const string
+     */
     public const MutationDelete = 'delete';
 
     /** 
@@ -54,6 +72,7 @@ class QueryBuilder
      * @param string $parent The parent field name.
      * @param Storage $storage The storage instance.
      * @param array $query The query array to populate.
+     * @private
      */
     private function _getFieldQuery($term, $fields, $parent, $storage, &$query)
     {
@@ -76,8 +95,9 @@ class QueryBuilder
      * @param string|null $sortOrder The sort order.
      * @param bool $useAsManageFilter Whether to use as manage filter.
      * @return array The generated MongoDB query.
+     * @public
      */
-    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
+    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true): array
     {
 
         $filterFields = VariableHelper::ToJsonFilters($filterFields);
@@ -189,6 +209,7 @@ class QueryBuilder
      * @param mixed $row The data row to process.
      * @param string $mutationType The type of mutation (insert, update, delete).
      * @return array|object The processed mutation data.
+     * @public
      */
     public function ProcessMutationData(mixed $row, string $mutationType): array|object
     {
@@ -234,6 +255,7 @@ class QueryBuilder
      * @param string $field The field name.
      * @param string $table The table name.
      * @return string The field name for the query.
+     * @public
      */
     public function CreateFieldForQuery(string $field, string $table): string
     {
@@ -246,6 +268,7 @@ class QueryBuilder
      * @param string $softDeleteField The soft delete field name.
      * @param string $table The table name.
      * @return array The soft delete query.
+     * @public
      */
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): array
     {

@@ -39,42 +39,49 @@ class Field
     /**
      * Storage
      * @var Storage
+     * @private
      */
     private ?Storage $_storage = null;
 
     /**
      * List of fields inside the current field
      * @var object
+     * @private
      */
     private $_fields;
 
     /**
      * Field data
      * @var array
+     * @private
      */
     private $_xfield;
 
     /**
      * Lookup data
      * @var Lookup
+     * @private
      */
-    private $_lookup;
+    private ?Lookup $_lookup = null;
 
     /**
      * List of possible values
      * @var string[string]
+     * @private
      */
-    private $_values;
+    private array $_values = [];
 
     /**
      * Formula
      * @var string
+     * @private
      */
-    private $_formula;
+    private string $_formula;
 
     /**
      * Parent field
      * @var Field
+     * @private
      */
     private ?Field $_parent = null;
 
@@ -83,6 +90,8 @@ class Field
      * @param array $xfield field data
      * @param Storage $storage storage
      * @return void
+     * @constructor
+     * @public
      */
     public function __construct(array $xfield, ?Storage $storage = null, ?Field $parent = null)
     {
@@ -97,6 +106,7 @@ class Field
     /**
      * Initializes the field by loading values, fields, and formula.
      * @return void
+     * @private
      */
     private function _init()
     {
@@ -108,6 +118,7 @@ class Field
     /**
      * Loads the formula
      * @return void
+     * @private
      */
     private function _loadFormula(): void
     {
@@ -117,6 +128,7 @@ class Field
     /**
      * Loads the values
      * @return void
+     * @private
      */
     private function _loadValues(): void
     {
@@ -142,6 +154,7 @@ class Field
     /**
      * Loads the fields
      * @return void
+     * @private
      */
     private function _loadFields(): void
     {
@@ -161,6 +174,8 @@ class Field
      * Getter
      * @param string $prop property
      * @return mixed value
+     * @public
+     * @magic
      */
     public function __get(string $prop): mixed
     {
@@ -229,6 +244,8 @@ class Field
      * @param string $prop property
      * @param mixed $value value
      * @return void
+     * @public
+     * @magic 
      */
     public function __set(string $prop, mixed $value): void
     {
@@ -241,6 +258,7 @@ class Field
     /**
      * Converts the field to an array representation.
      * @return array The array representation of the field.
+     * @public
      */
     public function ToArray(): array
     {
@@ -250,6 +268,7 @@ class Field
     /**
      * Returns the path to the field as an array of field names.
      * @return array An array representing the path to the field.
+     * @public
      */
     public function Path(): array
     {
@@ -266,6 +285,7 @@ class Field
      * Updates the field with new data and propagates the update to the parent or storage.
      * @param Field $field The field to update.
      * @return void
+     * @public
      */
     public function UpdateField(Field $field)
     {
@@ -280,6 +300,7 @@ class Field
     /**
      * Saves the field and its subfields.
      * @return array The saved field data.
+     * @public
      */
     public function Save(): array
     {
@@ -294,6 +315,7 @@ class Field
     /**
      * Returns the default value of the field.
      * @return mixed The default value of the field.
+     * @public
      */
     public function AddField($name, $data): Field
     {
@@ -312,6 +334,7 @@ class Field
     /**
      * Returns the default value of the field.
      * @return mixed The default value of the field.
+     * @private
      */
     private function _isEmptyLang($value): bool
     {
@@ -332,6 +355,7 @@ class Field
      * Updates the field data with the provided data and propagates the update to the parent or storage.
      * @param array $data The data to update the field with.
      * @return void
+     * @public
      */
     public function UpdateData($data): void
     {
@@ -440,6 +464,7 @@ class Field
      * Deletes the field and propagates the deletion to the parent or storage.
      * @param string $name The name of the field to delete.
      * @return void
+     * @public
      */
     public function DeleteField($name): void
     {
@@ -458,6 +483,7 @@ class Field
      * @param Field $relative The reference field for positioning.
      * @param string $sibling 'before' or 'after' indicating the position relative to the reference field.
      * @return void
+     * @public
      */
     public function MoveField(Field $field, Field $relative, string $sibling)
     {

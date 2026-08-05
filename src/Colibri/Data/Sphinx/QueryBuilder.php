@@ -32,12 +32,16 @@ class QueryBuilder implements IQueryBuilder
 {
     /**
      * The Sphinx connection instance.
+     * @var Connection
+     * @private
      */
     private Connection $_connection;
     /**
      * Initializes a new instance of the QueryBuilder class with the specified Sphinx connection.
      *
      * @param Connection $connection The Sphinx connection instance.
+     * @public
+     * @constructor
      */
     public function __construct(Connection $connection)
     {
@@ -51,6 +55,7 @@ class QueryBuilder implements IQueryBuilder
      * @param array|object $data The data to insert.
      * @param string $returning (optional) The returning clause for the query. Default is empty string.
      * @return string The generated INSERT query.
+     * @public
      */
     public function CreateInsert(string $table, array|object $data, string $returning = ''): string
     {
@@ -83,6 +88,7 @@ class QueryBuilder implements IQueryBuilder
      * @param array|object $data The data to replace.
      * @param string $returning (optional) The returning clause for the query. Default is empty string.
      * @return string The generated REPLACE INTO query.
+     * @public
      */
     public function CreateReplace(string $table, array |object $data, string $returning = ''): string
     {
@@ -115,6 +121,7 @@ class QueryBuilder implements IQueryBuilder
      * @param array $exceptFields Not used!
      * @param string $returning (optional) The returning clause for the query. Default is empty string.
      * @return string The generated INSERT INTO ... ON DUPLICATE KEY UPDATE query.
+     * @public
      */
     public function CreateInsertOrUpdate(string $table, array |object $data, array $exceptFields = array(), string $returning = ''): string
     {
@@ -127,6 +134,7 @@ class QueryBuilder implements IQueryBuilder
      * @param string $table The name of the table.
      * @param array|object $data The data to insert in batch.
      * @return string The generated batch INSERT query.
+     * @public
      */
     public function CreateBatchInsert(string $table, array |object $data): string
     {
@@ -162,6 +170,7 @@ class QueryBuilder implements IQueryBuilder
      * @param string $condition The condition for updating the records.
      * @param array|object $data The data to update.
      * @return string The generated UPDATE query.
+     * @public
      */
     public function CreateUpdate(string $table, string $condition, array |object $data): string
     {
@@ -189,6 +198,7 @@ class QueryBuilder implements IQueryBuilder
      * @param array|string $filter The filter for selecting the records.
      * @param array|string $order The order for selecting the records.
      * @return string
+     * @public
      */
     public function CreateSelect(string $table, array|string $fields, array|string $filter, array|string $order): string
     {
@@ -216,10 +226,10 @@ class QueryBuilder implements IQueryBuilder
 
     /**
      * Creates a DELETE query.
-     *
      * @param string $table The name of the table.
      * @param string $condition The condition for deleting the records.
      * @return string The generated DELETE query.
+     * @public
      */
     public function CreateDelete(string $table, string $condition): string
     {
@@ -229,7 +239,14 @@ class QueryBuilder implements IQueryBuilder
         return (empty($condition) ? 'truncate rtindex ' : 'delete from ') . '`' . $table . '`' . $condition;
     }
 
-    public function CreateDrop($table): string
+    /**
+     * Creates a DROP TABLE query.
+     *
+     * @param string $table The name of the table.
+     * @return string The generated DROP TABLE query.
+     * @public
+     */
+    public function CreateDrop(string $table): string
     {
         return 'drop table ' . $table;
     }
@@ -238,6 +255,7 @@ class QueryBuilder implements IQueryBuilder
      * Creates a SHOW TABLES query.
      *
      * @return string The generated SHOW TABLES query.
+     * @public
      */
     public function CreateShowTables(?string $table = null, ?string $database = null): string
     {
@@ -248,6 +266,7 @@ class QueryBuilder implements IQueryBuilder
      * Creates a SHOW TABLES query.
      *
      * @return string The generated SHOW TABLES query.
+     * @public
      */
     public function CreateShowIndexes(string $table, ?string $database = null): string
     {
@@ -259,6 +278,7 @@ class QueryBuilder implements IQueryBuilder
      *
      * @param string $table The name of the table.
      * @return string The generated SHOW COLUMNS FROM query.
+     * @public
      */
     public function CreateShowField(string $table, ?string $database = null): string
     {
@@ -270,6 +290,7 @@ class QueryBuilder implements IQueryBuilder
      *
      * @param string|null $type (optional) The type of transaction (e.g., 'readonly', 'readwrite'). Default is null.
      * @return string The generated BEGIN transaction query.
+     * @public
      */
     public function CreateBegin(?string $type = null): string
     {
@@ -286,6 +307,7 @@ class QueryBuilder implements IQueryBuilder
      * Creates a COMMIT transaction query.
      *
      * @return string The generated COMMIT transaction query.
+     * @public
      */
     public function CreateCommit(): string
     {
@@ -296,12 +318,21 @@ class QueryBuilder implements IQueryBuilder
      * Creates a ROLLBACK transaction query.
      *
      * @return string The generated ROLLBACK transaction query.
+     * @public
      */
     public function CreateRollback(): string
     {
         return 'rollback';
     }
 
+    /**
+     * Creates a default storage table for the specified table name.
+     *
+     * @param string $table The name of the table.
+     * @param string|null $prefix (optional) The prefix to use for the table name. Default is null.
+     * @return string|array The generated query to create the default storage table.
+     * @public
+     */
     public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array
     {
         $options = $this->_connection->options;
@@ -323,6 +354,7 @@ class QueryBuilder implements IQueryBuilder
      *
      * @param string $table The name of the table.
      * @return string The generated query to check for table existence.
+     * @public
      */
     public function CreateShowStatus(string $table): string
     {
@@ -331,10 +363,17 @@ class QueryBuilder implements IQueryBuilder
     /**
      * Creates a query to check if a table exists in the database.
      *
-     * @param string $table The name of the table.
-     * @return string The generated query to check for table existence.
+     * @param Storage $storage The storage object containing table information.
+     * @param string $term The search term to filter the results.
+     * @param array|null $filterFields (optional) An array of filter fields to apply to the query. Default is null.
+     * @param string|null $sortField (optional) The field to sort the results by. Default is null.
+     * @param string|null $sortOrder (optional) The order of sorting ('asc' or 'desc'). Default is null.
+     * @param bool $useAsManageFilter (optional) Whether to use the filters as manage filters. Default is true.
+     * @return array An array containing the generated query and parameters for filtering and sorting.
+     * 
+     * @public
      */
-    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
+    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true): array
     {
 
         $filterFields = VariableHelper::ToJsonFilters($filterFields);
@@ -497,6 +536,7 @@ class QueryBuilder implements IQueryBuilder
      * @param string $field The name of the field.
      * @param string $table The name of the table.
      * @return string The field representation for the query.
+     * @public
      */
     public function CreateFieldForQuery(string $field, string $table): string
     {
@@ -509,6 +549,7 @@ class QueryBuilder implements IQueryBuilder
      * @param string $softDeleteField The name of the soft delete field. Default is 'datedeleted'.
      * @param string $table The name of the table.
      * @return string The generated query to check for soft-deleted records.
+     * @public
      */
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): string
     {

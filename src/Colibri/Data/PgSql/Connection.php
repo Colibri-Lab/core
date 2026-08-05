@@ -34,12 +34,16 @@ use PgSql\Connection as PgSqlConnection;
 final class Connection implements IConnection
 {
     /**
-     * @var object|null Connection information object containing host, port, user, password, and database.
+     * Connection information object containing host, port, user, password, and database.
+     * @var object|null
+     * @private
      */
     private $_connectioninfo = null;
 
     /**
-     * @var PgSqlConnection|null The PostgreSql connection resource.
+     * The PostgreSql connection resource.
+     * @var PgSqlConnection|null 
+     * @private
      */
     private $_resource = null;
 
@@ -54,6 +58,8 @@ final class Connection implements IConnection
      * @param string $password The PostgreSql password.
      * @param bool $persistent Whether to use a persistent connection (true) or not (false).
      * @param string|null $database (Optional) The name of the default database to connect to.
+     * @constructor
+     * @public
      */
     public function __construct(
         string $host,
@@ -79,6 +85,8 @@ final class Connection implements IConnection
      * Destructor for the Connection class.
      *
      * Closes the PostgreSql connection when the Connection object is destroyed.
+     * @destructor
+     * @public
      */
     public function __destruct()
     {
@@ -90,6 +98,8 @@ final class Connection implements IConnection
      *
      * @param object|array $connectionInfo The connection information as an object or array.
      * @return static A new instance of the Connection class.
+     * @public
+     * @static
      */
     public static function FromConnectionInfo(object|array $connectionInfo): static
     {
@@ -112,6 +122,7 @@ final class Connection implements IConnection
      *
      * @throws PgSqlException If an error occurs while establishing the connection.
      *
+     * @public
      */
     public function Open(): bool
     {
@@ -165,6 +176,7 @@ final class Connection implements IConnection
      *
      * @return bool Returns true if the connection was successfully reopened; otherwise, false.
      *
+     * @public
      */
     public function Reopen(): bool
     {
@@ -174,6 +186,7 @@ final class Connection implements IConnection
     /**
      * Closes the PostgreSql database connection.
      *
+     * @public
      * @return void
      *
      */
@@ -192,6 +205,8 @@ final class Connection implements IConnection
      * @param string $property The name of the property to retrieve.
      * @return mixed Returns the value of the requested property, or null if the property does not exist.
      *
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -200,7 +215,7 @@ final class Connection implements IConnection
             case "raw":
             case "connection":
                 return $this->_resource;
-            case "isAlive":
+            case "isalive":
                 return $this->Ping();
             case 'database':
                 return $this->_connectioninfo->database;
@@ -223,6 +238,7 @@ final class Connection implements IConnection
      * Checks if the PostgreSql server is alive and reachable.
      *
      * @return bool Returns true if the server is alive; otherwise, false.
+     * @public
      *
      */
     public function Ping(): bool

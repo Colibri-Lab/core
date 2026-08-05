@@ -35,30 +35,44 @@ use Colibri\Data\SqlClient\QueryInfo;
  * Class representing a collection of data rows in a storage system.
  * @class
  * @extends BaseDataTable
+ * @example
+ * ```
+ * $storage = Storages::Get('my_storage');
+ * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+ * $collection->Load('select * from my_table where some_field = :value', ['value' => 'some_value']);
+ * foreach ($collection as $row) {
+ *     /// Process each data row
+ *     echo $row->some_field;
+ * }
+ * ```
  */
 class DataCollection extends BaseDataTable
 {
     /**
      * The storage associated with this data collection.
      * @var Storage
+     * @protected
      */
     protected ?Storage $_storage = null;
 
     /**
      * The class name to return for each data row in the collection.
      * @var string
+     * @protected
      */
     protected string $_returnAsExtended;
 
     /**
      * Indicates whether to perform a full selection of fields in the query.
      * @var bool
+     * @protected
      */
     protected static $fullSelection = false;
 
     /**
      * The parent object for lookup relationships, if applicable.
      * @var mixed
+     * @protected
      */
     protected mixed $_isLookupOf = null;
 
@@ -67,6 +81,13 @@ class DataCollection extends BaseDataTable
      *
      * @param mixed $parentObject The parent object to set.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $parentObject = new ParentObject();
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * $collection->isLookUpOf($parentObject);
+     * ```
      */
     public function isLookUpOf(mixed $parentObject): void {
         $this->_isLookupOf = $parentObject;
@@ -79,6 +100,13 @@ class DataCollection extends BaseDataTable
      * @param string $returnAs
      * @param Storage|null $storage
      * @return void
+     * @constructor
+     * @public
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * ```
      */
     public function __construct(
         DataAccessPoint $point,
@@ -94,6 +122,17 @@ class DataCollection extends BaseDataTable
     /**
      * Returns the storage associated with this data collection.
      * @return DataTableIterator The iterator for the data collection.
+     * @public
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * $iterator = $collection->getIterator();
+     * foreach ($iterator as $row) {
+     *     /// Process each data row
+     *     echo $row->some_field;
+     * }
+     * ```
      */
     public function getIterator(): DataTableIterator
     {
@@ -103,6 +142,13 @@ class DataCollection extends BaseDataTable
     /**
      * Returns the storage associated with this data collection.
      * @return Storage
+     * @public
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * $storageInstance = $collection->Storage();
+     * ```
      */
     public function Storage(): Storage
     {
@@ -114,6 +160,13 @@ class DataCollection extends BaseDataTable
      *
      * @param ExtendedObject $result
      * @return mixed
+     * @protected
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * $row = $collection->_createDataRowObject($result);
+     * ```
      */
     protected function _createDataRowObject(mixed $result): mixed
     {
@@ -132,6 +185,14 @@ class DataCollection extends BaseDataTable
      * @param string $value The value containing field placeholders.
      * @param Storage $storage The storage to retrieve real field names from.
      * @return string The value with field placeholders replaced by real field names.
+     * @protected
+     * @static
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $value = 'SELECT {field1}, {field2} FROM my_table';
+     * $replacedValue = DataCollection::_replaceFields($value, $storage);
+     * ```
      */
     protected static function _replaceFields(string $value, Storage $storage): string
     {
@@ -160,6 +221,13 @@ class DataCollection extends BaseDataTable
      * @param array|null $filter The filter parameters for filtering (default: null).
      * @param array|null $order The order parameters for sorting (default: null).
      * @return static|null Returns an instance of the DataCollection or null if an error occurs.
+     * @protected
+     * @static
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = DataCollection::_loadByFilter($storage, 1, 20, ['field1' => 'value1'], ['field2' => 'value2'], ['field3' => 'ASC']);
+     * ```
      */
     protected static function _loadByFilter(
         Storage $storage,
@@ -172,6 +240,24 @@ class DataCollection extends BaseDataTable
         return self::LoadByQuery($storage, $query, $filter, $order, $page, $pagesize);
     }
 
+    /**
+     * Loads data from the storage based on the provided query and other parameters.
+     *
+     * @param Storage $storage The storage to load data from.
+     * @param array|null $query The query parameters for filtering (default: null).
+     * @param array|null $filters The filter parameters for filtering (default: null).
+     * @param array|null $sort The sort parameters for sorting (default: null).
+     * @param int $page The page number for pagination (default: -1, no pagination).
+     * @param int $pagesize The number of items per page for pagination (default: 20).
+     * @return static|null Returns an instance of the DataCollection or null if an error occurs.
+     * @public
+     * @static
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = DataCollection::LoadByQuery($storage, ['field1' => 'value1'], ['field2' => 'value2'], ['field3' => 'ASC'], 1, 20);
+     * ```
+     */
     public static function LoadByQuery(
         Storage $storage,
         ?array $query = null,
@@ -197,6 +283,19 @@ class DataCollection extends BaseDataTable
      * @param Storage $storage The storage to delete documents from.
      * @param array $filter The filter parameters for selecting documents to delete.
      * @return bool Returns true if the deletion was successful, false otherwise.
+     * @protected
+     * @static
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $filter = ['field1' => 'value1', 'field2' => 'value2'];
+     * $success = DataCollection::DeleteByFilter($storage, $filter);
+     * if ($success) {
+     *     echo "Documents deleted successfully.";
+     * } else {
+     *     echo "Failed to delete documents.";
+     * }    
+     * ```
      */
     protected static function DeleteByFilter(
         Storage $storage,
@@ -234,6 +333,19 @@ class DataCollection extends BaseDataTable
      * @param Storage $storage The storage to restore documents in.
      * @param array $filter The filter parameters for selecting documents to restore.
      * @return bool Returns true if the restoration was successful, false otherwise.
+     * @protected
+     * @static
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $filter = ['field1' => 'value1', 'field2' => 'value2'];
+     * $success = DataCollection::RestoreByFilter($storage, $filter);
+     * if ($success) {
+     *     echo "Documents restored successfully.";
+     * } else {
+     *     echo "Failed to restore documents.";
+     * }
+     * ```
      */
     protected static function RestoreByFilter(
         Storage $storage,
@@ -266,6 +378,20 @@ class DataCollection extends BaseDataTable
      * @param array $filter The filter parameters for selecting documents to update.
      * @param array $fields The fields and their new values to update.
      * @return bool Returns true if the update was successful, false otherwise.
+     * @protected
+     * @static
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $filter = ['field1' => 'value1', 'field2' => 'value2'];
+     * $fields = ['field3' => 'new_value', 'field4' => 'another_value'];
+     * $success = DataCollection::UpdateByFilter($storage, $filter, $fields);
+     * if ($success) {
+     *     echo "Documents updated successfully.";
+     * } else {
+     *     echo "Failed to update documents.";
+     * }
+     * ```
      */
     protected static function UpdateByFilter(
         Storage $storage,
@@ -292,6 +418,22 @@ class DataCollection extends BaseDataTable
      * @param string|null $idField The auto-increment field, if not found in the table.
      * @return ICommandResult|bool
      * @throws DataModelException
+     * @protected
+     * @static
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * $row = $collection->CreateEmptyRow();
+     * $row->field1 = 'value1';
+     * $row->field2 = 'value2';
+     * $result = $collection->SaveRow($row);
+     * if ($result === true) {
+     *     echo "Row saved successfully.";
+     * } else {
+     *     echo "Failed to save row.";
+     * }
+     * ```
      */
     public function SaveRow(
         DataRow|BaseDataRow $row,
@@ -345,6 +487,13 @@ class DataCollection extends BaseDataTable
      * Exports the data collection to a CSV file.
      * @param string $file The file to export to.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * $collection->ExportCSV('exported_data.csv');
+     * ```
      */
     public function ExportCSV(string $file): void
     {
@@ -389,6 +538,13 @@ class DataCollection extends BaseDataTable
      * Exports the data collection to an XML file.
      * @param string $file The file to export to.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * $collection->ExportXML('exported_data.xml');
+     * ```
      */
     public function ExportXML(string $file): void
     {
@@ -423,6 +579,13 @@ class DataCollection extends BaseDataTable
      * Exports the data collection to a JSON file.
      * @param string $file The file to export to.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * $collection->ExportJson('exported_data.json');
+     * ```
      */
     public function ExportJson(string $file): void
     {
@@ -447,6 +610,13 @@ class DataCollection extends BaseDataTable
      * @param string $file The source file.
      * @param int $firstrow The row number where the data starts.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * $collection->ImportCSV('imported_data.csv', 1);
+     * ```
      */
     public function ImportCSV(string $file, int $firstrow = 1, ?Logger $logger = null): bool
     {
@@ -480,7 +650,14 @@ class DataCollection extends BaseDataTable
      * Imports data from an XML file.
      * @param string $file The source file.
      * @param int $firstrow The row number where the data starts.
-     * @return void
+     * @return bool
+     * @public
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $collection = new DataCollection($storage->accessPoint, null, 'Colibri\\Data\\Models\\DataRow', $storage);
+     * $collection->ImportXML('imported_data.xml', 1);
+     * ```
      */
     public function ImportXML(string $file, int $firstrow = 1, ?Logger $logger = null): bool
     {
@@ -515,6 +692,9 @@ class DataCollection extends BaseDataTable
      * @param array $fields
      * @param array|null $filter
      * @return bool
+     * @protected
+     * @static
+     * 
      */
     protected static function _exportToFileJson(
         Storage $storage,
@@ -562,6 +742,26 @@ class DataCollection extends BaseDataTable
      * @return bool
      * @throws DataAccessPointsException
      * @throws DataModelException
+     * @protected
+     * @static
+     * @example
+     * ```
+     * $storage = Storages::Get('my_storage');
+     * $fieldsMap = [
+     *     'field1' => 'value1',
+     *     'field2' => 'value2',
+     * ];
+     * $additionalFields = [
+     *     'additional_field1' => 'additional_value1',
+     *     'additional_field2' => 'additional_value2',
+     * ];
+     * $success = DataCollection::_loadFromFileXML($storage, 'imported_data.xml', 'row', $fieldsMap, $additionalFields);
+     * if ($success) {
+     *     echo "Data imported successfully.";
+     * } else {
+     *     echo "Failed to import data.";
+     * }
+     * ```
      */
     protected static function _loadFromFileXML(
         Storage $storage,
@@ -618,6 +818,12 @@ class DataCollection extends BaseDataTable
      * Sets the full selection mode (with deleted items) for the data collection.
      * @param bool $value True to enable full selection, false to disable.
      * @return void
+     * @public
+     * @static
+     * @example
+     * ```
+     * DataCollection::SetFullSelect(true);
+     * ```
      */
     public static function SetFullSelect(bool $value)
     {

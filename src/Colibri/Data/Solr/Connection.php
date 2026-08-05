@@ -38,12 +38,16 @@ use SolrClient;
 final class Connection implements IConnection
 {
     /**
-     * @var object|null Connection information object containing host, port, user, password, and database.
+     * Connection information object containing host, port, user, password, and database.
+     * @var object|null 
+     * @private
      */
     private $_connectioninfo = null;
 
     /**
-     * @var \SolrClient|null The connection resource.
+     * The connection resource
+     * @var SolrClient|null
+     * @private
      */
     private $_resource = null;
 
@@ -53,12 +57,22 @@ final class Connection implements IConnection
      * Initializes a new Connection object with the provided connection information.
      *
      * @param object $connectionInfoObject information about connection.
+     * @constructor
+     * @public
      */
     public function __construct(object $connectionInfoObject)
     {
         $this->_connectioninfo = $connectionInfoObject;
     }
 
+    /**
+     * Creates a new Connection instance from the provided connection information.
+     *
+     * @param object|array $connectionInfo An object or array containing connection information.
+     * @return static A new instance of the Connection class.
+     * @public
+     * @static
+     */
     public static function FromConnectionInfo(object|array $connectionInfo): static
     {
         return new static((object)$connectionInfo);
@@ -71,6 +85,7 @@ final class Connection implements IConnection
      * @return bool Returns true if the connection was successful; otherwise, false.
      *
      * @throws Exception If an error occurs while establishing the connection.
+     * @public
      *
      */
     public function Open(): bool
@@ -104,6 +119,7 @@ final class Connection implements IConnection
      * This method is an alias for Open().
      *
      * @return bool Returns true if the connection was successfully reopened; otherwise, false.
+     * @public
      *
      */
     public function Reopen(): bool
@@ -115,6 +131,7 @@ final class Connection implements IConnection
      * Closes the MySQL database connection.
      *
      * @return void
+     * @public
      *
      */
     public function Close(): void
@@ -128,6 +145,8 @@ final class Connection implements IConnection
      *
      * @param string $property The name of the property to retrieve.
      * @return mixed Returns the value of the requested property, or null if the property does not exist.
+     * @public
+     * @magic
      *
      */
     public function __get(string $property): mixed
@@ -154,6 +173,7 @@ final class Connection implements IConnection
      * Checks if the Solr server is alive by sending a ping request.
      *
      * @return bool Returns true if the server is alive; otherwise, false.
+     * @public
      *
      * @throws Exception If an error occurs while sending the ping request.
      *

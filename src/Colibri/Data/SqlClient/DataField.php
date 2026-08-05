@@ -20,6 +20,7 @@ class DataField
      * The name of the database containing the field.
      *
      * @var string
+     * @public
      */
     public string $db;
 
@@ -27,6 +28,7 @@ class DataField
      * The name of the field.
      *
      * @var string
+     * @public
      */
     public string $name;
 
@@ -34,6 +36,7 @@ class DataField
      * The original name of the field.
      *
      * @var string
+     * @public
      */
     public string $originalName;
 
@@ -41,6 +44,7 @@ class DataField
      * The name of the table containing the field.
      *
      * @var string
+     * @public
      */
     public string $table;
 
@@ -48,6 +52,7 @@ class DataField
      * The original table name of the field.
      *
      * @var string
+     * @public
      */
     public string $originalTable;
 
@@ -55,6 +60,7 @@ class DataField
      * The escaped name of the field.
      *
      * @var string
+     * @public
      */
     public string $escaped;
 
@@ -62,6 +68,7 @@ class DataField
      * The default value of the field.
      *
      * @var string
+     * @public
      */
     public string $def;
 
@@ -69,6 +76,7 @@ class DataField
      * The maximum length of the field.
      *
      * @var int
+     * @public
      */
     public int $maxLength;
 
@@ -76,6 +84,7 @@ class DataField
      * The length of the field.
      *
      * @var int
+     * @public
      */
     public int $length;
 
@@ -83,6 +92,7 @@ class DataField
      * The flags associated with the field.
      *
      * @var array
+     * @public
      */
     public array $flags;
 
@@ -90,6 +100,7 @@ class DataField
      * The data type of the field.
      *
      * @var string
+     * @public
      */
     public string $type;
 
@@ -97,6 +108,7 @@ class DataField
      * The number of decimals for the field (if applicable).
      *
      * @var int
+     * @public
      */
     public int $decimals;
 

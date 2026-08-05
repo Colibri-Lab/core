@@ -36,12 +36,16 @@ use Colibri\Data\Sphinx\Exception as SphinxException;
 final class Connection implements IConnection
 {
     /**
-     * @var object|null Connection information object containing host, port, user, password, and database.
+     * Connection information object containing host, port, user, password, and database.
+     * @var object|null 
+     * @private
      */
     private $_connectioninfo = null;
 
     /**
-     * @var \mysqli|null The MySQL connection resource.
+     * The MySQL connection resource.
+     * @var \mysqli|null 
+     * @private
      */
     private $_resource = null;
 
@@ -56,6 +60,8 @@ final class Connection implements IConnection
      * @param string $password The MySQL password.
      * @param bool $persistent Whether to use a persistent connection (true) or not (false).
      * @param string|null $database (Optional) The name of the default database to connect to.
+     * @constructor
+     * @public
      */
     public function __construct(string $host, string $port, ?string $user, ?string $password, ?bool $persistent = false, ?string $database = null, array|object $options = [])
     {
@@ -75,6 +81,8 @@ final class Connection implements IConnection
      *
      * @param object|array $connectionInfo An object or array containing connection information.
      * @return static A new instance of the Connection class.
+     * @public
+     * @static
      */
     public static function FromConnectionInfo(object|array $connectionInfo): static
     {
@@ -96,6 +104,7 @@ final class Connection implements IConnection
      * @return bool Returns true if the connection was successful; otherwise, false.
      *
      * @throws SphinxException If an error occurs while establishing the connection.
+     * @public
      *
      */
     public function Open(): bool
@@ -144,6 +153,7 @@ final class Connection implements IConnection
      * This method is an alias for Open().
      *
      * @return bool Returns true if the connection was successfully reopened; otherwise, false.
+     * @public
      *
      */
     public function Reopen(): bool
@@ -155,6 +165,7 @@ final class Connection implements IConnection
      * Closes the MySQL database connection.
      *
      * @return void
+     * @public
      *
      */
     public function Close(): void
@@ -172,6 +183,8 @@ final class Connection implements IConnection
      * @param string $property The name of the property to retrieve.
      * @return mixed Returns the value of the requested property, or null if the property does not exist.
      *
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -180,7 +193,7 @@ final class Connection implements IConnection
             case "raw":
             case "connection":
                 return $this->_resource;
-            case "isAlive":
+            case "isalive":
                 return $this->Ping();
             case 'database':
                 return $this->_connectioninfo->database;
@@ -204,6 +217,7 @@ final class Connection implements IConnection
      *
      * @return bool Returns true if the connection is alive; otherwise, false.
      *
+     * @public
      */
     public function Ping(): bool
     {

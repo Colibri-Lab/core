@@ -33,6 +33,7 @@ final class DataReader implements IDataReader
      * Query result resource.
      *
      * @var mixed
+     * @private
      */
     private mixed $_results = null;
 
@@ -40,6 +41,7 @@ final class DataReader implements IDataReader
      * Number of results in the current query page.
      *
      * @var int
+     * @private
      */
     private ?int $_count = null;
 
@@ -48,12 +50,14 @@ final class DataReader implements IDataReader
      * Filled only when the query is executed with the info parameter set to true in ExecuteReader.
      *
      * @var int
+     * @private
      */
     private ?int $_affected = null;
 
     /**
      * Query string after processing.
      * @var string|null
+     * @private
      */
     private ?string $_preparedQuery = null;
 
@@ -63,6 +67,8 @@ final class DataReader implements IDataReader
      * @param mixed $results Query results.
      * @param int|null $affected Number of affected rows.
      * @param string|null $preparedQuery Processed query string.
+     * @public
+     * @constructor
      */
     public function __construct(mixed $results, ?int $affected = null, ?string $preparedQuery = null)
     {
@@ -73,6 +79,8 @@ final class DataReader implements IDataReader
 
     /**
      * Destructor to close the resource.
+     * @destructor
+     * @public
      */
     public function __destruct()
     {
@@ -83,6 +91,7 @@ final class DataReader implements IDataReader
      * Closes the query result resource.
      *
      * @return void
+     * @public
      */
     public function Close(): void
     {
@@ -96,6 +105,7 @@ final class DataReader implements IDataReader
      * Reads the next row from the query result.
      *
      * @return object|null The next row as an object, or null if no more rows are available.
+     * @public
      */
     public function Read(): ?object
     {
@@ -111,6 +121,7 @@ final class DataReader implements IDataReader
      * Retrieves the list of fields in the query result.
      *
      * @return array The list of fields in the query result.
+     * @public
      */
     public function Fields(): array
     {
@@ -141,6 +152,8 @@ final class DataReader implements IDataReader
      *
      * @param string $property The property name.
      * @return mixed The value of the property.
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -178,6 +191,8 @@ final class DataReader implements IDataReader
      * @param string $property The property name.
      * @param mixed $value The value to set.
      * @return void
+     * @public
+     * @magic
      */
     public function __set(string $property, mixed $value): void
     {
@@ -189,6 +204,7 @@ final class DataReader implements IDataReader
      * Returns the number of rows in the result set.
      *
      * @return int The number of rows in the result set.
+     * @public
      */
     public function Count(): int
     {
@@ -200,6 +216,7 @@ final class DataReader implements IDataReader
      *
      * @param string $type_id The MySQL field type ID.
      * @return string|null The readable string representing the field type.
+     * @private
      */
     private function _type2txt(string $type_id): string
     {
@@ -223,6 +240,7 @@ final class DataReader implements IDataReader
      *
      * @param int $flags_num The MySQL field flags.
      * @return array An array containing the readable field flags.
+     * @private
      */
     private function _flags2txt(int $flags_num): array
     {

@@ -46,29 +46,35 @@ class FileField implements JsonSerializable
     /**
      * Path to the file
      * @var string
+     * @private
      */
-    private $_path;
+    private string $_path;
 
     /**
      * File name
      * @var string
+     * @private
      */
-    private $_name;
+    private string $_name;
 
     /**
      * File extension
      * @var string
+     * @private
      */
-    private $_ext;
+    private string $_ext;
 
     /**
      * File content
      * @var string
+     * @private
      */
-    private $_content;
+    private string $_content;
 
     /**
      * JSON schema for the file field
+     * @const array
+     * @public
      */
     public const JsonSchema = [
         'type' => 'object',
@@ -85,6 +91,7 @@ class FileField implements JsonSerializable
      * @param Storage|null $storage The associated storage (optional).
      * @param Field|null $field The associated field (optional).
      * @return void
+     * @constructor
      */
     public function __construct($data, ?Storage $storage = null, ?Field $field = null)
     {
@@ -97,6 +104,8 @@ class FileField implements JsonSerializable
      * Getter
      * @param string $nm property name
      * @return mixed property value
+     * @public
+     * @magic
      */
     public function __get($nm)
     {
@@ -165,6 +174,7 @@ class FileField implements JsonSerializable
     /**
      * Returns the string (path)
      * @return string path
+     * @public
      */
     public function ToString()
     {
@@ -175,6 +185,7 @@ class FileField implements JsonSerializable
      * Returns the name for caching
      * @param Size $size size
      * @return string name and path of the cache file
+     * @public
      */
     public function CacheName($size = null)
     {
@@ -191,6 +202,7 @@ class FileField implements JsonSerializable
      * Checks if a cache already exists for the selected size
      * @param Size $size size
      * @return bool true if the cache file exists
+     * @public
      */
     public function CacheExists($size)
     {
@@ -201,6 +213,7 @@ class FileField implements JsonSerializable
      * Caches the file in the required size if necessary
      * @param Size|null $size size
      * @return void
+     * @public
      */
     public function Cache($size = null)
     {
@@ -223,6 +236,7 @@ class FileField implements JsonSerializable
      * @param Size|null $size size
      * @param mixed $options properties
      * @return string path to the cache or the file
+     * @public
      */
     public function Source($size = null, $options = null)
     {
@@ -246,6 +260,8 @@ class FileField implements JsonSerializable
      * Return string value of this object
      *
      * @return string
+     * @public
+     * @magic
      */
     public function __toString()
     {
@@ -256,6 +272,7 @@ class FileField implements JsonSerializable
      * Returns the closure code as a string.
      *
      * @return string The closure code.
+     * @public
      */
     public function jsonSerialize(): mixed
     {
@@ -267,6 +284,7 @@ class FileField implements JsonSerializable
      *
      * @param bool $noPrefix Whether to exclude the prefix from the keys.
      * @return array The field data as an associative array.
+     * @public
      */
     public function ToArray(bool $noPrefix = false): array
     {
@@ -277,6 +295,8 @@ class FileField implements JsonSerializable
      * Returns the parameter type name for this file field.
      *
      * @return string The parameter type name.
+     * @public
+     * @static
      */
     public static function ParamTypeName(): string
     {
@@ -287,6 +307,8 @@ class FileField implements JsonSerializable
      * Returns null.
      *
      * @return mixed Always returns null.
+     * @public
+     * @static
      */
     public static function null(): mixed
     {

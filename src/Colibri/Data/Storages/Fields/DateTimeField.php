@@ -23,6 +23,7 @@ class DateTimeField extends DateTime implements JsonSerializable
      * Default locale for date formatting.
      *
      * @var string|null
+     * @public
      */
     public static $defaultLocale = null;
 
@@ -32,6 +33,8 @@ class DateTimeField extends DateTime implements JsonSerializable
      * @param mixed $data The date/time data to initialize the field with.
      * @param Storage|null $storage The associated storage (optional).
      * @param Field|null $field The associated field (optional).
+     * @constructor
+     * @public
      */
     public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
     {
@@ -42,6 +45,8 @@ class DateTimeField extends DateTime implements JsonSerializable
      * Return Date in ISO8601 format
      *
      * @return string
+     * @public
+     * @magic
      */
     public function __toString(): string
     {
@@ -54,6 +59,7 @@ class DateTimeField extends DateTime implements JsonSerializable
      * @param DateTimeInterface|string $object The date/time to compare with.
      * @param bool|null $absolute Whether to return the absolute difference.
      * @return DateInterval
+     * @public
      */
     public function diff(DateTimeInterface|string $object, bool $absolute = null): DateInterval
     {
@@ -68,6 +74,7 @@ class DateTimeField extends DateTime implements JsonSerializable
      *
      * @param DateTimeInterface|string $now
      * @return int
+     * @public
      */
     public function getAge(DateTime|string $now = 'NOW'): int
     {
@@ -80,6 +87,7 @@ class DateTimeField extends DateTime implements JsonSerializable
      * @param string $format The format string.
      * @param string|null $locale The locale to use for formatting (optional).
      * @return string The formatted date/time string.
+     * @public
      */
     public function format(string $format, ?string $locale = null): string
     {
@@ -131,6 +139,7 @@ class DateTimeField extends DateTime implements JsonSerializable
      * Returns the date/time as a string in ISO8601 format.
      *
      * @return string The date/time in ISO8601 format.
+     * @public
      */
     public function jsonSerialize(): string
     {
@@ -141,6 +150,8 @@ class DateTimeField extends DateTime implements JsonSerializable
      * Returns the parameter type name for this date/time field.
      *
      * @return string The parameter type name.
+     * @public
+     * @static
      */
     public static function ParamTypeName(): string
     {
@@ -151,6 +162,8 @@ class DateTimeField extends DateTime implements JsonSerializable
      * Returns null value for the field.
      *
      * @return mixed Always returns null.
+     * @public
+     * @static
      */
     public static function null(): mixed
     {

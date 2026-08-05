@@ -19,24 +19,28 @@ class ClosureField implements JsonSerializable
     /**
      * The closure code as a string.
      * @var string
+     * @private
      */
     private string $_value;
 
     /**
      * The associated data row.
      * @var DataRow|null
+     * @protected
      */
     protected ?DataRow $_datarow = null;
 
     /**
      * The associated field.
      * @var Field
+     * @protected
      */
     protected ?Field $_field = null;
 
     /**
      * The associated storage.
      * @var Storage
+     * @protected
      */
     protected ?Storage $_storage = null;
 
@@ -47,6 +51,8 @@ class ClosureField implements JsonSerializable
      * @param Storage|null $storage The associated storage (optional).
      * @param Field|null $field The associated field (optional).
      * @param DataRow|null $datarow The associated data row (optional).
+     * @constructor
+     * @public
      */
     public function __construct(string $value, ?Storage $storage = null, ?Field $field = null, ?DataRow $datarow = null)
     {
@@ -61,6 +67,8 @@ class ClosureField implements JsonSerializable
      *
      * @param string $property The property name.
      * @return mixed The property value or null if not found.
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -76,6 +84,8 @@ class ClosureField implements JsonSerializable
      * @param string $property The property name.
      * @param mixed $value The value to set.
      * @return void
+     * @public
+     * @magic
      */
     public function __set(string $property, mixed $value): void
     {
@@ -89,6 +99,7 @@ class ClosureField implements JsonSerializable
      *
      * @param mixed ...$params The parameters to pass to the closure.
      * @return mixed The result of the closure execution, or null if an error occurs.
+     * @public
      */
     public function Invoke(mixed...$params): mixed
     {
@@ -107,6 +118,8 @@ class ClosureField implements JsonSerializable
      * Returns the closure code as a string.
      *
      * @return string The closure code.
+     * @public
+     * @magic
      */
     public function __toString(): string
     {
@@ -117,6 +130,7 @@ class ClosureField implements JsonSerializable
      * Returns the closure code as a string.
      *
      * @return string The closure code.
+     * @public
      */
     public function jsonSerialize(): mixed
     {
@@ -127,6 +141,8 @@ class ClosureField implements JsonSerializable
      * Returns the parameter type name for this closure field.
      *
      * @return string The parameter type name.
+     * @public
+     * @static
      */
     public static function ParamTypeName(): string
     {
@@ -137,6 +153,8 @@ class ClosureField implements JsonSerializable
      * Returns null.
      *
      * @return mixed Always returns null.
+     * @public
+     * @static
      */
     public static function null(): mixed
     {

@@ -23,5 +23,4 @@ use Colibri\Data\SqlClient\QueryInfo as SqlQueryInfo;
  */
 final class QueryInfo extends SqlQueryInfo
 {
-    // No additional properties or methods to document, as all functionality is inherited from SqlQueryInfo.
 }

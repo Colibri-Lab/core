@@ -20,6 +20,7 @@ class QueryInfo
      * The type of the query (e.g., SELECT, INSERT, UPDATE, DELETE).
      *
      * @var string
+     * @public
      */
     public string $type;
 
@@ -27,6 +28,7 @@ class QueryInfo
      * The ID of the last inserted row (if applicable).
      *
      * @var int
+     * @public
      */
     public int $insertid;
 
@@ -34,6 +36,7 @@ class QueryInfo
      * The number of affected rows by the query.
      *
      * @var int
+     * @public
      */
     public int $affected;
 
@@ -41,6 +44,7 @@ class QueryInfo
      * Any error message associated with the query execution.
      *
      * @var string
+     * @public
      */
     public string $error;
 
@@ -48,6 +52,7 @@ class QueryInfo
      * The SQL query string.
      *
      * @var string
+     * @public
      */
     public string $query;
 
@@ -59,6 +64,8 @@ class QueryInfo
      * @param int $affected The number of affected rows by the query.
      * @param string $error Any error message associated with the query execution.
      * @param string $query The SQL query string.
+     * @public
+     * @constructor
      */
     public function __construct(string $type, int $insertid, int $affected, string $error, string $query)
     {

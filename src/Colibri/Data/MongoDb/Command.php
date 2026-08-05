@@ -43,6 +43,7 @@ final class Command extends NoSqlCommand
      *
      * @param string $input The input string to escape.
      * @return string The escaped string.
+     * @public
      */
     public function EscapeQuery(string $input): string
     {
@@ -59,6 +60,8 @@ final class Command extends NoSqlCommand
      * @param string $command command name
      * @param mixed[] $arguments command arguments
      * @return ICommandResult The command result.
+     * @public
+     * @static
      */
     public static function Execute(IConnection $connection, string $type, string $command, array $arguments): ICommandResult
     {
@@ -85,6 +88,7 @@ final class Command extends NoSqlCommand
      *
      * @param string $collectionName The name of the collection to check.
      * @return bool True if the collection exists, false otherwise.
+     * @public
      */
     public function CollectionExists(string $collectionName): bool
     {
@@ -110,6 +114,7 @@ final class Command extends NoSqlCommand
      *
      * @param string $collectionName The name of the collection to create.
      * @return bool True if the collection was created successfully, false otherwise.
+     * @public
      */
     public function CreateCollection(string $collectionName): bool
     {
@@ -129,6 +134,7 @@ final class Command extends NoSqlCommand
      *
      * @param string $collectionName The name of the collection.
      * @return int The maximum ID value in the collection.
+     * @public
      */
     public function MaxId(string $collectionName): int
     {
@@ -147,6 +153,7 @@ final class Command extends NoSqlCommand
      * @param string $collectionName The name of the collection.
      * @param object $document The document to insert.
      * @return CommandResult The result of the insert operation.
+     * @public
      */
     public function InsertDocument(string $collectionName, object $document): CommandResult
     {
@@ -179,6 +186,7 @@ final class Command extends NoSqlCommand
      * @param string $collectionName The name of the collection.
      * @param array $arrayOfDocuments An array of documents to insert.
      * @return CommandResult The result of the insert operation.
+     * @public
      */
     public function InsertDocuments(string $collectionName, array $arrayOfDocuments): CommandResult
     {
@@ -202,6 +210,7 @@ final class Command extends NoSqlCommand
      * @param int $id The ID of the document to update.
      * @param object $partOfDocument The partial document with updated fields.
      * @return CommandResult The result of the update operation.
+     * @public
      */
     public function UpdateDocument(string $collectionName, int $id, object $partOfDocument): CommandResult
     {
@@ -233,6 +242,7 @@ final class Command extends NoSqlCommand
      * @param array $filter The filter criteria for selecting documents to update.
      * @param array $update The update operations to apply to the selected documents.
      * @return CommandResult The result of the update operation.
+     * @public
      */
     public function UpdateDocuments(string $collectionName, array $filter, array $update): CommandResult
     {
@@ -261,6 +271,7 @@ final class Command extends NoSqlCommand
      * @param string $collectionName The name of the collection.
      * @param array $filter The filter criteria for selecting documents to delete.
      * @return CommandResult The result of the delete operation.
+     * @public
      */
     public function DeleteDocuments(string $collectionName, array $filter): CommandResult
     {   
@@ -286,14 +297,15 @@ final class Command extends NoSqlCommand
     /**
      * Summary of SelectDocuments
      * @param string $collectionName
-     * @param array $select
-     * @param mixed $filters - filters: array contains a filter fields, example 'fieldname' => 'fieldvalue' (if needed full), or 'fieldname' => 'regexp string, like /brbrbr/i'
-     * @param mixed $faset
+     * @param array $select 
+     * @param mixed $filters array contains a filter fields, example 'fieldname' => 'fieldvalue' (if needed full), or 'fieldname' => 'regexp string, like /brbrbr/i'
+     * @param mixed $faset 
      * @param mixed $fields
      * @param mixed $sort
      * @param int $page
      * @param int $pagesize
      * @return \Colibri\Data\Solr\CommandResult
+     * @public
      */
     public function SelectDocuments(string $collectionName, ?array $select = null, ?array $filters = null, ?array $faset = null, ?array $fields = null, ?array $sort = null, int $page = -1, int $pagesize = 20): CommandResult
     {
@@ -374,6 +386,7 @@ final class Command extends NoSqlCommand
      * DO NOTHING: Creates custom fields for a collection. This method is a placeholder and does not perform any operations.
      * @param string $collectionName The name of the collection for which to create custom fields.
      * @return void
+     * @public
      * 
      */
     public function CreateCustomFields(string $collectionName)
@@ -385,6 +398,7 @@ final class Command extends NoSqlCommand
      * DO NOTHING: Gets the fields of a collection. This method is a placeholder and does not perform any operations.
      * @param string $collectionName The name of the collection for which to get fields.
      * @return CommandResult|null The result of the get fields operation, or null if not implemented.
+     * @public
      */
     public function GetFields(string $collectionName): ?CommandResult
     {
@@ -400,6 +414,7 @@ final class Command extends NoSqlCommand
      * @param bool $indexed Whether the field is indexed.
      * @param mixed|null $default The default value for the field, if any.
      * @return CommandResult|null The result of the add field operation, or null if not implemented.
+     * @public
      */
     public function AddField(string $collectionName, string $fieldName, string $fieldType, bool $required, bool $indexed, mixed $default = null): ?CommandResult
     {
@@ -412,6 +427,7 @@ final class Command extends NoSqlCommand
      * @param string $source The name of the source field to copy.
      * @param string $dest The name of the destination field to create as a copy.
      * @return CommandResult|null The result of the add copy field operation, or null if not implemented.
+     * @public
      */
     public function AddCopyField(string $collectionName, string $source, string $dest): ?CommandResult
     {
@@ -427,6 +443,7 @@ final class Command extends NoSqlCommand
      * @param bool $indexed Whether the field is indexed.
      * @param mixed|null $default The default value for the field, if any.
      * @return CommandResult|null The result of the replace field operation, or null if not implemented.
+     * @public
      */
     public function ReplaceField(string $collectionName, string $fieldName, string $fieldType, bool $required, bool $indexed, mixed $default = null): ?CommandResult
     {
@@ -439,6 +456,7 @@ final class Command extends NoSqlCommand
      * @param string $storage The name of the storage to migrate.
      * @param array $xstorage The extended storage configuration.
      * @return void
+     * @public
      */
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {
@@ -460,6 +478,7 @@ final class Command extends NoSqlCommand
      * @param string $fieldName The name of the field to check.
      * @param string $value The value of the index to check.
      * @return bool True if the index exists, false otherwise.
+     * @public
      */
     public function IndexExists(string $collectionName, string $fieldName, string $value = '1') {
         
@@ -479,6 +498,7 @@ final class Command extends NoSqlCommand
      * @param string $fieldName The name of the field to index.
      * @param string $value The value of the index.
      * @return void
+     * @public
      */
     public function CreateIndex(string $collectionName, string $fieldName, string $value = '1') {
         $collection = $this->_connection->database->getCollection($collectionName);

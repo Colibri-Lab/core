@@ -29,8 +29,6 @@ use Colibri\Utils\Singleton;
  * 
  * This class manages multiple storage objects and provides methods to interact with them collectively.
  *
- * @author Vahan P. Grigoryan
- * @package Colibri\Data\Storages
  */
 class Storages extends Singleton
 {
@@ -38,17 +36,21 @@ class Storages extends Singleton
     /**
      * Array of storage data.
      * @var array|null
+     * @private
      */
     private ?array $_storages = null;
 
     /**
      * Types of storages.
      * @var array|null
+     * @private
      */
     private ?array $_types = null;
 
     /**
      * Constructs a Storages object.
+     * @constructor
+     * @public
      */
     public function __construct()
     {
@@ -60,6 +62,7 @@ class Storages extends Singleton
      *
      * @param bool $force Indicates whether to force reload the storage data.
      * @return void
+     * @private
      */
     private function _load(bool $force = false) {
         $key = 'storages' . App::$domainKey . App::$request->host;
@@ -135,6 +138,7 @@ class Storages extends Singleton
      * Extracts a short field record
      * @param string $field
      * @return array
+     * @private
      */
     private function _fromShortString(string $field): array
     {
@@ -173,6 +177,7 @@ class Storages extends Singleton
      * Replaces a global types
      * @param array $fields
      * @return array
+     * @private
      */
     private function _replaceTypes(array $fields): array
     {
@@ -212,6 +217,7 @@ class Storages extends Singleton
      * @param bool   $isDev   Indicates whether the migration is for development purposes (optional, default: false).
      *
      * @return void
+     * @public
      */
     public function Migrate(Logger $logger, bool $isDev = false)
     {
@@ -275,17 +281,16 @@ class Storages extends Singleton
     /**
      * Checks if a storage with the specified name exists.
      *
+     * @example
      * ```
-     * If you need to check existance of storage
-     *
      * if(Storages::Instance()->Exists('langs', 'lang')) { ... }
-     *
      * ```
      *
      * @param string      $name   The name of the storage to check.
      * @param string|null $module The module to which the storage belongs (optional).
      *
      * @return bool True if the storage exists, false otherwise.
+     * @public
      */
     public function Exists(string $name, ?string $module = null): bool
     {
@@ -295,17 +300,16 @@ class Storages extends Singleton
     /**
      * Loads the storage with the specified name and optional module.
      *
+     * @example
      * ```
-     * For example you can get storage structure information for storage "langs" in module "lang"
-     *
      * $storage = Storages::Instance()->Load('langs', 'lang');
-     *
      * ```
      *
      * @param string      $name   The name of the storage to load.
      * @param string|null $module The module to which the storage belongs (optional).
      *
      * @return Storage|null The loaded storage object if found, or null if not found.
+     * @public
      */
     public function Load(string $name, ?string $module = null, ?DataAccessPoint $accessPoint = null): ?Storage
     {
@@ -332,7 +336,8 @@ class Storages extends Singleton
     /**
      * Retrieves an array of all storages.
      *
-    * @return array An array containing all storage objects.
+     * @return array An array containing all storage objects.
+     * @public
      */
     public function GetStorages(): array
     {
@@ -353,6 +358,8 @@ class Storages extends Singleton
      * @param string $prop The name of the property to retrieve.
      *
      * @return mixed The value of the specified property.
+     * @public
+     * @magic
      */
     public function __get(string $prop): mixed
     {
@@ -383,6 +390,7 @@ class Storages extends Singleton
      * This method removes the cached storage data from memory, forcing a reload of the storage data on the next access.
      *
      * @return void
+     * @public
      */
     public function ClearCache(): void
     {

@@ -26,6 +26,8 @@ final class Config implements IConfig
     /** 
      * Returns the type of database management system (DBMS) used.
      * @return string The type of DBMS.
+     * @public
+     * @static
      */
     public static function DbmsType(): string
     {
@@ -35,6 +37,8 @@ final class Config implements IConfig
     /** 
      * Returns the allowed data types for the database.
      * @return array An array of allowed data types.
+     * @public
+     * @static
      */
     public static function AllowedTypes(): array
     {
@@ -61,6 +65,8 @@ final class Config implements IConfig
     /** 
      * Indicates whether the database has triggers.
      * @return bool True if triggers are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function HasIndexes(): bool
     {
@@ -69,6 +75,8 @@ final class Config implements IConfig
     
     /** 
      * Indicates whether the database has triggers.
+     * @public
+     * @static
      * @return bool True if triggers are supported, false otherwise.
      */
     public static function HasTriggers(): bool
@@ -79,6 +87,8 @@ final class Config implements IConfig
     /** 
      * Indicates whether the database fields have a prefix.
      * @return bool True if fields have a prefix, false otherwise.
+     * @public
+     * @static
      */
     public static function FieldsHasPrefix(): bool
     {
@@ -88,6 +98,8 @@ final class Config implements IConfig
     /** 
      * Indicates whether the database has multi-field indexes.
      * @return bool True if multi-field indexes are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function HasMultiFieldIndexes(): bool
     {
@@ -97,6 +109,8 @@ final class Config implements IConfig
     /** 
      * Indicates whether the database has virtual fields.
      * @return bool True if virtual fields are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function HasVirtual(): bool
     {
@@ -106,6 +120,8 @@ final class Config implements IConfig
     /** 
      * Indicates whether the database has autoincrement fields.
      * @return bool True if autoincrement fields are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function HasAutoincrement(): bool
     {
@@ -115,6 +131,8 @@ final class Config implements IConfig
     /** 
      * Returns the allowed index types for the database.
      * @return array An array of allowed index types.
+     * @public
+     * @static
      */
     public static function IndexTypes(): array
     {
@@ -128,6 +146,8 @@ final class Config implements IConfig
 
     /** 
      * Returns the allowed index methods for the database.
+     * @public
+     * @static
      * @return array An array of allowed index methods.
      */
     public static function IndexMethods(): array
@@ -140,6 +160,8 @@ final class Config implements IConfig
     /** 
      * Returns the symbol used for quoting identifiers in SQL queries.
      * @return string The symbol used for quoting identifiers.
+     * @public
+     * @static
      */
     public static function Symbol(): string
     {
@@ -149,6 +171,8 @@ final class Config implements IConfig
     /** 
      * Indicates whether the database supports JSON indexes.
      * @return bool True if JSON indexes are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function JsonIndexes(): bool
     {

@@ -27,14 +27,20 @@ class QueryBuilder
 {
     /**
      * Mutation type constants.
+     * @const string
+     * @public
      */
     public const MutationInsert = 'insert';
     /**
      * Mutation type constants.
+     * @const string
+     * @public
      */
     public const MutationUpdate = 'update';
     /**
      * Mutation type constants.
+     * @const string
+     * @public
      */
     public const MutationDelete = 'delete';
 
@@ -49,8 +55,9 @@ class QueryBuilder
      * @param bool $useAsManageFilter Whether to use the filters as manage filters.
      *
      * @return array An array containing the processed query, filters, and sorting information.
+     * @public
      */
-    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true)
+    public function ProcessFilters(Storage $storage, string $term, ?array $filterFields, ?string $sortField, ?string $sortOrder, bool $useAsManageFilter = true): array
     {
 
         $filterFields = VariableHelper::ToJsonFilters($filterFields);
@@ -163,6 +170,7 @@ class QueryBuilder
      * @param string $mutationType The type of mutation (insert, update, delete).
      *
      * @return array|object The processed mutation data.
+     * @public
      */
     public function ProcessMutationData(mixed $row, string $mutationType): array|object
     {
@@ -222,6 +230,7 @@ class QueryBuilder
      * @param string $table The table name.
      *
      * @return string The formatted field name for the query.
+     * @public
      */
     public function CreateFieldForQuery(string $field, string $table): string
     {
@@ -235,6 +244,7 @@ class QueryBuilder
      * @param string $table The table name.
      *
      * @return array An array representing the soft delete query.
+     * @public
      */
     public function CreateSoftDeleteQuery(string $softDeleteField = 'datedeleted', string $table = ''): array
     {

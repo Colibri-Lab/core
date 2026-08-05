@@ -19,54 +19,72 @@ interface IConfig
     /**
      * Driver allowed types
      * @return array
+     * @public
+     * @static
      */
     public static function AllowedTypes(): array;
 
     /**
      * Database has indexes
      * @return bool
+     * @public
+     * @static
      */
     public static function HasIndexes(): bool;
 
     /**
      * Create prefixed fields in tables
      * @return bool
+     * @public
+     * @static
      */
     public static function FieldsHasPrefix(): bool;
 
     /**
      * Indexes can be created on multiple fields
      * @return bool
+     * @public
+     * @static
      */
     public static function HasMultiFieldIndexes(): bool;
 
     /**
      * Can have virtual fields
      * @return bool
+     * @public
+     * @static
      */
     public static function HasVirtual(): bool;
 
     /**
      * Has autoincrement fields
      * @return bool
+     * @public
+     * @static
      */
     public static function HasAutoincrement(): bool;
 
     /**
      * Index types
      * @return array
+     * @public
+     * @static
      */
     public static function IndexTypes(): array;
 
     /**
      * Index methods
      * @return array
+     * @public
+     * @static
      */
     public static function IndexMethods(): array;
 
     /**
      * Json indexes
      * @return bool
+     * @public
+     * @static
      */
     public static function JsonIndexes(): bool;
 

@@ -41,6 +41,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Data access point
      *
      * @var DataAccessPoint
+     * @protected
      */
     protected ?DataAccessPoint $_point = null;
 
@@ -48,6 +49,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * DataReader
      *
      * @var IDataReader
+     * @protected
      */
     protected ?IDataReader $_reader = null;
 
@@ -55,6 +57,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * List of loaded rows
      *
      * @var ArrayList
+     * @protected
      */
     protected ?ArrayList $_cache = null;
 
@@ -62,6 +65,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Rows class name
      *
      * @var string
+     * @protected
      */
     protected ?string $_returnAs = null;
 
@@ -71,6 +75,8 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param DataAccessPoint $point
      * @param IDataReader $reader
      * @param string $returnAs
+     * @constructor
+     * @public
      */
     public function __construct(
         DataAccessPoint $point,
@@ -89,6 +95,8 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param DataAccessPoint|string $point
      * @param string $returnAs
      * @return DataTable
+     * @public
+     * @static
      */
     public static function Create(
         DataAccessPoint|string $point,
@@ -104,6 +112,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Returns iterator
      *
      * @return DataTableIterator
+     * @public
      */
     public function getIterator(): DataTableIterator
     {
@@ -116,6 +125,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param string $query The SQL query to execute.
      * @param array $params (optional) An associative array of parameters to bind to the query. Default is an empty array.
      * @return self
+     * @public
      */
     public function Load(string $query, array $params = []): self
     {
@@ -156,6 +166,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Gets the number of rows in the DataTable.
      *
      * @return int The number of rows in the DataTable.
+     * @public
      */
     public function Count(): int
     {
@@ -166,6 +177,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Gets the number of affected rows by the last database operation.
      *
      * @return int|null The number of affected rows, or null if not available.
+     * @public
      */
     public function Affected(): ?int
     {
@@ -176,6 +188,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Checks if the DataTable has any rows.
      *
      * @return bool True if the DataTable has rows, false otherwise.
+     * @public
      */
     public function HasRows(): bool
     {
@@ -186,6 +199,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Retrieves the field names of the DataTable.
      *
      * @return array An array containing the field names of the DataTable.
+     * @public
      */
     public function Fields(): array
     {
@@ -196,6 +210,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Retrieves the data access point associated with the DataTable.
      *
      * @return DataAccessPoint|null The data access point associated with the DataTable, or null if not set.
+     * @public
      */
     public function Point(): ?DataAccessPoint
     {
@@ -207,6 +222,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @param mixed $result The result data to create a DataRow object from.
      * @return mixed A DataRow object created from the given result, or null if creation fails.
+     * @protected
      */
     protected function _createDataRowObject(mixed $result): mixed
     {
@@ -228,6 +244,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Reads data from a data source.
      *
      * @return mixed The data read from the data source, or null if reading fails.
+     * @protected
      */
     protected function _read(): mixed
     {
@@ -241,6 +258,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @param int $index The index up to which data should be read.
      * @return mixed The data read from the data source up to the specified index, or null if reading fails.
+     * @protected
      */
     protected function _readTo(int $index): mixed
     {
@@ -255,6 +273,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @param int $index The index of the item to retrieve.
      * @return mixed The item at the specified index, or null if the index is out of range.
+     * @public
      */
     public function Item(int $index): mixed
     {
@@ -269,6 +288,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Retrieves the first item from the data table.
      *
      * @return mixed The first item from the data table, or null if the collection is empty.
+     * @public
      */
     public function First(): mixed
     {
@@ -280,6 +300,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @param bool $closeReader (optional) Whether to close the reader after caching. Default is true.
      * @return mixed The cached data, or null if caching fails.
+     * @public
      */
     public function CacheAll(bool $closeReader = true): mixed
     {
@@ -295,6 +316,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @param object|array $data (optional) Initial data to populate the row object. Default is an empty array.
      * @return mixed The created empty row object, or null if creation fails.
+     * @public
      */
     public function CreateEmptyRow(object|array $data = []): mixed
     {
@@ -306,6 +328,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @param string $table The name of the table to retrieve encoding information for.
      * @return object An object containing encoding information for the specified table.
+     * @private
      */
     private function _getTableEncoding(string $table): object
     {
@@ -328,6 +351,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param bool|null $convert (optional) Whether to convert data before saving. Default is true.
      * @return QueryInfo|bool A QueryInfo object containing information about the executed query,
      *                        or boolean true if successful, false otherwise.
+     * @public
      */
     public function SaveRow(DataRow $row, ?string $idField = null, ?bool $convert = true): QueryInfo|bool
     {
@@ -423,6 +447,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @param DataRow $row The DataRow object to be deleted.
      * @return QueryInfo A QueryInfo object containing information about the executed delete query.
+     * @public
      */
     public function DeleteRow(DataRow $row): QueryInfo|ICommandResult|bool
     {
@@ -462,6 +487,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $index The index at which to set the data.
      * @param ExtendedObject $data The data to set.
      * @return void
+     * @public
      */
     public function Set(int $index, ExtendedObject $data): void
     {
@@ -473,6 +499,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @param bool $noPrefix (optional) Whether to exclude the prefix from keys. Default is false.
      * @return array An array representation of the collection.
+     * @public
      */
     public function ToArray(bool $noPrefix = false): array
     {
@@ -488,6 +515,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @param array $fields fields to unpluck from row
      * @return array An array representation of the collection.
+     * @public
      */
     public function Unpluck(array $fields): array
     {
@@ -506,6 +534,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Saves all DataRow objects in the data table to the data source.
      *
      * @return void
+     * @public
      */
     public function SaveAllRows(): void
     {
@@ -518,6 +547,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Deletes all rows from the data source.
      *
      * @return void
+     * @public
      */
     public function DeleteAllRows(): void
     {
@@ -530,6 +560,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Clears the data table, removing all elements.
      *
      * @return void
+     * @public
      */
     public function Clear(): void
     {
@@ -552,6 +583,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $offset The index to set the value.
      * @param DataRow $value The value to set.
      * @return void
+     * @public
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -566,6 +598,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Checks if data exists at the specified index.
      * @param int $offset The index to check for data.
      * @return bool True if data exists at the index, false otherwise.
+     * @public
      */
     public function offsetExists(mixed $offset): bool
     {
@@ -576,6 +609,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Removes data at the specified index.
      * @param int $offset The index of the data to remove.
      * @return void
+     * @public
      */
     public function offsetUnset(mixed $offset): void
     {
@@ -586,6 +620,7 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * Retrieves the value at the specified index.
      * @param int $offset The index of the value to retrieve.
      * @return DataRow The value at the specified index.
+     * @public
      */
     public function offsetGet(mixed $offset): mixed
     {

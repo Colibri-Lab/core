@@ -30,6 +30,7 @@ final class CommandResult implements ICommandResult
     /**
      * The response object from the Solr server.
      * @var object|null
+     * @private
      */
     private ?object $_response = null;
 
@@ -37,6 +38,8 @@ final class CommandResult implements ICommandResult
      * Constructor.
      *
      * @param object $response The response object from the Solr server.
+     * @public
+     * @constructor
      */
     public function __construct(object $response)
     {
@@ -47,6 +50,7 @@ final class CommandResult implements ICommandResult
      * Returns the error object from the command execution, if any.
      *
      * @return object|null The error object, or null if there was no error.
+     * @public
      */
     public function Error(): ?object
     {
@@ -60,6 +64,7 @@ final class CommandResult implements ICommandResult
      * Returns information about the query execution.
      *
      * @return object An object containing query execution information.
+     * @public
      */
     public function QueryInfo(): object
     {
@@ -75,6 +80,7 @@ final class CommandResult implements ICommandResult
      * Returns the result data from the command execution.
      *
      * @return array The result data as an array.
+     * @public
      */
     public function ResultData(): array
     {
@@ -95,6 +101,7 @@ final class CommandResult implements ICommandResult
      * Sets the collection name for the command result.
      *
      * @param string $name The collection name.
+     * @public
      */
     public function SetCollectionName(string $name): void
     {
@@ -108,6 +115,7 @@ final class CommandResult implements ICommandResult
      * Sets the returned ID for the command result.
      *
      * @param int|array $id The returned ID or an array of returned IDs.
+     * @public
      */
     public function SetReturnedId(int|array $id): void
     {
@@ -128,6 +136,7 @@ final class CommandResult implements ICommandResult
      * Merges the current command result with another command result.
      *
      * @param ICommandResult $result The command result to merge with.
+     * @public
      */
     public function MergeWith(ICommandResult $result): void
     {

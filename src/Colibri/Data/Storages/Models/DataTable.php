@@ -43,24 +43,28 @@ class DataTable extends BaseDataTable
     /**
      * Storage associated with the data table.
      * @var Storage
+     * @protected
      */
     protected ?Storage $_storage = null;
 
     /**
      * The class name or closure to return for each row in the data table.
      * @var string|\Closure
+     * @protected
      */
     protected string|\Closure $_returnAsExtended;
 
     /**
      * Indicates whether to perform a full selection of fields.
      * @var bool
+     * @protected
      */
     protected static $fullSelection = false;
 
     /**
      * The parent object for lookup purposes.
      * @var mixed
+     * @protected
      */
     protected mixed $_isLookupOf = null;
 
@@ -68,6 +72,7 @@ class DataTable extends BaseDataTable
      * Sets the parent object for lookup purposes.
      * @param mixed $parentObject The parent object.
      * @return void
+     * @public
      */
     public function isLookUpOf(mixed $parentObject) {
         $this->_isLookupOf = $parentObject;
@@ -80,6 +85,7 @@ class DataTable extends BaseDataTable
      * @param string|\Closure $returnAs The class name or closure to return for each row.
      * @param Storage|null $storage The storage instance.
      * @return void
+     * @public
      */
     public function __construct(
         DataAccessPoint $point,
@@ -95,6 +101,7 @@ class DataTable extends BaseDataTable
     /**
      * Returns an iterator.
      * @return DataTableIterator The iterator.
+     * @public
      */
     public function getIterator(): DataTableIterator
     {
@@ -104,6 +111,7 @@ class DataTable extends BaseDataTable
     /**
      * Returns the storage object.
      * @return Storage
+     * @public
      */
     public function Storage(): Storage
     {
@@ -115,6 +123,7 @@ class DataTable extends BaseDataTable
      *
      * @param ExtendedObject $result The result object.
      * @return mixed The data row object.
+     * @protected
      */
     protected function _createDataRowObject(mixed $result): mixed
     {
@@ -124,7 +133,7 @@ class DataTable extends BaseDataTable
         }
 
         $return = new $className($this, $result, $this->_storage);
-        $return->isLookupOf($this->_isLookupOf);
+        $return->isLookUpOf($this->_isLookupOf);
         return $return;
     }
 
@@ -133,6 +142,8 @@ class DataTable extends BaseDataTable
      * @param string|null $value The value containing field placeholders.
      * @param Storage $storage The storage instance.
      * @return string|null The value with field placeholders replaced by real field names.
+     * @protected
+     * @static
      */
     protected static function _replaceFields(?string $value, Storage $storage): ?string
     {
@@ -165,6 +176,8 @@ class DataTable extends BaseDataTable
      * @param array $params Additional parameters for the query.
      * @param bool $calculateAffected Whether to calculate affected rows.
      * @return static|null The loaded data table or null if an error occurred.
+     * @protected
+     * @static
      */
     protected static function _loadByFilter(
         Storage $storage,
@@ -210,6 +223,8 @@ class DataTable extends BaseDataTable
      * @param string $query The SQL query string.
      * @param array $params The parameters for the query.
      * @return static|null The loaded data table or null if an error occurred.
+     * @public
+     * @static
      */
     public static function LoadByQuery(
         Storage $storage,
@@ -236,6 +251,8 @@ class DataTable extends BaseDataTable
      * @param Storage $storage The storage instance.
      * @param string|null $filter The filter condition.
      * @return bool True if the deletion was successful, false otherwise.
+     * @protected 
+     * @static
      */
     protected static function DeleteByFilter(
         Storage $storage,
@@ -284,6 +301,8 @@ class DataTable extends BaseDataTable
      * @param Storage $storage The storage instance.
      * @param string|null $filter The filter condition.
      * @return bool True if the restoration was successful, false otherwise.
+     * @protected
+     * @static
      */
     protected static function RestoreByFilter(
         Storage $storage,
@@ -325,6 +344,7 @@ class DataTable extends BaseDataTable
      *
      * @param BaseDataRow $row The data row to delete.
      * @return QueryInfo|ICommandResult|bool The result of the deletion operation.
+     * @public
      */
     public function DeleteRow(BaseDataRow $row): QueryInfo|ICommandResult|bool
     {
@@ -334,8 +354,11 @@ class DataTable extends BaseDataTable
     /**
      * Restore a specific soft-deleted data row.
      *
-     * @param BaseDataRow $row The data row to restore.
+     * @param Storage $storage The storage instance.
+     * @param string $filter The filter condition to identify the row to restore.
+     * @param array $fields The fields to update during restoration.
      * @return QueryInfo|ICommandResult|bool The result of the restoration operation.
+     * @protected
      */
     protected static function UpdateByFilter(
         Storage $storage,
@@ -372,6 +395,7 @@ class DataTable extends BaseDataTable
      * Creates a new auto-increment value for the row
      * @param DataRow|BaseDataRow $row The row for which to create the auto-increment value
      * @return mixed The new auto-increment value, typically a timestamp or a unique identifier
+     * @protected
      */
     protected function _createNewAutoIncrementValue(DataRow|BaseDataRow $row): mixed
     {
@@ -384,6 +408,7 @@ class DataTable extends BaseDataTable
      * @param string|null $idField поле для автоинкремента, если не найдется в таблице
      * @return QueryInfo|bool
      * @throws DataModelException
+     * @public
      */
     public function SaveRow(
         DataRow|BaseDataRow $row,
@@ -458,6 +483,7 @@ class DataTable extends BaseDataTable
      *
      * @param string $file The file path to export the CSV to.
      * @return void
+     * @public
      */
     public function ExportCSV(string $file): void
     {
@@ -520,6 +546,7 @@ class DataTable extends BaseDataTable
      *
      * @param string $file The file path to export the XML to.
      * @return void
+     * @public
      */
     public function ExportXML(string $file): void
     {
@@ -587,6 +614,7 @@ class DataTable extends BaseDataTable
      *
      * @param string $file The file path to export the JSON to.
      * @return void
+     * @public
      */
     public function ExportJson(string $file): void
     {
@@ -622,6 +650,7 @@ class DataTable extends BaseDataTable
      * @param string $primaryKeyName The name of the primary key field.
      * @param array $typeExchange An array for type conversion.
      * @return void
+     * @public
      */
     public function ExportSQL(string $file, array $exceptFields = [], string $primaryKeyName = 'id', array $typeExchange = []): void
     {
@@ -672,6 +701,7 @@ class DataTable extends BaseDataTable
      * @param string $file The source CSV file.
      * @param int $firstrow The row number where the data starts.
      * @return bool True if the import was successful, false otherwise.
+     * @public
      */
     public function ImportCSV(string $file, int $firstrow = 1, ?Logger $logger = null): bool
     {
@@ -726,6 +756,7 @@ class DataTable extends BaseDataTable
      * @param string $file The source XML file.
      * @param int $firstrow The row number where the data starts.
      * @return bool True if the import was successful, false otherwise.
+     * @public
      */
     public function ImportXML(string $file, int $firstrow = 1, ?Logger $logger = null): bool
     {
@@ -771,6 +802,8 @@ class DataTable extends BaseDataTable
      * @param array|null $filter Optional filter conditions for the export.
      * @return bool True if the export was successful, false otherwise.
      * @throws DataModelException If there is an error during the export process.
+     * @protected
+     * @static
      */
     protected static function _exportToFileJson(
         Storage $storage,
@@ -814,6 +847,8 @@ class DataTable extends BaseDataTable
      * @param array $additionalFields Additional fields to set during the load operation.
      * @return bool True if the load was successful, false otherwise.
      * @throws DataModelException If there is an error during the load process.
+     * @protected
+     * @static
      */
     protected static function _loadFromFileXML(
         Storage $storage,
@@ -867,6 +902,8 @@ class DataTable extends BaseDataTable
      *
      * @param bool $value True to enable full selection, false to disable.
      * @return void
+     * @public
+     * @static
      */
     public static function SetFullSelect(bool $value)
     {

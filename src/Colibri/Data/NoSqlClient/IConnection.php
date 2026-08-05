@@ -21,6 +21,8 @@ interface IConnection
      *
      * @param object|array $connectionInfo The connection information as an object or array.
      * @return static A new instance of the connection.
+     * @public
+     * @static
      */
     public static function FromConnectionInfo(object|array $connectionInfo): static;
 
@@ -28,6 +30,7 @@ interface IConnection
      * Opens a connection to the database.
      *
      * @return bool True if the connection was successfully opened, false otherwise.
+     * @public
      */
     public function Open(): bool;
 
@@ -35,6 +38,7 @@ interface IConnection
      * Reopens a connection to the database.
      *
      * @return bool True if the connection was successfully reopened, false otherwise.
+     * @public
      */
     public function Reopen(): bool;
 
@@ -42,12 +46,14 @@ interface IConnection
      * Closes the connection to the database.
      *
      * @return void
+     * @public
      */
     public function Close(): void;
 
     /**
      * Check that the service alive
      * @return bool
+     * @public
      */
     public function Ping(): bool;
 

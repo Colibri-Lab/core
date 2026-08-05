@@ -23,6 +23,7 @@ interface IQueryBuilder
      * @param array|object $data The data to insert into the table.
      * @param string $returning (optional) The returning clause for the query. Default is an empty string.
      * @return string The generated INSERT query.
+     * @public
      */
     public function CreateInsert(string $table, array|object $data, string $returning = ''): string;
 
@@ -33,6 +34,7 @@ interface IQueryBuilder
      * @param array|object $data The data to replace in the table.
      * @param string $returning (optional) The returning clause for the query. Default is an empty string.
      * @return string The generated REPLACE query.
+     * @public
      */
     public function CreateReplace(string $table, array|object $data, string $returning = ''): string;
 
@@ -44,6 +46,7 @@ interface IQueryBuilder
      * @param array $exceptFields (optional) Fields to be excluded from the update operation. Default is an empty array.
      * @param string $returning (optional) The returning clause for the query. Default is an empty string.
      * @return string The generated INSERT OR UPDATE query.
+     * @public
      */
     public function CreateInsertOrUpdate(string $table, array|object $data, array $exceptFields = [], string $returning = ''): string;
 
@@ -53,6 +56,7 @@ interface IQueryBuilder
      * @param string $table The name of the table to insert data into.
      * @param array|object $data The data to insert into the table.
      * @return string The generated batch INSERT query.
+     * @public
      */
     public function CreateBatchInsert(string $table, array|object $data): string;
 
@@ -63,6 +67,7 @@ interface IQueryBuilder
      * @param string $condition The condition for the update operation.
      * @param array|object $data The data to update.
      * @return string The generated UPDATE query.
+     * @public
      */
     public function CreateUpdate(string $table, string $condition, array|object $data): string;
 
@@ -72,6 +77,7 @@ interface IQueryBuilder
      * @param string $table The name of the table to delete from.
      * @param string $condition The condition for the delete operation.
      * @return string The generated DELETE query.
+     * @public
      */
     public function CreateDelete(string $table, string $condition): string;
 
@@ -79,6 +85,7 @@ interface IQueryBuilder
      * Creates an SQL SHOW TABLES query.
      *
      * @return string The generated SHOW TABLES query.
+     * @public
      */
     public function CreateShowTables(?string $tableFilter = null, ?string $database = null): string;
 
@@ -87,14 +94,17 @@ interface IQueryBuilder
      *
      * @param string $table The name of the table.
      * @return string The generated SHOW FIELD query.
+     * @public
      */
     public function CreateShowField(string $table, ?string $database = null): string;
 
     /**
-     * Creates an query for list indexes in table
-     * @param string $table
-     * @param mixed $database
-     * @return string
+     * Creates an SQL query to list indexes in a table.
+     *
+     * @param string $table The name of the table.
+     * @param string|null $database (optional) The name of the database. Default is null.
+     * @return string The generated query to list indexes in the table.
+     * @public
      */
     public function CreateShowIndexes(string $table, ?string $database = null): string;
 
@@ -102,6 +112,7 @@ interface IQueryBuilder
      * Creates an SQL BEGIN transaction query.
      *
      * @return string The generated BEGIN transaction query.
+     * @public
      */
     public function CreateBegin(?string $type = null): string;
 
@@ -109,6 +120,7 @@ interface IQueryBuilder
      * Creates an SQL COMMIT transaction query.
      *
      * @return string The generated COMMIT transaction query.
+     * @public
      */
     public function CreateCommit(): string;
 
@@ -116,6 +128,7 @@ interface IQueryBuilder
      * Creates an SQL ROLLBACK transaction query.
      *
      * @return string The generated ROLLBACK transaction query.
+     * @public
      */
     public function CreateRollback(): string;
 
@@ -125,6 +138,7 @@ interface IQueryBuilder
      * @param string $table The name of the table to create.
      * @param string|null $prefix (optional) The prefix for the table name. Default is null.
      * @return string|array The generated query or queries to create the default storage table.
+     * @public
      */
     public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array;
 
@@ -133,14 +147,16 @@ interface IQueryBuilder
      *
      * @param string $table The name of the table to drop.
      * @return string The generated query to drop the table.
+     * @public
      */
-    public function CreateDrop($table): string;
+    public function CreateDrop(string $table): string;
 
     /**
      * Creates a query to check if a table exists in the database.
      *
      * @param string $table The name of the table.
      * @return string The generated query to check for table existence.
+     * @public
      */
     public function CreateFieldForQuery(string $field, string $table): string;
 

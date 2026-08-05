@@ -32,13 +32,15 @@ abstract class Command
      * The database connection associated with the command.
      *
      * @var IConnection|null
+     * @protected
      */
     protected ?IConnection $_connection = null;
 
     /**
      * The command text.
      *
-     * @var string
+     * @var string  
+     * @protected
      */
     protected string $_commandtext = '';
 
@@ -46,6 +48,7 @@ abstract class Command
      * The page size for pagination.
      *
      * @var int
+     * @protected
      */
     protected int $_pagesize = 10;
 
@@ -53,6 +56,7 @@ abstract class Command
      * The current page number.
      *
      * @var int
+     * @protected
      */
     protected int $_page = -1;
 
@@ -60,6 +64,7 @@ abstract class Command
      * The parameters for the command.
      *
      * @var array|null
+     * @protected
      */
     protected ?array $_params = null;
 
@@ -68,6 +73,8 @@ abstract class Command
      *
      * @param string $commandtext The command text.
      * @param IConnection|null $connection (optional) The database connection. Default is null.
+     * @public
+     * @constructor
      */
     public function __construct(string $commandtext = '', ?IConnection $connection = null)
     {
@@ -80,6 +87,8 @@ abstract class Command
      *
      * @param string $property The name of the property.
      * @return mixed The value of the property, or null if the property does not exist.
+     * @public
+     * @magic
      */
     public function __get(string $property)
     {
@@ -125,6 +134,8 @@ abstract class Command
      * @param string $property The name of the property.
      * @param mixed $value The value to set.
      * @return void
+     * @public
+     * @magic
      */
     public function __set(string $property, mixed $value): void
     {
@@ -160,6 +171,8 @@ abstract class Command
      *
      * @param bool $info (optional) Whether to include query info. Default is true.
      * @return IDataReader The data reader.
+     * @public
+     * @abstract
      */
     abstract public function ExecuteReader(bool $info = true): IDataReader;
 
@@ -168,6 +181,8 @@ abstract class Command
      *
      * @param string|null $returning (optional) The returning clause for the query. Default is null.
      * @return QueryInfo The query information.
+     * @public
+     * @abstract
      */
     abstract public function ExecuteNonQuery(?string $returning = null): QueryInfo;
 
@@ -175,6 +190,8 @@ abstract class Command
      * Prepares the query string before execution.
      *
      * @return string The prepared query string.
+     * @public
+     * @abstract
      */
     abstract public function PrepareQueryString(): string;
 
@@ -185,6 +202,8 @@ abstract class Command
      * @param string $storage The storage name.
      * @param array $xstorage The existing storage information.
      * @return void
+     * @public
+     * @abstract
      */
     abstract public function Migrate(Logger $logger, string $storage, array $xstorage): void;
 
@@ -193,6 +212,8 @@ abstract class Command
      *
      * @param array|object $field The field data.
      * @return object The extracted field information.
+     * @public
+     * @abstract
      */
     abstract public static function ExtractFieldInformation(array|object $field): object;
 
@@ -201,6 +222,8 @@ abstract class Command
      *
      * @param array|object $index The index data.
      * @return object The extracted index information.
+     * @public
+     * @abstract
      */
     abstract public static function ExtractIndexInformation(array|object $index): object;
 

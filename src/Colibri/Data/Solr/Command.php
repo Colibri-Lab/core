@@ -27,7 +27,7 @@ use Colibri\Utils\Logs\Logger;
  * This class extends SqlCommand and provides methods for preparing and executing queries.
  *
  * @inheritDoc
- * 
+ *
  * @class
  * @final
  * @extends NoSqlCommand
@@ -40,6 +40,7 @@ final class Command extends NoSqlCommand
      *
      * @param string $input The input query string to escape.
      * @return string The escaped query string.
+     * @public
      */
     public function EscapeQuery(string $input): string
     {
@@ -56,6 +57,8 @@ final class Command extends NoSqlCommand
      * @param string $command command name
      * @param mixed[] $arguments command arguments
      * @return ICommandResult The command result.
+     * @public
+     * @static
      */
     public static function Execute(IConnection $connection, string $type, string $command, array $arguments): ICommandResult
     {
@@ -80,10 +83,9 @@ final class Command extends NoSqlCommand
     /**
      * Executes the command and returns a data results if exists.
      *
-     * @param Logger $logger The logger instance.
-     * @param string $command command name
-     * @param mixed[] $arguments command arguments
-     * @return ICommandResult The command result.
+     * @param string $collectionName The name of the collection to check.
+     * @return bool True if the collection exists, false otherwise.
+     * @public
      */
     public function CollectionExists(string $collectionName): bool
     {
@@ -95,10 +97,9 @@ final class Command extends NoSqlCommand
     /**
      * Executes the command and returns a data results if exists.
      *
-     * @param Logger $logger The logger instance.
-     * @param string $command command name
-     * @param mixed[] $arguments command arguments
-     * @return ICommandResult The command result.
+     * @param string $collectionName The name of the collection to create.
+     * @return bool True if the collection was created successfully, false otherwise.
+     * @public
      */
     public function CreateCollection(string $collectionName): bool
     {
@@ -120,10 +121,9 @@ final class Command extends NoSqlCommand
     /**
      * Executes the command and returns a data results if exists.
      *
-     * @param Logger $logger The logger instance.
-     * @param string $command command name
-     * @param mixed[] $arguments command arguments
-     * @return ICommandResult The command result.
+     * @param string $collectionName The name of the collection to check.
+     * @return int The maximum ID in the collection.
+     * @public
      */
     public function MaxId(string $collectionName): int
     {
@@ -145,10 +145,8 @@ final class Command extends NoSqlCommand
     /**
      * Executes the command and returns a data results if exists.
      *
-     * @param Logger $logger The logger instance.
-     * @param string $command command name
-     * @param mixed[] $arguments command arguments
-     * @return ICommandResult The command result.
+     * @param string $collectionName The name of the collection to insert the document into.
+     * @param object $document The document to insert.
      */
     public function InsertDocument(string $collectionName, object $document): CommandResult
     {
@@ -163,10 +161,10 @@ final class Command extends NoSqlCommand
     /**
      * Executes the command and returns a data results if exists.
      *
-     * @param Logger $logger The logger instance.
-     * @param string $command command name
-     * @param mixed[] $arguments command arguments
-     * @return ICommandResult The command result.
+     * @param string $collectionName The name of the collection to insert the documents into.
+     * @param object[] $arrayOfDocuments The array of documents to insert.
+     * @return CommandResult The command result.
+     * @public
      */
     public function InsertDocuments(string $collectionName, array $arrayOfDocuments): CommandResult
     {
@@ -186,10 +184,11 @@ final class Command extends NoSqlCommand
     /**
      * Executes the command and returns a data results if exists.
      *
-     * @param Logger $logger The logger instance.
-     * @param string $command command name
-     * @param mixed[] $arguments command arguments
-     * @return ICommandResult The command result.
+     * @param string $collectionName The name of the collection to update the document in.
+     * @param int $id The ID of the document to update.
+     * @param object $partOfDocument The part of the document to update.
+     * @return CommandResult The command result.
+     * @public
      */
     public function UpdateDocument(string $collectionName, int $id, object $partOfDocument): CommandResult
     {
@@ -203,10 +202,11 @@ final class Command extends NoSqlCommand
     /**
      * Executes the command and returns a data results if exists.
      *
-     * @param Logger $logger The logger instance.
-     * @param string $command command name
-     * @param mixed[] $arguments command arguments
-     * @return ICommandResult The command result.
+     * @param string $collectionName The name of the collection to update the documents in.
+     * @param array $filter The filter criteria to select the documents to update.
+     * @param array $update The update data to apply to the selected documents.
+     * @return CommandResult The command result.
+     * @public
      */
     public function UpdateDocuments(string $collectionName, array $filter, array $update): CommandResult
     {
@@ -229,10 +229,10 @@ final class Command extends NoSqlCommand
     /**
      * Executes the command and returns a data results if exists.
      *
-     * @param Logger $logger The logger instance.
-     * @param string $command command name
-     * @param mixed[] $arguments command arguments
-     * @return ICommandResult The command result.
+     * @param string $collectionName The name of the collection to delete the documents from.
+     * @param array $deleteQuery The delete query criteria.
+     * @return CommandResult The command result.
+     * @public
      */
     public function DeleteDocuments(string $collectionName, array $deleteQuery = ['*' => '*']): CommandResult
     {
@@ -256,10 +256,18 @@ final class Command extends NoSqlCommand
      * @param mixed $sort - sort: array contains a fields to sort, example ['fieldname1' => 'asc', 'fieldname2' => 'desc']
      * @param int $page - page number for pagination, default is -1 (no pagination)
      * @param int $pagesize - number of results per page, default is 20
-     * @return \Colibri\Data\Solr\CommandResult 
+     * @return \Colibri\Data\Solr\CommandResult
      */
-    public function SelectDocuments(string $collectionName, array $select, ?array $filters = null, ?array $faset = null, ?array $fields = null, ?array $sort = null, int $page = -1, int $pagesize = 20): CommandResult
-    {
+    public function SelectDocuments(
+        string $collectionName,
+        array $select,
+        ?array $filters = null,
+        ?array $faset = null,
+        ?array $fields = null,
+        ?array $sort = null,
+        int $page = -1,
+        int $pagesize = 20
+    ): CommandResult {
 
         $params = ['wt' => 'json'];
         $q = [];
@@ -304,8 +312,9 @@ final class Command extends NoSqlCommand
 
     /**
      * Create custom fields to the solr collection, if they do not exist
-     * @param string $collectionName
+     * @param string $collectionName The name of the collection to create custom fields in.
      * @return void
+     * @public
      */
     public function CreateCustomFields(string $collectionName)
     {
@@ -379,6 +388,7 @@ final class Command extends NoSqlCommand
      * Gets the fields from collection
      * @param string $collectionName
      * @return CommandResult
+     * @public
      */
     public function GetFields(string $collectionName): CommandResult
     {
@@ -396,6 +406,7 @@ final class Command extends NoSqlCommand
      * @param bool $indexed
      * @param mixed $default
      * @return CommandResult
+     * @public
      */
     public function AddField(string $collectionName, string $fieldName, string $fieldType, bool $required, bool $indexed, mixed $default = null): CommandResult
     {
@@ -424,6 +435,7 @@ final class Command extends NoSqlCommand
      * @param string $source
      * @param string $dest
      * @return CommandResult
+     * @public
      */
     public function AddCopyField(string $collectionName, string $source, string $dest): CommandResult
     {
@@ -444,6 +456,7 @@ final class Command extends NoSqlCommand
      * @param bool $indexed
      * @param mixed $default
      * @return CommandResult
+     * @public
      */
     public function ReplaceField(string $collectionName, string $fieldName, string $fieldType, bool $required, bool $indexed, mixed $default = null): CommandResult
     {
@@ -472,6 +485,7 @@ final class Command extends NoSqlCommand
      * @param string $storage The storage name.
      * @param array $xstorage The extended storage configuration.
      * @return void
+     * @public
      */
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {

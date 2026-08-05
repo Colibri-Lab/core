@@ -14,11 +14,13 @@ class ValueField implements JsonSerializable
     /**
      * The value of the field.
      * @var string
+     * @private
      */
     private string $_value;
     /**
      * The title associated with the value.
      * @var string|array|object
+     * @private
      */
     private string|array |object $_title;
 
@@ -27,6 +29,8 @@ class ValueField implements JsonSerializable
      *
      * @param string $value The value of the field.
      * @param string|array|object $title The title associated with the value.
+     * @public
+     * @constructor
      */
     public function __construct(string $value, string|array |object $title)
     {
@@ -39,6 +43,8 @@ class ValueField implements JsonSerializable
      *
      * @param string $property The property name.
      * @return mixed The property value or null if not found.
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -56,6 +62,8 @@ class ValueField implements JsonSerializable
      * @param string $property The property name.
      * @param mixed $value The value to set.
      * @return void
+     * @public
+     * @magic
      */
     public function __set(string $property, mixed $value): void
     {
@@ -70,6 +78,7 @@ class ValueField implements JsonSerializable
      * Returns the string representation of the value.
      *
      * @return string The string representation of the value.
+     * @public
      */
     public function ToString(): string
     {
@@ -80,6 +89,7 @@ class ValueField implements JsonSerializable
      * Returns the array representation of the value and title.
      *
      * @return array The array representation containing 'title' and 'value'.
+     * @public
      */
     public function __toString(): string
     {
@@ -90,6 +100,7 @@ class ValueField implements JsonSerializable
      * Returns the array representation of the value and title.
      *
      * @return array The array representation containing 'title' and 'value'.
+     * @public
      */
     public function ToArray(): array
     {
@@ -100,6 +111,7 @@ class ValueField implements JsonSerializable
      * Returns the JSON representation of the value and title.
      *
      * @return mixed The JSON representation containing 'title' and 'value'.
+     * @public
      */
     public function jsonSerialize(): string
     {
@@ -110,6 +122,8 @@ class ValueField implements JsonSerializable
      * Returns the parameter type name for this value field.
      *
      * @return string The parameter type name.
+     * @public
+     * @static
      */
     public static function ParamTypeName(): string
     {

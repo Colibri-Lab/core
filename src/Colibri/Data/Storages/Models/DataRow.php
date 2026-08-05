@@ -45,18 +45,21 @@ class DataRow extends BaseDataRow
     /**
      * Storage
      * @var Storage
+     * @protected
      */
-    protected $_storage;
+    protected ?Storage $_storage = null;
 
     /**
      * Casts for specific fields
      * @var array
+     * @protected
      */
     protected static array $casts = [];
 
     /**
      * Indicates if this row is a lookup of another object.
      * @var mixed
+     * @protected
      */
     protected mixed $_isLookupOf = null;
 
@@ -67,6 +70,8 @@ class DataRow extends BaseDataRow
      * @param mixed $data
      * @param Storage|null $storage
      * @throws DataModelException
+     * @constructor
+     * @public
      */
     public function __construct(DataTable|DataCollection $table, mixed $data = null, ?Storage $storage = null)
     {
@@ -95,6 +100,9 @@ class DataRow extends BaseDataRow
 
     /**
      * Is this row a lookup of another object?
+     * @param mixed $parentObject The parent object to check against.
+     * @return void
+     * @public
      */
     public function isLookUpOf(mixed $parentObject) {
         $this->_isLookupOf = $parentObject;
@@ -104,6 +112,7 @@ class DataRow extends BaseDataRow
      * Imports data from object
      * @param mixed $obj The object to check against.
      * @return void
+     * @public
      */
     public function Fill(mixed $obj): void
     {
@@ -132,6 +141,7 @@ class DataRow extends BaseDataRow
      * @param string $property Property name.
      * @param mixed $value Value to be set.
      * @return mixed Result.
+     * @protected
      */
     protected function _typeExchange(string $mode, string $property, mixed $value = false): mixed
     {
@@ -343,6 +353,7 @@ class DataRow extends BaseDataRow
      * Converts data for use with the GetData function.
      * @param mixed $data Data to be converted.
      * @return mixed Converted data.
+     * @protected
      */
     protected function _typeToData(mixed $data): mixed
     {
@@ -409,6 +420,7 @@ class DataRow extends BaseDataRow
     /**
      * Processes default values for the data row.
      * @return bool True on success.
+     * @protected
      */
     protected function _processDefaultValues(): bool
     {
@@ -425,6 +437,7 @@ class DataRow extends BaseDataRow
      * Gets the validation data
      * @param bool $expandLookups Whether to expand lookup fields.
      * @return mixed The validation data.
+     * @public
      */
     public function GetValidationData(bool $expandLookups = true): mixed
     {
@@ -518,6 +531,7 @@ class DataRow extends BaseDataRow
     /**
      * Returns the storage associated with this data row.
      * @return Storage
+     * @public
      */
     public function Storage(): Storage
     {
@@ -528,6 +542,7 @@ class DataRow extends BaseDataRow
      * Returns the row as an array.
      * @param bool $noPrefix Whether to return without prefixes.
      * @return array
+     * @public
      */
     public function ToArray(bool $noPrefix = false, ?\Closure $callback = null): array
     {
@@ -546,6 +561,7 @@ class DataRow extends BaseDataRow
     /**
      * Converts the row to a string.
      * @return string
+     * @public
      */
     public function ToString(): string
     {
@@ -577,6 +593,7 @@ class DataRow extends BaseDataRow
     /**
      * Magic method to convert the object to a string.
      * @return string
+     * @public
      */
     public function __toString(): string
     {
@@ -586,6 +603,7 @@ class DataRow extends BaseDataRow
     /**
      * Checks if a property has changed.
      * @return bool
+     * @public
      */
     public function IsPropertyChanged(string $property, bool $convertData = false): bool
     {
@@ -617,6 +635,7 @@ class DataRow extends BaseDataRow
     /**
      * Calls SaveRow on the table.
      * @return QueryInfo|bool
+     * @public
      */
     public function Save(bool $performValidationBeforeSave = false): QueryInfo|ICommandResult|bool
     {
@@ -631,6 +650,7 @@ class DataRow extends BaseDataRow
     /**
      * Deletes the row, either soft delete or hard delete based on storage parameters.
      * @return QueryInfo|ICommandResult|bool
+     * @public
      */
     public function Delete(): QueryInfo|ICommandResult|bool
     {
@@ -653,6 +673,7 @@ class DataRow extends BaseDataRow
     /**
      * Restores a soft-deleted row.
      * @return QueryInfo|ICommandResult|bool
+     * @public
      */
     public function Restore(): QueryInfo|ICommandResult|bool
     {
@@ -677,6 +698,7 @@ class DataRow extends BaseDataRow
      * Returns an array of changed data.
      * @param bool $returnAll Whether to return all data or only changed data.
      * @return array
+     * @public
      */
     public function Changed(bool $returnAll = false): array
     {
@@ -696,6 +718,7 @@ class DataRow extends BaseDataRow
      * Prepares data for saving, including changed fields and their types.
      * @param bool $saveAll Whether to save all fields or only changed fields.
      * @return array|null An array containing field values and parameters, or null if nothing to save.
+     * @public
      */
     public function DataToChange(bool $saveAll = false): ?array
     {
@@ -716,7 +739,7 @@ class DataRow extends BaseDataRow
                 $fieldValues[$key] = '[[id:integer]]';
                 continue;
             }
-            /** @var \Colibri\Data\Storages\Fields\Field $field */
+            /** @var Field $field */
             $field = $this->_storage->fields->$fieldName ?? null;
             $className = $field ? $field?->{'class'} : 'string';
             $allowedType = $allowedTypes[$field?->{'type'}] ?? null;

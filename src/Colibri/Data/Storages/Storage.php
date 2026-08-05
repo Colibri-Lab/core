@@ -40,6 +40,21 @@ use Throwable;
  * @property-read DataAccessPoint $accessPoint The DataAccessPoint object associated with the storage.
  * @property-read bool $isSoftDelete Indicates whether the rows is not deleted but marked as deleted
  * @property-read bool $isShowDeletedRows Indicates whether the deleted rows must be shown or not
+ * 
+ * @example
+ * ```
+ * $storage = Storages::Instance()->Load('langs', 'lang');
+ * $storage->Save();
+ * $storage->Delete();
+ * $storage->AddField('fieldname', ['name' => 'fieldname', 'type' => 'string']);
+ * $storage->DeleteField('fieldname');
+ * $storage->MoveField($field, $relative, 'before');
+ * $storage->AddIndex('indexname', ['type' => 'unique', 'fields' => ['field1', 'field2']]);
+ * $storage->DeleteIndex('indexname');
+ * $storage->AddTrigger('triggername', ['type' => 'beforeInsert', 'fields' => ['field1', 'field2']]);
+ * $storage->DeleteTrigger('triggername');
+ * $storage->GetStatus();   
+ * ```
  *
  */
 class Storage
@@ -48,24 +63,28 @@ class Storage
     /**
      * Internal storage data
      * @var array
+     * @private
      */
     private array|object $_xstorage;
 
     /**
      * Data access point
      * @var DataAccessPoint|null
+     * @private
      */
     private ?DataAccessPoint $_dataPoint;
 
     /**
      * Fields list
      * @var object
+     * @private
      */
     private object $_fields;
 
     /**
      * Storage Name
      * @var string
+     * @private
      */
     private ?string $_name;
 
@@ -74,6 +93,8 @@ class Storage
      *
      * @param array|object $xstorage The data from the storage settings.
      * @param string|null $name The name of the storage.
+     * @constructor
+     * @public
      */
     public function __construct(array|object $xstorage, ?string $name = null, ?DataAccessPoint $accessPoint = null)
     {
@@ -89,6 +110,7 @@ class Storage
      * This method sets up the name, data access point, and loads fields for the storage.
      *
      * @return void
+     * @private
      */
     private function _init()
     {
@@ -107,22 +129,18 @@ class Storage
      * This method is a factory method used to create a new Storage object.
      * It allows creating a Storage object with the provided module, name, and data.
      *
-     * ```
-     * For example
-     *
-     * $storage = Storage::Create(App::$moduleManager->{'lang'}, 'langs');
-     *
-     * its equivalent of
-     *
-     * $storage = Storages::Instance()->Load('langs', 'lang');
-     *
      * @example
+     * ```
+     * $storage = Storage::Create(App::$moduleManager->{'lang'}, 'langs');
+     * $storage = Storages::Instance()->Load('langs', 'lang');
      * ```
      *
      * @param Module $module The module instance.
      * @param string $name The name of the storage.
      * @param array $data Additional data for configuring the storage.
      * @return Storage The newly created Storage object.
+     * @public
+     * @static
      */
     public static function Create(Module $module, string $name = '', array $data = []): self
     {
@@ -137,6 +155,8 @@ class Storage
      *
      * @param string $prop The name of the property to retrieve.
      * @return mixed The value of the specified property.
+     * @public
+     * @magic
      */
     public function __get($prop)
     {
@@ -184,6 +204,8 @@ class Storage
      * @param string $prop The name of the property to set.
      * @param mixed $value The value to set.
      * @return void
+     * @public
+     * @magic
      */
     public function __set(string $prop, mixed $value): void
     {
@@ -198,6 +220,7 @@ class Storage
      * This method initializes the fields of the storage object from the stored configuration.
      *
      * @return void
+     * @private
      */
     private function _loadFields()
     {
@@ -216,6 +239,7 @@ class Storage
      *
      * @param Field $field The field object to update.
      * @return void
+     * @public
      */
     public function UpdateField(Field $field)
     {
@@ -226,6 +250,7 @@ class Storage
      * Retrieves the model classes for the storage.
      *
      * @return array An array containing the table class and row class.
+     * @public
      */
     public function GetModelClasses()
     {
@@ -269,6 +294,7 @@ class Storage
      * @param Field $field The field object.
      * @return string The class name of the field.
      * @throws AppException If the class of the field is unknown.
+     * @public
      */
     public function GetFieldClass(Field $field)
     {
@@ -305,6 +331,7 @@ class Storage
      *
      * @param string $name The name of the field without the prefix.
      * @return string The name of the field with the prefix.
+     * @public
      */
     public function GetRealFieldName($name)
     {
@@ -320,6 +347,7 @@ class Storage
      *
      * @param string $name The name of the field with the prefix.
      * @return string The name of the field without the prefix.
+     * @public
      */
     public function GetFieldName($name)
     {
@@ -335,6 +363,7 @@ class Storage
      *
      * @param string $path The path to the field (e.g., 'fieldname/subfieldname').
      * @return Field|null The field object, or null if not found.
+     * @public
      */
     public function GetField($path)
     {
@@ -355,6 +384,7 @@ class Storage
      * Retrieves templates for displaying records from the storage.
      *
      * @return object|array The templates data.
+     * @public
      */
     public function GetTemplates()
     {
@@ -365,6 +395,7 @@ class Storage
      * Retrieves the module associated with the storage.
      *
      * @return Module|null The module object, or null if not found.
+     * @public
      */
     public function GetModule(): ?Module
     {
@@ -380,6 +411,7 @@ class Storage
      *
      * @param bool $changeLang Whether to change the language or not.
      * @return array The storage settings as an array.
+     * @public
      */
     public function ToArray($changeLang = true)
     {
@@ -391,6 +423,7 @@ class Storage
      *
      * @param bool $performValidationBeforeSave this parameter is dummy
      * @return void
+     * @public
      */
     public function Save(bool $performValidationBeforeSave = false)
     {
@@ -466,6 +499,7 @@ class Storage
      * Deletes the storage settings from config of module or application.
      *
      * @return void
+     * @public
      */
     public function Delete(): void
     {
@@ -485,6 +519,7 @@ class Storage
      * @param string $path The path to the field.
      * @param array $data The data for the new field.
      * @return Field The newly created field object.
+     * @public
      */
     public function AddField($path, $data)
     {
@@ -510,6 +545,7 @@ class Storage
      *
      * @param string $path The path to the field.
      * @return void
+     * @public
      */
     public function DeleteField($path)
     {
@@ -532,6 +568,7 @@ class Storage
      * @param string $name The name of the index.
      * @param array $data The index data.
      * @return void
+     * @public
      */
     public function AddIndex($name, $data)
     {
@@ -547,6 +584,7 @@ class Storage
      * @param string $name The name of the index.
      * @param array $data The index data.
      * @return void
+     * @public
      */
     public function AddTrigger($name, $data)
     {
@@ -561,6 +599,7 @@ class Storage
      *
      * @param string $name The name of the index.
      * @return void
+     * @public
      */
     public function DeleteIndex($name)
     {
@@ -574,6 +613,7 @@ class Storage
      *
      * @param string $name The name of the index.
      * @return void
+     * @public
      */
     public function DeleteTrigger($name)
     {
@@ -589,6 +629,7 @@ class Storage
      * @param Field $relative The relative field.
      * @param string $sibling The sibling position ('before' or 'after').
      * @return void
+     * @public
      */
     public function MoveField($field, $relative, $sibling)
     {
@@ -624,6 +665,7 @@ class Storage
      * Retrieves the status of the storage.
      *
      * @return object The storage status.
+     * @public
      */
     public function GetStatus(): object
     {
@@ -683,6 +725,7 @@ class Storage
      *
      * @deprecated
      * @return void
+     * @public
      */
     public function DisableKeys()
     {
@@ -696,6 +739,7 @@ class Storage
      *
      * @deprecated
      * @return void
+     * @public
      */
     public function EnableKeys()
     {
@@ -710,6 +754,7 @@ class Storage
      * @param \Closure $closure The closure to apply to each field.
      * @param object|null $fields The fields to recurse through (optional).
      * @return void
+     * @public
      */
     public function RecurseFields(\Closure $closure, ?object $fields = null)
     {

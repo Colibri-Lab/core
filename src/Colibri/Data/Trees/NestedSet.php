@@ -21,6 +21,7 @@ use Colibri\Data\SqlClient\QueryInfo;
  * Nested sets 
  *
  * @class
+ * @ignore
  */
 class NestedSet
 {

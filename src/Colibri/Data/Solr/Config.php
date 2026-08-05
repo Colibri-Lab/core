@@ -11,7 +11,7 @@
 
 namespace Colibri\Data\Solr;
 
-use Colibri\Data\SqlClient\IConfig;
+use Colibri\Data\NoSqlClient\IConfig;
 
 /**
  * Represents query information.
@@ -27,6 +27,8 @@ final class Config implements IConfig
     /**
      * Returns the type of database management system (DBMS) used.
      * @return string The type of DBMS.
+     * @public
+     * @static
      */
     public static function DbmsType(): string
     {
@@ -36,6 +38,8 @@ final class Config implements IConfig
     /**
      * Returns the allowed data types for the database.
      * @return array An array of allowed data types.
+     * @public
+     * @static
      */
     public static function AllowedTypes(): array
     {
@@ -55,6 +59,8 @@ final class Config implements IConfig
     /**
      * Indicates whether the database has triggers.
      * @return bool True if triggers are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function HasTriggers(): bool
     {
@@ -63,6 +69,8 @@ final class Config implements IConfig
     /**
      * Indicates whether the database has indexes.
      * @return bool True if indexes are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function HasIndexes(): bool
     {
@@ -71,6 +79,8 @@ final class Config implements IConfig
     /**
      * Indicates whether the database fields have prefixes.
      * @return bool True if fields have prefixes, false otherwise.
+     * @public
+     * @static
      */
     public static function FieldsHasPrefix(): bool
     {
@@ -79,6 +89,8 @@ final class Config implements IConfig
     /**
      * Indicates whether the database supports virtual fields.
      * @return bool True if virtual fields are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function HasVirtual(): bool
     {
@@ -86,8 +98,10 @@ final class Config implements IConfig
     }
 
     /**
-     * Indicates whether the database supports autoincrement fields.
-     * @return bool True if autoincrement fields are supported, false otherwise.
+     * Indicates whether the database supports multi-field indexes.
+     * @return bool True if multi-field indexes are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function HasMultiFieldIndexes(): bool
     {
@@ -97,6 +111,8 @@ final class Config implements IConfig
     /**
      * Indicates whether the database supports autoincrement fields.
      * @return bool True if autoincrement fields are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function HasAutoincrement(): bool
     {
@@ -105,6 +121,8 @@ final class Config implements IConfig
     /**
      * Returns the index types supported by the database.
      * @return array An array of supported index types.
+     * @public
+     * @static
      */
     public static function IndexTypes(): array
     {
@@ -113,6 +131,8 @@ final class Config implements IConfig
     /**
      * Returns the index methods supported by the database.
      * @return array An array of supported index methods.
+     * @public
+     * @static
      */
     public static function IndexMethods(): array
     {
@@ -121,6 +141,8 @@ final class Config implements IConfig
     /**
      * Returns the symbol used for the database.
      * @return string The symbol used for the database.
+     * @public
+     * @static
      */
     public static function Symbol(): string
     {
@@ -129,6 +151,8 @@ final class Config implements IConfig
     /**
      * Indicates whether the database supports JSON indexes.
      * @return bool True if JSON indexes are supported, false otherwise.
+     * @public
+     * @static
      */
     public static function JsonIndexes(): bool
     {

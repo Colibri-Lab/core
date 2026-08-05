@@ -26,24 +26,29 @@ class ObjectField extends ExtendedObject
     /**
      * Data row associated with this field.
      * @var ExtendedObject|null
+     * @protected
+     * @static
      */
     protected static array $casts = [];
 
     /**
      * Data row associated with this field.
      * @var ExtendedObject|null
+     * @protected
      */
     protected ?ExtendedObject $_datarow = null;
 
     /**
      * Field associated with this object field.
      * @var Field
+     * @protected
      */
     protected ?Field $_field = null;
 
     /**
      * Storage associated with this object field.
      * @var Storage
+     * @protected
      */
     protected ?Storage $_storage = null;
 
@@ -53,6 +58,8 @@ class ObjectField extends ExtendedObject
      * @param Storage $storage The storage.
      * @param Field $field The field.
      * @return void
+     * @public
+     * @constructor
      */
     public function __construct(
         mixed $data,
@@ -72,6 +79,7 @@ class ObjectField extends ExtendedObject
      * @param string $property The property.
      * @param mixed $value The value.
      * @return mixed The result.
+     * @protected
      */
     protected function _typeExchange(string $mode, string $property, mixed $value = false): mixed
     {
@@ -220,6 +228,7 @@ class ObjectField extends ExtendedObject
     /**
      * Returns the validation data for this object field.
      * @return mixed The validation data.
+     * @public
      */
     public function GetValidationData(): mixed
     {
@@ -311,6 +320,7 @@ class ObjectField extends ExtendedObject
     /**
      * Returns the field associated with this object field.
      * @return Field The field.
+     * @public
      */
     public function Field(): Field
     {
@@ -320,6 +330,7 @@ class ObjectField extends ExtendedObject
     /**
      * Returns the storage associated with this object field.
      * @return Storage The storage.
+     * @public
      */
     public function Storage(): Storage
     {
@@ -331,6 +342,8 @@ class ObjectField extends ExtendedObject
      * @param string $property The property.
      * @param mixed $value The value.
      * @return void
+     * @public
+     * @magic
      */
     public function __set(string $property, mixed $value): void
     {
@@ -340,6 +353,7 @@ class ObjectField extends ExtendedObject
     /**
      * Returns as a string.
      * @return string JSON result.
+     * @public
      */
     public function ToString(): string
     {
@@ -360,6 +374,7 @@ class ObjectField extends ExtendedObject
      * Return string value of this object
      *
      * @return string
+     * @public
      */
     public function __toString(): string
     {
@@ -371,6 +386,7 @@ class ObjectField extends ExtendedObject
      * @param bool $noPrefix Whether to exclude the prefix from the keys.
      * @param \Closure|null $callback Optional callback for filtering or transforming values.
      * @return array The converted array.
+     * @public
      */
     public function ToArray(bool $noPrefix = false, ?\Closure $callback = null): array
     {
@@ -403,6 +419,8 @@ class ObjectField extends ExtendedObject
     /**
      * Returns the parameter type name for this object field.
      * @return string The parameter type name.
+     * @public
+     * @static
      */
     public static function ParamTypeName(): string
     {
@@ -413,6 +431,8 @@ class ObjectField extends ExtendedObject
      * Returns null value for the field.
      *
      * @return mixed Always returns null.
+     * @public
+     * @static
      */
     public static function null(): mixed
     {

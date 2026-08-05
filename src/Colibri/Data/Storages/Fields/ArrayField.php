@@ -26,18 +26,21 @@ class ArrayField extends ArrayList
     /**
      * Data row associated with this field.
      * @var ExtendedObject|null
+     * @protected
      */
     protected ?ExtendedObject $_datarow = null;
 
     /**
      * Field associated with this array field.
      * @var Field
+     * @protected
      */
     protected ?Field $_field = null;
 
     /**
      * Storage associated with this array field.
      * @var Storage
+     * @protected
      */
     protected ?Storage $_storage = null;
 
@@ -47,6 +50,8 @@ class ArrayField extends ArrayList
      * @param Storage $storage The storage.
      * @param Field $field The field.
      * @return void
+     * @constructor
+     * @public
      */
     public function __construct(
         mixed $data,
@@ -68,6 +73,7 @@ class ArrayField extends ArrayList
      * Returns the object at the specified index.
      * @param int $index The index.
      * @return ObjectField The object.
+     * @public
      */
     public function Item(int $index): ObjectField|DataRow
     {
@@ -81,6 +87,7 @@ class ArrayField extends ArrayList
      * Returns the value as a string.
      * @param string $dummy Not used.
      * @return string The JSON result.
+     * @public
      */
     public function ToString(string $dummy = ''): string
     {
@@ -104,6 +111,8 @@ class ArrayField extends ArrayList
      * Return string value of this object
      *
      * @return string
+     * @public
+     * @magic
      */
     public function __toString(): string
     {
@@ -113,6 +122,7 @@ class ArrayField extends ArrayList
     /**
      * Returns the validation data for this array field.
      * @return mixed The validation data.
+     * @public
      */
     public function GetValidationData(): mixed
     {
@@ -127,6 +137,7 @@ class ArrayField extends ArrayList
      * Converts the array field to an array representation.
      * @param bool $noPrefix Whether to exclude prefixes in the array keys.
      * @return array The array representation of the array field.
+     * @public
      */
     public function ToArray(bool $noPrefix = false): array
     {
@@ -140,6 +151,8 @@ class ArrayField extends ArrayList
     /**
      * Returns the parameter type name for this array field.
      * @return string The parameter type name.
+     * @public
+     * @static
      */
     public static function ParamTypeName(): string
     {
@@ -149,6 +162,8 @@ class ArrayField extends ArrayList
     /**
      * Returns null.
      * @return mixed Always returns null.
+     * @public
+     * @static
      */
     public static function null(): mixed
     {

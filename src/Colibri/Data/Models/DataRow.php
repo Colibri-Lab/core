@@ -34,6 +34,7 @@ class DataRow extends ExtendedObject
      * Data Table object
      *
      * @var DataTable
+     * @protected
      */
     protected DataTable|DataCollection|null $_table = null;
 
@@ -43,6 +44,8 @@ class DataRow extends ExtendedObject
      * @param DataTable $table
      * @param mixed $data
      * @param string $tablePrefix
+     * @constructor
+     * @public
      */
     public function __construct(DataTable|DataCollection $table, mixed $data, string $tablePrefix = '')
     {
@@ -60,6 +63,8 @@ class DataRow extends ExtendedObject
      * @param string $property The name of the property being accessed.
      *
      * @return mixed The value of the accessed property (or any custom logic you define).
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -90,6 +95,8 @@ class DataRow extends ExtendedObject
      * @param mixed $value The value to assign to the property.
      *
      * @return void
+     * @public
+     * @magic
      */
     public function __set(string $property, mixed $value): void
     {
@@ -111,6 +118,7 @@ class DataRow extends ExtendedObject
      * additional functionality provided by ExtendedObject.
      *
      * @return ExtendedObject A new instance of ExtendedObject with copied data.
+     * @public
      */
     public function CopyToObject(): ExtendedObject
     {
@@ -126,6 +134,7 @@ class DataRow extends ExtendedObject
      * @param string $property The name of the property.
      *
      * @return string The data type (e.g., 'string', 'int', 'bool', etc.) of the property.
+     * @public
      */
     public function Type(string $property): string
     {
@@ -144,6 +153,7 @@ class DataRow extends ExtendedObject
      * @param string $property The name of the property to check for changes.
      * @param bool $convertData (optional) Whether to convert data before comparison. Default is false.
      * @return bool True if the property has been changed, false otherwise.
+     * @public
      */
     public function IsPropertyChanged(string $property, bool $convertData = false): bool
     {

@@ -39,17 +39,23 @@ use MongoDB\Database as MongoDbDatabase;
 final class Connection implements IConnection
 {
     /**
-     * @var object|null Connection information object containing host, port, user, password, and database.
+     * Connection information object containing host, port, user, password, and database.
+     * @var object|null 
+     * @private
      */
     private $_connectioninfo = null;
 
     /**
-     * @var MongoDbClient|null The connection resource.
+     * The connection resource.
+     * @var MongoDbClient|null 
+     * @private
      */
     private ?MongoDbClient $_resource = null;
 
     /**
-     * @var MongoDbDatabase|null The database resource.
+     * The database resource.
+     * @var MongoDbDatabase|null
+     * @private 
      */
     private ?MongoDbDatabase $_database = null;
 
@@ -59,6 +65,8 @@ final class Connection implements IConnection
      * Initializes a new Connection object with the provided connection information.
      *
      * @param object $connectionInfoObject information about connection.
+     * @constructor
+     * @public
      */
     public function __construct(object $connectionInfoObject)
     {
@@ -70,6 +78,8 @@ final class Connection implements IConnection
      *
      * @param object|array $connectionInfo The connection information as an object or array.
      * @return static A new instance of the Connection class.
+     * @public
+     * @static
      */
     public static function FromConnectionInfo(object|array $connectionInfo): static
     {
@@ -83,6 +93,7 @@ final class Connection implements IConnection
      * @return bool Returns true if the connection was successful; otherwise, false.
      *
      * @throws Exception If an error occurs while establishing the connection.
+     * @public
      *
      */
     public function Open(): bool
@@ -115,6 +126,8 @@ final class Connection implements IConnection
      * This method is an alias for Open().
      *
      * @return bool Returns true if the connection was successfully reopened; otherwise, false.
+     * 
+     * @public
      *
      */
     public function Reopen(): bool
@@ -126,6 +139,8 @@ final class Connection implements IConnection
      * Closes the MongoDB database connection.
      *
      * @return void
+     * 
+     * @public
      *
      */
     public function Close(): void
@@ -140,6 +155,9 @@ final class Connection implements IConnection
      *
      * @param string $property The name of the property to retrieve.
      * @return mixed Returns the value of the requested property, or null if the property does not exist.
+     * 
+     * @public
+     * @magic
      *
      */
     public function __get(string $property): mixed
@@ -170,6 +188,7 @@ final class Connection implements IConnection
      * Pings the MongoDB server to check if the connection is alive.
      *
      * @return bool Returns true if the connection is alive; otherwise, false.
+     * @public
      */
     public function Ping(): bool
     {

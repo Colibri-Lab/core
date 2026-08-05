@@ -34,6 +34,7 @@ class Lookup
      * Storage associated with this lookup field.
      *
      * @var Storage
+     * @private
      */
     private ?Storage $_storage = null;
 
@@ -41,6 +42,7 @@ class Lookup
      * Field data associated with this lookup field.
      *
      * @var array
+     * @private
      */
     private array $_xfield;
 
@@ -49,6 +51,7 @@ class Lookup
      * @param array $xfield field data
      * @param Storage|null $storage storage
      * @return void
+     * @constructor
      */
     public function __construct(array $xfield, Storage $storage)
     {
@@ -60,6 +63,7 @@ class Lookup
      * Getter
      * @param string $prop property name
      * @return mixed value
+     * @public
      */
     public function __get(string $prop): mixed
     {
@@ -74,6 +78,7 @@ class Lookup
      * @param int $page page number, default is -1, meaning all
      * @param int $pagesize page size, default is 50
      * @return DataTable|null related data
+     * @public
      */
     public function Load(int $page = -1, int $pagesize = 50, mixed $parentObject = null): ?DataTable
     {
@@ -120,6 +125,7 @@ class Lookup
      * @param mixed $value the selected value
      * @param mixed $parentObject the parent object
      * @return mixed
+     * @public
      */
     public function Selected(mixed $value, mixed $parentObject = null): mixed
     {
@@ -273,6 +279,7 @@ class Lookup
     /**
      * Returns the value field associated with this lookup.
      * @return string|null The value field name or null if not set.
+     * @public
      */
     public function GetValueField(): ?string
     {
@@ -290,6 +297,7 @@ class Lookup
      * Returns the parent lookup fields for a given row.
      * @param mixed $row The row to get the parent lookups for.
      * @return array An array of parent lookup fields.
+     * @public
      */
     public function GetLookupParents(mixed $row): array 
     {
@@ -310,6 +318,7 @@ class Lookup
      * @param mixed $row The row to check for parent lookups.
      * @param mixed $value The value to check for in the parent lookups.
      * @return mixed The parent lookup field if found, otherwise null.
+     * @public
      */
     public function isRecursiveLookup(mixed $row, mixed $value): mixed
     {

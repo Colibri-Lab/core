@@ -20,6 +20,7 @@ interface IDataReader
      * Retrieves the field names from the data source.
      *
      * @return array An array containing the field names.
+     * @public
      */
     public function Fields(): array;
 
@@ -27,6 +28,7 @@ interface IDataReader
      * Reads the next row of data from the data source.
      *
      * @return object|null The next row of data as an object, or null if there are no more rows.
+     * @public
      */
     public function Read(): ?object;
 
@@ -34,6 +36,7 @@ interface IDataReader
      * Closes the data reader and releases any resources associated with it.
      *
      * @return void
+     * @public
      */
     public function Close(): void;
 
@@ -41,6 +44,7 @@ interface IDataReader
      * Gets the number of rows in the data source.
      *
      * @return int The number of rows in the data source.
+     * @public
      */
     public function Count(): int;
 

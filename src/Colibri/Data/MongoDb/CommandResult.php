@@ -28,12 +28,18 @@ use Colibri\Data\NoSqlClient\QueryInfo;
  */
 final class CommandResult implements ICommandResult
 {
-    /** @var object|null The response object from the command execution. */
+    /**
+     * The response object from the command execution. 
+     * @var object|null 
+     * @private
+     */
     private ?object $_response = null;
 
     /** 
      * Constructor for the CommandResult class.
      * @param object $response The response object from the command execution.
+     * @public
+     * @constructor
      */
     public function __construct(object $response)
     {
@@ -43,6 +49,7 @@ final class CommandResult implements ICommandResult
     /**
      * Returns the error object from the command execution, if any.
      * @return object|null The error object, or null if there was no error.
+     * @public
      */
     public function Error(): ?object
     {
@@ -55,6 +62,7 @@ final class CommandResult implements ICommandResult
     /**
      * Returns information about the query execution.
      * @return object An object containing query execution information.
+     * @public
      */
     public function QueryInfo(): object
     {
@@ -70,6 +78,7 @@ final class CommandResult implements ICommandResult
      * Converts an object or array to a standardized format.
      * @param mixed $object The object or array to convert.
      * @return mixed The converted object or array.
+     * @private
      */
     private function _convert($object)
     {
@@ -99,6 +108,7 @@ final class CommandResult implements ICommandResult
     /**
      * Returns the result data from the command execution.
      * @return array The result data as an array.
+     * @public
      */
     public function ResultData(): array
     {
@@ -120,6 +130,7 @@ final class CommandResult implements ICommandResult
      * Sets the name of the collection in the response header.
      * @param string $name The name of the collection.
      * @return void
+     * @public
      */
     public function SetCollectionName(string $name): void
     {
@@ -133,6 +144,7 @@ final class CommandResult implements ICommandResult
      * Sets the returned ID(s) in the response header.
      * @param int|array $id The ID or IDs to set.
      * @return void
+     * @public
      */
     public function SetReturnedId(int|array $id): void
     {
@@ -153,6 +165,7 @@ final class CommandResult implements ICommandResult
      * Merges the current command result with another command result.
      * @param ICommandResult $result The command result to merge with.
      * @return void
+     * @public
      */
     public function MergeWith(ICommandResult $result): void
     {

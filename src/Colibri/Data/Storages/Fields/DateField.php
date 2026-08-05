@@ -13,6 +13,8 @@ class DateField extends DateTimeField
      * Return Date in ISO8601 format
      *
      * @return string
+     * @public
+     * @magic
      */
     public function __toString(): string
     {
@@ -23,6 +25,8 @@ class DateField extends DateTimeField
      * Returns data type for the field
      *
      * @return string
+     * @public
+     * @static
      */
     public static function ParamTypeName(): string
     {
@@ -33,6 +37,8 @@ class DateField extends DateTimeField
      * Returns null value for the field
      *
      * @return mixed Always returns null.
+     * @public
+     * @static
      */
     public static function null(): mixed
     {

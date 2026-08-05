@@ -23,6 +23,8 @@ class FileListField extends ArrayList
      * Constructor
      * @param string $data data from the field
      * @return void
+     * @constructor
+     * @public
      */
     public function __construct($data)
     {
@@ -44,6 +46,7 @@ class FileListField extends ArrayList
      * Returns the string for writing to the field
      * @param string $splitter delimiter
      * @return string concatenated string of file paths
+     * @public
      */
     public function ToString(string $splitter = ';'): string
     {
@@ -58,6 +61,8 @@ class FileListField extends ArrayList
      * Returns string value of this object
      *
      * @return string
+     * @public  
+     * @magic
      */
     public function __toString()
     {
@@ -68,6 +73,8 @@ class FileListField extends ArrayList
      * Returns the parameter type name for this file list field.
      *
      * @return string The parameter type name.
+     * @public
+     * @static
      */
     public function GetValidationData(): mixed
     {
@@ -77,6 +84,8 @@ class FileListField extends ArrayList
     /**
      * Returns parameter type name for this file list field.
      * @return string The parameter type name.
+     * @public
+     * @static
      */
     public static function ParamTypeName(): string
     {
@@ -87,6 +96,8 @@ class FileListField extends ArrayList
      * Returns null value for the field.
      *
      * @return mixed Always returns null.
+     * @public
+     * @static
      */
     public static function null(): mixed
     {

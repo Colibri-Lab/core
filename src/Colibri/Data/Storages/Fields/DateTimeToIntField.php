@@ -24,6 +24,8 @@ class DateTimeToIntField extends DateTimeField
      * @param mixed $data The date/time data to initialize the field with.
      * @param Storage|null $storage The associated storage (optional).
      * @param Field|null $field The associated field (optional).
+     * @constructor
+     * @public
      */
     public function __construct(mixed $data, ?Storage $storage = null, ?Field $field = null)
     {
@@ -39,6 +41,8 @@ class DateTimeToIntField extends DateTimeField
      * Return Date in ISO8601 format
      *
      * @return string
+     * @public
+     * @magic
      */
     public function __toString(): string
     {
@@ -49,6 +53,8 @@ class DateTimeToIntField extends DateTimeField
      * Returns the parameter type name for this date/time field.
      *
      * @return string The parameter type name.
+     * @public
+     * @static
      */
     public static function ParamTypeName(): string
     {
@@ -59,6 +65,8 @@ class DateTimeToIntField extends DateTimeField
      * Returns null value for the field.
      *
      * @return mixed Always returns 0.
+     * @public
+     * @static
      */
     public static function null(): mixed
     {

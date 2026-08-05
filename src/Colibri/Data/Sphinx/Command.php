@@ -37,6 +37,7 @@ final class Command extends SqlCommand
      * @param string $query The query with placeholders for parameters.
      * @return mysqli_stmt The prepared statement.
      * @throws SphinxException If no parameters are provided or if there's an issue with the query.
+     * @private
      */
     private function _prepareStatement(string $query): string
     {
@@ -72,6 +73,7 @@ final class Command extends SqlCommand
      * @param bool $info Whether to execute a query to obtain the affected variable. Default is true.
      * @return IDataReader The data reader.
      * @throws SphinxException If there's an issue executing the query.
+     * @public
      */
     public function ExecuteReader(bool $info = true): IDataReader
     {
@@ -119,6 +121,7 @@ final class Command extends SqlCommand
      * @param string|null $dummy (Unused parameter) Dummy parameter for compatibility. Default is null.
      * @return QueryInfo The query information.
      * @throws SphinxException If there's an issue executing the query.
+     * @public
      */
     public function ExecuteNonQuery(?string $dummy = null): QueryInfo
     {
@@ -141,6 +144,7 @@ final class Command extends SqlCommand
      * Prepares the query string with pagination and other necessary adjustments.
      *
      * @return string The prepared query string.
+     * @public
      */
     public function PrepareQueryString(): string
     {
@@ -159,6 +163,7 @@ final class Command extends SqlCommand
      * @param array $xstorage The configuration array for the storage.
      *
      * @return void
+     * @public
      */
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {
@@ -375,6 +380,8 @@ final class Command extends SqlCommand
      *
      * @param array|object $field The field data to extract information from.
      * @return object An object containing extracted field information.
+     * @public
+     * @static
      */
     public static function ExtractFieldInformation(array|object $field): object
     {
@@ -396,6 +403,8 @@ final class Command extends SqlCommand
      *
      * @param array|object $index The index data to extract information from.
      * @return object An object containing extracted index information.
+     * @public
+     * @static
      */
     public static function ExtractIndexInformation(array|object $index): object
     {
@@ -409,8 +418,6 @@ final class Command extends SqlCommand
             'Type' => $index?->Type ?? 'BTREE',
             'Primary' => $index->IndexName === 'PRIMARY'
         ];
-
-
 
     }
 

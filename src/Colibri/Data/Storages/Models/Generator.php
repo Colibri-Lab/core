@@ -28,6 +28,8 @@ class Generator
     /**
      * List of basic data types.
      * @var array
+     * @public
+     * @static
      */
     public static $types = [
         'bool',
@@ -45,6 +47,8 @@ class Generator
     /**
      * Mapping of storage types to generic types.
      * @var array
+     * @public
+     * @static
      */
     public static $typeToGeneric = [
         'bool' => 'bool',
@@ -74,6 +78,8 @@ class Generator
      * @param string $table The table name.
      * @param string $row The row name.
      * @return array An array containing the namespace, table class name, and row name.
+     * @private
+     * @static
      */
     private static function _convertNames(string $rootNamespace, string $table, string $row): array
     {
@@ -94,6 +100,8 @@ class Generator
      * @param string $rowClass The class name of the row.
      * @param string $classPrefix The prefix for the class.
      * @return array The schema object as an array.
+     * @public
+     * @static
      */
     public static function GetSchemaObject(array|object|null $fields, string $rowClass, string $classPrefix): array
     {
@@ -282,6 +290,8 @@ class Generator
      * @param array &$casts An array to store the casts of the field.
      * @param string $classPrefix The prefix for the class.
      * @return void
+     * @private
+     * @static
      */
     private static function GenerateField(
         Storage $storage,
@@ -395,6 +405,8 @@ class Generator
      * @param Field $field The field to generate.
      * @param string $classPrefix The prefix for the class.
      * @return array An array containing the class name and full subclass name.
+     * @public
+     * @static
      */
     public static function GenerateArrayFieldClass(Storage $storage, Field $field, string $classPrefix): array
     {
@@ -472,6 +484,8 @@ class Generator
      * @param Field $field The field to generate.
      * @param string $classPrefix The prefix for the class.
      * @return array An array containing the class name and full subclass name.
+     * @public
+     * @static
      */
     public static function GenerateObjectFieldClass(Storage $storage, Field $field, string $classPrefix): array
     {
@@ -622,6 +636,8 @@ class Generator
      * @param Field $field The field to generate.
      * @param string $classPrefix The prefix for the class.
      * @return array An array containing the class name and full subclass name.
+     * @public
+     * @static
      */
     public static function GenerateEnumFieldClass(Storage $storage, Field $field, string $classPrefix): array
     {
@@ -734,6 +750,8 @@ class Generator
      *
      * @param Storage $storage The storage instance.
      * @return void
+     * @public
+     * @static
      */
     public static function GenerateModelClasses(Storage $storage): void
     {
@@ -901,6 +919,8 @@ class Generator
      *
      * @param Storage $storage The storage instance.
      * @return void
+     * @public
+     * @static
      */
     public static function GenerateModelTemplates(Storage $storage)
     {

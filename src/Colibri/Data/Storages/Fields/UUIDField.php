@@ -14,6 +14,7 @@ class UUIDField implements JsonSerializable
     /**
      * The binary representation of the UUID.
      * @var string
+     * @private
      */
     private string $_value;
 
@@ -23,6 +24,8 @@ class UUIDField implements JsonSerializable
      * @param string|null $value The binary representation of the UUID (optional).
      * @param mixed $dummy1 Unused parameter for compatibility (optional).
      * @param mixed $dummy2 Unused parameter for compatibility (optional).
+     * @public
+     * @constructor
      */
     public function __construct(?string $value = null, mixed $dummy1 = null, mixed $dummy2 = null)
     {
@@ -34,6 +37,8 @@ class UUIDField implements JsonSerializable
      *
      * @param string $property The property name.
      * @return mixed The property value or null if not found.
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -51,6 +56,8 @@ class UUIDField implements JsonSerializable
      * @param string $property The property name.
      * @param mixed $value The value to set.
      * @return void
+     * @public
+     * @magic
      */
     public function __set(string $property, mixed $value): void
     {
@@ -65,6 +72,7 @@ class UUIDField implements JsonSerializable
      * Unpacks the binary UUID into its string representation.
      *
      * @return string The string representation of the UUID.
+     * @private
      */
     private function _unpack(): string
     {
@@ -77,6 +85,7 @@ class UUIDField implements JsonSerializable
      *
      * @param string $string The string representation of the UUID.
      * @return void
+     * @private
      */
     private function _pack($string): void
     {
@@ -87,6 +96,8 @@ class UUIDField implements JsonSerializable
      * Returns the string representation of the UUID.
      *
      * @return string The string representation of the UUID.
+     * @public
+     * @magic
      */
     public function __toString(): string
     {
@@ -98,6 +109,8 @@ class UUIDField implements JsonSerializable
      *
      * @param string $uuidInString The string representation of the UUID.
      * @return string The binary representation of the UUID.
+     * @public
+     * @static
      */
     public static function Pack(string $uuidInString): string
     {
@@ -111,6 +124,8 @@ class UUIDField implements JsonSerializable
      *
      * @param string $uuidInBinary The binary representation of the UUID.
      * @return string The string representation of the UUID.
+     * @public
+     * @static
      */
     public static function Unpack(string $uuidInBinary): string
     {
@@ -123,6 +138,7 @@ class UUIDField implements JsonSerializable
      * Returns the JSON representation of the UUID.
      *
      * @return mixed The JSON representation of the UUID.
+     * @public
      */
     public function jsonSerialize(): mixed
     {
@@ -133,6 +149,8 @@ class UUIDField implements JsonSerializable
      * Returns the parameter type name for this UUID field.
      *
      * @return string The parameter type name.
+     * @public
+     * @static
      */
     public static function ParamTypeName(): string
     {
@@ -143,6 +161,8 @@ class UUIDField implements JsonSerializable
      * Returns null value for the field.
      *
      * @return mixed Always returns null.
+     * @public
+     * @static
      */
     public static function null(): mixed
     {
