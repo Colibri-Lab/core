@@ -22,6 +22,15 @@ class Rc4Crypt
      * @param string $pwd The encryption key.
      * @param string $data The data to encrypt.
      * @return string The encrypted data.
+     * @static
+     * @public
+     * @example
+     * ```
+     * $key = 'my_secret_key';
+     * $data = 'Hello, World!';
+     * $encryptedData = Rc4Crypt::Encrypt($key, $data);
+     * echo $encryptedData; // Outputs the encrypted data
+     * ```
      */
     public static function Encrypt(string $pwd, string $data): string
     {
@@ -63,6 +72,16 @@ class Rc4Crypt
      * @param string $pwd The encryption key.
      * @param string $data The data to decrypt.
      * @return string The decrypted data.
+     * 
+     * @public
+     * @static
+     * @example
+     * ```
+     * $key = 'my_secret_key';
+     * $data = 'U2FsdGVkX1+5Z3JpZ2FyeWFu'; // Encrypted data
+     * $decryptedData = Rc4Crypt::Decrypt($key, $data);
+     * echo $decryptedData; // Outputs the original data
+     * ```
      */
     public static function Decrypt(string $pwd, string $data): string
     {

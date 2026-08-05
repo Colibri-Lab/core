@@ -26,6 +26,12 @@ class NumericHelper
      * @return string The money representation of the input value.
      * @public 
      * @static
+     * @example
+     * ```
+     * $amount = 1234.56;
+     * $moneyString = NumericHelper::ToMoney($amount);
+     * echo $moneyString; // Outputs: "1 234.56"
+     * ```
      */
     public static function ToMoney(float $number): string
     {
@@ -45,6 +51,12 @@ class NumericHelper
      * @return string The formatted numeric value as a string.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.5678;
+     * $formatted = NumericHelper::Format($number, '.', 2, true, ',');
+     * echo $formatted; // Outputs: "1,234.57"
+     * ```
      */
     public static function Format(
         float $number,
@@ -72,6 +84,12 @@ class NumericHelper
      * @deprecated
      * @public 
      * @static
+     * @example
+     * ```
+     * $price = 1234.56;
+     * $humanizedPrice = NumericHelper::Humanize($price);
+     * echo $humanizedPrice; // Outputs: "1234.56"
+     * ```
      */
     public static function Humanize(float $price): string
     {
@@ -86,6 +104,12 @@ class NumericHelper
      * @return float The normalized value as a floating-point number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $input = "1,234.56";
+     * $normalizedValue = NumericHelper::Normalize($input);
+     * echo $normalizedValue; // Outputs: 1234.56
+     * ```  
      */
     public static function Normalize(mixed $string): float
     {

@@ -16,21 +16,45 @@ namespace Colibri\IO\Request;
  */
 class Type
 {
-    /** POST request */
+    /** 
+     * POST request
+     * @const string
+     * @public 
+     */
     public const Post = 'post';
 
-    /** GET request */
+    /** 
+     * GET request
+     * @const string
+     * @public
+     */
     public const Get = 'get';
 
-    /** HEAD request */
+    /** 
+     * HEAD request
+     * @const string
+     * @public
+     */
     public const Head = 'head';
 
-    /** DELETE request */
+    /** 
+     * DELETE request
+     * @const string
+     * @public
+     */
     public const Delete = 'delete';
 
-    /** PUT request */
+    /** 
+     * PUT request
+     * @const string
+     * @public
+     */
     public const Put = 'put';
 
-    /** PATCH request */
+    /** 
+     * PATCH request
+     * @const string
+     * @public
+     */
     public const Patch = 'patch';
 }

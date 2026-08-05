@@ -35,23 +35,45 @@ use JsonSerializable;
  * @class
  * @extends Node
  * @implements JsonSerializable
+ * 
+ * @example
+ * ```  
+ * $file = new File('/path/to/file.txt');
+ * ```
  *
  */
 class File extends Node implements JsonSerializable
 {
-    /** Read mode */
+    /** 
+     * Read mode
+     * @const string
+     * @public 
+     */
     public const MODE_READ = "rb9";
-    /** Write mode */
+    /** 
+     * Write mode
+     * @const string
+     * @public
+     */
     public const MODE_WRITE = "wb9";
-    /** Append mode */
+    /** 
+     * Append mode
+     * @const string
+     * @public
+     */
     public const MODE_APPEND = "ab9";
-    /** Create mode for writing */
+    /** 
+     * Create mode for writing
+     * @const string
+     * @public
+     */
     public const MODE_CREATEWRITE = "wb9";
 
     /**
      * File path information.
      *
      * @var array
+     * @private
      */
     private array $info;
 
@@ -59,6 +81,7 @@ class File extends Node implements JsonSerializable
      * Size of the file in bytes.
      *
      * @var integer
+     * @private
      */
     private int $_size = 0;
 
@@ -67,6 +90,12 @@ class File extends Node implements JsonSerializable
      *
      * @param string $path The path to the file.
      * @throws Exception if the provided path is not a file path.
+     * @constructor
+     * @public
+     * @example
+     * ```
+     * $file = new File('/path/to/file.txt');
+     * ```
      */
     public function __construct(string $path)
     {
@@ -85,6 +114,8 @@ class File extends Node implements JsonSerializable
      *
      * @param string $property Property name.
      * @return mixed
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -166,6 +197,12 @@ class File extends Node implements JsonSerializable
      *
      * @param string $path The destination path.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $file = new File('/path/to/file.txt');
+     * $file->CopyTo('/path/to/destination/file.txt');
+     * ```
      */
     public function CopyTo(string $path): void
     {
@@ -177,6 +214,13 @@ class File extends Node implements JsonSerializable
      *
      * @param string $path The destination path.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $file = new File('/path/to/file.txt');
+     * $file->MoveTo('/path/to/destination/file.txt');
+     * ```
+     * @throws Exception if the source file does not exist.
      */
     public function MoveTo(string $path): void
     {
@@ -187,6 +231,12 @@ class File extends Node implements JsonSerializable
      * Retrieves the filename.
      *
      * @return string
+     * @public
+     * @example
+     * ```
+     * $file = new File('/path/to/file.txt');
+     * echo $file->ToString(); // Outputs: file.txt
+     * ```  
      */
     public function ToString(): string
     {
@@ -198,6 +248,17 @@ class File extends Node implements JsonSerializable
      *
      * @param string $path The path to the file.
      * @return string|null The content of the file or null if the file does not exist.
+     * @public
+     * @static
+     * @example
+     * ```
+     * $content = File::Read('/path/to/file.txt');
+     * if ($content !== null) {
+     *     echo $content;
+     * } else {
+     *     echo 'File does not exist.';
+     * }
+     * ```
      */
     public static function Read(string $path): ?string
     {
@@ -216,6 +277,12 @@ class File extends Node implements JsonSerializable
      * @param string $mode The mode for creating the file and directories. Defaults to '777'.
      * @return void
      * @throws \ErrorException if writing to the file fails.
+     * @public
+     * @static
+     * @example
+     * ```
+     * File::Write('/path/to/file.txt', 'Hello, World!', true, '777');
+     * ```
      */
     public static function Write(string $path, string $content, bool $recursive = false, string $mode = '777'): void
     {
@@ -236,6 +303,13 @@ class File extends Node implements JsonSerializable
      * @param boolean $recursive Whether to create directories along the path if they don't exist. Defaults to false.
      * @param string $mode The mode for creating the file and directories. Defaults to '777'.
      * @return void
+     * @throws \ErrorException if appending to the file fails.
+     * @public
+     * @static
+     * @example
+     * ```
+     * File::Append('/path/to/file.txt', 'Appended content.', true, '777');
+     * ```
      */
     public static function Append(string $path, string $content, bool $recursive = false, string $mode = '777'): void
     {
@@ -251,9 +325,20 @@ class File extends Node implements JsonSerializable
      *
      * @param string $path The path to the file.
      * @return FileStream|null Returns FileStream object if file exists, otherwise returns null.
+     * @public
+     * @static
+     * @example
+     * ```
+     * $fileStream = File::Open('/path/to/file.txt');
+     * if ($fileStream !== null) {
+     *     /// Use the file stream
+     * } else {
+     *     echo 'File does not exist.';
+     * }
+     * ```
      */
     public static function Open(string $path): ?FileStream
-    { //ireader
+    { 
         if (self::Exists($path)) {
             return new FileStream($path);
         }
@@ -265,10 +350,20 @@ class File extends Node implements JsonSerializable
      *
      * @param string $path The path to the file.
      * @return bool Returns true if the file exists, false otherwise.
+     * @public
+     * @static  
+     * @example
+     * ```
+     * if (File::Exists('/path/to/file.txt')) {
+     *     echo 'File exists.';
+     * } else {
+     *     echo 'File does not exist.';
+     * }
+     * ```
      */
     public static function Exists(string $path): bool
     {
-        $path = strval(str_replace("\0", "", $path));
+        $path = \strval(str_replace("\0", "", $path));
         return file_exists($path);
     }
 
@@ -277,6 +372,16 @@ class File extends Node implements JsonSerializable
      *
      * @param string $path The path to the file.
      * @return bool Returns true if the file is empty or doesn't exist, false otherwise.
+     * @public
+     * @static
+     * @example
+     * ```
+     * if (File::IsEmpty('/path/to/file.txt')) {
+     *     echo 'File is empty or does not exist.';
+     * } else {
+     *     echo 'File has content.';
+     * }
+     * ```
      */
     public static function IsEmpty(string $path): bool
     {
@@ -295,6 +400,12 @@ class File extends Node implements JsonSerializable
      * @param bool $recursive If true, creates directories along the path if they don't exist.
      * @param string $mode The mode for creating the file and directories, default is '777'.
      * @return FileStream Returns FileStream object for the created file.
+     * @public
+     * @static
+     * @example
+     * ```
+     * $fileStream = File::Create('/path/to/file.txt', true, '777');
+     * ```
      */
     public static function Create(string $path, bool $recursive = true, string $mode = '777'): FileStream
     {
@@ -314,6 +425,17 @@ class File extends Node implements JsonSerializable
      *
      * @param string $path The path to the file.
      * @return bool Returns true if the file was successfully deleted, false otherwise.
+     * @throws Exception if the file does not exist.
+     * @public
+     * @static
+     * @example
+     * ```
+     * if (File::Delete('/path/to/file.txt')) {
+     *     echo 'File deleted successfully.';
+     * } else {
+     *     echo 'Failed to delete the file.';
+     * }
+     * ```
      */
     public static function Delete(string $path): bool
     {
@@ -330,6 +452,13 @@ class File extends Node implements JsonSerializable
      * @param string $from The source file path.
      * @param string $to The destination file path.
      * @return void
+     * @throws Exception if the source file does not exist.
+     * @public
+     * @static
+     * @example
+     * ```
+     * File::Copy('/path/to/source/file.txt', '/path/to/destination/file.txt');
+     * ```
      */
     public static function Copy(string $from, string $to): void
     {
@@ -346,6 +475,13 @@ class File extends Node implements JsonSerializable
      * @param string $from The source file path.
      * @param string $to The destination file path.
      * @return void
+     * @throws Exception if the source file does not exist.
+     * @public
+     * @static
+     * @example
+     * ```
+     * File::Move('/path/to/source/file.txt', '/path/to/destination/file.txt');
+     * ```
      */
     public static function Move(string $from, string $to): void
     {
@@ -361,6 +497,16 @@ class File extends Node implements JsonSerializable
      *
      * @param string $path The path to check.
      * @return bool Returns true if the path is a directory, false otherwise.
+     * @public
+     * @static
+     * @example
+     * ```
+     * if (File::IsDirectory('/path/to/directory')) {
+     *     echo 'It is a directory.';
+     * } else {
+     *     echo 'It is not a directory.';
+     * }
+     * ```
      */
     public static function IsDirectory(string $path): bool
     {
@@ -371,6 +517,12 @@ class File extends Node implements JsonSerializable
      * Returns file data as an array.
      *
      * @return array Returns an array containing file data.
+     * @public
+     * @example
+     * ```
+     * $file = new File('/path/to/file.txt');
+     * $data = $file->ToArray();
+     * ```
      */
     public function ToArray(): array
     {
@@ -391,13 +543,32 @@ class File extends Node implements JsonSerializable
      * Implements the JsonSerializable interface.
      *
      * @return array Returns the array representation of the object.
+     * @public
+     * @example
+     * ```
+     * $file = new File('/path/to/file.txt');
+     * $json = json_encode($file);
+     * ```
      */
     public function jsonSerialize(): array
     {
         return $this->ToArray();
     }
 
-    public static function Md5($path): string
+    /**
+     * Calculates the MD5 hash of a file.
+     *
+     * @param string $path The path to the file.
+     * @return string Returns the MD5 hash of the file.
+     * @throws Exception if the file does not exist.
+     * @public
+     * @static
+     * @example
+     * ```
+     * $md5 = File::Md5('/path/to/file.txt');
+     * ```
+     */
+    public static function Md5(string $path): string
     {
         if (!self::Exists($path)) {
             throw new Exception('file not exists: ' . $path);

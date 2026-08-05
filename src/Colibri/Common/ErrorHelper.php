@@ -21,6 +21,12 @@ class ErrorHelper
      * @return void
      * @public
      * @static
+     * @example
+     * ```
+     * $channel = '@my_telegram_channel';
+     * $message = 'An error occurred in the application.';
+     * ErrorHelper::Telegram($channel, $message);
+     * ```
      */
     public static function Telegram(string $channel, string $message): void
     {

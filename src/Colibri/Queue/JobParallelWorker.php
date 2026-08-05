@@ -26,12 +26,16 @@ use Colibri\Utils\Logs\Logger;
 class JobParallelWorker extends Worker
 {
     /**
-     * @var Logger|null The logger instance for logging job execution details.
+     * The logger instance for logging job execution details.
+     * @var Logger|null 
+     * @private
      */
     private ?Logger $_logger = null;
 
     /**
-     * @var IJob|null The job instance being executed by the worker.
+     * The job instance being executed by the worker.
+     * @var IJob|null 
+     * @private
      */
     private ?IJob $_job = null;
 
@@ -39,6 +43,7 @@ class JobParallelWorker extends Worker
      * Runs the job routine.
      *
      * @suppress PHP0420
+     * @public
      */
     public function Run(): void
     {
@@ -49,19 +54,19 @@ class JobParallelWorker extends Worker
         sleep(RandomizationHelper::Integer(1, 5));
 
         $cache = App::$config->Query('cache')->GetValue();
-        $this->_logger = new FileLogger(Logger::Debug, $cache . 'log/queue-' . $queue . '.log', true);
-        $this->_logger->info($queue . ':' . $id . ': Begin job routine for parallel');
+        $this->_logger = new FileLogger(Logger::Debug, (string)$cache . 'log/queue-' . $queue . '.log', true);
+        $this->_logger->info((string)$queue . ':' . $id . ': Begin job routine for parallel');
 
         $this->_job = Manager::Instance()->GetJobById($id);
         if(!$this->_job) {
-            $this->_logger->info($queue . ':' . $id . ': Job not found!');
+            $this->_logger->info((string)$queue . ':' . $id . ': Job not found!');
         }
 
-        $this->_logger->info($queue . ':' . $id . ': Job starts');
+        $this->_logger->info((string)$queue . ':' . $id . ': Job starts');
         if(!$this->_job->Handle($this->_logger)) {
-            $this->_logger->info($queue . ':' . $id . ': Job fails!');
+            $this->_logger->info((string)$queue . ':' . $id . ': Job fails!');
         } else {
-            $this->_logger->info($queue . ': Job success');
+            $this->_logger->info((string)$queue . ':' . $id . ': Job success');
         }
 
     }

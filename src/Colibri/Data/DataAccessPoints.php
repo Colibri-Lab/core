@@ -32,6 +32,10 @@ use Colibri\Utils\Singleton;
  * @method DataAccessPoint offsetExists(mixed $offset) Checks if a DataAccessPoint object exists at the specified offset.
  * 
  * @property-read object $drivers
+ * @example
+ * ```
+ * $accessPoint = App::$dataAccessPoints->Get('main');
+ * ```
  *
  */
 class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggregate, \Countable
@@ -42,6 +46,7 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      * The list of access points.
      *
      * @var object
+     * @private
      */
     private $_accessPoints;
 
@@ -49,11 +54,14 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      * The list of open access points.
      *
      * @var array
+     * @private
      */
     private array $_accessPointsPool;
 
     /**
      * Constructor
+     * @constructor
+     * @public
      */
     public function __construct()
     {
@@ -64,6 +72,7 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      * Initializes the access points.
      *
      * @return void
+     * @public
      */
     public function Initialize(): void
     {
@@ -121,6 +130,7 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      *
      * @param string $name The name of the access point.
      * @return DataAccessPoint Returns a DataAccessPoint object.
+     * @public
      *
      * @example
      * ```
@@ -207,6 +217,12 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      *
      * @param int $index The index of the access point.
      * @return string|null The key of the access point, or null if not found.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $key = App::$dataAccessPoints->Key(0);
+     * ```
      */
     public function Key(int $index): ?string
     {
@@ -219,6 +235,12 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      *
      * @param int $index The index of the access point.
      * @return DataAccessPoint The DataAccessPoint object at the specified index.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $item = App::$dataAccessPoints->ItemAt(0);
+     * ```
      */
     public function ItemAt(int $index): DataAccessPoint
     {
@@ -231,6 +253,8 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      *
      * @param string $property
      * @return void
+     * @magic
+     * @public
      */
     public function __get($property): mixed
     {
@@ -254,6 +278,8 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      * @param string $offset
      * @param mixed $value
      * @return void
+     * @public
+     * @throws \RuntimeException Always throws an exception since setting values is not allowed.
      */
     public function offsetSet($offset, $value): void
     {
@@ -265,13 +291,15 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      *
      * @param string $offset
      * @return bool
+     * @public
+     * @throws \InvalidArgumentException If the offset is not a string.
      */
     public function offsetExists($offset): bool
     {
         if (!VariableHelper::IsString($offset)) {
             throw new \InvalidArgumentException();
         }
-        return isset($this->pool[$offset]);
+        return isset($this->_accessPointsPool[$offset]);
     }
 
     /**
@@ -279,6 +307,8 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      *
      * @param string $offset
      * @return void
+     * @public
+     * @throws \RuntimeException Always throws an exception since unsetting values is not allowed.
      */
     public function offsetUnset($offset): void
     {
@@ -290,6 +320,8 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      *
      * @param string $offset
      * @return DataAccessPoint
+     * @public
+     * @throws \InvalidArgumentException If the offset is not a string.
      */
     public function offsetGet($offset): mixed
     {
@@ -303,6 +335,14 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      * Returns an iterator for the DataAccessPoint objects.
      *
      * @return DataAccessPointIterator
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * foreach (App::$dataAccessPoints as $accessPoint) {
+     *     /// Do something with $accessPoint
+     * }
+     * ```
      */
     public function getIterator(): DataAccessPointIterator
     {
@@ -313,16 +353,23 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
      * Returns the number of DataAccessPoint objects in the pool.
      *
      * @return int
+     * @public
      */
     public function Count(): int
     {
-        return count($this->pool);
+        return \count($this->pool);
     }
 
     /**
      * Reopens all access points in the pool.
      *
      * @return void
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * App::$dataAccessPoints->ReopenAll();
+     * ```
      */
     public function ReopenAll()
     {

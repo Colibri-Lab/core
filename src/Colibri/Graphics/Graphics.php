@@ -34,6 +34,7 @@ class Graphics
      * The image resource.
      *
      * @var mixed
+     * @private
      */
     private mixed $_img;
 
@@ -41,6 +42,7 @@ class Graphics
      * The size of the image.
      *
      * @var Size|null
+     * @private
      */
     private ?Size $_size = null;
 
@@ -48,6 +50,7 @@ class Graphics
      * The type of the image.
      *
      * @var string
+     * @private
      */
     private string $_type;
 
@@ -55,6 +58,7 @@ class Graphics
      * The filename where the image is stored.
      *
      * @var string
+     * @private
      */
     private string $_file;
 
@@ -62,11 +66,18 @@ class Graphics
      * The history of image operations.
      *
      * @var array
+     * @private
      */
     private array $_history = array();
 
     /**
      * Constructor.
+     * @constructor
+     * @public
+     * @example
+     * ```
+     * $graphics = new Graphics();
+     * ```
      */
     public function __construct()
     {
@@ -77,6 +88,8 @@ class Graphics
 
     /**
      * Destructor.
+     * @destructor
+     * @public
      */
     public function __destruct()
     {
@@ -90,6 +103,8 @@ class Graphics
      *
      * @param string $property The property name.
      * @return mixed The value of the property.
+     * @magic
+     * @public
      */
     public function __get(string $property): mixed
     {
@@ -133,6 +148,8 @@ class Graphics
      *
      * @param string $property The property name.
      * @param mixed $value The value to set.
+     * @magic
+     * @public
      */
     public function __set(string $property, mixed $value): void
     {
@@ -148,6 +165,13 @@ class Graphics
      *
      * @param string $data The binary data representing the image.
      * @return void
+     * @public
+     * @example 
+     * ```
+     * $graphics = new Graphics();
+     * $imageData = file_get_contents('path/to/image.png');
+     * $graphics->LoadFromData($imageData);
+     * ```
      */
     public function LoadFromData(string $data): void
     {
@@ -165,6 +189,12 @@ class Graphics
      *
      * @param string $file The path to the image file.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $graphics = new Graphics();
+     * $graphics->LoadFromFile('path/to/image.png');
+     * ```
      */
     public function LoadFromFile(string $file): void
     {
@@ -200,6 +230,13 @@ class Graphics
      *
      * @param Size $size The size of the empty image.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $graphics = new Graphics();
+     * $size = new Size(200, 100);
+     * $graphics->LoadEmptyImage($size);
+     * ```
      */
     public function LoadEmptyImage(Size $size): void
     {
@@ -217,6 +254,14 @@ class Graphics
      *
      * @param Size $size The new size of the image.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $graphics = new Graphics();
+     * $graphics->LoadFromFile('path/to/image.png');
+     * $newSize = new Size(100, 50);
+     * $graphics->Resize($newSize);
+     * ```
      */
     public function Resize(Size $size): void
     {
@@ -239,6 +284,13 @@ class Graphics
      *
      * @param int $degree The degree by which to rotate the image. Default is 90.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $graphics = new Graphics();
+     * $graphics->LoadFromFile('path/to/image.png');
+     * $graphics->Rotate(90); // Rotates the image 90 degrees clockwise
+     * ```
      */
     public function Rotate(int $degree = 90): void
     {
@@ -255,6 +307,15 @@ class Graphics
      * @param Size $size The size of the cropped area.
      * @param Point|null $start The starting point for cropping. If null, (0,0) is assumed.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $graphics = new Graphics();
+     * $graphics->LoadFromFile('path/to/image.png');
+     * $cropSize = new Size(100, 50);
+     * $startPoint = new Point(10, 10);
+     * $graphics->Crop($cropSize, $startPoint); // Crops the image to 100x50 starting from (10,10)
+     * ```
      */
     public function Crop(Size $size, ?Point $start = null): void
     {
@@ -296,6 +357,14 @@ class Graphics
      * @param int $arg2 The second optional argument for the filter.
      * @param int $arg3 The third optional argument for the filter.
      * @return bool|null Returns true on success, false on failure, or null if the filter is not supported.
+     * @public
+     * @example
+     * ```
+     * $graphics = new Graphics();
+     * $graphics->LoadFromFile('path/to/image.png');
+     * $graphics->ApplyFilter(IMG_FILTER_GRAYSCALE); // Applies grayscale filter
+     * $graphics->ApplyFilter(IMG_FILTER_BRIGHTNESS, 50); // Increases brightness by 50
+     * ```
      */
     public function ApplyFilter(int $filter, int $arg1 = 0, int $arg2 = 0, int $arg3 = 0): ?bool
     {
@@ -370,6 +439,13 @@ class Graphics
      *
      * @param string $file The path to save the image file.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $graphics = new Graphics();
+     * $graphics->LoadFromFile('path/to/image.png');
+     * $graphics->Save('path/to/save/image.png');
+     * ```
      */
     public function Save(string $file): void
     {
@@ -397,6 +473,13 @@ class Graphics
      * This method ensures that the alpha channel is properly set for the image.
      *
      * @return void
+     * @public
+     * @example
+     * ```
+     * $graphics = new Graphics();
+     * $graphics->LoadFromFile('path/to/image.png');
+     * $graphics->_safeAlpha(); // Ensures alpha channel is set
+     * ```
      */
     private function _safeAlpha(): void
     {
@@ -411,6 +494,13 @@ class Graphics
      * This method retrieves the binary data of the image.
      *
      * @return string The binary data of the image.
+     * @private
+     * @example
+     * ```
+     * $graphics = new Graphics();
+     * $graphics->LoadFromFile('path/to/image.png');
+     * $imageData = $graphics->_getImageData(); // Retrieves the binary data of the image
+     * ```
      */
     private function _getImageData(): string
     {
@@ -443,10 +533,19 @@ class Graphics
      *
      * @param string $path The path to the image file.
      * @return ExtendedObject An object containing information about the image.
+     * @public
+     * @example
+     * ```
+     * $info = Graphics::Info('path/to/image.png');
+     * echo $info->size->width; // Outputs the width of the image
+     * echo $info->size->height; // Outputs the height of the image
+     * echo $info->type; // Outputs the type of the image (e.g., png, gif, jpg)
+     * echo $info->attr; // Outputs additional attributes of the image
+     * ```
      */
     public static function Info(string $path): ExtendedObject
     {
-        list($width, $height, $type, $attr) = \getimagesize($path);
+        [$width, $height, $type, $attr] = \getimagesize($path);
         $o = new ExtendedObject();
         $o->size = new Size($width, $height);
         $o->type = $type;
@@ -461,6 +560,11 @@ class Graphics
      *
      * @param string $data The data to create the Graphics object from.
      * @return Graphics A Graphics object initialized with the provided data.
+     * @public
+     * @example
+     * ```
+     * $graphics = Graphics::Create($imageData);    
+     * ```
      */
     public static function Create(string $data): Graphics
     {

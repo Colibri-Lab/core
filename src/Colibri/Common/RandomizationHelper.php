@@ -22,6 +22,11 @@ class RandomizationHelper
      * @return int A randomly generated seed.
      * @public
      * @static
+     * @example
+     * ```
+     * $seed = RandomizationHelper::Seed();
+     * echo $seed; // Outputs a random seed value.
+     * ```
      */
     public static function Seed(): int
     {
@@ -38,6 +43,13 @@ class RandomizationHelper
      * @return int A randomly generated integer between $min and $max.
      * @public
      * @static
+     * @example
+     * ```
+     * $min = 1;
+     * $max = 10;
+     * $randomInt = RandomizationHelper::Integer($min, $max);
+     * echo $randomInt; // Outputs a random integer between 1 and 10.
+     * ```
      */
     public static function Integer(int|float $min, int|float $max): int
     {
@@ -52,6 +64,12 @@ class RandomizationHelper
      * @return string The randomly generated mixed string.
      * @public
      * @static
+     * @example
+     * ```
+     * $length = 8;
+     * $randomString = RandomizationHelper::Mixed($length);
+     * echo $randomString; // Outputs a random string of 8 mixed characters.
+     * ```
      */
     public static function Mixed(int $length): string
     {
@@ -80,6 +98,12 @@ class RandomizationHelper
      * @testFunction testRandomizationHelperNumeric
      * @public
      * @static
+     * @example
+     * ```
+     * $length = 6;
+     * $randomNumericString = RandomizationHelper::Numeric($length);
+     * echo $randomNumericString; // Outputs a random string of 6 numeric digits.
+     * ```
      */
     public static function Numeric(int $length): string
     {
@@ -107,6 +131,12 @@ class RandomizationHelper
      * @return string The randomly generated string of characters.
      * @public
      * @static
+     * @example
+     * ```
+     * $length = 10;
+     * $randomCharacterString = RandomizationHelper::Character($length);
+     * echo $randomCharacterString; // Outputs a random string of 10 characters.
+     * ```
      */
     public static function Character(int $length): string
     {

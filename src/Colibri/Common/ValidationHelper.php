@@ -25,6 +25,12 @@ class ValidationHelper
      * @return bool True if the BIK is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $bik = '044525225'; // Example BIK
+     * $isValid = ValidationHelper::ValidateBik($bik);
+     * echo $isValid ? 'BIK is valid' : 'BIK is invalid'; // Outputs whether the BIK is valid or not
+     * ```
      */
     public static function ValidateBik(
         string $bik,
@@ -57,6 +63,12 @@ class ValidationHelper
      * @return bool True if the INN is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $inn = '1234567890'; // Example INN
+     * $isValid = ValidationHelper::ValidateInn($inn);
+     * echo $isValid ? 'INN is valid' : 'INN is invalid'; // Outputs whether the INN is valid or not
+     * ```
      */
     public static function ValidateInn(
         string $inn,
@@ -116,6 +128,12 @@ class ValidationHelper
      * @return bool True if the KPP is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $kpp = '123456789'; // Example KPP
+     * $isValid = ValidationHelper::ValidateKpp($kpp);
+     * echo $isValid ? 'KPP is valid' : 'KPP is invalid'; // Outputs whether the KPP is valid or not
+     * ```
      */
     public static function ValidateKpp(
         string $kpp,
@@ -149,6 +167,13 @@ class ValidationHelper
      * @return bool True if the KS is valid for the given BIK, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $ks = '30101810400000000225'; // Example KS
+     * $bik = '044525225'; // Example BIK
+     * $isValid = ValidationHelper::ValidateKs($ks, $bik);
+     * echo $isValid ? 'KS is valid' : 'KS is invalid'; // Outputs whether the KS is valid or not
+     * ```
      */
     public static function ValidateKs(
         string $ks,
@@ -194,6 +219,12 @@ class ValidationHelper
      * @return bool True if the OGRN is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $ogrn = '1027700132195'; // Example OGRN
+     * $isValid = ValidationHelper::ValidateOgrn($ogrn);
+     * echo $isValid ? 'OGRN is valid' : 'OGRN is invalid'; // Outputs whether the OGRN is valid or not
+     * ```
      */
     public static function ValidateOgrn(
         string $ogrn,
@@ -232,6 +263,12 @@ class ValidationHelper
      * @return bool True if the OGRNIP is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $ogrnip = '304500116000157'; // Example OGRNIP
+     * $isValid = ValidationHelper::ValidateOgrnip($ogrnip);
+     * echo $isValid ? 'OGRNIP is valid' : 'OGRNIP is invalid'; // Outputs whether the OGRNIP is valid or not
+     * ```
      */
     public static function ValidateOgrnip(
         string $ogrnip,
@@ -271,6 +308,13 @@ class ValidationHelper
      * @return bool True if the RS is valid for the given BIK, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $rs = '40702810900000000001'; // Example RS
+     * $bik = '044525225'; // Example BIK
+     * $isValid = ValidationHelper::ValidateRs($rs, $bik);
+     * echo $isValid ? 'RS is valid' : 'RS is invalid'; // Outputs whether the RS is valid or not
+     * ```
      */
     public static function ValidateRs(
         string $rs,
@@ -316,6 +360,12 @@ class ValidationHelper
      * @return bool True if the SNILS is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $snils = '12345678901'; // Example SNILS
+     * $isValid = ValidationHelper::ValidateSnils($snils);
+     * echo $isValid ? 'SNILS is valid' : 'SNILS is invalid'; // Outputs whether the SNILS is valid or not
+     * ```
      */
     public static function ValidateSnils(
         string $snils,

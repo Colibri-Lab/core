@@ -23,9 +23,8 @@ use DateTime;
 
 /**
  * Access Point
- *
+ * @example
  * ```
- * Example
  *
  * $accessPoint = App::$dataAccessPoints->Get('main');
  *
@@ -103,53 +102,86 @@ use DateTime;
  * 
  * @class
  *
- * @property-read string $name
- * @property-read string $dbms
- * @property-read array $allowedTypes
- * @property-read bool $hasIndexes
- * @property-read bool $fieldsHasPrefix
- * @property-read bool $hasVirtual
- * @property-read bool $hasMultiFieldIndexes
- * @property-read bool $hasAutoincrement
- * @property-read array $indexTypes
- * @property-read array $indexMethods
- * @property-read array $jsonIndexes
- * @property-read ISqlClientConnection|INoSqlClientConnection $connection
- * @property-read object $point
+ * @property-read string $name Name of the access point
+ * @property-read string $dbms Type of DBMS (relational or nosql)
+ * @property-read array $allowedTypes Allowed types of data storage (relational or nosql)
+ * @property-read bool $hasIndexes Indicates whether the database supports indexes
+ * @property-read bool $fieldsHasPrefix Indicates whether the database fields have a prefix
+ * @property-read bool $hasVirtual Indicates whether the database supports virtual fields
+ * @property-read bool $hasMultiFieldIndexes Indicates whether the database supports multi-field indexes
+ * @property-read bool $hasAutoincrement Indicates whether the database supports auto-increment fields
+ * @property-read array $indexTypes Types of indexes supported by the database
+ * @property-read array $indexMethods Methods of indexes supported by the database
+ * @property-read array $jsonIndexes JSON indexes supported by the database
+ * @property-read ISqlClientConnection|INoSqlClientConnection $connection Connection object for interacting with the database
+ * @property-read object $point Connection properties object
+ * @property-read string $symbol Symbol used for quoting identifiers in the database
+ * @property-read bool $hasTriggers Indicates whether the database supports triggers
  *
  */
 class DataAccessPoint
 {
     /**
      * Indicates whether the connection is established.
+     * @var bool
+     * @private
      */
     private bool $_connected = false;
 
-    /** Type of DBMS is relational */
+    /** 
+     * Type of DBMS is relational
+     * @const string 
+     * @public
+     */
     public const DBMSTypeRelational = 'relational';
 
-    /** Type of DBMS is nosql */
+    /** 
+     * Type of DBMS is nosql
+     * @const string
+     * @public
+     */
     public const DBMSTypeNoSql = 'nosql';
 
-    /** Execute the query and return a Reader */
+    /** 
+     * Execute the query and return a Reader
+     * @const string 
+     * @public
+     */
     public const QueryTypeReader = 'reader';
 
-    /** Execute the query and return a Reader, but without counting the total number of rows. */
+    /** 
+     * Execute the query and return a Reader, but without counting the total number of rows.
+     * @const string
+     * @public
+     */
     public const QueryTypeBigData = 'bigdata';
 
-    /** Execute a query that does not involve reading data. */
+    /** 
+     * Execute a query that does not involve reading data.
+     * @const string
+     * @public
+     */
     public const QueryTypeNonInfo = 'noninfo';
 
-    /** Readonly transation */
+    /** 
+     * Readonly transation
+     * @const string
+     * @public
+     */
     public const TransationReadonly = 'readonly';
 
-    /** ReadWrite transaction */
+    /** 
+     * ReadWrite transaction
+     * @const string
+     * @public
+     */
     public const TransationReadWrite = 'readwrite';
 
     /**
      * Connection properties
      *
      * @var object
+     * @private
      */
     private object $_accessPointData;
 
@@ -157,6 +189,7 @@ class DataAccessPoint
      * Connection object
      *
      * @var ISqlClientConnection|INoSqlClientConnection
+     * @private
      */
     private ISqlClientConnection|INoSqlClientConnection $_connection;
 
@@ -164,6 +197,8 @@ class DataAccessPoint
      * Constructor
      *
      * @param object|array $accessPointData The access point data object.
+     * @public
+     * @constructor
      */
     public function __construct(object|array $accessPointData)
     {
@@ -182,7 +217,9 @@ class DataAccessPoint
      * Magic get method
      *
      * @param string $property property connection,point or table name
-     * @return mixed
+     * @return mixed 
+     * @magic
+     * @public
      */
     public function __get($property)
     {
@@ -239,6 +276,12 @@ class DataAccessPoint
      * Reopens the connection to the database.
      *
      * @return void
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $accessPoint->Reopen();
+     * ```
      */
     public function Reopen()
     {
@@ -252,6 +295,12 @@ class DataAccessPoint
      * @param mixed ...$arguments The arguments for the command.
      * @return mixed The result of the command execution.
      * @throws DataAccessPointsException If the command is not found in the driver Command object.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $accessPoint->ExecuteCommand('SomeCommand', 'arg1', 'arg2');
+     * ```
      */
     public function ExecuteCommand(string $command, ...$arguments): mixed
     {
@@ -275,9 +324,16 @@ class DataAccessPoint
     }
 
     /**
-     * Closes the connection to the database.
+     * Calls the command in Command object if the method does not exists in DataAccessPoint class.
      *
      * @return void
+     * @public
+     * @magic
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $accessPoint->SomeCommand('arg1', 'arg2');
+     * ```
      */
     public function __call(string $name, array $arguments): mixed
     {
@@ -294,15 +350,15 @@ class DataAccessPoint
     /**
      * Executes a query in the access point.
      *
+     * @example
      * ```
-     * ! Attention
-     * ! To execute a query with parameters, do the following:
-     * ! 1. Parameters are passed in double square brackets [[param:type]], where type can be integer, double, string, or blob.
-     * ! 2. Parameters are passed in an associative array or as an object.
-     * ! For example: select * from test where id=[[id:integer]] and stringfield like [[likeparam:string]]
-     * ! The actual query with parameters ['id' => '1', 'likeparam' => '%brbrbr%'] will be:
-     * ! select * from test where id=1 and stringfield like '%brbrbr%'
-     * ! Queries can be put into a collection and executed with different parameters.
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $reader = $accessPoint->Query('select * from test where id=[[id:integer]]', ['page' => 1, 'pagesize' => 10, 'params' => ['id' => 1]]);
+     * while($result = $reader->Read()) {
+     *     print_r($result); // object
+     * }
+     * $nonQueryInfo = $accessPoint->Query('delete from test where id=[[id:integer]]', ['type' => DataAccessPoint::QueryTypeNonInfo, 'params' => ['id' => 1]]);
+     * $reader = $accessPoint->Query('select * from test', ['page' => 1, 'pagesize' => 100, 'type' => DataAccessPoint::QueryTypeBigData]);  
      * ```
      *
      * @param string $query The query string.
@@ -311,6 +367,7 @@ class DataAccessPoint
      *                          returning = ''
      *                     ]
      * @return IDataReader|QueryInfo|null Returns an IDataReader object, a QueryInfo object, or null.
+     * @public
      */
     public function Query($query, $commandParams = []): IDataReader|QueryInfo
     {
@@ -378,11 +435,6 @@ class DataAccessPoint
 
         }
 
-        // app_debug('Query: ' . $delay . ' ms: ' .
-        //     str_replace("\r", " ", str_replace("\n", " ", $query)) .
-        //     ' (' . $cmd->page . ', ' . $cmd->pagesize . ') - ' .
-        //     ', Type: ' . $commandParams->type, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 5));
-
         return $return;
 
     }
@@ -393,6 +445,11 @@ class DataAccessPoint
      * @param string $method The method name of the query builder.
      * @param array $attributes The attributes to pass to the query builder method.
      * @return mixed The result of the query builder method.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * ```
      */
     public function CreateQuery(string $method, array $attributes)
     {
@@ -411,6 +468,12 @@ class DataAccessPoint
      *
      * @param string $table The name of the table.
      * @return IDataReader|QueryInfo
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $status = $accessPoint->Status('my_table');
+     * ```
      */
     public function Status(string $table): IDataReader|QueryInfo
     {
@@ -428,6 +491,12 @@ class DataAccessPoint
      * @param array $row The row to be inserted.
      * @param string $returning The name of the field whose value needs to be returned. (For MySQL, this can be omitted, and the value of the identity field will be returned.)
      * @return QueryInfo
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $queryInfo = $accessPoint->Insert('my_table', ['field1' => 'value1'], 'id');
+     * ```
      */
     public function Insert(string $table, array $row = [], string $returning = '', ?array $params = null): QueryInfo
     {
@@ -452,6 +521,12 @@ class DataAccessPoint
      * @param array $exceptFields Which fields to exclude from updating if the row exists based on index fields.
      * @param string $returning The name of the field whose value needs to be returned. (For MySQL, this can be omitted, and the value of the identity field will be returned.)
      * @return QueryInfo
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $queryInfo = $accessPoint->InsertOrUpdate('my_table', ['field1' => 'value1'], ['field2'], 'id');
+     * ```
      */
     public function InsertOrUpdate(
         string $table,
@@ -476,6 +551,15 @@ class DataAccessPoint
      * @param string $table The table.
      * @param array $rows The rows to be inserted.
      * @return QueryInfo
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $queryInfo = $accessPoint->InsertBatch('my_table', [
+     *     ['field1' => 'value1'],
+     *     ['field1' => 'value2']
+     * ]);
+     * ```
      */
     public function InsertBatch(string $table, array $rows = []): QueryInfo
     {
@@ -493,6 +577,12 @@ class DataAccessPoint
      * @param array $row The row to be updated.
      * @param string $condition The update condition.
      * @return QueryInfo|null
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');  
+     * $queryInfo = $accessPoint->Update('my_table', ['field1' => 'new_value'], 'id=1');
+     * ```
      */
     public function Update(string $table, array $row, string $condition, ?array $params = null): QueryInfo
     {
@@ -513,6 +603,12 @@ class DataAccessPoint
      * @param string $table The table.
      * @param string $condition The condition.
      * @return QueryInfo
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $queryInfo = $accessPoint->Delete('my_table', 'id=1');
+     * ```
      */
     public function Delete(string $table, string $condition = ''): QueryInfo
     {
@@ -527,6 +623,12 @@ class DataAccessPoint
      * Returns a list of tables in the database.
      *
      * @return IDataReader|null Returns an IDataReader object or null.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $tablesReader = $accessPoint->Tables();
+     * ```
      */
     public function Tables(?string $table = null): IDataReader|QueryInfo
     {
@@ -541,6 +643,12 @@ class DataAccessPoint
      * Returns a list of fields in the database table.
      *
      * @return array Returns an IDataReader object or null.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $fields = $accessPoint->Fields('my_table');
+     * ```
      */
     public function Fields(string $table, ?string $database = null): array
     {
@@ -562,6 +670,12 @@ class DataAccessPoint
      * Returns a list of indexes in the database table.
      *
      * @return array Returns an IDataReader object or null.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $indexes = $accessPoint->Indexes('my_table');
+     * ```
      */
     public function Indexes(string $table, ?string $database = null): array
     {
@@ -589,6 +703,12 @@ class DataAccessPoint
     /**
      * Starts a transaction.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $queryInfo = $accessPoint->Begin();
+     * ```
      */
     public function Begin(?string $type = null): ?QueryInfo
     {
@@ -605,6 +725,12 @@ class DataAccessPoint
     /**
      * Commits the transaction.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $queryInfo = $accessPoint->Commit();
+     * ```
      */
     public function Commit(): ?QueryInfo
     {
@@ -621,6 +747,12 @@ class DataAccessPoint
     /**
      * Rolls back the transaction.
      * @return void
+     * @public
+     * @example 
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $queryInfo = $accessPoint->Rollback();
+     * ```
      */
     public function Rollback(): ?QueryInfo
     {
@@ -640,6 +772,12 @@ class DataAccessPoint
      * @param string $field The field name.
      * @param string $table The table name.
      * @return string The generated query string.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $query = $accessPoint->ForQuery('my_field', 'my_table');
+     * ```
      */
     public function ForQuery(string $field, string $table): string
     {
@@ -656,6 +794,12 @@ class DataAccessPoint
      * @param string $field The field name.
      * @param string $table The table name.
      * @return string The generated query string for soft deletion check.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $query = $accessPoint->SoftDeleteCheck('my_field', 'my_table');
+     * ```
      */
     public function SoftDeleteCheck(string $field, string $table): string
     {
@@ -676,6 +820,12 @@ class DataAccessPoint
      * @param string $sortOrder The sort order (ASC or DESC).
      * @param bool $useAsManageFilter Whether to use as a manage filter.
      * @return array The processed filters as an array.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $filters = $accessPoint->ProcessFilters($storage, 'search terms', ['field1' => 'value1'], 'field2', 'ASC', true);
+     * ```
      */
     public function ProcessFilters(Storage $storage, string $fullTextSearchTerms, array $filters, string $sortField, string $sortOrder, bool $useAsManageFilter = true): array
     {
@@ -692,6 +842,12 @@ class DataAccessPoint
      * @param mixed $row The row data to process.
      * @param string $mutationType The type of mutation (e.g., insert, update, delete).
      * @return array The processed mutation data as an array.
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $mutationData = $accessPoint->ProcessMutationData($row, 'insert');
+     * ```
      */
     public function ProcessMutationData(mixed $row, string $mutationType): array
     {
@@ -709,6 +865,12 @@ class DataAccessPoint
      * @param string $storage The source storage name.
      * @param array $xstorage The target storage configuration.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('main');
+     * $accessPoint->Migrate($logger, 'source_storage', ['target_storage' => 'target_config']);
+     * ```
      */
     public function Migrate(Logger $logger, string $storage, array $xstorage): void
     {

@@ -23,6 +23,12 @@ class NoLangHelper
      * @return string
      * @public
      * @static
+     * @example
+     * ```
+     * $input = 'Hello #{en;World}!';
+     * $output = NoLangHelper::ParseString($input);
+     * echo $output; // Outputs: Hello World!
+     * ```
      */
     public static function ParseString(string $value): string
     {
@@ -46,6 +52,21 @@ class NoLangHelper
      * @return array
      * @public
      * @static
+     * @example
+     * ```
+     * $data = [
+     *     'greeting' => 'Hello #{en;World}!',
+     *     'farewell' => 'Goodbye #{en;Everyone}!'
+     * ];
+     * $parsedData = NoLangHelper::ParseArray($data);
+     * print_r($parsedData);
+     * /// Outputs:
+     * /// Array
+     * /// (
+     * ///     [greeting] => Hello World!
+     * ///     [farewell] => Goodbye Everyone!
+     * /// )
+     * ```
      */
     public static function ParseArray(array|object $array): array
     {

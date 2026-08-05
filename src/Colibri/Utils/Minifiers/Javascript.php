@@ -21,6 +21,12 @@ use Colibri\IO\FileSystem\File;
  */
 class Javascript
 {
+    /**
+     * Configuration for the minifier.
+     *
+     * @var object|null
+     * @private
+     */
     private ?object $_config = null;
 
     /**
@@ -28,6 +34,8 @@ class Javascript
      *
      * @param string $content The JavaScript content to minify.
      * @return string The minified JavaScript content.
+     * @public
+     * @static
      */
     public static function Minify(string $content): string
     {
@@ -37,6 +45,8 @@ class Javascript
 
     /**
      * Constructor.
+     * @constructor
+     * @public
      */
     public function __construct()
     {
@@ -49,6 +59,7 @@ class Javascript
      * @param array|null $range The range of characters to use for generating names.
      * @param string $prefix The prefix to prepend to each generated name.
      * @return array An array of generated names.
+     * @private
      */
     private function _getNames(array $range = null, string $prefix = ''): array
     {
@@ -67,8 +78,9 @@ class Javascript
      * Retrieves additional object names from the configuration of loaded modules.
      *
      * @return array An array of additional object names.
+     * @private
      */
-    private function _getAdditionalObjectNames()
+    private function _getAdditionalObjectNames(): array
     {
         $return = [];
         foreach (App::$moduleManager->list as $module) {
@@ -91,6 +103,7 @@ class Javascript
      *
      * @param mixed $content The JavaScript content to convert.
      * @return string The converted JavaScript content.
+     * @private
      */
     private function _convert($content): string
     {
@@ -138,6 +151,7 @@ class Javascript
      *
      * @param string $content The JavaScript content to minify.
      * @return string The minified JavaScript content.
+     * @public
      */
     public function Run(string $content): string
     {

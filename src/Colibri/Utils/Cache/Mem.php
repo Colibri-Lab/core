@@ -22,6 +22,8 @@ class Mem
      * Static variable to ensure singleton mechanism.
      *
      * @var \Memcached
+     * @static
+     * @public
      */
     public static $instance;
 
@@ -31,6 +33,8 @@ class Mem
      * @param string $host The Memcached host
      * @param int $port The Memcached port
      * @return \Memcached|null The Memcached object or null if the class does not exist
+     * @public
+     * @static
      */
     public static function Create(string $host, int $port): ?\Memcached
     {
@@ -51,6 +55,8 @@ class Mem
     /**
      * Closes the Memcached connection.
      *
+     * @public
+     * @static
      */
     public static function Dispose(): void
     {
@@ -68,6 +74,8 @@ class Mem
      *
      * @param string $name The name of the variable
      * @return bool True if the variable exists in the cache, otherwise false
+     * @public
+     * @static
      */
     public static function Exists(string $name): bool
     {
@@ -88,6 +96,8 @@ class Mem
      * @param mixed $value The data
      * @param int $livetime The lifetime of the variable in seconds
      * @return bool True if the operation was successful, otherwise false
+     * @public
+     * @static
      */
     public static function Write(string $name, mixed $value, int $livetime = 600): bool
     {
@@ -109,6 +119,8 @@ class Mem
      * @param mixed $value The data
      * @param int $livetime The lifetime of the variable in seconds
      * @return bool True if the operation was successful, otherwise false
+     * @public
+     * @static
      */
     public static function ZWrite(string $name, mixed $value, int $livetime = 600): bool
     {
@@ -124,6 +136,8 @@ class Mem
      *
      * @param string $name The name of the variable
      * @return bool True if the operation was successful, otherwise false
+     * @public
+     * @static
      */
     public static function Delete(string $name): bool
     {
@@ -138,6 +152,8 @@ class Mem
      *
      * @param string $name The name of the variable
      * @return mixed|false The data of the variable, or false if the variable does not exist in the cache
+     * @public
+     * @static
      */
     public static function Read(string $name): mixed
     {
@@ -155,6 +171,8 @@ class Mem
      *
      * @param string|null $filter The filter pattern to match keys against
      * @return array An array of keys stored in the cache
+     * @public
+     * @static
      */
     public static function List(?string $filter = null): array
     {

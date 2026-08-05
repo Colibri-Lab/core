@@ -19,6 +19,26 @@ use Colibri\Threading\Process;
  * Represents a closure handler for events.
  * @interface
  * 
+ * @example
+ * ```
+ * class MyClosure implements IClosure {
+ *     public function Invoke(string|Event $event, mixed $args): ?bool {
+ *         /// Implementation here
+ *     }
+ *
+ *     public function AsyncInvoke(string|Event $event, mixed $args): ?Process {
+ *         /// Implementation here
+ *     }
+ *
+ *     public function Serialize(): string {
+ *         /// Implementation here
+ *     }
+ *
+ *     public static function Unserialize(string $serialized): ?IClosure {
+ *         /// Implementation here
+ *     }
+ * }
+ * ```
  */
 interface IClosure
 {
@@ -28,6 +48,15 @@ interface IClosure
      * @param string|Event $event The event object or its name.
      * @param mixed $args Additional arguments to pass to the closure.
      * @return bool|null True if the closure was successfully invoked, otherwise false. Null if invocation fails.
+     * @public
+     * @example
+     * ```php
+     * class MyClosure implements IClosure {
+     *     public function Invoke(string|Event $event, mixed $args): ?bool {
+     *         /// Implementation here
+     *     }
+     * }
+     * ```
      */
     public function Invoke(string|Event $event, mixed $args): ?bool;
 
@@ -37,6 +66,15 @@ interface IClosure
      * @param string|Event $event The event object or its name.
      * @param mixed $args Additional arguments to pass to the closure.
      * @return Process|null A Process object representing the asynchronous execution, or null if async invocation fails.
+     * @public
+     * @example
+     * ```
+     * class MyClosure implements IClosure {
+     *     public function AsyncInvoke(string|Event $event, mixed $args): ?Process {
+     *         /// Implementation here
+     *     }
+     * }
+     * ```
      */
     public function AsyncInvoke(string|Event $event, mixed $args): ?Process;
 
@@ -44,6 +82,15 @@ interface IClosure
      * Serializes the closure.
      *
      * @return string The serialized closure.
+     * @public
+     * @example
+     * ``` 
+     * class MyClosure implements IClosure {
+     *     public function Serialize(): string {
+     *         /// Implementation here  
+     *    }
+     * }
+     * ```
      */
     public function Serialize(): string;
 
@@ -52,6 +99,16 @@ interface IClosure
      *
      * @param string $serialized The serialized closure.
      * @return IClosure|null An instance of IClosure, or null if unserialization fails.
+     * @public
+     * @static
+     * @example
+     * ```
+     * class MyClosure implements IClosure {
+     *     public static function Unserialize(string $serialized): ?IClosure {
+     *         /// Implementation here
+     *     }
+     * }
+     * ```
      */
     public static function Unserialize(string $serialized): ?IClosure;
 

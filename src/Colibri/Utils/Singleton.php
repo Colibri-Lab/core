@@ -30,6 +30,9 @@ abstract class Singleton
      *
      * @param mixed ...$arguments Arguments to be passed to the constructor, if needed.
      * @return static The singleton instance.
+     * @final
+     * @public
+     * @static
      */
     final public static function Instance(...$arguments): static
     {

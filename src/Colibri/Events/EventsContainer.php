@@ -26,12 +26,16 @@ class EventsContainer
     /**
      * Triggered after the application initialization is complete.
      * No parameters.
+     * @const string
+     * @public
      */
     public const AppReady = 'app.ready';
 
     /**
      * Start of application initialization.
      * No parameters.
+     * @const string
+     * @public
      */
     public const AppInitializing = 'app.initializing';
 
@@ -42,6 +46,8 @@ class EventsContainer
     /**
      * When the Request object is ready.
      * No parameters.
+     * @const string
+     * @public
      */
     public const RequestReady = 'request.ready';
 
@@ -52,6 +58,8 @@ class EventsContainer
     /**
      * When the Response object is ready.
      * No parameters.
+     * @const string
+     * @public
      */
     public const ResponseReady = 'response.ready';
 
@@ -62,6 +70,8 @@ class EventsContainer
     /**
      * Triggered after all modules have been loaded.
      * No parameters.
+     * @const string
+     * @public
      */
     public const ModuleManagerReady = 'modulemanager.ready';
 
@@ -72,6 +82,8 @@ class EventsContainer
     /**
      * Triggered after the SecurityManager has been initialized.
      * No parameters.
+     * @const string
+     * @public
      */
     public const SecurityManagerReady = 'securitymanager.ready';
 
@@ -83,6 +95,8 @@ class EventsContainer
      * Start of assets compilation.
      * Parameters: string $type, string $name, string[] $blocks
      * Used part of the result: string[] $blocks
+     * @const string
+     * @public
      */
     public const AssetsCompiling = 'assets.compiling';
 
@@ -90,6 +104,8 @@ class EventsContainer
      * Completion of assets compilation.
      * Parameters: string $type, string $name, string $cacheUrl
      * The result is not used.
+     * @const string
+     * @public
      */
     public const AssetsCompiled = 'assets.compiled';
 
@@ -97,6 +113,8 @@ class EventsContainer
      * Completion of block assets compilation.
      * Parameters: string $type, string $name, string $content
      * Used part of the result: string $content
+     * @const string
+     * @public
      */
     public const AssetsBlock = 'assets.block';
 
@@ -104,6 +122,8 @@ class EventsContainer
      * Completion of file compilation in the bundle.
      * Parameters: string $content, string $file
      * Used part of the result: string $content
+     * @const string
+     * @public
      */
     public const BundleFile = 'bundle.file';
 
@@ -111,6 +131,8 @@ class EventsContainer
      * Start of bundle compilation.
      * Parameters: string[] $exts
      * Used part of the result: string $content
+     * @const string
+     * @public
      */
     public const BundleStart = 'bundle.start';
 
@@ -118,6 +140,8 @@ class EventsContainer
      * Completion of bundle compilation.
      * Parameters: string $content, string[] $exts
      * Used part of the result: string $content
+     * @const string
+     * @public
      */
     public const BundleComplete = 'bundle.complete';
 
@@ -129,6 +153,8 @@ class EventsContainer
      * Received RPC request.
      * Parameters: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload
      * Result: boolean $cancel, stdClass $result
+     * @const string
+     * @public
      */
     public const RpcGotRequest = 'rpc.request';
 
@@ -136,6 +162,8 @@ class EventsContainer
      * Request processed.
      * Parameters: mixed $object, string $method, stdClass $get, stdClass $post, stdClass $payload
      * The result is not used.
+     * @const string
+     * @public
      */
     public const RpcRequestProcessed = 'rpc.complete';
 
@@ -143,6 +171,8 @@ class EventsContainer
      * RPC request error.
      * Parameters: string $class, string $method, stdClass $get, stdClass $post, stdClass $payload, string $message
      * Result: boolean $cancel, stdClass $result
+     * @const string
+     * @public
      */
     public const RpcRequestError = 'rpc.error';
 
@@ -154,6 +184,8 @@ class EventsContainer
      * Template is being rendered.
      * Parameters: Template $template, ExtendedObject $args
      * The result is not used.
+     * @const string
+     * @public
      */
     public const TemplateRendering = 'template.rendering';
 
@@ -161,6 +193,8 @@ class EventsContainer
      * Template has been rendered.
      * Parameters: Template $template, string $content
      * The result is not used.
+     * @const string
+     * @public
      */
     public const TemplateRendered = 'template.rendered';
 
@@ -172,6 +206,8 @@ class EventsContainer
      * When something is written to the logger.
      * Parameters: int $type = Logger::*, string $message, mixed $context
      * The result is not used.
+     * @const string
+     * @public
      */
     public const LogWriten = 'logger.writen';
 
@@ -179,12 +215,26 @@ class EventsContainer
 
     #region JobParallelProcesses
 
+    /**
+     * When a parallel job has ended.
+     * Parameters: string $jobName, string $processName, mixed $result
+     * The result is not used.
+     * @const string
+     * @public
+     */
     public const ParallelJobIsEnded = 'job.parallel.ended';
 
     #endregion
 
     #region Themes
 
+    /**
+     * When a theme is being chosen.
+     * Parameters: string $themeName, Storage $themeStorage
+     * Used part of the result: string $themeName, Storage $themeStorage
+     * @const string
+     * @public
+     */
     public const ThemeChoosing = 'themes.choosing';
     
     #endregion
@@ -194,24 +244,32 @@ class EventsContainer
     /**
      * When model is saved
      * The result is not used.
+     * @const string
+     * @public
      */
     public const Saved = 'saved';
 
     /**
      * When model is deleted
      * The result is not used.
+     * @const string
+     * @public
      */
     public const Deleted = 'deleted';
 
     /**
      * Before models loading
      * The result is not used.
+     * @const string
+     * @public
      */
     public const Loading = 'loading';
 
     /**
      * When models are loaded
      * The result is not used.
+     * @const string
+     * @public
      */
     public const Loaded = 'loaded';
 
@@ -223,6 +281,8 @@ class EventsContainer
      * When some progress is indicated
      * Parameters: string $process, int $progress, mixed $data
      * The result is not used.
+     * @const string
+     * @public
      */
     public const Progress = 'progress';
 

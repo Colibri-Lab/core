@@ -31,6 +31,12 @@ namespace Colibri\IO\FileSystem;
  * 
  * @class
  * @extends Node
+ * 
+ * @example
+ * ```
+ * $directory = new Directory('/path/to/directory/');
+ * echo $directory->path; // Outputs: /path/to/directory/
+ * ```
  *
  */
 class Directory extends Node
@@ -41,6 +47,7 @@ class Directory extends Node
      * Represents the path to the folder.
      *
      * @var string
+     * @private
      */
     private string $path;
 
@@ -50,6 +57,7 @@ class Directory extends Node
      * Represents the parent directory.
      *
      * @var Directory
+     * @private
      */
     private ?Directory $_parent = null;
 
@@ -59,6 +67,7 @@ class Directory extends Node
      * Represents the path of the folder as an array.
      *
      * @var array|null
+     * @private
      */
     private ?array $_pathArray = null;
 
@@ -68,6 +77,13 @@ class Directory extends Node
      * Initializes a new instance of the Directory class.
      *
      * @param string $path The path to the directory.
+     * @constructor
+     * @public
+     * @example
+     * ```
+     * $directory = new Directory('/path/to/directory/');
+     * echo $directory->path; // Outputs: /path/to/directory/
+     * ```
      */
     public function __construct(string $path)
     {
@@ -81,6 +97,8 @@ class Directory extends Node
      *
      * @param string $property The property to retrieve.
      * @return mixed The value of the property.
+     * @magic
+     * @public
      */
     public function __get(string $property): mixed
     {
@@ -138,6 +156,7 @@ class Directory extends Node
      *
      * @param string $path The path where the directory will be copied.
      * @return void
+     * @public
      */
     public function CopyTo(string $path): void
     {
@@ -149,6 +168,7 @@ class Directory extends Node
      *
      * @param string $path The path where to move the directory.
      * @return void
+     * @public
      */
     public function MoveTo(string $path): void
     {
@@ -159,6 +179,7 @@ class Directory extends Node
      * Returns the name of the directory.
      *
      * @return string
+     * @public
      */
     public function ToString(): string
     {
@@ -170,6 +191,8 @@ class Directory extends Node
      *
      * @param string $path
      * @return boolean
+     * @public
+     * @static
      */
     public static function IsDir(string $path): bool
     {
@@ -185,6 +208,8 @@ class Directory extends Node
      *
      * @param mixed $path The relative path.
      * @return string|bool The real path or false if the path does not exist.
+     * @public
+     * @static
      */
     public static function RealPath(mixed $path): bool|string
     {
@@ -196,6 +221,8 @@ class Directory extends Node
      *
      * @param string $path The path to the directory.
      * @return boolean
+     * @public
+     * @static
      */
     public static function Exists(string $path): bool
     {
@@ -209,6 +236,8 @@ class Directory extends Node
      * @param boolean $recursive если true то директории будут созданы по всему пути до достижения указанной директории
      * @param string $mode режим создания по умолчанию 777
      * @return Directory
+     * @public
+     * @static
      */
     public static function Create(string $path, bool $recursive = true, string $mode = '777'): Directory
     {
@@ -225,6 +254,8 @@ class Directory extends Node
      *
      * @param string $path The path to the directory.
      * @return void
+     * @public
+     * @static
      */
     public static function Delete(string $path): void
     {
@@ -253,6 +284,8 @@ class Directory extends Node
      * @param string $from The directory to copy from.
      * @param string $to The destination directory.
      * @return void
+     * @public
+     * @static
      */
     public static function Copy(string $from, string $to): void
     {
@@ -283,6 +316,8 @@ class Directory extends Node
      * @param string $from The directory to move.
      * @param string $to The destination directory.
      * @return void
+     * @public
+     * @static
      */
     public static function Move(string $from, string $to): void
     {
@@ -301,6 +336,8 @@ class Directory extends Node
      *
      * @param string $filename The directory path.
      * @return array An array containing information about the directory.
+     * @public
+     * @static
      */
     public static function PathInfo(string $filename): array
     {
@@ -317,6 +354,7 @@ class Directory extends Node
      * Converts the directory object to an array.
      *
      * @return array An array representation of the directory object.
+     * @public
      */
     public function ToArray(): array
     {

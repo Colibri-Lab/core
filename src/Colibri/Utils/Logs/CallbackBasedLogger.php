@@ -33,6 +33,7 @@ class CallbackBasedLogger extends Logger
      * Indicates whether to log messages to the console as well.
      *
      * @var bool
+     * @private
      */
     private bool $_console;
    
@@ -42,6 +43,8 @@ class CallbackBasedLogger extends Logger
      * @param int $maxLogLevel The maximum log level.
      * @param mixed $eventHandler The file name.
      * @param bool $console Whether to log messages to the console as well. Default is false.
+     * @constructor
+     * @public
      */
     public function __construct(int $maxLogLevel = 7, mixed $eventHandler = '', $console = false)
     {
@@ -58,6 +61,8 @@ class CallbackBasedLogger extends Logger
      *
      * @param string $prop The property name.
      * @return mixed The value of the property.
+     * @magic
+     * @public
      */
     public function __get(string $prop): mixed
     {
@@ -79,6 +84,7 @@ class CallbackBasedLogger extends Logger
      * @param int $level The log level.
      * @param mixed $data The log data.
      * @return void
+     * @public
      */
     public function WriteLine(int $level, mixed $data): void
     {
@@ -108,6 +114,7 @@ class CallbackBasedLogger extends Logger
      * Retrieves the content of the log file.
      *
      * @return mixed The content of the log file.
+     * @public
      */
     public function Content(): mixed
     {

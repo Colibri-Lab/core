@@ -21,6 +21,16 @@ namespace Colibri\Graphics;
  * @property-read string $attributes Get text as attributes.
  * @property-read string $params Get text as query parameters.
  * @property-read bool $isNull Check if the size is null.
+ * @example 
+ * ```
+ * $size = new Size(100, 200);
+ * echo $size->width; // Outputs: 100
+ * echo $size->height; // Outputs: 200
+ * echo $size->style; // Outputs: width:100px;height:200px;
+ * echo $size->attributes; // Outputs: width="100" height="200"
+ * echo $size->params; // Outputs: &w=100&h=200
+ * echo $size->isNull; // Outputs: false
+ * ```
  */
 class Size
 {

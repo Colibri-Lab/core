@@ -19,11 +19,15 @@ class PermissionDeniedException extends \Exception
 {
     /**
      * The HTTP status code for permission denied.
+     * @const int
+     * @public
      */
     public const PermissionDeniedCode = 403;
 
     /**
      * Message indicating permission denied.
+     * @const string
+     * @public
      */
     public const PermissionDeniedMessage = 'Permission denied';
 

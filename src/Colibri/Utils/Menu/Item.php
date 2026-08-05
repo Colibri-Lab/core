@@ -18,8 +18,20 @@ namespace Colibri\Utils\Menu;
  */
 class Item implements \JsonSerializable
 {
+    /**
+     * Holds the data for the menu item.
+     *
+     * @var object|null
+     * @private
+     */
     private ?object $_data = null;
 
+    /**
+     * The parent item of this menu item.
+     *
+     * @var Item|null
+     * @public
+     */
     public ?Item $parent = null;
 
     /**
@@ -30,6 +42,8 @@ class Item implements \JsonSerializable
      * @param string $description The description of the item.
      * @param string $icon The icon associated with the item.
      * @param string $execute The action to execute when the item is clicked.
+     * @constructor
+     * @public
      */
     public function __construct(string $name, string $title, string $description, string $icon = '', string $execute = '')
     {
@@ -56,6 +70,8 @@ class Item implements \JsonSerializable
      * @param string $icon The icon associated with the item.
      * @param string $execute The action to execute when the item is clicked.
      * @return self The newly created menu item.
+     * @public
+     * @static
      */
     public static function Create(string $name, string $title, string $description, string $icon = '', string $execute = ''): self
     {
@@ -67,6 +83,8 @@ class Item implements \JsonSerializable
      *
      * @param array $array The array containing item data.
      * @return self The newly created menu item.
+     * @public
+     * @static
      */
     public static function FromArray(array $array): self
     {
@@ -84,6 +102,8 @@ class Item implements \JsonSerializable
      *
      * @param string $name The name of the property.
      * @return mixed|null The value of the property or null if not found.
+     * @magic
+     * @public
      */
     public function __get(string $name): mixed
     {
@@ -97,6 +117,7 @@ class Item implements \JsonSerializable
      * Generates the route for the item.
      *
      * @return string The route of the item.
+     * @public
      */
     public function Route(): string
     {
@@ -112,6 +133,7 @@ class Item implements \JsonSerializable
      *
      * @param array $items The items to merge.
      * @return void
+     * @public
      */
     public function Merge(array $items): void
     {
@@ -125,6 +147,7 @@ class Item implements \JsonSerializable
      *
      * @param string $name The name of the item to find.
      * @return self|null The found item or null if not found.
+     * @private
      */
     private function _find(string $name): self|null
     {
@@ -141,6 +164,7 @@ class Item implements \JsonSerializable
      *
      * @param Item|array $item The item or items to add.
      * @return Item This item.
+     * @public
      */
     public function Add(Item|array $item): Item
     {
@@ -164,6 +188,7 @@ class Item implements \JsonSerializable
      * Serializes the item to JSON.
      *
      * @return object|array The serialized item.
+     * @public
      */
     public function jsonSerialize(): object|array
     {
@@ -175,6 +200,7 @@ class Item implements \JsonSerializable
      * Converts the item to an array.
      *
      * @return array|object The converted item.
+     * @public
      */
     public function ToArray(): array |object
     {

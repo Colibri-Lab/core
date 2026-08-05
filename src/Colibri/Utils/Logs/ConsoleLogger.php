@@ -28,6 +28,8 @@ class ConsoleLogger extends Logger
      *
      * @param int $maxLogLevel The maximum log level.
      * @param mixed $dummy Dummy parameter (not used).
+     * @constructor
+     * @public
      */
     public function __construct(int $maxLogLevel = 7, mixed $dummy = '')
     {
@@ -40,6 +42,8 @@ class ConsoleLogger extends Logger
      *
      * @param string $prop The property name.
      * @return mixed The value of the property.
+     * @public
+     * @magic
      */
     public function __get(string $prop): mixed
     {
@@ -61,6 +65,7 @@ class ConsoleLogger extends Logger
      * @param int $level The log level.
      * @param mixed $data The log data.
      * @return void
+     * @public
      */
     public function WriteLine(int $level, mixed $data): void
     {
@@ -109,6 +114,7 @@ class ConsoleLogger extends Logger
      * Retrieves the content of the log file (not applicable for ConsoleLogger).
      *
      * @return mixed The content of the log file.
+     * @public
      */
     public function Content(): mixed
     {
@@ -121,6 +127,7 @@ class ConsoleLogger extends Logger
      * @param int $position The start position for reading.
      * @return void
      * @throws LoggerException
+     * @public
      */
     public function Open(int $position = 0): void
     {
@@ -131,6 +138,7 @@ class ConsoleLogger extends Logger
      * Closes the log file (not applicable for ConsoleLogger).
      *
      * @return void
+     * @public
      */
     public function Close(): void
     {
@@ -141,6 +149,7 @@ class ConsoleLogger extends Logger
      * Reads the last messages in the log starting from the last read position, returning them as an array of strings (not applicable for ConsoleLogger).
      *
      * @return array An array of log message strings.
+     * @public
      */
     public function Read(): array
     {

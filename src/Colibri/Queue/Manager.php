@@ -34,6 +34,7 @@ use Colibri\Utils\Singleton;
  * Manages the job queue.
  * @class
  * @extends Singleton
+ * @used TEventDispatcher
  */
 class Manager extends Singleton
 {
@@ -46,6 +47,7 @@ class Manager extends Singleton
      * Array containing configuration settings.
      *
      * @var array
+     * @private
      */
     private array $_config = [];
 
@@ -53,6 +55,7 @@ class Manager extends Singleton
      * The driver used for accessing the queue.
      *
      * @var string
+     * @private
      */
     private string $_driver = '';
 
@@ -60,11 +63,14 @@ class Manager extends Singleton
      * Array containing storage settings.
      *
      * @var array
+     * @private
      */
     private array $_storages = [];
 
     /**
      * Constructor for the Manager class.
+     * @constructor
+     * @public
      */
     public function __construct()
     {
@@ -79,6 +85,7 @@ class Manager extends Singleton
      * @param Logger $logger The logger instance.
      * @return bool True if migration was successful, false otherwise.
      * @throws Exception When tables cannot be created.
+     * @public
      */
     public function Migrate(Logger $logger): bool
     {
@@ -197,6 +204,7 @@ class Manager extends Singleton
      * @param string|null $startDate The start date of the job.
      * @return bool True if the job is added successfully, false otherwise.
      * @throws Exception If the job already exists.
+     * @public
      */
     public function AddJob(IJob $job, ?string $startDate = null): bool
     {
@@ -243,6 +251,7 @@ class Manager extends Singleton
      * @param string|null $startDate The start date of the job.
      * @return bool True if the job is updated successfully, false otherwise.
      * @throws Exception If the job does not exist.
+     * @public
      */
     public function UpdateJob(IJob $job, ?string $startDate = null): bool
     {
@@ -275,6 +284,7 @@ class Manager extends Singleton
      * @param IJob $job The job to delete.
      * @return bool True if the job is deleted successfully, false otherwise.
      * @throws Exception If the job does not exist.
+     * @public
      */
     public function DeleteJob(IJob $job): bool
     {
@@ -300,6 +310,7 @@ class Manager extends Singleton
      * @param \Throwable $e The exception that caused the job to fail.
      * @return bool True if the job is marked as failed successfully, false otherwise.
      * @throws Exception If the job does not exist.
+     * @public
      */
     public function FailJob(IJob $job, \Throwable $e): bool
     {
@@ -343,6 +354,7 @@ class Manager extends Singleton
      * @param array|object $result The result of the job execution.
      * @return bool True if the job is marked as successfully completed, false otherwise.
      * @throws Exception If the job does not exist.
+     * @public
      */
     public function SuccessJob(IJob $job, array|object $result): bool
     {
@@ -373,6 +385,14 @@ class Manager extends Singleton
 
     }
 
+    /**
+     * Updates the result of a successfully completed job in the queue.
+     *
+     * @param int $id The ID of the job to update.
+     * @param array|object $result The result of the job execution.
+     * @return mixed The result of the update operation.
+     * @public
+     */
     public function UpdateSuccessedJob(int $id, object|array $result): mixed
     {
         $accessPoint = App::$dataAccessPoints->Get($this->_driver);
@@ -385,6 +405,7 @@ class Manager extends Singleton
      *
      * @param array $queue The queue from which to retrieve the next job.
      * @return IJob|null The next job if available, or null if no jobs are available in the queue.
+     * @public
      */
     public function GetNextJob(array $queue): ?IJob
     {
@@ -435,6 +456,7 @@ class Manager extends Singleton
      *
      * @param int $id The ID of the job to retrieve.
      * @return IJob|null The job if found, or null if no job with the specified ID exists.
+     * @public
      */
     public function GetJobById(int $id): ?IJob
     {
@@ -472,8 +494,8 @@ class Manager extends Singleton
      * @param string $class The job class
      * @param ?string $payloadClass The job payload class
      * @param array|object|null $payloadFilter object of payload to check
-     * @return boolean true if the job exists and running, false if job exists
-     *                 and not running, and null if job does not exists
+     * @return boolean true if the job exists and running, false if job exists and not running, and null if job does not exists
+     * @public
      */
     public function JobIsRunning(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?bool
     {
@@ -530,6 +552,7 @@ class Manager extends Singleton
      * @param ?string $payloadClass The job payload class
      * @param array|object|null $payloadFilter object of payload to check
      * @return [IJob]|null
+     * @public
      */
     public function FindJob(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?array
     {
@@ -596,6 +619,7 @@ class Manager extends Singleton
      * @param ?string $payloadClass The job payload class
      * @param array|object|null $payloadFilter object of payload to check
      * @return [IJob]|null
+     * @public
      */
     public function FindJobInQueue(string $queue, string $class, ?string $payloadClass, object|array|null $payloadFilter = null, string|array $dateStart = null): ?array
     {
@@ -664,6 +688,7 @@ class Manager extends Singleton
      * @param object|array|null $payloadFilter An object or array containing payload filter criteria (optional).
      * @param object|array|null $resultFilter An object or array containing result filter criteria (optional).
      * @return array An array of successfully completed jobs matching the specified criteria.
+     * @public
      */
     public function GetSuccessed(string $class, ?string $payloadClass, object|array|null $payloadFilter = null, object|array|null $resultFilter = null): array
     {
@@ -726,6 +751,7 @@ class Manager extends Singleton
      * @param string $queue The queue to process jobs from.
      * @return never This method never returns.
      * @suppress PHP0420
+     * @public
      */
     public function ProcessJobs(string $queue)
     {
@@ -775,6 +801,7 @@ class Manager extends Singleton
      * Retrieves dashboard data including active, error, and success jobs.
      *
      * @return array An array containing dashboard data.
+     * @public
      */
     public function Dashboard(): array
     {
@@ -836,6 +863,7 @@ class Manager extends Singleton
      *
      * @param string $queueName Name of the worker
      * @return bool
+     * @public
      */
     public static function IsRunning(string $queueName): bool
     {
@@ -853,6 +881,7 @@ class Manager extends Singleton
      * Runs the queue worker for the specified queue(s).
      *
      * @param string|array $queueName The name of the queue or an array of queue names to run.
+     * @public
      */
     public static function Run(string|array $queueName)
     {

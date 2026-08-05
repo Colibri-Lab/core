@@ -54,6 +54,8 @@ class ReactServer
      * @static
      * @param ServerRequestInterface $psrRequest The incoming PSR-7 request.
      * @return MessageResponse The response to be sent back to the client.
+     * @public
+     * @static
      */
     public static function HandleRequest(ServerRequestInterface $psrRequest): MessageResponse
     {

@@ -31,6 +31,11 @@ class StringHelper
      * @return string The lowercase version of the input string.
      * @public
      * @static
+     * @example
+     * ```
+     * $lowercaseString = StringHelper::ToLower('HELLO WORLD');
+     * echo $lowercaseString; // Outputs 'hello world'
+     * ```
      */
     public static function ToLower(string $s): string
     {
@@ -45,6 +50,11 @@ class StringHelper
      * @return string The uppercase version of the input string.
      * @public
      * @static
+     * @example
+     * ```
+     * $uppercaseString = StringHelper::ToUpper('hello world');
+     * echo $uppercaseString; // Outputs 'HELLO WORLD'
+     * ```
      */
     public static function ToUpper(string $s): string
     {
@@ -59,6 +69,11 @@ class StringHelper
      * @return bool True if the string contains only uppercase letters, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $isUpper = StringHelper::IsUpper('HELLO WORLD');
+     * var_dump($isUpper); // Outputs true
+     * ```
      */
     public static function IsUpper(string $s): bool
     {
@@ -76,6 +91,11 @@ class StringHelper
      * @return bool True if the string contains only lowercase letters, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $isLower = StringHelper::IsLower('hello world');
+     * var_dump($isLower); // Outputs true
+     * ```
      */
     public static function IsLower(string $s): bool
     {
@@ -93,6 +113,11 @@ class StringHelper
      * @return bool True if the string is a valid JSON string, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $isJson = StringHelper::IsJsonString('{"key": "value"}');
+     * var_dump($isJson); // Outputs true
+     * ```
      */
     public static function IsJsonString(string $s): bool
     {
@@ -112,6 +137,11 @@ class StringHelper
      * @return string The string with the first character in uppercase.
      * @public
      * @static
+     * @example
+     * ```
+     * $upperFirst = StringHelper::ToUpperFirst('hello world');
+     * echo $upperFirst; // Outputs 'Hello world'
+     * ```
      */
     public static function ToUpperFirst(string $str): string
     {
@@ -133,6 +163,11 @@ class StringHelper
      * @return string|array|bool The modified string or array after replacements, or false on failure.
      * @public
      * @static
+     * @example
+     * ```
+     * $replaced = StringHelper::Replace('Hello world', 'world', 'there');
+     * echo $replaced; // Outputs 'Hello there'
+     * ```
      */
     public static function Replace(
         string|array $subject,
@@ -183,6 +218,11 @@ class StringHelper
      * @return string The converted string in camelCase attribute format.
      * @public
      * @static
+     * @example
+     * ```
+     * $camelCaseAttr = StringHelper::ToCamelCaseAttr('hello-world');
+     * echo $camelCaseAttr; // Outputs 'helloWorld'
+     * ```
      */
     public static function ToCamelCaseAttr(
         string $str,
@@ -212,6 +252,11 @@ class StringHelper
      * @return string The converted string in hyphen-separated attribute format.
      * @public
      * @static
+     * @example
+     * ```
+     * $hyphenated = StringHelper::FromCamelCaseAttr('helloWorld');
+     * echo $hyphenated; // Outputs 'hello-world'
+     * ```
      */
     public static function FromCamelCaseAttr(
         string $str,
@@ -236,6 +281,11 @@ class StringHelper
      * @return string The camel-cased version of the input string.
      * @public
      * @static
+     * @example
+     * ```
+     * $camelCaseVar = StringHelper::ToCamelCaseVar('hello_world');
+     * echo $camelCaseVar; // Outputs 'helloWorld'
+     * ```
      */
     public static function ToCamelCaseVar(
         string $str,
@@ -262,6 +312,11 @@ class StringHelper
      * @return string The converted variable name.
      * @public
      * @static
+     * @example
+     * ```
+     * $variableName = StringHelper::FromCamelCaseVar('helloWorld');
+     * echo $variableName; // Outputs 'hello_world'
+     * ```
      */
     public static function FromCamelCaseVar(string $str, bool $detectAbb = false): string
     {
@@ -307,6 +362,11 @@ class StringHelper
      * @return bool True if the email address is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $isValidEmail = StringHelper::IsEmail('test@example.com');
+     * var_dump($isValidEmail); // Outputs true
+     * ```
      */
     public static function IsEmail(string $address, bool $checkThatDomainExists = false): bool
     {
@@ -337,6 +397,11 @@ class StringHelper
      * @return bool True if the email address is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $isValidEmail = StringHelper::IsEmail2('test@example.com');
+     * var_dump($isValidEmail); // Outputs true
+     * ```
      */
     public static function IsEmail2(string $email): bool
     {
@@ -374,6 +439,11 @@ class StringHelper
      * @return bool True if the URL is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $isValidUrl = StringHelper::IsUrl('https://example.com');
+     * var_dump($isValidUrl); // Outputs true
+     * ```
      */
     public static function IsUrl(string $address): bool
     {
@@ -393,6 +463,11 @@ class StringHelper
      * @param string $end The suffix to compare.
      *
      * @return bool True if the string ends with the specified suffix, false otherwise.
+     * @example
+     * ```
+     * $endsWith = StringHelper::EndsWith('hello world', 'world');
+     * var_dump($endsWith); // Outputs true
+     * ```
      */
     public static function EndsWith(string $string, string $end): bool
     {
@@ -408,6 +483,11 @@ class StringHelper
      * @return bool True if the string starts with the specified prefix, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $startsWith = StringHelper::StartsWith('hello world', 'hello');
+     * var_dump($startsWith); // Outputs true
+     * ```
      */
     public static function StartsWith(string $string, string $start): bool
     {
@@ -422,6 +502,11 @@ class StringHelper
      * @return string The namespace derived from the URL.
      * @public
      * @static
+     * @example
+     * ```
+     * $namespace = StringHelper::UrlToNamespace('/path/to/resource');
+     * echo $namespace; // Outputs 'Path\To\Resource'
+     * ```
      */
     public static function UrlToNamespace(string $url): string
     {
@@ -447,6 +532,13 @@ class StringHelper
      * @return string The modified URL with added query parameters.
      * @public
      * @static
+     * @example
+     * ```
+     * $url = 'https://example.com';    
+     * $params = ['param1' => 'value1', 'param2' => 'value2'];
+     * $newUrl = StringHelper::AddToQueryString($url, $params);
+     * echo $newUrl; // Outputs 'https://example.com?param1=value1&param2=value2'
+     * ```
      */
     public static function AddToQueryString(string $url, string|array|object $params, bool $encode = true): string
     {
@@ -474,6 +566,12 @@ class StringHelper
      * @return string A randomly generated string.
      * @public
      * @static
+     * @example
+     * ```
+     * $length = 10;
+     * $randomString = StringHelper::Randomize($length);
+     * echo $randomString; // Outputs a random string of 10 characters.
+     * ```
      */
     public static function Randomize(int $length): string
     {
@@ -489,6 +587,12 @@ class StringHelper
      * @return string The prepared attribute string.
      * @public
      * @static
+     * @example
+     * ```
+     * $attribute = "O'Reilly & Associates";
+     * $preparedAttribute = StringHelper::PrepareAttribute($attribute, true);
+     * echo $preparedAttribute; // Outputs "O&rsquo;Reilly &amp; Associates"
+     * ```
      */
     public static function PrepareAttribute(string $string, bool $quoters = false): string
     {
@@ -510,6 +614,12 @@ class StringHelper
      * @return string The unescaped string.
      * @public
      * @static
+     * @example
+     * ```
+     * $escapedString = "Hello%20World%21";
+     * $unescapedString = StringHelper::Unescape($escapedString);
+     * echo $unescapedString; // Outputs "Hello World!"
+     * ```
      */
     public static function Unescape(string $s): string
     {
@@ -536,6 +646,12 @@ class StringHelper
      * @return string The string with HTML tags removed.
      * @public
      * @static
+     * @example
+     * ```
+     * $htmlString = "<p>Hello <strong>World</strong></p>";
+     * $strippedString = StringHelper::StripHTML($htmlString, "<p>");
+     * echo $strippedString; // Outputs "<p>Hello World</p>"
+     * ```
      */
     public static function StripHTML(string $html, ?string $allowedTags = null): string
     {
@@ -552,6 +668,12 @@ class StringHelper
      * @return string The extracted substring.
      * @public
      * @static
+     * @example
+     * ```
+     * $originalString = "Hello World";
+     * $substring = StringHelper::Substring($originalString, 6, 5);
+     * echo $substring; // Outputs "World"
+     * ```
      */
     public static function Substring(string $string, int $start, ?int $length = null): string
     {
@@ -574,6 +696,12 @@ class StringHelper
      * @return int The length of the input string.
      * @public
      * @static
+     * @example
+     * ```
+     * $string = "Hello World";
+     * $length = StringHelper::Length($string);
+     * echo $length; // Outputs 11
+     * ```
      */
     public static function Length(string $string): int
     {
@@ -594,6 +722,11 @@ class StringHelper
      * @return string The formatted sequence with labels.
      * @public
      * @static
+     * @example
+     * ```
+     * $formattedSequence = StringHelper::FormatSequence(5, ["год", "года", "лет"], true);
+     * echo $formattedSequence; // Outputs "5 лет"
+     * ```
      */
     public static function FormatSequence(
         float $sequence,
@@ -668,6 +801,12 @@ class StringHelper
      * @return string The formatted file size string.
      * @public
      * @static
+     * @example
+     * ```
+     * $fileSize = 1048576; // 1 MB in bytes
+     * $formattedSize = StringHelper::FormatFileSize($fileSize);
+     * echo $formattedSize; // Outputs "1 Mb"
+     * ```
      */
     public static function FormatFileSize(
         int $number,
@@ -695,6 +834,12 @@ class StringHelper
      * @return string|null The trimmed string or null if the input string is empty.
      * @public
      * @static
+     * @example
+     * ```
+     * $originalString = "This is a long string that needs to be trimmed.";
+     * $trimmedString = StringHelper::TrimLength($originalString, 20);
+     * echo $trimmedString; // Outputs "This is a long str..."
+     * ```
      */
     public static function TrimLength(
         string $str,
@@ -717,6 +862,12 @@ class StringHelper
      * @return string The extracted words.
      * @public
      * @static
+     * @example
+     * ```
+     * $text = "This is a sample text with several words.";
+     * $firstWords = StringHelper::Words($text, 5);
+     * echo $firstWords; // Outputs "This is a sample text..."
+     * ```
      */
     public static function Words(string $text, int $n, string $ellipsis = "..."): string
     {
@@ -748,6 +899,12 @@ class StringHelper
      * @return array An array containing unique words from the input string.
      * @public
      * @static
+     * @example
+     * ```
+     * $inputString = "This is a sample string with some sample words.";
+     * $uniqueWords = StringHelper::UniqueWords($inputString, 4);
+     * print_r($uniqueWords); // Outputs an array of unique words with a minimum length of 4 characters.
+     * ```
      */
     public static function UniqueWords(string $string, int $minlen = 3): array
     {
@@ -776,6 +933,12 @@ class StringHelper
      * @return string The expanded string.
      * @public
      * @static
+     * @example
+     * ```
+     * $originalString = "Hello";
+     * $expandedString = StringHelper::Expand($originalString, 10, "*");
+     * echo $expandedString; // Outputs "*****Hello"
+     * ```
      */
     public static function Expand(string $s, int $l, string $c): string
     {
@@ -794,6 +957,12 @@ class StringHelper
      * @return string The generated GUID.
      * @public
      * @static
+     * @example
+     * ```
+     * $md5String = md5('example');
+     * $guid = StringHelper::Md5ToGUID($md5String);
+     * echo $guid; // Outputs a GUID based on the MD5 string.
+     * ```
      */
     public static function Md5ToGUID(string $md5): string
     {
@@ -808,6 +977,11 @@ class StringHelper
      * @return string The generated GUID.
      * @public
      * @static
+     * @example
+     * ```
+     * $guid = StringHelper::GUID();
+     * echo $guid; // Outputs a GUID, e.g., "550e8400-e29b-41d4-a716-446655440000"
+     * ```
      */
     public static function GUID(bool $showSeparator = true): string
     {
@@ -828,6 +1002,11 @@ class StringHelper
      * @return array|null An array of substrings obtained by splitting the input string or array.
      * @public
      * @static
+     * @example
+     * ```
+     * $result = StringHelper::Explode("one,two,three", ",");
+     * print_r($result); // Outputs ["one", "two", "three"]
+     * ```
      */
     public static function Explode(
         string|array $string,
@@ -874,6 +1053,12 @@ class StringHelper
      * @return string The resulting string after joining the array elements.
      * @public
      * @static
+     * @example
+     * ```
+     * $array = ['apple', 'banana', 'cherry'];
+     * $result = StringHelper::Implode($array, ', ');
+     * echo $result; // Outputs "apple, banana, cherry"
+     * ```
      */
     public static function Implode(array $array, string $splitter): string
     {
@@ -894,6 +1079,12 @@ class StringHelper
      * @return string The resulting string after joining keys and values.
      * @public
      * @static
+     * @example
+     * ```
+     * $array = ['key1' => 'value1', 'key2' => 'value2'];
+     * $result = StringHelper::ImplodeWithKeys($array, '=', '&', '"');
+     * echo $result; // Outputs '"key1"=value1&"key2"=value2'
+     * ```
      */
     public static function ImplodeWithKeys(
         array $array,
@@ -916,6 +1107,13 @@ class StringHelper
      * @return ExtendedObject An object containing components like scheme, host, path, query, etc.
      * @public
      * @static
+     * @example
+     * ```
+     * $url = 'https://example.com/path?param1=value1&param2=value2';
+     * $parsedUrl = StringHelper::ParseAsUrl($url);
+     * echo $parsedUrl->host; // Outputs 'example.com'
+     * echo $parsedUrl->params['param1']; // Outputs 'value1'
+     * ```
      */
     public static function ParseAsUrl(string $url): ExtendedObject
     {
@@ -948,6 +1146,12 @@ class StringHelper
      * @return string The transliterated string.
      * @public
      * @static
+     * @example
+     * ```
+     * $originalString = "Привет, мир!";
+     * $transliteratedString = StringHelper::Transliterate($originalString);
+     * echo $transliteratedString; // Outputs "Privet, mir!"
+     * ```
      */
     public static function Transliterate(string $string): string
     {
@@ -1032,6 +1236,12 @@ class StringHelper
      * @return string The original string before transliteration.
      * @public
      * @static
+     * @example
+     * ```
+     * $transliteratedString = "Privet, mir!";
+     * $originalString = StringHelper::TransliterateBack($transliteratedString);
+     * echo $originalString; // Outputs "Привет, мир!"
+     * ```
      */
     public static function TransliterateBack(string $string): string
     {
@@ -1114,6 +1324,12 @@ class StringHelper
      * @return string The human-readable identifier.
      * @public
      * @static
+     * @example
+     * ```
+     * $text = "Пример текста для HID";
+     * $hid = StringHelper::CreateHID($text);
+     * echo $hid; // Outputs a transliterated and formatted HID, e.g., "primer-teksta-dlya-hid"
+     * ```
      */
     public static function CreateHID(string $text, bool $trans = true): string
     {
@@ -1169,6 +1385,12 @@ class StringHelper
      * @return string The modified text with the "noindex" directive.
      * @public
      * @static
+     * @example
+     * ```
+     * $text = '<a href="https://example.com">Example Link</a>';
+     * $modifiedText = StringHelper::AddNoIndex($text);
+     * echo $modifiedText; // Outputs the text with noindex and rel="nofollow"
+     * ```
      */
     public static function AddNoIndex(string $text, bool $hard = true, string $domain = ''): string
     {
@@ -1214,6 +1436,12 @@ class StringHelper
      * @return string The modified HTML string with the <body> tag and its content removed.
      * @public
      * @static
+     * @example
+     * ```
+     * $html = '<html><body><p>Hello, World!</p></body></html>';
+     * $strippedHtml = StringHelper::StripHtmlAndBody($html);
+     * echo $strippedHtml; // Outputs '<p>Hello, World!</p>'
+     * ```
      */
     public static function StripHtmlAndBody(string $html): string
     {
@@ -1231,6 +1459,12 @@ class StringHelper
      * @return string The text with emojis removed.
      * @public
      * @static
+     * @example
+     * ```
+     * $textWithEmojis = "Hello 😊! This is a test 🚀.";
+     * $textWithoutEmojis = StringHelper::RemoveEmoji($textWithEmojis);
+     * echo $textWithoutEmojis; // Outputs "Hello ! This is a test ."
+     * ```
      */
     public static function RemoveEmoji(string $text): string
     {
@@ -1245,6 +1479,14 @@ class StringHelper
      * @return ExtendedObject The resulting ExtendedObject.
      * @public
      * @static
+     * @example
+     * ```
+     * $string = "key1=value1&key2=value2";
+     * $object = StringHelper::ToObject($string);
+     * /// $object will be an ExtendedObject with properties:
+     * /// $object->key1 = "value1"
+     * /// $object->key2 = "value2"
+     * ```
      */
     public static function ToObject(string $string, array $splitters = ['&', '=']): ExtendedObject
     {
@@ -1268,6 +1510,12 @@ class StringHelper
      * @return string The trimmed string.
      * @public
      * @static
+     * @example
+     * ```
+     * $string = "  Hello World  ";
+     * $trimmed = StringHelper::Trim($string);
+     * /// $trimmed will be "Hello World"
+     * ```
      */
     public static function Trim(string $string, string $trim_chars = '\s'): string
     {
@@ -1283,6 +1531,13 @@ class StringHelper
      * @return object The object with replaced values.
      * @public
      * @static
+     * @example
+     * ```
+     * $object = (object)['name' => 'John Doe', 'email' => 'john.doe@some.domain'];
+     * $newObject = StringHelper::ReplaceInObject($object, 'John', 'Jane');
+     * /// $newObject->name will be "Jane Doe"
+     * /// $newObject->email will be "jane.doe@some.domain"
+     * ```
      */
     public static function ReplaceInObject($object, $search, $replace): object
     {
@@ -1300,6 +1555,12 @@ class StringHelper
      * @return string The cleared phone number string.
      * @public
      * @static
+     * @example
+     * ```
+     * $phone = "+1 (234) 567-8900";
+     * $clearedPhone = StringHelper::ClearPhone($phone);
+     * /// $clearedPhone will be "12345678900"
+     * ```
      */
     public static function ClearPhone(string $phoneString): string
     {

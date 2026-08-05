@@ -29,27 +29,60 @@ abstract class Logger implements LoggerInterface
 {
     use TEventDispatcher;
 
-    /** @var int Emergency level constant. */
+    /** 
+     * Emergency level constant
+     * @const int
+     * @public 
+     */
     public const Emergency = 0;
-    /** @var int Alert level constant. */
+    /** 
+     * Alert level constant
+     * @const int
+     * @public
+     */
     public const Alert = 1;
-    /** @var int Critical level constant. */
+    /** 
+     * Critical level constant
+     * @const int
+     * @public
+     */
     public const Critical = 2;
-    /** @var int Error level constant. */
+    /** 
+     * Error level constant
+     * @const int
+     * @public
+     */
     public const Error = 3;
-    /** @var int Warning level constant. */
+    /** 
+     * Warning level constant
+     * @const int
+     * @public
+     */
     public const Warning = 4;
-    /** @var int Notice level constant. */
+    /** 
+     * Notice level constant
+     * @const int
+     * @public
+     */
     public const Notice = 5;
-    /** @var int Informational level constant. */
+    /** 
+     * Informational level constant
+     * @const int
+     * @public
+     */
     public const Informational = 6;
-    /** @var int Debug level constant. */
+    /** 
+     * Debug level constant
+     * @const int
+     * @public
+     */
     public const Debug = 7;
 
     /**
      * The name of the log file.
      *
      * @var mixed
+     * @protected
      */
     protected $_device;
 
@@ -57,6 +90,7 @@ abstract class Logger implements LoggerInterface
      * The maximum log level.
      *
      * @var integer
+     * @protected
      */
     protected $_maxLogLevel = 7;
 
@@ -67,6 +101,7 @@ abstract class Logger implements LoggerInterface
      * @param mixed $data The log data.
      * @return void
      * @abstract
+     * @public
      */
     abstract public function WriteLine(int $level, mixed $data): void;
 
@@ -75,6 +110,7 @@ abstract class Logger implements LoggerInterface
      *
      * @return mixed The content of the log file.
      * @abstract
+     * @public
      */
     abstract public function Content(): mixed;
 
@@ -84,6 +120,8 @@ abstract class Logger implements LoggerInterface
      * @param Config|array $loggerConfig The logger configuration.
      * @return Logger The logger instance.
      * @throws LoggerException When an invalid logger type is provided.
+     * @static
+     * @public
      */
     public static function Create(Config|array $loggerConfig): Logger
     {
@@ -121,6 +159,7 @@ abstract class Logger implements LoggerInterface
      * @param array $context
      * @return void
      * @testFunction testLoggerEmergency
+     * @public
      */
     public function emergency($message, array $context = array()): void
     {
@@ -137,6 +176,7 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
+     * @public
      */
     public function alert($message, array $context = array()): void
     {
@@ -152,6 +192,7 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
+     * @public
      */
     public function critical($message, array $context = array()): void
     {
@@ -166,6 +207,7 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
+     * @public
      */
     public function error($message, array $context = array()): void
     {
@@ -182,6 +224,7 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
+     * @public
      */
     public function warning($message, array $context = array()): void
     {
@@ -195,6 +238,7 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
+     * @public
      */
     public function notice($message, array $context = array()): void
     {
@@ -210,6 +254,7 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
+     * @public
      */
     public function info($message, array $context = array()): void
     {
@@ -223,6 +268,7 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
+     * @public
      */
     public function debug($message, array $context = array()): void
     {
@@ -237,6 +283,7 @@ abstract class Logger implements LoggerInterface
      * @param string $message
      * @param array $context
      * @return void
+     * @public
      */
     public function log($level, $message, array $context = array()): void
     {

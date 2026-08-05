@@ -25,6 +25,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInRussian = NumberToText::convert($number, 'ru');
+     * echo $textInRussian; // Outputs: "одна тысяча двести тридцать четыре рубля 56 копеек"
+     * ```
      */
     public static function convert($num, $lang = 'ru'): string
     {
@@ -52,6 +58,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInRussian = NumberToText::ru($number);
+     * echo $textInRussian; // Outputs: "одна тысяча двести тридцать четыре рубля 56 копеек"
+     * ```
      */
     public static function ru($num): string
     {
@@ -175,6 +187,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInEnglish = NumberToText::en($number);
+     * echo $textInEnglish; // Outputs: "one thousand two hundred thirty-four dollars 56 cents"
+     * ```
      */
     public static function en($num): string
     {
@@ -205,6 +223,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInArmenian = NumberToText::hy($number);
+     * echo $textInArmenian; // Outputs: "1234 դրամ 56 լումա"
+     * ```
      */
     public static function hy($n){ return self::simple($n,"դրամ","լումա"); }
 
@@ -215,6 +239,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInItalian = NumberToText::it($number);
+     * echo $textInItalian; // Outputs: "1234 euro 56 centesimi"
+     * ```
      */
     public static function it($n){ return self::simple($n,"euro","centesimi"); }
 
@@ -224,6 +254,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInSpanish = NumberToText::es($number);
+     * echo $textInSpanish; // Outputs: "1234 euros 56 centavos"
+     * ```
      */
     public static function es($n){ return self::simple($n,"euros","centavos"); }
 
@@ -233,6 +269,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInKazakh = NumberToText::kk($number);
+     * echo $textInKazakh; // Outputs: "1234 теңге 56 тиын"
+     * ```
      */
     public static function kk($n){ return self::simple($n,"теңге","тиын"); }
 
@@ -242,6 +284,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInUzbek = NumberToText::uz($number);
+     * echo $textInUzbek; // Outputs: "1234 so‘m 56 tiyin"
+     * ```
      */
     public static function uz($n){ return self::simple($n,"so‘m","tiyin"); }
 
@@ -251,6 +299,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInCzech = NumberToText::cz($number);
+     * echo $textInCzech; // Outputs: "1234 korun 56 haléřů"
+     * ```
      */
     public static function cz($n){ return self::simple($n,"korun","haléřů"); }
 
@@ -260,6 +314,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInGerman = NumberToText::de($number);
+     * echo $textInGerman; // Outputs: "1234 Euro 56 Cent"
+     * ```
      */
     public static function de($n){ return self::simple($n,"euro","cent"); }
 
@@ -269,6 +329,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInPersian = NumberToText::fa($number);
+     * echo $textInPersian; // Outputs: "1234 ریال 56"
+     * ```
      */
     public static function fa($n){ return self::simple($n,"ریال",""); }
 
@@ -278,6 +344,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInChinese = NumberToText::zh($number);
+     * echo $textInChinese; // Outputs: "1234 元 56 分"
+     * ```
      */
     public static function zh($n){ return self::simple($n,"元","分"); }
 
@@ -287,6 +359,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;
+     * $textInTurkish = NumberToText::tr($number);
+     * echo $textInTurkish; // Outputs: "1234 lira 56 kuruş"
+     * ```
      */
     public static function tr($n){ return self::simple($n,"lira","kuruş"); }
 
@@ -298,6 +376,12 @@ class NumberToText
      * @return string The textual representation of the number.
      * @public 
      * @static
+     * @example
+     * ```
+     * $number = 1234.56;   
+     * $text = NumberToText::simple($number, "dollars", "cents");
+     * echo $text; // Outputs: "1234 dollars 56 cents"
+     * ```
      */
     private static function simple($num, $currency, $fraction): string
     {

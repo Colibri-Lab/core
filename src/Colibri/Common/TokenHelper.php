@@ -25,6 +25,13 @@ class TokenHelper
      * @return string
      * @public
      * @static
+     * @example
+     * ```
+     * $key = 'my_secret_key';
+     * $ttl = 300; // Token will be valid for 5 minutes
+     * $token = TokenHelper::Generate($key, $ttl);
+     * echo $token; // Outputs the generated token
+     * ```
      */
     public static function Generate(string $key, int $ttl = 300): string
     {
@@ -41,6 +48,14 @@ class TokenHelper
      * @return bool
      * @public
      * @static
+     * @example
+     * ```
+     * $key = 'my_secret_key';
+     * $ttl = 300; // Token will be valid for 5 minutes
+     * $token = TokenHelper::Generate($key, $ttl);
+     * $isValid = TokenHelper::Validate($token, $key);
+     * echo $isValid ? 'Token is valid' : 'Token is invalid'; // Outputs whether the token is valid or not
+     * ```
      */
     public static function Validate($token, $key): bool
     {

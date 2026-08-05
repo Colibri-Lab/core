@@ -13,6 +13,15 @@ namespace Colibri\IO\Request;
 /**
  * Result of a request.
  * @class
+ * @example
+ * ```
+ * $result = new Result();
+ * $result->status = 200;
+ * $result->data = 'Response data';
+ * $result->error = '';
+ * $result->headers = ['Content-Type' => 'application/json'];
+ * $result->httpheaders = ['HTTP/1.1 200 OK'];
+ * ```
  */
 class Result
 {
@@ -20,6 +29,7 @@ class Result
      * Status of the request.
      *
      * @var int
+     * @public
      */
     public int $status;
 
@@ -27,6 +37,7 @@ class Result
      * Data of the result.
      *
      * @var string
+     * @public
      */
     public string $data;
 
@@ -34,6 +45,7 @@ class Result
      * Error message, if any.
      *
      * @var string
+     * @public
      */
     public string $error;
 
@@ -41,6 +53,7 @@ class Result
      * Array or object containing headers.
      *
      * @var object|array
+     * @public
      */
     public object|array $headers;
 
@@ -48,6 +61,7 @@ class Result
      * Array or object containing HTTP headers.
      *
      * @var object|array
+     * @public
      */
     public object|array $httpheaders;
 }

@@ -23,6 +23,7 @@ class Point
      * The X coordinate position.
      *
      * @var int
+     * @public
      */
     public int $x;
 
@@ -30,6 +31,7 @@ class Point
      * The Y coordinate position.
      *
      * @var int
+     * @public
      */
     public int $y;
 
@@ -38,6 +40,14 @@ class Point
      *
      * @param int $x The X coordinate position.
      * @param int $y The Y coordinate position.
+     * @public
+     * @constructor
+     * @example
+     * ```
+     * $point = new Point(10, 20);
+     * echo $point->x; // Outputs: 10
+     * echo $point->y; // Outputs: 20
+     * ```
      */
     public function __construct(int $x = 0, int $y = 0)
     {

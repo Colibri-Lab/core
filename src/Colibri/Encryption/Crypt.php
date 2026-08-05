@@ -18,11 +18,15 @@ class Crypt
 {
     /**
      * Encryption algorithm: Base64 encoding.
+     * @const string
+     * @public
      */
     public const EncryptionAlgBase64 = 'base64';
 
     /**
-     * Encryption algorithm: Hexadecimal encoding.
+     * Encryption algorithm: Hexadecimal encoding. 
+     * @const string
+     * @public
      */
     public const EncryptionAlgHex = 'hex';
 
@@ -33,6 +37,15 @@ class Crypt
      * @param string $data The data to encrypt.
      * @param string $stringifyMethod The method for converting to string.
      * @return string The encrypted data.
+     * @static
+     * @public
+     * @example
+     * ```
+     * $key = 'my_secret_key';
+     * $data = 'Hello, World!';
+     * $encryptedData = Crypt::Encrypt($key, $data, Crypt::EncryptionAlgBase64);
+     * echo $encryptedData; // Outputs the encrypted data in Base64 format
+     * ```
      */
     public static function Encrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): string
     {
@@ -52,6 +65,15 @@ class Crypt
      * @param string $data The data to decrypt.
      * @param string $stringifyMethod The method for converting to string.
      * @return string The decrypted data.
+     * @static
+     * @public
+     * @example
+     * ```
+     * $key = 'my_secret_key';
+     * $data = 'U2FsdGVkX1+5Z3JpZ2FyeWFu'; // Encrypted data
+     * $decryptedData = Crypt::Decrypt($key, $data, Crypt::EncryptionAlgBase64);
+     * echo $decryptedData; // Outputs the original data
+     * ```
      */
     public static function Decrypt(string $key, string $data, string $stringifyMethod = self::EncryptionAlgBase64): ?string
     {

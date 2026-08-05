@@ -35,22 +35,46 @@ use Colibri\IO\FileSystem\File as BaseFile;
  * @property-read string $content The content of the file.
  * @property-read string $binary The binary content of the file.
  * @property-read string $mimetype The MIME type of the file.
+ * 
+ * @example
+ * ```
+ * $ftpFile = new File($item, $connection, $finder);
+ * echo $ftpFile->name; // Outputs the file name
+ * echo $ftpFile->size; // Outputs the file size in bytes
+ * ```
  */
 class File implements JsonSerializable
 {
-    /** Read mode */
+    /** 
+     * Read mode
+     * @const string
+     * @public 
+     */
     public const MODE_READ = "rb9";
-    /** Write mode */
+    /** 
+     * Write mode
+     * @const string
+     * @public
+     */
     public const MODE_WRITE = "wb9";
-    /** Append mode */
+    /** 
+     * Append mode
+     * @const string
+     * @public
+     */
     public const MODE_APPEND = "ab9";
-    /** Create mode */
+    /** 
+     * Create mode
+     * @const string
+     * @public
+     */
     public const MODE_CREATEWRITE = "wb9";
 
     /**
      * File path information.
      *
      * @var array
+     * @private
      */
     private array $info;
 
@@ -58,6 +82,7 @@ class File implements JsonSerializable
      * The file item.
      *
      * @var object
+     * @private
      */
     private object $item;
 
@@ -65,6 +90,7 @@ class File implements JsonSerializable
      * The FTP connection.
      *
      * @var mixed
+     * @private
      */
     private mixed $connection;
 
@@ -72,6 +98,7 @@ class File implements JsonSerializable
      * The size of the file in bytes.
      *
      * @var int
+     * @private
      */
     private int $_size = 0;
 
@@ -79,6 +106,7 @@ class File implements JsonSerializable
      * The cache path for downloaded files.
      *
      * @var string
+     * @private
      */
     private string $cachePath;
 
@@ -86,6 +114,7 @@ class File implements JsonSerializable
      * The file finder.
      *
      * @var mixed
+     * @private
      */
     private mixed $finder;
 
@@ -97,6 +126,8 @@ class File implements JsonSerializable
      * @param object $item The file item.
      * @param mixed $connection The FTP connection.
      * @param mixed $finder The file finder.
+     * @constructor
+     * @public
      */
     public function __construct(object $item, mixed $connection, mixed $finder)
     {
@@ -121,6 +152,8 @@ class File implements JsonSerializable
      *
      * @param string $property The property to access.
      * @return mixed The value of the accessed property.
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -179,6 +212,12 @@ class File implements JsonSerializable
      *
      * @param string $localPath The local path to save the file.
      * @return bool Returns true if the download is successful, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $ftpFile = new File($item, $connection, $finder);
+     * $success = $ftpFile->Download('/local/path/to/save/file.txt'); // Downloads the remote file to the specified local path
+     * ```
      */
     public function Download($localPath): bool
     {
@@ -204,6 +243,12 @@ class File implements JsonSerializable
      * Converts various file properties to an associative array.
      *
      * @return array An array representation of the file.
+     * @public
+     * @example
+     * ```
+     * $ftpFile = new File($item, $connection, $finder);
+     * $fileArray = $ftpFile->ToArray(); // Converts the file properties to an associative array
+     * ```  
      */
     public function ToArray(): array
     {
@@ -222,6 +267,12 @@ class File implements JsonSerializable
      * Serializes the file object to JSON.
      *
      * @return array An array representation of the file for JSON serialization.
+     * @public
+     * @example
+     * ```
+     * $ftpFile = new File($item, $connection, $finder);
+     * $json = json_encode($ftpFile); // Serializes the file object to JSON
+     * ```
      */
     public function jsonSerialize(): array
     {

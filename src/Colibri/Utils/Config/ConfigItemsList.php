@@ -22,6 +22,12 @@ use Colibri\Collections\ArrayList;
  */
 class ConfigItemsList extends ArrayList
 {
+    /**
+     * The file associated with the configuration items list.
+     *
+     * @var string
+     * @private
+     */
     private string $_file = '';
 
     /**
@@ -31,6 +37,8 @@ class ConfigItemsList extends ArrayList
      *
      * @param array $data The data for the configuration items list.
      * @param string $file The file associated with the configuration items list.
+     * @constructor
+     * @public
      */
     public function __construct($data = array(), string $file = '')
     {
@@ -45,6 +53,7 @@ class ConfigItemsList extends ArrayList
      *
      * @param integer $index The index of the configuration item to retrieve.
      * @return Config The configuration item at the specified index.
+     * @public
      */
     public function Item(int $index): Config
     {
@@ -55,6 +64,7 @@ class ConfigItemsList extends ArrayList
      * Converts the configuration items list to an array.
      *
      * @return array An array representation of the configuration items list.
+     * @public
      */
     public function AsArray(): array
     {

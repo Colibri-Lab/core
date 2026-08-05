@@ -15,6 +15,7 @@ namespace Colibri\IO\FtpFileSystem;
 use Colibri\Collections\ArrayList;
 use Colibri\Common\VariableHelper;
 use Throwable;
+use Exception;
 
 /**
  * Class for finding files and directories.
@@ -26,6 +27,7 @@ class Finder
      * The FTP connection information.
      *
      * @var object
+     * @private
      */
     private object $_connectionInfo;
 
@@ -33,6 +35,7 @@ class Finder
      * The FTP connection.
      *
      * @var mixed
+     * @private
      */
     private mixed $_connection;
 
@@ -42,6 +45,20 @@ class Finder
      * Initializes a new instance of the Finder class.
      *
      * @param object $connectionInfo The FTP connection information.
+     * @constructor
+     * @public
+     * @example
+     * ```
+     * $connectionInfo = (object)[
+     *     'host' => 'ftp.example.com',
+     *     'port' => 21,
+     *     'user' => 'username',
+     *     'password' => 'password',
+     *     'timeout' => 90,
+     *     'passive' => true
+     * ];
+     * $finder = new Finder($connectionInfo);
+     * ```
      */
     public function __construct(object $connectionInfo)
     {
@@ -53,6 +70,8 @@ class Finder
      * Destructor.
      *
      * Closes the FTP connection when the object is destroyed.
+     * @destructor
+     * @public
      */
     public function __destruct()
     {
@@ -65,6 +84,8 @@ class Finder
      * Establishes the FTP connection.
      *
      * @throws Exception if connection fails.
+     * @private
+     * @return void
      */
     private function _connect()
     {
@@ -92,6 +113,12 @@ class Finder
      * Reconnects to the FTP server.
      *
      * @return mixed The FTP connection.
+     * @public
+     * @example
+     * ```
+     * $finder = new Finder($connectionInfo);   
+     * $connection = $finder->Reconnect(); // Reconnects to the FTP server and returns the connection
+     * ```
      */
     public function Reconnect(): mixed
     {
@@ -105,6 +132,13 @@ class Finder
      * @param string $path The path to list.
      * @param bool $recursive Whether to list recursively.
      * @return array An array containing FTP file information.
+     * @private
+     * @throws Exception if listing fails.
+     * @example
+     * ```
+     * $finder = new Finder($connectionInfo);
+     * $files = $finder->Files('/path/to/list'); // Lists files in the specified path
+     * ```
      */
     private function _ftpList(string $path, bool $recursive = false): array
     {
@@ -148,6 +182,12 @@ class Finder
      * @param string $sortField Field for sorting.
      * @param int $sortType Sorting type.
      * @return ArrayList An ArrayList containing found files.
+     * @public
+     * @example
+     * ```
+     * $finder = new Finder($connectionInfo);
+     * $files = $finder->Files('/path/to/search', '/\.txt$/', 'name', SORT_ASC); // Lists .txt files in the specified path, sorted by name
+     * ```
      */
     public function Files(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC)
     {

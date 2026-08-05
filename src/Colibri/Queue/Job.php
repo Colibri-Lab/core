@@ -26,6 +26,7 @@ use Colibri\Utils\Logs\Logger;
  * @class
  * @implements IJob
  * @extends ExtendedObject
+ * @abstract
  *
  * @property ExtendedObject $payload The payload object associated with the job.
  * @property array $headers The headers payload associated with the job.
@@ -42,6 +43,7 @@ abstract class Job extends ExtendedObject implements IJob
      * Maximum number of attempts for executing the job.
      *
      * @var int
+     * @protected
      */
     protected static $maxAttempts = 5;
 
@@ -54,6 +56,13 @@ abstract class Job extends ExtendedObject implements IJob
      * @param bool $parallel Indicates if the job can be executed in parallel.
      * @param ?int $id The ID of the job.
      * @return static The created job instance.
+     * @public
+     * @static
+     * @example
+     * ```
+     * $payload = new ExtendedObject(['data' => 'example']);
+     * $job = Job::Create($payload, 'default', 0, false);
+     * ```
      */
     public static function Create(
         ExtendedObject $payload,
@@ -78,18 +87,29 @@ abstract class Job extends ExtendedObject implements IJob
      *
      * @param Logger $logger The logger instance to use for logging.
      * @return bool True if the job is handled successfully, false otherwise.
+     * @abstract
      */
     abstract public function Handle(Logger $logger): bool;
 
     /**
-     * Add headers to job manager
-     * @overloads
+     * Add headers to job manager.
+     * @public
      */
     public function SetHeaders(): void
     {
         $this->headers = [];
     }
 
+    /**
+     * Returns a key for parallel worker.
+     *
+     * @return string The key for the parallel worker.
+     * @public
+     * @example
+     * ```
+     * $key = $job->Key();
+     * ```
+     */
     public function Key(): string
     {
         return md5($this?->id);
@@ -99,6 +119,13 @@ abstract class Job extends ExtendedObject implements IJob
      * Checks if the current attempt is the last attempt.
      *
      * @return bool True if the current attempt is the last attempt, false otherwise.
+     * @public
+     * @example
+     * ```
+     * if ($job->IsLastAttempt()) {
+     *     /// Handle last attempt logic
+     * }
+     * ```
      */
     public function IsLastAttempt(): bool
     {
@@ -109,6 +136,13 @@ abstract class Job extends ExtendedObject implements IJob
      * Checks if the job can be executed in parallel.
      *
      * @return bool True if the job can be executed in parallel, false otherwise.
+     * @public
+     * @example
+     * ```
+     * if ($job->IsParallel()) {
+     *     /// Handle parallel execution logic
+     * }
+     * ```
      */
     public function IsParallel(): bool
     {
@@ -120,6 +154,14 @@ abstract class Job extends ExtendedObject implements IJob
      *
      * @param string|null $startDate The start date of the job.
      * @return bool True if the job is successfully added, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $job = Job::Create($payload, 'default', 0, false);
+     * if ($job->Add()) {
+     *     /// Job added successfully   
+     * }
+     * ```
      */
     public function Add(?string $startDate = null): bool
     {
@@ -131,6 +173,14 @@ abstract class Job extends ExtendedObject implements IJob
      *
      * @param string|null $startDate The start date of the job.
      * @return bool True if the job is successfully updated, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $job = Manager::Instance()->GetJobById($jobId);
+     * if ($job && $job->Update()) {
+     *     /// Job updated successfully
+     * }
+     * ```
      */
     public function Update(?string $startDate = null): bool
     {
@@ -141,6 +191,14 @@ abstract class Job extends ExtendedObject implements IJob
      * Deletes the job.
      *
      * @return bool True if the job is successfully deleted, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $job = Manager::Instance()->GetJobById($jobId);
+     * if ($job && $job->Delete()) {
+     *     /// Job deleted successfully
+     * }
+     * ```
      */
     public function Delete(): bool
     {
@@ -151,6 +209,14 @@ abstract class Job extends ExtendedObject implements IJob
      * Begins a transaction.
      *
      * @return bool True if the transaction is successfully begun, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $job = Manager::Instance()->GetJobById($jobId);
+     * if ($job && $job->Begin()) {
+     *     /// Transaction begun successfully
+     * }
+     * ```
      */
     public function Begin(): bool
     {
@@ -164,6 +230,14 @@ abstract class Job extends ExtendedObject implements IJob
      *
      * @param array|object $result The result of the transaction.
      * @return bool True if the transaction is successfully committed, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $job = Manager::Instance()->GetJobById($jobId);
+     * if ($job && $job->Commit(['status' => 'success'])) {
+     *     /// Transaction committed successfully
+     * }
+     * ```
      */
     public function Commit(array|object $result, bool $stopProcess = false): bool
     {
@@ -198,6 +272,18 @@ abstract class Job extends ExtendedObject implements IJob
      * @param \Throwable $exception The exception that caused the failure.
      * @param bool $isLastAttempt Indicates if the failure is occurring on the last attempt.
      * @return bool True if the job is marked as failed, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $job = Manager::Instance()->GetJobById($jobId);
+     * try {
+     *     /// Job processing logic
+     * } catch (\Throwable $e) {
+     *     if ($job && $job->Fail($e, $job->IsLastAttempt())) {
+     *         /// Job marked as failed successfully
+     *     }
+     * }
+     * ```
      */
     public function Fail(\Throwable $exception, bool $isLastAttempt = false, bool $stopProcess = false): bool
     {
@@ -229,6 +315,14 @@ abstract class Job extends ExtendedObject implements IJob
      * Rolls back a transaction.
      * @param ?int $delaySeconds delay before run again
      * @return bool True if the transaction is successfully rolled back, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $job = Manager::Instance()->GetJobById($jobId);
+     * if ($job && $job->Rollback(60)) {
+     *     /// Transaction rolled back successfully, will retry after 60 seconds
+     * }     
+     * ```
      */
     public function Rollback(?int $delaySeconds = null): bool
     {
@@ -246,6 +340,11 @@ abstract class Job extends ExtendedObject implements IJob
      * @param bool $dummy Indicates if dummy data should be included in the array.
      * @param \Closure|null $callback An optional callback function to manipulate the array.
      * @return array The array representation of the job.
+     * @public
+     * @example
+     * ```
+     * $jobArray = $job->ToArray();
+     * ```
      */
     public function ToArray(bool $dummy = false, ?\Closure $callback = null): array
     {

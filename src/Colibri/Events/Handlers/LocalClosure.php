@@ -22,16 +22,26 @@ use Colibri\Threading\Process;
  * @class
  * @implements IClosure
  * 
+ * @example
+ * ```
+ * $closure = new LocalClosure(function($event, $args) {
+ *     /// Implementation here
+ * });
+ * ```
  */
 class LocalClosure implements IClosure
 {
     /**
-     * @var mixed The callable object or function.
+     * The callable object or function.
+     * @var mixed
+     * @private
      */
     private mixed $_callable;
 
     /**
-     * @var object|null The object associated with the closure.
+     * The object associated with the closure.
+     * @var object|null 
+     * @private
      */
     private ?object $_object;
 
@@ -40,6 +50,16 @@ class LocalClosure implements IClosure
      *
      * @param mixed $callable The callable object or function.
      * @param object|null $object The object associated with the closure.
+     * @public
+     * @constructor
+     * @example
+     * ```
+     * $closure = new LocalClosure(function($event, $args) {
+     *     /// Implementation here
+     * });
+     * $closure = new LocalClosure([$object, 'methodName'], $object);
+     * $closure = new LocalClosure('functionName');
+     * ```
      */
     public function __construct(mixed $callable, ?object $object = null)
     {
@@ -53,6 +73,14 @@ class LocalClosure implements IClosure
      * @param string|Event $event The event object or its name.
      * @param mixed $args Additional arguments to pass to the closure.
      * @return bool|null True if the closure was successfully invoked, otherwise false. Null if invocation fails.
+     * @public
+     * @example
+     * ```
+     * $closure = new LocalClosure(function($event, $args) {
+     *     /// Implementation here
+     * });
+     * $result = $closure->Invoke('myEvent', ['arg1' => 'value1', 'arg2' => 'value2']);
+     * ```  
      */
     public function Invoke(string|Event $event, mixed $args): ?bool
     {
@@ -79,6 +107,16 @@ class LocalClosure implements IClosure
      * @param string|Event $event The event object or its name.
      * @param mixed $args Additional arguments to pass to the closure.
      * @return Process A Process object representing the asynchronous execution.
+     * @public
+     * @example
+     * ```  
+     * $closure = new LocalClosure(function($event, $args) {
+     *     /// Implementation here
+     * });
+     * $process = $closure->AsyncInvoke('myEvent', ['arg1' => 'value1', 'arg2' => 'value2']);
+     * $process->Wait(); // Wait for the process to complete
+     * $result = $process->GetResult(); // Get the result of the asynchronous execution
+     * ```
      */
     public function AsyncInvoke(string|Event $event, mixed $args): Process
     {
@@ -92,6 +130,14 @@ class LocalClosure implements IClosure
      * Serializes the closure.
      *
      * @return string The serialized closure.
+     * @public
+     * @example
+     * ``` 
+     * $closure = new LocalClosure(function($event, $args) {
+     *     /// Implementation here
+     * });
+     * $serialized = $closure->Serialize();
+     * ```
      */
     public function Serialize(): string
     {
@@ -108,6 +154,15 @@ class LocalClosure implements IClosure
      *
      * @param string $serialized The serialized closure.
      * @return LocalClosure|null An instance of LocalClosure, or null if unserialization fails.
+     * @public
+     * @example
+     * ```
+     * $closure = new LocalClosure(function($event, $args) {
+     *     /// Implementation here
+     * });
+     * $serialized = $closure->Serialize();
+     * $unserialized = LocalClosure::Unserialize($serialized);
+     * ```
      */
     public static function Unserialize(string $serialized): ?LocalClosure
     {

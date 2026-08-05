@@ -26,5 +26,13 @@ enum [[enum-name]]:[[enum-type]]
     # region Properties:
 [[properties]]
     # endregion Properties;
-
+    
+    /**
+     * Returns string representation of value
+     * @returns string
+     * @public
+     */
+	public function ToString(): string {
+        return (string)$this->value;
+    }
 }

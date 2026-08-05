@@ -32,6 +32,12 @@ class XmlHelper
      * @return string The encoded string representation.
      * @public
      * @static
+     * @example
+     * ```
+     * $data = ['name' => 'John', 'age' => 30];
+     * $encoded = XmlHelper::Encode($data, 'person');
+     * echo $encoded; // Outputs the XML representation of the data with the specified tag
+     * ```
      */
     public static function Encode(string|array|object $object, string $tag = 'object'): string
     {
@@ -72,6 +78,13 @@ class XmlHelper
      * @return XmlNode An object representing the parsed XML structure.
      * @public
      * @static
+     * @example
+     * ```
+     * $xmlString = '<person><name>John</name><age>30</age></person>';
+     * $xmlNode = XmlHelper::Decode($xmlString);
+     * echo $xmlNode->name; // Outputs: John
+     * echo $xmlNode->age;  // Outputs: 30
+     * ```
      */
     public static function Decode(string $xmlString): XmlNode
     {
@@ -91,6 +104,14 @@ class XmlHelper
      * @return object|string The resulting object or string representation.
      * @public
      * @static
+     * @example
+     * ```
+     * $xmlString = '<person><name>John</name><age>30</person>';
+     * $result = XmlHelper::ToObject($xmlString);
+     * /// $result is an object with properties 'name' and 'age'
+     * echo $result->name; // Outputs: John
+     * echo $result->age;  // Outputs: 30
+     * ```
      */
     public static function ToObject(string|XmlNode $xml): object|string
     {

@@ -23,6 +23,12 @@ class TwoFactorHelper
      * @return string The Base32 encoded string.
      * @public
      * @static
+     * @example
+     * ```
+     * $data = "Hello, World!";
+     * $encoded = TwoFactorHelper::encode($data);
+     * echo $encoded; // Outputs the Base32 encoded string of "Hello, World!"
+     * ```
      */
     private static function encode(string $data): string {
         $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
@@ -46,6 +52,12 @@ class TwoFactorHelper
      * @return string The decoded binary data.
      * @public
      * @static
+     * @example
+     * ```
+     * $b32 = "JBSWY3DPEBLW64TMMQQ====";
+     * $decoded = TwoFactorHelper::decode($b32);
+     * echo $decoded; // Outputs the original binary data that was encoded into Base32
+     * ```
      */
     private static function decode(string $b32): string {
         $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
@@ -73,6 +85,12 @@ class TwoFactorHelper
      * @return string The generated secret key.
      * @public
      * @static
+     * @example
+     * ```
+     * $length = 16;    
+     * $secretKey = TwoFactorHelper::Generate($length);
+     * echo $secretKey; // Outputs a random secret key of the specified length
+     * ```
      */
     public static function Generate(int $length = 16) {
         $bytes = random_bytes($length);
@@ -87,6 +105,12 @@ class TwoFactorHelper
      * @return string The generated OTP.
      * @public
      * @static
+     * @example
+     * ```
+     * $secret = 'JBSWY3DPEBLW64TMMQQ===='; // Example secret key
+     * $otp = TwoFactorHelper::Degenerate($secret); 
+     * echo $otp; // Outputs the generated OTP based on the secret key and current time slice
+     * ```
      */
     public static function Degenerate(string $secret, ?int $time_slice = null): string {
         if ($time_slice === null) {
@@ -115,6 +139,13 @@ class TwoFactorHelper
      * @return bool True if the OTP is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $secret = 'JBSWY3DPEBLW64TMMQQ===='; // Example secret key
+     * $code = '123456'; // Example OTP code to verify
+     * $isValid = TwoFactorHelper::Verify($secret, $code);
+     * echo $isValid ? 'OTP is valid' : 'OTP is invalid'; // Outputs whether the OTP is valid or not
+     * ```
      */
     public static function Verify(string $secret, string $code, ?int $time_slice = null): bool {
         $valid = false;

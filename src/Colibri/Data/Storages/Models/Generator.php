@@ -375,13 +375,13 @@ class Generator
                         $name = str_replace('-', '_', $name);
                     }
                     $name = StringHelper::ToCamelCaseAttr($name, true);
-                    $consts[] = "\t" . '/** ' . $title . ' */' . "\n\t" . 'public const ' .
+                    $consts[] = "\t" . '/** ' . "\n" . '     * ' . $title . "\n" . '     * @const ' . gettype($value) . "\n" . '     * @public' . "\n" . '     */' . "\n\t" . 'public const ' .
                         $name . ' = ' . $value . ';';
                 } else {
                     $name = StringHelper::CreateHID(str_replace('_', '-', $field->{'name'}) . '-' .
                         str_replace('_', '-', $value), true);
                     $name = StringHelper::ToCamelCaseAttr($name, true);
-                    $consts[] = "\t" . '/** ' . $title . ' */' . "\n\t" . 'public const ' .
+                    $consts[] = "\t" . '/** ' . "\n" . '     * ' . $title . "\n" . '     * @const ' . gettype($value) . "\n" . '     * @public' . "\n" . '     */' . "\n\t" . 'public const ' .
                         $name . ' = \'' . $value . '\';';
                 }
             }

@@ -25,7 +25,12 @@ use Colibri\Collections\ICollection;
  * @property bool $delete Indicates if delete access is granted.
  * @property bool $execute Indicates if execute access is granted.
  * @property string $owner The owner of the file.
- *
+ * 
+ * @example
+ * ```
+ * $file = new File('/path/to/file.txt');
+ * $security = $file->access; // Loads the security settings of the file
+ * ```
  */
 class Security
 {
@@ -33,6 +38,7 @@ class Security
      * The source (File or Directory).
      *
      * @var File|Directory|null
+     * @protected
      */
     protected File|Directory|null $source = null;
 
@@ -40,6 +46,7 @@ class Security
      * Access flags.
      *
      * @var array
+     * @protected
      */
     protected array $flags;
 
@@ -48,6 +55,13 @@ class Security
      *
      * @param File|Directory|null $source The source.
      * @param mixed $flags The flags.
+     * @constructor
+     * @public
+     * @example
+     * ```
+     * $file = new File('/path/to/file.txt');
+     * $security = new Security($file, ['read' => true, 'write' => false]);
+     * ```
      */
     public function __construct(File|Directory|null $source, mixed $flags = null)
     {
@@ -57,8 +71,8 @@ class Security
         }
 
         if ($flags instanceof ICollection) {
-            $this->flags = $flags->{'rawArray'};
-        } elseif (is_array($flags)) {
+            $this->flags = $flags->Item('rawArray');
+        } elseif (\is_array($flags)) {
             $this->flags = $flags;
         } else {
             throw new AppException('illegal arguments: ' . __CLASS__);
@@ -70,6 +84,8 @@ class Security
      *
      * @param string $property The flag
      * @return mixed
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -81,6 +97,8 @@ class Security
      *
      * @param string $property The flag
      * @param mixed $value The value.
+     * @public
+     * @magic
      */
     public function __set(string $property, mixed $value): void
     {

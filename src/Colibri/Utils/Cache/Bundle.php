@@ -39,6 +39,8 @@ class Bundle
      * @param bool $preg Use regular expressions in the search
      * @param bool $returnContent Whether to return the compiled content instead of writing to a file
      * @return string The path to the compiled bundle
+     * @public
+     * @static
      */
     public static function Compile(string $name, array $exts, string $path, array $exception = array(), bool $preg = false, bool $returnContent = false): string
     {
@@ -93,6 +95,8 @@ class Bundle
      * @param array $exception Directories to exclude from the search
      * @param bool $preg Use regular expressions in the search
      * @return int The last modified timestamp
+     * @static
+     * @public
      */
     public static function LastModified(string $name, array $exts, string $path, array $exception = array(), bool $preg = false): int
     {
@@ -124,6 +128,8 @@ class Bundle
      * @param array $files Array of file paths to compile
      * @param bool $returnContent Whether to return the compiled content instead of writing to a file
      * @return string The path to the compiled bundle
+     * @static
+     * @public
      */
     public static function CompileFiles(string $name, array $exts, array $files, bool $returnContent = false): string
     {
@@ -168,6 +174,8 @@ class Bundle
      * @param array $exception Directories to exclude from the search
      * @param bool $preg Use regular expressions in the search
      * @return array Array of asset file paths
+     * @static  
+     * @public
      */
     public static function GetNamespaceAssets(string $path, array $exts, array $exception = [], bool $preg = false): array
     {
@@ -203,6 +211,8 @@ class Bundle
      * @param array $exception Directories to exclude from the search
      * @param bool $preg Use regular expressions in the search
      * @return array Array of asset file paths
+     * @public
+     * @static
      */
     public static function GetChildAssets(string $path, array $exts, array $exception = [], bool $preg = false): array
     {
@@ -240,6 +250,8 @@ class Bundle
      * @param array $ar Array of settings for bundling assets
      * @param string|null $useDomainsInUrls The domain to use in URLs
      * @return string The path to the compiled bundle
+     * @public
+     * @static
      */
     public static function Automate(
         string $domain,
@@ -329,6 +341,8 @@ class Bundle
      * @param string $ext The file extension
      * @param string $name The name of the bundle
      * @param string $content The compiled content
+     * @public
+     * @static
      */
     public static function Export(string $domain, string $ext, string $name, string $content)
     {
@@ -379,6 +393,8 @@ class Bundle
      * @param File $file The file object
      * @param string $html The HTML content
      * @return string The compiled JavaScript content
+     * @public
+     * @static
      */
     public static function ConvertHtmlToJS(File $file, string $html): string
     {
@@ -405,6 +421,8 @@ class Bundle
      * @param File $file The file object
      * @param string $html The HTML content
      * @return string The compiled JavaScript content
+     * @public
+     * @static
      */
     public static function ConvertHtmlToJSSimple(File $file, string $html): string
     {
@@ -430,6 +448,8 @@ class Bundle
      *
      * @param XmlNode $parentNode The parent XML node
      * @return string The compiled JavaScript code
+     * @public
+     * @static
      */
     public static function ConvertNode(XmlNode $parentNode): string
     {

@@ -28,6 +28,8 @@ class GraylogLogger extends Logger
      * @param integer $maxLogLevel The maximum log level.
      * @param mixed $device The device information containing the server and port.
      * @throws LoggerException If the device information is invalid.
+     * @constructor
+     * @public
      */
     public function __construct(int $maxLogLevel = 7, mixed $device = '')
     {
@@ -49,6 +51,7 @@ class GraylogLogger extends Logger
      * @param int $level The log level.
      * @param mixed $data The log data.
      * @return void
+     * @public
      */
     public function WriteLine(int $level, mixed $data): void
     {
@@ -89,6 +92,7 @@ class GraylogLogger extends Logger
      * Returns the content of the log file (not applicable for GrayLog).
      *
      * @return mixed null
+     * @public
      */
     public function Content(): mixed
     {

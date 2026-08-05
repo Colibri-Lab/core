@@ -20,6 +20,12 @@ use Colibri\Web\RequestedFile;
  *
  * @class
  * @extends ArrayList
+ * @example
+ * ```
+ * $data = new Data();
+ * $data->Add(new DataItem('key', 'value'));
+ * $data->Add(new DataFile('file', $binaryData, 'filename.txt', 'text/plain'));
+ * ```
  */
 class Data extends ArrayList
 {
@@ -30,6 +36,20 @@ class Data extends ArrayList
      * @param string|null $keyBefore Optional key before data.
      * @param Data|null &$d Optional Data object reference.
      * @return Data The created data.
+     * @public
+     * @static
+     * @example
+     * ```
+     * $array = [
+     *     'key1' => 'value1',
+     *     'key2' => [
+     *         'subkey1' => 'subvalue1',
+     *         'subkey2' => 'subvalue2',
+     *     ],   
+     *    'file' => new RequestedFile('filename.txt', 'text/plain', $binaryData),
+     * ];
+     * $data = Data::FromArray($array);
+     * ```
      */
     public static function FromArray(array $array, ?string $keyBefore = null, ?Data &$d = null)
     {

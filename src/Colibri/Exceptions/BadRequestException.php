@@ -19,11 +19,15 @@ class BadRequestException extends \Exception
 {
     /**
      * The HTTP status code for a bad request.
+     * @const int
+     * @public 
      */
     public const BadRequestExceptionCode = 400;
 
     /**
      * Message indicating a bad request.
+     * @const string
+     * @public
      */
     public const BadRequestExceptionMessage = 'Bad request';
 }

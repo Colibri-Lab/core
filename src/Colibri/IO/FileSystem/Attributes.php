@@ -22,6 +22,17 @@ namespace Colibri\IO\FileSystem;
  * @property int $hidden Indicates if the file is hidden.
  * 
  * @class
+ * 
+ * @example
+ * ```
+ * $attributes = new Attributes($file);
+ * echo $attributes->created; // Outputs the creation date of the file
+ * echo $attributes->modified; // Outputs the last modification date of the file
+ * echo $attributes->lastaccess; // Outputs the last access date of the file
+ * echo $attributes->readonly; // Outputs if the file is read-only
+ * echo $attributes->hidden; // Outputs if the file is hidden
+ * ```
+ * 
  */
 class Attributes
 {
@@ -29,6 +40,7 @@ class Attributes
      * The source file or directory.
      *
      * @var File|Directory|null
+     * @protected
      */
     protected File|Directory|null $source = null;
 
@@ -36,6 +48,7 @@ class Attributes
      * The list of attributes.
      *
      * @var array
+     * @protected
      */
     protected array $attributes = array();
 
@@ -43,6 +56,18 @@ class Attributes
      * Constructor.
      *
      * @param File|Directory $source The source file or directory.
+     * @constructor
+     * @public
+     * @example
+     * ```
+     * $file = new File('path/to/file.txt');
+     * $attributes = new Attributes($file);
+     * echo $attributes->created; // Outputs the creation date of the file
+     * echo $attributes->modified; // Outputs the last modification date of the file
+     * echo $attributes->lastaccess; // Outputs the last access date of the file
+     * echo $attributes->readonly; // Outputs if the file is read-only
+     * echo $attributes->hidden; // Outputs if the file is hidden
+     * ```
      */
     public function __construct(File|Directory $source)
     {
@@ -54,6 +79,8 @@ class Attributes
      *
      * @param string $property The property name.
      * @return mixed
+     * @magic
+     * @public
      */
     public function __get(string $property): mixed
     {
@@ -96,6 +123,8 @@ class Attributes
      *
      * @param string $property The property name.
      * @param mixed $value The property value.
+     * @magic
+     * @public
      */
     public function __set(string $property, mixed $value): void
     {
@@ -109,6 +138,8 @@ class Attributes
      *
      * @param string $property The property name.
      * @param mixed $value The new value.
+     * @private
+     * @return void
      */
     private function update(string $property, mixed $value): void
     {

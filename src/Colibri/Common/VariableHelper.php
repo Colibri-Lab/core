@@ -25,6 +25,12 @@ class VariableHelper
      * @return bool True if the variable is empty, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $var = '';
+     * $isEmpty = VariableHelper::IsEmpty($var);
+     * echo $isEmpty ? 'Variable is empty' : 'Variable is not empty'; // Outputs whether the variable is empty or not
+     * ```
      */
     public static function IsEmpty(mixed $var): bool
     {
@@ -43,6 +49,12 @@ class VariableHelper
      * @return bool True if all fields are empty, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $object = (object) ['a' => '', 'b' => null];
+     * $areFieldsEmpty = VariableHelper::IsObjectFieldsAreEmpty($object);
+     * echo $areFieldsEmpty ? 'All fields are empty' : 'Not all fields are empty'; // Outputs whether all fields are empty or not
+     * ```
      */
     public static function IsObjectFieldsAreEmpty(mixed $object): bool
     {
@@ -67,6 +79,12 @@ class VariableHelper
      * @return bool True if the variable is null, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $var = null;
+     * $isNull = VariableHelper::IsNull($var);
+     * echo $isNull ? 'Variable is null' : 'Variable is not null'; // Outputs whether the variable is null or not
+     * ```
      */
     public static function IsNull(mixed $var): bool
     {
@@ -80,6 +98,12 @@ class VariableHelper
      * @return bool True if the variable is an object, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $var = new stdClass();
+     * $isObject = VariableHelper::IsObject($var);
+     * echo $isObject ? 'Variable is an object' : 'Variable is not an object'; // Outputs whether the variable is an object or not
+     * ```
      */
     public static function IsObject(mixed $var): bool
     {
@@ -93,6 +117,12 @@ class VariableHelper
      * @return bool True if the variable is an array, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $var = [1, 2, 3];
+     * $isArray = VariableHelper::IsArray($var);
+     * echo $isArray ? 'Variable is an array' : 'Variable is not an array'; // Outputs whether the variable is an array or not
+     * ```
      */
     public static function IsArray(mixed $var): bool
     {
@@ -106,6 +136,12 @@ class VariableHelper
      * @return bool True if the variable is a boolean, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $var = true;
+     * $isBool = VariableHelper::IsBool($var);
+     * echo $isBool ? 'Variable is a boolean' : 'Variable is not a boolean'; // Outputs whether the variable is a boolean or not
+     * ```
      */
     public static function IsBool(mixed $var): bool
     {
@@ -119,6 +155,12 @@ class VariableHelper
      * @return bool True if the variable is a string, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $var = 'Hello, world!';
+     * $isString = VariableHelper::IsString($var);
+     * echo $isString ? 'Variable is a string' : 'Variable is not a string'; // Outputs whether the variable is a string or not
+     * ```
      */
     public static function IsString(mixed $var): bool
     {
@@ -132,6 +174,12 @@ class VariableHelper
      * @return bool True if the variable is numeric, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $var = 123;
+     * $isNumeric = VariableHelper::IsNumeric($var);
+     * echo $isNumeric ? 'Variable is numeric' : 'Variable is not numeric'; // Outputs whether the variable is numeric or not
+     * ```
      */
     public static function IsNumeric(mixed $var): bool
     {
@@ -145,6 +193,12 @@ class VariableHelper
      * @return bool True if the variable represents a valid date, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $var = '2024-06-05';
+     * $isDate = VariableHelper::IsDate($var);
+     * echo $isDate ? 'Variable is a valid date' : 'Variable is not a valid date'; // Outputs whether the variable is a valid date or not
+     * ```
      */
     public static function IsDate(mixed $var): bool
     {
@@ -166,6 +220,12 @@ class VariableHelper
      * @return bool True if the variable represents a valid time, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $value = '14:30';
+     * $isTime = VariableHelper::IsTime($value);
+     * echo $isTime ? 'Variable is a valid time' : 'Variable is not a valid time'; // Outputs whether the variable is a valid time or not
+     * ```
      */
     public static function IsTime(mixed $value): bool
     {
@@ -187,6 +247,12 @@ class VariableHelper
      * @return array|null The modified array with value case changed, or null if input is not an array.
      * @public
      * @static
+     * @example
+     * ```
+     * $array = ['a' => 'Apple', 'b' => 'Banana'];
+     * $lowercasedValues = VariableHelper::ChangeArrayValueCase($array, CASE_LOWER);
+     * print_r($lowercasedValues); // Outputs the array with all values in lowercase
+     * ```
      */
     public static function ChangeArrayValueCase(array $array, int $case = CASE_LOWER): ?array
     {
@@ -207,6 +273,12 @@ class VariableHelper
      * @return array|null The modified array with keys in the specified case, or null if input is not an array.
      * @public
      * @static
+     * @example
+     * ```
+     * $array = ['A' => 'Apple', 'B' => 'Banana'];
+     * $lowercasedKeys = VariableHelper::ChangeArrayKeyCase($array, CASE_LOWER);
+     * print_r($lowercasedKeys); // Outputs the array with all keys in lowercase
+     * ```
      */
     public static function ChangeArrayKeyCase(array $array, int $case = CASE_LOWER): ?array
     {
@@ -235,6 +307,12 @@ class VariableHelper
      * @return array An associative array representation of the input.
      * @public
      * @static
+     * @example
+     * ```
+     * $object = (object) ['name' => 'John', 'age' => 30];
+     * $array = VariableHelper::ObjectToArray($object);
+     * print_r($array); // Outputs the associative array representation of the object
+     * ```
      */
     public static function ObjectToArray(object|array $object): array
     {
@@ -260,6 +338,12 @@ class VariableHelper
      * @return mixed The resulting object.
      * @public
      * @static
+     * @example
+     * ```
+     * $array = ['name' => 'John', 'age' => 30];
+     * $object = VariableHelper::ArrayToObject($array);
+     * print_r($object); // Outputs the object representation of the array
+     * ```
      */
     public static function ArrayToObject(mixed $array): mixed
     {
@@ -300,6 +384,12 @@ class VariableHelper
      * @return bool Returns true if the array is associative, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $array = ['name' => 'John', 'age' => 30];
+     * $isAssociative = VariableHelper::IsAssociativeArray($array);
+     * echo $isAssociative ? 'Array is associative' : 'Array is not associative'; // Outputs whether the array is associative or not
+     * ```
      */
     public static function IsAssociativeArray(array|object $array): bool
     {
@@ -337,6 +427,17 @@ class VariableHelper
      * @return array The resulting tree structure.
      * @public
      * @static
+     * @example
+     * ```
+     * $flatArray = [
+     *     ['id' => 1, 'parent' => 0, 'name' => 'Root'],
+     *     ['id' => 2, 'parent' => 1, 'name' => 'Child 1'],
+     *     ['id' => 3, 'parent' => 1, 'name' => 'Child 2'],
+     *     ['id' => 4, 'parent' => 2, 'name => 'Grandchild 1'],
+     * ];
+     * $tree = VariableHelper::ArrayToTree($flatArray);
+     * print_r($tree); // Outputs the hierarchical tree structure based on parent-child relationships
+     * ```
      */
     public static function ArrayToTree(
         array $array,
@@ -372,6 +473,20 @@ class VariableHelper
      * @return array The resulting flat associative array.
      * @public
      * @static
+     * @example
+     * ```
+     * $nestedArray = [
+     *     'user' => [
+     *         'name' => 'John',
+     *         'address' => [
+     *             'city' => 'New York',
+     *             'zip' => '10001'
+     *         ]
+     *     ]
+     * ];
+     * $flatArray = VariableHelper::ToPlane($nestedArray);
+     * print_r($flatArray); // Outputs the flat associative array with keys representing paths to the original nested values
+     * ```
      */
     public static function ToPlane(array|object $var, string $prefix = ''): array
     {
@@ -404,6 +519,20 @@ class VariableHelper
      * @return array The resulting JSON-like structure with filters.
      * @public
      * @static
+     * @example
+     * ```
+     * $nestedArray = [
+     *     'user' => [
+     *         'name' => 'John',
+     *         'address' => [
+     *             'city' => 'New York',
+     *             'zip' => '10001'
+     *         ]
+     *     ]
+     * ];
+     * $jsonFilters = VariableHelper::ToJsonFilters($nestedArray);
+     * print_r($jsonFilters); // Outputs the JSON-like structure with filters based on the original nested values
+     * ```
      */
     public static function ToJsonFilters(array|object|null $var, string $prefix = ''): array
     {
@@ -446,6 +575,12 @@ class VariableHelper
      * @return string The hexadecimal representation of the input data.
      * @public
      * @static
+     * @example
+     * ```
+     * $binaryData = "\x01\x02\x03";
+     * $hexString = VariableHelper::Bin2Hex($binaryData);
+     * echo $hexString; // Outputs the hexadecimal representation of the binary data
+     * ```
      */
     public static function Bin2Hex(string $data): string
     {
@@ -466,6 +601,12 @@ class VariableHelper
      * @return string The binary representation of the input hexadecimal data.
      * @public
      * @static
+     * @example
+     * ```
+     * $hexString = '010203';
+     * $binaryData = VariableHelper::Hex2Bin($hexString);
+     * echo $binaryData; // Outputs the binary representation of the hexadecimal string
+     * ```
      */
     public static function Hex2Bin(string $data): string
     {
@@ -492,6 +633,12 @@ class VariableHelper
      * @return bool Returns true if the string is serialized, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $serializedString = 'a:2:{i:0;s:3:"foo";i:1;s:3:"bar";}';
+     * $isSerialized = VariableHelper::isSerialized($serializedString);
+     * echo $isSerialized ? 'String is serialized' : 'String is not serialized'; // Outputs whether the string is serialized or not
+     * ```
      */
     public static function isSerialized(string $v): bool
     {
@@ -526,6 +673,12 @@ class VariableHelper
      * @return string The serialized representation of the input.
      * @public
      * @static
+     * @example
+     * ```
+     * $data = ['name' => 'John', 'age' => 30];
+     * $serializedData = VariableHelper::Serialize($data);
+     * echo $serializedData; // Outputs the serialized string representation of the data
+     * ```
      */
     public static function Serialize(mixed $obj): string
     {
@@ -545,6 +698,12 @@ class VariableHelper
      * @throws \Throwable If unserialization fails due to invalid input or other errors.
      * @public
      * @static
+     * @example 
+     * ```
+     * $serializedString = '0x613a323a7b693a303b7333a313b733a333a22666f6f223b693a313b733a333a22626172223b7d';
+     * $unserializedData = VariableHelper::Unserialize($serializedString);
+     * print_r($unserializedData); // Outputs the original PHP value reconstructed from the serialized string
+     * ```
      */
     public static function Unserialize(string $string): mixed
     {
@@ -571,6 +730,13 @@ class VariableHelper
      * @return mixed The extended or merged result.
      * @public
      * @static
+     * @example
+     * ```
+     * $obj1 = ['a' => 1, 'b' => 2];
+     * $obj2 = ['b' => 3, 'c' => 4];
+     * $extended = VariableHelper::Extend($obj1, $obj2);
+     * print_r($extended); // Outputs the merged result: ['a' => 1, 'b' => 3, 'c' => 4]
+     * ```
      */
     public static function Extend(
         mixed $o1,
@@ -623,6 +789,14 @@ class VariableHelper
      * @return mixed The first non-null value or the default value.
      * @public
      * @static
+     * 
+     * @example
+     * ```
+     * $value = null;
+     * $default = 42;
+     * $result = VariableHelper::Coalesce($value, $default);
+     * echo $result; // Outputs: 42
+     * ```
      */
     public static function Coalesce(mixed $d, mixed $def): mixed
     {
@@ -647,6 +821,12 @@ class VariableHelper
      * @return string The formatted string representation.
      * @public
      * @static
+     * @example
+     * ```
+     * $object = ['name' => 'John', 'age' => 30];
+     * $stringRepresentation = VariableHelper::ToString($object);
+     * echo $stringRepresentation; // Outputs: name="John" age="30"
+     * ```
      */
     public static function ToString(
         mixed $object,
@@ -689,6 +869,13 @@ class VariableHelper
      * @return array The resulting associative array.
      * @public
      * @static
+     * 
+     * @example
+     * ```
+     * $phpArrayString = "[key1] => value1\n[key2] => value2";
+     * $array = VariableHelper::FromPhpArrayOutput($phpArrayString);
+     * print_r($array); // Outputs: ['key1' => 'value1', 'key2' => 'value2']
+     * ```
      */
     public static function FromPhpArrayOutput(string $string): array
     {
@@ -720,6 +907,12 @@ class VariableHelper
      * @return float The total sum of the array values.
      * @public
      * @static
+     * 
+     * @example
+     * ```
+     * $array = [1, 2, 3, 4];
+     * $sum = VariableHelper::Sum($array);
+     * echo $sum; // Outputs: 10
      */
     public static function Sum(array $array): float
     {
@@ -742,6 +935,13 @@ class VariableHelper
      * @return bool Returns true if the values are similar, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $actual = ['a' => 1, 'b' => 2];
+     * $expected = ['a' => 1, 'b' => 2];
+     * $isSimilar = VariableHelper::IsSimilar($actual, $expected);
+     * echo $isSimilar ? 'Values are similar' : 'Values are not similar'; // Outputs whether the values are similar or not
+     * ```
      */
     public static function IsSimilar(mixed $actual, mixed $expected): bool
     {
@@ -780,6 +980,13 @@ class VariableHelper
      * @return array The resulting array representation.
      * @public
      * @static
+     * 
+     * @example
+     * ```
+     * $object = (object) ['name' => 'John', 'age' => 30];
+     * $array = VariableHelper::MixedToArray($object);
+     * print_r($array); // Outputs the array representation of the object
+     * ```
      */
     public static function MixedToArray(mixed $object): mixed
     {
@@ -833,6 +1040,15 @@ class VariableHelper
      * @return mixed The result of applying the closure to each element.
      * @public
      * @static
+     * 
+     * @example
+     * ```
+     * $array = ['a' => 1, 'b' => 2, 'c' => 3];
+     * $mappedArray = VariableHelper::Map($array, function($key, $value) {
+     *     return [$key, $value * 2];
+     * });
+     * print_r($mappedArray); // Outputs: ['a' => 2, 'b' => 4, 'c' => 6]
+     * ```
      */
     public static function Map(mixed $object, ?\Closure $closure): mixed
     {
@@ -866,6 +1082,15 @@ class VariableHelper
      * @return mixed The filtered object. The returned type depends on the closure's logic.
      * @public
      * @static
+     * 
+     * @example
+     * ```
+     * $array = ['a' => 1, 'b' => 2, 'c' => 3];
+     * $filteredArray = VariableHelper::Filter($array, function($key, $value) {
+     *     return $value > 1; // Keep only values greater than 1
+     * });
+     * print_r($filteredArray); // Outputs: ['b' => 2, 'c' => 3]
+     * ```
      */
     public static function Filter(mixed $object, ?\Closure $closure): mixed
     {
@@ -894,6 +1119,12 @@ class VariableHelper
      * @return string The string representation of the callable.
      * @public
      * @static
+     * @example
+     * ```
+     * $callable = function($x) { return $x * 2; };
+     * $callableString = VariableHelper::CallableToString($callable);
+     * echo $callableString; // Outputs the string representation of the callable
+     * ```
      */
     public static function CallableToString(mixed $callable): string
     {
@@ -935,6 +1166,16 @@ class VariableHelper
      * @return array The filtered array with unique elements based on the specified property.
      * @public
      * @static
+     * @example
+     * ```
+     * $array = [
+     *     ['id' => 1, 'name' => 'Alice'],
+     *     ['id' => 2, 'name' => 'Bob'],
+     *     ['id' => 1, 'name' => 'Alice'],
+     * ];
+     * $uniqueArray = VariableHelper::UniqueByProperty($array, 'id');
+     * print_r($uniqueArray); // Outputs: [['id' => 1, 'name' => 'Alice'], ['id' => 2, 'name' => 'Bob']]
+     * ՝՝՝
      */
     public static function UniqueByProperty(array $array, string $field): array
     {
@@ -962,6 +1203,12 @@ class VariableHelper
      * @return array An array of smaller arrays (parts).
      * @public
      * @static
+     * @example
+     * ```
+     * $array = [1, 2, 3, 4, 5];
+     * $parts = VariableHelper::SplitArrayToParts($array, 2);
+     * print_r($parts); // Outputs: [[1, 2], [3, 4], [5]]
+     * ```
      */
     public static function SplitArrayToParts(array $array, int $partlength): array
     {
@@ -986,6 +1233,15 @@ class VariableHelper
      * @return array The resulting associative array.
      * @public
      * @static
+     * @example
+     * ```
+     * $array = [
+     *     ['id' => 1, 'name' => 'Alice'],
+     *     ['id' => 2, 'name' => 'Bob'],
+     * ];
+     * $associativeArray = VariableHelper::ConvertToAssociative($array, 'id', 'name');
+     * print_r($associativeArray); // Outputs: [1 => 'Alice', 2 => 'Bob']
+     * ```  
      */
     public static function ConvertToAssociative(array $array, mixed $fieldKey, mixed $fieldValue = null): array
     {
@@ -1004,6 +1260,15 @@ class VariableHelper
      * @return mixed
      * @public
      * @static
+     * @example
+     * ```
+     * $array = [
+     *     ['id' => 1, 'name' => 'Alice'],
+     *     ['id' => 2, 'name' => 'Bob'],
+     * ];
+     * $foundObject = VariableHelper::FindInArray($array, 'id', 2);
+     * print_r($foundObject); // Outputs: ['id' => 2, 'name' => 'Bob']
+     * ```
      */
     public static function FindInArray(array $array, string $innerObjectKey, mixed $innerObjectvalue): mixed
     {
@@ -1028,6 +1293,12 @@ class VariableHelper
      * @return bool True if the string is a valid regular expression, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $regex = '/^[a-z]+$/';
+     * $isValid = VariableHelper::IsValidRegExp($regex);
+     * echo $isValid ? 'Valid regex' : 'Invalid regex'; // Outputs whether the regex is valid or not
+     * ```
      */
     public static function IsValidRegExp(string $value): bool
     {
@@ -1040,6 +1311,12 @@ class VariableHelper
      * @return array
      * @public
      * @static
+     * @example
+     * ```
+     * $regex = '/^[a-z]+$/i';
+     * $options = VariableHelper::ParseRegexp($regex);
+     * print_r($options); // Outputs: ['^[a-z]+$', 'i']
+     * ```
      */
     public static function ParseRegexp(?string $value): array
     {
@@ -1062,6 +1339,13 @@ class VariableHelper
      * @return array The resulting merged array.
      * @public
      * @static
+     * @example
+     * ```
+     * $array1 = ['a' => 1, 'b' => ['c' => 2]];
+     * $array2 = ['b' => ['d' => 3], 'e' => 4];
+     * $mergedArray = VariableHelper::DeepMerge([$array1, $array2]);
+     * print_r($mergedArray); // Outputs:   ['a' => 1, 'b' => ['c' => 2, 'd' => 3], 'e' => 4]   
+     * ՝՝՝
      */
     public static function DeepMerge(array $arrays): array
     {
@@ -1087,6 +1371,13 @@ class VariableHelper
      * @return array The resulting merged array with distinct values.
      * @public
      * @static
+     * @example
+     * ```
+     * $array1 = ['a' => 1, 'b' => ['c' => 2]];
+     * $array2 = ['b' => ['d' => 3], 'e' => 4];
+     * $mergedArray = VariableHelper::MergeRecursiveDistinct($array1, $array2);
+     * print_r($mergedArray); // Outputs: ['a' => 1, 'b' => ['c' => 2, 'd' => 3], 'e' => 4]
+     * ```
      */
     public static function MergeRecursiveDistinct(array $a, array $b): array
     {

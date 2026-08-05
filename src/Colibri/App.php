@@ -38,6 +38,7 @@ use Colibri\Web\Session;
  * Main application class.
  * @class
  * @extends Singleton
+ * @used TEventDispatcher
  */
 final class App extends Singleton
 {
@@ -45,167 +46,191 @@ final class App extends Singleton
     use TEventDispatcher;
 
     /** 
-     * @const string Application mode for local machine
+     * Application mode for local machine
+     * @const string 
      * @public
      */
     public const ModeLocal = 'local';
     /** 
-     * @const string Application mode for development
+     * Application mode for development
+     * @const string 
      * @public
      */
     public const ModeDevelopment = 'dev';
     /** 
-     * @const string Application mode for testing
+     * Application mode for testing
+     * @const string 
      * @public
      */
     public const ModeTest = 'test';
     /** 
-     * @const string Application mode for production
+     * Application mode for production
+     * @const string 
      * @public
      */
     public const ModeRelease = 'prod';
 
     /**
      * Session object
-     * @var Session|null Session object
+     * @var Session|null
      * @public
      * @static
      */
     public static ?Session $session = null;
 
     /** 
-     * @var Request|null Request object
+     * Request object
+     * @var Request|null 
      * @public
      * @static
      */
     public static ?Request $request = null;
 
     /** 
-     * @var Response|null Response object
+     * Response object
+     * @var Response|null 
      * @public
      * @static
      */
     public static ?Response $response = null;
 
     /** 
-     * @var string Application root directory
+     * Application root directory
+     * @var string 
      * @public
      * @static
      */
     public static string $appRoot = '';
 
     /** 
-     * @var string Public directory root
+     * Public directory root
+     * @var string 
      * @public
      * @static
      */
     public static string $webRoot = '';
 
     /** 
-     * @var string Path to vendor folder
+     * Path to vendor folder
+     * @var string 
      * @public
      * @static
      */
     public static string $vendorRoot = '';
 
     /** 
-     * @var string Application mode
+     * Application mode
+     * @var string 
      * @public
      * @static
      */
     public static string $mode = 'local';
 
     /** 
-     * @var bool Indicates whether the application is in development mode
+     * Indicates whether the application is in development mode
+     * @var bool 
      * @public
      * @static
      */
     public static bool $isDev = false;
 
     /** 
-     * @var bool Indicates whether the application is running locally
+     * Indicates whether the application is running locally
+     * @var bool 
      * @public
      * @static
      */
     public static bool $isLocal = false;
 
     /** 
-     * @var Config|null Application configuration file
+     * Application configuration file
+     * @var Config|null 
      * @public
      * @static
      */
     public static ?Config $config = null;
 
     /** 
-     * @var EventDispatcher|null Event dispatcher
+     * Event dispatcher
+     * @var EventDispatcher|null
      * @public
      * @static
      */
     public static ?EventDispatcher $eventDispatcher = null;
 
     /** 
-     * @var ModuleManager|null Module manager
+     * Module manager
+     * @var ModuleManager|null 
      * @public
      * @static
      */
     public static ?ModuleManager $moduleManager = null;
 
     /** 
-     * @var DataAccessPoints|null Data access points
+     * Data access points
+     * @var DataAccessPoints|null
      * @public
      * @static
      */
     public static ?DataAccessPoints $dataAccessPoints = null;
 
     /** 
-     * @var Logger|null Logger device
+     * Logger device
+     * @var Logger|null 
      * @public
      * @static
      */
     public static ?Logger $log = null;
 
     /** 
-     * @var Manager|null Process manager
+     * Process manager
+     * @var Manager|null 
      * @public
      * @static
      */
     public static ?Manager $threadingManager = null;
 
     /** 
-     * @var Monitoring|null Monitoring
+     * Monitoring object
+     * @var Monitoring|null 
      * @public
      * @static
      */
     public static ?Monitoring $monitoring = null;
 
     /** 
-     * @var string|null Domain key
+     * Domain key
+     * @var string|null 
      * @public
      * @static
      */
     public static ?string $domainKey = null;
 
     /** 
-     * @var ?Router Router
+     * Router object
+     * @var ?Router
      * @public
      * @static
      */
     public static ?Router $router = null;
 
     /** 
-     * @var ?string System timezone
+     * System timezone
+     * @var ?string 
      * @public
      * @static
      */
     public static ?string $systemTimezone = 'UTC';
     /** 
-     * @var ?string System locale
+     * System locale
+     * @var ?string 
      * @public
      * @static
      */
     public static ?string $systemLocale = 'en_US';
     /** 
-     * @var ?string System charset
+     * System charset
+     * @var ?string 
      * @public
      * @static
      */

@@ -2,8 +2,10 @@
 
 namespace Colibri\Utils;
 
+use Colibri\App;
 use Colibri\Common\Encoding;
 use Colibri\Common\StringHelper;
+use Colibri\Common\VariableHelper;
 use Colibri\IO\FileSystem\File;
 
 /**
@@ -76,6 +78,8 @@ class DocBlockExtractor
             if(\in_array('ignore', $tagNames, true)) {
                 return null;
             }
+            
+            $tags = VariableHelper::ConvertToAssociative(array_map(fn($t) => ['tag' => $t['tag'], 'raw' => trim(str_replace(':', '', $t['raw']), " \t\n\r\0\x0B ")], $parsed['tags']), 'tag', 'raw');
 
             if(\in_array('namespace', $tagNames, true)) {
                 return null;
@@ -93,6 +97,7 @@ class DocBlockExtractor
                     'name'     => $accessor['name'],
                     'accessor' => $accessor['kind'],
                     'line'     => $block['line'],
+                    'tags'     => $tags
                 ];
                 continue;
             }
@@ -104,6 +109,7 @@ class DocBlockExtractor
                     'name'   => $name,
                     'magic'  => true,
                     'line'   => $block['line'],
+                    'tags'     => $tags
                 ];
                 continue;
             }
@@ -116,6 +122,7 @@ class DocBlockExtractor
                     'magic'  => true,
                     'constructor'  => true,
                     'line'   => $block['line'],
+                    'tags'     => $tags
                 ];
                 continue;
             }
@@ -128,6 +135,7 @@ class DocBlockExtractor
                     'magic'  => true,
                     'destructor'  => true,
                     'line'   => $block['line'],
+                    'tags'     => $tags
                 ];
                 continue;
             }
@@ -139,6 +147,7 @@ class DocBlockExtractor
                     'name'     => $name,
                     'accessor' => null,
                     'line'     => $block['line'],
+                    'tags'     => $tags
                 ];
                 continue;
             }
@@ -150,6 +159,7 @@ class DocBlockExtractor
                     'name'     => $name,
                     'accessor' => null,
                     'line'     => $block['line'],
+                    'tags'     => $tags
                 ];
                 continue;
             }
@@ -161,6 +171,7 @@ class DocBlockExtractor
                     'name'   => $name,
                     'magic'  => false,
                     'line'   => $block['line'],
+                    'tags'     => $tags
                 ];
                 continue;
             }
@@ -170,6 +181,7 @@ class DocBlockExtractor
                     'parsed' => $parsed,
                     'line'   => $block['line'],
                     'after'  => $block['after'],
+                    'tags'     => $tags
                 ];
             }
 
@@ -178,6 +190,7 @@ class DocBlockExtractor
                     'parsed' => $parsed,
                     'line'   => $block['line'],
                     'after'  => $block['after'],
+                    'tags'     => $tags
                 ];
             }
 
@@ -186,6 +199,7 @@ class DocBlockExtractor
                     'parsed' => $parsed,
                     'line'   => $block['line'],
                     'after'  => $block['after'],
+                    'tags'     => $tags
                 ];
             }
 
@@ -194,6 +208,7 @@ class DocBlockExtractor
                     'parsed' => $parsed,
                     'line'   => $block['line'],
                     'after'  => $block['after'],
+                    'tags'     => $tags
                 ];
             }
         }
@@ -213,11 +228,11 @@ class DocBlockExtractor
                 $functionName = $this->peekFunctionName($block['after']);
                 if(\in_array('global', $tagNames, true)) {
                     $global[$functionName] = $this->buildMethodInfo($parsed, false, false, false);
-                    $global[$functionName]['path'] = $this->_path;
+                    $global[$functionName]['path'] = '/'.str_replace(App::$appRoot, '', $this->_path);
                 }
                 if(\in_array('prototypeof', $tagNames, true)) {
                     $method = $this->buildMethodInfo($parsed, false, false, false);
-                    $method['path'] = $this->_path;
+                    $method['path'] = '/'.str_replace(App::$appRoot, '', $this->_path);
                     $prototyped[$method['prototypeof']][$functionName] = $method;
                 }
 
@@ -239,6 +254,7 @@ class DocBlockExtractor
 
 
         $classBlock = $classCandidates[0] ?? $enumCandidates[0] ?? $interfaceCandidates[0] ?? $traitCandidates[0];
+        $tags = $classBlock['tags'] ?? [];
         $className = $this->peekClassName($classBlock['after']);
 
         if ($className === null) {
@@ -283,13 +299,16 @@ class DocBlockExtractor
                 continue;
             }
             $methods[$mb['name']] = $this->buildMethodInfo($mb['parsed'], $mb['magic']);
+            $methods[$mb['name']]['tags'] = $mb['tags'];
         }
 
         if($constructor) {
             $constructor = $this->buildMethodInfo($constructor['parsed'], false, true, false);
+            $constructor['tags'] = $constructor['tags'] ?? [];
         }
         if($destructor) {
             $destructor = $this->buildMethodInfo($destructor['parsed'], false, false, true);
+            $destructor['tags'] = $destructor['tags'] ?? [];
         }
 
         $namespace = StringHelper::Explode($namespace, ['\\', '.']);
@@ -304,6 +323,7 @@ class DocBlockExtractor
             eval($c);
         }
 
+
         $cmd = $cmd . '[\''.$className.'\'] = [
             \'type\'        => \''.(match(true) {
                 !empty($enumCandidates) => 'enum',
@@ -316,7 +336,8 @@ class DocBlockExtractor
             \'destructor\'  => $destructor,
             \'properties\'  => $properties,
             \'methods\'     => $methods,
-            \'consts\'     => $consts,
+            \'consts\'      => $consts,
+            \'tags\'        => $tags,
         ];'; 
         eval($cmd);
 
@@ -385,6 +406,10 @@ class DocBlockExtractor
                 continue;
             }
 
+            if (strstr($line, 'region') !== false || strstr($line, 'endregion') !== false) {
+                continue;
+            }
+
             if (empty($tags)) {
                 $descriptionParts[] = $line;
             } else {
@@ -410,14 +435,16 @@ class DocBlockExtractor
     private function buildClassInformation(array $parsed, string $afterCode, array $useMap): array
     {
         $information = [
-            'path'        => $this->_path,
+            'path'        => '/'.str_replace(App::$appRoot, '', $this->_path),
             'description' => $parsed['description'],
             'extends'     => null,
             'implements'  => [],
             'abstract'    => false,
+            'deprecated'  => false,
             'final'       => false,
             'memberof'    => null,
             'example'     => null,
+            'used'        => [],
         ];
 
         $virtualProperties = [];
@@ -438,6 +465,14 @@ class DocBlockExtractor
                     foreach (preg_split('/\s*,\s*/', $raw) as $part) {
                         if ($part !== '') {
                             $information['implements'][] = $this->resolveClassName($part, $useMap);
+                        }
+                    }
+                    break;
+                
+                case 'used':
+                    foreach (preg_split('/\s*,\s*/', $raw) as $part) {
+                        if ($part !== '') {
+                            $information['used'][] = $this->resolveClassName($part, $useMap);
                         }
                     }
                     break;
@@ -469,12 +504,19 @@ class DocBlockExtractor
                 case 'property-write':
                     [$type, $propName, $desc] = $this->parseTypeNameDesc($raw);
                     if ($propName !== null) {
+                        $default = null;
                         $access = $name === 'property-read' ? 'read'
                             : ($name === 'property-write' ? 'write' : 'read-write');
+                        if(strstr($propName, '=') !== false) {
+                            [$propName, $default] = explode('=', $propName, 2);
+                            $propName = trim($propName);
+                            $default = trim($default);
+                        }
                         $virtualProperties[$propName] = [
                             'type'        => $type,
                             'description' => $desc,
                             'access'      => $access,
+                            'default'     => $default,
                             'virtual'     => true,
                         ];
                     }
@@ -553,6 +595,8 @@ class DocBlockExtractor
             } else {
                 $properties[$name] = $info;
             }
+
+            $properties[$name]['tags'] = $pb['tags'];
         }
 
         return $properties;
@@ -584,6 +628,9 @@ class DocBlockExtractor
             } else {
                 $consts[$name] = $info;
             }
+
+            $consts[$name]['tags'] = $pb['tags'];
+            $consts[$name]['path'] = '/'.str_replace(App::$appRoot, '', $this->_path);
         }
 
         return $consts;
@@ -603,6 +650,7 @@ class DocBlockExtractor
             'final'       => false,
             'type'        => null,
             'description' => $parsed['description'],
+            'path'        => '/'.str_replace(App::$appRoot, '', $this->_path)
         ];
 
         foreach ($parsed['tags'] as $tag) {
@@ -627,7 +675,9 @@ class DocBlockExtractor
                     $info['final'] = true;
                     break;
 
+                case 'const':
                 case 'var':
+                case 'type':
                     [$type, $desc] = $this->parseTypeDesc($tag['raw']);
                     $info['type'] = $type;
                     if ($desc !== '') {
@@ -691,8 +741,10 @@ class DocBlockExtractor
             'params'      => [],
             'returns'     => null,
             'deprecated'  => false,
+            'throws'      => [],
             'description' => $parsed['description'],
             'example'     => null,
+            'path'        => '/'.str_replace(App::$appRoot, '', $this->_path)
         ];
 
         foreach ($parsed['tags'] as $tag) {
@@ -700,6 +752,7 @@ class DocBlockExtractor
             $raw = $tag['raw'];
 
             switch ($name) {
+                case 'global':
                 case 'public':
                 case 'private':
                 case 'protected':
@@ -733,12 +786,26 @@ class DocBlockExtractor
                     $info['prototypeof'] = $raw;
                     break;
 
+                case 'throws':
+                    if ($raw !== '') {
+                        $parts = explode(' ', $raw);
+                        $info['throws'][$parts[0]] = trim(implode(' ', \array_slice($parts, 1)));
+                    }
+                    break;
                 case 'param':
+                    $default = null;
                     [$type, $paramName, $desc] = $this->parseTypeNameDesc($raw);
+                    $paramName = trim($paramName, '[]'); 
+                    if(strstr($paramName, '=') !== false) {
+                        [$paramName, $default] = explode('=', $paramName, 2);
+                        $paramName = trim($paramName);
+                        $default = trim($default);
+                    }
                     $info['params'][] = [
                         'type'        => str_replace(['{', '}'], '', $type),
                         'name'        => $paramName,
                         'description' => $desc,
+                        'default'     => $default,
                         'nullable'    => $this->isNullableType($type),
                     ];
                     break;
@@ -772,7 +839,7 @@ class DocBlockExtractor
         }
 
         if (preg_match('/^(\S+)\s*(.*)$/s', $raw, $m)) {
-            return [$m[1], trim($m[2])];
+            return [trim($m[1], '{}[] '), trim($m[2], '{}[]- ')];
         }
 
         return [null, $raw];

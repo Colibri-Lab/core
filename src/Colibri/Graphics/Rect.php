@@ -16,6 +16,14 @@ namespace Colibri\Graphics;
  * This class facilitates operations involving rectangular areas on the screen.
  * 
  * @class
+ * @example
+ * ```
+ * $rect = new Rect();
+ * $rect->lowerleft = new Point(0, 0);
+ * $rect->lowerright = new Point(100, 0);
+ * $rect->upperleft = new Point(0, 100);
+ * $rect->upperright = new Point(100, 100);
+ * ```
  */
 class Rect
 {
@@ -23,6 +31,7 @@ class Rect
      * The bottom-left corner.
      *
      * @var Point|null
+     * @public
      */
     public ?Point $lowerleft = null;
 
@@ -30,6 +39,7 @@ class Rect
      * The bottom-right corner.
      *
      * @var Point|null
+     * @public
      */
     public ?Point $lowerright = null;
 
@@ -37,6 +47,7 @@ class Rect
      * The top-left corner.
      *
      * @var Point|null
+     * @public
      */
     public ?Point $upperleft = null;
 
@@ -44,6 +55,7 @@ class Rect
      * The top-right corner.
      *
      * @var Point|null
+     * @public
      */
     public ?Point $upperright = null;
 

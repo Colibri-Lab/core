@@ -19,6 +19,8 @@ class ErrorCodes
 {
     /**
      * Error code for unknown property.
+     * @const int
+     * @public
      */
     public const UnknownProperty = 1;
 
@@ -27,6 +29,7 @@ class ErrorCodes
      *
      * @param int $code The error code.
      * @return string|null The textual representation of the error.
+     * @public
      */
     public static function ToString(int $code): ?string
     {

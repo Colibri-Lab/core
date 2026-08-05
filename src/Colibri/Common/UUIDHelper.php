@@ -24,6 +24,11 @@ class UUIDHelper
      * @return string The generated UUID.
      * @public
      * @static
+     * @example
+     * ```
+     * $uuid = UUIDHelper::v1();
+     * echo $uuid; // Outputs a version 1 UUID
+     * ```
      */
     public static function v1(): string
     {
@@ -51,6 +56,13 @@ class UUIDHelper
      * @return string The generated UUID.
      * @public
      * @static
+     * @example
+     * ```
+     * $namespace = '6ba7b810-9dad-11d1-80b4-00c04fd430c8'; // Example namespace UUID
+     * $name = 'example_name'; // Example name
+     * $uuid = UUIDHelper::v3($namespace, $name);
+     * echo $uuid; // Outputs a version 3 UUID based on the namespace and name
+     * ```
      */
     public static function v3(string $namespace, string $name): string
     {
@@ -63,6 +75,11 @@ class UUIDHelper
      * @return string The generated UUID.
      * @public
      * @static
+     * @example
+     * ```
+     * $uuid = UUIDHelper::v4();
+     * echo $uuid; // Outputs a version 4 UUID
+     * ```
      */
     public static function v4(): string
     {
@@ -80,6 +97,13 @@ class UUIDHelper
      * @return string The generated UUID.
      * @public
      * @static
+     * @example
+     * ```
+     * $namespace = '6ba7b810-9dad-11d1-80b4-00c04fd430c8'; // Example namespace UUID
+     * $name = 'example_name'; // Example name
+     * $uuid = UUIDHelper::v5($namespace, $name);
+     * echo $uuid; // Outputs a version 5 UUID based on the namespace and name
+     * ```
      */
     public static function v5(string $namespace, string $name): string
     {
@@ -97,6 +121,13 @@ class UUIDHelper
      * @public
      * @static
      * @throws InvalidArgumentException If the namespace UUID is invalid.
+     * @example
+     * ```
+     * $namespace = '6ba7b810-9dad-11d1-80b4-00c04fd430c8'; // Example namespace UUID
+     * $name = 'example_name'; // Example name
+     * $uuidV3 = UUIDHelper::nameBasedUuid($namespace, $name, 'md5', 3);
+     * echo $uuidV3; // Outputs a version 3 UUID based on the namespace and name
+     * ```
      */
     private static function nameBasedUuid(string $namespace, string $name, string $hashFunc, int $version): string
     {
@@ -138,6 +169,12 @@ class UUIDHelper
      * @return bool True if the UUID is valid, false otherwise.
      * @public
      * @static
+     * @example
+     * ```
+     * $uuid = '550e8400-e29b-41d4-a716-446655440000'; // Example UUID
+     * $isValid = UUIDHelper::isValid($uuid);
+     * echo $isValid ? 'UUID is valid' : 'UUID is invalid'; // Outputs whether the UUID is valid or not
+     * ```
      */
     public static function isValid(string $uuid): bool
     {

@@ -31,6 +31,13 @@ class ArchiveHelper
      * @return string
      * @public
      * @static
+     * @example
+     * ```
+     * $binaryData = 'Hello, World!';
+     * $fileName = 'example.txt';
+     * $archiveData = ArchiveHelper::Create($binaryData, $fileName);
+     * echo $archiveData; // Outputs the binary data of the created archive
+     * ```
      */
     public static function Create(string $binary, string $file): string
     {
@@ -54,6 +61,12 @@ class ArchiveHelper
      * @return string
      * @public
      * @static
+     * @example
+     * ```
+     * $archiveData = '...'; // Binary data of the archive  
+     * $extractedData = ArchiveHelper::Extract($archiveData);
+     * echo $extractedData; // Outputs the extracted data from the archive
+     * ```
      */
     public static function Extract(string $binary): string
     {
@@ -82,6 +95,16 @@ class ArchiveHelper
      * @return bool
      * @public
      * @static
+     * @example
+     * ```
+     * $fileName = 'example.zip';
+     * $isArchive = ArchiveHelper::IsArchive($fileName);
+     * if ($isArchive) {
+     *     echo "$fileName is a valid zip archive.";
+     * } else {
+     *     echo "$fileName is not a valid zip archive.";
+     * }
+     * ```
      */
     public static function IsArchive(string $filename): bool
     {
@@ -99,6 +122,13 @@ class ArchiveHelper
      * @return void
      * @public
      * @static
+     * @example
+     * ```
+     * $zipPath = 'path/to/archive.zip';
+     * $extractTo = 'path/to/extract/directory';
+     * ArchiveHelper::ExtractTo($zipPath, $extractTo);
+     * echo "Archive extracted to: $extractTo";
+     * ```
      */
     public static function ExtractTo(string $path, string $directoryPath): void
     {

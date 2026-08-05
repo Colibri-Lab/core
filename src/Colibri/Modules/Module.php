@@ -24,28 +24,42 @@ use Colibri\Utils\Singleton;
  * 
  * @class
  * @extends Singleton
+ * @used TEventDispatcher
  *
  * @property-read string $modulePath The path of the module.
  * @property-read string $moduleNamespace The namespace of the module.
  * @property-read string $moduleConfigPath The file path of the module's configuration.
  * @property-read string $moduleStoragesPath The file path of the module's storage configurations.
+ * @example
+ * ```
+ * class MyModule extends Module {
+ *     protected function __construct(mixed $config) {
+ *         parent::__construct($config);
+ *         /// Additional initialization for MyModule
+ *     }
+ * }
+ * ```
  */
 class Module extends Singleton
 {
-    /** Include event dispatcher trait. */
+    /** 
+     * Include event dispatcher trait.
+     */
     use TEventDispatcher;
 
     /**
-    * Config object.
-    *
-    * @var Config
-    */
-    protected $_config;
+     * Config object.
+     *
+     * @var Config
+     * @protected
+     */
+    protected ?Config $_config = null;
 
     /**
      * Location of the module.
      *
      * @var string
+     * @protected
      */
     protected string $_modulePath;
 
@@ -53,6 +67,7 @@ class Module extends Singleton
      * Namespace of the module.
      *
      * @var string
+     * @protected
      */
     protected string $_moduleNamespace;
 
@@ -60,6 +75,7 @@ class Module extends Singleton
      * File path of the module configuration.
      *
      * @var string
+     * @protected
      */
     protected string $_moduleConfigFile = '';
 
@@ -67,6 +83,7 @@ class Module extends Singleton
      * File path of the module's storage configurations.
      *
      * @var string
+     * @protected
      */
     protected string $_moduleStoragesConfigPath = '';
 
@@ -77,6 +94,8 @@ class Module extends Singleton
      *
      * @param mixed $config The configuration for the module.
      * @return void
+     * @constructor
+     * @protected
      */
     protected function __construct(mixed $config)
     {
@@ -131,6 +150,11 @@ class Module extends Singleton
      * @param string|null $item The item to retrieve from the configuration.
      * @param mixed $default The default value if the item is not found.
      * @return Config|ConfigItemsList
+     * @public
+     * @example
+     * ```
+     * $item = $module->Config('config.node', 'default value')->GetValue();
+     * ```
      */
     public function Config(?string $item = null, mixed $default = null): Config|ConfigItemsList
     {
@@ -144,6 +168,8 @@ class Module extends Singleton
      *
      * @param string $prop The property name.
      * @return mixed The value of the accessed property.
+     * @magic
+     * @public
      */
     public function __get(string $prop): mixed
     {
@@ -165,6 +191,7 @@ class Module extends Singleton
      * Initializes the module after object creation.
      *
      * @return void
+     * @public
      */
     public function InitializeModule(): void
     {
@@ -174,6 +201,7 @@ class Module extends Singleton
      * Installs the module.
      *
      * @return void
+     * @public
      */
     public function Install(): void
     {
@@ -183,6 +211,7 @@ class Module extends Singleton
      * Uninstalls the module.
      *
      * @return void
+     * @public
      */
     public function Uninstall(): void
     {
@@ -192,6 +221,7 @@ class Module extends Singleton
      * Disposes of the module object.
      *
      * @return void
+     * @public
      */
     public function Dispose(): void
     {
@@ -201,6 +231,7 @@ class Module extends Singleton
      * Retrieves the list of permissions for the module.
      *
      * @return array
+     * @public
      */
     public function GetPermissions(): array
     {
@@ -212,6 +243,7 @@ class Module extends Singleton
      *
      * @param array|null $extendArray Additional array to extend the result.
      * @return array
+     * @public
      */
     public function GetPathsFromModuleConfig(?array $extendArray = null): array
     {
@@ -239,6 +271,7 @@ class Module extends Singleton
      * Retrieves paths from the module configuration.
      *
      * @return array
+     * @public
      */
     public function GetExternalScriptsFromModuleConfig(): array
     {

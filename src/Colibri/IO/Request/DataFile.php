@@ -23,6 +23,11 @@ use Colibri\IO\FileSystem\File;
  * @property string $mime The MIME type of the file.
  * @property string $file The file data or path.
  * @property string $value The value of the file.
+ * 
+ * @example
+ * ```
+ * $dataFile = new DataFile('file', $binaryData, 'filename.txt', 'text/plain');
+ * ```  
  */
 class DataFile extends DataItem
 {
@@ -33,6 +38,13 @@ class DataFile extends DataItem
      * @param string $filePathOrFileData The file data or path.
      * @param string $filename The name of the file.
      * @param string|null $mime The MIME type.
+     * @constructor
+     * @public
+     * @example
+     * ```
+     * $dataFile = new DataFile('file', $binaryData, 'filename.txt', 'text/plain');
+     * ```
+     * @throws \Exception If the file does not exist or cannot be read.
      */
     public function __construct(string $name, string $filePathOrFileData, string $filename = '', string $mime = null)
     {

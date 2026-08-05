@@ -27,12 +27,19 @@ use Colibri\Collections\ArrayListIterator;
  */
 class Config implements IteratorAggregate
 {
+    /**
+     * The file name.
+     *
+     * @var string
+     * @private
+     */
     private string $_file = '';
 
     /**
      * Holds the loaded configuration data.
      *
      * @var mixed
+     * @private
      */
     private $_configData;
 
@@ -41,6 +48,8 @@ class Config implements IteratorAggregate
      *
      * @param mixed $fileName File or data
      * @param bool $isFile Indicates whether a file was passed or a string
+     * @constructor
+     * @public
      */
     public function __construct(mixed $fileName, bool $isFile = true, string $file = '')
     {
@@ -86,6 +95,8 @@ class Config implements IteratorAggregate
      *
      * @param string $fileName The name of the YAML file
      * @return Config A Config object representing the loaded YAML file
+     * @public
+     * @static
      */
     public static function LoadFile(string $fileName): Config
     {
@@ -97,6 +108,8 @@ class Config implements IteratorAggregate
      *
      * @param string $yamlData The YAML data
      * @return Config A Config object representing the loaded YAML string
+     * @public
+     * @static
      */
     public static function Load(string $yamlData): Config
     {
@@ -108,6 +121,7 @@ class Config implements IteratorAggregate
      *
      * @param mixed $value The value
      * @return mixed
+     * @private
      */
     private function _prepareValue(mixed $value, string $file = ''): mixed
     {
@@ -149,6 +163,7 @@ class Config implements IteratorAggregate
      *      a positive response is found, if nothing is found, an attempt will be made to return $default
      * @param mixed $default The default value if the path is not found
      * @return ConfigItemsList|Config
+     * @public
      */
     public function Query(string|array $item, mixed $default = null): ConfigItemsList|Config
     {
@@ -215,6 +230,7 @@ class Config implements IteratorAggregate
      * Return the internal data as an object.
      *
      * @return object|string|null
+     * @public
      */
     public function AsObject(): object|string|null
     {
@@ -228,6 +244,7 @@ class Config implements IteratorAggregate
      * Return the internal data as an array.
      *
      * @return array|null
+     * @public
      */
     public function AsArray(): ?array
     {
@@ -238,6 +255,7 @@ class Config implements IteratorAggregate
      * Return the internal data as an array.
      *
      * @return array|null
+     * @public
      */
     public function ToArray(): ?array
     {
@@ -249,6 +267,7 @@ class Config implements IteratorAggregate
      * Warning! If the current data is an array or object, null will be returned.
      *
      * @return mixed
+     * @public
      */
     public function GetValue(): mixed
     {
@@ -263,6 +282,7 @@ class Config implements IteratorAggregate
      *
      * @param array|null $param
      * @return bool
+     * @public
      */
     public function isKindOfObject(string|array |null $param): bool
     {
@@ -286,6 +306,7 @@ class Config implements IteratorAggregate
      * @param string $fileName The name of the YAML file
      * @return bool True if the configuration was saved successfully, otherwise false
      * @throws ConfigException If the configuration file cannot be saved
+     * @public
      */
     public function Save(string $fileName = ''): bool
     {
@@ -305,6 +326,7 @@ class Config implements IteratorAggregate
      * Retrieves all configuration files in the /config folder.
      *
      * @return array An array of configuration files
+     * @public
      */
     public static function Enumerate(): array
     {
@@ -323,6 +345,7 @@ class Config implements IteratorAggregate
      * Get the file name.
      *
      * @return string The file name
+     * @public
      */
     public function GetFile(): string
     {
@@ -335,6 +358,7 @@ class Config implements IteratorAggregate
      * @param string $item The item name
      * @param mixed $value The value
      * @throws ConfigException If an invalid query is made
+     * @public
      */
     public function Set(string $item, mixed $value): void
     {
@@ -356,6 +380,7 @@ class Config implements IteratorAggregate
      *
      * @param int $index The index of the item
      * @return mixed The item
+     * @public
      */
     public function Item(int $index): mixed
     {
@@ -370,6 +395,7 @@ class Config implements IteratorAggregate
      * Get an iterator for the object.
      *
      * @return ArrayListIterator An iterator for the object
+     * @public
      */
     public function getIterator(): ArrayListIterator
     {

@@ -19,34 +19,47 @@ use InvalidArgumentException;
  *
  * @property-read string $name The name of the event.
  * @property-read mixed $sender The sender of the event.
+ * 
+ * @example
+ * ```
+ * $event = new Event($this, 'myEvent');
+ * echo $event->name; // Outputs: myEvent
+ * echo $event->sender; // Outputs: object (the sender of the event)
+ * ```
  *
  */
 class Event
 {
     /**
      * The sender of the event.
-     *
+     * @private
      * @var mixed
      */
-    private $_sender;
+    private mixed $_sender;
 
     /**
      * The name of the event.
      *
+     * @private
      * @var string
      */
-    private $_name;
+    private string $_name;
 
     /**
      * Constructor.
      *
+     * @public
      * @param mixed $sender The sender of the event.
      * @param string $name The name of the event.
      * @throws InvalidArgumentException
+     * @example
+     * ```
+     * $event = new Event($this, 'myEvent');
+     * ```
      */
     public function __construct($sender, $name)
     {
-        if (!is_object($sender) && !is_string($name)) {
+        if (!is_object($sender) && !\is_string($sender)) {
             throw new InvalidArgumentException();
         }
 
@@ -58,6 +71,12 @@ class Event
      * Returns the name of the event.
      *
      * @return string The name of the event.
+     * @protected
+     * @example
+     * ```
+     * $event = new Event($this, 'myEvent');
+     * echo $event->name; // Outputs: myEvent
+     * ```
      */
     protected function getPropertyName()
     {
@@ -68,6 +87,12 @@ class Event
      * Returns the sender of the event.
      *
      * @return mixed The sender of the event.
+     * @protected
+     * @example
+     * ```
+     * $event = new Event($this, 'myEvent');
+     * echo $event->sender; // Outputs: object (the sender of the event)
+     * ```
      */
     protected function getPropertySender()
     {
@@ -79,6 +104,8 @@ class Event
      *
      * @param string $key The key.
      * @return mixed The value associated with the key.
+     * @protected
+     * @magic
      */
     public function __get($key)
     {
@@ -98,4 +125,5 @@ class Event
         }
         return $return;
     }
+
 }

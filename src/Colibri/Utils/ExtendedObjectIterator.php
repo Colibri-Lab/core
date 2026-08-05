@@ -22,20 +22,23 @@ class ExtendedObjectIterator implements \Iterator
      * The object collection.
      *
      * @var mixed
+     * @private
      */
     private $_data;
 
     /**
      * Keys in the data array.
+     * @private
      *
      * @var string[]
      */
-    private $_keys;
+    private array $_keys;
 
     /**
      * Current position.
      *
      * @var mixed
+     * @private
      */
     private $_current = 0;
 
@@ -43,6 +46,8 @@ class ExtendedObjectIterator implements \Iterator
      * Constructor. Receives the object collection.
      *
      * @param array|null $data The collection
+     * @public
+     * @constructor
      */
     public function __construct(?array $data = null)
     {
@@ -54,6 +59,7 @@ class ExtendedObjectIterator implements \Iterator
      * Rewind to the first entry.
      *
      * @return void
+     * @public
      */
     public function rewind(): void
     {
@@ -64,6 +70,7 @@ class ExtendedObjectIterator implements \Iterator
      * Return the current value.
      *
      * @return mixed
+     * @public
      */
     public function current(): mixed
     {
@@ -78,6 +85,7 @@ class ExtendedObjectIterator implements \Iterator
      * Return the key of the current position.
      *
      * @return ?string
+     * @public
      */
     public function key(): ?string
     {
@@ -90,22 +98,19 @@ class ExtendedObjectIterator implements \Iterator
     /**
      * Move to the next value.
      *
-     * @return mixed
+     * @return void
+     * @public
      */
     public function next(): void
     {
         $this->_current++;
-        // if ($this->valid()) {
-        //     return $this->_data[$this->_keys[$this->_current]];
-        // } else {
-        //     return false;
-        // }
     }
 
     /**
      * Check the validity of the iterator, i.e., whether the current value is valid.
      *
      * @return bool
+     * @public
      */
     public function valid(): bool
     {

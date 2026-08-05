@@ -26,6 +26,12 @@ class Javascript
      * @return string The shrunk version of the input string.
      * @public
      * @static
+     * @example
+     * ```
+     * $input = 'function example() { console.log("Hello, World!"); }';
+     * $shrunk = Javascript::Shrink($input);
+     * echo $shrunk; // Outputs the shrunk version of the input string
+     * ```
      */
     public static function Shrink(string $input): string
     {

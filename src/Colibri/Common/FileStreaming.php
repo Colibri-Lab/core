@@ -27,6 +27,12 @@ class FileStreaming
      * @return string The Base64-encoded content of the file.
      * @public
      * @static
+     * @example
+     * ```
+     * $filePath = 'path/to/file.txt';
+     * $base64Content = FileStreaming::ToBase64($filePath);
+     * echo $base64Content; // Outputs the Base64-encoded content of the file
+     * ```
      */
     public static function ToBase64(string $file): string
     {
@@ -45,6 +51,12 @@ class FileStreaming
      * @return string The text content of the file.
      * @public
      * @static
+     * @example
+     * ```
+     * $filePath = 'path/to/file.txt';
+     * $textContent = FileStreaming::AsText($filePath);
+     * echo $textContent; // Outputs the text content of the file
+     * ```
      */
     public static function AsText(string $file): string
     {
@@ -60,6 +72,12 @@ class FileStreaming
      * @return string The tag representation.
      * @public
      * @static
+     * @example
+     * ```
+     * $filePath = 'path/to/image.png';
+     * $tagRepresentation = FileStreaming::AsTag($filePath, true);
+     * echo $tagRepresentation; // Outputs the tag representation of the file
+     * ```
      */
     public static function AsTag(string $file, bool $background = false): string
     {

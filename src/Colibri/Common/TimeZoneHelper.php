@@ -50,6 +50,11 @@ class TimeZoneHelper
      * @return bool
      * @public
      * @static
+     * @example
+     * ```
+     * TimeZoneHelper::Set('en');
+     * echo TimeZoneHelper::$zone; // Outputs: en
+     * ```
      */
     public static function Set(string $zone): bool
     {
@@ -67,6 +72,12 @@ class TimeZoneHelper
      * @return string
      * @public
      * @static
+     * @example
+     * ```
+     * TimeZoneHelper::Set('ru');
+     * $monthName = TimeZoneHelper::Month(1);
+     * echo $monthName; // Outputs: январь
+     * ```
      */
     public static function Month(int $month): ?string
     {
@@ -80,6 +91,12 @@ class TimeZoneHelper
      * @return string
      * @public
      * @static
+     * @example
+     * ```
+     * TimeZoneHelper::Set('ru');
+     * $monthNameGenitive = TimeZoneHelper::Month2(1);
+     * echo $monthNameGenitive; // Outputs: января
+     * ```
      */
     public static function Month2(int $month): ?string
     {
@@ -93,6 +110,12 @@ class TimeZoneHelper
      * @return string
      * @public
      * @static
+     * @example
+     * ```
+     * TimeZoneHelper::Set('ru');
+     * $weekdayName = TimeZoneHelper::Weekday(1);
+     * echo $weekdayName; // Outputs: понедельник
+     * ```
      */
     public static function Weekday(int $weekday): ?string
     {
@@ -107,6 +130,12 @@ class TimeZoneHelper
      * @return string
      * @public
      * @static
+     * @example
+     * ```
+     * TimeZoneHelper::Set('ru');
+     * $formattedTime = TimeZoneHelper::FTimeU('Y-m-d H:i:s', microtime(true));
+     * echo $formattedTime; // Outputs the current date and time in the format "Y-m-d H:i:s"
+     * ```
      */
     public static function FTimeU(string $format, float $microtime): ?string
     {

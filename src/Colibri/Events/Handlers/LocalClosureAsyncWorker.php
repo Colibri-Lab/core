@@ -13,9 +13,9 @@ namespace Colibri\Events\Handlers;
 use Colibri\Threading\Worker;
 
 /**
- * Class LocalClosureAsyncWorker
- *
- * Represents a worker for asynchronously invoking local closures.
+ * Async worker for local closures
+ * Runs by php-cli
+ * 
  * @class
  * @extends Worker
  * 
@@ -24,6 +24,16 @@ class LocalClosureAsyncWorker extends Worker
 {
     /**
      * Runs the asynchronous worker task.
+     * @public
+     * @return void
+     * 
+     * @example
+     * ```
+     * $worker = new LocalClosureAsyncWorker();
+     * $process = App::$processManager->CreateProcess($worker);
+     * $process->Run(['closure' => $serializedClosure, 'event' => $event, 'args' => $args]);
+     * ```
+     * 
      */
     public function Run(): void
     {

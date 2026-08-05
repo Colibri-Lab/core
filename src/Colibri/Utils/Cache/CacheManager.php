@@ -27,6 +27,8 @@ class CacheManager
      * @param string $section The cache section
      * @param string $fileName The name of the file
      * @return string The cache file path
+     * @public
+     * @static
      */
     private static function _getPath(string $section, string $fileName)
     {
@@ -42,6 +44,8 @@ class CacheManager
      * @param string $fileName The name of the file
      * @param string $fileContent The content of the file
      * @return string The path to the cached file
+     * @public
+     * @static
      */
     public static function Put(string $section, string $fileName, string $fileContent)
     {
@@ -57,6 +61,8 @@ class CacheManager
      * @param string $section The cache section
      * @param string $fileName The name of the file
      * @return bool True if the cache exists, otherwise false
+     * @public
+     * @static
      */
     public static function Exists(string $section, string $fileName)
     {
@@ -69,6 +75,8 @@ class CacheManager
      * @param string $section The cache section
      * @param string $fileName The name of the file
      * @return string|null The content of the cached file, or null if not found
+     * @public
+     * @static
      */
     public static function Get(string $section, string $fileName): ?string
     {
@@ -85,6 +93,8 @@ class CacheManager
      * @param string $section The cache section
      * @param string $fileName The name of the file
      * @return string The cache file path
+     * @public
+     * @static
      */
     public static function GetPath(string $section, string $fileName): string
     {

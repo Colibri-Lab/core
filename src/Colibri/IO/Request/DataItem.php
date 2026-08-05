@@ -20,6 +20,10 @@ use Colibri\Utils\ExtendedObject;
  * 
  * @property string $name The name of the data string.
  * @property string $value The value of the data string.
+ * @example
+ * ```
+ * $dataItem = new DataItem('key', 'value');
+ * ```
  */
 class DataItem extends ExtendedObject
 {
@@ -28,6 +32,8 @@ class DataItem extends ExtendedObject
      *
      * @param string $name The name of the property.
      * @param string $data The data.
+     * @constructor
+     * @public
      */
     public function __construct(string $name, string $data)
     {

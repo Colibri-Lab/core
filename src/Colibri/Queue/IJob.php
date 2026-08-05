@@ -34,12 +34,14 @@ interface IJob
 {
     /**
      * Add headers to job manager
+     * @public
      */
     public function SetHeaders(): void;
 
     /**
      * Returns a key for parallel worker
      * @return string
+     * @public
      */
     public function Key(): string;
 
@@ -48,12 +50,14 @@ interface IJob
      *
      * @param Logger $logger The logger instance to use for logging.
      * @return bool True if the job is handled successfully, false otherwise.
+     * @public
      */
     public function Handle(Logger $logger): bool;
 
     /**
      * Checks if the current attempt is the last attempt.
      *
+     * @public
      * @return bool True if the current attempt is the last attempt, false otherwise.
      */
     public function IsLastAttempt(): bool;
@@ -62,12 +66,14 @@ interface IJob
      * Checks if the job can be executed in parallel.
      *
      * @return bool True if the job can be executed in parallel, false otherwise.
+     * @public
      */
     public function IsParallel(): bool;
 
     /**
      * Adds the job.
      *
+     * @public
      * @return bool True if the job is successfully added, false otherwise.
      */
     public function Add(): bool;
@@ -76,12 +82,14 @@ interface IJob
      * Updates the job.
      *
      * @return bool True if the job is successfully updated, false otherwise.
+     * @public
      */
     public function Update(): bool;
 
     /**
      * Deletes the job.
      *
+     * @public
      * @return bool True if the job is successfully deleted, false otherwise.
      */
     public function Delete(): bool;
@@ -89,6 +97,7 @@ interface IJob
     /**
      * Begins a transaction.
      *
+     * @public
      * @return bool True if the transaction is successfully begun, false otherwise.
      */
     public function Begin(): bool;
@@ -97,6 +106,7 @@ interface IJob
      * Commits a transaction.
      *
      * @param array|object $result The result of the transaction.
+     * @public
      * @return bool True if the transaction is successfully committed, false otherwise.
      */
     public function Commit(array|object $result): bool;
@@ -106,6 +116,7 @@ interface IJob
      *
      * @param \Throwable $exception The exception that caused the failure.
      * @param bool $isLastAttempt Indicates if the failure is occurring on the last attempt.
+     * @public
      * @return bool True if the job is marked as failed, false otherwise.
      */
     public function Fail(\Throwable $exception, bool $isLastAttempt = false): bool;
@@ -113,6 +124,7 @@ interface IJob
     /**
      * Rolls back a transaction.
      *
+     * @public
      * @return bool True if the transaction is successfully rolled back, false otherwise.
      */
     public function Rollback(): bool;
@@ -122,6 +134,7 @@ interface IJob
      *
      * @param bool $dummy Indicates if dummy data should be included in the array.
      * @param \Closure|null $callback An optional callback function to manipulate the array.
+     * @public
      * @return array The array representation of the job.
      */
     public function ToArray(bool $dummy = false, ?\Closure $callback = null): array;

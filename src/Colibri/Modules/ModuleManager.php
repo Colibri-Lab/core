@@ -25,6 +25,8 @@ use Colibri\Web\Templates\PhpTemplate;
  * Module Manager
  *
  * Manages modules within the application.
+ * 
+ * @used TEventDispatcher
  *
  * @property-read Config $settings Configuration settings for the module manager.
  * @property-read Collection $list List of modules.
@@ -35,25 +37,31 @@ use Colibri\Web\Templates\PhpTemplate;
  */
 class ModuleManager extends Singleton
 {
-    /** Includes functionality of event dispatcher. */
+    /** 
+     * Includes functionality of event dispatcher.
+     */
     use TEventDispatcher;
 
     /**
      * Settings object.
      *
      * @var object
+     * @private
      */
-    private $_settings;
+    private ?object $_settings = null;
 
     /**
      * List of modules.
      *
      * @var Collection
+     * @private
      */
-    private $_list;
+    private ?Collection $_list = null;
 
     /**
      * Constructor.
+     * @constructor
+     * @public
      */
     public function __construct()
     {
@@ -65,7 +73,11 @@ class ModuleManager extends Singleton
      * Initializes the module manager.
      *
      * @return void
-     *
+     * @public
+     * @example
+     * ```
+     * ModuleManager::Instance()->Initialize();
+     * ```
      */
     public function Initialize(): void
     {
@@ -111,7 +123,11 @@ class ModuleManager extends Singleton
      *
      * @param Config $configNode Configuration node for the module.
      * @return Module|null The initialized module instance, or null if initialization fails.
-     *
+     * @public
+     * @example
+     * ```
+     * $module = ModuleManager::Instance()->InitModule($configNode);
+     * ```
      */
     public function InitModule(Config $configNode): ?Module
     {
@@ -122,7 +138,7 @@ class ModuleManager extends Singleton
             require_once($path);
         }
 
-        $className = '\\App\\Modules' . $moduleEntry;
+        $className = (string)'\\App\\Modules' . $moduleEntry;
         if (!class_exists($className)) {
             return null;
         }
@@ -138,6 +154,7 @@ class ModuleManager extends Singleton
      * @return mixed The value of the property.
      *
      * @magic
+     * @public
      */
     public function __get(string $property): mixed
     {
@@ -157,6 +174,11 @@ class ModuleManager extends Singleton
      *
      * @param string $moduleName The name of the module.
      * @return mixed The module corresponding to the provided name.
+     * @public
+     * @example
+     * ```
+     * $module = ModuleManager::Instance()->Get('ModuleName');
+     * ```
      */
     public function Get(string $moduleName): mixed
     {
@@ -168,6 +190,12 @@ class ModuleManager extends Singleton
      *
      * @param string $name The name of the module.
      * @return Config The configuration of the module.
+     * @public
+     * @example
+     * @example
+     * ```
+     * $config = ModuleManager::Instance()->Config('ModuleName');
+     * ```
      *
      */
     public function Config(string $name): Config
@@ -179,6 +207,14 @@ class ModuleManager extends Singleton
      * Retrieves the permissions of all modules.
      *
      * @return array The permissions of all modules.
+     * @public
+     * @example
+     * ```
+     * $permissions = ModuleManager::Instance()->GetPermissions();
+     * foreach ($permissions as $permission) {
+     *     echo $permission;
+     * }
+     * ```
      */
     public function GetPermissions(): array
     {
@@ -197,6 +233,14 @@ class ModuleManager extends Singleton
      * @param string $extend String to append to each path.
      * @param array|null $extendArray Additional elements to append to each path.
      * @return string[] Paths of modules.
+     * @public
+     * @example
+     * ```
+     * $paths = ModuleManager::Instance()->GetPaths('assets/', ['type' => 'css']);
+     * foreach ($paths as $path) {
+     *     echo '<link rel="stylesheet" href="' . $path['path'] . '">';
+     * }
+     * ```
      */
     public function GetPaths(string $extend = '/', ?array $extendArray = null): array
     {
@@ -204,7 +248,7 @@ class ModuleManager extends Singleton
         foreach ($this->list as $module) {
             $p = ['path' => $module->modulePath . $extend];
             if ($extendArray) {
-                $p = array_merge($p, $extendArray);
+                $p = [...$p, ...$extendArray];
             }
             $paths[] = $p;
         }
@@ -216,6 +260,14 @@ class ModuleManager extends Singleton
      *
      * @param array|null $extendArray Additional elements to append to each path.
      * @return string[] Paths of modules.
+     * @public
+     * @example
+     * ```
+     * $paths = ModuleManager::Instance()->GetPathsFromModuleConfig();
+     * foreach ($paths as $path) {
+     *     echo '<link rel="stylesheet" href="' . $path['path'] . '">';
+     * }
+     * ```
      */
     public function GetPathsFromModuleConfig(?array $extendArray = null): array
     {
@@ -231,6 +283,14 @@ class ModuleManager extends Singleton
      *
      * @param array|null $extendArray Additional elements to append to each path.
      * @return string[] Paths of modules.
+     * @public
+     * @example
+     * ```
+     * $scripts = ModuleManager::Instance()->GetExternalScriptsFromModuleConfig();
+     * foreach ($scripts as $name => $url) {
+     *     echo '<script src="' . $url . '"></script>';
+     * }
+     * ```
      */
     public function GetExternalScriptsFromModuleConfig(?array $extendArray = null): array
     {
@@ -251,6 +311,14 @@ class ModuleManager extends Singleton
      *
      * @param string $templateName The name of the template.
      * @return string[] Templates of modules.
+     * @public
+     * @example
+     * ```
+     * $templates = ModuleManager::Instance()->GetTemplates('index');
+     * foreach ($templates as $template) {
+     *     echo $template->Render();
+     * }
+     * ```
      */
     public function GetTemplates(string $templateName = 'index'): array
     {

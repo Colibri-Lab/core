@@ -24,6 +24,8 @@ class Exception extends AppException
      *
      * @param int $code The error code from ErrorCodes.
      * @param string $message Additional error message text.
+     * @constructor
+     * @public
      */
     public function __construct(int $code, string $message)
     {

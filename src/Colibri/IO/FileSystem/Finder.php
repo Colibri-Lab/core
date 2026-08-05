@@ -23,12 +23,18 @@ use Throwable;
  * Class helping to find files and directories.
  * 
  * @class
- * 
+ * @example
+ * ```
+ * $finder = new Finder();
+ * $files = $finder->Files('/path/to/folder');
+ * ```
  */
 class Finder
 {
     /**
      * Constructor
+     * @constructor
+     * @public
      */
     public function __construct()
     {
@@ -43,6 +49,12 @@ class Finder
      * @param string $sortField Field for sorting
      * @param int $sortType Sorting type
      * @return ArrayList
+     * @public
+     * @example
+     * ```
+     * $finder = new Finder();
+     * $files = $finder->Files('/path/to/folder', '/\.txt$/', 'name', SORT_ASC);
+     * ```
      */
     public function Files(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC)
     {
@@ -84,6 +96,12 @@ class Finder
      * @param string $sortField Field for sorting
      * @param int $sortType Sorting type
      * @return ArrayList
+     * @public
+     * @example
+     * ```
+     * $finder = new Finder();
+     * $files = $finder->FilesRecursive('/path/to/folder', '/\.txt$/', 'name', SORT_ASC);
+     * ```
      */
     public function FilesRecursive(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC): ArrayList
     {
@@ -116,6 +134,12 @@ class Finder
      * @param string $sortField Field for sorting
      * @param int $sortType Sorting type
      * @return ArrayList
+     * @public
+     * @example
+     * ```
+     * $finder = new Finder();
+     * $directories = $finder->Directories('/path/to/folder', 'name', SORT_ASC);
+     * ```
      */
     public function Directories(string $path, string $sortField = '', int $sortType = SORT_ASC): ArrayList
     {
@@ -148,6 +172,12 @@ class Finder
      * @param string $sortField Field for sorting
      * @param int $sortType Sorting type
      * @return ArrayList
+     * @public
+     * @example
+     * ```
+     * $finder = new Finder();
+     * $directories = $finder->DirectoriesRecursive('/path/to/folder');
+     * ```
      */
     public function DirectoriesRecursive(string $path, string $match = '/.*/', string $sortField = '', int $sortType = SORT_ASC): ArrayList
     {
@@ -195,6 +225,12 @@ class Finder
      *
      * @param string $path Path to the directory
      * @return ArrayList
+     * @public
+     * @example
+     * ```
+     * $finder = new Finder();
+     * $children = $finder->Children('/path/to/directory');
+     * ```
      */
     public function Children(string $path): ArrayList
     {

@@ -58,40 +58,52 @@ use Colibri\Utils\Debug;
  */
 class Process
 {
+    /**
+     * Indicates whether to use sudo for executing commands.
+     *
+     * @var bool
+     * @public
+     * @static
+     */
     public static bool $useSudo = false;
 
     /**
      * Process ID (PID) of the worker process.
      *
      * @var int
+     * @private
      */
-    private $_pid;
+    private int $_pid;
 
     /**
      * Worker instance to be launched.
      *
      * @var Worker
+     * @private
      */
-    private $_worker;
+    private ?Worker $_worker = null;
 
     /**
      * Indicates whether to display the command used to start the worker.
      *
      * @var bool
+     * @private
      */
-    private $_debug;
+    private bool $_debug;
 
     /**
      * Entry point for the console stream.
      *
      * @var string
+     * @private
      */
-    private $_entry;
+    private string $_entry;
 
     /**
      * Parameters for the process.
      *
      * @var object
+     * @private
      */
     private object $_params;
 
@@ -99,6 +111,7 @@ class Process
      * Key for the worker.
      *
      * @var string
+     * @private
      */
     private string $_workerKey = '';
 
@@ -107,6 +120,7 @@ class Process
      * Modify this variable if php_cli is located elsewhere on the server.
      *
      * @var string
+     * @private
      */
     private string $_handler = '/usr/bin/php';
 
@@ -117,6 +131,8 @@ class Process
      * @param bool $debug Indicates whether to display the command used to start the worker
      * @param string $entry Entry point for the console stream
      * @param int $pid Process ID (PID) of the worker process
+     * @constructor
+     * @public
      */
     public function __construct(Worker $worker, bool $debug = false, string $entry = '', $pid = 0)
     {
@@ -135,6 +151,13 @@ class Process
      * @param bool $debug Indicates whether to display the command used to start the worker
      * @param string $entry Entry point for the console stream
      * @return Process
+     * @static
+     * @public
+     * @example
+     * ```
+     * $worker = new TestWorker();
+     * $process = Process::Create($worker, false, 'entry-name');
+     * ```
      */
     public static function Create(Worker $worker, bool $debug = false, string $entry = ''): Process
     {
@@ -148,6 +171,11 @@ class Process
      *
      * @param string $handler Request handler
      * @return void
+     * @public
+     * @example
+     * ```php
+     * Process::SetHandler('/path/to/custom/php_cli');
+     * ```
      */
     public function SetHandler(string $handler): void
     {
@@ -158,6 +186,14 @@ class Process
      * Clears the results obtained from the worker.
      *
      * @return void
+     * @public
+     * @example
+     * ```
+     * $process = new Process($worker);
+     * $process->Run();
+     * /// ... some time later
+     * $process->ClearWorkerResults();
+     * ```
      */
     public function ClearWorkerResults(): void
     {
@@ -173,6 +209,14 @@ class Process
      *
      * @param bool $removeResults Indicates whether to remove the results after retrieval
      * @return ?object Results obtained from the worker
+     * @public
+     * @example
+     * ```php
+     * $process = new Process($worker);
+     * $process->Run();
+     * /// ... some time later
+     * $results = $process->GetWorkerResults();
+     * ```
      */
     public function GetWorkerResults(bool $removeResults = true): ?object
     {
@@ -193,6 +237,8 @@ class Process
      *
      * @param string $prop Property name
      * @return mixed Property value
+     * @magic
+     * @public
      */
     public function __get(string $prop): mixed
     {
@@ -222,6 +268,8 @@ class Process
      * @param string $property Property name
      * @param mixed $value Property value
      * @return void
+     * @magic
+     * @public
      */
     public function __set(string $property, mixed $value): void
     {
@@ -235,6 +283,12 @@ class Process
      *
      * @param object|null $params Parameters to pass to the process
      * @return void
+     * @public
+     * @example
+     * ```
+     * $process = new Process($worker);
+     * $process->Run((object)['param1' => 'value1', 'param2' => 'value2']);
+     * ```
      */
     public function Run(?object $params = null): void
     {
@@ -263,6 +317,17 @@ class Process
      * Checks if the worker process is running.
      *
      * @return boolean true if running, false if not
+     * @public
+     * @example
+     * ```
+     * $process = new Process($worker);
+     * $process->Run();
+     * if ($process->IsRunning()) {
+     *     echo "Process is running.";
+     * } else {
+     *     echo "Process is not running.";
+     * }
+     * ```
      */
     public function IsRunning(): bool
     {
@@ -277,6 +342,18 @@ class Process
      * Stops the worker process.
      *
      * @return bool true if stopped successfully, false if not
+     * @public
+     * @example
+     * ```
+     * $process = new Process($worker);
+     * $process->Run();
+     * /// ... some time later
+     * if ($process->Stop()) {
+     *     echo "Process stopped successfully.";
+     * } else {
+     *     echo "Failed to stop the process.";
+     * }
+     * ```
      */
     public function Stop(): bool
     {
@@ -293,6 +370,17 @@ class Process
      *
      * @param integer $pid Process ID (PID)
      * @return boolean true if running, false if not
+     * @public
+     * @static
+     * @example
+     * ```
+     * $pid = 1234; // Replace with the actual PID of the process
+     * if (Process::IsProcessRunning($pid)) {
+     *     echo "Process with PID $pid is running.";
+     * } else {
+     *     echo "Process with PID $pid is not running.";
+     * }
+     * ```
      */
     public static function IsProcessRunning(int $pid): bool
     {
@@ -305,6 +393,17 @@ class Process
      *
      * @param integer $pid Process ID (PID)
      * @return boolean true if killed, false if not
+     * @public
+     * @static
+     * @example
+     * ```
+     * $pid = 1234; // Replace with the actual PID of the process
+     * if (Process::StopProcess($pid)) {
+     *     echo "Process with PID $pid has been stopped successfully.";
+     * } else {
+     *     echo "Failed to stop the process with PID $pid.";    
+     * } 
+     * ```
      */
     public static function StopProcess(int $pid): bool
     {
@@ -322,6 +421,12 @@ class Process
      *
      * @param string $workerName Name of the worker
      * @return int|null
+     * @public
+     * @static
+     * @example
+     * ```
+     * $pid = Process::PidByWorkerName('TestWorker');
+     * ```
      */
     public static function PidByWorkerName(string $workerName): ?int
     {
@@ -355,6 +460,12 @@ class Process
      * @param bool $debug Indicates whether to display the command used to start the worker
      * @param string $entry Entry point for the console stream
      * @return Process|null
+     * @public
+     * @static
+     * @example
+     * ```
+     * $process = Process::ByWorkerName('TestWorker', true, '/path/to/entry');
+     * ```
      */
     public static function ByWorkerName(string $workerName, bool $debug = false, string $entry = ''): ?Process
     {

@@ -31,6 +31,7 @@ class FileLogger extends Logger
      * Current position in the log file.
      *
      * @var int
+     * @private
      */
     private int $_currentPos;
 
@@ -38,6 +39,7 @@ class FileLogger extends Logger
      * Indicates whether to log messages to the console as well.
      *
      * @var bool
+     * @private
      */
     private bool $_console;
 
@@ -45,6 +47,7 @@ class FileLogger extends Logger
      * The file handler.
      *
      * @var mixed
+     * @private
      */
     private mixed $_handler;
 
@@ -54,6 +57,8 @@ class FileLogger extends Logger
      * @param int $maxLogLevel The maximum log level.
      * @param mixed $device The file name.
      * @param bool $console Whether to log messages to the console as well. Default is false.
+     * @constructor
+     * @public
      */
     public function __construct(int $maxLogLevel = 7, mixed $device = '', $console = false)
     {
@@ -70,6 +75,8 @@ class FileLogger extends Logger
      *
      * @param string $prop The property name.
      * @return mixed The value of the property.
+     * @magic
+     * @public
      */
     public function __get(string $prop): mixed
     {
@@ -91,6 +98,7 @@ class FileLogger extends Logger
      * @param int $level The log level.
      * @param mixed $data The log data.
      * @return void
+     * @public
      */
     public function WriteLine(int $level, mixed $data): void
     {
@@ -134,6 +142,7 @@ class FileLogger extends Logger
      * Retrieves the content of the log file.
      *
      * @return mixed The content of the log file.
+     * @public
      */
     public function Content(): mixed
     {
@@ -145,6 +154,7 @@ class FileLogger extends Logger
      *
      * @param int $position The start position for reading.
      * @return void
+     * @public
      */
     public function Open(int $position = 0): void
     {
@@ -159,6 +169,7 @@ class FileLogger extends Logger
      * Closes the log file.
      *
      * @return void
+     * @public
      */
     public function Close(): void
     {
@@ -171,6 +182,7 @@ class FileLogger extends Logger
      * Reads the last messages in the log starting from the last read position, returning them as an array of strings.
      *
      * @return array An array of log message strings.
+     * @public
      */
     public function Read(): array
     {

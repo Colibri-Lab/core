@@ -21,11 +21,15 @@ class JobAllreadyRunningException extends \Exception
 {
     /**
      * The error code for the application error.
+     * @const int
+     * @public
      */
     public const Code = 500;
 
     /**
      * General application error message.
+     * @const string
+     * @public
      */
     public const Message = 'Job is allready running';
 }

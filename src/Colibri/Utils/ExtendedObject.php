@@ -42,6 +42,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * Contains data received during initialization.
      *
      * @var mixed
+     * @protected
      */
     protected $_original;
 
@@ -49,26 +50,35 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * Object data, properties.
      *
      * @var mixed
+     * @protected
      */
     protected $_data;
 
     /**
      * Prefix for properties, to ensure proper operation with storages.
+     * @protected
+     * @var string
      */
     protected ?string $_prefix = "";
 
     /**
      * Object change indicator.
+     * @protected
+     * @var bool
      */
     protected ?bool $_changed = false;
 
     /**
      * Change case on object keys
+     * @protected
+     * @var bool
      */
     protected ?bool $_changeKeyCase = true;
 
     /**
      * Data validation schema.
+     * @const array
+     * @public
      */
     public const JsonSchema = [
         'type' => 'object',
@@ -81,6 +91,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
     /**
      * Validation results
+     * @var ValidationResult
+     * @protected
      */
     protected ValidationResult $_validationResult;
 
@@ -91,6 +103,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param mixed $data - initialization data
      * @param string $prefix - prefix
      * @param boolean $changeKeyCase - change key case
+     * @constructor
+     * @public
      */
     public function __construct($data = null, $prefix = "", $changeKeyCase = true)
     {
@@ -124,6 +138,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
     /**
      * Destructor
+     * @destructor
+     * @public
      */
     public function __destruct()
     {
@@ -135,6 +151,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param bool $exportAsString - if true, return schema as string
      * @param array $addElements - additional elements to add to the schema
      * @return object|string - schema as object or string
+     * @public
+     * @static
      */
     public static function Schema(bool $exportAsString = false, $addElements = []): object|string
     {
@@ -153,6 +171,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
     /**
      * Cleans object
+     * @public
      */
     public function Clear()
     {
@@ -168,8 +187,9 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param mixed $data The data to set for the object.
      *
      * @return void
+     * @public
      */
-    public function SetData($data)
+    public function SetData(mixed $data)
     {
         $this->_data = $data;
         $this->_changed = true;
@@ -182,6 +202,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * for debugging or accessing the data before validation.
      *
      * @return mixed The validation data used for schema validation.
+     * @public
      */
     public function GetValidationData(): mixed
     {
@@ -198,6 +219,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param bool $throwExceptions Whether to throw a ValidationException upon failure.
      * @return bool True if the object's data is valid according to the schema, false otherwise.
      * @throws ValidationException If $throwExceptions is true and the validation fails.
+     * @public
      */
     public function Validate(bool $throwExceptions = false): bool
     {
@@ -272,6 +294,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param bool $noPrefix Whether to exclude the prefix from property names.
      * @param \Closure|null $callback A callback function to filter properties included in the array.
      * @return array An associative array representing the object's data.
+     * @public
      */
     public function ToArray(bool $noPrefix = false, ?\Closure $callback = null): array
     {
@@ -306,6 +329,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * as an object. The original data represents the state of the object before any changes.
      *
      * @return object An object containing the original data provided during initialization.
+     * @public
      */
     public function Original(bool $noPrefix = false): object
     {
@@ -321,8 +345,9 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
 
     /**
      * Resets the original data to empty object
-     * @property string $property
+     * @param string|null $property The property to reset, or null to reset all.
      * @return void
+     * @public
      */
     public function ResetOriginal(?string $property = null): void
     {
@@ -343,6 +368,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * when working with storage systems.
      *
      * @return string The prefix used for object properties.
+     * @public
      */
     public function Prefix(): string
     {
@@ -358,6 +384,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * otherwise, it returns false.
      *
      * @return bool True if the object has been changed; otherwise, false.
+     * @public
      */
     public function IsChanged(): bool
     {
@@ -374,6 +401,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string $property The name of the property to check for changes.
      * @param bool $dummy Optional. A dummy parameter to maintain method signature consistency.
      * @return bool True if the specified property has been changed; otherwise, false.
+     * @public
      */
     public function IsPropertyChanged(string $property, bool $dummy = false): bool
     {
@@ -400,6 +428,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param bool $type Optional. Determines whether to convert the data according to type conversion rules.
      *                   Defaults to true.
      * @return mixed The current data of the object.
+     * @public
      */
     public function GetData($type = true)
     {
@@ -412,6 +441,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * This method serializes the object's data into a JSON string representation.
      *
      * @return string The JSON string representing the object's data.
+     * @public
      */
     public function ToJSON(): string
     {
@@ -425,6 +455,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * It is typically used after modifying the object's data to synchronize the original and current states.
      *
      * @return void
+     * @public
      */
     public function UpdateOriginal()
     {
@@ -438,6 +469,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @param string $property The name of the property being checked.
      * @return bool Returns true if the property is set, false otherwise.
+     * @public
      */
     public function __isset($property)
     {
@@ -455,6 +487,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @param string $property The name of the property to unset.
      * @return void
+     * @public
      */
     public function __unset($property)
     {
@@ -472,6 +505,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @param string $property The name of the property to retrieve.
      * @return mixed The value of the specified property.
+     * @public
+     * @magic
      */
     public function __get(string $property): mixed
     {
@@ -502,6 +537,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string $property The name of the property to set.
      * @param mixed $value The value to assign to the property.
      * @return void
+     * @magic
+     * @public
      */
     public function __set(string $property, mixed $value): void
     {
@@ -528,6 +565,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string $property The name of the property to interact with.
      * @param mixed $value The value to assign to the property (only applicable in 'set' mode).
      * @return mixed The value of the property (in 'get' mode) or null (in 'set' mode).
+     * @protected
      */
     protected function _typeExchange(string $mode, string $property, mixed $value = null): mixed
     {
@@ -547,6 +585,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @param mixed $data The data to be converted.
      * @return mixed The converted data.
+     * @protected
      */
     protected function _typeToData(mixed $data)
     {
@@ -560,6 +599,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * It enables the use of foreach loops and other iterable operations on ExtendedObject instances.
      *
      * @return ExtendedObjectIterator An iterator for the data of the ExtendedObject.
+     * @public
      */
     public function getIterator(): ExtendedObjectIterator
     {
@@ -576,6 +616,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param mixed $value The value to set at the specified offset.
      * @return void
      * @throws InvalidArgumentException If the offset is not a string or an integer.
+     * @public
      */
     public function offsetSet($offset, $value): void
     {
@@ -593,7 +634,8 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @param string|int $offset The offset to check.
      * @return bool True if a value exists at the specified offset, false otherwise.
-     * @throws InvalidArgumentException If the offset is not a string or an integer.
+     * @throws InvalidArgumentException If the offset is not a string or an integer.4
+     * @public
      */
     public function offsetExists($offset): bool
     {
@@ -612,6 +654,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string|int $offset The offset of the value to unset.
      * @return void
      * @throws InvalidArgumentException If the offset is not a string or an integer.
+     * @public
      */
     public function offsetUnset($offset): void
     {
@@ -630,6 +673,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * @param string|int $offset The offset of the value to retrieve.
      * @return mixed|null The value at the specified offset, or null if the offset does not exist.
      * @throws InvalidArgumentException If the offset is not a string or an integer.
+     * @public
      */
     public function offsetGet($offset): mixed
     {
@@ -646,6 +690,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * to be serialized to a JSON-serializable representation using the json_encode function.
      *
      * @return array The serializable representation of the object.
+     * @public
      */
     public function jsonSerialize(): array
     {
@@ -660,6 +705,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      *
      * @param string $json The JSON-encoded string representing the object.
      * @return static The new instance of the class.
+     * @public
      */
     public static function JsonUnserialize(string $json): static
     {
@@ -672,6 +718,7 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
      * This method returns the number of elements in the object.
      *
      * @return int The number of elements in the object.
+     * @public
      */
     public function Count(): int
     {

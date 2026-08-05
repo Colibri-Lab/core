@@ -28,18 +28,36 @@ final class EventDispatcher extends Singleton
     /**
      * Array of events.
      *
-     * @var Collection
+     * @private
+     * @var ?Collection
      */
-    private $_events;
+    private ?Collection $_events = null;
 
     /**
      * Constructor.
+     * @constructor
+     * @protected
+     * @example
+     * ```
+     * $dispatcher = EventDispatcher::Instance();
+     * $dispatcher = App::$eventDispatcher; // Alternative way to access the singleton instance
+     * ```
      */
     protected function __construct()
     {
         $this->_events = new Collection();
     }
 
+    /**
+     * Clears all registered events.
+     * @public
+     * @return void
+     * @example
+     * ```
+     * $dispatcher = EventDispatcher::Instance();
+     * $dispatcher->Clear(); // Clears all registered events
+     * ```
+     */
     public function Clear(): void
     {
         $this->_events->Clear();
@@ -47,6 +65,13 @@ final class EventDispatcher extends Singleton
 
     /**
      * Disposes the object.
+     * @public
+     * @return void
+     * @example
+     * ```
+     * $dispatcher = EventDispatcher::Instance();
+     * $dispatcher->Dispose(); // Disposes the event dispatcher
+     * ```
      */
     public function Dispose(): void
     {
@@ -60,6 +85,12 @@ final class EventDispatcher extends Singleton
      * @param mixed $listener The listener function or object.
      * @param object|null $object The object associated with the listener function.
      * @return bool True if the listener was added successfully, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $dispatcher = EventDispatcher::Instance();
+     * $dispatcher->AddEventListener('myEvent', [$this, 'onMyEvent'], $this);
+     * ```
      */
     public function AddEventListener(array |string $ename, mixed $listener, ?object $object = null): bool
     {
@@ -108,6 +139,12 @@ final class EventDispatcher extends Singleton
      * @param mixed $listener The listener function or object.
      * @param object|null $object The object associated with the listener function.
      * @return bool True if the listener was removed successfully, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $dispatcher = EventDispatcher::Instance();
+     * $dispatcher->RemoveEventListener('myEvent', [$this, 'onMyEvent'], $this);
+     * ```
      */
     public function RemoveEventListener(string $ename, mixed $listener, ?object $object = null): bool
     {
@@ -143,6 +180,12 @@ final class EventDispatcher extends Singleton
      * @param mixed $args The arguments for the event handlers.
      * @param bool $async Whether to dispatch asynchronously.
      * @return object|null The result of the event dispatching.
+     * @public
+     * @example
+     * ```
+     * $dispatcher = EventDispatcher::Instance();
+     * $dispatcher->DispatchEvent('myEvent', ['arg1' => 'value1', 'arg2' => 'value2']);
+     * ```
      */
     public function Dispatch(Event $event, mixed $args = null, bool $async = false): ?object
     {
@@ -189,6 +232,12 @@ final class EventDispatcher extends Singleton
      * @param mixed $listener The listener function or object.
      * @param object|null $object The object associated with the listener function.
      * @return bool True if the event listener exists, false otherwise.
+     * @public
+     * @example
+     * ```
+     * $dispatcher = EventDispatcher::Instance();
+     * $exists = $dispatcher->HasEventListener('myEvent', [$this, 'onMyEvent'], $this);
+     * ```
      */
     public function HasEventListener(string $ename, mixed $listener, ?object $object = null): bool
     {
@@ -221,6 +270,17 @@ final class EventDispatcher extends Singleton
      *
      * @param string $ename The event name.
      * @return ArrayList|null The list of registered event listeners.
+     * @public
+     * @example
+     * ```
+     * $dispatcher = EventDispatcher::Instance();
+     * $listeners = $dispatcher->RegisteredListeners('myEvent');
+     * if ($listeners !== null) {
+     *     foreach ($listeners as $listener) {
+     *         /// Process each listener
+     *     }
+     * }    
+     * ```
      */
     public function RegisteredListeners(string $ename = ""): ?ArrayList
     {
@@ -241,4 +301,5 @@ final class EventDispatcher extends Singleton
 
         return $listeners;
     }
+    
 }

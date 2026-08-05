@@ -24,15 +24,24 @@ use Colibri\Utils\Debug;
  */
 class Request
 {
-    /** Separator */
+    /** 
+     * Separator
+     * @const string
+     * @public 
+     */
     public const Boundary = '---------------------------';
-    /** Ending */
+    /** 
+     * Ending
+     * @const string
+     * @public
+     */
     public const BoundaryEnd = '--';
 
     /**
      * Logins and passwords
      *
      * @var Credentials|null
+     * @public
      */
     public ?Credentials $credentials;
 
@@ -40,6 +49,7 @@ class Request
      * Target address
      *
      * @var string
+     * @public
      */
     public string $target;
 
@@ -47,6 +57,7 @@ class Request
      * Method
      *
      * @var string
+     * @public
      */
     public string $method = Type::Get;
 
@@ -54,6 +65,7 @@ class Request
      * Data
      *
      * @var Data|string|null
+     * @public
      */
     public mixed $postData = null;
 
@@ -61,6 +73,7 @@ class Request
      * Encryption
      *
      * @var string
+     * @public
      */
     public string $encryption = Encryption::UrlEncoded;
 
@@ -68,6 +81,7 @@ class Request
      * Separator
      *
      * @var string|null
+     * @public
      */
     public ?string $boundary = null;
 
@@ -75,6 +89,7 @@ class Request
      * Request timeout
      *
      * @var int
+     * @public
      */
     public int $timeout = 60;
 
@@ -82,6 +97,7 @@ class Request
      * Timeout in milliseconds
      *
      * @var int|null
+     * @public
      */
     public ?int $timeout_ms = null;
 
@@ -89,6 +105,7 @@ class Request
      * Asynchronous indicator
      *
      * @var bool
+     * @public
      */
     public bool $async = false;
 
@@ -96,6 +113,7 @@ class Request
      * Cookies
      *
      * @var array
+     * @public
      */
     public array $cookies = [];
 
@@ -103,6 +121,7 @@ class Request
      * Cookie file
      *
      * @var string
+     * @public
      */
     public string $cookieFile = '';
 
@@ -110,6 +129,7 @@ class Request
      * Referer
      *
      * @var string
+     * @public
      */
     public string $referer = '';
 
@@ -117,6 +137,7 @@ class Request
      * Headers
      *
      * @var array|null
+     * @public
      */
     public ?array $headers = null;
 
@@ -124,6 +145,7 @@ class Request
      * UserAgent
      *
      * @var string
+     * @public
      */
     public string $useragent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30';
 
@@ -131,6 +153,7 @@ class Request
      * Check SSL certificate
      *
      * @var bool
+     * @public
      */
     public bool $sslVerify = true;
 
@@ -138,6 +161,7 @@ class Request
      * Content Type
      *
      * @var string|null
+     * @public
      */
     public ?string $contentType = null;
 
@@ -145,6 +169,7 @@ class Request
      * SSH security level
      *
      * @var int|null
+     * @public
      */
     public ?int $sshSecurityLevel = null;
 
@@ -152,6 +177,7 @@ class Request
      * Before request handler
      *
      * @var \Closure|null
+     * @protected
      */
     protected ?\Closure $beforeRequestHandler = null;
 
@@ -159,12 +185,15 @@ class Request
      * Chunk read function
      * Function params: (Request $request, string $chunk): int
      * @var \Closure|null
+     * @protected
      */
     protected ?\Closure $writeFunction = null;
 
     /**
      * Checks if the curl module loaded
-     *
+     * 
+     * @static
+     * @private
      */
     private static function __checkWebRequest(): bool
     {
@@ -180,6 +209,8 @@ class Request
      * @param Data|string|null $postData
      * @param string $boundary
      * @throws Exception
+     * @constructor
+     * @public
      */
     public function __construct(
         string $target,
@@ -211,6 +242,7 @@ class Request
      * @param string $boundary The boundary delimiter.
      * @param mixed $files The data.
      * @return string|array
+     * @private 
      */
     private function _createMultipartRequestBody(string $boundary, mixed $files): string|array
     {
@@ -241,6 +273,7 @@ class Request
      * Constructs the POST data.
      *
      * @return string|array
+     * @private
      */
     private function _joinPostData(): string|array
     {
@@ -272,6 +305,7 @@ class Request
      * @param string $body The result body along with headers
      * @param int $header_size The size of the headers
      * @return (string|array)[] An array containing the body and headers
+     * @private
      */
     private function _parseBody(string $body, int $header_size = 0): array
     {
@@ -296,6 +330,13 @@ class Request
 
     }
 
+    /**
+     * Sets a handler function to be called before the request is executed.
+     *
+     * @param \Closure $handler The handler function. It should accept a single parameter of type Request.
+     * @return void
+     * @public
+     */
     public function WriteFunction(\Closure $handler): void
     {
         $this->writeFunction = $handler;
@@ -306,6 +347,7 @@ class Request
      *
      * @param mixed $postData The data to be posted
      * @return Result The result of the request
+     * @public
      */
     public function Execute(mixed $postData = null): Result
     {
@@ -460,6 +502,8 @@ class Request
      * @param bool $sslVerify Whether to verify SSL certificates (default is true)
      * @param array $headers Additional headers to be included in the request (default is an empty array)
      * @return Result The result of the request
+     * @static
+     * @public
      */
     public static function Get(
         string $target,

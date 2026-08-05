@@ -20,6 +20,31 @@ use JsonSerializable;
  *
  * This class implements a list of elements with array-like functionality.
  * It provides methods to manipulate and access the elements in the list.
+ * 
+ * @example 
+ * ```
+ * $array = new ArrayList([1, 2, 3]);
+ * $array->Add(4); // Adds 4 to the list
+ * $array->Delete(2); // Removes 2 from the list
+ * $array->Sort(); // Sorts the list in ascending order
+ * $firstItem = $array->First(); // Gets the first item in the list
+ * $lastItem = $array->Last(); // Gets the last item in the list
+ * $count = $array->Count(); // Gets the number of items in the list
+ * $array->Map(fn($v) => $v * 2); // Applies a function to each item in the list and returns a new ArrayList
+ * $array->Filter(fn($v) => $v > 2); // Filters the list based on a condition and returns a new ArrayList
+ * $array->Find(fn($v) => $v === 3); // Finds the first item that satisfies a condition
+ * $array->ToArray(); // Converts the ArrayList to a regular array
+ * $array->ToString(', '); // Converts the ArrayList to a string with a specified separator
+ * $array->SortByClosure(fn($a, $b) => $a <=> $b); // Sorts the list using a custom comparison function
+ * $array->Append([5, 6, 7]); // Appends an array of items to the list
+ * $array->InsertAt(9, 1); // Inserts an item at a specified index
+ * $array->Clear(); // Clears all items from the list
+ * $array->offsetSet(2, 4); // Sets an item at a specified index using ArrayAccess
+ * $array->offsetExists(2); // Checks if an index exists in the list using ArrayAccess
+ * $array->offsetUnset(1); // Removes an item at a specified index using ArrayAccess
+ * $array->offsetGet(2); // Gets an item at a specified index using ArrayAccess
+ * $array->jsonSerialize(); // Serializes the ArrayList to JSON format
+ * ```
  *
  * @implements IArrayList
  * @implements \IteratorAggregate
@@ -53,7 +78,7 @@ class ArrayList implements IArrayList, \IteratorAggregate, JsonSerializable, Arr
 
     /**
      * The internal storage for the elements of the ArrayList.
-     * @var array|null $data 
+     * @var array|null 
      * @protected
      */
     protected $data = null;

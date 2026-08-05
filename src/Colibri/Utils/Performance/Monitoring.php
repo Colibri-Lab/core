@@ -22,35 +22,57 @@ use Colibri\Utils\Logs\Logger;
  */
 class Monitoring
 {
-    /** Every time */
+    /** 
+     * Every time
+     * @const int
+     * @public
+     */
     public const EveryTimer = 0;
-    /** Only at the end of the stack */
+    /** 
+     * Only at the end of the stack
+     * @const int
+     * @public
+     */
     public const FullStackOnly = 1;
-    /** Never log */
+    /** 
+     * Never log
+     * @const int
+     * @public
+     */
     public const Never = 2;
 
     /**
-     * @var array Holds timers data
+     * Holds timers data
+     * @var array
+     * @private 
      */
     private $_timers;
 
     /**
-     * @var Logger Logger instance
+     * Logger instance
+     * @var Logger 
+     * @private
      */
     private $_logger;
 
     /**
-     * @var mixed Frequency of logging
+     * Frequency of logging
+     * @var mixed 
+     * @private
      */
     private $_logging;
 
     /**
-     * @var int Log level
+     * Log level
+     * @var int
+     * @private
      */
     private $_loglevel;
 
     /**
-     * @var mixed Additional data
+     * Additional data
+     * @var mixed 
+     * @private
      */
     private $_aditionalData;
 
@@ -61,6 +83,8 @@ class Monitoring
      * @param int $logLevel The log level
      * @param mixed $logging The logging frequency
      * @return void
+     * @constructor
+     * @public
      */
     public function __construct($logger, $logLevel = Logger::Debug, $logging = self::EveryTimer)
     {
@@ -76,6 +100,8 @@ class Monitoring
      * Destructor
      *
      * @return void
+     * @destructor
+     * @public
      */
     public function __destruct()
     {
@@ -89,8 +115,9 @@ class Monitoring
      * Collects additional data
      *
      * @return mixed
+     * @private
      */
-    private function _collectAditionalData()
+    private function _collectAditionalData(): array
     {
         return App::$request ? [
             'uri' => App::$request->host,
@@ -104,8 +131,9 @@ class Monitoring
      *
      * @param string $name The name of the timer
      * @return void
+     * @public
      */
-    public function StartTimer($name)
+    public function StartTimer(string $name)
     {
         $this->_timers[$name] = (object) [
             'start' => \microtime(true),
@@ -122,8 +150,9 @@ class Monitoring
      *
      * @param string $name The name of the timer
      * @return void
+     * @public
      */
-    public function EndTimer($name, ?\Closure $if = null)
+    public function EndTimer(string $name, ?\Closure $if = null)
     {
         $timer = $this->_timers[$name];
         $timer->end = \microtime(true);
@@ -142,8 +171,9 @@ class Monitoring
      * @param int $logLevel The log level
      * @param string|null $name The name of the timer
      * @return void
+     * @public
      */
-    public function Log($logLevel, $name = null)
+    public function Log(int $logLevel, ?string $name = null)
     {
         if ($name) {
             $timer = $this->_timers[$name];
@@ -161,8 +191,9 @@ class Monitoring
      * @param string $name The name of the timer
      * @param mixed $timer The timer data
      * @return string The log message
+     * @private
      */
-    private function _message($name, $timer)
+    private function _message(string $name, mixed $timer): string
     {
         $this->_collectAditionalData();
         return DateHelper::ToDbString(($this->_aditionalData['time'] ?? time())) . '. ' .

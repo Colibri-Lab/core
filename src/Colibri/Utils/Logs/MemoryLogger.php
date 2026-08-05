@@ -26,6 +26,8 @@ class MemoryLogger extends Logger
      *
      * @param integer $maxLogLevel
      * @param array $dummy
+     * @constructor
+     * @public
      */
     public function __construct(int $maxLogLevel = 7, mixed $dummy = [])
     {
@@ -39,6 +41,7 @@ class MemoryLogger extends Logger
      * @param int $level error level
      * @param mixed $data data
      * @return void
+     * @public
      */
     public function WriteLine(int $level, mixed $data): void
     {
@@ -61,6 +64,7 @@ class MemoryLogger extends Logger
      * Returns the content of the log file
      *
      * @return mixed
+     * @public
      */
     public function Content(): mixed
     {

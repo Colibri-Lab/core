@@ -25,6 +25,8 @@ class Manager extends Singleton
 
     /**
      * Constructor, initiates worker processing if specified.
+     * @constructor
+     * @public
      */
     public function __construct()
     {
@@ -36,6 +38,7 @@ class Manager extends Singleton
      * Initiates worker processing.
      *
      * @return void
+     * @private
      */
     private function _processWorkers(): void
     {
@@ -53,6 +56,7 @@ class Manager extends Singleton
      * @param Worker $worker The worker to be executed.
      * @param bool $debug Indicates whether to display the worker's execution command.
      * @return Process The created process.
+     * @public
      */
     public function CreateProcess(Worker $worker, bool $debug = false): Process
     {

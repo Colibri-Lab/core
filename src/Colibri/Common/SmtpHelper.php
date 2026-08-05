@@ -31,6 +31,21 @@ class SmtpHelper
      * @return void
      * @public
      * @static
+     * @example
+     * ```
+     * $config = [
+     *     'enabled' => true,
+     *     'host' => 'smtp.example.com',
+     *     'port' => 587,
+     *     'secure' => 'tls',
+     *     'user' => 'your_username',
+     *     'password' => 'your_password',
+     *     'from' => 'your_email',
+     *     'fromname' => 'Your Name'
+     * ];
+     * 
+     * SmtpHelper::Send($config, 'recipient', 'Subject', 'Body');
+     * ```
      */
     public static function Send(
         array $configArray,

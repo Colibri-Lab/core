@@ -29,6 +29,20 @@ class HtmlHelper
      * @return string The encoded data as a string.
      * @public
      * @static
+     * @example
+     * ```
+     * $data = [
+     *     'name' => 'John Doe',
+     *     'age' => 30,
+     *     'address' => [
+     *         'street' => '123 Main St',
+     *         'city' => 'Anytown',
+     *         'state' => 'CA'
+     *     ]
+     * ];
+     * $encodedData = HtmlHelper::Encode($data, 'person');
+     * echo $encodedData; // Outputs the encoded HTML representation of the data
+     * ```
      */
     public static function Encode(array|object $object, string $tag = 'object'): string
     {
@@ -56,6 +70,13 @@ class HtmlHelper
      * @return XmlNode The parsed XML data as an XmlNode object.
      * @public
      * @static
+     * @example
+     * ```
+     * $xmlString = '<person><name>John Doe</name><age>30</age></person>';
+     * $xmlNode = HtmlHelper::Decode($xmlString);
+     * echo $xmlNode->name; // Outputs: John Doe
+     * echo $xmlNode->age;  // Outputs: 30
+     * ```
      */
     public static function Decode(string $xmlString): XmlNode
     {

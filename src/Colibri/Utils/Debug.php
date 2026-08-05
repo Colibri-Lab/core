@@ -26,6 +26,8 @@ class Debug
      *
      * @param array $args The arguments to convert
      * @return array The converted arguments
+     * @public
+     * @static
      */
     private static function _createArgs($args)
     {
@@ -50,6 +52,8 @@ class Debug
      * Outputs debug information.
      *
      * @return void
+     * @public
+     * @static
      */
     public static function Out()
     {
@@ -70,6 +74,8 @@ class Debug
      * Returns debug information as a string.
      *
      * @return string The debug information
+     * @public
+     * @static
      */
     public static function ROut()
     {
@@ -81,6 +87,8 @@ class Debug
      * Prints an object in a tree-like format.
      *
      * @return void
+     * @public
+     * @static
      */
     public static function IOut()
     {

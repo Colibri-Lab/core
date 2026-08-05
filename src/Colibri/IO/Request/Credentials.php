@@ -13,13 +13,18 @@ namespace Colibri\IO\Request;
 /**
  * Credentials
  * @class
- */
+ * @example
+ * ```
+ * $credentials = new Credentials('login', 'password', true);
+ * ```
+*/
 class Credentials
 {
     /**
      * Login
      *
      * @var string
+     * @public
      */
     public string $login = '';
 
@@ -27,6 +32,7 @@ class Credentials
      * Password
      *
      * @var string
+     * @public
      */
     public string $secret = '';
 
@@ -34,6 +40,7 @@ class Credentials
      * Use SSL
      *
      * @var boolean
+     * @public
      */
     public bool $ssl = false;
 
@@ -43,6 +50,12 @@ class Credentials
      * @param string $login
      * @param string $password
      * @param boolean $ssl
+     * @constructor
+     * @public
+     * @example
+     * ```
+     * $credentials = new Credentials('login', 'password', true);
+     * ```
      */
     public function __construct(string $login = '', string $password = '', bool $ssl = false)
     {

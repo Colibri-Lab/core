@@ -29,6 +29,7 @@ class Font
      * The font name.
      *
      * @var string
+     * @private
      */
     private string $_file;
 
@@ -36,6 +37,7 @@ class Font
      * The file path.
      *
      * @var string
+     * @private
      */
     private string $_path;
 
@@ -43,6 +45,7 @@ class Font
      * The tilt angle.
      *
      * @var int
+     * @private
      */
     private int $_angle;
 
@@ -50,6 +53,7 @@ class Font
      * The font size.
      *
      * @var int
+     * @private
      */
     private int $_fontSize;
 
@@ -60,6 +64,12 @@ class Font
      * @param string $path The path to the font files.
      * @param int $fontSize The font size.
      * @param int $angle The angle of the font.
+     * @constructor
+     * @public
+     * @example 
+     * ```
+     * $font = new Font('arial.ttf', '/path/to/fonts', 14, 0);
+     * ```
      */
     public function __construct(string $fontFile, string $path = '', int $fontSize = 0, int $angle = 0)
     {
@@ -85,6 +95,17 @@ class Font
      *
      * @param string $prop The property name.
      * @return mixed The value of the property.
+     * @public
+     * @magic
+     * @example
+     * ```
+     * $font = new Font('arial.ttf', '/path/to/fonts', 14, 0);
+     * echo $font->file; // Outputs: arial.ttf
+     * echo $font->path; // Outputs: /path/to/fonts
+     * echo $font->angle; // Outputs: 0
+     * echo $font->src; // Outputs: /path/to/fonts/arial.ttf
+     * echo $font->size; // Outputs: 14
+     * ```
      */
     public function __get(string $prop): mixed
     {
@@ -122,6 +143,14 @@ class Font
      *
      * @param string $text The text to measure.
      * @return Rect The size of the text area.
+     * @public
+     * @example
+     * ```
+     * $font = new Font('arial.ttf', '/path/to/fonts', 14, 0);
+     * $rect = $font->MeasureText('Hello, World!');
+     * echo $rect->width; // Outputs the width of the text area
+     * echo $rect->height; // Outputs the height of the text area
+     * ```
      */
     public function MeasureText(string $text): Rect
     {
@@ -150,6 +179,18 @@ class Font
      * @param Point $startAt The starting point for the text.
      * @param Size $size The size of the area.
      * @return void
+     * @public
+     * @example
+     * ```
+     * $font = new Font('arial.ttf', '/path/to/fonts', 14, 0);
+     * $startAt = new Point();
+     * $size = new Size();
+     * $font->InscribeText('Hello, World!', $startAt, $size);
+     * echo $startAt->x; // Outputs the starting X coordinate
+     * echo $startAt->y; // Outputs the starting Y coordinate
+     * echo $size->width; // Outputs the width of the inscribed text area
+     * echo $size->height; // Outputs the height of the inscribed text area
+     * ```
      */
     public function InscribeText(string $text, Point &$startAt, Size &$size)
     {
