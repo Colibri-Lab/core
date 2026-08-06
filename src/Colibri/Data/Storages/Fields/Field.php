@@ -73,10 +73,10 @@ class Field
 
     /**
      * Formula
-     * @var string
+     * @var ?string
      * @private
      */
-    private string $_formula;
+    private ?string $_formula;
 
     /**
      * Parent field
