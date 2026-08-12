@@ -57,6 +57,13 @@ class [[table-class-name]] extends BaseModelDataTable
      * @return [[table-class-name]]
      * @public
      * @static
+     * @example
+     * ```
+     *     $table = [[table-class-name]]::LoadByFilter(1, 20, '{field}=[[fieldName:string]]', ['fieldName' => 'field value']);
+     *     if($table && $table->Count() > 0) {
+     *        /// cycle the table to get rows
+     *     }
+     * ```
      */
     public static function LoadByFilter(
         int $page = -1, 
@@ -82,6 +89,14 @@ class [[table-class-name]] extends BaseModelDataTable
      * @return ?[[table-class-name]]
      * @public
      * @static
+     * @example
+     * ```
+     *     /// get the rows contains search term in last day
+     *     $table = [[table-class-name]]::LoadBy(1, 20, 'search term', ['datecreated' => [DateHelper::ToDbString(time()), DateHelper::ToDbString(time() - 86400)]]);
+     *     if($table && $table->Count() > 0) {
+     *        /// cycle the table to get rows
+     *     }
+     * ```
      */
     public static function LoadBy(
         int $page = -1, 
@@ -105,6 +120,14 @@ class [[table-class-name]] extends BaseModelDataTable
      * @return [[table-class-name]] 
      * @public
      * @static
+     * @example
+     * ```
+     *     /// get the rows not filtered
+     *     $table = [[table-class-name]]::LoadAll(1, 20);
+     *     if($table && $table->Count() > 0) {
+     *        /// cycle the table to get rows
+     *     }
+     * ```
      */
     public static function LoadAll(
         int $page = -1, 
@@ -121,6 +144,14 @@ class [[table-class-name]] extends BaseModelDataTable
      * @return [[row-class-name]]|null
      * @public
      * @static
+     * @example
+     * ```
+     *     /// get the rows not filtered
+     *     $row = [[table-class-name]]::LoadById(1);
+     *     if($row) {
+     *        /// do something with row
+     *     }
+     * ```
      */
     public static function LoadById(int $id) : [[row-class-name]]|null 
     {
@@ -133,6 +164,12 @@ class [[table-class-name]] extends BaseModelDataTable
      * @return [[row-class-name]]
      * @public
      * @static
+     * @example
+     * ```
+     *     /// create empty row
+     *     $row = [[table-class-name]]::LoadEmpty(1);
+     *     /// do something with row
+     * ```
      */
     public static function LoadEmpty() : [[row-class-name]]
     {
@@ -146,6 +183,11 @@ class [[table-class-name]] extends BaseModelDataTable
      * @return bool
      * @public
      * @static
+     * @example
+     * ```
+     *     /// delete rows with id 1, 2, 3, 4
+     *     $return = [[table-class-name]]::DeleteAllByIds([1, 2, 3, 4]);
+     * ```
      */
     public static function DeleteAllByIds(array $ids): bool
     {
@@ -158,6 +200,11 @@ class [[table-class-name]] extends BaseModelDataTable
      * @return bool
      * @public
      * @static
+     * @example
+     * ```
+     *     /// restore rows with id 1, 2, 3, 4 if soft-deletes enabled in storage
+     *     $return = [[table-class-name]]::RestoreAllByIds([1, 2, 3, 4]);
+     * ```
      */
     public static function RestoreAllByIds(array $ids): bool
     {
@@ -171,6 +218,11 @@ class [[table-class-name]] extends BaseModelDataTable
      * @return bool
      * @public
      * @static
+     * @example
+     * ```
+     *     /// delete all rows where field equals test
+     *     $return = [[table-class-name]]::DeleteAllByFilter('{field}=\'test\'');
+     * ```
      */
     public static function DeleteAllByFilter(string $filter): bool
     {

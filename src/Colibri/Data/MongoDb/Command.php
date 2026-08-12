@@ -62,10 +62,11 @@ final class Command extends NoSqlCommand
      * @return ICommandResult The command result.
      * @public
      * @static
+     * @suppress PHP0416
      */
     public static function Execute(IConnection $connection, string $type, string $command, array $arguments): ICommandResult
     {
-        $url = 'http://' . $connection->info->host . ':' . $connection->info->port . '/MongoDb' . $command;
+        $url = 'http://' . $connection->{'info'}->host . ':' . $connection->{'info'}->port . '/MongoDb' . $command;
         if($type === 'get') {
             $url = StringHelper::AddToQueryString($url, [
                 'wt' => 'json',
@@ -154,6 +155,7 @@ final class Command extends NoSqlCommand
      * @param object $document The document to insert.
      * @return CommandResult The result of the insert operation.
      * @public
+     * @suppress PHP0413
      */
     public function InsertDocument(string $collectionName, object $document): CommandResult
     {
@@ -211,6 +213,7 @@ final class Command extends NoSqlCommand
      * @param object $partOfDocument The partial document with updated fields.
      * @return CommandResult The result of the update operation.
      * @public
+     * @suppress PHP0413
      */
     public function UpdateDocument(string $collectionName, int $id, object $partOfDocument): CommandResult
     {
@@ -242,6 +245,7 @@ final class Command extends NoSqlCommand
      * @param array $filter The filter criteria for selecting documents to update.
      * @param array $update The update operations to apply to the selected documents.
      * @return CommandResult The result of the update operation.
+     * @suppress PHP0413
      * @public
      */
     public function UpdateDocuments(string $collectionName, array $filter, array $update): CommandResult
@@ -271,6 +275,7 @@ final class Command extends NoSqlCommand
      * @param string $collectionName The name of the collection.
      * @param array $filter The filter criteria for selecting documents to delete.
      * @return CommandResult The result of the delete operation.
+     * @suppress PHP0413
      * @public
      */
     public function DeleteDocuments(string $collectionName, array $filter): CommandResult
@@ -305,6 +310,7 @@ final class Command extends NoSqlCommand
      * @param int $page
      * @param int $pagesize
      * @return \Colibri\Data\Solr\CommandResult
+     * @suppress PHP0413
      * @public
      */
     public function SelectDocuments(string $collectionName, ?array $select = null, ?array $filters = null, ?array $faset = null, ?array $fields = null, ?array $sort = null, int $page = -1, int $pagesize = 20): CommandResult

@@ -70,6 +70,12 @@ class [[row-class-name]] extends BaseModelDataRow
      * @return [[row-class-name]] loaded or created model
      * @public
      * @static
+     * @example
+     * ```
+     *    $rowId = 1;
+     *    $row = [[row-class-name]]::Create($rowId);
+     *    /// $row is a [[row-class-name]] representing a item in storage
+     * ```
      */
     public static function Create(?int $id = null): [[row-class-name]]
     {

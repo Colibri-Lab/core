@@ -30,6 +30,42 @@ use Countable;
  * @implements Countable
  * @implements ArrayAccess
  * @implements \IteratorAggregate 
+ * @example
+ * ```
+ * /// In this example shows how to create a model classes to use DataCollection class
+ * class User extends DataRow {
+ *     public function __construct(DataCollection $collection, array|object $data) {
+ *         parent::__construct($collection, $data);
+ *     }
+ *     /// some other methods and properties (get/set)
+ * }
+ * class Users extends DataCollection {
+ *     public function __construct(DataAccessPoint $point, ?ICommandResult $result = null) {
+ *         parent::__construct($point, $result, User::class);
+ *     }
+ *     
+ *       public static function LoadByFilter(
+ *           int $page = -1,
+ *           int $pagesize = 20,
+ *           string $filter = null,
+ *           string $order = null,
+ *           array $params = [],
+ *           bool $calculateAffected = true
+ *       ): ?Users {
+ *           $storage = Storages::Instance()->Load('users', 'security');
+ *           return parent::_loadByFilter($storage, $page, $pagesize, $filter, $order, $params, $calculateAffected);
+ *       }
+ *       /// other static methods for load a collection from storage  
+ * }
+ * 
+ * $users = Users::LoadByFilter(1, 20, 'name like [[name:string]]', 'name asc', ['name' => '%John%']);
+ * if($users && $users->Count() > 0) {
+ *    foreach($users as $user) {
+ *       /// do something with $user
+ *    }
+ * }
+ * 
+ * ```
  */
 class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
 {
@@ -99,18 +135,24 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @param DataAccessPoint|string $point
      * @param string $returnAs
-     * @return DataTable
+     * @return DataCollection
      * @public
      * @static
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('default');
+     * $dataCollection = DataCollection::Create($accessPoint, 'User')
+     * $dataCollection->Load('SELECT * FROM users'); /// User is a model class that extends DataRow
+     * ```
      */
     public static function Create(
         DataAccessPoint|string $point,
         string $returnAs = 'Colibri\\Data\\Models\\DataRow'
-    ): DataTable {
+    ): DataCollection {
         if (is_string($point)) {
             $point = App::$dataAccessPoints->Get($point);
         }
-        return new DataTable($point, null, $returnAs);
+        return new DataCollection($point, null, $returnAs);
     }
 
     /**
@@ -118,6 +160,13 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return DataTableIterator
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User')->Load($reader);
+     * foreach ($dataCollection as $user) { // $user is an instance of User class, $dataCollection->getIterator() called when you use foreach
+     *     /// do something with $user
+     * }
+     * ```
      */
     public function getIterator(): DataTableIterator
     {
@@ -131,6 +180,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param array $params (optional) An associative array of parameters to bind to the query. Default is an empty array.
      * @return self
      * @public
+     * @example
+     * ```
+     * $accessPoint = App::$dataAccessPoints->Get('default');
+     * $dataCollection = DataCollection::Create($accessPoint, 'User')
+     * $dataCollection->Load('SELECT * FROM users'); /// User is a model class that extends DataRow
+     * ```
      */
     public function Load(mixed $query, array $params = []): self
     {
@@ -144,6 +199,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return int The number of rows in the DataTable.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $count = $dataCollection->Count(); // Get the number of rows in the DataTable
+     * ```
      */
     public function Count(): int
     {
@@ -155,6 +216,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return int|null The number of affected rows, or null if not available.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users', ['params' => ['page' => 1, 'pagesize' => 20]]); // Load the data into the collection
+     * $affected = $dataCollection->Affected(); // The real number of affected rows by the returned by query without pagesize limit
+     * ```
      */
     public function Affected(): ?int
     {
@@ -166,6 +233,16 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return bool True if the DataTable has rows, false otherwise.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * if ($dataCollection->HasRows()) {
+     *     /// The DataTable has rows, do something with the data
+     * } else {
+     *     /// The DataTable is empty, handle accordingly
+     * }
+     * ```
      */
     public function HasRows(): bool
     {
@@ -177,6 +254,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return array An array containing the field names of the DataTable.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $fields = $dataCollection->Fields(); // Get the field names of the DataTable
+     * ```
      */
     public function Fields(): array
     {
@@ -190,6 +273,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return DataAccessPoint|null The data access point associated with the DataTable, or null if not set.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $point = $dataCollection->Point(); // Get the data access point associated with the DataTable
+     * ```
      */
     public function Point(): ?DataAccessPoint
     {
@@ -202,6 +291,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param mixed $result The result data to create a DataRow object from.
      * @return mixed A DataRow object created from the given result, or null if creation fails.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $row = $dataCollection->CreateEmptyRow(['name' => 'John Doe', 'email' => 'email to search']);
+     * ```
      */
     protected function _createDataRowObject(mixed $result): mixed
     {
@@ -225,6 +320,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $index The index of the item to retrieve.
      * @return mixed The item at the specified index, or null if the index is out of range.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $item = $dataCollection->Item(0); // Get the first item from the data source
+     * ```
      */
     public function Item(int $index): mixed
     {
@@ -236,6 +337,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return mixed The first item from the data table, or null if the collection is empty.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $firstItem = $dataCollection->First(); // Get the first item from the data table
+     * ```
      */
     public function First(): mixed
     {
@@ -248,6 +355,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param object|array $data (optional) Initial data to populate the row object. Default is an empty array.
      * @return mixed The created empty row object, or null if creation fails.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $emptyRow = $dataCollection->CreateEmptyRow(['name' => 'John Doe', 'email' => 'email to search']); // Create an empty row object with initial data
+     * ```
      */
     public function CreateEmptyRow(object|array $data = []): mixed
     {
@@ -263,6 +376,20 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @return ICommandResult|bool A QueryInfo object containing information about the executed query,
      *                        or boolean true if successful, false otherwise.
      * @public
+     * @example
+     * ```  
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $row = $dataCollection->CreateEmptyRow(['name' => 'John Doe', 'email' => 'email to search']); // Create an empty row object with initial data
+     * $result = $dataCollection->SaveRow($row, 'id', true); // Save the DataRow to the data source
+     * if ($result instanceof ICommandResult) {
+     *     /// Handle the result of the save operation
+     * } elseif ($result === true) {
+     *     /// Save operation was successful
+     * } else {
+     *     /// Save operation failed
+     * }
+     * ```
      */
     public function SaveRow(DataRow $row, string $idField = 'id', ?bool $convert = true): ICommandResult|bool
     {
@@ -307,6 +434,19 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param DataRow $row The DataRow object to be deleted.
      * @return ICommandResult|QueryInfo A QueryInfo object containing information about the executed delete query.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the  collection  
+     * $row = $dataCollection->Item(0); // Get the first item from the data source
+     * $result = $dataCollection->DeleteRow($row, 'id'); // Delete the DataRow from the data source
+     * if ($result instanceof ICommandResult) {
+     *     /// Handle the result of the delete operation
+     * } else {
+     *     /// Delete operation failed
+     * }
+     * ```
+     * @throws DataModelException If the DataRow does not have an auto-increment field
      */
     public function DeleteRow(DataRow $row, $idField = 'id'): ICommandResult|QueryInfo
     {
@@ -323,6 +463,13 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param ExtendedObject $data The data to set.
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $row = $dataCollection->CreateEmptyRow(['name' => 'John Doe', 'email' => 'email to search']); // Create an empty row object with initial data
+     * $dataCollection->Set(0, $row); // Set the data at index 0 in the data table cache
+     * ```
      */
     public function Set(int $index, ExtendedObject $data): void
     {
@@ -335,6 +482,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param bool $noPrefix (optional) Whether to exclude the prefix from keys. Default is false.
      * @return array An array representation of the collection.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $arrayRepresentation = $dataCollection->ToArray(); // Convert the data table to an array representation
+     * ```
      */
     public function ToArray(bool $noPrefix = false): array
     {
@@ -351,6 +504,13 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param array $fields fields to unpluck from row
      * @return array An array representation of the collection.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $unpluckedRows = $dataCollection->Unpluck(['name', 'email']); // Unpluck the 'name' and 'email' fields from the data table and return an array containing the unplucked rows
+     * ```
+     * @throws DataModelException If the specified fields do not exist in the data table.
      */
     public function Unpluck(array $fields): array
     {
@@ -366,10 +526,18 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
     }
 
     /**
-     * Saves all DataRow objects in the data table to the data source.
-     *
+     * Saves all DataRow objects in the data table to the data source.*
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * foreach ($dataCollection as $user) {
+     *     $user->name = 'Updated Name'; // Modify the name property of each User object
+     * }
+     * $dataCollection->SaveAllRows(); // Save all modified DataRow objects to the data source
+     * ```
      */
     public function SaveAllRows(): void
     {
@@ -383,6 +551,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $dataCollection->DeleteAllRows(); // Delete all rows from the data source
+     * ```
      */
     public function DeleteAllRows(): void
     {
@@ -396,6 +570,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $dataCollection->Clear(); // Clear the data table, removing all elements
+     * ```
      */
     public function Clear(): void
     {
@@ -408,6 +588,14 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param DataRow $value The value to set.
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $row = $dataCollection->CreateEmptyRow(['name' => 'John Doe', 'email' => 'email to search']); // Create an empty row object with initial data
+     * $dataCollection->Set(0, $row); // Set the data at index 0 in the data table cache
+     * ```
+     * @throws DataModelException If the value is not an instance of DataRow.
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -423,6 +611,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $offset The index to check for data.
      * @return bool True if data exists at the index, false otherwise.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $exists = $dataCollection->offsetExists(0); // Check if data exists at index 0
+     * ```
      */
     public function offsetExists(mixed $offset): bool
     {
@@ -434,6 +628,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $offset The index of the data to remove.
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $dataCollection->offsetUnset(0); // Remove data at index 0
+     * ```
      */
     public function offsetUnset(mixed $offset): void
     {
@@ -445,6 +645,12 @@ class DataCollection implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $offset The index of the value to retrieve.
      * @return DataRow The value at the specified index.
      * @public
+     * @example
+     * ```
+     * $dataCollection = DataCollection::Create($accessPoint, 'User');
+     * $dataCollection->Load('SELECT * FROM users'); // Load the data into the collection
+     * $item = $dataCollection->offsetGet(0); // Retrieve the value at index 0
+     * ```
      */
     public function offsetGet(mixed $offset): mixed
     {

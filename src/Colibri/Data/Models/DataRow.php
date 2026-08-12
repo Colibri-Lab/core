@@ -26,7 +26,13 @@ use Colibri\Common\Encoding;
  * @property array $properties
  * @property bool $changed
  * @property-read DataTable|DataCollection|null $table
+ * @property-read DataRow|null $lookupParent
  * @property int $id
+ * @example
+ * ```
+ * $dataTable = DataTable::Create($accessPoint, 'User');
+ * $dataRow = $dataTable->CreateEmptyRow(); // Create an empty row object with initial data
+ * ```
  */
 class DataRow extends ExtendedObject
 {
@@ -41,7 +47,7 @@ class DataRow extends ExtendedObject
     /**
      * Constructor
      *
-     * @param DataTable $table
+     * @param DataTable|DataCollection $table
      * @param mixed $data
      * @param string $tablePrefix
      * @constructor
@@ -119,6 +125,11 @@ class DataRow extends ExtendedObject
      *
      * @return ExtendedObject A new instance of ExtendedObject with copied data.
      * @public
+     * @example
+     * ```
+     * $dataRow = new DataRow($dataTable, $data);
+     * $extendedObject = $dataRow->CopyToObject(); // Create an ExtendedObject with copied data
+     * ```
      */
     public function CopyToObject(): ExtendedObject
     {
@@ -135,6 +146,11 @@ class DataRow extends ExtendedObject
      *
      * @return string The data type (e.g., 'string', 'int', 'bool', etc.) of the property.
      * @public
+     * @example
+     * ```
+     * $dataRow = new DataRow($dataTable, $data);
+     * $propertyType = $dataRow->Type('name'); // Get the type of the 'name' property
+     * ```
      */
     public function Type(string $property): string
     {
@@ -154,6 +170,12 @@ class DataRow extends ExtendedObject
      * @param bool $convertData (optional) Whether to convert data before comparison. Default is false.
      * @return bool True if the property has been changed, false otherwise.
      * @public
+     * @example
+     * ```
+     * $dataRow = new DataRow($dataTable, $data);
+     * /// some mutation operations
+     * $isChanged = $dataRow->IsPropertyChanged('name'); // Check if the 'name' property has been changed
+     * ```
      */
     public function IsPropertyChanged(string $property, bool $convertData = false): bool
     {

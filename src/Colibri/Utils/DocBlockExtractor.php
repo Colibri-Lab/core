@@ -229,10 +229,12 @@ class DocBlockExtractor
                 if(\in_array('global', $tagNames, true)) {
                     $global[$functionName] = $this->buildMethodInfo($parsed, false, false, false);
                     $global[$functionName]['path'] = '/'.str_replace(App::$appRoot, '', $this->_path);
+                    $global[$functionName]['type'] = 'method';
                 }
                 if(\in_array('prototypeof', $tagNames, true)) {
                     $method = $this->buildMethodInfo($parsed, false, false, false);
                     $method['path'] = '/'.str_replace(App::$appRoot, '', $this->_path);
+                    $method['type'] = 'method';
                     $prototyped[$method['prototypeof']][$functionName] = $method;
                 }
 

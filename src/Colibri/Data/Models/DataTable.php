@@ -33,6 +33,13 @@ use Colibri\Data\NoSqlClient\ICommandResult;
  * @implements Countable
  * @implements ArrayAccess
  * @implements \IteratorAggregate
+ * @example
+ * ```
+ * $dataTable = DataTable::Create($accessPoint, 'User');
+ * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+ * $count = $dataTable->Count(); // Get the number of rows in the table
+ * $firstRow = $dataTable->First(); // Get the first row from the table
+ * ```
  */
 class DataTable implements Countable, ArrayAccess, \IteratorAggregate
 {
@@ -97,6 +104,11 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return DataTable
      * @public
      * @static
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User'); // Load the data into the table
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * ```
      */
     public static function Create(
         DataAccessPoint|string $point,
@@ -113,6 +125,14 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return DataTableIterator
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * foreach ($dataTable as $row) { // Iterate through each row in the data table
+     *     /// Process each row
+     * }
+     * ```
      */
     public function getIterator(): DataTableIterator
     {
@@ -126,6 +146,11 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param array $params (optional) An associative array of parameters to bind to the query. Default is an empty array.
      * @return self
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users WHERE status = [[status:string]]', ['status' => 'active']); // Load active users into the data table
+     * ```
      */
     public function Load(string $query, array $params = []): self
     {
@@ -167,6 +192,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return int The number of rows in the DataTable.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $rowCount = $dataTable->Count(); // Get the number of rows in the data table
+     * ```
      */
     public function Count(): int
     {
@@ -178,6 +209,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return int|null The number of affected rows, or null if not available.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $affectedRows = $dataTable->Affected(); // Get the number of affected rows by the last operation
+     * ```
      */
     public function Affected(): ?int
     {
@@ -189,6 +226,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return bool True if the DataTable has rows, false otherwise.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $hasRows = $dataTable->HasRows(); // Check if the data table has any rows
+     * ```
      */
     public function HasRows(): bool
     {
@@ -200,6 +243,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return array An array containing the field names of the DataTable.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $fields = $dataTable->Fields(); // Get the field names of the data table
+     * ```
      */
     public function Fields(): array
     {
@@ -211,6 +260,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return DataAccessPoint|null The data access point associated with the DataTable, or null if not set.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $point = $dataTable->Point(); // Get the data access point associated with the data table
+     * ```
      */
     public function Point(): ?DataAccessPoint
     {
@@ -274,6 +329,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $index The index of the item to retrieve.
      * @return mixed The item at the specified index, or null if the index is out of range.
      * @public
+     * @example 
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $firstItem = $dataTable->Item(0); // Get the first item from the data table
+     * ```
      */
     public function Item(int $index): mixed
     {
@@ -289,6 +350,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return mixed The first item from the data table, or null if the collection is empty.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $firstItem = $dataTable->First(); // Get the first item from the data table
+     * ```
      */
     public function First(): mixed
     {
@@ -301,6 +368,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param bool $closeReader (optional) Whether to close the reader after caching. Default is true.
      * @return mixed The cached data, or null if caching fails.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $cachedData = $dataTable->CacheAll(); // Cache all data from the data table
+     * ```
      */
     public function CacheAll(bool $closeReader = true): mixed
     {
@@ -317,6 +390,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param object|array $data (optional) Initial data to populate the row object. Default is an empty array.
      * @return mixed The created empty row object, or null if creation fails.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $emptyRow = $dataTable->CreateEmptyRow(); // Create an empty row object
+     * ```
      */
     public function CreateEmptyRow(object|array $data = []): mixed
     {
@@ -352,6 +431,13 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @return QueryInfo|bool A QueryInfo object containing information about the executed query,
      *                        or boolean true if successful, false otherwise.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $firstItem = $dataTable->First(); // Get the first item from the data table
+     * $dataTable->SaveRow($firstItem); // Save the first item back to the data table
+     * ```
      */
     public function SaveRow(DataRow $row, ?string $idField = null, ?bool $convert = true): QueryInfo|bool
     {
@@ -448,6 +534,13 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param DataRow $row The DataRow object to be deleted.
      * @return QueryInfo A QueryInfo object containing information about the executed delete query.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $firstItem = $dataTable->First(); // Get the first item from the data table
+     * $dataTable->DeleteRow($firstItem); // Delete the first item from the data table
+     * ```
      */
     public function DeleteRow(DataRow $row): QueryInfo|ICommandResult|bool
     {
@@ -488,6 +581,13 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param ExtendedObject $data The data to set.
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $newData = new ExtendedObject(['name' => 'John Doe', 'email' => 'john.doe@example.com']);
+     * $dataTable->Set(0, $newData); // Set the new data at the specified index
+     * ```
      */
     public function Set(int $index, ExtendedObject $data): void
     {
@@ -500,6 +600,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param bool $noPrefix (optional) Whether to exclude the prefix from keys. Default is false.
      * @return array An array representation of the collection.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $arrayRepresentation = $dataTable->ToArray(); // Convert the data table to an array
+     * ```
      */
     public function ToArray(bool $noPrefix = false): array
     {
@@ -516,6 +622,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param array $fields fields to unpluck from row
      * @return array An array representation of the collection.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $unpluckedData = $dataTable->Unpluck(['name', 'email']); // Unpluck the specified fields from the data table
+     * ```
      */
     public function Unpluck(array $fields): array
     {
@@ -535,6 +647,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $dataTable->SaveAllRows(); // Save all rows in the data table
+     * ```
      */
     public function SaveAllRows(): void
     {
@@ -548,6 +666,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $dataTable->DeleteAllRows(); // Delete all rows from the data table
+     * ```
      */
     public function DeleteAllRows(): void
     {
@@ -561,6 +685,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      *
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $dataTable->Clear(); // Clear the data table, removing all elements
+     * ```
      */
     public function Clear(): void
     {
@@ -584,6 +714,13 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param DataRow $value The value to set.
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $newData = new DataRow($dataTable, ['name' => 'John Doe', 'email' => 'john.doe@example.com']);
+     * $dataTable[0] = $newData; // Add the new data row to the data table
+     * ```
      */
     public function offsetSet(mixed $offset, mixed $value): void
     {
@@ -599,6 +736,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $offset The index to check for data.
      * @return bool True if data exists at the index, false otherwise.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $exists = isset($dataTable[0]); // Check if data exists at the specified index
+     * ```
      */
     public function offsetExists(mixed $offset): bool
     {
@@ -610,6 +753,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $offset The index of the data to remove.
      * @return void
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * unset($dataTable[0]); // Remove data at the specified index from the data table
+     * ```
      */
     public function offsetUnset(mixed $offset): void
     {
@@ -621,6 +770,12 @@ class DataTable implements Countable, ArrayAccess, \IteratorAggregate
      * @param int $offset The index of the value to retrieve.
      * @return DataRow The value at the specified index.
      * @public
+     * @example
+     * ```
+     * $dataTable = DataTable::Create($accessPoint, 'User');
+     * $dataTable->Load('SELECT * FROM users'); // Load the data into the table
+     * $value = $dataTable[0]; // Retrieve the value at the specified index from the data table
+     * ```  
      */
     public function offsetGet(mixed $offset): mixed
     {
