@@ -78,10 +78,10 @@ class DocBlockExtractor
             if(\in_array('ignore', $tagNames, true)) {
                 return null;
             }
-            
-            $tags = VariableHelper::ConvertToAssociative(array_map(fn($t) => ['tag' => $t['tag'], 'raw' => trim(str_replace(':', '', $t['raw']), " \t\n\r\0\x0B ")], $parsed['tags']), 'tag', 'raw');
 
-            if(\in_array('namespace', $tagNames, true)) {
+            $tags = VariableHelper::ConvertToAssociative(array_map(fn ($t) => ['tag' => $t['tag'], 'raw' => trim(str_replace(':', '', $t['raw']), " \t\n\r\0\x0B ")], $parsed['tags']), 'tag', 'raw');
+
+            if(\in_array('namespace', $tagNames, true) && !\in_array('class', $tagNames, true)) {
                 return null;
             }
             if(\in_array('icons', $tagNames, true)) {
@@ -215,7 +215,7 @@ class DocBlockExtractor
 
         if(empty($classCandidates) && empty($enumCandidates) && empty($interfaceCandidates) && empty($traitCandidates)) {
             // this may be a file with only functions, but no class/enum/interface/trait
-            
+
             $prototyped = [];
             $global = [];
             foreach($blocks as $block) {
@@ -224,24 +224,27 @@ class DocBlockExtractor
                 if(\in_array('ignore', $tagNames, true)) {
                     return null;
                 }
-                
+
                 $functionName = $this->peekFunctionName($block['after']);
                 if(\in_array('global', $tagNames, true)) {
                     $global[$functionName] = $this->buildMethodInfo($parsed, false, false, false);
                     $global[$functionName]['path'] = '/'.str_replace(App::$appRoot, '', $this->_path);
-                    $global[$functionName]['type'] = 'method';
+                    $global[$functionName]['__type'] = 'global-method';
                 }
                 if(\in_array('prototypeof', $tagNames, true)) {
                     $method = $this->buildMethodInfo($parsed, false, false, false);
                     $method['path'] = '/'.str_replace(App::$appRoot, '', $this->_path);
-                    $method['type'] = 'method';
+                    $method['__type'] = 'prototyped-method';
+                    if(!isset($prototyped[$method['prototypeof']])) {
+                        $prototyped[$method['prototypeof']] = [];
+                    }
                     $prototyped[$method['prototypeof']][$functionName] = $method;
                 }
 
             }
-            
+
             if(empty($global) && empty($prototyped)) {
-                return null; 
+                return null;
                 // [
                 //     'error' => 'Не найден докблок класса/enum/interface/trait (тег @class/@enum/@interface/@trait).',
                 // ];
@@ -284,6 +287,7 @@ class DocBlockExtractor
             } else {
                 $properties[$name] = $info;
             }
+            $properties[$name]['__type'] = 'property';
         }
 
         $consts = [];
@@ -293,6 +297,7 @@ class DocBlockExtractor
             } else {
                 $consts[$name] = $info;
             }
+            $consts[$name]['__type'] = 'const';
         }
 
         $methods = $virtualMethods;
@@ -302,15 +307,17 @@ class DocBlockExtractor
             }
             $methods[$mb['name']] = $this->buildMethodInfo($mb['parsed'], $mb['magic']);
             $methods[$mb['name']]['tags'] = $mb['tags'];
+            $methods[$mb['name']]['__type'] = 'method';
         }
 
         if($constructor) {
             $constructor = $this->buildMethodInfo($constructor['parsed'], false, true, false);
             $constructor['tags'] = $constructor['tags'] ?? [];
+            $constructor['__type'] = 'method';
         }
         if($destructor) {
             $destructor = $this->buildMethodInfo($destructor['parsed'], false, false, true);
-            $destructor['tags'] = $destructor['tags'] ?? [];
+            $destructor['__type'] = 'method';
         }
 
         $namespace = StringHelper::Explode($namespace, ['\\', '.']);
@@ -318,21 +325,21 @@ class DocBlockExtractor
         $cmd = '$return';
         $return = [];
         foreach ($namespace as $ns) {
-            $run[] = $cmd . '[\''.$ns.'\'] = [];';
-            $cmd = $cmd . '[\''.$ns.'\']';
+            $run[] = (string)$cmd . '[\''.$ns.'\'] = [];';
+            $cmd = (string)$cmd . '[\''.$ns.'\']';
         }
         foreach($run as $c) {
             eval($c);
         }
 
 
-        $cmd = $cmd . '[\''.$className.'\'] = [
-            \'type\'        => \''.(match(true) {
-                !empty($enumCandidates) => 'enum',
-                !empty($interfaceCandidates) => 'interface',
-                !empty($traitCandidates) => 'trait',
-                default => 'class'
-            }).'\',
+        $cmd = (string)$cmd . '[\''.$className.'\'] = [
+            \'__type\'        => \''.(match(true) {
+            !empty($enumCandidates) => 'enum',
+            !empty($interfaceCandidates) => 'interface',
+            !empty($traitCandidates) => 'trait',
+            default => 'class'
+        }).'\',
             \'information\' => $information,
             \'constructor\' => $constructor,
             \'destructor\'  => $destructor,
@@ -340,7 +347,7 @@ class DocBlockExtractor
             \'methods\'     => $methods,
             \'consts\'      => $consts,
             \'tags\'        => $tags,
-        ];'; 
+        ];';
         eval($cmd);
 
 
@@ -446,6 +453,7 @@ class DocBlockExtractor
             'final'       => false,
             'memberof'    => null,
             'example'     => null,
+            'namespace'   => false,
             'used'        => [],
         ];
 
@@ -457,6 +465,9 @@ class DocBlockExtractor
             $raw = $tag['raw'];
 
             switch ($name) {
+                case 'namespace':
+                    $information['namespace'] = true;
+                    break;
                 case 'extends':
                     if ($raw !== '') {
                         $information['extends'] = $this->resolveClassName($raw, $useMap);
@@ -470,7 +481,7 @@ class DocBlockExtractor
                         }
                     }
                     break;
-                
+
                 case 'used':
                     foreach (preg_split('/\s*,\s*/', $raw) as $part) {
                         if ($part !== '') {
@@ -482,7 +493,7 @@ class DocBlockExtractor
                 case 'abstract':
                     $information['abstract'] = true;
                     break;
-                
+
                 case 'deprecated':
                     $information['deprecated'] = true;
                     break;
@@ -681,7 +692,7 @@ class DocBlockExtractor
                 case 'var':
                 case 'type':
                     [$type, $desc] = $this->parseTypeDesc($tag['raw']);
-                    $info['type'] = $type;
+                    $info['__type'] = $type;
                     if ($desc !== '') {
                         $info['description'] = trim($info['description'] . ' ' . $desc);
                     }
@@ -767,7 +778,7 @@ class DocBlockExtractor
                 case 'async':
                     $info['async'] = true;
                     break;
-                
+
                 case 'deprecated':
                     $info['deprecated'] = true;
                     break;
@@ -796,8 +807,8 @@ class DocBlockExtractor
                     break;
                 case 'param':
                     $default = null;
-                    [$type, $paramName, $desc] = $this->parseTypeNameDesc($raw);
-                    $paramName = trim($paramName, '[]'); 
+                    [$type, $paramName, $desc, $default] = $this->parseTypeNameDesc($raw);
+                    $paramName = trim($paramName, '[]');
                     if(strstr($paramName, '=') !== false) {
                         [$paramName, $default] = explode('=', $paramName, 2);
                         $paramName = trim($paramName);
@@ -840,6 +851,10 @@ class DocBlockExtractor
             return [null, ''];
         }
 
+        if (preg_match('/^\{(.+)\}\s*(.*)$/s', $raw, $m)) {
+            return [trim($m[1], '{}[] '), trim($m[2], '{}[]- ')];
+        }
+
         if (preg_match('/^(\S+)\s*(.*)$/s', $raw, $m)) {
             return [trim($m[1], '{}[] '), trim($m[2], '{}[]- ')];
         }
@@ -854,7 +869,7 @@ class DocBlockExtractor
      *
      * @private
      * @param string $raw
-     * @return array{0: ?string, 1: ?string, 2: string} [type, name, description]
+     * @return array{0: ?string, 1: ?string, 2: string, 3: string} [type, name, description, default]
      */
     private function parseTypeNameDesc(string $raw): array
     {
@@ -862,19 +877,25 @@ class DocBlockExtractor
             return [null, null, ''];
         }
 
+
+        if (preg_match('/\{(\w+)\}\s+\[(\w+)(?:=\'([^\']*)\')?\]\s+-\s+(.+)/', $raw, $m)) {
+            $type = trim($m[1]) ?: null;
+            return [$type, $m[2], trim($m[4]), trim($m[3])];
+        }
+
         // Предпочитаем явный $var — так однозначно понятно, где имя, а где тип
         if (preg_match('/^(.*?)\$(\w+)\s*(.*)$/s', $raw, $m)) {
             $type = trim($m[1]) ?: null;
-            return [$type, $m[2], trim($m[3])];
+            return [$type, $m[2], trim($m[3]), null];
         }
 
         // Без $ — считаем, что это "тип имя описание" через пробел (JS-стиль)
         if (preg_match('/^(\S+)\s+(\S+)\s*(.*)$/s', $raw, $m)) {
-            return [$m[1], $m[2], trim($m[3])];
+            return [$m[1], $m[2], trim($m[3]), null];
         }
 
         // Только одно слово — трактуем как имя без типа
-        return [null, trim($raw) ?: null, ''];
+        return [null, trim($raw) ?: null, '', null];
     }
 
     /**
@@ -995,6 +1016,7 @@ class DocBlockExtractor
      */
     private function peekFunctionName(string $afterCode): ?string
     {
+        $afterCode = (explode("\n", trim($afterCode, "\r\t\n "), 2)[0]) ?? '';
         $afterCode = ltrim($afterCode);
         $afterCode = preg_replace('/^(\s*\/\/[^\n]*\n)+/', '', $afterCode);
         $afterCode = ltrim($afterCode);
@@ -1050,6 +1072,14 @@ class DocBlockExtractor
             return $m[1];
         }
 
+        if (preg_match(
+            '/^(?:(?:static|async)\s+)?([\w_]+)/',
+            $afterCode,
+            $m
+        )) {
+            return $m[1];
+        }
+
         return null;
     }
 
@@ -1065,10 +1095,19 @@ class DocBlockExtractor
         $afterCode = ltrim($afterCode);
         $afterCode = preg_replace('/^(\s*\/\/[^\n]*\n)+/', '', $afterCode);
         $afterCode = ltrim($afterCode);
+        $afterCode = (explode("\n", trim($afterCode, "\r\t\n "), 2)[0]) ?? '';
+
+        if (preg_match(
+            '/^(?:public|protected|private|static|readonly)\s+(?:const)?\s?\$?([^\s]*)/',
+            $afterCode,
+            $m
+        )) {
+            return $m[1];
+        }
 
         // PHP: модификаторы + (?тип)? $name или Name (константа)
         if (preg_match(
-            '/^(?:(?:public|protected|private|static|readonly)\s+)*\??[\w\\\\|]*\s*\$?([A-Za-z_]\w*)/',
+            '/^(?:(?:public|protected|private|static|readonly)\s+)*\s*\$?([A-Za-z_]\w*)/',
             $afterCode,
             $m
         )) {
@@ -1125,6 +1164,10 @@ class DocBlockExtractor
         //если js
         // Colibri.UI.Component = class extends Colibri.Events.Dispatcher {
         if(preg_match('/^([A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*)\s*=\s*class\b/', $afterCode, $m)) {
+            return $m[1];
+        }
+
+        if(preg_match('/^(?:const\s+)?([A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*)\s*=\s*/', $afterCode, $m)) {
             return $m[1];
         }
 
