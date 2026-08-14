@@ -692,7 +692,7 @@ class DocBlockExtractor
                 case 'var':
                 case 'type':
                     [$type, $desc] = $this->parseTypeDesc($tag['raw']);
-                    $info['__type'] = $type;
+                    $info['type'] = $type;
                     if ($desc !== '') {
                         $info['description'] = trim($info['description'] . ' ' . $desc);
                     }
