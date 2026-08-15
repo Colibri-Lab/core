@@ -76,17 +76,17 @@ class DocBlockExtractor
             $parsed = $this->parseDocBlock($block['raw']);
             $tagNames = array_map(fn ($t) => strtolower($t['tag']), $parsed['tags']);
             if(\in_array('ignore', $tagNames, true)) {
-                return null;
+                continue;
             }
 
             $tags = VariableHelper::ConvertToAssociative(array_map(fn ($t) => ['tag' => $t['tag'], 'raw' => trim(str_replace(':', '', $t['raw']), " \t\n\r\0\x0B ")], $parsed['tags']), 'tag', 'raw');
 
             if(\in_array('namespace', $tagNames, true) && !\in_array('class', $tagNames, true)) {
-                return null;
+                continue;
             }
             if(\in_array('icons', $tagNames, true)) {
                 // icon list
-                return null;
+                continue;
             }
 
             $accessor = $this->peekJsAccessor($block['after']);
@@ -595,7 +595,7 @@ class DocBlockExtractor
 
             $info = $this->buildPropertyInfo($pb['parsed']);
 
-            if ($pb['accessor'] !== null) {
+            if ($pb['accessor'] !== null && $pb['accessor'] !== '') {
                 $info['access'] = $pb['accessor'] === 'get' ? 'read' : 'write';
             } else {
                 $info['access'] = 'read-write';
@@ -1002,6 +1002,14 @@ class DocBlockExtractor
             $m
         )) {
             return ['kind' => $m[1], 'name' => $m[2]];
+        }
+
+        if (preg_match(
+            '/^(?:static)?\s?(_[A-Za-z_$][\w$]*)(\s*)?=/',
+            $afterCode,
+            $m
+        )) {
+            return ['kind' => '', 'name' => $m[1]];
         }
 
         return null;
