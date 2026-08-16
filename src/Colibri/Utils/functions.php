@@ -12,6 +12,11 @@ if (!function_exists('dd')) {
      * @global
      * @param mixed ...$args The arguments to debug.
      * @return void
+     * @example
+     * ```
+     * dd($var1, $var2);
+     * /// This will print debug information for $var1 and $var2 and exit the script.
+     * ```
      */
     function dd(...$args): void
     {
@@ -29,6 +34,11 @@ if (!function_exists('ddx')) {
      * @global
      * @param mixed ...$args The arguments to debug.
      * @return void
+     * @example
+     * ```
+     * ddx($var1, $var2);
+     * /// This will print debug information for $var1 and $var2 without exiting the script.
+     * ```
      */
     function ddx(...$args): void
     {
@@ -45,6 +55,11 @@ if (!function_exists('ddd')) {
      * @global
      * @param mixed ...$args The arguments to debug.
      * @return void
+     * @example
+     * ```
+     * ddd($var1, $var2);
+     * /// This will print collapsable debug information for $var1 and $var2 and exit the script.
+     * ```
      */
     function ddd(...$args): void
     {
@@ -62,6 +77,11 @@ if (!function_exists('dddx')) {
      * @global
      * @param mixed ...$args The arguments to debug.
      * @return void
+     * @example
+     * ```
+     * dddx($var1, $var2);
+     * /// This will print collapsable debug information for $var1 and $var2 without exiting the script.
+     * ```
      */
     function dddx(...$args): void
     {
@@ -78,6 +98,11 @@ if (!function_exists('ddrx')) {
      * @public
      * @param mixed ...$args The arguments to debug.
      * @return ?string
+     * @example
+     * ```
+     * $debugOutput = ddrx($var1, $var2);
+     * /// $debugOutput will contain the debug information as a string.
+     * ```
      */
     function ddrx(...$args): string
     {
@@ -94,6 +119,11 @@ if(!function_exists('runx')) {
      * @param string $command command to run
      * @param object|array $args arguments
      * @return bool|string|null
+     * @example
+     * ```
+     * $pid = runx('my_command', ['arg1' => 'value1', 'arg2' => 'value2']);
+     * /// $pid will contain the PID of the command process.
+     * ```
      */
     function runx(string $command, object|array $args = []): bool|string|null
     {
@@ -113,6 +143,11 @@ if(!function_exists('killx')) {
      * @public
      * @global
      * @return void
+     * @example
+     * ```
+     * $pid = runx('my_command');
+     * killx($pid);
+     * ```
      */
     function killx(int $pid):  void
     {
@@ -127,6 +162,11 @@ if(!function_exists('pidx')) {
      * @public
      * @param string $searchKey
      * @return int|array
+     * @example
+     * ```
+     * $pids = pidx('my_process');
+     * /// $pids will contain an array of PIDs of processes that match the search string 'my_process'.
+     * ```
      */
     function pidx(string $searchKey): int|array
     {
@@ -152,6 +192,11 @@ if(!function_exists('app_debug')) {
      * @public
      * @param mixed ...$args The arguments to log.
      * @return void
+     * @example
+     * ```
+     * app_debug('This is a debug message', ['key' => 'value']);
+     * /// This will log the message and the array to the application log.
+     * ```
      */
     function app_debug(...$args): void
     {
@@ -168,6 +213,11 @@ if(!function_exists('app_info')) {
      * @public
      * @param mixed ...$args The arguments to log.
      * @return void
+     * @example
+     * ```
+     * app_info('This is an informational message', ['key' => 'value']);
+     * /// This will log the message and the array to the application log.
+     * ```
      */
     function app_info(...$args): void
     {
@@ -184,6 +234,11 @@ if(!function_exists('app_emergency')) {
      * @public
      * @param mixed ...$args The arguments to log.
      * @return void
+     * @example
+     * ```
+     * app_emergency('This is an emergency message', ['key' => 'value']);
+     * /// This will log the message and the array to the application log.
+     * ```
      */
     function app_emergency(...$args): void
     {
@@ -200,6 +255,11 @@ if(!function_exists('file_ext')) {
      * @public
      * @param string $pathOrName The file path or name.
      * @return string The file extension.
+     * @example
+     * ```
+     * $extension = file_ext('/path/to/file.txt');
+     * /// $extension will be 'txt'
+     * ```
      */
     function file_ext($pathOrName): string
     {
@@ -216,6 +276,17 @@ if(!function_exists('parse_ml_annotation')) {
      * @param string $doc The docstring containing annotations.
      * @param string $value The value to append to each annotation.
      * @return array An associative array of annotations with the appended value.
+     * @example
+     * ```
+     * $doc = "@author: John Doe\n@version: 1.0\n";
+     * $value = " - additional info";
+     * $annotations = parse_ml_annotation($doc, $value);
+     * /// $annotations will be:
+     * /// [
+     * ///     'author' => 'John Doe - additional info',
+     * ///     'version' => '1.0 - additional info'
+     * /// ]
+     * ```
      */
     function parse_ml_annotation($doc, $value){
         preg_match_all('/@([a-z]+?):\s+(.*?)\n/i', $doc, $annotations);
@@ -234,6 +305,14 @@ if(!function_exists('class_uses_recursive')) {
      * @public
      * @param string|object $class The class name or object instance.
      * @return array An array of trait names used by the class.
+     * @example
+     * ```
+     * class MyClass {
+     *     use MyTrait;
+     * }
+     * $traits = class_uses_recursive(MyClass::class);
+     * /// $traits will contain ['MyTrait']
+     * ```
      */
     function class_uses_recursive($class) {
         $traits = [];
@@ -270,6 +349,12 @@ if(!function_exists('class_basename')) {
      * @public
      * @param string|object $class The class name or object instance.
      * @return string The basename of the class.
+     * @example
+     * ```
+     * class MyNamespace\MyClass {}
+     * $basename = class_basename(MyNamespace\MyClass::class);
+     * /// $basename will be 'MyClass'
+     * ```
      */
     function class_basename($class) {
         if (is_object($class)) {

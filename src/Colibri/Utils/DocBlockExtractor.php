@@ -274,7 +274,8 @@ class DocBlockExtractor
         [$information, $virtualProperties, $virtualMethods] = $this->buildClassInformation(
             $classBlock['parsed'],
             $classBlock['after'],
-            $useMap
+            $useMap,
+            $fileNamespace ?? null
         );
 
         $namespace = $information['memberof'] ?? $fileNamespace ?? '';
@@ -438,10 +439,11 @@ class DocBlockExtractor
      * @private
      * @param array $parsed Result of parseDocBlock() for the class docblock
      * @param string $afterCode Code right after the class docblock (fallback for name/extends/implements)
-     * @param array<string, string> $useMap
+     * @param array<string, string> $useMap Map of "use" aliases to fully qualified class names
+     * @param string|null $namespace Namespace of the file (if any)
      * @return array{0: array, 1: array, 2: array} [information, virtualProperties, virtualMethods]
      */
-    private function buildClassInformation(array $parsed, string $afterCode, array $useMap): array
+    private function buildClassInformation(array $parsed, string $afterCode, array $useMap, ?string $namespace = null): array
     {
         $information = [
             'path'        => '/'.str_replace(App::$appRoot, '', $this->_path),
@@ -451,7 +453,7 @@ class DocBlockExtractor
             'abstract'    => false,
             'deprecated'  => false,
             'final'       => false,
-            'memberof'    => null,
+            'memberof'    => $namespace,
             'example'     => null,
             'namespace'   => false,
             'used'        => [],
