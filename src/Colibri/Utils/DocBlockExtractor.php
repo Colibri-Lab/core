@@ -1108,7 +1108,15 @@ class DocBlockExtractor
         $afterCode = (explode("\n", trim($afterCode, "\r\t\n "), 2)[0]) ?? '';
 
         if (preg_match(
-            '/^(?:public|protected|private|static|readonly)\s+(?:const)?\s?\$?([^\s]*)/',
+            '/^(?:public|protected|private|static|readonly)\s+(?:const|case)?\s?\$?([^\s]*)/',
+            $afterCode,
+            $m
+        )) {
+            return $m[1];
+        }
+
+        if (preg_match(
+            '/^(?:const|case)\s\$?([^\s]*)/',
             $afterCode,
             $m
         )) {
