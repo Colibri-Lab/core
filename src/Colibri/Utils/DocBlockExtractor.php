@@ -102,7 +102,7 @@ class DocBlockExtractor
                 continue;
             }
 
-            if (in_array('magic', $tagNames, true)) {
+            if (\in_array('magic', $tagNames, true)) {
                 $name = $this->peekFunctionName($block['after']);
                 $methodBlocks[] = [
                     'parsed' => $parsed,
@@ -114,7 +114,7 @@ class DocBlockExtractor
                 continue;
             }
 
-            if (in_array('constructor', $tagNames, true)) {
+            if (\in_array('constructor', $tagNames, true)) {
                 $name = $this->peekFunctionName($block['after']);
                 $constructor = [
                     'parsed' => $parsed,
@@ -127,7 +127,7 @@ class DocBlockExtractor
                 continue;
             }
 
-            if (in_array('destructor', $tagNames, true)) {
+            if (\in_array('destructor', $tagNames, true)) {
                 $name = $this->peekFunctionName($block['after']);
                 $destructor = [
                     'parsed' => $parsed,
@@ -140,15 +140,16 @@ class DocBlockExtractor
                 continue;
             }
 
-            if (in_array('var', $tagNames, true) || in_array('type', $tagNames, true)) {
-                $name = $this->peekFieldName($block['after']);
-                $propertyBlocks[] = [
-                    'parsed'   => $parsed,
-                    'name'     => $name,
-                    'accessor' => null,
-                    'line'     => $block['line'],
-                    'tags'     => $tags
-                ];
+            if (\in_array('var', $tagNames, true) || \in_array('type', $tagNames, true)) {
+                if(($name = $this->peekFieldName($block['after'])) !== null) {
+                    $propertyBlocks[] = [
+                        'parsed'   => $parsed,
+                        'name'     => $name,
+                        'accessor' => null,
+                        'line'     => $block['line'],
+                        'tags'     => $tags
+                    ];
+                }
                 continue;
             }
 
@@ -1107,39 +1108,78 @@ class DocBlockExtractor
         $afterCode = ltrim($afterCode);
         $afterCode = (explode("\n", trim($afterCode, "\r\t\n "), 2)[0]) ?? '';
 
-        if (preg_match(
-            '/^(?:public|protected|private|static|readonly)\s+(?:const|case)?\s?\$?([^\s]*)/',
-            $afterCode,
-            $m
-        )) {
-            return $m[1];
+        if(strstr($this->_path, '.js') !== false) {
+            // this is js file
+                
+            // search for variables in JS class with static modifier
+            if (preg_match(
+                '/^(?:static)\s*([A-Za-z_]\w*)/',
+                $afterCode,
+                $m
+            )) {
+                return $m[1];
+            }
+            // search for variables in JS without static modifier
+            if (preg_match(
+                '/^([A-Za-z_]\w*)(?:\s*)=(?:\s*)?/',
+                $afterCode,
+                $m
+            )) {
+                return $m[1];
+            }
+
+        } else {
+            // this is a php file
+
+            // search for const or case with modifiers
+            if (preg_match(
+                '/^(?:public|protected|private|static|readonly)\s+(?:const|case)?\s?\$?([^\s]*)/',
+                $afterCode,
+                $m
+            )) {
+                return $m[1];
+            }
+
+            // search const and case without modifiers
+            if (preg_match(
+                '/^(?:const|case)\s\$?([^\s]*)/',
+                $afterCode,
+                $m
+            )) {
+                return $m[1];
+            }
+
+            // search for variables with modifiers php only
+            if (preg_match(
+                '/^(?:(?:public|protected|private|static|readonly)\s+)*\s*\$([A-Za-z_]\w*)/',
+                $afterCode,
+                $m
+            )) {
+                return $m[1];
+            }
+
         }
 
-        if (preg_match(
-            '/^(?:const|case)\s\$?([^\s]*)/',
-            $afterCode,
-            $m
-        )) {
-            return $m[1];
-        }
+
+
 
         // PHP: модификаторы + (?тип)? $name или Name (константа)
-        if (preg_match(
-            '/^(?:(?:public|protected|private|static|readonly)\s+)*\s*\$?([A-Za-z_]\w*)/',
-            $afterCode,
-            $m
-        )) {
-            return $m[1];
-        }
+        // if (preg_match(
+        //     '/^(?:(?:public|protected|private|static|readonly)\s+)*\s*\$?([A-Za-z_]\w*)/',
+        //     $afterCode,
+        //     $m
+        // )) {
+        //     return $m[1];
+        // }
 
         // JS: модификаторы + name = ... ; / name;
-        if (preg_match(
-            '/^(?:(?:public|private|protected|static|readonly)\s+)*#?([A-Za-z_$][\w$]*)\s*(?:=[^=>]|;)/',
-            $afterCode,
-            $m
-        )) {
-            return $m[1];
-        }
+        // if (preg_match(
+        //     '/^(?:(?:public|private|protected|static|readonly)\s+)*#?([A-Za-z_$][\w$]*)\s*(?:=[^=>]|;)/',
+        //     $afterCode,
+        //     $m
+        // )) {
+        //     return $m[1];
+        // }
 
         return null;
     }
