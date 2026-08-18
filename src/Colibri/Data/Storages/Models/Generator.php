@@ -799,10 +799,10 @@ class Generator
         ];
 
         $properties = [
-            ' * @property int $id ID строки',
-            ' * @property DateTimeField $datecreated Дата создания строки',
-            ' * @property DateTimeField $datemodified Дата последнего обновления строки',
-            ' * @property DateTimeField $datedeleted Дата удаления строки (если включно мягкое удаление)',
+            ' * @property int $id ID of the row',
+            ' * @property DateTimeField $datecreated Creation date of the row',
+            ' * @property DateTimeField $datemodified Last modification date of the row',
+            ' * @property DateTimeField $datedeleted Deletion date of the row (if soft delete is enabled)',
         ];
 
         [$schemaRequired, $schemaProperties] = self::GetSchemaObject($storage->fields, $row, '');
