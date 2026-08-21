@@ -1362,8 +1362,8 @@ class DocBlockExtractor
         $classPart = $m[1];
         $suffix = $m[2];
 
-        if($name === $classPart && !$suffix) {
-            return (isset($useMap[$classPart]) ? $useMap[$classPart] : $namespace) . $suffix;
+        if($name === $classPart && !isset($useMap[$classPart]) && $suffix) {
+            return $namespace . $suffix;
         }
 
         if (strpos($classPart, '\\') !== false) {
