@@ -9,17 +9,7 @@ use Colibri\Common\VariableHelper;
 use Colibri\IO\FileSystem\File;
 
 /**
- * Extracts a namespace -> class -> {information, properties, methods}
- * structure purely from docblocks. Assumes exactly one class per file.
- *
- * Classification of each docblock is based on its tags (and, where the
- * tags don't carry a name, a minimal peek at the very next line of code):
- *  - JS getter/setter code right after the docblock  -> property (accessor)
- *  - @magic tag                                       -> magic method
- *  - @var tag                                          -> property (field)
- *  - @param / @return tag                              -> method
- *  - none of the above                                 -> the class docblock
- *    (exactly one such docblock is expected per file)
+ * Doc block extractor class
  * @class
  */
 class DocBlockExtractor
@@ -29,6 +19,12 @@ class DocBlockExtractor
      * @var string $_path File path or raw source code
      */
     private string $_path = '';
+
+    private array $_genericTypes = [
+        'array', 'bool', 'boolean', 'callable', 'float', 'int', 'integer', 'mixed', 'null', 'object', 'resource', 'string', 'void', 
+        'ArrayAccess', 'Closure', 'DateTime', 'DateTimeImmutable', 'DateTimeInterface', 'DateTimeZone', 'Exception', 'Generator', 'Iterator',
+        'Number', 'String', 'Boolean', 'Object', 'Array', 'Function', 'Promise'
+    ];
 
     /**
      * @public
@@ -289,6 +285,15 @@ class DocBlockExtractor
             } else {
                 $properties[$name] = $info;
             }
+
+            if(!$properties[$name]['type']) {
+                if(strstr($this->_path, '.js') !== false) {
+                    $properties[$name]['type'] = '*';
+                } else {
+                    $properties[$name]['type'] = 'mixed';
+                }
+            }
+            $properties[$name]['type'] = $this->resolveClassName($properties[$name]['type'], $useMap, $namespace);
             $properties[$name]['__type'] = 'property';
         }
 
@@ -307,18 +312,18 @@ class DocBlockExtractor
             if ($mb['name'] === null) {
                 continue;
             }
-            $methods[$mb['name']] = $this->buildMethodInfo($mb['parsed'], $mb['magic']);
+            $methods[$mb['name']] = $this->buildMethodInfo($mb['parsed'], $mb['magic'], false, false, $useMap, $namespace);
             $methods[$mb['name']]['tags'] = $mb['tags'];
             $methods[$mb['name']]['__type'] = 'method';
         }
 
         if($constructor) {
-            $constructor = $this->buildMethodInfo($constructor['parsed'], false, true, false);
+            $constructor = $this->buildMethodInfo($constructor['parsed'], false, true, false, $useMap, $namespace);
             $constructor['tags'] = $constructor['tags'] ?? [];
             $constructor['__type'] = 'method';
         }
         if($destructor) {
-            $destructor = $this->buildMethodInfo($destructor['parsed'], false, false, true);
+            $destructor = $this->buildMethodInfo($destructor['parsed'], false, false, true, $useMap, $namespace);
             $destructor['__type'] = 'method';
         }
 
@@ -464,6 +469,16 @@ class DocBlockExtractor
         $virtualMethods = [];
 
         foreach ($parsed['tags'] as $tag) {
+            if(strtolower($tag['tag']) === 'memberof') {
+                if ($tag['raw'] !== '') {
+                    $information['memberof'] = $tag['raw'];
+                }
+            } 
+        }
+
+        $namespace = $information['memberof'] ?? $namespace;
+
+        foreach ($parsed['tags'] as $tag) {
             $name = strtolower($tag['tag']);
             $raw = $tag['raw'];
 
@@ -473,14 +488,14 @@ class DocBlockExtractor
                     break;
                 case 'extends':
                     if ($raw !== '') {
-                        $information['extends'] = $this->resolveClassName($raw, $useMap);
+                        $information['extends'] = StringHelper::Replace($this->resolveClassName($raw, $useMap, $namespace), ['{', '}'], ['', '']);
                     }
                     break;
 
                 case 'implements':
                     foreach (preg_split('/\s*,\s*/', $raw) as $part) {
                         if ($part !== '') {
-                            $information['implements'][] = $this->resolveClassName($part, $useMap);
+                            $information['implements'][] = StringHelper::Replace($this->resolveClassName($part, $useMap, $namespace), ['{', '}'], ['', '']);
                         }
                     }
                     break;
@@ -488,7 +503,7 @@ class DocBlockExtractor
                 case 'used':
                     foreach (preg_split('/\s*,\s*/', $raw) as $part) {
                         if ($part !== '') {
-                            $information['used'][] = $this->resolveClassName($part, $useMap);
+                            $information['used'][] = StringHelper::Replace($this->resolveClassName($part, $useMap, $namespace), ['{', '}'], ['', '']);
                         }
                     }
                     break;
@@ -503,12 +518,6 @@ class DocBlockExtractor
 
                 case 'final':
                     $information['final'] = true;
-                    break;
-
-                case 'memberof':
-                    if ($raw !== '') {
-                        $information['memberof'] = $raw;
-                    }
                     break;
 
                 case 'example':
@@ -529,7 +538,7 @@ class DocBlockExtractor
                             $default = trim($default);
                         }
                         $virtualProperties[$propName] = [
-                            'type'        => $type,
+                            'type'        => StringHelper::Replace($this->resolveClassName($type, $useMap, $namespace), ['{', '}'], ['', '']),
                             'description' => $desc,
                             'access'      => $access,
                             'default'     => $default,
@@ -543,7 +552,7 @@ class DocBlockExtractor
                     if ($m !== null) {
                         $virtualMethods[$m['name']] = [
                             'static'      => $m['static'],
-                            'returns'     => ['type' => $m['returnType'], 'description' => null],
+                            'returns'     => ['type' => StringHelper::Replace($this->resolveClassName($m['returnType'], $useMap, $namespace), ['{', '}'], ['', '']), 'description' => null],
                             'params'      => $m['params'],
                             'description' => $m['description'],
                             'virtual'     => true,
@@ -564,11 +573,11 @@ class DocBlockExtractor
             $cm
         )) {
             if ($information['extends'] === null && !empty($cm[2])) {
-                $information['extends'] = $this->resolveClassName(trim($cm[2]), $useMap);
+                $information['extends'] = StringHelper::Replace($this->resolveClassName(trim($cm[2]), $useMap, $namespace), ['{', '}'], ['', '']);
             }
             if (empty($information['implements']) && !empty($cm[3])) {
                 foreach (preg_split('/\s*,\s*/', trim($cm[3])) as $part) {
-                    $information['implements'][] = $this->resolveClassName($part, $useMap);
+                    $information['implements'][] = StringHelper::Replace($this->resolveClassName($part, $useMap, $namespace), ['{', '}'], ['', '']);
                 }
             }
             if (!$information['abstract'] && stripos($cm['mods'], 'abstract') !== false) {
@@ -743,7 +752,7 @@ class DocBlockExtractor
      * @param bool $magic
      * @return array
      */
-    private function buildMethodInfo(array $parsed, bool $magic = false, bool $constructor = false, bool $destructor = false): array
+    private function buildMethodInfo(array $parsed, bool $magic = false, bool $constructor = false, bool $destructor = false, array $useMap = [], string $namespace = ''): array
     {
         $info = [
             'visibility'  => null,
@@ -811,6 +820,10 @@ class DocBlockExtractor
                 case 'param':
                     $default = null;
                     [$type, $paramName, $desc, $default] = $this->parseTypeNameDesc($raw);
+                    if(!$type) {
+                        $type = strstr($this->_path, '.php') !== false ? 'mixed' : '*';
+                    }
+                    $type = StringHelper::Replace($this->resolveClassName($type, $useMap, $namespace), ['{', '}'], ['', '']);
                     $paramName = trim($paramName, '[]');
                     if(strstr($paramName, '=') !== false) {
                         [$paramName, $default] = explode('=', $paramName, 2);
@@ -829,6 +842,10 @@ class DocBlockExtractor
                 case 'return':
                 case 'returns':
                     [$type, $desc] = $this->parseTypeDesc($raw);
+                    if(!$type) {
+                        $type = 'void';
+                    }
+                    $type = StringHelper::Replace($this->resolveClassName($type, $useMap, $namespace), ['{', '}'], ['', '']);
                     $info['returns'] = ['type' => $type, 'description' => $desc];
                     break;
 
@@ -1110,7 +1127,7 @@ class DocBlockExtractor
 
         if(strstr($this->_path, '.js') !== false) {
             // this is js file
-                
+
             // search for variables in JS class with static modifier
             if (preg_match(
                 '/^(?:static)\s*([A-Za-z_]\w*)/',
@@ -1130,6 +1147,14 @@ class DocBlockExtractor
 
         } else {
             // this is a php file
+
+            if (preg_match(
+                '/^(?:public|protected|private)\s+(?:static)\s+(?:[^\s]*\s)?\$([^\s]*)/',
+                $afterCode,
+                $m
+            )) {
+                return $m[1];
+            }
 
             // search for const or case with modifiers
             if (preg_match(
@@ -1292,13 +1317,42 @@ class DocBlockExtractor
      * @private
      * @param string $name
      * @param array<string, string> $useMap
+     * @param string $namespace
      * @return string
      */
-    private function resolveClassName(string $name, array $useMap): string
+    private function resolveClassName(string $name, array $useMap, string $namespace): string
     {
         $name = trim($name);
         if ($name === '') {
             return $name;
+        }
+
+        // $name = StringHelper::Replace($name, ['{', '}'], ['', '']);
+        if(strstr($name, '?') !== false) {
+            $name = str_replace('?', '', $name) . '|null';
+        }
+
+
+        if(strstr($name, '|') !== false || strstr($name, ',') !== false) {
+
+            $parts = explode('|', $name);
+            if(\count($parts) === 1) {
+                $parts = explode(',', $name);
+            }
+            // ddx($parts);
+
+            foreach($parts as $i => $part) {
+                $parts[$i] = $this->resolveClassName($part, $useMap, $namespace);
+            }
+            return implode('|', $parts);
+        }
+
+        if(\in_array(strtolower($name), ['self', 'static', 'parent'], true)) {
+            return $name;
+        }
+
+        if(\in_array(strtolower($name), $this->_genericTypes, true)) {
+            return (string)'\\' . $name;
         }
 
         if (!preg_match('/^([\w\\\\]+)(.*)$/', ltrim($name, '\\'), $m)) {
@@ -1308,14 +1362,18 @@ class DocBlockExtractor
         $classPart = $m[1];
         $suffix = $m[2];
 
+        if($name === $classPart && !$suffix) {
+            return (isset($useMap[$classPart]) ? $useMap[$classPart] : $namespace) . $suffix;
+        }
+
         if (strpos($classPart, '\\') !== false) {
-            return $classPart . $suffix;
+            return (string)$classPart . $suffix;
         }
 
         if (isset($useMap[$classPart])) {
             return $useMap[$classPart] . $suffix;
         }
 
-        return $classPart . $suffix;
+        return ($classPart ?: $namespace) . $suffix;
     }
 }

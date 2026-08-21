@@ -336,7 +336,7 @@ final class App extends Singleton
             $domains = self::$config->Query('hosts.domains')->AsObject();
 
             foreach ($domains as $key => $patterns) {
-                foreach ($patterns as $pattern) {
+                foreach ((object)$patterns as $pattern) {
                     if(!str_starts_with($pattern, '/') || !str_ends_with($pattern, '/')) {
                         $pattern = preg_quote($pattern);
                         $pattern = str_replace('\\*', '.*', $pattern);

@@ -188,13 +188,13 @@ class StringHelper
         } elseif (\is_array($search)) {
             if (!\is_array($replace)) {
                 foreach ($search as &$string) {
-                    $subject = self::Replace($string, $replace, $subject, $c);
+                    $subject = self::Replace($subject, $string, $replace, $c);
                     $count += $c;
                 }
             } else {
                 $n = max(\count($search), \count($replace));
                 while ($n--) {
-                    $subject = self::Replace(current($search), current($replace), $subject, $c);
+                    $subject = self::Replace($subject, current($search), current($replace), $c);
                     $count += $c;
                     next($search);
                     next($replace);

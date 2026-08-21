@@ -581,7 +581,7 @@ class DataTable extends BaseDataTable
             $r['datedeleted'] = (string)$row->{'datedeleted'};
             foreach ($this->_storage->fields as $field) {
                 $fieldValue = $row->{$field->name};
-                if($field?->params['transformer']) {
+                if(isset($field?->params['transformer']) && $field?->params['transformer']) {
                     $f = function($field, $value) { 
                         return $value; 
                     };
