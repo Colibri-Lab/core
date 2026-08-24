@@ -156,7 +156,10 @@ final class EventDispatcher extends Singleton
             return false;
         }
 
-        /** @var ArrayList */
+        /** 
+         * @var ArrayList
+         * @ignore
+         */
         $e = $this->_events->$ename;
         if ($e === null) {
             return false;
@@ -195,14 +198,20 @@ final class EventDispatcher extends Singleton
 
         $args = (object)$args;
 
-        /** @var ArrayList */
+        /** 
+         * @var ArrayList
+         * @ignore
+         */
         $e = $this->_events->Item($event->name);
         if ($e == null) {
             return null;
         }
 
         foreach ($e as $iclosure) {
-            /** @var IClosure */
+            /** 
+             * @var IClosure
+             * @ignore
+             */
             if(!($iclosure instanceof IClosure)) {
                 continue;
             }
@@ -249,7 +258,10 @@ final class EventDispatcher extends Singleton
             return false;
         }
 
-        /** @var ArrayList */
+        /** 
+         * @var ArrayList
+         * @ignore
+         */
         $e = $this->_events->$ename;
         if ($e == null) {
             return false;

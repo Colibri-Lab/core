@@ -154,7 +154,10 @@ class DataRow extends BaseDataRow
         $fieldName = $this->Storage()->GetFieldName($property);
 
         $storage = $this->Storage();
-        /** @var Field */
+        /** 
+         * @var Field
+         * @ignore
+         */
         $field = isset($storage->fields->$fieldName) ? $storage->fields->$fieldName : false;
 
         if (!$field) {
@@ -363,7 +366,10 @@ class DataRow extends BaseDataRow
 
             $fieldName = $storage->GetFieldName($key);
 
-            /** @var Field */
+            /** 
+             * @var Field
+             * @ignore
+             */
             $field = $storage->fields->$fieldName ?? null;
             if ($field && !$field->virtual) {
 
@@ -454,7 +460,10 @@ class DataRow extends BaseDataRow
             if($fieldData->virtual === true) {
                 continue;
             }
-            /** @var Field $fieldData */
+            /** 
+             * @var Field $fieldData
+             * @ignore
+             */
             $fieldValue = $this->$fieldName;
             if (is_null($fieldValue)) {
                 $return[$fieldName] = null;
@@ -739,7 +748,10 @@ class DataRow extends BaseDataRow
                 $fieldValues[$key] = '[[id:integer]]';
                 continue;
             }
-            /** @var Field $field */
+            /** 
+             * @var Field $field
+             * @ignore
+             */
             $field = $this->_storage->fields->$fieldName ?? null;
             $className = $field ? $field?->{'class'} : 'string';
             $allowedType = $allowedTypes[$field?->{'type'}] ?? null;

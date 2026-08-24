@@ -65,7 +65,10 @@ class Router
                 continue;
             }
 
-            /** @var Config $moduleConfig */
+            /** 
+             * @var Config $moduleConfig
+             * @ignore
+             */
             try {
 
                 $configArray = $moduleConfig->Query('config.routes', [])->AsArray();

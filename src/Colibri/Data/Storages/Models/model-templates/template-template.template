@@ -13,11 +13,20 @@ use [[template-class]];
  * @return string
  */
 
-/** @var [[template-class-name]] шаблон отображения */
+/** 
+ * @var [[template-class-name]] шаблон отображения
+ * @ignore
+ */
 $template = $args->template;
-/** @var View обьект View */
+/** 
+ * @var View обьект View
+ * @ignore
+ */
 $view = $args->view;
-/** @var DataRow обьект строка данных */
+/** 
+ * @var DataRow обьект строка данных
+ * @ignore
+ */
 $model = $args->model;
 
 #endregion Properties

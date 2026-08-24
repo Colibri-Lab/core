@@ -90,7 +90,10 @@ class ObjectField extends ExtendedObject
         $rowValue = $mode == 'get' ? (isset($this->_data[$property]) ? $this->_data[$property] : null) : $value;
         $fieldName = $this->_storage->GetFieldName($property);
 
-        /** @var Field */
+        /** 
+         * @var Field
+         * @ignore
+         */
         $field = isset($this->_field->fields->$fieldName) ? $this->_field->fields->$fieldName : false;
 
         if (!$field) {
@@ -238,7 +241,10 @@ class ObjectField extends ExtendedObject
         $fields = $this->_field->fields;
         if(!empty((array)$fields)) {
             foreach ($fields as $fieldName => $fieldData) {
-                /** @var Field $fieldData */
+                /** 
+                 * @var Field $fieldData
+                 * @ignore
+                 */
                 $fieldValue = $this->$fieldName;
                 if (is_null($fieldValue)) {
                     $return[$fieldName] = null;

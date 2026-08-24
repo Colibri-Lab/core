@@ -811,7 +811,10 @@ class Generator
         $consts = [];
         $casts = [];
         foreach ($storage->fields as $field) {
-            /** @var Field $field */
+            /** 
+             * @var Field $field
+             * @ignore
+             */
             self::GenerateField($storage, $field, $rootNamespace, $row, $uses, $properties, $consts, $casts, '');
         }
 

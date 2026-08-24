@@ -243,7 +243,10 @@ abstract class Job extends ExtendedObject implements IJob
     {
 
 
-        /** @var Manager */
+        /** 
+         * @var Manager
+         * @ignore
+         */
         $manager = Manager::Instance();
         if(!$manager->SuccessJob($this, $result)) {
             return false;
@@ -288,7 +291,10 @@ abstract class Job extends ExtendedObject implements IJob
     public function Fail(\Throwable $exception, bool $isLastAttempt = false, bool $stopProcess = false): bool
     {
 
-        /** @var Manager */
+        /** 
+         * @var Manager
+         * @ignore
+         */
         $manager = Manager::Instance();
         if(!$manager->FailJob($this, $exception)) {
             return false;

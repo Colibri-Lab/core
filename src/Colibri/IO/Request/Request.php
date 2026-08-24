@@ -423,7 +423,10 @@ class Request
         if ($this->method == Type::Post) {
             curl_setopt($handle, CURLOPT_POST, true);
             if ($this->encryption == Encryption::Binary) {
-                /** @var File */
+                /** 
+                 * @var File
+                 * @ignore
+                 */
                 $postData = $this->postData;
                 curl_setopt($handle, CURLOPT_INFILE, fopen($postData->path, 'r'));
                 curl_setopt($handle, CURLOPT_INFILESIZE, $postData->size);

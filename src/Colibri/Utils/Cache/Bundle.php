@@ -185,7 +185,10 @@ class Bundle
         $foundFiles = $di->Files($path, '/^\..*/', 'name', SORT_ASC);
 
         foreach ($foundFiles as $file) {
-            /** @var File $file */
+            /** 
+             * @var File $file
+             * @ignore
+             */
             if ($file->extension && !in_array($file->name, $exception) && in_array($file->extension, $exts)) {
                 $files[] = $file->path;
             }
@@ -193,7 +196,10 @@ class Bundle
 
         $foundDirectories = $di->Directories($path, 'name', SORT_ASC);
         foreach ($foundDirectories as $dir) {
-            /** @var Directory $dir */
+            /** 
+             * @var Directory $dir
+             * @ignore
+             */
 
             if (!in_array($dir->name, $exception)) {
                 $files = array_merge($files, self::GetNamespaceAssets($dir->path . '/', $exts, $exception, $preg));
@@ -223,7 +229,10 @@ class Bundle
         $foundDirectories = $di->Directories($path, 'name', SORT_ASC);
 
         foreach ($foundDirectories as $dir) {
-            /** @var Directory $dir */
+            /** 
+             * @var Directory $dir
+             * @ignore
+             */
 
             if (!in_array($dir->name, $exception)) {
                 $files = array_merge($files, self::GetChildAssets($dir->path . '/', $exts, $exception, $preg));
@@ -231,7 +240,10 @@ class Bundle
         }
 
         foreach ($foundFiles as $file) {
-            /** @var File $file */
+            /** 
+             * @var File $file
+             * @ignore
+             */
             if ($file->extension && !in_array($file->name, $exception) && in_array($file->extension, $exts)) {
                 $files[] = $file->path;
             }

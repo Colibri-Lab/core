@@ -100,7 +100,10 @@ class Storages extends Singleton
             if (!$moduleConfig->Query('enabled')->GetValue()) {
                 continue;
             }
-            /** @var Config $moduleConfig */
+            /** 
+             * @var Config $moduleConfig
+             * @ignore
+             */
             try {
 
                 // $keysArray = $moduleConfig->Query('for', [])->ToArray();

@@ -93,7 +93,10 @@ final class Command extends NoSqlCommand
      */
     public function CollectionExists(string $collectionName): bool
     {
-        /** @var Connection $connection */
+        /** 
+         * @var Connection $connection
+         * @ignore
+         */
         $connection = $this->_connection;
         if(!$connection->Ping()) {
             $connection->Reopen();
@@ -119,7 +122,10 @@ final class Command extends NoSqlCommand
      */
     public function CreateCollection(string $collectionName): bool
     {
-        /** @var Connection $connection */
+        /** 
+         * @var Connection $connection
+         * @ignore
+         */
         $connection = $this->_connection;
         if(!$connection->Ping()) {
             $connection->Reopen();
@@ -166,9 +172,15 @@ final class Command extends NoSqlCommand
         $maxId = $this->MaxId($collectionName);
         $document->id = $maxId + 1;
 
-        /** @var Database */
+        /** 
+         * @var Database
+         * @ignore
+         */
         $db = $this->_connection->database;
-        /** @var Collection */
+        /** 
+         * @var Collection
+         * @ignore
+         */
         $collection = $db->getCollection($collectionName);
 
         try {
@@ -221,9 +233,15 @@ final class Command extends NoSqlCommand
             $this->_connection->Reopen();
         }
 
-        /** @var Database */
+        /** 
+         * @var Database
+         * @ignore
+         */
         $db = $this->_connection->database;
-        /** @var Collection */
+        /** 
+         * @var Collection
+         * @ignore
+         */
         $collection = $db->getCollection($collectionName);
 
         try {
@@ -254,9 +272,15 @@ final class Command extends NoSqlCommand
             $this->_connection->Reopen();
         }
 
-        /** @var Database */
+        /** 
+         * @var Database
+         * @ignore
+         */
         $db = $this->_connection->database;
-        /** @var Collection */
+        /** 
+         * @var Collection
+         * @ignore
+         */
         $collection = $db->getCollection($collectionName);
 
         try {
@@ -284,9 +308,15 @@ final class Command extends NoSqlCommand
             $this->_connection->Reopen();
         }
 
-        /** @var Database */
+        /** 
+         * @var Database
+         * @ignore
+         */
         $db = $this->_connection->database;
-        /** @var Collection */
+        /** 
+         * @var Collection
+         * @ignore
+         */
         $collection = $db->getCollection($collectionName);
 
         try {
@@ -359,9 +389,15 @@ final class Command extends NoSqlCommand
 
         }
 
-        /** @var Database */
+        /** 
+         * @var Database
+         * @ignore
+         */
         $db = $this->_connection->database;
-        /** @var Collection */
+        /** 
+         * @var Collection
+         * @ignore
+         */
         $collection = $db->getCollection($collectionName);
 
         try {
@@ -369,7 +405,10 @@ final class Command extends NoSqlCommand
             $rows = [];
             $cursor = $collection->find($filters ?? [], $options);
             foreach ($cursor as $document) {
-                /** @var \MongoDB\Model\BSONDocument $document  */
+                /** 
+                  * @var \MongoDB\Model\BSONDocument $document 
+                  * @ignore
+                  */
                 $docArray = (object)(array)$document;
                 $rows[] = $docArray;
             }

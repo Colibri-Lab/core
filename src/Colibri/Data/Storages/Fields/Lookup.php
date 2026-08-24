@@ -160,7 +160,10 @@ class Lookup
                 }
                 
                 $symbol = $accessPoint->symbol;
-                /** @var IDataReader */
+                /** 
+                  * @var IDataReader
+                  * @ignore
+                  */
                 $reader = $accessPoint->Query(
                     'select * from ' . $symbol . $storage->table . $symbol . ($filter && $filter != '' ? ' where ' . $filter : ''),
                     [
@@ -258,7 +261,10 @@ class Lookup
             $data = (object) $this->accesspoint;
             $accessPoint = App::$dataAccessPoints->Get($data->point);
             $sqlQuery = $accessPoint->CreateQuery('CreateSelect', [$data->table, $data->fields, [$data->value => ['=', (is_object($value) ? $value->value : $value)]], $data->order]);
-            /** @var IDataReader */
+            /** 
+             * @var IDataReader
+             * @ignore
+             */
             $reader = $accessPoint->Query(
                 $sqlQuery,
                 ['type' => DataAccessPoint::QueryTypeBigData]

@@ -672,7 +672,10 @@ class DataTable extends BaseDataTable
         File::Append($file, implode("\n", $createTable));
 
         foreach($this as $result) {
-            /** @var DataRow $result  */
+            /** 
+             * @var DataRow $result 
+             * @ignore
+             */
             $data = $result->DataToChange(true);
             File::Append($file, 'INSERT INTO '.$this->Storage()->name.'(datecreated, datemodified, '.implode(', ', $fields).') VALUES (');
             $values = ['\'' . (string)$result->datecreated . '\'', ($result->modified === null ? 'null' : '\'' . (string)$result->modified . '\'')];

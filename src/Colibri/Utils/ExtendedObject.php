@@ -254,11 +254,17 @@ class ExtendedObject implements ArrayAccess, IteratorAggregate, JsonSerializable
         $formats->registerCallable("string", "db-date-time", $isDbDateTime);
 
         $validator->setMaxErrors(100);
-        /** @var ValidationResult $result */
+        /** 
+         * @var ValidationResult $result
+         * @ignore
+         */
         $this->_validationResult = $validator->validate($data, $schemaData);
         if ($this->_validationResult->hasError()) {
             if ($throwExceptions) {
-                /** @var ValidationError */
+                /** 
+                 * @var ValidationError
+                 * @ignore
+                 */
                 $validationError = $this->_validationResult->error();
                 $formatter = new ErrorFormatter();
                 $errors = $formatter->format($validationError, false);

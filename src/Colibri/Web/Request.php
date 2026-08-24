@@ -51,25 +51,52 @@ final class Request extends Singleton
     // Event dispatcher trait
     use TEventDispatcher;
 
-    /** @var string Type of payload: JSON */
+    /** 
+     * @var string Type of payload: JSON
+     * @ignore
+     */
     public const PAYLOAD_TYPE_JSON = 'json';
-    /** @var string Type of payload: XML */
+    /** 
+     * @var string Type of payload: XML
+     * @ignore
+     */
     public const PAYLOAD_TYPE_XML = 'xml';
-    /** @var bool Indicates whether the request payload is encoded as JSON. */
+    /** 
+     * @var bool Indicates whether the request payload is encoded as JSON.
+     * @ignore
+     */
     private bool $_encodedAsJson = false;
 
-    /** @var ServerRequestInterface|null The PSR-7 server request instance. */
+    /** 
+     * @var ServerRequestInterface|null The PSR-7 server request instance.
+     * @ignore
+     */
     private ?ServerRequestInterface $_psrRequest = null;
 
-    /** @var array|null The POST parameters. */
+    /** 
+     * @var array|null The POST parameters.
+     * @ignore
+     */
     private ?array $_post = null;
-    /** @var array|null The GET parameters. */
+    /** 
+     * @var array|null The GET parameters.
+     * @ignore
+     */
     private ?array $_get = null;
-    /** @var array|null The uploaded files. */
+    /** 
+     * @var array|null The uploaded files.
+     * @ignore
+     */
     private ?array $_files = null;
-    /** @var array|null The server parameters. */
+    /** 
+     * @var array|null The server parameters.
+     * @ignore
+     */
     private ?array $_server = null;
-    /** @var array|null The cookie parameters. */
+    /** 
+     * @var array|null The cookie parameters.
+     * @ignore
+     */
     private ?array $_cookie = null;
 
     /**

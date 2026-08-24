@@ -28,17 +28,41 @@ use InvalidArgumentException;
  */
 class RequestedFile
 {
-    /** @var string The name of the file. */
+    /** 
+     * The name of the file.
+     * @var string 
+     * @public
+     */
     public string $name;
-    /** @var string The extension of the file. */
+    /** 
+     * The extension of the file.
+     * @var string
+     * @public
+     */
     public string $ext;
-    /** @var string The MIME type of the file. */
+    /** 
+     * The MIME type of the file.
+     * @var string
+     * @public
+     */
     public string $mimetype;
-    /** @var string The error message, if any. */
+    /** 
+     * The error message, if any.
+     * @var string
+     * @public
+     */
     public string $error;
-    /** @var int The size of the file in bytes. */
+    /** 
+     * The size of the file in bytes.
+     * @var int 
+     * @public
+     */
     public int $size;
-    /** @var string The path to the temporary file. */
+    /**
+     * The path to the temporary file. 
+     * @var string 
+     * @public
+     */
     public string $temporary;
 
     /**

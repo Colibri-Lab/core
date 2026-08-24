@@ -24,7 +24,10 @@ use Colibri\Collections\ReadonlyCollection;
  */
 class RequestCollection extends ReadonlyCollection
 {
-    /** @var bool Whether to strip slashes from the data. */
+    /** 
+     * @var bool Whether to strip slashes from the data.
+     * @ignore
+     */
     private bool $_stripSlashes = true;
 
     /**

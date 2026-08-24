@@ -101,7 +101,10 @@ class DataAccessPoints extends Singleton implements \ArrayAccess, \IteratorAggre
                 continue;
             }
 
-            /** @var \Colibri\Utils\Config\Config $moduleConfig */
+            /** 
+             * @var \Colibri\Utils\Config\Config $moduleConfig
+             * @ignore
+             */
             try {
 
                 // $keysArray = $moduleConfig->Query('for', [])->ToArray();
