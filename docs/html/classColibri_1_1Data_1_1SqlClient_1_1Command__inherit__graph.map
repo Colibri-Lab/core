@@ -1,6 +1,0 @@
-<map id="Colibri\Data\SqlClient\Command" name="Colibri\Data\SqlClient\Command">
-<area shape="rect" id="node1" title=" " alt="" coords="161,5,323,47"/>
-<area shape="rect" id="node2" href="$classColibri_1_1Data_1_1MySql_1_1Command.html" title=" " alt="" coords="5,95,148,136"/>
-<area shape="rect" id="node3" href="$classColibri_1_1Data_1_1PgSql_1_1Command.html" title=" " alt="" coords="173,95,311,136"/>
-<area shape="rect" id="node4" href="$classColibri_1_1Data_1_1Sphinx_1_1Command.html" title=" " alt="" coords="335,95,482,136"/>
-</map>

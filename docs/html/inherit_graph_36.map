@@ -1,8 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$interfaceColibri_1_1Data_1_1SqlClient_1_1IConfig.html" title=" " alt="" coords="5,136,167,177"/>
-<area shape="rect" id="node2" href="$classColibri_1_1Data_1_1MongoDb_1_1Config.html" title=" " alt="" coords="219,5,384,47"/>
-<area shape="rect" id="node3" href="$classColibri_1_1Data_1_1MySql_1_1Config.html" title=" " alt="" coords="230,71,373,112"/>
-<area shape="rect" id="node4" href="$classColibri_1_1Data_1_1PgSql_1_1Config.html" title=" " alt="" coords="232,136,371,177"/>
-<area shape="rect" id="node5" href="$classColibri_1_1Data_1_1Solr_1_1Config.html" title=" " alt="" coords="215,202,388,229"/>
-<area shape="rect" id="node6" href="$classColibri_1_1Data_1_1Sphinx_1_1Config.html" title=" " alt="" coords="228,253,375,295"/>
-</map>
