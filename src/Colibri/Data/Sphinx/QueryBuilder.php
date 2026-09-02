@@ -336,7 +336,7 @@ class QueryBuilder implements IQueryBuilder
     public function CreateDefaultStorageTable(string $table, ?string $prefix = null): string|array
     {
         $options = $this->_connection->options;
-        $tableOptions = (array)$options['table'];
+        $tableOptions = (array)($options['table'] ?? []);
         $tableOptionsString = VariableHelper::ToString($tableOptions, ', ', '=');
         $ttable = ($prefix ? $prefix . '_' : '') . $table;
         return '
