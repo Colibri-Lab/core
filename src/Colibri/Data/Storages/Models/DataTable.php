@@ -591,8 +591,8 @@ class DataTable extends BaseDataTable
                 if($fieldValue instanceof \UnitEnum) {
                     $fieldValue = $fieldValue->{'value'};
                 }
-                if(is_object($row->{$field->name}) && method_exists($row->{$field->name}, 'ToString')) {
-                    $r[$field->name] = preg_replace('/[^\x09\x0A\x0D\x20-\x{10FFFF}]/u', '', (string)$fieldValue->ToString());
+                if(is_object($fieldValue) && method_exists($fieldValue, 'ToString')) {
+                    $r[$field->name] = preg_replace('/[^\x09\x0A\x0D\x20-\x{10FFFF}]/u', '', (string)($fieldValue->ToString()));
                 } else {
                     $r[$field->name] = preg_replace('/[^\x09\x0A\x0D\x20-\x{10FFFF}]/u', '', (string)$fieldValue);
                 }
