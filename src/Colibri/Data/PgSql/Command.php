@@ -488,11 +488,11 @@ final class Command extends SqlCommand
             }
         }
 
-        $createIndex = function ($Exec, $connection, $indexName, $prefix, $table, $type, $method, $xindex) {
+        $createIndex = function ($Exec, $connection, $indexName, $prefix, $table, $type, $method, $softdeletes, $xindex) {
             return $Exec('
                 CREATE '.($type === 'NORMAL' ? '' : $type).' INDEX "' . $indexName . '" ON "' . ($prefix ? $prefix . '_' : '') . $table . '" '.($method ? 'USING ' . $method : '') . ' (
                     "' . $table . '_' . implode('","' . $table . '_', $xindex['fields']) . '"
-                )
+                ) '.($softdeletes ? 'WHERE '.$table . '_datedeleted IS NULL' : '').'
             ', $connection);
         };
 
@@ -507,14 +507,16 @@ final class Command extends SqlCommand
             $xtype = isset($xindex['type']) ? $xindex['type'] : 'NORMAL';
             $xmethod = isset($xindex['method']) ? $xindex['method'] : 'BTREE';
             // нужно в любой уникальный индекс добавить поле datedeleted в самом начале
+            $softdeletes = false;
             if(isset($xstorage['params']['softdeletes']) && $xstorage['params']['softdeletes'] === true && $xtype === 'UNIQUE') {
-                array_unshift($xindex['fields'], 'datedeleted');
+                $softdeletes = true;
+                // array_unshift($xindex['fields'], 'datedeleted');
             }
 
             if (!isset($indices[$indexName])) {
                 $logger->error($storage . ': ' . $indexName . ': Index not found: creating');
 
-                $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $xtype, $xmethod, $xindex);
+                $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $xtype, $xmethod, $softdeletes, $xindex);
                 if ($res->error && strstr($res->error, 'already exists') !== false) {
                     $res = $dropIndex($Exec, $this->_connection, $indexName);
                     if ($res->error) {
@@ -522,7 +524,7 @@ final class Command extends SqlCommand
                         throw new Exception('Can not delete index: ' . $res->query);
                     }
 
-                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $xtype, $xmethod, $xindex);
+                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $xtype, $xmethod, $softdeletes, $xindex);
                     if ($res->error) {
                         $logger->error($table . ': Can not create index: ' . $res->query);
                         throw new Exception('Can not create index: ' . $res->query);
@@ -554,7 +556,7 @@ final class Command extends SqlCommand
                         throw new Exception('Can not delete index: ' . $res->query);
                     }
 
-                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $xtype, $xmethod, $xindex);
+                    $res = $createIndex($Exec, $this->_connection, $indexName, $prefix, $storage, $xtype, $xmethod, $softdeletes, $xindex);
                     if ($res->error) {
                         $logger->error($table . ': Can not create index: ' . $res->query);
                         throw new Exception('Can not create index: ' . $res->query);
