@@ -131,7 +131,7 @@ class ReactServer
         $post = App::$request->post;
         $payload = App::$request->GetPayloadCopy();
         
-        if($requestMethod === 'OPTIONS') {
+        if($requestMethod === 'OPTIONS' && !is_subclass_of($class, \Colibri\Mcp\Controller::class)) {
             return new MessageResponse(
                 200,
                 $accessControlHeaders,
@@ -221,7 +221,7 @@ class ReactServer
             );
         }
 
-        if ($requestMethod === 'OPTIONS') {
+        if ($requestMethod === 'OPTIONS' && !is_subclass_of($class, \Colibri\Mcp\Controller::class)) {
             // если это запрос на опции то вернуть
             return self::ServerFinish($psrRequest, $type, (object) ['code' => 200, 'message' => 'ok', 'options' => true]);
         } else {
@@ -241,6 +241,9 @@ class ReactServer
                 // }
 
                 $result = (object) $obj->Invoke($method, $get, $post, $payload);
+                if ($result instanceof \Colibri\Web\RawResponse) {
+                    return new MessageResponse($result->status, $result->headers, $result->body);
+                }
             } catch (\Throwable $e) {
 
                 $errorResult = [

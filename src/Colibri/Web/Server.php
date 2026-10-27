@@ -246,7 +246,7 @@ class Server
             return;
         }
 
-        if ($requestMethod === 'OPTIONS') {
+        if ($requestMethod === 'OPTIONS' && !is_subclass_of($class, \Colibri\Mcp\Controller::class)) {
             // если это запрос на опции то вернуть
             $this->Finish($type, (object) ['code' => 200, 'message' => 'ok', 'options' => true]);
         } else {
@@ -265,6 +265,11 @@ class Server
                 }
                 
                 $result = (object) $obj->Invoke($method, $get, $post, $payload);
+                if ($result instanceof RawResponse) {
+                    App::$monitoring->EndTimer('web-request');
+                    $result->Send();
+                    return;
+                }
             } catch (\Throwable $e) {
 
                 $errorResult = [

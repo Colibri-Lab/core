@@ -407,11 +407,20 @@ final class Request extends Singleton
     }
 
     /**
+     * Returns original request bytes without JSON decoding or key normalization.
+     * @return string Raw HTTP request body.
+     * @public
+     */
+    public function GetBody(): string
+    {
+        return $this->_psrRequest ? (string)$this->_psrRequest->getBody() : (string)file_get_contents('php://input');
+    }
+
+    /**
      * Returns a copy of the request payload as a PayloadCopy object.
-     *
-     * @param string $type The type of result (json, xml).
-     * @return PayloadCopy The payload copy.
-     *
+     * @param string $type Payload encoding.
+     * @return PayloadCopy Decoded payload copy.
+     * @public
      */
     public function GetPayloadCopy(string $type = Request::PAYLOAD_TYPE_JSON): PayloadCopy
     {
