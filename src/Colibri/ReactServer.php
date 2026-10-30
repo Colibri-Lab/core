@@ -362,7 +362,9 @@ class ReactServer
                 'Expires' => '0',
                 'Cache-Control' => 'must-revalidate',
                 'Content-Length' => \strlen($result->result),
-                'Content-Type' => $mime->data ?: 'application/octet-stream'
+                'Content-Type' => $mime->data ?: 'application/octet-stream',
+                'Content-Description' => 'File Transfer',
+                'Content-Disposition' => 'attachment; filename="' . $result->message . '"',
             ]);
 
             $staticExtensions = [
