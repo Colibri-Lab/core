@@ -260,7 +260,14 @@ class Lookup
         } elseif ($this->accesspoint) {
             $data = (object) $this->accesspoint;
             $accessPoint = App::$dataAccessPoints->Get($data->point);
-            $sqlQuery = $accessPoint->CreateQuery('CreateSelect', [$data->table, $data->fields, [$data->value => ['=', (is_object($value) ? $value->value : $value)]], $data->order]);
+            if(is_null($value)) {
+                return null;
+            }
+            $vv = (is_object($value) ? $value->value : $value);
+            if(is_string($vv)) {
+                $vv = '\'' . $vv . '\'';
+            }
+            $sqlQuery = $accessPoint->CreateQuery('CreateSelect', [$data->table, $data->fields, [$data->value => ['=', $vv]], $data->order]);
             /** 
              * @var IDataReader
              * @ignore
