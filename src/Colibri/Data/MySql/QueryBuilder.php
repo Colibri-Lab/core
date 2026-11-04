@@ -545,7 +545,7 @@ class QueryBuilder implements IQueryBuilder
             $field = $fieldData[0];
             $value = $fieldData[1];
 
-            if(in_array($field->component, [
+            if(in_array($field?->component, [
                 'Colibri.UI.Forms.Date',
                 'Colibri.UI.Forms.DateTime'
             ])) {
