@@ -14,8 +14,21 @@ final class UUIDHelperTest extends TestCase
     {
         $uuid = UUIDHelper::v4();
 
-        self::assertSame(1, UUIDHelper::isValid($uuid));
+        self::assertTrue(UUIDHelper::isValid($uuid));
         self::assertMatchesRegularExpression('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $uuid);
+    }
+
+    public function testGeneratedUuidIsValidVersionSevenWithCurrentUnixTime(): void
+    {
+        $before = (int)floor(microtime(true) * 1000);
+        $uuid = UUIDHelper::v7();
+        $after = (int)floor(microtime(true) * 1000);
+
+        self::assertTrue(UUIDHelper::isValid($uuid));
+        self::assertMatchesRegularExpression('/^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $uuid);
+        $timestamp = (int)hexdec(substr(str_replace('-', '', $uuid), 0, 12));
+        self::assertGreaterThanOrEqual($before, $timestamp);
+        self::assertLessThanOrEqual($after, $timestamp);
     }
 
     public function testNameBasedUuidsAreDeterministicAndHaveExpectedVersion(): void

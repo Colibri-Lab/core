@@ -90,6 +90,32 @@ class UUIDHelper
     }
 
     /**
+     * Generates a version 7 UUID (Unix time in milliseconds and random data).
+     *
+     * @return string The generated UUID.
+     * @public
+     * @static
+     * @example
+     * ```
+     * $uuid = UUIDHelper::v7();
+     * echo $uuid; // Outputs a version 7 UUID
+     * ```
+     */
+    public static function v7(): string
+    {
+        $timestamp = (int)floor(microtime(true) * 1000);
+        $timestampBytes = pack('Nn', ($timestamp >> 16) & 0xffffffff, $timestamp & 0xffff);
+        $random = random_bytes(10);
+        $uuid = $timestampBytes
+            . chr((ord($random[0]) & 0x0f) | 0x70)
+            . $random[1]
+            . chr((ord($random[2]) & 0x3f) | 0x80)
+            . substr($random, 3, 7);
+
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($uuid), 4));
+    }
+
+    /**
      * Generates a version 5 UUID (name-based, SHA-1 hash).
      *
      * @param string $namespace The namespace UUID.
@@ -178,6 +204,6 @@ class UUIDHelper
      */
     public static function isValid(string $uuid): bool
     {
-        return preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $uuid);
+        return preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[1-57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $uuid) === 1;
     }
 }
