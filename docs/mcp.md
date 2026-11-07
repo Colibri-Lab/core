@@ -33,6 +33,12 @@ $server->AddTool(
 
 Handlers return serializable application data. The dispatcher supplies both `structuredContent` and JSON text content. An `InvalidArgumentException` becomes a model-visible tool error; other exceptions are logged without exposing internal details. No callback is executed for a notification.
 
+## Compose Read-Only Tools
+
+Call `Server::EnableQueryLanguage()` after registering tools to add the `mcp_query` tool. It accepts a bounded MQL program that composes up to eight registered tools marked with the strict boolean annotation `readOnlyHint: true`. Each nested call is validated against its original JSON Schema, and only the program's final return value is sent to the client. The interpreter does not execute generated source code.
+
+See [MCP Query Language](mcp-query-language.md) for the grammar, limits, execution behavior and security contract. MQL is opt-in and does not remove other tools from `tools/list`.
+
 ## Connect A Module
 
 Use the standard controller generator, then extend `Colibri\Mcp\Controller`. Implement protected `createServer(): Server`, returning the registered server. Override `allowedOrigins(): array` and `isEnabled(): bool` when needed. The inherited public `Index()` handles the HTTP request.

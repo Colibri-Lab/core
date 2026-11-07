@@ -4,6 +4,7 @@ namespace Colibri\Tests;
 
 use Colibri\Mcp\Server;
 use Colibri\Mcp\HttpTransport;
+use Colibri\Mcp\QueryLanguage;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -93,5 +94,118 @@ class McpServerTest extends TestCase
         self::assertSame(0, $called);
         self::assertFalse($server->Handle('{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"write"}}')['result']['isError']);
         self::assertSame(1, $called);
+    }
+
+    /**
+     * Batches read-only tool calls and returns only the selected result fields.
+     * @return void
+     * @public
+     */
+    public function testQueryLanguageBatchesReadOnlyTools(): void
+    {
+        $server = new Server('test');
+        $readOnly = ['readOnlyHint' => true];
+        $server->AddTool(
+            'projects_list',
+            'Find projects',
+            ['type' => 'object', 'properties' => [], 'additionalProperties' => false],
+            static fn(array $args): array => ['items' => [['id' => 7, 'title' => 'Tasks', 'description' => 'Internal description']]],
+            $readOnly
+        );
+        $server->AddTool(
+            'projects_get',
+            'Get a project',
+            ['type' => 'object', 'properties' => ['id' => ['type' => 'integer']], 'required' => ['id'], 'additionalProperties' => false],
+            static fn(array $args): array => ['id' => $args['id'], 'title' => 'Tasks', 'description' => 'Full description'],
+            $readOnly
+        );
+        $server->AddTool(
+            'tasks_list',
+            'List project tasks',
+            ['type' => 'object', 'properties' => ['projectId' => ['type' => 'integer']], 'required' => ['projectId'], 'additionalProperties' => false],
+            static fn(array $args): array => ['items' => [['id' => 12, 'title' => 'Implement MQL', 'projectId' => $args['projectId']]]],
+            $readOnly
+        );
+        $server->EnableQueryLanguage();
+        $program = <<<'MQL'
+let $matches = call projects_list();
+let $project = call projects_get(id: $matches.items[0].id);
+let $tasks = call tasks_list(projectId: $project.id);
+return {project: {id: $project.id, title: $project.title}, tasks: $tasks.items};
+MQL;
+        $request = json_encode([
+            'jsonrpc' => '2.0',
+            'id' => 1,
+            'method' => 'tools/call',
+            'params' => ['name' => 'mcp_query', 'arguments' => ['program' => $program]]
+        ], JSON_THROW_ON_ERROR);
+        $reply = $server->Handle($request);
+        self::assertFalse($reply['result']['isError']);
+        self::assertSame('Tasks', $reply['result']['structuredContent']->project->title);
+        self::assertSame(12, $reply['result']['structuredContent']->tasks[0]['id']);
+        self::assertStringNotContainsString('Internal description', $reply['result']['content'][0]['text']);
+    }
+
+    /**
+     * Rejects arbitrary code and tools that are not explicitly marked read-only.
+     * @return void
+     * @public
+     */
+    public function testQueryLanguageRejectsWritesAndExecutableSyntax(): void
+    {
+        $called = 0;
+        $server = new Server('test');
+        $server->AddTool(
+            'write_item',
+            'Mutate data',
+            ['type' => 'object', 'properties' => [], 'additionalProperties' => false],
+            static function (array $args) use (&$called): array {
+                $called++;
+                return ['ok' => true];
+            },
+            ['readOnlyHint' => false]
+        );
+        $server->EnableQueryLanguage();
+        $writeProgram = 'let $result = call write_item(); return $result;';
+        $writeRequest = json_encode([
+            'jsonrpc' => '2.0',
+            'id' => 2,
+            'method' => 'tools/call',
+            'params' => ['name' => 'mcp_query', 'arguments' => ['program' => $writeProgram]]
+        ], JSON_THROW_ON_ERROR);
+        $writeReply = $server->Handle($writeRequest);
+        self::assertTrue($writeReply['result']['isError']);
+        self::assertSame(0, $called);
+
+        $parser = new QueryLanguage();
+        $this->expectException(\InvalidArgumentException::class);
+        $parser->Parse('return system("id");');
+    }
+
+    /**
+     * Reports oversized query results instead of silently truncating them.
+     * @return void
+     * @public
+     */
+    public function testQueryLanguageRejectsOversizedResults(): void
+    {
+        $server = new Server('test');
+        $server->AddTool(
+            'large_result',
+            'Returns a large result',
+            ['type' => 'object', 'properties' => [], 'additionalProperties' => false],
+            static fn(array $args): array => ['value' => str_repeat('x', Server::QueryMaxResultBytes)],
+            ['readOnlyHint' => true]
+        );
+        $server->EnableQueryLanguage();
+        $request = json_encode([
+            'jsonrpc' => '2.0',
+            'id' => 3,
+            'method' => 'tools/call',
+            'params' => ['name' => 'mcp_query', 'arguments' => ['program' => 'let $large = call large_result(); return $large;']]
+        ], JSON_THROW_ON_ERROR);
+        $reply = $server->Handle($request);
+        self::assertTrue($reply['result']['isError']);
+        self::assertSame('MCP query result is too large; return fewer fields or split the request', $reply['result']['content'][0]['text']);
     }
 }

@@ -5,6 +5,7 @@ namespace Colibri\Mcp;
 use Closure;
 use InvalidArgumentException;
 use Opis\JsonSchema\Validator;
+use RuntimeException;
 use stdClass;
 use Throwable;
 
@@ -16,6 +17,13 @@ use Throwable;
  */
 class Server
 {
+    /**
+     * Maximum serialized result returned by one MCP query program.
+     * @const int
+     * @public
+     */
+    public const QueryMaxResultBytes = 262144;
+
     /**
      * Supported Streamable HTTP protocol revisions, newest first.
      * @const array
@@ -85,6 +93,28 @@ class Server
             $definition['annotations'] = (object)$annotations;
         }
         $this->_tools[$name] = ['definition' => $definition, 'handler' => Closure::fromCallable($handler)];
+        return $this;
+    }
+
+    /**
+     * Registers the bounded query tool for composing registered read-only tools.
+     * @return static This server.
+     * @public
+     */
+    public function EnableQueryLanguage(): static
+    {
+        $this->AddTool(
+            'mcp_query',
+            'Compose up to eight registered read-only MCP tools in one program and return only the selected result.',
+            [
+                'type' => 'object',
+                'properties' => ['program' => ['type' => 'string', 'minLength' => 1, 'maxLength' => QueryLanguage::MaxProgramLength]],
+                'required' => ['program'],
+                'additionalProperties' => false
+            ],
+            fn(array $arguments): mixed => $this->_runQuery($arguments['program']),
+            ['readOnlyHint' => true, 'destructiveHint' => false, 'idempotentHint' => true, 'openWorldHint' => false]
+        );
         return $this;
     }
 
@@ -171,6 +201,99 @@ class Server
             }
         }
         return $this->_error($id, -32601, 'Method not found');
+    }
+
+    /**
+     * Executes a parsed program using only registered read-only tool handlers.
+     * @param string $source Program source.
+     * @return mixed Selected result value.
+     * @private
+     * @ignore
+     */
+    private function _runQuery(string $source): mixed
+    {
+        $program = (new QueryLanguage())->Parse($source);
+        $variables = [];
+        foreach ($program['statements'] as $statement) {
+            if ($statement['type'] === 'return') {
+                $result = $this->_evaluateQueryValue($statement['value'], $variables);
+                $encoded = json_encode($result, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+                if (strlen($encoded) > self::QueryMaxResultBytes) {
+                    throw new InvalidArgumentException('MCP query result is too large; return fewer fields or split the request');
+                }
+                return $result;
+            }
+            $toolName = $statement['name'];
+            if ($toolName === 'mcp_query' || !isset($this->_tools[$toolName])) {
+                throw new InvalidArgumentException('MCP query references an unknown tool');
+            }
+            $tool = $this->_tools[$toolName];
+            $annotations = $tool['definition']['annotations'] ?? null;
+            if (!$annotations instanceof stdClass || ($annotations->readOnlyHint ?? false) !== true) {
+                throw new InvalidArgumentException('MCP query can call only tools marked read-only');
+            }
+            $arguments = [];
+            foreach ($statement['arguments'] as $name => $expression) {
+                $arguments[$name] = $this->_evaluateQueryValue($expression, $variables);
+            }
+            $argumentObject = json_decode(json_encode((object)$arguments, JSON_THROW_ON_ERROR));
+            $schema = json_decode(json_encode($tool['definition']['inputSchema'], JSON_THROW_ON_ERROR));
+            if (!(new Validator())->validate($argumentObject, $schema)->isValid()) {
+                throw new InvalidArgumentException('MCP query arguments do not match the called tool schema');
+            }
+            try {
+                $variables[$statement['target']] = ($tool['handler'])($arguments);
+            } catch (InvalidArgumentException $exception) {
+                throw $exception;
+            } catch (Throwable $exception) {
+                error_log('MCP query tool failed: ' . $toolName . ': ' . $exception->getMessage());
+                throw new RuntimeException('MCP query tool failed', 0, $exception);
+            }
+        }
+        throw new InvalidArgumentException('MCP query program did not return a value');
+    }
+
+    /**
+     * Evaluates one data-only expression node against previous tool results.
+     * @param array $expression Parsed expression node.
+     * @param array $variables Program variables.
+     * @return mixed Evaluated value.
+     * @private
+     * @ignore
+     */
+    private function _evaluateQueryValue(array $expression, array $variables): mixed
+    {
+        if ($expression['type'] === 'literal') {
+            return $expression['value'];
+        }
+        if ($expression['type'] === 'array') {
+            $items = [];
+            foreach ($expression['items'] as $item) {
+                $items[] = $this->_evaluateQueryValue($item, $variables);
+            }
+            return $items;
+        }
+        if ($expression['type'] === 'object') {
+            $object = new stdClass();
+            foreach ($expression['properties'] as $name => $value) {
+                $object->{$name} = $this->_evaluateQueryValue($value, $variables);
+            }
+            return $object;
+        }
+        if ($expression['type'] === 'reference') {
+            $value = $variables[$expression['name']];
+            foreach ($expression['path'] as $segment) {
+                if (is_array($value) && array_key_exists($segment, $value)) {
+                    $value = $value[$segment];
+                } elseif ($value instanceof stdClass && is_string($segment) && property_exists($value, $segment)) {
+                    $value = $value->{$segment};
+                } else {
+                    throw new InvalidArgumentException('MCP query references a missing result field');
+                }
+            }
+            return $value;
+        }
+        throw new InvalidArgumentException('Unsupported MCP query expression');
     }
 
     /**
