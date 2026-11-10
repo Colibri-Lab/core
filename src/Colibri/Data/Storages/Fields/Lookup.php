@@ -105,7 +105,8 @@ class Lookup
 
             $data = (object) $this->accesspoint;
             if(strstr($data->point, 'storage(') !== false) {
-                $accessPoint = Storages::Instance()->Load(str_replace('storage(', '', rtrim($data->point, ')')))->accessPoint;
+                $partsOfStorage = explode(',', str_replace('storage(', '', rtrim($data->point, ')')));
+                $accessPoint = Storages::Instance()->Load($partsOfStorage[1], $partsOfStorage[0])->accessPoint;
             } else {
                 $accessPoint = App::$dataAccessPoints->Get($data->point);
             }
@@ -263,7 +264,12 @@ class Lookup
             }
         } elseif ($this->accesspoint) {
             $data = (object) $this->accesspoint;
-            $accessPoint = App::$dataAccessPoints->Get($data->point);
+            if(strstr($data->point, 'storage(') !== false) {
+                $partsOfStorage = explode(',', str_replace('storage(', '', rtrim($data->point, ')')));
+                $accessPoint = Storages::Instance()->Load($partsOfStorage[1], $partsOfStorage[0])->accessPoint;
+            } else {
+                $accessPoint = App::$dataAccessPoints->Get($data->point);
+            }
             if(is_null($value)) {
                 return null;
             }
