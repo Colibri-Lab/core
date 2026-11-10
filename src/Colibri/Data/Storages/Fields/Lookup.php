@@ -104,7 +104,11 @@ class Lookup
         } elseif ($this->accesspoint) {
 
             $data = (object) $this->accesspoint;
-            $accessPoint = App::$dataAccessPoints->Get($data->point);
+            if(strstr($data->point, 'storage(') !== false) {
+                $accessPoint = Storages::Instance()->Load(str_replace('storage(', '', rtrim($data->point, ')')))->accessPoint;
+            } else {
+                $accessPoint = App::$dataAccessPoints->Get($data->point);
+            }
             $sqlQuery = $accessPoint->CreateQuery('CreateSelect', [$data->table, $data->fields, $data->filter, $data->order]);
             $params = ['type' => DataAccessPoint::QueryTypeBigData];
             if ($page > 0) {
