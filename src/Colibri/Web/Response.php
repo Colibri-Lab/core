@@ -420,7 +420,12 @@ final class Response extends Singleton
      *
      * @param int $status status of response
      * @param string $content content of response
+     * @param string $type Response MIME type.
+     * @param string $encoding Response character encoding.
+     * @param array|null $headers Response headers.
+     * @param array|null $cookies Cookie descriptors.
      * @return void
+     * @public
      */
     public function Close(int $status, string $content = '', string $type = 'text/html', string $encoding = 'utf-8', ?array $headers = [], ?array $cookies = []): void
     {
@@ -462,6 +467,7 @@ final class Response extends Singleton
                     'path' => $cookie->path ?? '',
                     'domain' => $cookie->domain ?? '',
                     'secure' => $cookie->secure ?? false,
+                    'httponly' => $cookie->httponly ?? false,
                     'samesite' => $cookie->samesite ?? 'None'
                 ]);
             }

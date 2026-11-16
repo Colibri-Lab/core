@@ -323,6 +323,7 @@ class ReactServer
      * @public
      * @static
      *
+     * @param ServerRequestInterface $request Current HTTP request.
      * @param string $type The response type.
      * @param mixed $result The result to send.
      * @return MessageResponse
@@ -454,7 +455,8 @@ class ReactServer
                 'Path=' . ($cookie->path ?? '/') . '; ' .
                 'Domain=' . ($cookie->domain ?? $request->getUri()->getHost()) . '; ' .
                 (($cookie->secure ?? false) ? 'Secure; ' : '') .
-                (($cookie->httponly ?? false) ? 'HttpOnly; ' : '');
+                (($cookie->httponly ?? false) ? 'HttpOnly; ' : '') .
+                (isset($cookie->samesite) ? 'SameSite=' . $cookie->samesite . '; ' : '');
         }
 
         $encoding = ($result?->charset ?? 'utf-8');
