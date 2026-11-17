@@ -701,9 +701,8 @@ class DataAccessPoint
     }
 
     /**
-     * Starts a transaction.
-     * @return void
-     * @public
+     * Begins a transaction.
+     * @return QueryInfo|null
      * @example
      * ```
      * $accessPoint = App::$dataAccessPoints->Get('main');
@@ -724,7 +723,7 @@ class DataAccessPoint
 
     /**
      * Commits the transaction.
-     * @return void
+     * @return QueryInfo|null
      * @public
      * @example
      * ```
@@ -746,7 +745,7 @@ class DataAccessPoint
 
     /**
      * Rolls back the transaction.
-     * @return void
+     * @return QueryInfo|null
      * @public
      * @example 
      * ```
