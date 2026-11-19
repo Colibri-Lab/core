@@ -611,7 +611,7 @@ class QueryBuilder implements IQueryBuilder
                 'Colibri.UI.Forms.DateTime',
                 'Colibri.UI.Forms.Number'
             ]);
-            if(!$isMaxMin && $field->virtual) {
+            if(!$isMaxMin && ($field?->virtual ?? false)) {
                 if(in_array($field->class, ['float','int'])) {
                     $isMaxMin = true;
                 }
